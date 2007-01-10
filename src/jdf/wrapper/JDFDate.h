@@ -117,13 +117,8 @@
 #include <jdf/lang/JDFToolsDefs.h>
 #include <jdf/lang/WString.h>
 
-#ifdef __MWERKS__
-#   include <time.h>
-#define TIME_T_PREFIX std
-#else
-#   include <ctime>
+#include <ctime>
 #define TIME_T_PREFIX 
-#endif
 
 
 namespace JDF {

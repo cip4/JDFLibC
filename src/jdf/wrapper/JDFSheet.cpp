@@ -85,6 +85,7 @@
 
 #include "JDFSheet.h"
 #include "JDFSurface.h"
+#include "JDFLayout.h"
 
 namespace JDF{
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,21 +102,26 @@ namespace JDF{
 	vWString JDFSheet::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFAutoSheet::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFSignature::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if (n>=nMax) return vElem;
-		
-		nElem=NumChildElements(elm_Surface);
-		if(nElem>2){
-			vElem.AppendUnique(elm_Surface);
-			if (++n>=nMax) return vElem;
-		}
-		if(nElem==0){
-			if(RequiredLevel(level))
+
+		// only for JDF version < 1.3
+		EnumVersion ver = GetEnumVersion();
+		if (ver != Version_Unknown && ver < Version_1_3)
+		{
+			nElem=NumChildElements(elm_Surface);
+			if(nElem>2){
 				vElem.AppendUnique(elm_Surface);
-			if (++n>=nMax) return vElem;
+				if (++n>=nMax) return vElem;
+			}
+			if(nElem==0){
+				if(RequiredLevel(level))
+					vElem.AppendUnique(elm_Surface);
+				if (++n>=nMax) return vElem;
+			}
 		}
-		
+
 		int nFront=0;
 		int nBack=0;
 		for(i=0;i<nElem;i++){
@@ -145,7 +151,7 @@ namespace JDF{
 	JDFSurface JDFSheet::AppendFrontSurface(){
 		JDFSurface e=GetFrontSurface();
 		if(e.isNull()){
-			e=AppendSurface();
+			e=appendSurface();
 			e.SetSide(JDFPart::Side_Front);
 		}
 		
@@ -156,7 +162,7 @@ namespace JDF{
 	const get first element 
 	*/
 	JDFSurface JDFSheet::GetFrontSurface()const{
-		return GetChildWithAttribute(elm_Surface,atr_Side,WString::emptyStr,L"Front",0);
+		return GetSurfaceBySide(JDFPart::Side_Front);
 	};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	void JDFSheet::RemoveFrontSurface(){
@@ -164,7 +170,7 @@ namespace JDF{
 	};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	bool JDFSheet::HasFrontSurface() const {
-		return !GetFrontSurface().isNull();
+		return !GetSurfaceBySide(JDFPart::Side_Front).isNull();
 	};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,7 +186,7 @@ namespace JDF{
 	JDFSurface JDFSheet::AppendBackSurface(){
 		JDFSurface e=GetBackSurface();
 		if(e.isNull()){
-			e=AppendSurface();
+			e=appendSurface();
 			e.SetSide(JDFPart::Side_Back);
 		}
 		
@@ -191,7 +197,7 @@ namespace JDF{
 	const get first element 
 	*/
 	JDFSurface JDFSheet::GetBackSurface()const{
-		return GetChildWithAttribute(elm_Surface,atr_Side,WString::emptyStr,L"Back",0);
+		return GetSurfaceBySide(JDFPart::Side_Back);
 	};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	void JDFSheet::RemoveBackSurface(){
@@ -199,8 +205,42 @@ namespace JDF{
 	};
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	bool JDFSheet::HasBackSurface() const {
-		return !GetBackSurface().isNull();
+		return !GetSurfaceBySide(JDFPart::Side_Back).isNull();
 	};
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	JDFSurface JDFSheet::appendSurface()
+	{
+		if (numSurfaces() > 1)
+			throw JDFException("appendSurfaces: sheet already has two surfaces");
+	
+		return appendLayoutElement(*this,elm_Surface,atr_Side);;
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	int JDFSheet::numSurfaces()
+	{
+		return numLayoutElements(*this,elm_Surface,atr_Side);
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	JDFSurface JDFSheet::GetSurface(int iSkip)const{
+		return getLayoutElement(*this,elm_Surface,atr_Side,iSkip);
+	};
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	WString JDFSheet::ValidNodeNames()const{
+		return L"*:,Sheet";
+	};
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	JDFSurface JDFSheet::GetSurfaceBySide(JDFPart::EnumSide side) const
+	{
+		JDFSurface s = GetSurface(0);
+		if (s.isNull())
+			return NULL;
+		if (s.GetSide()==side)
+			return s;
+		s=GetSurface(1);
+		if (s.GetSide()==side)
+			return s;
+		return NULL;
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	

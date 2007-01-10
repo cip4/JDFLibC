@@ -82,6 +82,7 @@
 // 180700 RP MyString -> WString : all strings now 16 bit
 // 141103 RP added string operator =
 // 170205 RP added (int) constructor for JDFIntegerList
+// 301006 NB fixed JDFIntegerList::GetString(), JDFNumberList::GetString()
 //
 // JDFRange.h: interface for the JDFRange class.
 // used to describe ranges in resources

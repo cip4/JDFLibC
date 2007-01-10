@@ -112,7 +112,7 @@ namespace JDF{
 
 	bool JDFSurface::ConsistentPartIDKeys(EnumPartIDKey key)const{
 		if(key!=PartIDKey_Side)
-			return JDFAutoSurface::ConsistentPartIDKeys(key);
+			return JDFSheet::ConsistentPartIDKeys(key);
 
 		const WString& s=PartIDKeyString(key);
 
@@ -127,7 +127,13 @@ namespace JDF{
 	////////////////////////////////////////////////////////////////////////////////////////////////
 
 	WString JDFSurface::RequiredAttributes()const{
-		return JDFAutoSurface::RequiredAttributes()+L",Side";
+		return JDFSheet::RequiredAttributes()+L",Side";
+	};
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	WString JDFSurface::ValidNodeNames()const{
+		return L"*:,Surface,Layout";
 	};
 
 	////////////////////////////////////////////////////////////////////////////////////////////////

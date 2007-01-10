@@ -1,3 +1,6 @@
+#if !defined(_JDFRangeList_H__)
+#define _JDFRangeList_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -87,9 +90,6 @@
 // list of range values
 //
 */
-
-#if !defined(_JDFRangeList_H__)
-#define _JDFRangeList_H__
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -203,7 +203,7 @@ public:
 		int sz=rangeList.size();
 		for(int i=0;i<sz;i++){
 			s+=rangeList[i].GetString();
-			if(i<(sz-1)) s+=" ";
+			if(i<(sz-1)) s+=WString::blank; // NB changed from " " to WString::blank
 		}
 		return s;
 	}

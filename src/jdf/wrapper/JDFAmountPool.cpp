@@ -144,6 +144,14 @@ namespace JDF{
 	};
 
 	//////////////////////////////////////////////////////////////////////
+
+	JDFPartAmount JDFAmountPool::AppendPartAmount(const vmAttribute &vPart){
+		JDFPartAmount p=JDFAutoAmountPool::AppendPartAmount();
+		p.SetPartMapVector(vPart);
+		return p;
+	};
+
+	//////////////////////////////////////////////////////////////////////
 	
 	void JDFAmountPool::RemovePartAmount(const mAttribute&mPart){
 		GetPartAmount(mPart).DeleteNode();

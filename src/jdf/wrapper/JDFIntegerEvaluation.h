@@ -196,6 +196,12 @@ public:
 	*/
 	void SetValueList(const JDFIntegerRangeList& value);
 
+	 /**
+     * append the value of int to @ValueList
+     * @param value the integer value to append
+     */
+	void appendValueList(int value);
+
 	/**
 	* Typesafe attribute validation of ValueList
 	*

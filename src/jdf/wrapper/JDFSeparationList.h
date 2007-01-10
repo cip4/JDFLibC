@@ -192,7 +192,7 @@ namespace JDF{
 		vWString GetSeparations() const;
 
 
-		void JDFSeparationList::setSeparations(const vWString& vSeps);
+		void setSeparations(const vWString& vSeps);
 
 		//////////////////////////////////////////////////////////////////////////////////
 		/**

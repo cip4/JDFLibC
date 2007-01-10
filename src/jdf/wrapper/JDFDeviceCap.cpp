@@ -332,7 +332,10 @@ namespace JDF{
 		}
 		
 		WString typeNode = jdfRoot.GetType();
-		EnumCombinedMethod combMethod = GetCombinedMethod();
+		vint vcombMethod = GetCombinedMethod();
+		for(int i=0;i<vcombMethod.size();i++)
+		{
+			EnumCombinedMethod combMethod = (EnumCombinedMethod)vcombMethod[i];
 
 		switch (combMethod) {
 
@@ -395,6 +398,7 @@ namespace JDF{
 				throw JDFException (L"JDFDeviceCap::Report: Invalid DeviceCap - illegal value of CombinedMethod attribute"); 
 			}
 		}
+		}
 		if (!testResult.isNull()){
 			root = testResult.GetRoot();
 
@@ -455,7 +459,7 @@ namespace JDF{
 		
 		if (HasAttribute(atr_TypeExpression)) {
 			if (!typeExp.matches(typesNodeStr.c_str()))
-				return WString();
+				return false;
 		}
 		else {
 			for (int i=0; i<types.size(); i++) {
@@ -813,4 +817,147 @@ namespace JDF{
         return;
     }
 
+	///////////////////////////////////////////////////////////////////////////////////
+   /**
+     * set the defaults of node to the values defined in the child DevCap and State elements
+     * @param node the JDFNode in which to set defults
+     * @param bLocal if true, set only in the local node, else recurse children
+     */
+	bool JDFDeviceCap::setDefaultsFromCaps(JDFNode node, bool bLocal)const
+    {
+        bool success=false;
+        if(bLocal==false)
+        {
+			VElement vNode=node.GetvJDFNode(WString::emptyStr,JDFNode::Activation_Unknown,false);
+            for(int i=0;i<vNode.size();i++)
+            {
+                JDFNode nod=(JDFNode)vNode.elementAt(i);
+                success = setDefaultsFromCaps(nod,true) || success;
+            }
+            return success;
+        }
+        if(!matchesType(node,true))
+            return false;
+        addResourcesFromDevCaps(node);
+        int i;
+		VElement vDevCaps=GetChildElementVector(elm_DevCaps);
+//      step 1, create all missing resources etc
+        const int size = vDevCaps.size();
+        for(i=0;i<size;i++)
+        {
+            JDFDevCaps dcs=(JDFDevCaps)vDevCaps.elementAt(i);
+            success =  dcs.setDefaultsFromCaps(node) || success;
+        }
+
+        return success;
+   }
+
+	    /**
+     * add any missing resources, links or elements that are described by devcaps elements
+     * @param node
+     */
+	void JDFDeviceCap::addResourcesFromDevCaps(JDFNode node) const
+    {
+        VElement vDevCaps=GetChildElementVector(elm_DevCaps);
+// step 1, create all missing resources etc
+        const int size = vDevCaps.size();
+        for(int i=0;i<size;i++)
+        {
+            JDFDevCaps dcs=(JDFDevCaps)vDevCaps.elementAt(i);
+            dcs.appendMatchingElementsToNode(node);
+        }
+    }
+
+
+    /**
+     * test whether agiven node has the coreect Types and Type Attribute
+     * 
+     * @param testRoot the JDF or JMF to test
+     * @param bLocal if true, only check the root of this, else also check children
+     * 
+     * @return boolean true if this DeviceCaps TypeExpression fits the testRoot/@Type and testRoot/@Types
+     * 
+     */
+	bool JDFDeviceCap::matchesType(JDFNode testRoot, bool bLocal) const
+    {
+        WString typeNode = testRoot.GetType();
+        
+        vint vCombMethod = GetCombinedMethod();
+        for(int j=0;j<vCombMethod.size();j++)
+        {
+			EnumCombinedMethod combMethod = (EnumCombinedMethod)vCombMethod[j];
+            
+            WString typeExp = GetTypeExpression();
+            if (combMethod==CombinedMethod_None)  // node is an individual process
+            {            
+                return typeNode.matches(typeExp);
+            }
+            else if (combMethod==CombinedMethod_Combined)
+            {
+                return FitsTypes(testRoot.GetTypes());
+            }
+            else if (combMethod==CombinedMethod_ProcessGroup)
+            {
+                if(bLocal){
+                    return typeNode.equals(L"ProcessGroup")
+                    && FitsTypes(testRoot.getAllTypes());
+                }
+                
+                VElement vNodes=testRoot.GetvJDFNode();
+                for(int i=0;i<vNodes.size();i++)
+                {
+                    JDFNode node=(JDFNode) vNodes.elementAt(i);
+                    if(matchesType(node,true))
+                        return true;
+                }
+                return false;
+            } 
+            else if (combMethod==CombinedMethod_CombinedProcessGroup)
+            {
+                if (typeNode.equals("ProcessGroup")) 
+                {
+                    return FitsTypes(testRoot.getAllTypes());
+                }
+                else if (typeNode.equals("Combined"))
+                {
+                    return FitsTypes(testRoot.GetTypes());
+                }            
+                else
+                {
+                    return false;
+                }
+            }
+            // TODO __Lena__ if CombinedMethod_GrayBox: {return true;}
+            else 
+            {
+                throw new JDFException ("JDFDeviceCap.report: Invalid DeviceCap: illegal value of CombinedMethod attribute"); 
+            }
+        }
+        return false;
+    }
+
+
+	/**
+     * get a DevCaps element by name and further restrictions.
+     * if an Enumerative restriction is "unknown" (e.g. Context_Unknown), the restriction is not checked
+     * 
+     * @param devCapsName the Name attribute of the DevCaps
+     * @param context the Context attribute of the DevCaps
+     * @param linkUsage the LinkUsage attribute of the DevCaps
+     * @param processUsage the ProcessUsage attribute of the DevCaps
+     * @param iSkip the iSkipth matching DevCaps
+     * @return JDFDevCaps the matching DevCaps, null if not there
+     */
+	JDFDevCaps JDFDeviceCap::getDevCapsByName(const WString& devCapsName, JDFAutoDevCaps::EnumContext context, 
+		JDFAutoDevCaps::EnumLinkUsage linkUsage, const WString& processUsage, int iSkip)
+	{
+		JDFAttributeMap map(atr_Name, devCapsName);
+		if (context != JDFAutoDevCaps::Context_Unknown)
+			map.put(atr_Context, JDFAutoDevCaps::ContextString(context));
+		if (linkUsage != JDFAutoDevCaps::LinkUsage_Unknown)
+			map.put(atr_LinkUsage, JDFAutoDevCaps::LinkUsageString(linkUsage));
+		if ( !processUsage.empty() )
+			map.put(atr_ProcessUsage, processUsage);
+		return (JDFDevCaps)GetChildByTagName(elm_DevCaps, WString::emptyStr, iSkip, map, true, true);
+	}
 }; // namespace JDF

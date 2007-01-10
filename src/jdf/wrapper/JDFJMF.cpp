@@ -196,6 +196,69 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
+	JDFMessage JDFJMF::appendMessageElement(JDFMessage::EnumFamily family, JDFMessage::EnumType typ)
+	{
+		if((family==JDFMessage::Family_Unknown)){
+			throw JDFException("GetMessageElement: creating undefined message family");
+		}
+		
+		JDFMessage m;
+		WString sFamily=JDFMessage::FamilyString(family);
+		switch ( family )
+		{
+		case JDFMessage::Family_Response:
+			{
+				JDFResponse res=AppendElement(sFamily);
+				res.init();
+				m=res;
+				break;
+			}
+		case JDFMessage::Family_Query:
+			{
+				JDFQuery que=AppendElement(sFamily);
+				que.init();
+				m=que;
+				break;
+			}
+		case JDFMessage::Family_Signal:
+			{
+				JDFSignal sig=AppendElement(sFamily);
+				sig.init();
+				m=sig;
+				break;
+			}
+		case JDFMessage::Family_Command:
+
+			{
+				JDFCommand com=AppendElement(sFamily);
+				com.init();
+				m=com;
+				break;
+			}
+		case JDFMessage::Family_Acknowledge:
+			{
+				JDFAcknowledge ack=AppendElement(sFamily);
+				ack.init();
+				m=ack;
+				break;
+			}
+		case JDFMessage::Family_Registration:
+			{
+				JDFRegistration reg=AppendElement(sFamily);
+				reg.init();
+				m=reg;
+				break;
+			}
+		}
+
+		if (typ != JDFMessage::Type_Unknown)
+			m.SetType(JDFMessage::TypeString(typ));
+
+		return m;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
 	JDFMessage JDFJMF::GetMessageElement(JDFMessage::EnumFamily family, int i)const{
 
 

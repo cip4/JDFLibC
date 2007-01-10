@@ -81,6 +81,7 @@
 // created  04.February.2004
 // 120204 ES added IsPartOfRange() for ranges 
 // 300304 ES added operator !=
+// 301006 NB fixed JDFDateTimeRange::operator =(WString)
 //
 // JDFDateTimeRange.h: interface for the JDFDateTimeRange class.
 // used to describe ranges of time points in resources

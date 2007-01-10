@@ -377,7 +377,7 @@ SocketOption MacOSSocketImpl::getOption(int optID)
 		struct  linger l = {0,0};
 
 		int size = sizeof(l);
-		if (getsockopt(fd, SOL_SOCKET, SO_LINGER,(char *)&l, &size) == SOCKET_ERROR)
+		if (getsockopt(fd, SOL_SOCKET, SO_LINGER, (char *)&l, (socklen_t *) &size) == SOCKET_ERROR)
 		{
 			throw SocketException("Failed to get linger on socket");
 		}
@@ -390,7 +390,7 @@ SocketOption MacOSSocketImpl::getOption(int optID)
 	{
 		int so_error;
 		int size = sizeof(so_error);
-		if (getsockopt(fd, SOL_SOCKET, SO_ERROR,(char *)&so_error, &size) == SOCKET_ERROR)
+		if (getsockopt(fd, SOL_SOCKET, SO_ERROR,(char *)&so_error, (socklen_t *) &size) == SOCKET_ERROR)
 			return SocketOption(false);
 		if (so_error)
 			return SocketOption(false);
@@ -416,7 +416,7 @@ SocketOption MacOSSocketImpl::getOption(int optID)
 	{
 		int bufferSize;
 		int size = sizeof(bufferSize);
-		if (getsockopt(fd, SOL_SOCKET, SO_RCVBUF,(char *)&bufferSize, &size) == SOCKET_ERROR)
+		if (getsockopt(fd, SOL_SOCKET, SO_RCVBUF,(char *)&bufferSize, (socklen_t *) &size) == SOCKET_ERROR)
 		{
 			throw SocketException("Failed to get Socket ReceiveBufferSize");
 		}
@@ -426,7 +426,7 @@ SocketOption MacOSSocketImpl::getOption(int optID)
 	{
 		int bufferSize;
 		int size = sizeof(bufferSize);
-		if (getsockopt(fd, SOL_SOCKET, SO_SNDBUF,(char *)&bufferSize, &size) == SOCKET_ERROR)
+		if (getsockopt(fd, SOL_SOCKET, SO_SNDBUF, (char *)&bufferSize, (socklen_t *) &size) == SOCKET_ERROR)
 		{
 			throw SocketException("Failed to get Socket SendBufferSize");
 		}
@@ -436,7 +436,7 @@ SocketOption MacOSSocketImpl::getOption(int optID)
 	{
 		bool reuseAddr;
 		int size = sizeof(reuseAddr);
-		if (getsockopt(fd, SOL_SOCKET, SO_REUSEADDR ,(char *)&reuseAddr, &size) == SOCKET_ERROR)
+		if (getsockopt(fd, SOL_SOCKET, SO_REUSEADDR , (char *)&reuseAddr, (socklen_t *) &size) == SOCKET_ERROR)
 		{
 			throw SocketException("Failed to get Socket ReuseAddress");
 		}
@@ -449,7 +449,7 @@ SocketOption MacOSSocketImpl::getOption(int optID)
 	{
 		bool tcpnodelay;
 		int size = sizeof(tcpnodelay);
-		if (getsockopt(fd, IPPROTO_TCP, TCP_NODELAY ,(char *)&tcpnodelay,&size) == SOCKET_ERROR)
+		if (getsockopt(fd, IPPROTO_TCP, TCP_NODELAY , (char *)&tcpnodelay, (socklen_t *) &size) == SOCKET_ERROR)
 		{
 			throw SocketException("Failed to get Socket TCPNoDelay");
 		}
@@ -488,7 +488,7 @@ void MacOSSocketImpl::setOption(int optID, const SocketOption& value)
 			struct  linger l = {0,0};
 
 			int size = sizeof(l);
-			if (getsockopt(fd, SOL_SOCKET, SO_LINGER,(char *)&l, &size) == SOCKET_ERROR)
+			if (getsockopt(fd, SOL_SOCKET, SO_LINGER, (char *)&l, (socklen_t *) &size) == SOCKET_ERROR)
 			{
 				throw SocketException("Failed to get linger on socket");
 			}

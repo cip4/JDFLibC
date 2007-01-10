@@ -180,6 +180,12 @@ namespace JDF{
 		* Append element PartAmount
 		*/
 		JDFPartAmount AppendPartAmount(const mAttribute&mPart);
+
+		/**
+		* Append JDFPartAmount elements
+		* @param vPArt vector of partAmounts to append
+		*/
+		JDFPartAmount AppendPartAmount(const vmAttribute &vPart);
 		
 		/**
 		* Remove element PartAmount

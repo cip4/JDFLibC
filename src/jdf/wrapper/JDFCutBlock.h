@@ -66,6 +66,8 @@
 * <http://www.cip4.org/>.
 *  
 // 051202 RP added virtual ConsistentPartIDKeys()
+// 250906 NB fixed ConsistenPartIDKeys()
+// 250906 NB added GetImplicitPartitions()
 * 
 */
 
@@ -131,6 +133,14 @@ class JDFCutBlock : public JDFAutoCutBlock
 		* @return bool true if key exists in this leaf is in PartIDKeys
 		*/
 		virtual bool ConsistentPartIDKeys(EnumPartIDKey key) const;
+
+		/**
+		* get a list of all partition keys that this resource may be implicitly partitioned by
+		* e.g. RunIndex for RunList...
+		*
+		* @return vint vector of integers that must be casted to EnumPartIDKey
+		*/
+		virtual vint GetImplicitPartitions() const;
 
 		/**
 		* definition of required attributes in the JDF namespace

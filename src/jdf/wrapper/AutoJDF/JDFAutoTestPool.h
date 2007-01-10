@@ -81,6 +81,7 @@
 #endif // _MSC_VER >= 1000
 
 #include "jdf/wrapper/JDFPool.h"
+#include "jdf/wrapper/JDFTest.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -156,6 +157,8 @@ public:
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
+	
+
 
 }; // endJDFAutoTestPool
 

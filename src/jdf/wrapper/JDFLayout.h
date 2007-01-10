@@ -1,3 +1,6 @@
+#if !defined _JDFLayout_H_
+#define _JDFLayout_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -69,18 +72,21 @@
 */
 
 //EndCopyRight
-
+//
+// Revision history
+//
+// 051206 NB fixed isNewLayout() -> now GetVersion() goes into parents as well
+// 141206 NB added moveElementsTo(), ValidNodeNames()
+// 141206 NB fixed FromNewLayout()
 
 ///////////////////////////////////////////////////////////////////
 
-
-#if !defined _JDFLayout_H_
-#define _JDFLayout_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "AutoJDF/JDFAutoLayout.h"
+#include "JDFSurface.h"
+
 namespace JDF{
 	/*
 	*********************************************************************
@@ -93,7 +99,7 @@ namespace JDF{
 	*
 	* This file is hand edited and will not be regenerated
 	*/
-	class JDF_WRAPPERCORE_EXPORT JDFLayout : public JDFAutoLayout{
+	class JDF_WRAPPERCORE_EXPORT JDFLayout : public JDFSurface{
 	public:
 
 
@@ -103,11 +109,11 @@ namespace JDF{
 		/**
 		* null ctor
 		*/
-		inline JDFLayout():JDFAutoLayout(){};
+		inline JDFLayout():JDFSurface(){};
 		/**
 		* copy ctor
 		*/
-		inline JDFLayout(const KElement & other):JDFAutoLayout(){
+		inline JDFLayout(const KElement & other):JDFSurface(){
 			*this=other;
 		};
 		/**
@@ -161,7 +167,52 @@ namespace JDF{
 		* 
 		* @return the vector of placedobjects, null if none were found
 		*/
-		vElement JDFLayout::getPlacedObjectVector();
+		vElement getPlacedObjectVector();
+
+		/**
+		* counts the number of signatures in both old and new Layouts
+		* if old: the number of <Signature> elements
+		* if new: the number of SignatureName partition leaves
+		* @return the number of signatures
+		*/
+		int numSignatures();
+
+		
+		/**
+		* Append element Signature
+		*/
+		JDFSignature AppendSignature();
+
+		/** 
+		* Get element signature, create if it doesn't exist
+		* @param int iSkip number of elements to skip
+		* @return JDFSignature: the element
+		*/
+		JDFSignature GetCreateSignature(int iSkip=0);
+
+		/**
+		* const get element Signature
+		* @param int iSkip number of elements to skip
+		* @return JDFSignature: the element
+		*/
+		JDFSignature GetSignature(int iSkip=0)const;
+
+		/**
+		* definition of required attributes in the JDF namespace
+		*
+		* @return WString: list of required attributes
+		*/
+		WString RequiredAttributes()const;
+
+	protected:
+		/**
+		* typesafe validator utility - list of valid node names for this class 
+		* @return WString& comma separated list of valid node names
+		*/
+		WString ValidNodeNames()const;
+
+	private:
+		void moveElementsTo(JDFLayout& target);
 
 
 	}; // endJDFLayout	

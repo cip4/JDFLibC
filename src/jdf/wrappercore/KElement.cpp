@@ -91,6 +91,7 @@
 #include "XMLDoc.h"
 #include "XMLDocUserData.h"
 #include "jdf/lang/Mutex.h"
+#include "jdf/lang/SetWString.h"
 
 #include <xercesc/framework/MemBufFormatTarget.hpp>
 #include <xercesc/dom/DOMNodeList.hpp>
@@ -101,6 +102,13 @@
 #include <xercesc/dom/DOMAttr.hpp>
 #include <xercesc/dom/DOMEntityReference.hpp>
 #include <xercesc/dom/DOMCDATASection.hpp>
+#include <xercesc/dom/DOMXPathNSResolver.hpp>
+#include <xercesc/dom/DOMXPathResult.hpp>
+#include <xercesc/dom/DOMXPathExpression.hpp>
+#include <xercesc/dom/DOMException.hpp>
+
+
+#include<iostream>
 
 
 XERCES_CPP_NAMESPACE_USE
@@ -223,15 +231,16 @@ namespace JDF{
 
 	WString KElement::GetNamespaceURIFromPrefix(const WString& prefix)const{
 		if(throwNull())
-			return WString::emptyStr;
-
+			return WString::emptyStr;		
 		WString elementPrefix=GetPrefix();
 		// we are checking an element or attribute with the same prefix as this. 
 		// therefore we assume that the same NamespaceURI also applies, if it is set
 		if(elementPrefix==prefix){
 			const JDFCh* pc=domElement->getNamespaceURI();
 			if(pc!=0)
+			{
 				return pc;
+			}
 		}
 
 		// note that elementPrefix is being reused for convinience and performance. 
@@ -267,6 +276,9 @@ namespace JDF{
 		const JDFCh* pc=domElement->getNamespaceURI();
 		if(pc!=0)
 			return pc;
+		else if(XMLDoc::getDefaultIgnoreNS())
+			return WString::emptyStr;
+
 		WString s=GetPrefix();
 		if(s.empty()){
 			return GetInheritedAttribute(atr_xmlns);
@@ -340,6 +352,20 @@ namespace JDF{
 			return pc;
 		pc=domElement->getNodeName();
 		return XMLNSPrefix(pc);
+	}
+	//////////////////////////////////////////////////////////////////////
+	int KElement::getPrefixLength()const{
+		if(throwNull())
+			return -1;
+		const JDFCh* pc=domElement->getPrefix();
+		if(pc!=0)
+			return wcslen(pc);
+		pc=domElement->getNodeName();
+		const JDFCh* posColon=wcschr(pc,L':');
+		if(posColon==0)
+			return -1;
+
+		return posColon-pc;
 	}
 	//////////////////////////////////////////////////////////////////////
 	///
@@ -435,19 +461,26 @@ namespace JDF{
 
 			// must explicitly set xmlns as DOM level 2 because the xerces serializer checks for DOM level 2 
 			// xmlns attributes and avoids duplicate serialization of the attribute and namespace nodes
-			if(!wcsncmp(pc,atr_xmlns.c_str(),5)&&((pc[5]==0)||(pc[5]==L':'))){
-				if(value.empty()){ 
+			if(!wcsncmp(pc,atr_xmlns.c_str(),5)&&((pc[5]==0)||(pc[5]==L':')))
+			{
+				if(value.empty())
+				{
 					DOMNode *a=domElement->getAttributeNode(pc);
-					// never ever set "xmlns:foo="" !			
-					if(a!=0){
+					// never ever set "xmlns:foo="" !           
+					if(a!=0)
+					{
 						bDirty=true;
 						domElement->removeAttribute(pc);
 					}
-				}else if(GetInheritedAttribute(key)!=value){
+				}
+				else if(GetInheritedAttribute(key)!=value)
+				{
 					bDirty=true;
 					domElement->setAttributeNS(atr_xmlnsURI.c_str(),pc,value.c_str());
 				}
-			}else{
+			}
+			else
+			{
 
 				WString namespaceURI2=GetNamespaceURIFromPrefix(XMLNSPrefix(key.c_str()));
 				if(!namespaceURI2.empty()){
@@ -458,20 +491,26 @@ namespace JDF{
 				DOMNode *a=GetDOMAttr(pc,L"");
 				if(!a||value!=a->getNodeValue()){
 					bDirty=true;
-					if(a){ // don't search the attribute node if it is already there
+					if(a)
+					{ // don't search the attribute node if it is already there
 						if(wcscmp(a->getNodeName(),pc)){ // overwrite default namespace with qualified namespace or vice versa
 							domElement->removeAttribute(a->getNodeName());
 							domElement->setAttribute(pc,value.c_str());
 						}else{ // same qualified name, simply overwrite the value
 							a->setNodeValue(value.c_str());
 						}
-					}else{
+					}
+					else
+					{
 						domElement->setAttribute(pc,value.c_str());
 					}
 				}
 			}
-		}else{
-			if(nameSpaceURI==atr_xmlnsURI){
+		}
+		else
+		{
+			if(nameSpaceURI==atr_xmlnsURI)
+			{
 				// never ever set "xmlns:foo="" !
 				if(value.empty()){
 					domElement->removeAttributeNS(nameSpaceURI.c_str(),pc);
@@ -480,17 +519,23 @@ namespace JDF{
 					bDirty=true;
 					domElement->setAttributeNS(atr_xmlnsURI.c_str(),pc,value.c_str());
 				}
-			}else{
+			}
+			else
+			{
 				DOMNode*a=domElement->getAttributeNodeNS(nameSpaceURI.c_str(),XMLNSLocalName(pc).c_str());
-				if(!a||value!=a->getNodeValue()){
+				if(!a||value!=a->getNodeValue())
+				{
 					bDirty=true;
-					if(a){ // don't search the attribute node if it is already there
+					if(a)
+					{ // don't search the attribute node if it is already there
 						if(wcscmp(a->getNodeName(),pc)){ // overwrite default namespace with qualified namespace or vice versa
 							domElement->setAttributeNS(nameSpaceURI.c_str(),pc,value.c_str());
 						}else{ // same qualified name, simply overwrite the value
 							a->setNodeValue(value.c_str());
 						}
-					}else{
+					}
+					else
+					{
 						WString namespaceURI2=GetNamespaceURIFromPrefix(XMLNSPrefix(key.c_str()));
 						// in case multiple namespace uris are defined for the same prefix, all we can do is to bail out loudly
 						if(!namespaceURI2.empty()&&(namespaceURI2!=nameSpaceURI)){
@@ -498,7 +543,7 @@ namespace JDF{
 							throw JDFException(s);
 						}
 						// remove any twin dom lvl 1 attributes - just in case
-						domElement->removeAttribute(pc);	
+						domElement->removeAttribute(pc);    
 						domElement->setAttributeNS(nameSpaceURI.c_str(),pc,value.c_str());
 					}
 				}
@@ -507,6 +552,7 @@ namespace JDF{
 		if(bDirty)
 			SetDirty(true);
 	}
+
 
 	//////////////////////////////////////////////////////////////////////
 	/**
@@ -843,13 +889,15 @@ namespace JDF{
 	*
 	* @param WString & nodeName: name of the child node to get
 	* @param WString & nameSpaceURI: namespace to search for
-	* @param int iSkip: number of matching child nodes to skip
+	* @param int iSkip: number of matching child nodes to skip, if negative count backwards (-1 is the last)
 	* @return KElement: the matching child element
 	*/
 
 	KElement KElement::GetElement(const WString& nodeName,const WString & nameSpaceURI, int iSkip)const{
 		if(throwNull())
 			return DefKElement; 
+		if (iSkip < 0)
+			iSkip = NumChildElements(nodeName,nameSpaceURI) + iSkip;
 
 		KElement e=GetFirstChildElement();
 		int i=0;
@@ -940,31 +988,61 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
 
-	DOMAttr* KElement::GetDOMAttr(const JDFCh* attrib, const JDFCh* nameSpaceURI) const {
+	DOMAttr* KElement::GetDOMAttr(const JDFCh* attrib, const JDFCh* nameSpaceURI, bool bInherit) const 
+	{
 		if(throwNull()) 
 			return 0;
 		DOMAttr* a=0;
-		if(*nameSpaceURI==0){
+		WString strNSURI; // has to bei defined here, since nameSpaceURI could point to it
+		if(nameSpaceURI==0 || *nameSpaceURI==0)
+		{
 			a=domElement->getAttributeNode(attrib);
-			if(!a){
+			if(!a)
+			{
 				const JDFCh* pColon=wcschr(attrib,L':');
-				WString prefix=GetPrefix();
-				if(pColon){ // has attribute prefix
-					if(!wcsncmp(prefix.c_str(),attrib,pColon-attrib)&&(prefix.size()==(pColon-attrib))&&(*(pColon+1))){
-						a=domElement->getAttributeNode(pColon+1);
+				int prefixLen=getPrefixLength();
+				if(pColon)
+				{ // has attribute prefix
+					if(prefixLen==pColon-attrib)
+					{
+						WString prefix=GetPrefix();
+						if(!wcsncmp(prefix.c_str(),attrib,pColon-attrib)&&(*(pColon+1))){
+							a=domElement->getAttributeNode(pColon+1);
+						}
 					}
-				}else{
-					if(!prefix.empty()){
+				}
+				else
+				{
+					if(prefixLen>0)
+					{
+						WString prefix=GetPrefix();
 						a=domElement->getAttributeNode((prefix+WString::colon+attrib).c_str());
 					}
 				}
+				if((a==0) && wcsncmp(attrib,L"xmlns",5))
+				{
+					strNSURI = GetNamespaceURIFromPrefix( XMLNSPrefix(attrib) );
+					nameSpaceURI = strNSURI.c_str();
+				}
 			}
-		}else{
-			a=domElement->getAttributeNodeNS(nameSpaceURI,attrib);
+		}
+		if(a==0 && nameSpaceURI!=0)
+		{
+			const JDFCh* pColon=wcschr(attrib,L':');
+			// 071106 RP use attrib if the pointer to ":" is NULL
+			a=domElement->getAttributeNodeNS(nameSpaceURI,pColon==NULL ? attrib : pColon+1);
+		}
+
+		if (a == NULL && bInherit)
+		{
+			KElement parent = GetParentNode();
+			if (parent != NULL)
+				return parent.GetDOMAttr(attrib,nameSpaceURI,bInherit);
 		}
 
 		return a;
 	};
+
 	//////////////////////////////////////////////////////////////////////
 	/**
 	* Mother of all attribute getters <br>
@@ -975,7 +1053,6 @@ namespace JDF{
 	* @param WString & def: the value that is returned if attrib does not exist in 'this' or 'this' is null
 	* @return WString: the attribute value as a string, or def if that attribute does not have a specified or default value
 	*/
-
 	WString KElement::GetAttribute(const WString & attrib, const WString & nameSpaceURI, const WString & def) const {
 		if(throwNull()) 
 			return def;
@@ -999,11 +1076,20 @@ namespace JDF{
 	* @return KElement: the matching element node
 	*/	
 
-	KElement KElement::GetDeepElementByID(const JDFCh* name, const JDFCh * id, const KElement& childToExclude)const{
+	KElement KElement::GetDeepElementByID(const JDFCh* name, const JDFCh * id, const KElement& childToExclude, XMLDocUserData*ud)const{
 
 		// found it - heureka
 		// RP 260104 inlined wcscmp for performance
-		if (wcscmp(domElement->getAttribute(name),id)==0){
+		const JDFCh* attVal=domElement->getAttribute(name);
+		if(attVal!=0)
+		{
+			if (ud!=0)
+			{
+				ud->SetTarget(*this,attVal);
+			}
+		}
+
+		if (wcscmp(attVal,id)==0){
 			return *this;
 		}
 
@@ -1015,7 +1101,7 @@ namespace JDF{
 				g=g.GetNextSiblingElement();
 				continue;
 			}
-			KElement g2=g.GetDeepElementByID(name,id,elemNull);
+			KElement g2=g.GetDeepElementByID(name,id,elemNull,ud);
 			if(g2.isNull()) {
 				// not found; try next sibling
 				g=g.GetNextSiblingElement();
@@ -1086,7 +1172,7 @@ namespace JDF{
 	* If the actual document owner is the same as the src document owner,'this' is replaced by src. <br>
 	* If the actual document owner and the src document owner are different, 
 	* src is positioned at the position of 'this' in the current document
-	* and removed from the old parent document. <br>
+	* and not removed from the old parent document. <br>
 	* 
 	* @since 130103 ReplaceElement works on all elements including the document root
 	* @param KElement & src: node, that 'this' will be replaced with
@@ -1127,13 +1213,13 @@ namespace JDF{
 			KElement n;
 			// this and src are in the same document
 			if(src.domElement->getOwnerDocument()==domElement->getOwnerDocument()){
-				n=(DOMElement*) domElement->getParentNode()->replaceChild(srcElement,domElement);
-				*this=src;
+				*this=(DOMElement*) domElement->getParentNode()->replaceChild(srcElement,domElement);
+				n=src;
 			}else{ // import from other document
 				DOMElement* dn;
 				dn=(DOMElement*) domElement->getOwnerDocument()->importNode(srcElement,true);
-				n=(DOMElement*) domElement->getParentNode()->replaceChild(dn,domElement);
-				*this=dn;
+				*this=(DOMElement*) domElement->getParentNode()->replaceChild(dn,domElement);
+				n=dn;
 			}
 			return n;
 		}
@@ -1199,9 +1285,9 @@ namespace JDF{
 		if(isNull())
 			throw JDFException(L"KElement::RenameElement renaming null element");
 
-		if(newName==GetNodeName()) 
+		if(newName==GetNodeName() && nNameSpaceURI==GetNamespaceURI()) 
 			return *this;
-		
+
 		WString newNameSpaceURI=nNameSpaceURI;
 
 		// retain namespace if it is not reset
@@ -1228,6 +1314,7 @@ namespace JDF{
 	*/
 
 	int KElement::EraseEmptyNodes(bool bTrimWhite){
+		const static WString comment=L"Comment";
 		int nRemove=0;
 
 		if(throwNull()) 
@@ -1252,7 +1339,8 @@ namespace JDF{
 				KElement e((DOMElement*)n);
 				// also remove spurious xmlns attributes
 				vWString vNS=e.GetAttributeVector();
-				for(int i=0;i<vNS.size();i++){
+				int siz=vNS.size();
+				for(int i=0;i<siz;i++){
 					const WString& key=vNS[i];
 					const JDFCh*pc=key.c_str();
 					if(!wcsncmp(pc,atr_xmlns.c_str(),5)&&((pc[5]==0)||(pc[5]==L':'))){
@@ -1262,7 +1350,10 @@ namespace JDF{
 						}
 					}
 				}
-				nRemove+=e.EraseEmptyNodes();
+				if(e.GetLocalName()!=comment)
+				{
+					nRemove+=e.EraseEmptyNodes(); // retain ws in comment elements
+				}
 				// 040302 RP do not erase empty elements - they may have a sementic meaning
 			}else{
 			}
@@ -1368,42 +1459,44 @@ namespace JDF{
 	*/
 
 	vElement KElement::GetChildrenByTagName(const WString& s, const WString & nameSpaceURI, const mAttribute & mAttrib, bool bDirect, bool bAnd, unsigned int maxSize)const{
-		if(bDirect) 
-			return KElement::GetChildElementVector(s,nameSpaceURI,mAttrib,bAnd,maxSize);
+		if (bDirect)
+		{
+			return GetChildElementVector(s,nameSpaceURI,mAttrib,bAnd,maxSize);
+		}
 
-		if(throwNull()) 
-			return vElement();
 		// maxSize is ignored in the tree walk!
 		bool bHasNoMap=mAttrib.empty();
+		if(throwNull()) 
+			return vElement();
 
 		vElement v;
 		KElement e=GetFirstChildElement();
-		if(e.isNull())
-			return v;
-
-		int i=0;
 		const JDFCh* pcNodeName=s.c_str();
 		const JDFCh* pcNameSpaceURI=nameSpaceURI.c_str();
 		bool bAlwaysFit=IsWildcard(pcNodeName)&&IsWildcard(pcNameSpaceURI);
 
 		while(!e.isNull()){
-			if(bAlwaysFit||e.FitsName(pcNodeName,pcNameSpaceURI)){
-				if(bHasNoMap||e.IncludesAttributes(mAttrib,bAnd)){
-					// this guy is the one
-					v.push_back(e);
-					if(++i==maxSize) 
-						break;
+			if ((bAlwaysFit || e.FitsName(pcNodeName,pcNameSpaceURI))
+				&& (bHasNoMap || e.IncludesAttributes(mAttrib, bAnd)))
+			{
+				// this guy is the one
+				v.push_back(e);
+				if (maxSize>0 && v.size() == maxSize)
+				{
+					return v;
 				}
 			}
-			int maxSizeRecurse=maxSize-i;
-			vElement v2=e.GetChildrenByTagName(s,nameSpaceURI,mAttrib,bDirect,bAnd,maxSizeRecurse);
+			int maxSizeRecurse = maxSize>0 ? maxSize - v.size() : maxSize;
+			VElement v2 = e.GetChildrenByTagName(s, nameSpaceURI, mAttrib, bDirect, bAnd, maxSizeRecurse);
 			v.insert(v.end(),v2.begin(),v2.end());
-			if(maxSize&&(v.size()==maxSize))
-				break;
-			e=e.GetNextSiblingElement();
-		}
-		return v;
 
+			if ( maxSize > 0 && v.size() >= maxSize)
+			{
+				return v;
+			}
+			e = e.GetNextSiblingElement();
+		} 
+		return v;
 	};
 
 	///////////////////////////////////////////////////////////////////////
@@ -1595,11 +1688,22 @@ namespace JDF{
 	* @return bool: true, if the attribute with the proper key-value pair exists
 	*/
 
-	bool KElement::IncludesAttribute(const WString & attName, const WString & attVal)const{
-		if(IsWildcard(attVal.c_str())){
-			return HasAttribute(attName);
-		}else{
-			return GetAttribute(attName)==attVal;
+	bool KElement::IncludesAttribute(const WString & attName, const WString & attVal)const
+	{
+		if(throwNull()) 
+			return false;
+		DOMAttr* a=GetDOMAttr(attName.c_str(),0);
+		if (a==0) 
+			return false;
+
+		const JDFCh* pc=attVal.c_str();
+		if(IsWildcard(pc))
+		{
+			return true;
+		}
+		else
+		{
+			return wcscmp(pc,a->getValue())==0;
 		}
 	}
 
@@ -1795,12 +1899,16 @@ namespace JDF{
 
 		DOMNode* parent=domElement->getParentNode();
 		if(parent==0) 
-			return *this;
+			//return *this;
+			// TODO warning C4172: returning address of local variable or temporary
+			return *this=KElement();
 
 		while(42){
 			parent=parent->getParentNode();
 			if(parent==0) 
-				return *this;
+				//return *this;
+				// TODO warning C4172: returning address of local variable or temporary
+				return *this=KElement();
 			if (newParentName.empty()) 
 				break;
 			if (newParentName==parent->getNodeName()) 
@@ -1865,7 +1973,7 @@ namespace JDF{
 		if(par.isNull()) 
 			return DefKElement;
 
-		if((par.GetLocalName()!=parentNode)) 
+		if((par.GetNodeName()!=parentNode)) 
 			return par.GetDeepParentChild(parentNode);
 		return *this;
 	}
@@ -1953,6 +2061,9 @@ namespace JDF{
 	bool KElement::IsEqual(const KElement &e)const{
 		if(isNull()) 
 			return e.isNull();
+
+		if(domElement==e.domElement)
+			return true;
 
 		if(e.isNull()) 
 			return false;
@@ -2484,6 +2595,20 @@ namespace JDF{
 		return DefKElement;
 	}
 	//////////////////////////////////////////////////////////////////////
+
+	KElement KElement::GetPreviousSiblingElement()const
+	{
+		DOMNode* e=domElement->getPreviousSibling();
+		while(e){
+			if(e->getNodeType()==ELEMENT_NODE) {
+				return (DOMElement*)e;
+			}
+			e=e->getPreviousSibling();
+		}
+		return DefKElement;
+	}
+
+	//////////////////////////////////////////////////////////////////////
 	/**
 	* Merges nodes in a way that no duplicate elements are created<br>
 	* ATTENTION !! this kills pools !! since elements in e overwrites those in *this
@@ -2526,9 +2651,9 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////	
 	XMLDocUserData* KElement::getXMLDocUserData() const
-    {
-        return GetOwnerDocument().GetXMLDocUserData();
-    }
+	{
+		return GetOwnerDocument().GetXMLDocUserData();
+	}
 	//////////////////////////////////////////////////////////////////////	
 	/**
 	* Gets of 'this' a child with a matching attribute
@@ -2545,7 +2670,7 @@ namespace JDF{
 	KElement KElement::GetChildWithAttribute(const WString & nodeName, const WString &  attName, const WString & nameSpaceURI, const WString & attVal, int index, bool bDirect)const{
 		if(throwNull()) 
 			return DefKElement;
-		
+
 		XMLDocUserData* ud=0;
 		const JDFCh* pcAttVal=attVal.c_str();
 		if(attName.equals(atr_ID)&&!IsWildcard(pcAttVal))
@@ -2554,11 +2679,21 @@ namespace JDF{
 			if(ud!=0)
 			{
 				KElement kRet=ud->GetTarget(attVal);
-				if(kRet!=0)
+				if(!kRet.isNull()) // a matching element is somewhere around here
+				{
+					if(bDirect)
+					{
+						if(kRet.GetParentNode()!=*this)
+						{
+							kRet=KElement::DefKElement; // it is somewhere else, not a child of this!
+						}
+					}
+				}
+				if (!kRet.isNull())
 					return kRet;
 			}
 		}
-            
+
 
 		if(bDirect){ // inlined for performance			
 			KElement e=GetFirstChildElement();
@@ -2574,8 +2709,9 @@ namespace JDF{
 			while(!e.isNull()){
 				if(ud!=0)
 				{
-					if(e.HasAttribute(atr_ID))
-						ud->SetTarget(e);
+					DOMAttr* at=GetDOMAttr(L"ID",0);
+					if(at!=0)
+						ud->SetTarget(e,at->getValue());
 				}
 
 				if(bAlwaysFit||e.FitsName(pcNodeName,pcNameSpaceURI)){
@@ -2644,6 +2780,19 @@ namespace JDF{
 		return v;
 	}
 
+	void KElement::getChildAttributeSet(SetWString*sSet,const WString & nodeName, const WString & attName, const WString & nameSpaceURI, const WString & attVal,bool bDirect)const
+	{
+		vElement e=GetChildrenWithAttribute(nodeName,attName,nameSpaceURI,WString::star,bDirect);
+		bool bAttWildCard=IsWildcard(attVal.c_str());
+		for(int i=0;i<e.size();i++){
+			WString s=e[i].GetAttribute(attName,nameSpaceURI);
+			if(!bAttWildCard){ // fill only matching attributes
+				if(s!=attVal)
+					continue;
+			}
+			sSet->add(s);
+		}
+	}
 	//////////////////////////////////////////////////////////////////////
 	/**
 	* Gets of 'this' all child elements, matching the given conditions <br>
@@ -2811,17 +2960,17 @@ namespace JDF{
 			return DefKElement;
 
 		XMLDoc ownerDoc=GetOwnerDocument();
-		bool hasUserData=ownerDoc.HasXMLDocUserData();
+		XMLDocUserData* ud=0;
 
 		if(attrib==atr_ID){
-			if(hasUserData){
+			ud=ownerDoc.GetXMLDocUserData();
+			if(ud!=0){
 				KElement t=ownerDoc.GetTarget(id);
 				if(!t.isNull()){
 					return t;
 				}
+
 			}
-		}else{
-			hasUserData=false;
 		}
 		// loop upwards from here
 		// links are most likely quite local
@@ -2830,7 +2979,7 @@ namespace JDF{
 		KElement docRoot=GetDocRoot();
 		KElement excludeElement;
 		while (!root.isNull()){
-			KElement t=root.GetDeepElementByID(attrib.c_str(),id.c_str(),excludeElement);
+			KElement t=root.GetDeepElementByID(attrib.c_str(),id.c_str(),excludeElement,ud);
 			// search tree one level higher
 			if(t.isNull()){
 				if(root==docRoot) 
@@ -2840,8 +2989,8 @@ namespace JDF{
 				continue;
 			}
 			// fill the user data of the document with the target map
-			if(hasUserData){
-				ownerDoc.SetTarget(t);
+			if(ud!=0){
+				ud->SetTarget(t,id);
 			}
 			// found it; return it
 			return t;
@@ -2859,7 +3008,23 @@ namespace JDF{
 	* @param WString & path: XPath abbreviated syntax representation of the attribute, e.g parentElement/thisElement@thisAtt
 	* @return KElement: the specified element
 	*/
-
+	/*
+	KElement KElement::GetXPathElement(const WString & path)const{
+	DOMDocument* dd=GetOwnerDocument().GetDOMDocument();
+	try
+	{
+	const DOMXPathNSResolver* resolver=dd->createNSResolver(domElement);
+	//	DOMXPathExpression xpe*=dd->createExpression(path.c_str(),dd->createNSResolver(domElement));
+	DOMXPathResult* result=(DOMXPathResult*) dd->evaluate(path.c_str(),domElement,resolver,DOMXPathResult::FIRST_ORDERED_NODE_TYPE,0);
+	return KElement((DOMElement*)result->getSingleNodeValue());
+	}
+	catch (DOMException x)
+	{
+	std::cout<<WString(x.getMessage())<<std::endl;
+	}
+	return DefKElement;
+	}
+	*/
 	KElement KElement::GetXPathElement(const WString & path)const{
 		if(throwNull()) 
 			return DefKElement;
@@ -3137,7 +3302,6 @@ namespace JDF{
 	* @param bool bInherit: if true also checks recursively in parent elements
 	* @return bool: true, if the attribute is present
 	*/
-
 	bool KElement::HasAttribute(const WString & attrib, const WString & nameSpaceURI,bool bInherit)const{ 
 		if(throwNull()) 
 			return false;
@@ -3672,7 +3836,7 @@ namespace JDF{
 	bool KElement::Write2String(WString& out)const{
 		MemBufFormatTarget *formTarget = new MemBufFormatTarget();
 		bool bRet=XMLDoc::Write2FormatTarget(formTarget,domElement);
-		out.assign((const char*)formTarget->getRawBuffer(),formTarget->getLen());
+		out.SetUTF8Bytes((const char*)formTarget->getRawBuffer());
 		delete formTarget;
 		return bRet;
 	}
@@ -3692,13 +3856,127 @@ namespace JDF{
 		return s;
 	}
 
+	/**
+	* remove all empty attributes from this (e.g. att="")
+	* @param bRecurse if true, alse recurse subelements, else only local
+	*/
+	void KElement::eraseEmptyAttributes(bool bRecurse)
+	{
+		DOMNamedNodeMap* nm=domElement->getAttributes();
+		int siz=(nm==0)?0:nm->getLength(); 
+
+		for (int i = siz - 1; i >= 0; i--)
+		{
+			DOMNode* item=nm->item(i);
+			if ( WString::emptyStr.equals(item->getNodeValue()) )
+			{
+				RemoveAttribute(item->getNodeName());
+			}
+		}
+		if (bRecurse)
+		{
+			KElement e=GetFirstChildElement();
+			while ( !e.isNull() )
+			{
+				e.eraseEmptyAttributes(true);
+				e=e.GetNextSiblingElement();
+			}
+		}
+	}
+
+	/**
+	* check whether this matches a simple xpath
+	* @param path
+	* @return
+	*/
+	bool KElement::matchesPath(const WString& path, bool bFollowRefs)
+	{
+		// bFollowRefs only needed in the JDFElement version
+		if ( path.empty() )
+		{
+			return true;
+		}
+		//if(bFollowRefs)
+		//	this.getClass(); //	dummy to fool compiler
+
+		vWString v = path.Tokenize("/");
+		KElement e = *this;
+
+		for (int i = v.size() - 1; i >= 0; i--)
+		{
+			if(e.isNull())
+				return false;
+
+			if (!e.GetLocalName().equals(v.stringAt(i)))
+				return false;
+
+			e = e.GetParentNode();
+		}
+
+		if (path.startsWith("/"))
+			return e.isNull(); // must be root
+
+		return true; // any location
+	}
+
+	int KElement::getNumChildNodes(int nodeType)
+	{
+		int n = 0;
+
+		DOMNodeList* nodeList = domElement->getChildNodes();
+		for (int i = 0; i < nodeList->getLength(); i++)
+		{
+			if ((nodeList->item(i))->getNodeType() == nodeType)
+			{
+				n++;
+			}
+		}
+
+		return n;
+	}
+
 	//////////////////////////////////////////////////////////////////////
+
+	/**
+	* fills a HashSet with all values of the attribute in all child elements
+	* @param attName attribute name
+	* @param attNS attrib ute namespaceuri
+	* @param preFill the HashSet to fill
+	*/
+	void KElement::fillHashSet(const WString& attName,const WString& attNS, SetWString* preFill)const
+	{
+		WString attVal=GetAttribute(attName,attNS);
+		if(!attVal.empty())
+			preFill->add(attVal);
+		vElement v=GetChildElementVector();
+		int siz=v.size();
+		for(int i=0;i<siz;i++)
+		{
+			v.at(i).fillHashSet(attName,attNS,preFill);
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	void KElement::setXSIType(const JDF::WString &typ)
+	{
+		SetAttribute(atr_xsiType, typ, atr_xsiURI);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	WString KElement::getXSIType()
+	{
+		return GetAttribute(atr_xsiType,atr_xsiURI);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
 	/** overload << for KElement
 	*/
 	std::ostream& operator<<(std::ostream& target, const KElement& toWrite) {
 		return target<<toWrite.ToString();
-	}
-
+	}	
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////

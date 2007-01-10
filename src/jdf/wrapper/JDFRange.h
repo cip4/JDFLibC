@@ -1,3 +1,6 @@
+#if !defined(_JDFRange_H__)
+#define _JDFRange_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -87,8 +90,6 @@
 // RangeType may be int, double, string, xypair, shape or rectangle
 //
 */
-#if !defined(_JDFRange_H__)
-#define _JDFRange_H__
 
 #include <jdf/lang/vWString.h>
 #include <jdf/wrappercore/JDFException.h>

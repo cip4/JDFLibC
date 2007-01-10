@@ -76,14 +76,28 @@
  
 #include "JDFTool.h"
 namespace JDF{
-/**
-* copy equivalance operator
-*/
+	/**
+	* copy equivalance operator
+	*/
 	JDFTool& JDFTool::operator=(const KElement& other){
 		KElement::operator=(other);
 		if(!IsValid(ValidationLevel_Construct))
-		throw JDFException(L"Invalid constructor for JDFTool: "+other.GetNodeName());
-	return *this;
-};
+			throw JDFException(L"Invalid constructor for JDFTool: "+other.GetNodeName());
+		return *this;
+	};
 
-	}; // namespace JDF
+	bool JDFTool::FixVersion(EnumVersion version)
+	{
+		if (version != Version_Unknown && version >= Version_1_3)
+		{
+			if (HasAttribute(atr_ToolID) && !HasAttribute(atr_ProductID))
+				SetProductID( GetToolID() );
+			RemoveAttribute(atr_ToolID);
+		}
+		else if (version != Version_Unknown && version < Version_1_3)
+			if (HasAttribute(atr_ProductID) && !HasAttribute(atr_ToolID))
+				SetToolID( GetProductID() );
+		return JDFAutoTool::FixVersion(version);
+	}
+
+}; // namespace JDF

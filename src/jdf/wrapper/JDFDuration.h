@@ -100,6 +100,7 @@
 // 2004-02-02 ES added SetDurationFromString, SetDateTimeFromString
 //
 // 2004-11-10 ES MyDate was split into JDFDate and JDFDuration
+// 5006-10-30 NB fixed SetDurationString()
 //
 // JDFDuration.h: interface for the JDFDuration class.
 //
@@ -116,14 +117,8 @@
 #include <jdf/lang/JDFToolsDefs.h>
 #include <jdf/lang/WString.h>
 
-#ifdef __MWERKS__
-#   include <time.h>
-#define TIME_T_PREFIX std
-#else
-#   include <ctime>
+#include <ctime>
 #define TIME_T_PREFIX 
-#endif
-
 
 namespace JDF {
 

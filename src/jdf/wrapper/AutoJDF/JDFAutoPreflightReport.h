@@ -195,6 +195,38 @@ virtual bool init();
 	virtual WString OptionalAttributes()const;
 
 /**
+* Set attribute ErrorCount
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetErrorCount(int value);
+/**
+* Get integer attribute ErrorCount
+* @return int the vaue of the attribute 
+*/
+	virtual int GetErrorCount() const;
+/**
+* Typesafe attribute validation of ErrorCount
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidErrorCount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute WarningCount
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetWarningCount(int value);
+/**
+* Get integer attribute WarningCount
+* @return int the vaue of the attribute 
+*/
+	virtual int GetWarningCount() const;
+/**
+* Typesafe attribute validation of WarningCount
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidWarningCount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for ErrorState
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -223,38 +255,6 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidErrorState(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute WarningCount
-*@param int value: the value to set the attribute to
-*/
-	virtual void SetWarningCount(int value);
-/**
-* Get integer attribute WarningCount
-* @return int the vaue of the attribute 
-*/
-	virtual int GetWarningCount() const;
-/**
-* Typesafe attribute validation of WarningCount
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidWarningCount(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute ErrorCount
-*@param int value: the value to set the attribute to
-*/
-	virtual void SetErrorCount(int value);
-/**
-* Get integer attribute ErrorCount
-* @return int the vaue of the attribute 
-*/
-	virtual int GetErrorCount() const;
-/**
-* Typesafe attribute validation of ErrorCount
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidErrorCount(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -300,6 +300,12 @@ virtual bool init();
  * 
 */
 	JDFPreflightReportRulePool AppendPreflightReportRulePool();
+/**
+* create inter-resource link to refTarget
+* @param JDFPreflightReportRulePool& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefPreflightReportRulePool(JDFPreflightReportRulePool& refTarget);
 
 /** Get Element RunList
 * 

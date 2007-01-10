@@ -143,7 +143,8 @@ unsigned __stdcall threadproc2 (void* p)
 	
     while (current_time - start_time <= duration)
     {
-		for(int i=0;i<10;i++){
+		int i=0;
+		for(i=0;i<10;i++){
 			WString w=L"a"+WString(i);;
 			w=L"b"+WString::star;;
 			mAttribute mp;
@@ -166,7 +167,7 @@ unsigned __stdcall threadproc2 (void* p)
 				cout<<i<<" B "<<WString::star<<endl;
 				
 			}
-			}
+		}
         time (&current_time);
  		cout<<i<<" B "<<WString::star<<endl;
    }

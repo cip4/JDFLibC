@@ -173,7 +173,29 @@ namespace JDF{
 		* @return bool true if valid
 		*/
 		virtual bool ValidDueLevel(EnumValidationLevel level=ValidationLevel_Complete) const;
+		/**
+		* Sets attribute Status
+		*
+		* @param EnumStatus value: value to set the attribute to
+		*/
+		void SetNodeStatus( JDFElement::EnumStatus value);
 
+		/**
+		* Gets typesafe enumerated value of attribute Status
+		*
+		* @return EnumStatus: the attribute value
+		*/
+		JDFElement::EnumStatus GetNodeStatus() const;
+
+		/** 
+		* Typesafe attribute validation of Status
+		* note that this is JDF/@Status and derived stati. 
+		* Resource/@Status is defined in JDFResource
+		*
+		* @param EnumValidationLevel level: attribute validation level
+		* @return bool: true, if valid
+		*/
+		virtual bool ValidNodeStatus(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 	}; // endJDFNodeInfo
 

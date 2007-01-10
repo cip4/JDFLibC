@@ -181,6 +181,14 @@ namespace JDF{
 		*/
 		JDFResourceLink UpdateLink(const JDFResourceLink & newLink);
 
+		/**
+		* add  a link to one of the resources 
+		* @param bool bNew - new or original?
+		* @param JDFResource r the resource that was valid before modification
+		* @param bInput usage of the resource
+		* @return the ResourceLink object in the ResourceAudit that points to r
+		*/
+		JDFResourceLink addNewOldLink(bool bNew, const JDFResource & r, JDFResourceLink::EnumUsage usage);
 	private:
 		/**
 		* add  a link to one of the resources 
@@ -190,6 +198,7 @@ namespace JDF{
 		* @return the ResourceLink object in the ResourceAudit that points to r
 		*/
 		JDFResourceLink AddNewOldLink(bool bNew, const JDFResource & r, bool bInput);
+
 
 		/**
 		* add  a link to one of the resources 

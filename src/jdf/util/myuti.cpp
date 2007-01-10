@@ -94,35 +94,37 @@
 //
 ///////////////////////////////////////////////////////////////////////////
 
-
-#if defined(_WIN32)
-#   include <io.h>
-#   include <direct.h>
-#elif defined(__MWERKS__)
-#   include <stdio.h>
-#   include <cctype>
-#else
-#  include <unistd.h>
-#  include <sys/types.h>
-#  include <sys/stat.h>
-#endif
-
-#include <stdlib.h>
-#include <string>
+#include <cstdlib>
+#include <cstring>
 
 #include <jdf/util/myuti.h>
 
-#ifndef _WIN32
+
+#ifdef _WIN32
+
+#   include <io.h>
+#   include <direct.h>
+
+#else
+
+#  include <unistd.h>
+
+#ifndef __MWERKS__
+#  include <sys/types.h>
+#endif
+
+#  include <sys/stat.h>
+
 // we will need another flag, strupr,lwr exist on linux.
 #   include <ctype.h>
 
-#if !defined(towlower) && !defined(__MWERKS__)
+#if !defined(towlower)
 int towlower(int c)
 {
 	return (((c&0xFFFFFF00) == 0) ? tolower((char)c) : c);
 }
 #endif
-#if !defined(towupper) && !defined(__MWERKS__)
+#if !defined(towupper)
 int towupper(int c)
 {
 	return (((c&0xFFFFFF00) == 0) ? toupper((char)c) : c);
@@ -130,20 +132,8 @@ int towupper(int c)
 #endif
 
 
-//#include <wchar.h>
-
-//#define _wcsicmp wcscasecmp
-//template<class _TS_p>
-//inline int swprintf(wchar_t* s,const wchar_t* format,_TS_p p){
-//	char pc[1000];
-//	int i=sprintf(pc,WString(format).a_str(),p);
-//	WString ws(pc);
-//	wcscpy(s,ws.c_str());
-//	return i;
-//}
-
 #ifndef __APPLE_CC__
-#if !defined(isspace) && !defined(__MWERKS__)
+#if !defined(isspace)
 int isspace(int c)
 {
 	if ((c==0x09)||(c==0x0A)||(c==0x0B)||(c==0x0C)||(c==0x0D)||(c==0x20))
@@ -154,7 +144,7 @@ int isspace(int c)
 #endif
 
 #if !(defined (__GNUC__) && (__GNUC__ >= 3))
-#if !defined(wcscpy) && !defined(__MWERKS__)
+#if !defined(wcscpy)
 wchar_t* wcscpy(wchar_t* dst, const wchar_t* src)
 {
 	const	wchar_t * p = src;
@@ -183,8 +173,9 @@ wchar_t* wcschr(const wchar_t *string, wchar_t check)
 #endif
 
 #if !(defined (__GNUC__) && (__GNUC__ >= 3))
-#if !defined(wcsncpy) && !defined(__MWERKS__)
-wchar_t* wcsncpy(wchar_t *dst, const wchar_t *src, size_t maxLen)
+#if ! defined (__MWERKS__)
+#if !defined(wcsncpy)
+wchar_t* wcsncpy(wchar_t *dst, const wchar_t *src, std::size_t maxLen)
 {
 	int l=wcslen(src)+1;
 	if(l>maxLen)
@@ -203,9 +194,10 @@ wchar_t* wcsncpy(wchar_t *dst, const wchar_t *src, size_t maxLen)
 }
 #endif
 #endif
+#endif
 
 
-#if !defined(wcstok) && !defined(__MWERKS__)
+#if !defined(wcstok) && ! defined (__MWERKS__)
 wchar_t* wcstok(wchar_t *str, const wchar_t *set, wchar_t **last)
 {
 	wchar_t 	*seek;
@@ -276,7 +268,7 @@ wchar_t* wcstok(wchar_t *str, const wchar_t *set, wchar_t **last)
 }
 #endif
 
-#if !defined(wcstod) && !defined(__MWERKS__)
+#if !defined(wcstod) && ! defined (__MWERKS__)
 double wcstod(const wchar_t *nptr, wchar_t **endptr)
 {
 	double value;
@@ -298,7 +290,7 @@ double wcstod(const wchar_t *nptr, wchar_t **endptr)
 #endif
 
 
-#if !defined(wcstol) && !defined(__MWERKS__)
+#if !defined(wcstol) && ! defined (__MWERKS__)
 long wcstol(const wchar_t *nptr, wchar_t** endptr, int base)
 {
 	long value;
@@ -319,22 +311,20 @@ long wcstol(const wchar_t *nptr, wchar_t** endptr, int base)
 }
 #endif
 
-#ifndef __MWERKS__
-
-static char* strupr(char *s){
+char* strupr(char *s){
 	size_t sl=strlen(s);
 	for (size_t i=0; i<sl;i++)
 		s[i]=toupper(s[i]);
 	return s;
 }
-///////////////////////////////////////////////////////////////////
-static char* strlwr(char *s){
+
+char* strlwr(char *s){
 	for (size_t i=0; i<strlen(s);i++)
 		s[i]=tolower(s[i]);
 	return s;
 }
 ///////////////////////////////////////////////////////////////////
-#endif
+
 
 #ifndef itoa
 
@@ -461,7 +451,7 @@ int _wcsicmp(const wchar_t* str1, const wchar_t* str2){
 #endif
 
 ///////////////////////////////////////////////////////////////////
-#if !defined(wcslen) && !defined(__MWERKS__) && !(defined (__GNUC__) && (__GNUC__ >= 3))
+#if !defined(wcslen) &&!defined (__MWERKS__) && !(defined (__GNUC__) && (__GNUC__ >= 3) )
 size_t wcslen( const wchar_t* str){
 	size_t i;
 	for ( i = 0; *(str+i) != 0x00; i++ );
@@ -499,7 +489,7 @@ long long _wtoi64(const wchar_t* str){
 }
 #endif
 
-#if !defined(_wtoi) && !defined(__MWERKS__)
+#if !defined(_wtoi)
 int _wtoi(const wchar_t* str){
 	int retVal;
 	size_t s = wcslen(str);
@@ -523,7 +513,7 @@ long long _atoi64(const char* str){
 
 ///////////////////////////////////////////////////////////////////
 
-#endif // for solaris
+#endif // #ifndef _WIN32
 
 namespace JDF{
 

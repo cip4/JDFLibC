@@ -105,6 +105,7 @@
 
 
 #include "JDFState.h"
+
 namespace JDF{
 /**
 * copy equivalance operator
@@ -429,15 +430,43 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFBooleanState JDFDevCap::GetBooleanState(WString name)
+	{
+		JDFBooleanState e = GetChildWithAttribute(elm_BooleanState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFBooleanState JDFDevCap::GetCreateBooleanState(int iSkip){
 		JDFBooleanState e=GetCreateElement(elm_BooleanState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFBooleanState JDFDevCap::GetCreateBooleanState(WString name){
+		JDFBooleanState s = JDFDevCap::GetBooleanState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendBooleanState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFBooleanState JDFDevCap::AppendBooleanState(){
 		JDFBooleanState e=AppendElement(elm_BooleanState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFBooleanState JDFDevCap::AppendBooleanState(WString name){
+		JDFBooleanState e=AppendElement(elm_BooleanState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -452,15 +481,43 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFIntegerState JDFDevCap::GetIntegerState(WString name)
+	{
+		JDFIntegerState e = GetChildWithAttribute(elm_IntegerState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFIntegerState JDFDevCap::GetCreateIntegerState(int iSkip){
 		JDFIntegerState e=GetCreateElement(elm_IntegerState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFIntegerState JDFDevCap::GetCreateIntegerState(WString name){
+		JDFIntegerState s = JDFDevCap::GetIntegerState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendIntegerState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFIntegerState JDFDevCap::AppendIntegerState(){
 		JDFIntegerState e=AppendElement(elm_IntegerState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFIntegerState JDFDevCap::AppendIntegerState(WString name){
+		JDFIntegerState e=AppendElement(elm_IntegerState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -475,15 +532,43 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFNumberState JDFDevCap::GetNumberState(WString name)
+	{
+		JDFNumberState e = GetChildWithAttribute(elm_NumberState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFNumberState JDFDevCap::GetCreateNumberState(int iSkip){
 		JDFNumberState e=GetCreateElement(elm_NumberState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFNumberState JDFDevCap::GetCreateNumberState(WString name){
+		JDFNumberState s = JDFDevCap::GetNumberState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendNumberState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFNumberState JDFDevCap::AppendNumberState(){
 		JDFNumberState e=AppendElement(elm_NumberState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFNumberState JDFDevCap::AppendNumberState(WString name){
+		JDFNumberState e=AppendElement(elm_NumberState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -498,15 +583,43 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFEnumerationState JDFDevCap::GetEnumerationState(WString name)
+	{
+		JDFEnumerationState e = GetChildWithAttribute(elm_EnumerationState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFEnumerationState JDFDevCap::GetCreateEnumerationState(int iSkip){
 		JDFEnumerationState e=GetCreateElement(elm_EnumerationState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+	
+	JDFEnumerationState JDFDevCap::GetCreateEnumerationState(WString name){
+		JDFEnumerationState s = JDFDevCap::GetEnumerationState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendEnumerationState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFEnumerationState JDFDevCap::AppendEnumerationState(){
 		JDFEnumerationState e=AppendElement(elm_EnumerationState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFEnumerationState JDFDevCap::AppendEnumerationState(WString name){
+		JDFEnumerationState e=AppendElement(elm_EnumerationState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -521,15 +634,43 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFNameState JDFDevCap::GetNameState(WString name)
+	{
+		JDFNameState e = GetChildWithAttribute(elm_NameState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFNameState JDFDevCap::GetCreateNameState(int iSkip){
 		JDFNameState e=GetCreateElement(elm_NameState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFNameState JDFDevCap::GetCreateNameState(WString name){
+		JDFNameState s = JDFDevCap::GetNameState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendNameState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFNameState JDFDevCap::AppendNameState(){
 		JDFNameState e=AppendElement(elm_NameState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFNameState JDFDevCap::AppendNameState(WString name){
+		JDFNameState e=AppendElement(elm_NameState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -544,15 +685,43 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFStringState JDFDevCap::GetStringState(WString name)
+	{
+		JDFStringState e = GetChildWithAttribute(elm_StringState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFStringState JDFDevCap::GetCreateStringState(int iSkip){
 		JDFStringState e=GetCreateElement(elm_StringState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFStringState JDFDevCap::GetCreateStringState(WString name){
+		JDFStringState s = JDFDevCap::GetStringState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendStringState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFStringState JDFDevCap::AppendStringState(){
 		JDFStringState e=AppendElement(elm_StringState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFStringState JDFDevCap::AppendStringState(WString name){
+		JDFStringState e=AppendElement(elm_StringState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -567,15 +736,44 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFXYPairState JDFDevCap::GetXYPairState(WString name)
+	{
+		JDFXYPairState e = GetChildWithAttribute(elm_XYPairState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFXYPairState JDFDevCap::GetCreateXYPairState(int iSkip){
 		JDFXYPairState e=GetCreateElement(elm_XYPairState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFXYPairState JDFDevCap::GetCreateXYPairState(WString name){
+		JDFXYPairState s = JDFDevCap::GetXYPairState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendXYPairState(name);
+		return s;
+	};
+
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFXYPairState JDFDevCap::AppendXYPairState(){
 		JDFXYPairState e=AppendElement(elm_XYPairState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFXYPairState JDFDevCap::AppendXYPairState(WString name){
+		JDFXYPairState e=AppendElement(elm_XYPairState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -590,15 +788,43 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFShapeState JDFDevCap::GetShapeState(WString name)
+	{
+		JDFShapeState e = GetChildWithAttribute(elm_ShapeState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFShapeState JDFDevCap::GetCreateShapeState(int iSkip){
 		JDFShapeState e=GetCreateElement(elm_ShapeState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFShapeState JDFDevCap::GetCreateShapeState(WString name){
+		JDFShapeState s = JDFDevCap::GetShapeState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendShapeState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFShapeState JDFDevCap::AppendShapeState(){
 		JDFShapeState e=AppendElement(elm_ShapeState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFShapeState JDFDevCap::AppendShapeState(WString name){
+		JDFShapeState e=AppendElement(elm_ShapeState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -613,15 +839,44 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFMatrixState JDFDevCap::GetMatrixState(WString name)
+	{
+		JDFMatrixState e = GetChildWithAttribute(elm_MatrixState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFMatrixState JDFDevCap::GetCreateMatrixState(int iSkip){
 		JDFMatrixState e=GetCreateElement(elm_MatrixState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFMatrixState JDFDevCap::GetCreateMatrixState(WString name){
+		JDFMatrixState s = JDFDevCap::GetMatrixState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendMatrixState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFMatrixState JDFDevCap::AppendMatrixState(){
 		JDFMatrixState e=AppendElement(elm_MatrixState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFMatrixState JDFDevCap::AppendMatrixState(WString name){
+		JDFMatrixState e=AppendElement(elm_MatrixState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -636,11 +891,30 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFDateTimeState JDFDevCap::GetDateTimeState(WString name)
+	{
+		JDFDateTimeState e = GetChildWithAttribute(elm_DateTimeState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFDateTimeState JDFDevCap::GetCreateDateTimeState(int iSkip){
 		JDFDateTimeState e=GetCreateElement(elm_DateTimeState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFDateTimeState JDFDevCap::GetCreateDateTimeState(WString name){
+		JDFDateTimeState s = JDFDevCap::GetDateTimeState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendDateTimeState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFDateTimeState JDFDevCap::AppendDateTimeState(){
@@ -648,6 +922,16 @@ namespace JDF{
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFDateTimeState JDFDevCap::AppendDateTimeState(WString name){
+		JDFDateTimeState e=AppendElement(elm_DateTimeState);
+		e.SetName(name);
+		e.init();
+		return e;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////
 
@@ -658,11 +942,30 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFDurationState JDFDevCap::GetDurationState(WString name)
+	{
+		JDFDurationState e = GetChildWithAttribute(elm_DurationState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFDurationState JDFDevCap::GetCreateDurationState(int iSkip){
 		JDFDurationState e=GetCreateElement(elm_DurationState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFDurationState JDFDevCap::GetCreateDurationState(WString name){
+		JDFDurationState s = JDFDevCap::GetDurationState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendDurationState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFDurationState JDFDevCap::AppendDurationState(){
@@ -670,6 +973,16 @@ namespace JDF{
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFDurationState JDFDevCap::AppendDurationState(WString name){
+		JDFDurationState e=AppendElement(elm_DurationState);
+		e.SetName(name);
+		e.init();
+		return e;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////
 
@@ -680,11 +993,30 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////
 
+	JDFPDFPathState JDFDevCap::GetPDFPathState(WString name)
+	{
+		JDFPDFPathState e = GetChildWithAttribute(elm_PDFPathState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	JDFPDFPathState JDFDevCap::GetCreatePDFPathState(int iSkip){
 		JDFPDFPathState e=GetCreateElement(elm_PDFPathState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFPDFPathState JDFDevCap::GetCreatePDFPathState(WString name){
+		JDFPDFPathState s = JDFDevCap::GetPDFPathState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendPDFPathState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFPDFPathState JDFDevCap::AppendPDFPathState(){
@@ -692,6 +1024,16 @@ namespace JDF{
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFPDFPathState JDFDevCap::AppendPDFPathState(WString name){
+		JDFPDFPathState e=AppendElement(elm_PDFPathState);
+		e.SetName(name);
+		e.init();
+		return e;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////
 
@@ -701,16 +1043,44 @@ namespace JDF{
 	};
 
 	/////////////////////////////////////////////////////////////////////
+	
+	JDFRectangleState JDFDevCap::GetRectangleState(WString name)
+	{
+		JDFRectangleState e = GetChildWithAttribute(elm_RectangleState, atr_Name, WString::emptyStr,
+			name, 0, true);
+		return e;
+	}
+
+	/////////////////////////////////////////////////////////////////////
 
 	JDFRectangleState JDFDevCap::GetCreateRectangleState(int iSkip){
 		JDFRectangleState e=GetCreateElement(elm_RectangleState,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFRectangleState JDFDevCap::GetCreateRectangleState(WString name){
+		JDFRectangleState s = JDFDevCap::GetRectangleState(name);
+		if (s==NULL)
+			s=JDFDevCap::AppendRectangleState(name);
+		return s;
+	};
+
 	/////////////////////////////////////////////////////////////////////
 
 	JDFRectangleState JDFDevCap::AppendRectangleState(){
 		JDFRectangleState e=AppendElement(elm_RectangleState);
+		e.init();
+		return e;
+	};
+
+	/////////////////////////////////////////////////////////////////////
+
+	JDFRectangleState JDFDevCap::AppendRectangleState(WString name){
+		JDFRectangleState e=AppendElement(elm_RectangleState);
+		e.SetName(name);
 		e.init();
 		return e;
 	};
@@ -739,39 +1109,138 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	vElement JDFDevCap::GetDevCapVector()const
-    {
-        vElement vDevCap = GetChildElementVector(elm_DevCap);
+	VString JDFDevCap::getNamePathVector(bool bRecurse)
+	{
+		WString result = GetName();
+		VString vResult;
 
-        if (HasAttribute(atr_DevCapRefs)) 
+		KElement parentNode = GetParentNode();
+
+		WString pnLocalName = parentNode.GetLocalName();
+		if (pnLocalName == elm_DevCap)
+		{
+			//subsub-element, always recurse
+			JDFDevCap devCap = (JDFDevCap)parentNode;
+			vResult = devCap.getNamePathVector(bRecurse);
+		}
+		else if (pnLocalName == elm_DevCapPool)
+		{
+			// if DevCap is located in DevCapPool it is reusable and there are no info from DevCaps(Context_LinkUsage)
+			if (bRecurse)
+			{
+				WString id=GetID();
+				if (!id.equals(WString::emptyStr))
+				{
+					VElement v=parentNode.GetChildrenByTagName(elm_DevCap, WString::emptyStr, mAttribute::emptyMap, false, true, 0);
+					JDFDeviceCap deviceCap=(JDFDeviceCap)parentNode.GetParentNode();
+					for (int i=0; i<v.size(); i++)
+					{
+						JDFDevCap dc=(JDFDevCap)v.elementAt(i);
+						VString refs=dc.GetDevCapRefs();
+						if (refs.contains(id))
+						{
+							WString dcID=dc.GetID();
+							JDFDevCaps dcs=(JDFDevCaps)deviceCap.GetChildWithAttribute(elm_DevCaps, atr_DevCapRef, WString::emptyStr, dcID, 0, true);
+							if (!dcs.isNull())
+							{
+								vResult.AppendUnique(dcs.getNamePathVector());
+							}
+							else
+							{
+								vResult.AppendUnique(dc.getNamePathVector(bRecurse));
+							}
+						}						
+					}
+					if (vResult.empty())
+					{
+						JDFDevCaps dcs=(JDFDevCaps)deviceCap.GetChildWithAttribute(elm_DevCaps, atr_DevCapRef, WString::emptyStr, id, 0, true);
+						if (!dcs.isNull())
+						{
+							vResult=dcs.getNamePathVector();
+							return vResult;
+						}
+					}
+				}
+			}
+		}
+		else if (pnLocalName == elm_DevCaps)
+		{
+			// need to add jdf in cas of Context="Element" or Context="JDF"
+			JDFDevCaps devCaps = (JDFDevCaps)parentNode;
+			vResult=devCaps.getNamePathVector();
+			return vResult; //return here directly because the first devCap im the tree repeats the name of the devCaps
+		}
+		if (vResult.empty())
+		{
+			vResult.add(result);
+		}
+		else
+		{
+			// StringUtil.concatStrings(vResult, "/"+result)
+			for (int i=0; i < vResult.size(); i++)
+			{
+				WString s = vResult.stringAt(i);
+				s += WString::slash + result;
+				vResult.stringAt(i) = s;
+			}
+		}
+		
+
+		return vResult;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	vElement JDFDevCap::GetDevCapVector(vElement devCaps, bool bDirect)const
+    {
+       int preFill=0;
+	   vElement vDevCap = GetChildElementVector(elm_DevCap);
+	   if(!devCaps.empty()){
+            preFill=devCaps.size();
+            devCaps.AppendUnique(vDevCap);
+            vDevCap=devCaps;
+        }
+        else // first call
+        {
+            if(bDirect==false)
+                vDevCap.AppendUnique(*this);
+        }
+        
+        
+		if (HasAttribute(atr_DevCapRefs)) 
         {         
-            JDFDeviceCap deviceCap = GetDeepParent(elm_DeviceCap);
+			JDFDeviceCap deviceCap = (JDFDeviceCap) GetDeepParent(elm_DeviceCap, 0);
             JDFDevCapPool devCapPool = deviceCap.GetDevCapPool();
 			if (!devCapPool.isNull()) 
             {
-                vWString idRefs = GetDevCapRefs();
+                VString idRefs = GetDevCapRefs();
                 for (int i=0; i < idRefs.size(); i++) 
                 {
-                    mAttribute idMap;
-                    idMap.AddPair(atr_ID, idRefs.at(i));
-					JDFDevCap devCap = devCapPool.GetChildByTagName(elm_DevCap,WString::emptyStr,0,idMap);
+                    JDFDevCap devCap = devCapPool.GetDevCap(idRefs.stringAt(i));
 					if (!devCap.isNull())
                     {
-                        vDevCap.push_back(devCap);
+                        vDevCap.AppendUnique(devCap);
                     }
                     else
                     {
-						throw new JDFException("JDFDevCap::GetDevCapVector: Attribute DevCapRefs refers to the non-existent DevCap");
+                        throw new JDFException("JDFDevCap.getDevCapVector: Attribute DevCapRefs refers to the non-existent DevCap: "+idRefs.stringAt(i));
                     }
                 }
             }
             else
             {
-				throw new JDFException("JDFDevCap::GetDevCapVector: Attribute DevCapRefs refers to the non-existent DevCapPool");
+                throw new JDFException("JDFDevCap.getDevCapVector: Attribute DevCapRefs refers to the non-existent DevCapPool");
             }
         }
-        
+        if(bDirect==false){
+            for(int i=preFill;i<vDevCap.size();i++)
+            {
+                JDFDevCap dcChild=(JDFDevCap) vDevCap.elementAt(i);
+                vDevCap=dcChild.GetDevCapVector(vDevCap,bDirect);
+            }
+        }
         return vDevCap;
+    
     }
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -929,14 +1398,14 @@ namespace JDF{
 			if (nodeName.endsWith(L"State")) {
 				JDFFactory f(vSubElem[j]);
 				JDFStateBase& state=(JDFStateBase&)f.GetRef();
-				WString nam = state.GetName();
+				WString name = state.GetName();
 
 				int size=vKeys.size();
 				for (int i=size-1; i>=0; i--) {  
 					WString key = vKeys[i];
 
-					if (nam==key || (key==L"CommentText" && nam.length()==0)) {
-						WString value = nam.length()!=0 ? m[key]: m[L"CommentText"];
+					if (name==key || (key==L"CommentText" && name.length()==0)) {
+						WString value = name.length()!=0 ? m[key]: m[L"CommentText"];
 						if (!state.FitsValue(value,testlists)) { // The attribute/span was found but it has the wrong value
 
 							KElement r;
@@ -1162,6 +1631,110 @@ namespace JDF{
             }
         }
         return;
+    }
+	  /**
+      * sets the element and attribute defaults
+      * @param element
+      * @return
+      */
+	bool JDFDevCap::setDefaultsFromCaps(KElement element)const
+    {
+        bool success=false;
+		JDFElement j=element;
+        if(j.IsResource())
+        {
+            JDFResource r=element;
+            if(!r.IsLeaf())
+            {
+                vElement vR=r.GetLeaves(false);
+                for(int i=0;i<vR.size();i++)
+                {
+                    success=setDefaultsFromCaps(vR.elementAt(i)) || success;
+                }
+                return success;
+            }
+        }
+        // default leaf or element case -
+		VElement vSubDevCap=GetDevCapVector(vElement::emptyVector,true);
+        int i;
+        for(i=0;i<vSubDevCap.size();i++)
+        {
+            JDFDevCap subDevCap=(JDFDevCap) vSubDevCap.elementAt(i);
+             int minOccurs = subDevCap.GetMinOccurs();
+            VElement subElms=subDevCap.getMatchingElementsFromParent(element);
+            if(minOccurs>0)
+            {
+                int occurs=subElms.size();
+                for(int ii=occurs;ii<minOccurs;ii++)
+                {
+                    
+                    KElement newSub=element.AppendElement(subDevCap.GetName(),subDevCap.GetDevNS());
+                    subElms.add(newSub);
+                    success=true;
+                }
+            }
+            for(int ii=0;ii<subElms.size();ii++)
+            {
+                success = subDevCap.setDefaultsFromCaps(subElms.elementAt(ii)) || success;
+            }            
+        }
+        // states
+        VElement vStates=getStates(true);
+        for(i=0;i<vStates.size();i++)
+        {
+            JDFStateBase state=vStates.elementAt(i);
+            success = state.setDefaultsFromCaps(element) || success;
+        }
+
+        return false;
+    } 
+    /**
+      * gets the matching elements in node that match this devcap
+      * 
+      * @param node the node to search in
+      * @return VElement the element vector of matching elements, 
+      * null if none were found
+      */
+	vElement JDFDevCap::getMatchingElementsFromParent(const KElement& parent)const
+     {
+         WString name=GetName();
+		 vElement subElems=((JDFElement)parent).GetChildElementVector(name,WString::emptyStr,mAttribute::emptyMap,true,999999,true);
+         return subElems;
+     }
+
+	     /**
+     * return the vector of all states
+     * @param bDirect if false, recurse into child elements, else return only direct child states
+     * @param id ID attribute of the requested string
+     * @return
+     */
+	 vElement JDFDevCap::getStates(bool bDirect, const WString& id) const
+    {
+        JDFAttributeMap m;
+        if(!id.empty())
+        {
+            m=JDFAttributeMap(atr_ID,id);
+        }
+        VElement v;
+        if(bDirect==true)
+        {
+			v=GetChildrenByTagName(WString::emptyStr,WString::emptyStr,m,bDirect,true,0);
+            for(int i=v.size()-1;i>=0;i--)
+            {
+				if(!(v.elementAt(i).GetLocalName().endsWith(L"State")))
+                    v.remove(i);
+            }
+        }
+        else
+        {
+			VElement vdevCap=GetDevCapVector(vElement::emptyVector,false); 
+            for(int i=0;i<vdevCap.size();i++)
+            {
+                JDFDevCap child=(JDFDevCap) vdevCap.elementAt(i);
+                v.AppendUnique(child.getStates(true,id));
+            }
+        } 
+        return v;
     }
 
 }; // namespace JDF

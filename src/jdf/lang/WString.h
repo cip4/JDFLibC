@@ -1,3 +1,6 @@
+#ifndef I_JDF_WSTRING_H
+#define I_JDF_WSTRING_H
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -99,12 +102,10 @@
 * 200503 RP added wostream << operator
 * 211003 RP fixed toUpperCase and toLowerCase not to overwrite reference counted strings
 * 211003 RP removed some of WStringBase and moved it here
+* 301006 NB fixed Wstring::ZappTokenWS(), WString::regExp_datetime
 *
 *
 ******************************************************************************/
-
-#ifndef I_JDF_WSTRING_H
-#define I_JDF_WSTRING_H
 
 /******************************************************************************
 *	Includes
@@ -120,6 +121,7 @@ namespace JDF
 	*	Forward declarations
 	******************************************************************************/ 
 	//class ostream;
+	class WStringBaseJDF;
 	class vWString;
 	class WStringIterator;                                            // RN20060320
 
@@ -335,6 +337,12 @@ namespace JDF
 		* constructor from unsigned int
 		*/
 		WString(const unsigned int i);
+
+		/**
+		* constructor from long int
+		*/
+		WString(const long int i);
+
 		/**
 		* constructor from int64
 		*/
@@ -439,7 +447,7 @@ namespace JDF
 		* that is returned, and is responsible for deleting it.
 		* @return the resultant byte array
 		*/
-		const char* peekBytes();
+		const char* peekBytes()const;
 
 		/**
 		* Converts this string into bytes according to the specified 
@@ -449,7 +457,7 @@ namespace JDF
 		* that is returned, and is responsible for deleting it.
 		* @return the resultant byte array
 		*/
-		const char* peekBytes(const WString& encoding);
+		const char* peekBytes(const WString& encoding)const;
 
 		/**
 		* Converts this string into bytes according to the specified 
@@ -641,6 +649,11 @@ namespace JDF
 		* @returns int the number of occurrences of ste
 		*/
 		int numOccurrenceOf(const WString&str) const;
+		/**
+		* returns true if this matches the reugular expression defined in regeXp
+		* @param String regExp the string that defines the regExp to match against
+		*/
+		bool matches(const WString& regExp)const;
 
 		size_type find_last_of(JDFCh c, size_type pos = npos) const;
 		size_type find_last_of(const JDFCh *s, size_type pos = npos) const;
@@ -809,6 +822,16 @@ namespace JDF
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		// 300501 rp added from WString
+		
+		/**
+		* returns a formatted integer, 
+		* replaces string consts with according int const
+		* @param i the integer to format
+		* @return the formatted string that represents i
+		* TBD handle exp format
+        */
+		static WString formatInteger(int i);
+
 		/**
 		* @return bool true if the string represents an integer number
 		*/
@@ -1047,14 +1070,35 @@ namespace JDF
 		static const WString nINFstr;
 
 		/**
-		* the positive INF value 0x7FEDCBAA
+		* the positive INF value 0x7FEDCBAA / INT_MAX in Win32 builds
 		*/
 		static const long int pINF;
 
 		/**
-		* the negative INF value 0x80123456
+		* the negative INF value 0x80123456 / INT_MIN in Win32 builds
 		*/
 		static const long int nINF;
+
+		/**
+		* the positive double INF string "DINF"
+		*/
+		static const WString pDINFstr;
+
+		/**
+		* the negative double INF string "-DINF"
+		*/
+		static const WString nDINFstr;
+
+		/**
+		* the positive double INF value 0x7fefffffffffffffL / DBL_MAX in Win32 builds
+		*/
+		static const double pDINF;
+
+		/**
+		* the negative double INF value 0x8010000000000002L / -DBL_MAX in Win32 builds
+		*/
+		static const double nDINF;
+
 
 
 		//@{
@@ -1103,8 +1147,8 @@ namespace JDF
 		static void ClearBaseDump();
 		static void terminate();
 		// pointer to the char* returned by peekBytes()
-		char *pc;
-		void* pBase;
+		char*           pc;
+		WStringBaseJDF* pBase;
 
 		/**
 		*   the following is used by the ms ide - in order to view wstring, please add the following line to
@@ -1112,6 +1156,7 @@ namespace JDF
 		*	JDF::WString=<pc_data,su>
 		*/
 		const wchar_t*pc_data;
+
 		friend class PlatformUtils;
 	};
 

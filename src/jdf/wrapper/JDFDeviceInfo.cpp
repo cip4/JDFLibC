@@ -75,6 +75,9 @@
 
 
 #include "JDFDeviceInfo.h"
+#include "JDFJobPhase.h"
+#include "JDFNode.h"
+
 namespace JDF{
 /**
 * copy equivalance operator
@@ -95,5 +98,23 @@ namespace JDF{
 		
 		return JDFAutoDeviceInfo::ValidDeviceStatus(level);
 	};
-	
+
+///////////////////////////////////////////////////////////////////
+
+	JDFJobPhase JDFDeviceInfo::createJobPhaseFromPhaseTime(const JDFPhaseTime& pt)
+	{		
+		JDFJobPhase jp=AppendJobPhase();
+		JDFNode node=pt.GetParentJDF();
+
+		jp.SetJobID(node.GetJobID(true));
+		jp.SetJobPartID(node.GetJobPartID(true));
+		jp.SetPartMapVector(pt.GetPartMapVector());
+		jp.SetStatus(pt.GetStatus());
+		WString statusDetails = pt.GetStatusDetails();
+		jp.SetStatusDetails(statusDetails);
+		jp.SetPhaseStartTime(pt.GetStart());
+		jp.eraseEmptyAttributes(true);
+		//TODO set more
+        return jp;
+	}
 }; // namespace JDF

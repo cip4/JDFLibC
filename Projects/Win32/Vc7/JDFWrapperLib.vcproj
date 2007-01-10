@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="JDFWrapperLib"
+	ProjectGUID="{436BFE32-534F-4CA1-9299-7B370D7F47F4}"
 	SccProjectName="JDFWrapperLib"
 	SccAuxPath=""
 	SccLocalPath="..\.."
@@ -365,6 +366,9 @@
 						RelativePath="..\..\..\src\jdf\wrapper\JDFLocation.cpp">
 					</File>
 					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFMerge.cpp">
+					</File>
+					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFMerged.cpp">
 					</File>
 					<File
@@ -408,6 +412,9 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFResourcePool.cpp">
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFSpawn.cpp">
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFSpawned.cpp">
@@ -477,6 +484,9 @@
 						RelativePath="..\..\..\src\jdf\wrapper\JDFLocation.h">
 					</File>
 					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFMerge.h">
+					</File>
+					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFMerged.h">
 					</File>
 					<File
@@ -520,6 +530,9 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFResourcePool.h">
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFSpawn.h">
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFSpawned.h">
@@ -6661,6 +6674,9 @@
 					RelativePath="..\..\..\src\jdf\wrappercore\MyDate.cpp">
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrappercore\StringUtil.cpp">
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrappercore\vElement.cpp">
 				</File>
 				<File
@@ -6729,6 +6745,9 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrappercore\MyDate.h">
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrappercore\StringUtil.h">
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrappercore\vElement.h">

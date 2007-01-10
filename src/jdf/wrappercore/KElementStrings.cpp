@@ -80,6 +80,7 @@
 // created before 19.Jan.2000
 // KElement.cpp: implementation of the KElement class.
 // 151101 RP added GetInheritedAttribute, GetInheritedElement, AddNameSpace
+// 171106 NB changed value of atr_xsiType to lower case
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -92,7 +93,7 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 	const WString KElementStrings::atr_xsi=L"xsi";
-	const WString KElementStrings::atr_xsiType=L"xsi:Type"; // needed in nodemap
+	const WString KElementStrings::atr_xsiType=L"xsi:type"; // needed in nodemap
 	const WString KElementStrings::atr_ID=L"ID";
 	const WString KElementStrings::atr_xmlns=L"xmlns";
 	const WString KElementStrings::atr_xmlnsURI=L"http://www.w3.org/2000/xmlns/";

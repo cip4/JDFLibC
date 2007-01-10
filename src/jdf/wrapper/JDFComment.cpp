@@ -98,7 +98,7 @@ namespace JDF{
 
 	bool JDFComment::init()
 	{
-		EnumVersion v=GetEnumVersion();
+		EnumVersion v=GetEnumVersion(true);
 		if(v>=Version_1_3)
 		{
 			AppendAnchor();

@@ -1,3 +1,6 @@
+#if !defined _JDFDevCap_H_
+#define _JDFDevCap_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -78,13 +81,12 @@
 // 
 // Revision history:
 // created  08.07.2002
+// 181206 NB GetDevCapVector(): changed typeid to GetLocalName()
 //
 // JDFDevCap.h: interface for the JDFDevCap class.
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined _JDFDevCap_H_
-#define _JDFDevCap_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -240,6 +242,20 @@ namespace JDF{
 		* default: getNamePath(false)  
 		*/
 		WString GetNamePath(bool onlyNames=false)const;
+
+		/**
+		 * Gets the NamePath of this DevCap in form 
+		 * "DevCapsName/SubelemName1/SubelemName2/..."
+		 * If this DevCap is located in DevCapPool and not in a DevCaps - it describes the reusable resource 
+		 * and DevCap root will have the attribute "Name" = value of DevCaps/@Name 
+	     * but will have no info about DevCaps/@Context or DevCaps/@LinkUsage 
+		 *
+		 * @param bRecurse - if true, returns "DevCapsName/SubelemName1/SubelemName2/..."
+	     * @return String - NamePath of this DevCap
+		 * 
+		 * default: getNamePath(false)  
+		 */
+		VString getNamePathVector(bool bRecurse);
 		
 		/**
 		* Gets of this the Vector of all direct child DevCap elements plus 
@@ -249,7 +265,7 @@ namespace JDF{
 		* @return vElement: vector of all direct child DevCap elements plus 
 		* the referenced reusable DevCap elements, that are located in DevCapPool. 
 		*/ 
-		vElement GetDevCapVector() const;
+		vElement GetDevCapVector(vElement devCaps=vElement::emptyVector, bool bDirect=true) const;
 
 		/**
 		* Checks if the attributes and subelements of the tested elements
@@ -265,7 +281,8 @@ namespace JDF{
 		* every element of vElem fits the corresponding States and DevCap subelements of this DevCap
 		*/
 		XMLDoc StateReport(vElement vElem, EnumFitsValue testlists, EnumValidationLevel level) const; 
-
+		
+		
 	private:
 
 		/**
@@ -353,13 +370,37 @@ namespace JDF{
 		*/
 		static void MoveChildElementVector(KElement moveToElement, KElement moveFromElement);
 
+    /**
+      * gets the matching elements in node that match this devcap
+      * 
+      * @param node the node to search in
+      * @return VElement the element vector of matching elements, 
+      * null if none were found
+      */
+	vElement getMatchingElementsFromParent(const KElement& parent)const;
+
+		     /**
+     * return the vector of all states
+     * @param bDirect if false, recurse into child elements, else return only direct child states
+     * @param id ID attribute of the requested string
+     * @return
+     */
+	vElement getStates(bool bDirect, const WString& id=WString::emptyStr) const;
+
 	public:
+	  /**
+      * sets the element and attribute defaults
+      * @param element
+      * @return
+      */
+	bool setDefaultsFromCaps(KElement element)const;
+
 		/**
 		* Typesafe enumerated attribute Availability; defaults to Installed
 		*
 		* @return EnumAvailabilitythe enumeration value of the attribute
 		*/
-		JDFDevCap::EnumAvailability GetAvailability() const;
+	EnumAvailability GetAvailability() const;
 
 
 		/* ******************************************************
@@ -408,13 +449,19 @@ namespace JDF{
 		*/
 		JDFLoc AppendLoc();
 		
-		
-		/** Get Element BooleanState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFBooleanState The element
+
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFBooleanState GetCreateBooleanState(int iSkip=0);
+
+		/**
+		* gets a BooleanState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended BooleanState
+		* @return JDFBooleanState the existing or newly appended BooleanState
+		*/
+		JDFBooleanState GetCreateBooleanState(WString name = "");
 		
 		/**
 		* const get element BooleanState
@@ -422,20 +469,41 @@ namespace JDF{
 		* @return JDFBooleanState The element
 		*/
 		JDFBooleanState GetBooleanState(int iSkip=0)const;
+
+		/**
+		* gets an existing  BooleanState with @Name="name"
+		* @param name the Name attribute of the newly appended BooleanState
+		* @return JDFBooleanState the existing BooleanState
+		*/
+		JDFBooleanState GetBooleanState(WString name = "");
 		
 		/**
-		* Append element BooleanState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFBooleanState AppendBooleanState();
+
+		/**
+		* appends a BooleanState with @Name="name"
+		* @param name the Name attribute of the newly appended BooleanState
+		* @return JDFBooleanState the newly appended BooleanState
+		*/
+		JDFBooleanState AppendBooleanState(WString name);
 				
 
 		
-		/** Get Element DateTimeState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFDateTimeState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFDateTimeState GetCreateDateTimeState(int iSkip=0);
+
+		/**
+		* gets a DateTimeState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended DateTimeState
+		* @return JDFDateTimeState the existing or newly appended DateTimeState
+		*/
+		JDFDateTimeState GetCreateDateTimeState(WString name = "");
 		
 		/**
 		* const get element DateTimeState
@@ -443,20 +511,40 @@ namespace JDF{
 		* @return JDFDateTimeState The element
 		*/
 		JDFDateTimeState GetDateTimeState(int iSkip=0)const;
-	
+
 		/**
-		* Append element DateTimeState
+		* gets an existing  DateTimeState with @Name="name"
+		* @param name the Name attribute of the newly appended DateTimeState
+		* @return JDFDateTimeState the existing DateTimeState
+		*/
+		JDFDateTimeState GetDateTimeState(WString name = "");
+		
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFDateTimeState AppendDateTimeState();
-	
+
+		/**
+		* appends a DateTimeState with @Name="name"
+		* @param name the Name attribute of the newly appended DateTimeState
+		* @return JDFDateTimeState the newly appended DateTimeState
+		*/
+		JDFDateTimeState AppendDateTimeState(WString name);	
 		
 
-		/** Get Element DurationState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFDurationState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFDurationState GetCreateDurationState(int iSkip=0);
+
+		/**
+		* gets a DurationState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended DurationState
+		* @return JDFDurationState the existing or newly appended DurationState
+		*/
+		JDFDurationState GetCreateDurationState(WString name = "");
 	
 		/**
 		* const get element DurationState
@@ -464,20 +552,39 @@ namespace JDF{
 		* @return JDFDurationState The element
 		*/
 		JDFDurationState GetDurationState(int iSkip=0)const;
+
+		/**
+		* gets an existing  DurationState with @Name="name"
+		* @param name the Name attribute of the newly appended DurationState
+		* @return JDFDurationState the existing DurationState
+		*/
+		JDFDurationState GetDurationState(WString name = "");
 	
 		/**
-		* Append element DurationState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFDurationState AppendDurationState();
 
-
+		/**
+		* appends a DurationState with @Name="name"
+		* @param name the Name attribute of the newly appended DurationState
+		* @return JDFDurationState the newly appended DurationState
+		*/
+		JDFDurationState AppendDurationState(WString name);
 		
-		/** Get Element EnumerationState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFEnumerationState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFEnumerationState GetCreateEnumerationState(int iSkip=0);
+
+		/**
+		* gets a EnumerationState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended EnumerationState
+		* @return JDFEnumerationState the existing or newly appended EnumerationState
+		*/
+		JDFEnumerationState GetCreateEnumerationState(WString name = "");
 		
 		/**
 		* const get element EnumerationState
@@ -487,18 +594,39 @@ namespace JDF{
 		JDFEnumerationState GetEnumerationState(int iSkip=0)const;
 		
 		/**
-		* Append element EnumerationState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFEnumerationState AppendEnumerationState();
+
+		/**
+		* appends a EnumerationState with @Name="name"
+		* @param name the Name attribute of the newly appended EnumerationState
+		* @return JDFEnumerationState the newly appended EnumerationState
+		*/
+		JDFEnumerationState AppendEnumerationState(WString name);
+
+		/**
+		* gets an existing  EnumerationState with @Name="name"
+		* @param name the Name attribute of the newly appended EnumerationState
+		* @return JDFEnumerationState the existing EnumerationState
+		*/
+		JDFEnumerationState GetEnumerationState(WString name = "");
 		
-		
-				
+						
 		/** Get Element IntegerState
 		* 
 		* @param int iSkip number of elements to skip
 		* @return JDFIntegerState The element
 		*/
 		JDFIntegerState GetCreateIntegerState(int iSkip=0);
+
+		/**
+		* gets a IntegerState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended IntegerState
+		* @return JDFIntegerState the existing or newly appended IntegerState
+		*/
+		JDFIntegerState GetCreateIntegerState(WString name = "");
 		
 		/**
 		* const get element IntegerState
@@ -506,20 +634,41 @@ namespace JDF{
 		* @return JDFIntegerState The element
 		*/
 		JDFIntegerState GetIntegerState(int iSkip=0)const;
+
+		/**
+		* gets an existing  IntegerState with @Name="name"
+		* @param name the Name attribute of the newly appended IntegerState
+		* @return JDFIntegerState the existing IntegerState
+		*/
+		JDFIntegerState GetIntegerState(WString name = "");
 		
 		/**
-		* Append element IntegerState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFIntegerState AppendIntegerState();
+
+		/**
+		* appends a IntegerState with @Name="name"
+		* @param name the Name attribute of the newly appended IntegerState
+		* @return JDFIntegerState the newly appended IntegerState
+		*/
+		JDFIntegerState AppendIntegerState(WString name);
 		
 
 		
-		/** Get Element MatrixState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFMatrixState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFMatrixState GetCreateMatrixState(int iSkip=0);
+
+		/**
+		* gets a MatrixState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended MatrixState
+		* @return JDFMatrixState the existing or newly appended MatrixState
+		*/
+		JDFMatrixState GetCreateMatrixState(WString name = "");
 		
 		/**
 		* const get element MatrixState
@@ -529,18 +678,39 @@ namespace JDF{
 		JDFMatrixState GetMatrixState(int iSkip=0)const;
 
 		/**
-		* Append element MatrixState
+		* gets an existing  MatrixState with @Name="name"
+		* @param name the Name attribute of the newly appended MatrixState
+		* @return JDFMatrixState the existing MatrixState
+		*/
+		JDFMatrixState GetMatrixState(WString name = "");
+
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFMatrixState AppendMatrixState();
 
+		/**
+		* appends a MatrixState with @Name="name"
+		* @param name the Name attribute of the newly appended MatrixState
+		* @return JDFMatrixState the newly appended MatrixState
+		*/
+		JDFMatrixState AppendMatrixState(WString name);
+
 
 		
-		/** Get Element NameState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFNameState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFNameState GetCreateNameState(int iSkip=0);
+
+		/**
+		* gets a NameState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended NameState
+		* @return JDFNameState the existing or newly appended NameState
+		*/
+		JDFNameState GetCreateNameState(WString name = "");
 		
 		/**
 		* const get element NameState
@@ -548,20 +718,41 @@ namespace JDF{
 		* @return JDFNameState The element
 		*/
 		JDFNameState GetNameState(int iSkip=0)const;
+
+		/**
+		* gets an existing  NameState with @Name="name"
+		* @param name the Name attribute of the newly appended NameState
+		* @return JDFNameState the existing NameState
+		*/
+		JDFNameState GetNameState(WString name = "");
 		
 		/**
-		* Append element NameState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFNameState AppendNameState();
+
+		/**
+		* appends a NameState with @Name="name"
+		* @param name the Name attribute of the newly appended NameState
+		* @return JDFNameState the newly appended NameState
+		*/
+		JDFNameState AppendNameState(WString name);
 			
 
 
-		/** Get Element NumberState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFNumberState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFNumberState GetCreateNumberState(int iSkip=0);
+
+		/**
+		* gets a NumberState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended NumberState
+		* @return JDFNumberState the existing or newly appended NumberState
+		*/
+		JDFNumberState GetCreateNumberState(WString name = "");
 		
 		/**
 		* const get element NumberState
@@ -569,20 +760,41 @@ namespace JDF{
 		* @return JDFNumberState The element
 		*/
 		JDFNumberState GetNumberState(int iSkip=0)const;
+
+		/**
+		* gets an existing  NumberState with @Name="name"
+		* @param name the Name attribute of the newly appended NumberState
+		* @return JDFNumberState the existing NumberState
+		*/
+		JDFNumberState GetNumberState(WString name = "");
 		
 		/**
-		* Append element NumberState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFNumberState AppendNumberState();
+
+		/**
+		* appends a NumberState with @Name="name"
+		* @param name the Name attribute of the newly appended NumberState
+		* @return JDFNumberState the newly appended NumberState
+		*/
+		JDFNumberState AppendNumberState(WString name);
 		
 			
 
-		/** Get Element PDFPathState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFPDFPathState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFPDFPathState GetCreatePDFPathState(int iSkip=0);
+
+		/**
+		* gets a PDFPathState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended PDFPathState
+		* @return JDFPDFPathState the existing or newly appended PDFPathState
+		*/
+		JDFPDFPathState GetCreatePDFPathState(WString name = "");
 		
 		/**
 		* const get element PDFPathState
@@ -590,11 +802,25 @@ namespace JDF{
 		* @return JDFPDFPathState The element
 		*/
 		JDFPDFPathState GetPDFPathState(int iSkip=0)const;
+
+		/**
+		* gets an existing  PDFPathState with @Name="name"
+		* @param name the Name attribute of the newly appended PDFPathState
+		* @return JDFPDFPathState the existing PDFPathState
+		*/
+		JDFPDFPathState GetPDFPathState(WString name = "");
 	
 		/**
 		* Append element PDFPathState
 		*/
 		JDFPDFPathState AppendPDFPathState();
+
+		/**
+		* appends a PDFPathState with @Name="name"
+		* @param name the Name attribute of the newly appended PDFPathState
+		* @return JDFPDFPathState the newly appended PDFPathState
+		*/
+		JDFPDFPathState AppendPDFPathState(WString name);
 		
 		
 
@@ -604,6 +830,13 @@ namespace JDF{
 		* @return JDFRectangleState The element
 		*/
 		JDFRectangleState GetCreateRectangleState(int iSkip=0);
+
+		/**
+		* gets a RectangleState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended RectangleState
+		* @return JDFRectangleState the existing or newly appended RectangleState
+		*/
+		JDFRectangleState GetCreateRectangleState(WString name = "");
 		
 		/**
 		* const get element RectangleState
@@ -611,20 +844,40 @@ namespace JDF{
 		* @return JDFRectangleState The element
 		*/
 		JDFRectangleState GetRectangleState(int iSkip=0)const;
+
+		/**
+		* gets an existing  RectangleState with @Name="name"
+		* @param name the Name attribute of the newly appended RectangleState
+		* @return JDFRectangleState the existing RectangleState
+		*/
+		JDFRectangleState GetRectangleState(WString name = "");
 		
 		/**
-		* Append element RectangleState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFRectangleState AppendRectangleState();
 		
+		/**
+		* appends a RectangleState with @Name="name"
+		* @param name the Name attribute of the newly appended RectangleState
+		* @return JDFRectangleState the newly appended RectangleState
+		*/
+		JDFRectangleState AppendRectangleState(WString name);
 		
 
-		/** Get Element ShapeState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFShapeState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFShapeState GetCreateShapeState(int iSkip=0);
+
+		/**
+		* gets a ShapeState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended ShapeState
+		* @return JDFShapeState the existing or newly appended ShapeState
+		*/
+		JDFShapeState GetCreateShapeState(WString name = "");
 		
 		/**
 		* const get element ShapeState
@@ -632,11 +885,27 @@ namespace JDF{
 		* @return JDFShapeState The element
 		*/
 		JDFShapeState GetShapeState(int iSkip=0)const;
+
+
+		/**
+		* gets an existing  ShapeState with @Name="name"
+		* @param name the Name attribute of the newly appended ShapeState
+		* @return JDFShapeState the existing ShapeState
+		*/
+		JDFShapeState GetShapeState(WString name = "");
 		
 		/**
-		* Append element ShapeState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFShapeState AppendShapeState();
+
+		/**
+		* appends a ShapeState with @Name="name"
+		* @param name the Name attribute of the newly appended ShapeState
+		* @return JDFShapeState the newly appended ShapeState
+		*/
+		JDFShapeState AppendShapeState(WString name);
 		
 
 		
@@ -646,6 +915,13 @@ namespace JDF{
 		* @return JDFStringState The element
 		*/
 		JDFStringState GetCreateStringState(int iSkip=0);
+
+		/**
+		* gets a StringState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended StringState
+		* @return JDFStringState the existing or newly appended StringState
+		*/
+		JDFStringState GetCreateStringState(WString name = "");
 		
 		/**
 		* const get element StringState
@@ -653,20 +929,41 @@ namespace JDF{
 		* @return JDFStringState The element
 		*/
 		JDFStringState GetStringState(int iSkip=0)const;
+
+		/**
+		* gets an existing  StringState with @Name="name"
+		* @param name the Name attribute of the newly appended StringState
+		* @return JDFStringState the existing StringState
+		*/
+		JDFStringState GetStringState(WString name = "");
 		
 		/**
-		* Append element StringState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFStringState AppendStringState();
+
+		/**
+		* appends a StringState with @Name="name"
+		* @param name the Name attribute of the newly appended StringState
+		* @return JDFStringState the newly appended StringState
+		*/
+		JDFStringState AppendStringState(WString name);
 		
 		
 				
-		/** Get Element XYPairState
-		* 
-		* @param int iSkip number of elements to skip
-		* @return JDFXYPairState The element
+		/**
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFXYPairState GetCreateXYPairState(int iSkip=0);
+
+		/**
+		* gets a XYPairState with @Name="name", appends it if it does not yet exist
+		* @param name the Name attribute of the newly appended XYPairState
+		* @return JDFXYPairState the existing or newly appended XYPairState
+		*/
+		JDFXYPairState GetCreateXYPairState(WString name = "");
 		
 		/**
 		* const get element XYPairState
@@ -674,12 +971,26 @@ namespace JDF{
 		* @return JDFXYPairState The element
 		*/
 		JDFXYPairState GetXYPairState(int iSkip=0)const;
+
+		/**
+		* gets an existing  XYPairState with @Name="name"
+		* @param name the Name attribute of the newly appended XYPairState
+		* @return JDFXYPairState the existing XYPairState
+		*/
+		JDFXYPairState GetXYPairState(WString name = "");
 		
 		/**
-		* Append element XYPairState
+		* @deprecated use method with parameter (WString) instead
+		* @return
 		*/
 		JDFXYPairState AppendXYPairState();
-		
+
+		/**
+		* appends a XYPairState with @Name="name"
+		* @param name the Name attribute of the newly appended XYPairState
+		* @return JDFXYPairState the newly appended XYPairState
+		*/
+		JDFXYPairState AppendXYPairState(WString name);
 	
 	}; // endJDFDevCap
 	

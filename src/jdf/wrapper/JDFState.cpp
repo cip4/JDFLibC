@@ -88,6 +88,7 @@
 #include "JDFState.h"
 #include "JDFDevCaps.h"
 #include "JDFDevCap.h"
+#include "JDFIntentResource.h"
 
 using namespace std;
 namespace JDF{
@@ -163,8 +164,72 @@ namespace JDF{
 		return vElem;
 	};
 
+
 	//////////////////////////////////////////////////////////////////////
-	
+	bool JDFStateBase::ValidCurrentValue(EnumValidationLevel level)const
+	{
+		return true;
+	};
+	//////////////////////////////////////////////////////////////////////
+	bool JDFStateBase::ValidDefaultValue(EnumValidationLevel level)const
+	{
+		return true;
+	};
+	//////////////////////////////////////////////////////////////////////
+	bool JDFStateBase::FitsValue(const WString& value, EnumFitsValue testlists) const
+	{
+		return true;
+	};
+
+	/**
+     * set the default values specified in this in element
+     * @param element the element to set the defaults on
+     * @return true if successful
+     */
+	bool JDFStateBase::setDefaultsFromCaps(KElement element)const
+    {
+        if(GetHasDefault()==false)
+            return false;
+		WString def=GetAttribute(atr_DefaultValue);
+        if(def.empty())
+            return false;
+        bool theValue=hasMatchingObjectInNode(element);
+        if(theValue)
+            return false;
+        
+        WString nam = GetName();
+        if(GetListType()==ListType_Span)
+        {            
+            JDFIntentResource ir=(JDFIntentResource)element;
+			JDFSpanBase span=ir.AppendSpan(nam, JDFSpanBase::DataType_Unknown);
+			span.SetAttribute(atr_Preferred,def);
+        }
+        else // some attribute...
+        {
+            element.SetAttribute(nam,def);
+        } 
+        return true;
+    }
+	//////////////////////////////////////////////////////////////////////
+   /**
+     * gets the matching Attribute value String or AbstractSpan object from the parent, 
+     * depending on the type of the state
+     * 
+     * @param element the parent in which to search
+     * @return Object either a String or AbstractSpan
+     */
+	bool JDFStateBase::hasMatchingObjectInNode(const KElement& element)const
+    {
+        WString nam = GetName();
+        if(GetListType()==ListType_Span)
+        {            
+			return element.HasChildElement(nam,GetDevNS(),0);            
+        }
+        
+        return HasAttribute(nam,GetDevNS());
+    }
+	//////////////////////////////////////////////////////////////////////
+
 	WString JDFStateBase::OptionalAttributes()const{
 		WString w=JDFElement::OptionalAttributes()+L",Availability,DevNS,HasDefault,ID,MaxOccurs,MinOccurs,Name,Required,ListType,ActionRefs,Editable,MacroRefs,DependentMacroRef,UserDisplay,CurrentValue";
 		if (!GetHasDefault()) {
@@ -393,7 +458,15 @@ namespace JDF{
 	};
 	//////////////////////////////////////////////////////////////////////
 	int JDFStateBase::GetMaxOccurs() const {
-		return GetIntAttribute(atr_MaxOccurs,WString::emptyStr,1);
+		WString s= GetAttribute(atr_MaxOccurs);
+		if (s.equals("unbounded"))
+		{
+			return WString::pINF;
+		}
+		else
+		{
+			return GetIntAttribute(atr_MaxOccurs,WString::emptyStr,1);
+		}
 	};
 	//////////////////////////////////////////////////////////////////////
 	void JDFStateBase::SetMinOccurs(int value){
@@ -401,6 +474,7 @@ namespace JDF{
 	};
 	//////////////////////////////////////////////////////////////////////
 	int JDFStateBase::GetMinOccurs() const {
+
 		return GetIntAttribute(atr_MinOccurs,WString::emptyStr,1);
 	};
 	//////////////////////////////////////////////////////////////////////
@@ -496,6 +570,14 @@ namespace JDF{
 		e.init();
 		return e;
 	};
+	/////////////////////////////////////////////////////////////////////
+
+	bool JDFStateBase::FixVersion(JDFElement::EnumVersion version)
+	{
+		if (GetAttribute(atr_MaxOccurs) == "unbounded")
+			SetAttribute(atr_MaxOccurs,WString::pINFstr);
+		return JDFElement(*this).FixVersion(version);
+	}
 	
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////

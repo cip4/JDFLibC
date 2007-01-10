@@ -83,7 +83,7 @@
 #include "MacOSFileSystem.h"
 #include <jdf/io/File.h>
 
-#include <jdf/io/Exception.h>
+#include <jdf/lang/Exception.h>
 #include <jdf/lang/Janitor.h>
 
 #include <xercesc/util/XMLUniDefs.hpp>
@@ -137,7 +137,7 @@ void replaceYenWonSigns(WString& s);
  *	Implementation
  ******************************************************************************/
 
-static bool gOnNT = true;
+// static bool gOnNT = true;
 
 FileSystem* FileSystem::getFileSystem()
 {

@@ -313,8 +313,17 @@ this is still a big construction site
 		* Append a Message,
 		* @param JDFMessage::EnumTyp typ the type attribute of the appended message
 		* @return JDFMessage the newly created message element
+		* @deprecated use appendMessageElement (family, EnumType::Type_Unknown);
 		*/
 		JDFMessage AppendMessageElement(JDFMessage::EnumFamily family);
+
+		/**
+		 * append a message element to this
+		 * @param family the Message family - Query, Acknowledge, Command, Response, Registration or Signal
+		 * @param typ the messages @Type value, EnumType::Type_Unknown if unknown
+		 * @return the newly created message
+		 */
+		JDFMessage appendMessageElement(JDFMessage::EnumFamily family, JDFMessage::EnumType typ);
 		
 		/**
 		* Get an existing Message,

@@ -89,6 +89,8 @@
 // 020702 RP XXXParse() added support for schema validation
 // 041202 RP added XercesDOMParser to all callse of Parse()
 // 290403 RP added AdoptDocument
+// 240806 NB fixed ParseXXX)(), corrected external schema location
+// 240806 NB added setExternalSchemaLocation()
 //
 // JDFParser.h: interface for the JDFParser class.
 // 
@@ -206,6 +208,7 @@ namespace JDF {
 			bool bDoNamespaces=true, XERCES_CPP_NAMESPACE_QUALIFIER ErrorHandler* pErrorHandler=0,
 			const WString& schemaLocation=WString::emptyStr, int nRetry=0, int waitMilliSecs=42);
 
+
 		/**
 		* get the document root 
 		* @return XMLDoc the root element
@@ -233,6 +236,8 @@ namespace JDF {
 		JDFParser& operator =(const JDFParser& other);
 		XMLDoc* LastParsed;
 		XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument* AdoptDocument()const;
+
+		void initParser(const WString& schemaLocation, bool bValidate);
 
 	};
 	/**

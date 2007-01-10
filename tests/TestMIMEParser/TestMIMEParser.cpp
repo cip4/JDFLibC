@@ -88,8 +88,13 @@
 #include <jdf/io/InputStream.h>
 #include <jdf/io/FileInputStream.h>
 #include <jdf/io/FileOutputStream.h>
+#include <jdf/Wrapper/jdf.h>
+
+#include <jdf/lang/Exception.h>
 #include <jdf/lang/WString.h>
+
 #include <jdf/mime/MIMEMessage.h>
+#include <jdf/mime/MIMEMultiPart.h>
 #include <jdf/mime/MIMEParser.h>
 #include <jdf/mime/MIMEBasicPart.h>
 #include <iostream>
@@ -133,7 +138,11 @@ void testGetParts(JDF::MIMEMessage* msg)
 			{
 				JDF::MIMEBasicPart* part = (JDF::MIMEBasicPart*) mmp->getBodyPart(i,false);
 				JDF::InputStream& in = part->getBodyData();
-				std::string fname("d:\\part");
+				JDF::JDFDoc doc;
+				doc.StreamParse(in);
+				std::cout<<doc<<std::endl;
+				/*
+				JDF::WString fname("c:\\tmp\\mimetest");
 				char buf2[20];
 				fname.append(itoa(i,buf2,10));
 				fname.append(".txt");
@@ -144,6 +153,9 @@ void testGetParts(JDF::MIMEMessage* msg)
 				{
 					out4.write(buf,nread);
 				}
+				*/
+
+
 			}
 		}
 	}
@@ -152,17 +164,7 @@ void testGetParts(JDF::MIMEMessage* msg)
 int main(int argc, char* argv[])
 {
 	  // Initialize the XML4C2 system
-    try
-	{
-        XMLPlatformUtils::Initialize();
-    }
-	catch(const XMLException&)
-	{
-        return 1;
-    }
-	
-	// Initialize the JDFTools system
-	try
+ 	try
 	{
 		JDF::PlatformUtils::Initialize();
 	} catch (const JDF::Exception&)
@@ -209,14 +211,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-    try
-	{
-        XMLPlatformUtils::Terminate();
-    }
-	catch(const XMLException&)
-	{
-        return 1;
-    }
+ 
 	return 0;
 
 } // main()

@@ -1,3 +1,6 @@
+#if !defined(AFX_JDFIntegerRange_H__)
+#define AFX_JDFIntegerRange_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -81,13 +84,12 @@
 // 180700 RP WString -> WString : all strings now 16 bit
 // 300104 ES added ToVInt();
 // 120204 ES added IsPartOfRange() for ranges 
+// 301006 NB fixed JDFIntegerRange::InRange(), JDFIntegerRange::NElements()
+// 071206 NB added GetString(), toString()
 //
 // JDFIntegerRange.h: interface for the JDFIntegerRange class.
 //
 *****************************************************************/
-
-#if !defined(AFX_JDFIntegerRange_H__)
-#define AFX_JDFIntegerRange_H__
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -245,15 +247,28 @@ namespace JDF{
 		*/
 		virtual vint ToVInt(int maxelem=1000) const;
 
+		/**
+		* toString
+		*
+		* @return WString
+		*/
+		WString toString() const;
+
+		/**
+		* GetString
+		* overwrites inherited method GetString() <br>
+		* deprecated, use toString()
+		*
+		* @return WString
+		*/
+		WString GetString() const;
+
 
 
 	protected:
 
 		/// standard initialization
 		virtual void init(int x, int y, int xdef=0);
-
-		
-
 	};
 }
 

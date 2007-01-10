@@ -81,6 +81,9 @@
  * 
  * Description:
  *
+ * Revision history:
+ * 011106 RN/NB fixed makeRelativeTo()
+ * 011106 NB added getRelativePath()
  *
  ******************************************************************************/
 
@@ -600,9 +603,22 @@ public:
 
 /*@}*/ 
 
-	void makeRelativeTo(const WString&  baseURL);
-	void makeRelativeTo(const URL& baseURL);
+	/**
+	 * turn <code>this</code> in a relative URL
+	 * @param baseURL URL to reference <code>this</code> to
+	 * @return bool - true, if successful
+	 * @since 31.10.2006 (RN)
+	 */
+	bool makeRelativeTo(const WString&  baseURL);
 
+	/**
+	 * turn <code>this</code> in a relative URL
+	 * @param baseURL URL to reference <code>this</code> to
+	 * @return bool - true, if successful
+	 * @since 31.10.2006 (RN)
+	 */
+	bool makeRelativeTo(const URL& baseURL);
+	
     /**
      * Returns the authority part of this <code>URL</code>.
      *
@@ -618,6 +634,15 @@ public:
      */
 
 	WString getFile() const;
+
+   // RN 31.10.2006: added missing method "getFragment"
+    /**
+     * Returns the file name of this <code>URL</code>.
+     *
+     * @return  the file name of this <code>URL</code>.
+     */
+
+	WString getFragment() const;
 
     /**
      * Returns the host name of this <code>URL</code>, if applicable.
@@ -806,6 +831,20 @@ private:
 
 	void parse(WString url);
 	bool conglomerateWithBase(const URL& baseURL);
+
+	//#####################################################################
+	// new test version "makeRelativeToBase", RN 31.10.2006
+	//#####################################################################
+	bool makeRelativeToBase(const URL& baseURL);
+
+	/**
+	 * get the relative path from baseDir in relation to relativeTo
+	 * @param relativeUrl    the location to get the relative path for
+	 * @param baseUrl        the path to use as reference point for the relative path of baseDir
+	 * @return the relative path
+	 */
+	WString getRelativePath(const JDF::WString &relativeUrl, const JDF::WString &baseUrl);
+
 
     /**
      * A  private constructor that takes all URL components.

@@ -118,9 +118,9 @@ namespace JDF{
 				init(x,x);
 			}else if(vs.size()==2){
 				WString ms=vs[0];
-				JDFDate xmin=(JDFDate)ms;
+				JDFDate xmin=(JDFDate)ms.trim();
 				ms=vs[1];
-				JDFDate xmax=(JDFDate)ms;
+				JDFDate xmax=(JDFDate)ms.trim();
 				init(xmin,xmax);
 			}else{
 				throw IllegalArgumentException("JDFDateTimeRange illegal string: "+s);

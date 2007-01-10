@@ -168,7 +168,7 @@ bool ByteArrayInputStream::markSupported()
 int ByteArrayInputStream::read()
 {	
 	// speed up by not copying...
-	return (mPos < mCount) ? mBuf[mPos++] : -1; 
+	return (mPos < mCount) ? (unsigned char) mBuf[mPos++] : -1; 
 }
 
 int ByteArrayInputStream::read(char* b, int blen)

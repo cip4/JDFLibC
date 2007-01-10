@@ -1,3 +1,6 @@
+#if !defined(_JDFStringState_H__)
+#define _JDFStringState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -83,9 +86,6 @@
 // defines String State attributes and subelements
 //
 // ////////////////////////////////////////////////////////////////////
-
-#if !defined(_JDFStringState_H__)
-#define _JDFStringState_H__
 
 #if _MSC_VER >= 1000
 #pragma once

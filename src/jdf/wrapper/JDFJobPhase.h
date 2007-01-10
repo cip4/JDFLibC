@@ -160,7 +160,7 @@ namespace JDF{
 		/**
 		* definition of optional elements in the JDF namespace
 		*/
-		WString JDFJobPhase::OptionalElements()const;
+		WString OptionalElements()const;
 
 	}; // endJDFJobPhase
 

@@ -121,7 +121,7 @@ namespace JDF
  * @nosubgrouping
  */
 
-class HttpsURLStreamHandler : public HttpURLStreamHandler
+class JDFTOOLS_EXPORT HttpsURLStreamHandler : public HttpURLStreamHandler
 {
 public:
 

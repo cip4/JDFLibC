@@ -1,3 +1,6 @@
+#if !defined(_JDFMESSAGE_H__)
+#define _JDFMESSAGE_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -86,13 +89,13 @@
 //        RP added QueueEntryDefList Support
 // 281102 RP GetValidTypeVector bug fix for StopPersChParams
 // 230703 RP removed HasXXX NumXXX RemoveXXX
+// 281106 NB updated EnumCmdTypeObj, EnumQueryTypeObj, EnumResponseTypeObj,
+//           CmdTypeObjString(), QueryTypeObjString(), ResponseTypeObjString()
+// 281106 NB updated GetValidTypeVector()
 //
 // JDFMessage.h: interface for the JDFMessage class.
 //
 // ////////////////////////////////////////////////////////////////////
-
-#if !defined(_JDFMESSAGE_H__)
-#define _JDFMESSAGE_H__
 
 #include "AutoJDF/JDFAutoMessage.h"
 
@@ -253,17 +256,17 @@ namespace JDF{
 		/**
 		* Message CommandTypeObj enumeration
 		*/
-		enum EnumCommandTypeObj{CommandTypeObj_Unknown,CommandTypeObj_FlushQueueParams,CommandTypeObj_FlushResourceParams,CommandTypeObj_NewJDFCmdParams,CommandTypeObj_NodeInfoCmdParams,CommandTypeObj_PipeParams,CommandTypeObj_QueueEntryDef,CommandTypeObj_QueueEntryPriParams,CommandTypeObj_QueueEntryPosParams,CommandTypeObj_QueueFilter,CommandTypeObj_QueueSubmissionParams,CommandTypeObj_RequestQueueEntryParams,CommandTypeObj_ResourceCmdParams,CommandTypeObj_ResourcePullParams,CommandTypeObj_ResubmissionParams,CommandTypeObj_ReturnQueueEntryParams,CommandTypeObj_ShutDownCmdParams,CommandTypeObj_StopPersChParams,CommandTypeObj_WakeUpCmdParams};
+		enum EnumCommandTypeObj{CommandTypeObj_Unknown,CommandTypeObj_FlushQueueParams,CommandTypeObj_FlushResourceParams,CommandTypeObj_NewJDFCmdParams,CommandTypeObj_NodeInfoCmdParams,CommandTypeObj_PipeParams,CommandTypeObj_QueueEntryDef,CommandTypeObj_QueueEntryPriParams,CommandTypeObj_QueueEntryPosParams,CommandTypeObj_QueueFilter,CommandTypeObj_QueueSubmissionParams,CommandTypeObj_RequestQueueEntryParams,CommandTypeObj_ResourceCmdParams,CommandTypeObj_ResourcePullParams,CommandTypeObj_ResubmissionParams,CommandTypeObj_ReturnQueueEntryParams,CommandTypeObj_ShutDownCmdParams,CommandTypeObj_StopPersChParams,CommandTypeObj_UpdateJDFCmdParams,CommandTypeObj_WakeUpCmdParams};
 		
 		/**
 		* Message QueryTypeObj enumeration
 		*/
-		enum EnumQueryTypeObj{QueryTypeObj_Unknown,QueryTypeObj_DeviceFilter,QueryTypeObj_EmployeeDef,QueryTypeObj_KnownMsgQuParams,QueryTypeObj_MsgFilter,QueryTypeObj_NewJDFQuParams,QueryTypeObj_NodeInfoQuParams,QueryTypeObj_NotificationFilter,QueryTypeObj_QueueEntryDefList,QueryTypeObj_QueueFilter,QueryTypeObj_ResourceQuParams,QueryTypeObj_StatusQuParams,QueryTypeObj_TrackFilter};
+		enum EnumQueryTypeObj{QueryTypeObj_Unknown,QueryTypeObj_DeviceFilter,QueryTypeObj_EmployeeDef,QueryTypeObj_KnownMsgQuParams,QueryTypeObj_MsgFilter,QueryTypeObj_ModifyNodeCmdParams,QueryTypeObj_NewJDFQuParams,QueryTypeObj_NodeInfoQuParams,QueryTypeObj_NotificationFilter,QueryTypeObj_QueueEntryDefList,QueryTypeObj_QueueFilter,QueryTypeObj_ResourceQuParams,QueryTypeObj_StatusQuParams,QueryTypeObj_TrackFilter,QueryTypeObj_UpdateJDFCmdParams};
 		
 		/**
 		* Message ResponseTypeObj enumeration
 		*/
-		enum EnumResponseTypeObj{ResponseTypeObj_Unknown,ResponseTypeObj_Acknowledge,ResponseTypeObj_Command,ResponseTypeObj_DeviceList,ResponseTypeObj_DeviceInfo,ResponseTypeObj_FlushedResources,ResponseTypeObj_IDInfo,ResponseTypeObj_JDFController,ResponseTypeObj_JDFService,ResponseTypeObj_JobPhase,ResponseTypeObj_MessageService,ResponseTypeObj_NodeInfoResp,ResponseTypeObj_NotificationDef,ResponseTypeObj_Occupation,ResponseTypeObj_Queue,ResponseTypeObj_QueueEntry,ResponseTypeObj_Query,ResponseTypeObj_ResourceInfo,ResponseTypeObj_Response,ResponseTypeObj_Signal,ResponseTypeObj_SubmissionMethods,ResponseTypeObj_TrackResult};
+		enum EnumResponseTypeObj{ResponseTypeObj_Unknown,ResponseTypeObj_Acknowledge,ResponseTypeObj_Command,ResponseTypeObj_DeviceList,ResponseTypeObj_DeviceInfo,ResponseTypeObj_FlushedResources,ResponseTypeObj_IDInfo,ResponseTypeObj_JDFController,ResponseTypeObj_JDFService,ResponseTypeObj_JobPhase,ResponseTypeObj_MessageService,ResponseTypeObj_NodeInfoResp,ResponseTypeObj_NotificationDef,ResponseTypeObj_Occupation,ResponseTypeObj_Queue,ResponseTypeObj_QueueEntry,ResponseTypeObj_Query,ResponseTypeObj_Registration,ResponseTypeObj_ResourceInfo,ResponseTypeObj_Response,ResponseTypeObj_Signal,ResponseTypeObj_SubmissionMethods,ResponseTypeObj_TrackResult};
 		
 		/**
 		* Gets message family
@@ -384,6 +387,12 @@ namespace JDF{
 		* @return KElement: the matching valid element
 		*/
 		KElement GetCreateValidElement(const WString& nodeName, const WString & nameSpaceURI=WString::emptyStr, int iSkip=0);
+
+		/**
+		* set the attributes type and xsi:type
+		* @param typ the type
+		*/
+		void SetType(const WString& typ);
 		
 		
 	protected:

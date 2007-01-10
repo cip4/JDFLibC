@@ -160,7 +160,7 @@ namespace JDF{
 		* Set the target  to target
 		* @param KElement target the target element
 		*/
-		void SetTarget(const KElement& target);
+		void SetTarget(const KElement& target, const WString& id);
 		
 		/**
 		* Remove the target from the target list
@@ -180,6 +180,18 @@ namespace JDF{
 		* @return void
 		*/
 		void ClearTargets();
+
+		/**
+		* switch on or off the caching method for ids
+		* @param bCache if true, the ids will be cached
+		*/
+		void setIDCache(bool bCache);
+
+		/**
+	    * get the status of the caching method for ids
+		* @return if true, the ids will be cached
+		*/
+		bool getIDCache();
 		
 	protected:
 		

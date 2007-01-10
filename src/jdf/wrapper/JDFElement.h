@@ -1,3 +1,6 @@
+#if !defined(_JDFELEMENT_H__)
+#define _JDFELEMENT_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -140,14 +143,16 @@
 // 041103 RP 
 // 290404 RP split off static strings to JDFStrings
 // 150605 RP added RequiredOneOfAttribute()
+// 090806 NB extended IncludesMatchingAttribute() -> added support for IntegerList and NumberList
+// 010906 NB changed UniqueID() access to static public
+// 080906 NB added isJDFJMF(), isJDFNodeInfo(), isJDFCustomerInfo()
+// 121206 NB GetChildWithMatchingAttribute() fixed, now uses elements instead of refs
+// 211206 NB moved EnumAttributeType from JDFElement to KElement (allows StringUtil to move to WrapperCore)
 //
 // JDFElement.h: interface for the JDFElement class.
 // JDFElement contains generic JDF element functionality
 //
 ********************************************************************/
-
-#if !defined(_JDFELEMENT_H__)
-#define _JDFELEMENT_H__
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -178,6 +183,7 @@ namespace JDF{
 	class JDFNode;
 	class JDFComment;
 	class JDFResource;
+	class VoidSet;
 
 
 	/**
@@ -234,25 +240,7 @@ namespace JDF{
 		*/
 		virtual bool IsValid(EnumValidationLevel level=ValidationLevel_Complete)const;
 
-		/**
-		* Attribute data types used by the autogenerator
-		* @since 011001 added NMTOKENS, enumeration, enumerations
-		* @since 160104 added URI, IDREFS, IDREF, XYPairRangeList, XYRelation, RectangleRangeList, regExp, 
-		* NumberList, ShapeRangeList, DateTimeRangeList, DurationRangeList, DateTimeRange, DurationRange
-		* @since 110205 added Unknown 
-		*/
-		enum EnumAttributeType{AttributeType_Unknown,AttributeType_Any,AttributeType_boolean,AttributeType_double,AttributeType_integer,
-			AttributeType_NMTOKEN,AttributeType_NMTOKENS,AttributeType_string,AttributeType_IntegerRange,
-			AttributeType_IntegerList,AttributeType_IntegerRangeList,AttributeType_matrix,AttributeType_rectangle,AttributeType_XYPair,
-			AttributeType_URL,AttributeType_URI,AttributeType_enumeration,AttributeType_enumerations,AttributeType_NumberRangeList,AttributeType_NameRangeList,
-			AttributeType_NumberRange,AttributeType_ID,AttributeType_dateTime,AttributeType_duration,AttributeType_shape,
-			AttributeType_IDREFS,AttributeType_IDREF,AttributeType_XYPairRange,AttributeType_XYPairRangeList,AttributeType_XYRelation,
-			AttributeType_RectangleRangeList,AttributeType_regExp,AttributeType_NumberList,AttributeType_ShapeRangeList,
-			AttributeType_DateTimeRangeList,AttributeType_DurationRangeList,AttributeType_DateTimeRange,AttributeType_DurationRange,
-			AttributeType_language,AttributeType_languages,AttributeType_PDFPath,AttributeType_XPath,
-			AttributeType_LabColor,AttributeType_RGBColor,AttributeType_CMYKColor,AttributeType_hexBinary,AttributeType_TransferFunction,
-			AttributeType_NameRange,AttributeType_RectangleRange,AttributeType_ShapeRange,AttributeType_JDFJMFVersion,AttributeType_shortString,AttributeType_longString
-		};
+		
 
 
 		/**
@@ -548,6 +536,13 @@ namespace JDF{
 		*/
 		virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
+		/**
+		* check whether this matches a simple xpath also recursively follows rRefs
+		* @param path
+		* @return
+		*/
+		bool matchesPath(WString path, bool bFollowRefs);
+
 
 	protected:
 
@@ -593,6 +588,7 @@ namespace JDF{
 		*/
 		virtual bool ValidSettingsPolicy(EnumValidationLevel level=ValidationLevel_Complete) const;
 
+	public:
 		/**
 		* Gets the root resource of the target
 		* returns a null JDFResource if it does not exist or the name mangling is illegal
@@ -602,8 +598,6 @@ namespace JDF{
 		*/
 		JDFResource GetLinkRoot(const WString& id=WString::emptyStr)const;
 
-
-	public:
 		/**
 		* Gets typesafe enumerated value of attribute with name 'key'
 		*
@@ -1167,6 +1161,27 @@ namespace JDF{
 		bool IsJDFNode()const;
 
 		/**
+		* Tests, if 'this' a JDF JMF
+		*
+		* @return bool: true if 'this' is a JDF JMF
+		*/
+		bool isJDFJMF()const;
+
+		/**
+		* Tests, if 'this' a JDFNodeInfo
+		*
+		* @return bool: true if 'this' is a JDFNodeInfo
+		*/
+		bool isJDFNodeInfo()const;
+
+		/**
+		* Tests, if 'this' a JDFCustomerInfo
+		*
+		* @return bool: true if 'this' is a JDFCustomerInfo
+		*/
+		bool isJDFCustomerInfo()const;
+
+		/**
 		* Tests, if this element is in the JDF namespace
 		*
 		* @return bool: true if 'this' is in a JDF namespace
@@ -1204,7 +1219,7 @@ namespace JDF{
 		* @param bool bRecurse: if true, also return recursively linked IDS
 		* @return vWString: the vector of referenced resource ids
 		*/
-		vWString GetHRefs(const vWString& vDoneRefs=vWString::emptyvStr, bool bRecurse=false)const;
+		vWString GetHRefs(const vWString& vDoneRefs=vWString::emptyvStr, bool bRecurse=false, bool bExpand=false)const;
 
 		/**
 		* Gets inter-resource linked resource ids
@@ -1213,7 +1228,7 @@ namespace JDF{
 		* @param bool bRecurse: if true, also return recursively linked IDS
 		* @return vElement: the vector of all refElements
 		*/
-		vElement GetAllRefs(const vElement& vDoneRefs=vElement(), bool bRecurse=false)const;
+		virtual VoidSet* GetAllRefs(VoidSet* vDoneRefs, bool bRecurse=false)const;
 
 		/**
 		* Gets inter-resource linked resource vector
@@ -1513,15 +1528,15 @@ namespace JDF{
 		*/
 		WString GenerateDotID(const WString& key, const WString& nameSpaceURI=WString::emptyStr);
 
+	public:
 		/**
 		* creates a not quite so unique but readable id
 		*
 		* @param int ID: the starting id of the ID, if negative the absolute increment is added to the existing ID
 		* @return WString: the ID string value
 		*/
-		WString UniqueID(int ID=0);
+		static WString UniqueID(int ID=0);
 
-	public:
 		/**
 		* Defines an enumerated list of attributes	; used by the automated code generator
 		*

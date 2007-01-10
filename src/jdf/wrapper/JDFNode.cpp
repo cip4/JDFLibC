@@ -89,6 +89,7 @@
 // 050603 TG MergeJDF: uses GetTarget instead of GetTargetResource to find resources in overwriteNode,
 //           and to find local nodes in toMergeNode
 // 140504 RP removed UniqueTypeString
+// 270906 NB fixed TypeLinkInfo()/TypeLinkName() [21x]
 //
 // JDFNode.cpp: implementation of the JDFNode class.
 //
@@ -127,8 +128,11 @@
 #include "JDFCustomerMessage.h"
 #include "JDFJMF.h"
 #include "JDFContact.h"
-
-//#include <iostream>
+#include "JDFSignal.h"
+#include "JDFJobPhase.h"
+#include "JDFSpawn.h"
+#include "JDFMerge.h"
+#include "JDF/WrapperCore/XMLDocUserData.h"
 
 using namespace std;
 namespace JDF{
@@ -184,6 +188,20 @@ namespace JDF{
 
 	/////////////////////////////////////////////////////////////////////////
 
+	JDFNode::EnumProcessUsage JDFNode::EnumProcessUsageFromString(const WString& pu){
+		int n;
+		if(pu.empty()){
+			n=0;
+		}else{
+			n=ProcessUsageString().PosOfToken(pu,WString::comma);
+			if(n<0)
+				n=0;
+		}
+		return (EnumProcessUsage) n;
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+
 	const WString& JDFNode::GenericLinkInfo()const{
 		static const WString s=L"i*,i*,i*,i*,i*,i*,i*,i*,i*,i*";
 		return s;
@@ -208,6 +226,30 @@ namespace JDF{
 			throw JDFException(L"JDFNode::SetEnumType invalid enum: "+WString(it));
 
 		SetType(s);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	vWString JDFNode::getEnumTypes()
+	{
+		vWString types=GetTypes();
+		if(types.empty())
+			return vWString::emptyvStr;
+		vWString vs;
+		bool bFirst=true;
+		for(int i=0;i<(int)types.size();i++)
+		{
+			JDFNode::EnumType typ=JDFNode::EnumTypeFromString(types.stringAt(i));
+			if(typ==JDFNode::Type_Unknown)
+				return vWString::emptyvStr;
+			if(bFirst)
+			{
+				bFirst=false;
+				vs.clear();
+			}
+			vs.add(typ);
+		}
+		return vs;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -443,7 +485,7 @@ namespace JDF{
 			break;
 							 };
 		case Type_InkZoneCalculation:{
-			return GenericLinkNames()+L",InkZoneCalculationParams,InkZoneProfile,Layout,TransferCurvePool,Sheet";
+			return GenericLinkNames()+L",InkZoneCalculationParams,InkZoneProfile,Layout,TransferCurvePool,Sheet,Preview";
 			break;
 									 };
 		case Type_Interpreting:{
@@ -471,7 +513,7 @@ namespace JDF{
 			break;
 							};
 		case Type_PreviewGeneration:{
-			return GenericLinkNames()+L",ColorantControl,ExposedMedia,PreviewGenerationParams,RunList,TransferCurvePool";
+			return GenericLinkNames()+L",ColorantControl,ExposedMedia,PreviewGenerationParams,RunList,TransferCurvePool,Preview";
 			break;
 									};
 		case Type_Proofing:{
@@ -667,7 +709,7 @@ namespace JDF{
 			break;
 								  };
 		case Type_ShapeCutting:{
-			return GenericLinkNames()+L",Component,ShapeCuttingParams";
+			return GenericLinkNames()+L",Component,ShapeCuttingParams,Tool";
 			break;
 							   };
 		case Type_Shrinking:{
@@ -765,7 +807,7 @@ namespace JDF{
 			break;
 						   };
 		case Type_ManualLabor:{
-			return GenericLinkInfo()+L",o_ i*,i_";
+			return GenericLinkInfo()+L",o? i*,i_";
 			break;
 							  };
 		case Type_Ordering:{
@@ -777,7 +819,7 @@ namespace JDF{
 			break;
 						  };
 		case Type_QualityControl:{
-			return GenericLinkInfo()+L",o_ i_,i_,i_";
+			return GenericLinkInfo()+L",o_ i_,o_,i_";
 			break;
 								 };
 		case Type_ResourceDefinition:{
@@ -793,11 +835,11 @@ namespace JDF{
 			break;
 							   };
 		case Type_AssetListCreation:{
-			return GenericLinkInfo()+L",i_,i_";
+			return GenericLinkInfo()+L",i_,i_ o_";
 			break;
 									};
 		case Type_Bending:{
-			return GenericLinkInfo()+L",i_,i? o?,i? o?";
+			return GenericLinkInfo()+L",i_,i? o_,i?";
 			break;
 						  };
 		case Type_ColorCorrection:{
@@ -817,7 +859,7 @@ namespace JDF{
 			break;
 									 };
 		case Type_CylinderLayoutPreparation:{
-			return GenericLinkInfo()+L",i? o?,i? o?,o_ i_,i? o?";
+			return GenericLinkInfo()+L",i?,i_,i_,o?";
 			break;
 											};
 		case Type_DBDocTemplateLayout:{
@@ -829,7 +871,7 @@ namespace JDF{
 			break;
 									};
 		case Type_DigitalDelivery:{
-			return GenericLinkInfo()+L",i_,o_ i_";
+			return GenericLinkInfo()+L",i_,o+ i*";
 			break;
 								  };
 		case Type_FilmToPlateCopying:{
@@ -845,7 +887,7 @@ namespace JDF{
 			break;
 								   };
 		case Type_ImageSetting:{
-			return GenericLinkInfo()+L",i?,i?,o_,i?,i_,i_,i?";
+			return GenericLinkInfo()+L",i?,i?,o_ i?,i?,i_,i_,i?";
 			break;
 							   };
 		case Type_Imposition:{
@@ -853,7 +895,7 @@ namespace JDF{
 			break;
 							 };
 		case Type_InkZoneCalculation:{
-			return GenericLinkInfo()+L",i_,o_,i?,i?,i?";
+			return GenericLinkInfo()+L",i?,o_,i?,i?,i?,i_";
 			break;
 									 };
 		case Type_Interpreting:{
@@ -861,7 +903,7 @@ namespace JDF{
 			break;
 							   };
 		case Type_LayoutElementProduction:{
-			return GenericLinkInfo()+L",o? i*,i? o?,o?";
+			return GenericLinkInfo()+L",o? i*,i?,o?";
 			break;
 										  };
 		case Type_LayoutPreparation:{
@@ -873,15 +915,15 @@ namespace JDF{
 			break;
 									};
 		case Type_PDLCreation:{
-			return GenericLinkInfo()+L",i? o?,i_,o_ i_";
+			return GenericLinkInfo()+L",i?,i?,o_ i_";
 			break;
 							  };
 		case Type_Preflight:{
-			return GenericLinkInfo()+L",i_,i_,i_,i? o?";
+			return GenericLinkInfo()+L",i_,i_,i_,o_";
 			break;
 							};
 		case Type_PreviewGeneration:{
-			return GenericLinkInfo()+L",i?,i?,i_,i?,i?";
+			return GenericLinkInfo()+L",i?,i?,i_,i?,i?,o_";
 			break;
 									};
 		case Type_Proofing:{
@@ -893,7 +935,7 @@ namespace JDF{
 			break;
 									};
 		case Type_RasterReading:{
-			return GenericLinkInfo()+L",i?,o_ i?";
+			return GenericLinkInfo()+L",i?,o_ i_";
 			break;
 								};
 		case Type_Rendering:{
@@ -917,7 +959,7 @@ namespace JDF{
 			break;
 							   };
 		case Type_Stripping:{
-			return GenericLinkInfo()+L",i+,i? o?,o?Marks o?Document i?Document,i_,i?,o_";
+			return GenericLinkInfo()+L",i+,i?,o?Marks o?Document i?Document,i_,i?,o_";
 			break;
 							};
 		case Type_Tiling:{
@@ -929,7 +971,7 @@ namespace JDF{
 			break;
 						   };
 		case Type_ConventionalPrinting:{
-			return GenericLinkInfo()+L",i?,o?Waste o_ i?Proof i?Input,i_,i_Plate i?Proof,i?,i?,i?,i?,i?,i?,i?";
+			return GenericLinkInfo()+L",i?,o?Waste o_ i?Proof i?Input,i_,i?Plate i?Proof i?Cylinder,i?,i?,i?,i?,i?,i?,i?";
 			break;
 									   };
 		case Type_DigitalPrinting:{
@@ -949,15 +991,15 @@ namespace JDF{
 			break;
 								   };
 		case Type_BoxFolding:{
-			return GenericLinkInfo()+L",o_ i?Box i_,i_";
+			return GenericLinkInfo()+L",o_ i*Application i_,i_";
 			break;
 							 };
 		case Type_BoxPacking:{
-			return GenericLinkInfo()+L",i_,o_ i?Box i_,i? o?";
+			return GenericLinkInfo()+L",i_,o_ i?Box i_,i?Tie i?UnderLay";
 			break;
 							 };
 		case Type_Bundling:{
-			return GenericLinkInfo()+L",o_ i_,i?,i?";
+			return GenericLinkInfo()+L",o_ i_,i_,i?";
 			break;
 						   };
 		case Type_CaseMaking:{
@@ -977,7 +1019,7 @@ namespace JDF{
 			break;
 							  };
 		case Type_Collecting:{
-			return GenericLinkInfo()+L",i? o?,i?,o_ i+,i*,i?,i?";
+			return GenericLinkInfo()+L",i?,i?,o_ i+,i*,i?,i?";
 			break;
 							 };
 		case Type_CoverApplication:{
@@ -989,7 +1031,7 @@ namespace JDF{
 			break;
 						   };
 		case Type_Cutting:{
-			return GenericLinkInfo()+L",o+ i?,i*,i*,i_,i?";
+			return GenericLinkInfo()+L",o* i?,i*,i*,i_,o* i?";
 			break;
 						  };
 		case Type_Dividing:{
@@ -1013,7 +1055,7 @@ namespace JDF{
 			break;
 						  };
 		case Type_Gathering:{
-			return GenericLinkInfo()+L",i? o?,o_ i+,i*,i?,i_,i?";
+			return GenericLinkInfo()+L",i?,o_ i+,i*,i?,i_,i?";
 			break;
 							};
 		case Type_Gluing:{
@@ -1077,7 +1119,7 @@ namespace JDF{
 			break;
 								  };
 		case Type_ShapeCutting:{
-			return GenericLinkInfo()+L",o_ i_,i_";
+			return GenericLinkInfo()+L",o+ i_,i?,i*";
 			break;
 							   };
 		case Type_Shrinking:{
@@ -1125,7 +1167,7 @@ namespace JDF{
 			break;
 						   };
 		case Type_WebInlineFinishing:{
-			return GenericLinkInfo()+L",i? o?,o_ i_,i? o?,i? o?,i_";
+			return GenericLinkInfo()+L",i?,o_ i_,i?,i?,i?";
 			break;
 									 };
 		case Type_WireCombBinding:{
@@ -1214,35 +1256,67 @@ namespace JDF{
 		return elm_JDF;
 	};
 
+
+
 	//////////////////////////////////////////////////////////////////////
 	// Add a resource to resroot and link it to this process 
 
-	JDFResource JDFNode::AddResource(const WString & name,JDFResource::EnumClass resClass, bool bInput, JDFNode resRoot, bool bLink, const WString & nameSpaceURI, const JDFResource & toReplace){
+	JDFResource JDFNode::AddResource(const WString & name,JDFResource::EnumClass resClass, bool bInput, JDFNode resRoot, bool bLink, const WString & nameSpaceURI, const JDFResource & toReplace)
+	{
+		JDFResourceLink::EnumUsage usage=JDFResourceLink::Usage_Unknown;
+		if(bLink)
+			usage=bInput ? JDFResourceLink::Usage_Input : JDFResourceLink::Usage_Output; 
+		return addResource(name,resClass,usage,WString::emptyStr,resRoot,nameSpaceURI, toReplace);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+	// Add a resource to resroot and link it to this process 
+
+	JDFResource JDFNode::addResource(const WString & name,JDFResource::EnumClass resClass, JDFResourceLink::EnumUsage usage,const WString& procUsage, JDFNode resRoot, const WString & nameSpaceURI, const JDFResource & toReplace){
 		if (resRoot.isNull()) 
 			resRoot=*this;
 		JDFResourcePool p=resRoot.GetCreateResourcePool();
 		JDFResource r=p.AppendResource(name,resClass,nameSpaceURI);
-		if(bLink) 
-			LinkResource(r,bInput);
+
+		if(usage!=JDFResourceLink::Usage_Unknown) 
+			linkResource(r,usage,JDFNode::EnumProcessUsageFromString(procUsage));
+		JDFResource::EnumClass resClass2 = r.GetClass();
+		if(resClass2!=JDFResource::Class_Unknown)
+		{
+			resClass=resClass2;
+		}
+		else
+		{
+			resClass=JDFResource::Class_Unknown;
+		}
+		if(resClass!=JDFResource::Class_Unknown)
+			r.SetClass(resClass);
+
+
 		// parameters and consumables are assumed to be available by default
-		if(bInput&&((resClass==JDFResource::Class_Parameter)||(resClass==JDFResource::Class_Consumable))){
-			r.SetAvailable();
-		}else{
-			r.SetStatus(JDFResource::Status_Unavailable);
+		if (usage == JDFResourceLink::Usage_Input&& resClass!=JDFResource::Class_Unknown
+			&& ((resClass==JDFResource::Class_Parameter)
+			|| (resClass==JDFResource::Class_Consumable)))
+		{
+			r.SetStatus(JDFResource::Status_Available,false);
+		}
+		else
+		{
+			r.SetStatus(JDFResource::Status_Unavailable,false);
 		}
 		if(!toReplace.isNull()){
 			JDFAuditPool auditPool=GetCreateAuditPool();
-			JDFResourceAudit resourceAudit=auditPool.AddResourceAudit();
-			JDFResourceLink lNew=resourceAudit.AddNewLink(r,bInput);
-			JDFResourceLink lOldw=resourceAudit.AddOldLink(toReplace,bInput);
-			vElement vRL=GetResourceLinkPool().GetInOutLinks(bInput,true);
+			JDFResourceAudit resourceAudit=auditPool.AddResourceAudit(WString::emptyStr);
+			resourceAudit.addNewOldLink(true, r, usage);
+			resourceAudit.addNewOldLink(false,toReplace,usage);
+			VElement vRL=GetResourceLinkPool().getInOutLinks(usage,true,WString::star,WString::star);
 			for(int i=0;i<vRL.size();i++){
-				JDFResourceLink l=vRL[i];
+				JDFResourceLink l=(JDFResourceLink) vRL.elementAt(i);
 				if(l.GetTarget()==toReplace){
 					l.DeleteNode();
 				}
-			}			
-		}
+			}           
+		}    
 		return r;
 	}
 
@@ -1259,8 +1333,8 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	* Is this a Combined node type ?
-	* return boolean: true if this is a combined node
+	* Is this a Product node type ?
+	* return boolean: true if this is a Product node
 	*/
 	bool JDFNode::IsProduct()const{
 		return GetType().compare(sProduct)==0;
@@ -1268,8 +1342,8 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	* Is this a Combined node type ?
-	* return boolean: true if this is a combined node
+	* Is this a ProcessGroup node type ?
+	* return boolean: true if this is a ProcessGroup node
 	*/
 	bool JDFNode::IsProcessGroup()const{
 		static const WString s=L"ProcessGroup";
@@ -1286,34 +1360,140 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	JDFResourceLink JDFNode::LinkResource(JDFResource r, bool input, bool bForce){
-		if(!r.IsValid(ValidationLevel_Construct))
-			throw JDFException("JDFNode::LinkResource: invalid resource for linking");
-		JDFResourceLinkPool rlp=GetCreateResourceLinkPool();
-		JDFResourceLink resourceLink=rlp.AppendResource(r,input,bForce);
-		VString types = GetTypes();
+		if(bForce) // fool compiler
+			bForce=true;
+		return linkResource(r,input ? JDFResourceLink::Usage_Input : JDFResourceLink::Usage_Output,JDFNode::ProcessUsage_Unknown);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	JDFResourceLink JDFNode::linkResource(JDFResource jdfResource, JDFResourceLink::EnumUsage usage, EnumProcessUsage processUsage)
+	{
+		if (jdfResource.isNull())
+			return JDFNode::DefJDFNode;
+
+		JDFResourceLinkPool resourceLinkPool = GetCreateResourceLinkPool();
+		JDFResourceLink resourceLink = resourceLinkPool.linkResource(jdfResource, usage, processUsage);
+		vWString types = GetTypes();
 		// generate 
-		int typSize = types.size();
-		if(typSize>0) 
+		if(!types.empty()) 
 		{
-			JDFIntegerList cpi;
-			WString resName=r.GetLocalName();
-			for(int i=0;i<typSize;i++)
-			{
-				EnumType t=EnumTypeFromString(types[i]);
-				vWString typeLinkNames=TypeLinkNames(t).Tokenize(WString::comma);
-				if(typeLinkNames.contains(resName))
-				{
-					cpi.push_back(i);
-				}                               
-			}
-			if(cpi.size()>0)
-				resourceLink.SetCombinedProcessIndex(cpi);
+			generateCombinedProcessIndex(jdfResource, usage, processUsage, resourceLink, types);
 		}
 		return resourceLink;
 	}
 
+	//////////////////////////////////////////////////////////////////////
+
+	void JDFNode::generateCombinedProcessIndex(const JDFResource& jdfResource, JDFResourceLink::EnumUsage usage, JDFNode::EnumProcessUsage processUsage, JDFResourceLink resourceLink, const vWString& types)
+	{
+		JDFIntegerList cpi;
+		WString resName=jdfResource.GetLocalName();
+		int typSize = types.size();
+		int lastGot=-2; // not -1!!!
+		vWString typeLinkNamesLast;
+		for(int i=0;i<typSize;i++)
+		{
+
+			bool bAddCPI=false;
+			EnumType t = JDFNode::EnumTypeFromString(types.stringAt(i));
+			vWString typeLinkNames = TypeLinkNames(t).Tokenize(WString::comma);
+			if(!typeLinkNames.empty() && typeLinkNames.hasString(resName))
+			{
+				// if we already added a cpi, but this is an exchange resource, only set cpi for the last one
+				int iPos = typeLinkNames.index(resName);
+				vWString allTypeInfos = TypeLinkInfo(t).Tokenize(WString::comma);
+				vWString typeInfo = allTypeInfos[iPos].Tokenize(WString::whiteSpace);
+				bool bMatchUsage=false;
+				WString inOut=usage==JDFResourceLink::Usage_Input ? "i" : "o";
+
+				for(int ti=0;ti<typeInfo.size();ti++)
+				{
+					WString sti=typeInfo.stringAt(ti);
+					if(inOut.empty() || sti.startsWith(inOut))
+					{
+						if(processUsage==JDFNode::ProcessUsage_Unknown || JDFNode::ProcessUsageString(processUsage).equals(sti.substring(2)))
+						{
+							bMatchUsage=true;
+							bAddCPI=true;
+							break; // one match is enough!
+						}
+					}
+				}
+				if(bMatchUsage && lastGot==i-1)
+				{
+					bAddCPI = cleanCombinedProcessIndex(usage, types, cpi, resName, lastGot, typeLinkNamesLast, bAddCPI, typeInfo);
+				}
+				if(bAddCPI)
+					cpi.add(i);
+
+				lastGot=i;
+				typeLinkNamesLast=typeLinkNames;
+			}                               
+		}
+		if(cpi.size()>0)
+			resourceLink.SetCombinedProcessIndex(cpi);
+	}
 
 	//////////////////////////////////////////////////////////////////////
+
+	bool JDFNode::cleanCombinedProcessIndex(JDFResourceLink::EnumUsage usage, const vWString& types, JDFIntegerList& cpi, const WString& resName, int lastGot, const vWString& typeLinkNamesLast, bool bAddCPI, const vWString& typeInfo)
+	{    
+		// attention: parameter cpi must not be const!
+		int iPosLast = typeLinkNamesLast.index(resName);
+		// the i* i?pu ... list of this
+		// the o* i?pu ... list of the previous type
+		JDFNode::EnumType t=JDFNode::EnumTypeFromString(types.stringAt(lastGot));
+		vWString allTypeInfosLast = TypeLinkInfo(t).Tokenize(WString::comma);
+		vWString typeInfoLast = allTypeInfosLast[iPosLast].Tokenize(WString::whiteSpace);
+		bool bOut=false;
+
+		for(int ii=0;ii<typeInfoLast.size();ii++)
+		{
+			if(typeInfoLast.stringAt(ii).startsWith("o"))
+			{
+				bOut=true; // we found a matching output
+				break;
+			}
+		}
+		if(bOut)
+		{
+			bool bIn=false;
+			bOut=false;
+			for(int ii=0;ii<typeInfo.size();ii++)
+			{
+				if(!bIn && typeInfo.stringAt(ii).startsWith("i"))
+				{
+					bIn=true; // after finding a matching output in last, we find an input here
+				}
+				if(!bOut && typeInfo.stringAt(ii).startsWith("o"))
+				{
+					bOut=true; // after finding a matching output in last, we find an input here
+				}
+			}
+			if(bIn && bOut)
+			{ // remove the last output if we found a pass through
+				if(usage==JDFResourceLink::Usage_Input)
+				{
+					bAddCPI=false;
+				}
+				else
+				{					
+					cpi.pop_back();
+					bAddCPI=true;
+				}
+			}
+			else
+			{
+				//not continuous - reset
+				bAddCPI=true;
+			}
+		}
+		return bAddCPI;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
 	vElement JDFNode::GetPredecessors(bool bPre, bool bRecurse)const{
 		return GetPredecessors(bPre,bRecurse,vWString());
 	}
@@ -1352,8 +1532,12 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
-	bool JDFNode::IsExecutable(const mAttribute & partMap, bool bCheckChildren)const{
+	bool JDFNode::IsExecutable(const mAttribute & partMap, bool bCheckChildren){
 		vElement v=GetResourceLinkPool().GetLinks();
+		EnumStatus status = this->GetPartStatus(partMap);
+		if ((status != Status_Waiting) && (status != Status_Ready))
+			return false;
+
 		for(int i=0;i<v.size();i++){
 			JDFResourceLink rl=v[i];
 			if(!rl.IsExecutable(partMap,bCheckChildren)) 
@@ -1377,7 +1561,7 @@ namespace JDF{
 	JDFNode JDFNode::GetParentJDFNode()const{
 		JDFElement n=GetParentNode();
 		if(!n.IsJDFNode())
-			n=JDFNode();
+			n=DefJDFNode;
 		return n;
 	}
 
@@ -1449,20 +1633,20 @@ namespace JDF{
 			if(isNull()) 
 				return true;
 		}
-		level=IncompleteLevel(level);
+		level = IncompleteLevel(level);
 		bool bValid=JDFElement::IsValid(level);
 		if(!bValid) 
 			return false;
-		if(level<=ValidationLevel_Construct) 
+		if(level<=ValidationLevel_Construct)
 			return true;
-		bValid=!HasInvalidLinks(level,false);
-		if(bValid&&IsProduct()){
-			JDFNode n=GetParentJDFNode();
+		bValid=!HasInvalidLinks(level);
+		if(bValid && (Type_Product == GetEnumType()))
+		{
+			JDFNode n=GetParentJDF();
 			if(!n.isNull()){
-				bValid=n.GetType()==L"Product";
+				bValid=(Type_Product==n.GetEnumType());
 			}
 		}
-
 		return bValid;
 	}
 
@@ -1803,6 +1987,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	void JDFNode::SetType(const WString & typ){
+		RemoveAttribute("type",atr_xsiURI);
 		SetAttribute(atr_Type,typ);
 		if(EnumTypeFromString(typ)>0){
 			SetAttribute(L"xsi:type",typ,atr_xsiURI);
@@ -1830,6 +2015,107 @@ namespace JDF{
 
 	void JDFNode::SetTypes(const vWString & vCombiNodes){
 		SetAttribute(atr_Types,vCombiNodes);
+	}
+
+	vElement JDFNode::getLinksForCombinedProcessIndex(int combinedProcessIndex)
+	{
+		JDFNode::EnumType typ = GetEnumType();
+		if(!(typ==JDFNode::Type_Combined)&&!(typ==JDFNode::Type_ProcessGroup))
+			return vElement::emptyVector;
+
+
+		VElement vLinks=getLinks(WString::emptyStr,mAttribute::emptyMap,WString::emptyStr);
+		if(vLinks.empty())
+			return vElement::emptyVector;
+
+		WString indexString=WString::formatInteger(combinedProcessIndex);
+		// loop over all links
+		for(int i=vLinks.size()-1;i>=0;i--)
+		{
+			JDFResourceLink rl=(JDFResourceLink) vLinks.elementAt(i);
+			if(rl.HasAttribute(JDFStrings::atr_CombinedProcessIndex) &&
+				!rl.IncludesMatchingAttribute(JDFStrings::atr_CombinedProcessIndex,indexString,JDFElement::AttributeType_IntegerList)) 
+			{
+				vLinks.remove(i);
+			}
+		}
+		return vLinks;
+	}
+
+	vElement JDFNode::getLinksForType(JDFNode::EnumType type, int nType)
+	{
+		JDFNode::EnumType typ = GetEnumType();
+		if (typ==JDFNode::Type_Unknown)
+			return vElement::emptyVector;
+
+		// not combined, simpy get links from entire node 
+		if (typ == type)
+		{
+			return getLinks(WString::emptyStr,mAttribute::emptyMap,WString::emptyStr);
+		}
+
+		// nasty - mismatching type attribute
+		if(!(typ==JDFNode::Type_Combined)&&!(typ==JDFNode::Type_ProcessGroup))
+			return vElement::emptyVector;
+
+		// no types - this is a corrupt node
+		vWString vTypes=getEnumTypes();
+		if(vTypes.empty())
+			return vElement::emptyVector;
+		int typSize=vTypes.size();
+
+		// no links here at all
+		vElement vLinks=getLinks(WString::emptyStr,mAttribute::emptyMap,WString::emptyStr);
+		if(vLinks.empty())
+			return vElement::emptyVector;
+		// 
+		// loop over all links and remove non-matching entries
+		for(int i=vLinks.size()-1;i>=0;i--)
+		{
+			JDFResourceLink rl=(JDFResourceLink) vLinks.elementAt(i);
+			JDFIntegerList cpi=rl.GetCombinedProcessIndex();
+			if(!cpi.empty()) // there is a cpi, check if it matches
+			{
+				int size = cpi.size();
+				bool bFound=false;
+				// loop over indeces of CombinedProcessIndex
+				for(int j=0;j<size;j++)
+				{
+					int index=(int)cpi[j];
+					if(index<typSize) // the index points to a vaild position in the list
+					{
+						JDFNode::EnumType cpiType=(JDFNode::EnumType)((int)vTypes.elementAt(index));
+						if(cpiType==type)
+						{
+							if(nType<0) // flag not to check which ocurrence
+							{
+								bFound=true;
+							}
+							else
+							{
+								int nFound=-1;
+								for(int k=0;k<=index;k++) // count occurences of this process type in front of and including this
+								{
+									JDFNode::EnumType cpiTypeCount=(JDFNode::EnumType)((int)vTypes.elementAt(k));
+									if(cpiTypeCount==type)
+										nFound++;                                  
+								}
+								bFound=nFound==nType;
+								if(bFound) // we found a good cpi, break search
+									break;
+							}
+						}
+					}
+				}
+				// found non matching cpi - remove link
+				if(!bFound) 
+				{
+					vLinks.remove(i);
+				}
+			}
+		}
+
+		return vLinks;
 	}
 
 	/**
@@ -1948,101 +2234,104 @@ namespace JDF{
 
 	bool JDFNode::FixVersion(EnumVersion version){
 		bool bRet=true;
-		SetEnumVersion(version);
-		JDFResourceLinkPool rlp=GetResourceLinkPool();
-		// fix NodeInfo and CustomerInfo
-		for(int i=0;i<2;i++){
-			WString nam=i?elm_NodeInfo:elm_CustomerInfo;
-			WString linkNam=nam+atr_Link;
-			if(version>=Version_1_3){
-				if(HasChildElement(nam)||((i==1) && HasChildElement(elm_StatusPool))){
-					JDFElement e=GetElement(nam);
-					// move nodeinfo or CustomerInfo into the resource
-					if(!rlp.HasChildElement(linkNam)){
-						JDFResource r=AddParameter(nam);
-						r.MergeElement(e,false);
-						if((i==1) && HasChildElement(elm_StatusPool)){
+		if (version != Version_Unknown)
+		{
+			SetEnumVersion(version);
+			JDFResourceLinkPool rlp=GetResourceLinkPool();
+			// fix NodeInfo and CustomerInfo
+			for(int i=0;i<2;i++){
+				WString nam=i?elm_NodeInfo:elm_CustomerInfo;
+				WString linkNam=nam+atr_Link;
+				if(version>=Version_1_3){
+					if(HasChildElement(nam)||((i==1) && HasChildElement(elm_StatusPool))){
+						JDFElement e=GetElement(nam);
+						// move nodeinfo or CustomerInfo into the resource
+						if(!rlp.HasChildElement(linkNam)){
+							JDFResource r=AddParameter(nam);
+							r.MergeElement(e,false);
+							if((i==1) && HasChildElement(elm_StatusPool)){
 
-							// get PartStatus vector
-							JDFStatusPool statusPool=GetStatusPool();
-							vElement vPartStatus=statusPool.GetPoolChildren();
-							SetStatus(Status_Part);
-							mAttribute mps;
-							if(!vPartStatus.empty()){
-								JDFPartStatus ps=vPartStatus[0];
-								mps=ps.GetPartMap();
-							}
-							vWString partIDKeys=GetPartIDKeys(mps);
-
-							JDFNodeInfo ni=r;
-							ni.SetAttribute(atr_NodeStatus,statusPool.GetAttribute(atr_Status));
-							ni.SetAttribute(atr_NodeStatusDetails,statusPool.GetStatusDetails());
-							for(int ips=0;ips<vPartStatus.size();ips++){
-								JDFPartStatus ps=vPartStatus[ips];
-								try{ // see if the partstatus is consistent with what we have
-									ni=r.GetCreatePartition(ps.GetPartMap(),partIDKeys);
-								}catch (JDFException ex){
-									// couldn't create a partiton - flag failure and move on
-									bRet=false;
-									continue;
+								// get PartStatus vector
+								JDFStatusPool statusPool=GetStatusPool();
+								vElement vPartStatus=statusPool.GetPoolChildren();
+								SetStatus(Status_Part);
+								mAttribute mps;
+								if(!vPartStatus.empty()){
+									JDFPartStatus ps=vPartStatus[0];
+									mps=ps.GetPartMap();
 								}
-								ni.SetAttribute(atr_NodeStatus,ps.GetAttribute(atr_Status));
-								ni.SetAttribute(atr_NodeStatusDetails,ps.GetStatusDetails());
-							}
-							RemoveChild(elm_StatusPool);
-						}
-					}
-					// have both link and element - snafu simply remove element
-					RemoveChild(nam);
-				}
-			}else{ // move to version <= 1.2
-				if(rlp.HasChildElement(linkNam)){
-					JDFResourceLink rl=rlp.GetPoolChild(0,linkNam);
-					JDFResource root=rl.GetLinkRoot();
-					JDFElement e=GetCreateElement(nam);
+								vWString partIDKeys=GetPartIDKeys(mps);
 
-					// not partitioned, simply copy into nodeinfo element
-					if(!root.HasAttribute(atr_PartIDKeys)){
-						e.MergeElement(root,false);
+								JDFNodeInfo ni=r;
+								ni.SetAttribute(atr_NodeStatus,statusPool.GetAttribute(atr_Status));
+								ni.SetAttribute(atr_NodeStatusDetails,statusPool.GetStatusDetails());
+								for(int ips=0;ips<vPartStatus.size();ips++){
+									JDFPartStatus ps=vPartStatus[ips];
+									try{ // see if the partstatus is consistent with what we have
+										ni=r.GetCreatePartition(ps.GetPartMap(),partIDKeys);
+									}catch (JDFException ex){
+										// couldn't create a partiton - flag failure and move on
+										bRet=false;
+										continue;
+									}
+									ni.SetAttribute(atr_NodeStatus,ps.GetAttribute(atr_Status));
+									ni.SetAttribute(atr_NodeStatusDetails,ps.GetStatusDetails());
+								}
+								RemoveChild(elm_StatusPool);
+							}
+						}
+						// have both link and element - snafu simply remove element
+						RemoveChild(nam);
+					}
+				}else{ // move to version <= 1.2
+					if(rlp.HasChildElement(linkNam)){
+						JDFResourceLink rl=rlp.GetPoolChild(0,linkNam);
+						JDFResource root=rl.GetLinkRoot();
+						JDFElement e=GetCreateElement(nam);
+
+						// not partitioned, simply copy into nodeinfo element
+						if(!root.HasAttribute(atr_PartIDKeys)){
+							e.MergeElement(root,false);
+							if(i==1){
+								MoveAttribute(atr_Status,e,atr_NodeStatus);
+								MoveAttribute(atr_StatusDetails,e,atr_NodeStatusDetails);
+							}
+						}else{ // partitioned nodeinfo or customerinfo handling
+							if(i==1){ // copy nodeinfo stati into statuspool
+								SetStatus(Status_Pool);
+								vElement vLeaves=root.GetLeaves();
+								JDFStatusPool sp=GetCreateStatusPool();
+								sp.RemoveChildren();
+								for(int j=0;j<vLeaves.size();j++){
+									JDFNodeInfo ni=vLeaves[j];
+									JDFPartStatus ps=sp.AppendPartStatus();
+									ps.SetPartMap(ni.GetPartMap());
+									ps.SetAttribute(atr_Status,ni.GetAttribute(atr_NodeStatus));
+									ps.SetAttribute(atr_StatusDetails,ni.GetAttribute(atr_NodeStatusDetails));
+								}
+							}
+							// merge the most fitting resource partition into the unpartitioned 
+							// nodeinfo or customerinfo
+							JDFResource target=rl.GetTarget();
+							KElement targetElement=target;
+							targetElement.RemoveChildren(targetElement.GetNodeName());
+							target.Expand();
+							e.MergeElement(target,false);
+						}
+
+						// clean up resource specific attributes
+						e.RemoveAttribute(atr_ID);
+						e.RemoveAttribute(atr_Class);
+						e.RemoveAttribute(atr_Status);
 						if(i==1){
-							MoveAttribute(atr_Status,e,atr_NodeStatus);
-							MoveAttribute(atr_StatusDetails,e,atr_NodeStatusDetails);
+							e.RemoveAttribute(atr_NodeStatus);
+							e.RemoveAttribute(atr_NodeStatusDetails);
 						}
-					}else{ // partitioned nodeinfo or customerinfo handling
-						if(i==1){ // copy nodeinfo stati into statuspool
-							SetStatus(Status_Pool);
-							vElement vLeaves=root.GetLeaves();
-							JDFStatusPool sp=GetCreateStatusPool();
-							sp.RemoveChildren();
-							for(int j=0;j<vLeaves.size();j++){
-								JDFNodeInfo ni=vLeaves[j];
-								JDFPartStatus ps=sp.AppendPartStatus();
-								ps.SetPartMap(ni.GetPartMap());
-								ps.SetAttribute(atr_Status,ni.GetAttribute(atr_NodeStatus));
-								ps.SetAttribute(atr_StatusDetails,ni.GetAttribute(atr_NodeStatusDetails));
-							}
-						}
-						// merge the most fitting resource partition into the unpartitioned 
-						// nodeinfo or customerinfo
-						JDFResource target=rl.GetTarget();
-						KElement targetElement=target;
-						targetElement.RemoveChildren(targetElement.GetNodeName());
-						target.Expand();
-						e.MergeElement(target,false);
-					}
 
-					// clean up resource specific attributes
-					e.RemoveAttribute(atr_ID);
-					e.RemoveAttribute(atr_Class);
-					e.RemoveAttribute(atr_Status);
-					if(i==1){
-						e.RemoveAttribute(atr_NodeStatus);
-						e.RemoveAttribute(atr_NodeStatusDetails);
+						// ciao bello
+						rl.DeleteNode();
+						root.DeleteNode();
 					}
-
-					// ciao bello
-					rl.DeleteNode();
-					root.DeleteNode();
 				}
 			}
 		}
@@ -2067,7 +2356,7 @@ namespace JDF{
 		KElement kRet           = DefKElement;
 		JDFResourceLinkPool rlp = GetResourceLinkPool();
 
-		vElement v = rlp.GetChildElementVector(linkName, WString::emptyStr, mAttribute(), false, WString::nINF);
+		vElement v = rlp.GetChildElementVector(linkName, WString::emptyStr, mAttribute::emptyMap, false, WString::nINF);
 		if(v.size() <= iSkip)
 		{
 			return DefKElement;
@@ -2163,7 +2452,7 @@ namespace JDF{
 		}
 
 		// didn't found a matching node
-		return JDFNode();
+		return DefJDFNode;
 
 	}
 
@@ -2171,178 +2460,19 @@ namespace JDF{
 
 	//check for any resources that
 	vElement JDFNode::CheckSpawnedResources(const vWString& vRWResources,const vmAttribute& vSpawnParts){
-		vElement v;
-		// grab the root node and all it's children
-		vElement vRootLinks=GetAllRefs(vElement(),true);
-		for(int i=0;i<vRootLinks.size();i++){
-			JDFElement liRoot=vRootLinks[i];
-			JDFResource r;		
-
-			bool bResRW=false;
-			if(liRoot.IsResourceLink()){
-				bResRW=LinkFitsRWRes(JDFResourceLink(liRoot),vRWResources);
-				if(bResRW){
-					JDFResourceLink rl=JDFResourceLink(liRoot);
-					JDFResource r=rl.GetTarget();
-					vElement vRes;
-					if(vSpawnParts.empty()){
-						vRes=r.GetLeaves();
-					}else{
-						for(int i=0;i<vSpawnParts.size();i++){ 
-							vRes.AppendUnique(r.GetPartitionVector(vSpawnParts[i]));
-						}
-					}
-					for(int i=0;i<vRes.size();i++){
-						JDFResource rTarget=vRes[i];
-						if(rTarget.GetSpawnStatus()==rTarget.SpawnStatus_SpawnedRW)
-							v.push_back(rTarget);
-					}
-				}
-			}else if(liRoot.IsRefElement()){
-				JDFRefElement re=JDFRefElement(liRoot);
-				JDFResource r=re.GetTarget();
-				bResRW=ResFitsRWRes(r,vRWResources);
-				if(bResRW){
-					if(r.GetSpawnStatus()==r.SpawnStatus_SpawnedRW)
-						v.push_back(r);
-				}
-			}
-		}
-		// empty if all is well
-		return v;
+		JDFSpawn spawn(*this);
+		return spawn.checkSpawnedResources(vRWResources,vSpawnParts);
 	}
-	///////////////////////////////////////////////////////////////
 
-	//add any resources that live in ancestor nodes to this node
-	int JDFNode::AddSpawnedResources(JDFSpawned spawnAudit, JDFNode root, const vWString& vRWResources,const vmAttribute& vSpawnParts, bool bSpawnROPartsOnly){
-		int nSpawned=0;
-		JDFResourcePool rPool=GetCreateResourcePool();
-
-		// must copy the ap to the nood to have a decent hook on ap referenced resources
-		JDFAncestorPool ap=GetAncestorPool();
-		if(!ap.isNull())
-			ap = (JDFAncestorPool) root.CopyElement(ap);
-
-		// grab the root node and all it's children
-		vElement vRootLinks=root.GetAllRefs(vElement(),false);
-
-		WString spawnID=spawnAudit.GetNewSpawnID();
-
-		// first check only read only resources, since there may be a collision
-		for(int loopRORW=0;loopRORW<2;loopRORW++){
-			// loop over all links
-			for(int i=0;i<vRootLinks.size();i++){
-				JDFElement liRoot=vRootLinks[i];
-				WString refID=liRoot.GetHRef();
-				JDFResource rRoot;
-				bool bResRW=false;
-				if(liRoot.IsResourceLink()){
-					bResRW=LinkFitsRWRes(JDFResourceLink(liRoot),vRWResources);
-				}else if(liRoot.IsRefElement()){
-					rRoot=root.GetTarget(refID);
-					bResRW=ResFitsRWRes(rRoot,vRWResources);
-				}
-
-				// do only RO on the first loop and only RW on the second
-				if(bResRW!=(loopRORW!=0))
-					continue;
-
-				// 091204 RP bug fix for multiple deep copies
-				// don't copy if it is already there!
-				JDFResource isThereAlready=GetTarget(refID);			
-				JDFResource::EnumSpawnStatus copyStatus=bResRW ? JDFResource::SpawnStatus_SpawnedRW: JDFResource::SpawnStatus_SpawnedRO;
-
-				if(isThereAlready.isNull()){
-
-					if(rRoot.isNull())
-						rRoot=root.GetTarget(refID);
-
-					//	check for null and throw an exception in picky mode
-					if(rRoot.throwNull())
-						continue;
-
-					// copy any missing linked resources, just in case
-					// the root is in the original jdf and can be used as a hook to the original document 
-					// get a list of all resources referenced by this link
-					// always do a copyresource in case some dangling rRefs are waiting
-					vWString vvRO, vvRW;
-					CopySpawnedResource(rPool,rRoot,copyStatus, vSpawnParts, spawnID, vWString::emptyvStr,vRWResources,vvRW,vvRO,bSpawnROPartsOnly);
-					nSpawned+=vvRO.size()+vvRW.size();
-					isThereAlready=GetTarget(refID);	
-					int iv;
-					for(iv=0;iv<vvRW.size();iv++){
-						spawnAudit.AppendrRefsRWCopied(vvRW[iv]);
-						spawnAudit.RemoveFromAttribute(atr_rRefsROCopied,vvRW[iv]);
-					}
-					for(iv=0;iv<vvRO.size();iv++){
-						spawnAudit.AppendrRefsROCopied(vvRO[iv]);
-					}
-				}
-				// get the effected resources
-				vElement vRes;
-				vElement vResRoot;
-				if(liRoot.IsResourceLink()){
-					vResRoot=JDFResourceLink(liRoot).GetTargetVector();
-
-					// create a temporary dummy copy of the link so that we have a gauranteed copy that behaves the same as the original
-					JDFResourceLink dummy=GetCreateResourceLinkPool().CopyElement(liRoot);
-					vRes=dummy.GetTargetVector();
-					dummy.DeleteNode();
-				}else if(liRoot.IsRefElement()){
-					vResRoot.push_back(JDFRefElement(liRoot).GetTarget());
-
-					// create a temporary dummy copy of the link so that we have a gauranteed copy that behaves the same as the original
-					JDFRefElement dummy=CopyElement(liRoot);
-					vRes.push_back(dummy.GetTarget());
-					dummy.DeleteNode();
-				}else{
-					continue; // snafu - should never get here
-				}
-
-				// fixed not to crash with corrupt jdfs. Now just continue and ignore the corrupt resource
-				int siz=std::min(vRes.size(),vResRoot.size());
-
-				// loop over all partitions
-				for(int resParts=0;resParts<siz;resParts++){
-					JDFResource r=vRes[resParts];
-					JDFResource rRoot=vResRoot[resParts];
-
-					// make sure that spawned resources are sufficiently partitioned if spawning rw so that no merge conflicts arise
-					if(vSpawnParts.size()&&bResRW){
-						r.CreatePartitions(vSpawnParts);
-					}
-					rRoot.SpawnPart(spawnID,copyStatus,vSpawnParts,true);						
-					r.SpawnPart(spawnID,copyStatus,vSpawnParts,false);						
-
-					if(vSpawnParts.size()&&(bResRW||bSpawnROPartsOnly)){
-						// reduce partitions of all RW resources and of RO resources if requested
-						r.ReducePartitions(vSpawnParts);
-					}
-				}					
-			}		
-		} 
-		// must remove ap after use
-		if(!ap.isNull())
-			ap.DeleteNode();
-
-
-		return nSpawned;
-	}
 
 	///////////////////////////////////////////////////////////////
 
 	JDFDoc JDFNode::SpawnInformative(const WString &  parentURL, const WString& spawnURL, const vmAttribute& vSpawnParts, bool bSpawnROPartsOnly,bool bCopyNodeInfo, bool bCopyCustomerInfo, bool bCopyComments) const{
-		JDFDoc docNew(0);
-		JDFNode rootOut=docNew.GetRoot();
-		JDFNode thisRoot=GetJDFRoot();
-
-		// merge this node into it
-		rootOut.MergeNode(thisRoot,false);
-		JDFNode copyOfThis=rootOut.GetChildJDFNode(GetID(),false);
-		docNew=copyOfThis.Spawn(parentURL,spawnURL,vWString::emptyvStr,vSpawnParts,bSpawnROPartsOnly,bCopyNodeInfo,bCopyCustomerInfo,bCopyComments);
-		rootOut=docNew.GetRoot();
-		rootOut.SetActivation(JDFNode::Activation_Informative);
-		return docNew;
+		JDFDoc d(0);
+		JDFNode n = d.GetRoot();
+		JDFNode n2 = *this;
+		n = JDFSpawn(n2).spawnInformative(parentURL, spawnURL, vSpawnParts, bSpawnROPartsOnly, bCopyNodeInfo, bCopyCustomerInfo, bCopyComments).GetJDFRoot();
+		return d;
 	}
 
 	///////////////////////////////////////////////////////////////
@@ -2350,185 +2480,11 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////
 
 	JDFDoc JDFNode::Spawn(const WString &  parentURL, const WString& spawnURL, const vWString& vRWResources_in, const vmAttribute& vSpawnParts, bool bSpawnROPartsOnly,bool bCopyNodeInfo, bool bCopyCustomerInfo, bool bCopyComments){
-		// need copy in order to fix up 1.3 NodeInfo spawn
-		vWString vRWResources=vRWResources_in;
-		vmAttribute vLocalSpawnParts=vSpawnParts;
-		vElement vCheck=CheckSpawnedResources(vRWResources,vLocalSpawnParts);
-		if(!vCheck.empty()){
-			WString IDs=L"JDFNode::Spawn: multiply spawned rw resources:";
-			for(int i=0;i<vCheck.size();i++){
-				IDs+=WString::blank+JDFResource(vCheck[i]).GetAttribute(atr_ID);
-			}
-			throw JDFException(IDs);
-		}
-
-		//create a new jdf document that contains the node to be spawned
-		JDFDoc docOut(0);
-
-		JDFNode rootOut=docOut.GetRoot();
-		JDFNode thisRoot=GetJDFRoot();
-
-		// merge this node into it
-		rootOut.MergeNode(*this,false);
-		// always give large chunk of unique ids for spawned node so that parallel processed ids do not overlap
-		WString spawnID=L"Sp"+UniqueID(-666);
-		rootOut.SetSpawnID(spawnID);
-		rootOut.SetVersion(GetVersion(true));
-
-		static WString nodeInfoNonAncestor=L"NodeInfo:Input"; // named process usage		
-		vRWResources.AppendUnique(nodeInfoNonAncestor); // the local nodeinfo MUST always be rw
-
-		// get partitions to spawn
-		JDFNode spawnParentNode;
-		// we want to spawn a partition
-		if (!vLocalSpawnParts.empty()){
-			spawnParentNode=*this;
-			// don't copy the whole history along
-			rootOut.GetAuditPool().Flush();
-			// The AncestorPool of the original JDF contains the appropriate Part elements
-			vmAttribute preSpawnedParts=thisRoot.GetAncestorPool().GetPartMapVector();
-
-			// 150102 RP add AncestorPool pre spawn part handling
-			if(!preSpawnedParts.empty()){
-				// allParts is the vector of all parts that the spawned AncestorPool will contain
-				vmAttribute allParts;
-				for(int psp=0; psp<preSpawnedParts.size();psp++){
-					vmAttribute tmpParts=vLocalSpawnParts;
-					tmpParts.OverlapMap(preSpawnedParts[psp]);
-					allParts.AppendUnique(tmpParts);
-				}
-				vLocalSpawnParts=allParts;
-			}
-			// we arrived at a null vector of parts - that ain't no good
-			if (vLocalSpawnParts.empty()){
-				throw JDFException("JDFNode:Spawn attempting to spawn incompatible partitions");
-			}
-			// Spawn a complete node -> no partition handling
-		}else{
-			spawnParentNode=GetParentJDFNode();
-			if(spawnParentNode.isNull()){
-				throw JDFException("JDFNode:Spawn cannot spawn unpartitioned root node");
-			}
-		}
-		vElement vn=GetvJDFNode();
-
-		vElement vOutRes;
-		vElement outLinks;
-
-		int i;
-		// fill all resources and all links of all children into vResPool and links
-		for(i=0;i<vn.size();i++){
-			JDFNode n=vn.at(i);
-			// prepare all nodes, just in case
-			n.PrepareNodeInfo(vSpawnParts);
-
-		}
-
-		// fill all resources and all links of all children of rootOut into vOutRes and outLinks
-		vn=rootOut.GetvJDFNode();
-		for(i=0;i<vn.size();i++){
-			JDFNode n=vn.at(i);
-			vOutRes.AppendUnique(n.GetResourcePool().GetPoolChildren());
-			JDFResourceLinkPool outLinkPool = n.GetResourceLinkPool();
-			outLinks.AppendUnique(outLinkPool.GetLinks());
-		}
-
-		// setup the ancestor nodes
-		rootOut.SetSpawnParent(spawnParentNode,parentURL,vLocalSpawnParts, bCopyNodeInfo, bCopyCustomerInfo, bCopyComments);
-
-		// throw in the audits
-		JDFAuditPool p=spawnParentNode.GetCreateAuditPool();
-		JDFSpawned spawnAudit=p.AddSpawned(rootOut);
-
-		// 210302 RP added if statement
-		if(!spawnURL.empty()){
-			WString url=spawnURL;
-			// 300802 RP added check for preexisting file prefix
-			if(url.indexOf(L"://")==-1)
-				url=L"File://"+url;
-
-			spawnAudit.SetURL(url);
-		}
-		spawnAudit.SetNewSpawnID(spawnID);
-
-		// find resources that must be copied
-		rootOut.AddSpawnedResources(spawnAudit,*this,vRWResources,vLocalSpawnParts,bSpawnROPartsOnly);
-
-		// add parts to resource links if necessary
-		if (!vLocalSpawnParts.empty()){
-			for(int i=0;i<outLinks.size();i++){
-				JDFResourceLink link=outLinks[i];
-				JDFResource r=link.GetLinkRoot();
-				//2005-03-11 KM if the link is null continue, the JDF ist invalid but in
-				//the best case only an audit is missing and the JDF is still operable
-				//in the worst caste the spawned JDF is not executable at all
-				if(r.isNull())
-					continue;
-
-				bool bOldLock=r.GetLocked();
-				r.SetLocked(true);
-				r.RemoveAttributeFromLeaves(atr_Locked);
-
-				vmAttribute vPartMap=vLocalSpawnParts;
-				// 160802 RP leave implied resource link parts if PartUsage=implicit 
-				if(r.GetPartUsage()!=JDFResource::PartUsage_Implicit){
-					vWString vPartKeys=r.GetPartIDKeys();
-					JDFFactory f(r);
-					JDFResource& fRes=(JDFResource&)f.GetRef();
-					if(fRes.IsResource()){
-						vint vImplicitPartitions=fRes.GetImplicitPartitions();
-						for(int ii=0;ii<vImplicitPartitions.size();ii++){
-							vPartKeys.push_back(JDFResource::PartIDKeyString((JDFResource::EnumPartIDKey)vImplicitPartitions[ii]));
-						}
-						vPartMap.ReduceKey(vPartKeys);
-					}
-				}
-
-				if(!vPartMap.empty()&&!bOldLock){
-
-					vmAttribute vLinkMap=link.GetPartMapVector();
-					vmAttribute vNewMap;
-					if(vLinkMap.empty()){
-						vNewMap=vPartMap;
-					}else{
-						for(int l=0;l<vLinkMap.size();l++){
-							for(int k=0;k<vPartMap.size();k++){
-								mAttribute m=vPartMap[k];
-								m=m.OrMap(vLinkMap[l]);
-								if(!m.empty()){
-									vNewMap.AppendUnique(m);
-								}
-							}
-
-						}
-					}
-					link.SetPartMapVector(vNewMap);
-					vElement vRes=link.GetTargetVector();
-					for(int t=0;t<vRes.size();t++){
-						JDFResource r=vRes[t];
-						r.AppendSpawnIDs(spawnID);
-						r.SetLocked(false);
-					}
-				}
-			}
-		}
-
-		// add partition information to the audits and StatusPool or NodeInfo
-		// 050906 RP moved here to avoid writing SpawnStatus prior to copying
-		if(!vLocalSpawnParts.empty()){
-			spawnAudit.SetPartMapVector(vLocalSpawnParts);
-			EnumStatus partStatus = GetPartStatus(vLocalSpawnParts[0]);
-			if(partStatus!=Status_Unknown)
-
-				spawnAudit.SetStatus(partStatus);
-			SetPartStatus(vLocalSpawnParts,Status_Spawned);
-		}else{ // No partitioning - set Audit + Status globally
-			spawnAudit.SetStatus(GetStatus());
-			SetStatus(Status_Spawned);
-		}
-		// return the spawned node
-
-		return docOut;
+		JDFSpawn spawn(*this);
+		JDFDoc d(0);
+		//JDFNode n = d.GetJDFRoot();
+		d = spawn.spawn(parentURL,spawnURL,vRWResources_in,vSpawnParts,bSpawnROPartsOnly,bCopyNodeInfo,bCopyCustomerInfo,bCopyComments);
+		return d; 
 	}
 
 	///////////////////////////////////////////////////////////////
@@ -2619,13 +2575,18 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////
 
 	JDFResourceLink JDFNode::GetLink(const JDFResource& r, bool bInput){
+		return getLink(r,bInput ? JDFResourceLink::Usage_Input :  JDFResourceLink::Usage_Output);
+	}
+	///////////////////////////////////////////////////////////////
+
+	JDFResourceLink JDFNode::getLink(const JDFResource& r, JDFResourceLink::EnumUsage usage){
 		// get the reslink pool
 		JDFResourceLinkPool p=GetResourceLinkPool();
 		if(p.isNull()) 
 			return JDFResourceLink();
 
 		// get any possible links
-		vElement v=p.GetInOutLinks(bInput,true);
+		vElement v=p.getInOutLinks(usage,true);
 		// is it the right one?
 		for(int i=0;i<v.size();i++){
 			if(JDFElement(v[i]).GetHRef()==r.GetID()) 
@@ -2641,7 +2602,7 @@ namespace JDF{
 
 	JDFNodeInfo JDFNode::GetInheritedNodeInfo()const
 	{
-		return GetAncestorElement(elm_NodeInfo);
+		return (JDFNodeInfo)getNiCi(elm_NodeInfo,true);
 	}
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -2780,7 +2741,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	JDFCustomerInfo JDFNode::GetInheritedCustomerInfo()const{
-		return GetAncestorElement(elm_CustomerInfo);
+		return (JDFCustomerInfo)getNiCi(elm_CustomerInfo, true);
 	}
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -2840,7 +2801,7 @@ namespace JDF{
 		JDFNode me=*this;
 		while(42){
 			WString pid=me.GetID();
-			JDFNode parent=me.GetParentJDFNode();
+			JDFNode parent=me.GetParentNode();
 			vs.push_back(pid);
 			if(parent.isNull())	
 				break;
@@ -3050,7 +3011,7 @@ namespace JDF{
 				bRet=bRet && SetPartStatus(vmattr[i],status,statusDetails,partIDKeys);
 			}
 		}else{
-			bRet=SetPartStatus(mAttribute.emptyMap,status,statusDetails,partIDKeys);
+			bRet=SetPartStatus(mAttribute::emptyMap,status,statusDetails,partIDKeys);
 		}
 		return bRet;
 	}
@@ -3112,12 +3073,12 @@ namespace JDF{
 			}catch(JDFException ex){
 				bRet=false;
 			}
+			ni.RemoveAttributeFromLeaves(atr_NodeStatusDetails);
+			ni.RemoveAttributeFromLeaves(atr_NodeStatus);
+			ni.SetNodeStatus(status);
 			ni.SetAttribute(atr_NodeStatus,StatusString(status));
 			if(!statusDetails.empty())
 				ni.SetAttribute(atr_NodeStatusDetails,statusDetails);
-			vElement v=ni.GetLeaves(true);
-			for(int i=0;i<v.size();i++)
-				v[i].RemoveAttribute(L"NodeStatus");
 
 			SetStatus (JDFNode::Status_Part);
 		}
@@ -3234,21 +3195,7 @@ namespace JDF{
 
 	JDFCustomerInfo JDFNode::GetCustomerInfo()const
 	{
-		// always get the element
-		JDFCustomerInfo ci=GetInheritedElement(elm_CustomerInfo);
-		EnumVersion eVer = GetEnumVersion(true);
-
-		// if version>=1.0 or no direct element is there try the resource
-		if (eVer >= Version_1_3 || ci.isNull())
-		{
-			JDFResourceLinkPool rlp = GetResourceLinkPool();
-			if(rlp != NULL){
-				JDFResourceLink rl=rlp.GetChildWithAttribute(L"CustomerInfoLink",atr_Usage,WString::emptyStr,L"Input");
-				if(!rl.isNull())
-					ci=rl.GetTarget();
-			}
-		}
-		return ci;
+		return (JDFCustomerInfo) getNiCi(elm_CustomerInfo, false);
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -3286,7 +3233,7 @@ namespace JDF{
 	{
 		JDFNodeInfo ni=GetNodeInfo();
 		if(!ni.isNull())
-			throw(L"JDFNode::AppendNodeInfo: NodeInfo already exists");
+			throw JDFException(L"JDFNode::AppendNodeInfo: NodeInfo already exists");
 		return GetCreateNodeInfo();
 	};
 
@@ -3294,21 +3241,7 @@ namespace JDF{
 
 	JDFNodeInfo JDFNode::GetNodeInfo()const
 	{
-		// always get the element
-		JDFNodeInfo ni=GetInheritedElement(elm_NodeInfo);
-		EnumVersion eVer = GetEnumVersion(true);
-
-		// if version>=1.0 or no direct element is there try the resource
-		if (eVer >= Version_1_3 || ni.isNull())
-		{
-			JDFResourceLinkPool rlp = GetResourceLinkPool();
-			if(rlp != NULL){
-				JDFResourceLink rl=rlp.GetChildWithAttribute(L"NodeInfoLink",atr_Usage,WString::emptyStr,L"Input");
-				if(!rl.isNull())
-					ni=rl.GetTarget();
-			}
-		}
-		return ni;
+		return (JDFNodeInfo) getNiCi(elm_NodeInfo,false);
 	};
 
 
@@ -3321,10 +3254,20 @@ namespace JDF{
 	{
 		while(HasNodeInfo())
 		{
-			RemoveResource(JDFElement::elm_NodeInfo, 0);
+			KElement remRes = RemoveResource(elm_NodeInfo, 0);
+			if (remRes.isNull())
+			{
+				//removed all in the resource pool
+				break;
+			}
 		}
 
-		RemoveChild(JDFElement::elm_NodeInfo, WString::emptyStr, 0);
+		//remove all direct childs
+		vElement nodeInfoChilds = GetChildElementVector(elm_NodeInfo, WString::emptyStr, mAttribute::emptyMap, true, WString::pINF,false);
+		for(int i = 0; i < nodeInfoChilds.size(); i++)
+		{
+			RemoveChild(nodeInfoChilds.elementAt(i).GetNodeName());
+		}
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -3334,19 +3277,30 @@ namespace JDF{
 	*/
 	void JDFNode::RemoveCustomerInfos()
 	{
+		KElement remRes = RemoveResource(elm_CustomerInfo, 0);
 		while(HasCustomerInfo())
 		{
-			RemoveResource(JDFElement::elm_CustomerInfo, 0);
+			RemoveResource(elm_CustomerInfo, 0);
+			if (remRes.isNull())
+			{
+				//removed all in the resource pool
+				break;
+			}
 		}
 
-		RemoveChild(JDFElement::elm_CustomerInfo, WString::emptyStr, 0);
+		//remove all direct childs
+		vElement nodeInfoChilds = GetChildElementVector(elm_CustomerInfo, WString::emptyStr, mAttribute::emptyMap, true, WString::pINF,false);
+		for(int i = 0; i < nodeInfoChilds.size(); i++)
+		{
+			RemoveChild(nodeInfoChilds.elementAt(i).GetNodeName());
+		}
 	};
 
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFNode::HasCustomerInfo()
 	{
-		return NumCustomerInfos() > 0;;
+		return NumCustomerInfos() > 0;
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -3366,7 +3320,7 @@ namespace JDF{
 
 	bool JDFNode::HasNodeInfo()
 	{
-		return NumNodeInfos() > 0;;
+		return NumNodeInfos() > 0;
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -3549,26 +3503,28 @@ namespace JDF{
 	/////////////////////////////////////////////////////////////////////////
 
 	vWString JDFNode::vLinkInfo(int namIndex)const{
-		WString linkInfo=LinkInfo();
-		if(namIndex<0){
-			// tokenize retains order
-			return linkInfo.Tokenize(L" ,");
-		}
-		WString linkNames=LinkNames();
-
-		// performance optimization rough check 1 for , and at least one for each names
-		if((namIndex*2)>=linkNames.size())
-			return vWString();
-
 		vWString vRet;
-		WString name=linkNames.Token(namIndex,WString::comma);
-		int iLoop=0;
-		while(namIndex>=0){
-			vWString v1=linkInfo.Token(namIndex,WString::comma).Tokenize();
-			vRet.insert(vRet.end(),v1.begin(),v1.end());
-			namIndex=linkNames.PosOfToken(name,WString::comma,++iLoop);
+		vWString linkInfo = LinkInfo().Tokenize(WString::comma);
+		if (namIndex < 0)
+		{
+			// tokenize retains order
+			return vWString(linkInfo);
 		}
-		return vRet;
+
+		vWString linkNames = LinkNames().Tokenize(WString::comma);
+
+		WString strName  = linkNames.stringAt(namIndex);
+
+		while (namIndex >= 0)
+		{
+			WString kToken  = linkInfo.stringAt(namIndex);
+			vWString  vToken = kToken.Tokenize(WString::blank);
+
+			vRet.addAll(vToken);
+			namIndex = linkNames.index(strName, ++namIndex);
+		}
+
+		return vRet.empty() ? vWString::emptyvStr : vRet;
 	};
 
 	/////////////////////////////////////////////////////////////////////////
@@ -3577,7 +3533,7 @@ namespace JDF{
 	*/
 	vWString JDFNode::GetUnknownLinkVector(vWString vInNameSpace, int nMax) const{
 		vWString names=LinkNames().Tokenize(WString::comma);
-		vElement ve=GetLinks();
+		vElement ve=getLinks(WString::emptyStr, mAttribute::emptyMap, WString::emptyStr);
 		vWString vUnknown;
 		bool bAllNS=vInNameSpace.empty();
 		for(int j=0;j<vInNameSpace.size();j++) {
@@ -3600,6 +3556,31 @@ namespace JDF{
 		return vUnknown;
 	}
 
+	vElement JDFNode::getUnknownLinkVector(vWString vInNameSpace, int nMax) const{
+		vWString names=LinkNames().Tokenize(WString::comma);
+		vElement ve=getLinks(WString::emptyStr, mAttribute::emptyMap, WString::emptyStr);
+		vElement vUnknown;
+		bool bAllNS=vInNameSpace.empty();
+		for(int j=0;j<vInNameSpace.size();j++) {
+			// tokenize needs a blank
+			if(vInNameSpace[j]==WString::blank)
+				vInNameSpace[j]=WString::emptyStr;
+		}
+
+		for(int i=0;i<ve.size();i++){
+			JDFResourceLink rl=ve[i];
+			WString name=rl.GetNodeName().leftStr(-4);
+			if(bAllNS||(vInNameSpace.hasString(XMLNameSpace(name)))){
+				if(!names.hasString(name)){
+					vUnknown.AppendUnique(rl);
+					if(vUnknown.size()>=nMax) 
+						break;
+				}
+			}
+		}
+		return vUnknown;
+	}
+
 	/////////////////////////////////////////////////////////////////////////
 
 	bool JDFNode::HasMissingLinks()const{ 
@@ -3613,21 +3594,24 @@ namespace JDF{
 	*/
 	vWString JDFNode::GetMissingLinkVector(int nMax) const{
 		vWString names=LinkNames().Tokenize(WString::comma);
+		int nams = names.size();
 		vWString vMissing;
 		if(GetEnumType()==Type_ProcessGroup){
 			return vMissing;
 		}
 		for(int i=0;i<names.size();i++){
-			vWString types=vLinkInfo(i);
-			for(int j=0;j<types.size();j++){
-				if((types[j][1]==L'+')||(types[j][1]==L'_')){
+			vWString types=vLinkInfo(i);	
+			int siz =types.size();
+			for(int j=0;j<siz;j++){
+				WString typesAt = types.elementAt(j);
+				if (typesAt.at(1) == L'+' || typesAt.at(1) == L'_')
+				{
 					// 110602 added
 					EnumProcessUsage pu=GetEnumProcessUsage(types[j]);
 					if(GetMatchingLink(names[i],pu,0).isNull()){
 						WString s=names[i]+atr_Link;
 						if(pu!=ProcessUsage_Any){
 							s+=WString::colon+ProcessUsageString(pu);
-						}else{
 						}
 
 						vMissing.push_back(s);
@@ -3888,16 +3872,34 @@ namespace JDF{
 				}
 			}else if(processUsage==ProcessUsage_AnyOutput){
 				vE=rlp.GetInOutLinks(false,bLink,resName);
+				int vEsize = vE.empty() ? 0 : vE.size();
 				// 170205 RP remove internal pipes from all outputs
 				// ideally we would check if they are connected, but this is a sufficient 98% solution
 				if(bLink){
-					for(int i=vE.size()-1;i>=0;i--){
-						JDFResourceLink rl=vE[i];
-						if(rl.GetPipeProtocol()==sInternal){
-							vE.erase(vE.begin()+i);
+					for(int i = vEsize-1; i >= 0; i--)
+					{
+						JDFResourceLink rl = (JDFResourceLink)vE.elementAt(i);
+						if(rl.GetPipeProtocol().equals("Internal"))
+						{
+							vE.remove(i);
 						}
 					}
 				}
+				//}
+
+				///////////////////////////// old version ///////////////////////////////////
+				//}else if(processUsage==ProcessUsage_AnyOutput){
+				//	vE=rlp.GetInOutLinks(false,bLink,resName);
+				//	// 170205 RP remove internal pipes from all outputs
+				//	// ideally we would check if they are connected, but this is a sufficient 98% solution
+				//	if(bLink){
+				//		for(int i=vE.size()-1;i>=0;i--){
+				//			JDFResourceLink rl=vE[i];
+				//			if(rl.GetPipeProtocol()==sInternal){
+				//				vE.erase(vE.begin()+i);
+				//			}
+				//		}
+				//	}
 			}else{
 				vE=rlp.GetInOutLinks(true,bLink,resName);
 				vE.AppendUnique(rlp.GetInOutLinks(false,bLink,resName));
@@ -4084,8 +4086,17 @@ namespace JDF{
 	JDFResource JDFNode::AppendMatchingResource(const WString& resName, EnumProcessUsage processUsage, JDFNode resourceRoot){
 		vWString vtyp=GetMatchType(resName,processUsage);
 		if(vtyp.empty())
-			throw JDFException(L"JDFNode::AppendMatchingResource invalid type for"+resName);
-
+		{
+			//throw JDFException(L"JDFNode::AppendMatchingResource invalid type for"+resName);
+			bool bInput=!(processUsage==ProcessUsage_AnyOutput);
+			JDFResource r=AddResource(resName, JDFResource::Class_Unknown, bInput, resourceRoot, true, WString::emptyStr,JDFResource::DefJDFResource);
+			JDFResourceLink rl=getLink(r,JDFResourceLink::Usage_Unknown);
+			if(processUsage > ProcessUsage_Any)
+			{
+				rl.SetProcessUsage(JDFNode::ProcessUsageString(processUsage));
+			}
+			return r;
+		}
 		int nFound=0;
 		WString foundTyp;
 		bool foundMulti=false;
@@ -4240,19 +4251,18 @@ namespace JDF{
 	}
 	//////////////////////////////////////////////////////////////////////
 
-	vElement JDFNode::GetAllRefs(const vElement& vDoneRefs, bool bRecurse)const{
-		vElement v1=vDoneRefs;
+	VoidSet* JDFNode::GetAllRefs(VoidSet* vDoneRefs, bool bRecurse)const{
 		if(bRecurse)
-			v1=GetResourcePool().GetAllRefs(v1,bRecurse);
-		v1=GetResourceLinkPool().GetAllRefs(v1,bRecurse);
-		v1=GetCustomerInfo().GetAllRefs(v1,bRecurse);
-		v1=GetNodeInfo().GetAllRefs(v1,bRecurse);
-		v1=GetAncestorPool().GetAllRefs(v1,bRecurse);
+			GetResourcePool().GetAllRefs(vDoneRefs,bRecurse);
+		GetResourceLinkPool().GetAllRefs(vDoneRefs,bRecurse);
+		GetCustomerInfo().GetAllRefs(vDoneRefs,bRecurse);
+		GetNodeInfo().GetAllRefs(vDoneRefs,bRecurse);
+		GetAncestorPool().GetAllRefs(vDoneRefs,bRecurse);
 
 		vElement vNodes =GetvJDFNode(WString::emptyStr,Activation_Unknown,true);
 		for(int i=0;i<vNodes.size();i++)
-			v1=JDFNode(vNodes.at(i)).GetAllRefs(v1,bRecurse);
-		return v1;
+			JDFNode(vNodes.at(i)).GetAllRefs(vDoneRefs,bRecurse);
+		return vDoneRefs;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -4285,14 +4295,7 @@ namespace JDF{
 	*/
 	JDFElement JDFNode::GetAncestorElement(const WString & element,const WString& nameSpaceURI)const{
 		// search the inherited nodes first
-		KElement e;
-		if(element==elm_NodeInfo){
-			e=GetNodeInfo();
-		}else if(element==elm_CustomerInfo){
-			e=GetCustomerInfo();
-		}else{
-			e=GetInheritedElement(element,nameSpaceURI);
-		}
+		KElement e=GetInheritedElement(element,nameSpaceURI);
 		if(e.isNull()){
 			// not in the inherited nodes, check the root node's AncestorPool
 			e=GetJDFRoot().GetAncestorPool().GetAncestorElement(element,nameSpaceURI);
@@ -4390,18 +4393,30 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	JDFResourceAudit JDFNode::CloneResourceToModify(const JDFResourceLink& resLink){
-		JDFResource r=resLink.GetLinkRoot();
-		JDFResourcePool p=r.GetParentJDF().GetResourcePool();
-		WString newID=r.NewModifiedID();
-		JDFResource oldCopy=p.CopyElement(r);
-		oldCopy.SetID(newID);
 
-		JDFResourceAudit resourceAudit=PrepareToModifyLink(resLink);
-		JDFResourceLink resLinkAudit=resourceAudit.CopyElement(resLink);
-		resLinkAudit.RemoveChildren(elm_Part);
-		resLinkAudit.SetrRef(newID);
+		JDFResourceAudit resourceAudit;
+
+		JDFResource r       = resLink.GetLinkRoot();
+		JDFResourcePool p   = r.GetParentJDF().GetResourcePool();
+		JDFResource oldCopy = (JDFResource) p.CopyElement(r,KElement::DefKElement);
+
+		if (!oldCopy.isNull())
+		{
+			oldCopy.SetLocked(true);
+			WString newID = r.NewModifiedID();
+			oldCopy.SetID(newID);
+			resourceAudit = PrepareToModifyLink(resLink);
+			JDFResourceLink resLinkAudit = (JDFResourceLink) resourceAudit.CopyElement(resLink,KElement::DefKElement);
+
+			if (!resLinkAudit.isNull())
+			{
+				resLinkAudit.SetrRef(newID);
+			}
+		}
+
 		return resourceAudit;
 	}
+
 	//////////////////////////////////////////////////////////////////////
 
 	JDFResourceAudit JDFNode::PrepareToModifyLink(const JDFResourceLink& resLink){
@@ -4410,7 +4425,6 @@ namespace JDF{
 		JDFResourceAudit resourceAudit=ap.AddResourceAudit();
 		resourceAudit.SetContentsModified(false);
 		JDFResourceLink resLinkAudit=resourceAudit.CopyElement(resLink);
-		resLinkAudit.RemoveChildren(elm_Part);
 
 		return resourceAudit;
 	}
@@ -4424,16 +4438,16 @@ namespace JDF{
 
 		if(!(parent==*this)){
 			RemoveChild(elm_AncestorPool); // just in case
-			if(parent.GetJDFRoot().HasChildElement(elm_AncestorPool)){
+			if(parent.GetJDFRoot().HasChildElement(elm_AncestorPool))
+			{
 				ancestorPool=CopyElement(ancestorPool);
 				int numAncestors=ancestorPool.NumChildElements(elm_Ancestor);
 				if(numAncestors>0){
 					lastAncestorID=ancestorPool.GetAncestor(numAncestors-1).GetNodeID();
 				}
-			}else{
-				ancestorPool=AppendAncestorPool();
 			}
 		}
+		ancestorPool=GetCreateAncestorPool();
 		ancestorPool.SetPartMapVector(vSpawnParts);
 
 		// avoid double counting of this node's root element in case of partitioned spawning
@@ -4460,10 +4474,13 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	vWString JDFNode::GetParentIds(){
-		vElement v=GetAncestorPool().GetPoolChildren();
 		vWString vs;
-		for(int i=0;i<v.size();i++) {
-			vs.push_back(JDFAncestor(v[i]).GetNodeID());
+		if ( !GetAncestorPool().isNull() )
+		{
+			vElement v=GetAncestorPool().GetPoolChildren();
+			for(int i=0;i<v.size();i++) {
+				vs.push_back(JDFAncestor(v[i]).GetNodeID());
+			}
 		}
 		return vs;
 	}
@@ -4473,118 +4490,13 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFNode::MergeJDF(JDFNode toMerge, const WString& urlMerge, EnumCleanUpMerge cleanPolicy, JDFResource::EnumAmountMerge amountPolicy){
-		if(!toMerge.HasParent(*this)) 
-			throw JDFException(L"JDFNode::MergeJDF no matching parent found");
-
-		// remove all kind of crap for isEual to work
-		EraseEmptyNodes();
-		toMerge.EraseEmptyNodes();
-
-		WString idm=toMerge.GetID();
-		JDFNode overWriteNode=GetTarget(idm);
-
-
-		bool bSnafu=true;
-		JDFSpawned spawnAudit;
-		WString spawnID;
-		JDFNode overWriteParent;
-		vWString previousMergeIDs; // list of merges in the ancestors
-
-		JDFAncestorPool ancestorPool=toMerge.GetAncestorPool();
-		int numAncestors=ancestorPool.NumChildElements(elm_Ancestor);
-		if(numAncestors<=0){
-			throw JDFException(L"JDFNode::MergeJDF no Ancestor Pool in Node:"+idm);
-		}
-
-		int iFound=0;
-		for(int whereToLook=1;whereToLook<=numAncestors;whereToLook++){
-			// the last ancestor has the id!
-			WString idParent=ancestorPool.GetAncestor(numAncestors-whereToLook).GetNodeID();			
-			JDFNode ancestorJDF=GetTarget(idParent);
-			if(ancestorJDF.isNull()){
-				break;
-			}
-			JDFAuditPool auditPool=ancestorJDF.GetAuditPool();
-
-			// find all ids of previous merge operations for reverse merge cleanup
-			vElement vMergeAudit=auditPool.GetAudits(JDFAudit::AuditType_Merged);
-			for(int nMerged=0;nMerged<vMergeAudit.size();nMerged++){
-				JDFMerged merged=vMergeAudit[nMerged];
-				previousMergeIDs.AppendUnique(merged.GetMergeID());
-			}
-
-			if(iFound!=0) // we've already found a spawned Audit, just looping for previous merges
-				continue;
-
-			// get appropriate spawned element for toMerge
-			vElement vSpawnAudit=auditPool.GetChildrenWithAttribute(elm_Spawned,atr_jRef,WString::emptyStr,idm);
-			spawnID=toMerge.GetSpawnID();
-			for(int isp=vSpawnAudit.size()-1;isp>=0;isp--){ // loop backwards because the latest is assumed correct
-				JDFSpawned testSpawn=vSpawnAudit[isp];
-				if(testSpawn.GetNewSpawnID()==spawnID){
-					spawnAudit=testSpawn;
-					JDFMerged matchingMerged=auditPool.GetChildWithAttribute(elm_Merged,atr_MergeID,WString::emptyStr,spawnID);
-					// we are trying to merge twice - don't...
-					if(!matchingMerged.isNull()){
-						throw JDFException(L"JDFNode::MergeJDF Spawn Audit already merged, SpawnID: "+spawnID);
-					}
-					break;
-				}
-			}
-			// found an audit that fits, set up some bookkeeping 
-			if(!spawnAudit.isNull()){
-				iFound=whereToLook;
-				overWriteParent=ancestorJDF;
-			}
-		}
-
-		// if the spawn Audit is not found at the first attempt, something went badly wrong
-		// we will insert a error audit later but continue limping along!
-		bSnafu=iFound!=1;
-
-		if(spawnAudit.isNull()){
-			throw JDFException(WString(L"JDFNode::MergeJDF no matching Spawn Audit, SpawnID: ")+spawnID);
-		}
-
-
-		// get parts from audit
-		vmAttribute parts=spawnAudit.GetPartMapVector();
-
-		// merge copied readOnly resources
-		vWString vsRO=spawnAudit.GetrRefsROCopied();
-		vWString vsRW=spawnAudit.GetrRefsRWCopied();
-
-		WString preSpawn=spawnAudit.GetSpawnID();
-		// check all recursive previous spawns
-		while(!preSpawn.empty()){
-			JDFMerged preMerge=GetTarget(preSpawn,atr_MergeID);
-			if(!preMerge.isNull()){
-				JDFSpawned preSpawnAudit=GetTarget(preSpawn,atr_NewSpawnID);
-				vsRO.AppendUnique(preSpawnAudit.GetrRefsROCopied());
-				vsRW.AppendUnique(preSpawnAudit.GetrRefsRWCopied());
-				preSpawn=preSpawnAudit.GetSpawnID();
-			}else{
-				break;
-			}
-		}
-
-		// merge and clean up the resources
-		overWriteNode.MergeLocalLinks(toMerge, parts);
-		overWriteNode.CleanROResources(toMerge, previousMergeIDs, vsRO, spawnID);
-		overWriteNode.MergeRWResources(toMerge, previousMergeIDs, vsRW, spawnID, amountPolicy);
-
-		overWriteNode.MergeLocalNodes(toMerge, parts, previousMergeIDs, spawnID, amountPolicy);
-		overWriteNode.MergeMainPools(toMerge, overWriteParent, parts, vsRW, spawnID, preSpawn, urlMerge, bSnafu);
-		// now burn it in!
-		overWriteNode.ReplaceElement(toMerge);
-		overWriteNode.EraseEmptyNodes();
-
-		// an empty spawnID should never happen here, but check just in case
-		// since an empty spawnID in CleanUpMerge removes all Spawned audits
-		if(!spawnID.empty())
-			overWriteNode.CleanUpMerge(cleanPolicy, spawnID);
-
-		return true;
+		JDFMerge merge = JDFMerge(*this);
+		JDFDoc docOut = merge.mergeJDF(toMerge, urlMerge, cleanPolicy, amountPolicy);
+		JDFNode n = docOut.GetJDFRoot();
+		if (!n.isNull())
+			return true;
+		else 
+			return false;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -4923,555 +4835,697 @@ namespace JDF{
 					}
 				}		
 			}
+	}
+	////////////////////////////////////////////////////////////////////////////////////
+
+	void JDFNode::CleanROResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRO, const WString& spawnID){
+
+		for(int i=0;i<vsRO.size();i++){
+			JDFResource newRes=toMerge.GetTargetResource(vsRO[i]);
+			JDFResource oldRes=GetLinkRoot(vsRO[i]);
+			if(oldRes.isNull()){ // also check in tree below
+				oldRes=GetTargetResource(vsRO[i]);
+				if(oldRes.isNull()) // also check in entire tree below root
+					oldRes=GetJDFRoot().GetTargetResource(vsRO[i]);
+			}
+			if(oldRes.isNull())
+				continue;
+
+			// merge all potential new spawnIds from toMerge to this
+			oldRes.MergeSpawnIDs(newRes,previousMergeIDs);
+			vElement oldResLeafsSpawned=oldRes.GetNodesWithSpawnID(spawnID);
+			for(int leaf=0;leaf<oldResLeafsSpawned.size();leaf++){
+				JDFResource leafRes=oldResLeafsSpawned[leaf];
+				//  handle multiple spawns (reference count of spawned audits!)
+				leafRes.RemoveFromSpawnIDs(spawnID);
+
+				if(!leafRes.HasAttribute(atr_SpawnIDs))
+					leafRes.RemoveAttribute(atr_SpawnStatus);
+			}
+
+			if(newRes.GetParentJDF().GetID()!=oldRes.GetParentJDF().GetID()){
+				// this has been copied from lower down up and MUST be deleted...
+				newRes.DeleteNode();
+
+			}else{
+
+				// don't use a simple for because deleting a parent may invalidate later resources!
+				vElement newResLeafsSpawned=newRes.GetNodesWithSpawnID(spawnID);
+				// just in case: if no SpawnID exists assume the whole thing 
+				if(newResLeafsSpawned.size()==0){
+					newResLeafsSpawned.push_back(newRes);
+				}
+				while(newResLeafsSpawned.size()>0){
+					// use the last because it is potentially the root...
+					JDFResource leafRes=newResLeafsSpawned[newResLeafsSpawned.size()-1];
+					bool bZappRoot=leafRes==newRes;
+					leafRes.DeleteNode();
+					// we killed the root, nothing can be left...
+					if(bZappRoot)
+						break;
+					// regenerate the list
+					newResLeafsSpawned=newRes.GetNodesWithSpawnID(spawnID);
+				}
+			}
 		}
-		////////////////////////////////////////////////////////////////////////////////////
+	}
+	////////////////////////////////////////////////////////////////////////////////////
 
-		void JDFNode::CleanROResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRO, const WString& spawnID){
+	void JDFNode::MergeRWResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRW, const WString& spawnID, JDFResource::EnumAmountMerge amountPolicy){
+		for(int i=0;i<vsRW.size();i++){
+			JDFResource oldRes=GetLinkRoot(vsRW[i]);
+			if(oldRes.isNull()){ // also check in tree below
+				oldRes=GetTargetResource(vsRW[i]);
+				if(oldRes.isNull()) // also check in entire tree below the root
+					oldRes=GetJDFRoot().GetTargetResource(vsRW[i]);
+			}
+			if(oldRes.isNull())
+				continue;
 
-			for(int i=0;i<vsRO.size();i++){
-				JDFResource newRes=toMerge.GetTargetResource(vsRO[i]);
-				JDFResource oldRes=GetLinkRoot(vsRO[i]);
-				if(oldRes.isNull()){ // also check in tree below
-					oldRes=GetTargetResource(vsRO[i]);
-					if(oldRes.isNull()) // also check in entire tree below root
-						oldRes=GetJDFRoot().GetTargetResource(vsRO[i]);
-				}
-				if(oldRes.isNull())
-					continue;
+			JDFResource newRes=toMerge.GetTargetResource(vsRW[i]);
 
-				// merge all potential new spawnIds from toMerge to this
-				oldRes.MergeSpawnIDs(newRes,previousMergeIDs);
-				vElement oldResLeafsSpawned=oldRes.GetNodesWithSpawnID(spawnID);
-				for(int leaf=0;leaf<oldResLeafsSpawned.size();leaf++){
-					JDFResource leafRes=oldResLeafsSpawned[leaf];
-					//  handle multiple spawns (reference count of spawned audits!)
-					leafRes.RemoveFromSpawnIDs(spawnID);
+			// merge all potential new spawnIds from this to toMerge before merging them
+			oldRes.MergeSpawnIDs(newRes,previousMergeIDs);
+			// do both, since some leaves may be RO
+			newRes.MergeSpawnIDs(oldRes,previousMergeIDs);
 
-					if(!leafRes.HasAttribute(atr_SpawnIDs))
-						leafRes.RemoveAttribute(atr_SpawnStatus);
-				}
+			// merge the resource from the spawned node into the lower level resourcepool
+			oldRes.MergePartition(newRes,spawnID,amountPolicy,false);
 
-				if(newRes.GetParentJDF().GetID()!=oldRes.GetParentJDF().GetID()){
-					// this has been copied from lower down up and MUST be deleted...
-					newRes.DeleteNode();
-
+			vElement oldResLeafsSpawned=oldRes.GetNodesWithSpawnID(spawnID);
+			for(int leaf=0;leaf<oldResLeafsSpawned.size();leaf++){
+				JDFResource leafRes=oldResLeafsSpawned[leaf];
+				leafRes.RemoveFromSpawnIDs(spawnID);
+				KElement leafElem=leafRes;
+				if(!leafElem.HasAttribute(atr_SpawnIDs)){
+					leafRes.RemoveAttribute(atr_SpawnStatus);
+					leafRes.RemoveAttribute(atr_Locked);
 				}else{
+					//					leafRes.SetSpawnStatus(JDFResource::SpawnStatus_SpawnedRO);
+				}
+			}
+		}
+	}
 
-					// don't use a simple for because deleting a parent may invalidate later resources!
-					vElement newResLeafsSpawned=newRes.GetNodesWithSpawnID(spawnID);
-					// just in case: if no SpawnID exists assume the whole thing 
-					if(newResLeafsSpawned.size()==0){
-						newResLeafsSpawned.push_back(newRes);
-					}
-					while(newResLeafsSpawned.size()>0){
-						// use the last because it is potentially the root...
-						JDFResource leafRes=newResLeafsSpawned[newResLeafsSpawned.size()-1];
-						bool bZappRoot=leafRes==newRes;
-						leafRes.DeleteNode();
-						// we killed the root, nothing can be left...
-						if(bZappRoot)
+	//////////////////////////////////////////////////////////////////////////////////////////////
+
+	bool JDFNode::HasParent(JDFNode p){
+		vWString vpa=p.GetAncestorIDs();
+		vWString vParents=GetParentIds(); 
+		vParents.push_back(GetID());
+		if(vpa.size()==0) 
+			return false;
+		WString id=vpa[0];
+		if(id.empty()) 
+			throw JDFException(L"JDFNode::HasParent: no id???");
+		for(int i=0;i<vParents.size();i++){
+			if(id==vParents[i]) 
+				return true;
+		}
+		return false;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	int JDFNode::GetMinID(){
+
+		int iMax=-1;
+		WString s=GetSpawnID();
+		if(!s.empty()) {
+			int pos=s.find_last_not_of(L"0123456789");
+			if(pos!=s.npos) {
+				s=s.substr(pos+1);
+				s.trim();
+				if(!s.empty()) {
+
+
+					int iPos=0;
+					while(s[iPos]==(wchar_t)'0'){
+						iPos++;
+						if(iPos==s.length())
 							break;
-						// regenerate the list
-						newResLeafsSpawned=newRes.GetNodesWithSpawnID(spawnID);
 					}
-				}
-			}
-		}
-		////////////////////////////////////////////////////////////////////////////////////
-
-		void JDFNode::MergeRWResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRW, const WString& spawnID, JDFResource::EnumAmountMerge amountPolicy){
-			for(int i=0;i<vsRW.size();i++){
-				JDFResource oldRes=GetLinkRoot(vsRW[i]);
-				if(oldRes.isNull()){ // also check in tree below
-					oldRes=GetTargetResource(vsRW[i]);
-					if(oldRes.isNull()) // also check in entire tree below the root
-						oldRes=GetJDFRoot().GetTargetResource(vsRW[i]);
-				}
-				if(oldRes.isNull())
-					continue;
-
-				JDFResource newRes=toMerge.GetTargetResource(vsRW[i]);
-
-				// merge all potential new spawnIds from this to toMerge before merging them
-				oldRes.MergeSpawnIDs(newRes,previousMergeIDs);
-				// do both, since some leaves may be RO
-				newRes.MergeSpawnIDs(oldRes,previousMergeIDs);
-
-				// merge the resource from the spawned node into the lower level resourcepool
-				oldRes.MergePartition(newRes,spawnID,amountPolicy,false);
-
-				vElement oldResLeafsSpawned=oldRes.GetNodesWithSpawnID(spawnID);
-				for(int leaf=0;leaf<oldResLeafsSpawned.size();leaf++){
-					JDFResource leafRes=oldResLeafsSpawned[leaf];
-					leafRes.RemoveFromSpawnIDs(spawnID);
-					KElement leafElem=leafRes;
-					if(!leafElem.HasAttribute(atr_SpawnIDs)){
-						leafRes.RemoveAttribute(atr_SpawnStatus);
-						leafRes.RemoveAttribute(atr_Locked);
-					}else{
-						//					leafRes.SetSpawnStatus(JDFResource::SpawnStatus_SpawnedRO);
-					}
-				}
-			}
-		}
-
-		//////////////////////////////////////////////////////////////////////////////////////////////
-
-		bool JDFNode::HasParent(JDFNode p){
-			vWString vpa=p.GetAncestorIDs();
-			vWString vParents=GetParentIds(); 
-			vParents.push_back(GetID());
-			if(vpa.size()==0) 
-				return false;
-			WString id=vpa[0];
-			if(id.empty()) 
-				throw JDFException(L"JDFNode::HasParent: no id???");
-			for(int i=0;i<vParents.size();i++){
-				if(id==vParents[i]) 
-					return true;
-			}
-			return false;
-		}
-
-		//////////////////////////////////////////////////////////////////////
-
-		int JDFNode::GetMinID(){
-
-			int iMax=-1;
-			WString s=GetSpawnID();
-			if(!s.empty()) {
-				int pos=s.find_last_not_of(L"0123456789");
-				if(pos!=s.npos) {
-					s=s.substr(pos+1);
-					s.trim();
+					if(iPos!=0)
+						s=s.rightStr(-iPos);
 					if(!s.empty()) {
-
-
-						int iPos=0;
-						while(s[iPos]==(wchar_t)'0'){
-							iPos++;
-							if(iPos==s.length())
-								break;
-						}
-						if(iPos!=0)
-							s=s.rightStr(-iPos);
-						if(!s.empty()) {
-							iMax=(int)s%10000;
-						}
+						iMax=(int)s%10000;
 					}
 				}
 			}
-			// found nothing
-			if(iMax==-1)
-				iMax=rand()%10000;
-
-			UniqueID(iMax);
-			return iMax;
 		}
+		// found nothing
+		if(iMax==-1)
+			iMax=rand()%10000;
 
-		//////////////////////////////////////////////////////////////////////
-		int JDFNode::GetMaxJobPartId(const WString& idPrefix){
-			vElement v=GetvJDFNode();
-			int prefixSize=idPrefix.size();
-			int iMax=-1;
-			for(int i=0;i<v.size();i++){
-				JDFNode e(v[i]);
-				WString s=e.GetJobPartID();
-				if(s.empty()||s.compare(0,prefixSize,idPrefix)) 
-					continue;
-				s=s.substr(prefixSize).trim();
-				int pos=0;
-				int len=s.size();
+		UniqueID(iMax);
+		return iMax;
+	}
 
-				while((pos<len)&&(s[pos]==L'0')){
-					pos++;
-				}
-				// 300402 RP added
-				if(pos)
-					s=s.rightStr(-pos);
-				if(s.empty()) 
-					continue;
-				iMax=max((int)s,iMax);
+	//////////////////////////////////////////////////////////////////////
+	int JDFNode::GetMaxJobPartId(const WString& idPrefix){
+		vElement v=GetvJDFNode();
+		int prefixSize=idPrefix.size();
+		int iMax=-1;
+		for(int i=0;i<v.size();i++){
+			JDFNode e(v[i]);
+			WString s=e.GetJobPartID();
+			if(s.empty()||s.compare(0,prefixSize,idPrefix)) 
+				continue;
+			s=s.substr(prefixSize).trim();
+			int pos=0;
+			int len=s.size();
+
+			while((pos<len)&&(s[pos]==L'0')){
+				pos++;
 			}
-			return iMax;
+			// 300402 RP added
+			if(pos)
+				s=s.rightStr(-pos);
+			if(s.empty()) 
+				continue;
+			iMax=max((int)s,iMax);
 		}
+		return iMax;
+	}
 
-		//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
 
-		bool JDFNode::UnSpawn(const WString & spawnID){
-			if(throwNull()||spawnID.empty())
-				return false;
-
-			mAttribute mapSpawn;
-			mapSpawn.AddPair(atr_NewSpawnID,spawnID);
-			vElement vElements=GetvJDFNode();
-
-			int i;
-			// loop over all 
-			for(i=0;i<vElements.size();i++){
-				JDFNode nodeParent=vElements[i];
-				JDFSpawned spawnAudit=nodeParent.GetAuditPool().GetAudit(0,JDFAudit::AuditType_Spawned,mapSpawn);
-				// we have a matching spawned audit -> n is the parent node that spawned spawnID
-				// let n fix the rest!
-				if(!spawnAudit.isNull()){
-					return nodeParent.UnSpawnNode(spawnID);
-				}
-			}
-
-			// no node to unspawn exists in any child - too bad...
-			return false;
-
-		}	
-		//////////////////////////////////////////////////////////////////////
-
-		JDFNode JDFNode::AddJDFNode(const WString & typ){
-			EnumType t=GetEnumType();
-			if((t==Type_Unknown)||(t!=Type_Product)&&(t!=Type_ProcessGroup)){
-				throw JDFException(L"JDFNode:AddProcessGroup adding ProcessGroup to invalid node type: Type="+GetType());
-			}
-			JDFNode p=AppendElement(elm_JDF);
-			p.init(false,*this);
-			if(!typ.empty())
-				p.SetType(typ);
-
-			return p;
-		}
-
-		//////////////////////////////////////////////////////////////////////
-
-		JDFNode JDFNode::AddJDFNode(EnumType typ){
-			JDFNode p=AddJDFNode(WString::emptyStr);
-			p.SetEnumType(typ);
-			return p;
-		}
-
-		//////////////////////////////////////////////////////////////////////
-
-		JDFNode JDFNode::AddProcess(const WString & prodName){
-			JDFNode p=AddJDFNode(prodName);	
-			return p;
-		}
-
-		//////////////////////////////////////////////////////////////////////
-
-
-		JDFNode JDFNode::AddProcessGroup(const vWString& tasks){
-			JDFNode p=AddJDFNode(Type_ProcessGroup);
-			p.SetEnumType(Type_ProcessGroup);
-			if(!tasks.empty())
-				p.SetTypes(tasks);
-			return p;
-		}
-		///////////////////////////////////////////////////////////////
-		JDFNode JDFNode::AddCombined(const vWString& tasks){
-			JDFNode cNode=AddJDFNode(Type_Combined);
-			if(!tasks.empty())
-				cNode.SetTypes(tasks);
-			return cNode;
-		};
-
-		///////////////////////////////////////////////////////////////
-		JDFNode JDFNode::AddProduct(){
-			if(GetEnumType()!=Type_Product){
-				throw JDFException(L"JDFNode:AddProduct adding Product to invalid node type: Type="+GetType());
-			}
-			JDFNode p=AddJDFNode(Type_Product);
-			p.SetEnumType(Type_Product);
-			return p;
-		}
-		///////////////////////////////////////////////////////////////
-		bool JDFNode::RemoveCompleted(){
-			vElement v=GetCompleted();
-			for(int i=0;i<v.size();i++){
-				JDFNode pr=v.at(i);
-				pr.RemoveNode(false);
-			}
+	bool JDFNode::UnSpawn(const WString & spawnID){			
+		JDFNode unspawned = JDFSpawn(*this).unSpawn(spawnID);
+		if (!unspawned.isNull())
+		{
+			*this = unspawned;
 			return true;
 		}
+		else
+			return false;
+	}	
+	//////////////////////////////////////////////////////////////////////
 
-		//////////////////////////////////////////////////////////////////////
-		vElement JDFNode::GetCompleted()const{
-			vElement v=GetvJDFNode(WString::emptyStr);
-			vElement v2;
-			for(int i=0;i<v.size();i++){
-				JDFNode pr=v.at(i);
-				if(pr.isNull()) break;
-				if (pr.GetStatus()==Status_Completed){
-					v2.push_back(pr);			
+	JDFNode JDFNode::AddJDFNode(const WString & typ){
+		EnumType t=GetEnumType();
+		if((t==Type_Unknown)||(t!=Type_Product)&&(t!=Type_ProcessGroup)){
+			throw JDFException(L"JDFNode:AddProcessGroup adding ProcessGroup to invalid node type: Type="+GetType());
+		}
+		JDFNode p=AppendElement(elm_JDF);
+		p.init(false,*this);
+		if(!typ.empty())
+			p.SetType(typ);
+
+		return p;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	JDFNode JDFNode::AddJDFNode(EnumType typ){
+		JDFNode p=AddJDFNode(WString::emptyStr);
+		p.SetEnumType(typ);
+		return p;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	JDFNode JDFNode::AddProcess(const WString & prodName){
+		JDFNode p=AddJDFNode(prodName);	
+		return p;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+
+	JDFNode JDFNode::AddProcessGroup(const vWString& tasks){
+		JDFNode p=AddJDFNode(Type_ProcessGroup);
+		p.SetEnumType(Type_ProcessGroup);
+		if(!tasks.empty())
+			p.SetTypes(tasks);
+		return p;
+	}
+	///////////////////////////////////////////////////////////////
+	JDFNode JDFNode::AddCombined(const vWString& tasks){
+		JDFNode cNode=AddJDFNode(Type_Combined);
+		if(!tasks.empty())
+			cNode.SetTypes(tasks);
+		return cNode;
+	};
+
+	///////////////////////////////////////////////////////////////
+	JDFNode JDFNode::AddProduct(){
+		if(GetEnumType()!=Type_Product){
+			throw JDFException(L"JDFNode:AddProduct adding Product to invalid node type: Type="+GetType());
+		}
+		JDFNode p=AddJDFNode(Type_Product);
+		p.SetEnumType(Type_Product);
+		return p;
+	}
+	///////////////////////////////////////////////////////////////
+	bool JDFNode::RemoveCompleted(){
+		vElement v=GetCompleted();
+		for(int i=0;i<v.size();i++){
+			JDFNode pr=v.at(i);
+			pr.RemoveNode(false);
+		}
+		return true;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+	vElement JDFNode::GetCompleted()const{
+		vElement v=GetvJDFNode(WString::emptyStr);
+		vElement v2;
+		for(int i=0;i<v.size();i++){
+			JDFNode pr=v.at(i);
+			if(pr.isNull()) break;
+			if (pr.GetStatus()==Status_Completed){
+				v2.push_back(pr);			
+			}
+		}
+		return v2;
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+
+	JDFResource JDFNode::GetTargetResource(const WString& id)const{
+		XMLDocUserData* ud=getXMLDocUserData();
+		if(ud!=0)
+		{
+			JDFElement e=ud->GetTarget(id);
+			if(e.IsResource())
+				return e;
+		}
+
+		
+		JDFResourcePool p=GetResourcePool();
+		if(!p.isNull()){
+			JDFResource r=p.GetResourceByID(id);
+			if(!r.isNull())
+				return r;
+		}
+		vElement v=GetvJDFNode(WString::emptyStr,Activation_Unknown,true);
+		for(int i=0;i<v.size();i++){
+			JDFResource r=JDFNode(v.at(i)).GetTargetResource(id);
+			if(!r.isNull())
+				return r;
+		}
+		return  JDFResource();
+	}
+
+	//////////////////////////////////////////////////////////////////////
+	JDFResource JDFNode::AddInternalPipe(const WString& resourceName, unsigned int indexOutput, unsigned int indexInput){
+		if(GetEnumType()!=Type_Combined){
+			throw JDFException(L"JDFNode::AddInternalPipe: adding pipe to node that is not combined "+GetType());
+		} 
+		JDFResource r=AddResource(resourceName,JDFResource::Class_Unknown,true);
+		JDFFactory f(r);
+		f.GetRef().init();
+		r.SetPipeProtocol(L"Internal");
+
+		JDFResourceLink rl=GetLink(r,true);
+		rl.SetPipeProtocol(L"Internal"); // redundant but not harmful
+		rl.SetCombinedProcessIndex(JDFIntegerList(indexInput));
+		rl=LinkResource(r,false);
+		rl.SetPipeProtocol(L"Internal");// redundant but not harmful
+		rl.SetCombinedProcessIndex(JDFIntegerList(indexOutput));
+		return r;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	bool JDFNode::RequiredLevel(EnumValidationLevel level)const{
+		level=IncompleteLevel(level);
+		return (level==ValidationLevel_Complete)||(level==ValidationLevel_RecursiveComplete);
+	};
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+
+	KElement::EnumValidationLevel JDFNode::IncompleteLevel(KElement::EnumValidationLevel level)const{
+		if(JDFElement::RequiredLevel(level)){
+			EnumStatus es=GetStatus();
+			if(es==Status_Setup){
+				if(level==ValidationLevel_Complete){
+					level=ValidationLevel_Incomplete;
+				}else if(level==ValidationLevel_RecursiveComplete){
+					level=ValidationLevel_RecursiveIncomplete;
 				}
-			}
-			return v2;
+			}			
 		}
+		return level;
+	}
+	//////////////////////////////////////////////////////////////////////
+	JDFNode JDFNode::GetRoot()const{
+		return GetDeepParent(elm_JDF,9999999);
+	};
+	//////////////////////////////////////////////////////////////////////
 
+	JDFNode JDFNode::GetProduct(const WString& productType, int iSkip)const{
+		vJDFNode vN=GetvJDFNode(sProduct,Activation_Unknown,true);
 
-		//////////////////////////////////////////////////////////////////////////////////////////////
+		bool bWildCard=IsWildcard(productType.c_str());
 
-		JDFResource JDFNode::GetTargetResource(const WString& id)const{
-			JDFResourcePool p=GetResourcePool();
-			if(!p.isNull()){
-				JDFResource r=p.GetResourceByID(id);
-				if(!r.isNull())
-					return r;
+		// loop over all direct product nodes
+		for(int i=0;i<vN.size();i++){
+			JDFNode n=vN[i];
+			JDFComponent c=n.GetMatchingResource(JDFStrings::elm_Component,JDFNode::ProcessUsage_AnyOutput);
+			// we have a matching component, return the corresponding node unless iSkip>0
+			if( !c.isNull()
+				&& (bWildCard || (c.GetAttribute(JDFStrings::atr_ProductType)==productType))
+				&& (iSkip--<=0) ){
+					return n;
 			}
-			vElement v=GetvJDFNode(WString::emptyStr,Activation_Unknown,true);
-			for(int i=0;i<v.size();i++){
-				JDFResource r=JDFNode(v.at(i)).GetTargetResource(id);
-				if(!r.isNull())
-					return r;
-			}
-			return  JDFResource();
 		}
+		// ain't got nothing that matches
+		return DefJDFNode;
+	};
 
-		//////////////////////////////////////////////////////////////////////
-		JDFResource JDFNode::AddInternalPipe(const WString& resourceName, unsigned int indexOutput, unsigned int indexInput){
-			if(GetEnumType()!=Type_Combined){
-				throw JDFException(L"JDFNode::AddInternalPipe: adding pipe to node that is not combined "+GetType());
-			} 
-			JDFResource r=AddResource(resourceName,JDFResource::Class_Unknown,true);
-			JDFFactory f(r);
-			f.GetRef().init();
-			r.SetPipeProtocol(L"Internal");
+	//////////////////////////////////////////////////////////////////////
+	/**
+	* Checks whether this link references a resource that 
+	*/
+	bool JDFNode::LinkFitsRWRes(const JDFResourceLink& li, const vWString& vRWResources){
+		bool bResRW=vRWResources.hasString(li.GetNamedProcessUsage());
+		// 200602 RP added fix
+		if(!bResRW)
+			bResRW=vRWResources.hasString(li.GetLinkedResourceName());
 
-			JDFResourceLink rl=GetLink(r,true);
-			rl.SetPipeProtocol(L"Internal"); // redundant but not harmful
-			rl.SetCombinedProcessIndex(JDFIntegerList(indexInput));
-			rl=LinkResource(r,false);
-			rl.SetPipeProtocol(L"Internal");// redundant but not harmful
-			rl.SetCombinedProcessIndex(JDFIntegerList(indexOutput));
-			return r;
-		}
+		// 230802 RP added check for ID in vRWResources
+		if(!bResRW)
+			bResRW=vRWResources.hasString(li.GetHRef());
 
-		//////////////////////////////////////////////////////////////////////
+		// 040902 RP added check for Usage in vRWResources
+		if(!bResRW)
+			bResRW=vRWResources.hasString(li.GetAttribute(JDFStrings::atr_Usage));		
+		return bResRW;
+	}
 
-		bool JDFNode::RequiredLevel(EnumValidationLevel level)const{
-			level=IncompleteLevel(level);
-			return (level==ValidationLevel_Complete)||(level==ValidationLevel_RecursiveComplete);
-		};
+	//////////////////////////////////////////////////////////////////////
+	bool JDFNode::ResFitsRWRes(const JDFResource& r, const vWString& vRWResources){
 
-		//////////////////////////////////////////////////////////////////////////////////////////////
+		bool bResRW=vRWResources.hasString(r.GetLocalName());
+		// 200602 RP added fix
+		if(!bResRW)
+			bResRW=vRWResources.hasString(WString::star);
 
-		KElement::EnumValidationLevel JDFNode::IncompleteLevel(KElement::EnumValidationLevel level)const{
-			if(JDFElement::RequiredLevel(level)){
-				EnumStatus es=GetStatus();
-				if(es==Status_Setup){
-					if(level==ValidationLevel_Complete){
-						level=ValidationLevel_Incomplete;
-					}else if(level==ValidationLevel_RecursiveComplete){
-						level=ValidationLevel_RecursiveIncomplete;
-					}
-				}			
-			}
-			return level;
-		}
-		//////////////////////////////////////////////////////////////////////
-		JDFNode JDFNode::GetRoot()const{
-			return GetDeepParent(elm_JDF,9999999);
-		};
-		//////////////////////////////////////////////////////////////////////
+		// 230802 RP added check for ID in vRWResources
+		if(!bResRW)
+			bResRW=vRWResources.hasString(r.GetID());
 
-		JDFNode JDFNode::GetProduct(const WString& productType, int iSkip)const{
-			vJDFNode vN=GetvJDFNode(sProduct,Activation_Unknown,true);
+		return bResRW;
+	}
 
-			bool bWildCard=IsWildcard(productType.c_str());
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 
-			// loop over all direct product nodes
-			for(int i=0;i<vN.size();i++){
-				JDFNode n=vN[i];
-				JDFComponent c=n.GetMatchingResource(JDFStrings::elm_Component,JDFNode::ProcessUsage_AnyOutput);
-				// we have a matching component, return the corresponding node unless iSkip>0
-				if( !c.isNull()
-					&& (bWildCard || (c.GetAttribute(JDFStrings::atr_ProductType)==productType))
-					&& (iSkip--<=0) ){
-						return n;
-					}
-			}
-			// ain't got nothing that matches
-			return DefJDFNode;
-		};
+	void JDFNode::CopySpawnedResource(JDFResourcePool p, JDFResource r, JDFResource::EnumSpawnStatus copyStatus, const vmAttribute& vParts, const WString &spawnID, const vWString& resInPool, const vWString& vRWResources, vWString& vRWIDs, vWString& vROIDs, bool bSpawnROPartsOnly){
 
-		//////////////////////////////////////////////////////////////////////
-		/**
-		* Checks whether this link references a resource that 
-		*/
-		bool JDFNode::LinkFitsRWRes(const JDFResourceLink& li, const vWString& vRWResources){
-			bool bResRW=vRWResources.hasString(li.GetNamedProcessUsage());
-			// 200602 RP added fix
-			if(!bResRW)
-				bResRW=vRWResources.hasString(li.GetLinkedResourceName());
-
-			// 230802 RP added check for ID in vRWResources
-			if(!bResRW)
-				bResRW=vRWResources.hasString(li.GetHRef());
-
-			// 040902 RP added check for Usage in vRWResources
-			if(!bResRW)
-				bResRW=vRWResources.hasString(li.GetAttribute(JDFStrings::atr_Usage));		
-			return bResRW;
-		}
-
-		//////////////////////////////////////////////////////////////////////
-		bool JDFNode::ResFitsRWRes(const JDFResource& r, const vWString& vRWResources){
-
-			bool bResRW=vRWResources.hasString(r.GetLocalName());
-			// 200602 RP added fix
-			if(!bResRW)
-				bResRW=vRWResources.hasString(WString::star);
-
-			// 230802 RP added check for ID in vRWResources
-			if(!bResRW)
-				bResRW=vRWResources.hasString(r.GetID());
-
-			return bResRW;
-		}
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////
-
-		void JDFNode::CopySpawnedResource(JDFResourcePool p, JDFResource r, JDFResource::EnumSpawnStatus copyStatus, const vmAttribute& vParts, const WString &spawnID, const vWString& resInPool, const vWString& vRWResources, vWString& vRWIDs, vWString& vROIDs, bool bSpawnROPartsOnly){
-
-			vWString ss=resInPool;
-			if(ss.empty())
-				ss=p.GetResIds();
+		vWString ss=resInPool;
+		if(ss.empty())
+			ss=p.GetResIds();
 
 
-			if (r.throwNull()) {
-				return;
-			}
-
-			// r is not yet here copy r
-			if(ss.find(r.GetID())==ss.end()) {
-
-				JDFResource rNew=p.CopyElement(r);
-				// if spawning, fix stati and locks
-
-				if((copyStatus==r.SpawnStatus_SpawnedRW)||bSpawnROPartsOnly){
-					rNew.ReducePartitions(vParts);
-				}
-				r.SpawnPart(spawnID,copyStatus,vParts,true);
-				rNew.SpawnPart(spawnID,copyStatus,vParts,false);
-
-
-				if(copyStatus==r.SpawnStatus_SpawnedRW){
-					vRWIDs.push_back(rNew.GetID());
-				}else{
-					vROIDs.push_back(rNew.GetID());
-				}
-			}
-
-
-			vWString vs=r.GetHRefs();		
-			// add recursively copied resource references
-			for(int i=0;i<vs.size();i++){
-				const WString& id=vs[i];
-
-				// the referenced resource is already in this pool - continue
-				if(ss.hasString(id)) 
-					continue;
-
-				JDFResource next=p.GetParentJDF().GetTargetResource(id);
-				if(next.isNull()){
-					// 071101 RP added r is by definition in the original document which also contains the rrefs elements
-					next=JDFNode(r.GetDocRoot()).GetTargetResource(id);
-
-					// and now all those interlinked resources
-					if (next.throwNull())
-						continue;
-
-					// only copy refelements rw if they are explicitly in the list
-					if(copyStatus==r.SpawnStatus_SpawnedRW)
-						copyStatus=ResFitsRWRes(next,vRWResources)?r.SpawnStatus_SpawnedRW:r.SpawnStatus_SpawnedRO;
-
-					// recurse into refelements
-					CopySpawnedResource(p,next,copyStatus,vParts,spawnID,ss,vRWResources,vRWIDs,vROIDs,bSpawnROPartsOnly);
-					// these have been copied here
-					ss.insert(ss.end(),vRWIDs.begin(),vRWIDs.end());
-					ss.insert(ss.end(),vROIDs.begin(),vROIDs.end());
-				}			
-			}		
+		if (r.throwNull()) {
 			return;
 		}
-		//////////////////////////////////////////////////////////////////////
-		vWString JDFNode::GetPartIDKeys(const mAttribute& partMap)
-		{
-			vWString matchingPartIDKeys;
-			if(partMap.size() > 1)
-			{
-				JDFResourceLinkPool resourceLinkPool = GetResourceLinkPool();
-				vElement linkedResources = resourceLinkPool.GetLinkedResources();
-				int linkedResourcesSize = linkedResources.size();
-				for (int i = 0; i < linkedResourcesSize; i++)
-				{
-					JDFResource resource = linkedResources[i];
-					vWString partIDKeys = resource.GetPartIDKeys();
-					if(partIDKeys.size() >= partMap.size() && partIDKeys.containsAll(partMap.GetKeys()))
-					{
-						matchingPartIDKeys = partIDKeys;
-						break;
-					}
-				}
-			}
-			else
-			{
-				matchingPartIDKeys = partMap.GetKeys();
-			}
-			if(matchingPartIDKeys.empty()){
-				// grab output link and partition nodeinfo accordingly
-				vElement vRes=GetResourceLinkPool().GetInOutLinks(false,false);
 
-				// get heuristic list of partidkeys from the output
-				vWString partIDKeys;
-				if(vRes.size()>0){
-					JDFResource r=vRes[0];
-					matchingPartIDKeys=r.GetResourceRoot().GetPartIDKeys();
-				}
+		// r is not yet here copy r
+		if(ss.find(r.GetID())==ss.end()) {
+
+			JDFResource rNew=p.CopyElement(r);
+			// if spawning, fix stati and locks
+
+			if((copyStatus==r.SpawnStatus_SpawnedRW)||bSpawnROPartsOnly){
+				rNew.ReducePartitions(vParts);
 			}
-			return matchingPartIDKeys;
+			r.SpawnPart(spawnID,copyStatus,vParts,true);
+			rNew.SpawnPart(spawnID,copyStatus,vParts,false);
+
+
+			if(copyStatus==r.SpawnStatus_SpawnedRW){
+				vRWIDs.push_back(rNew.GetID());
+			}else{
+				vROIDs.push_back(rNew.GetID());
+			}
 		}
 
-		//////////////////////////////////////////////////////////////////////
 
-		//////////////////////////////////////////////////////////////////////
+		vWString vs=r.GetHRefs();		
+		// add recursively copied resource references
+		for(int i=0;i<vs.size();i++){
+			const WString& id=vs[i];
 
-		vElement JDFNode::PrepareNodeInfo(const vmAttribute& vSpawnParts){
-			JDFNodeInfo ni=GetCreateNodeInfo(); // make sure we have a nodeinfo in case we have to merge stati 
-			vElement vni;
-			if(ni.HasAttribute(atr_Class)){ // it is a 1.3 style resource
-				mAttribute spawnPart;
+			// the referenced resource is already in this pool - continue
+			if(ss.hasString(id)) 
+				continue;
 
-				// find the most granular part in the vector
-				int i;
-				for(i=0;i<vSpawnParts.size();i++){
-					if(vSpawnParts[i].size()>spawnPart.size())
-						spawnPart=vSpawnParts[i];
+			JDFResource next=p.GetParentJDF().GetTargetResource(id);
+			if(next.isNull()){
+				// 071101 RP added r is by definition in the original document which also contains the rrefs elements
+				next=JDFNode(r.GetDocRoot()).GetTargetResource(id);
+
+				// and now all those interlinked resources
+				if (next.throwNull())
+					continue;
+
+				// only copy refelements rw if they are explicitly in the list
+				if(copyStatus==r.SpawnStatus_SpawnedRW)
+					copyStatus=ResFitsRWRes(next,vRWResources)?r.SpawnStatus_SpawnedRW:r.SpawnStatus_SpawnedRO;
+
+				// recurse into refelements
+				CopySpawnedResource(p,next,copyStatus,vParts,spawnID,ss,vRWResources,vRWIDs,vROIDs,bSpawnROPartsOnly);
+				// these have been copied here
+				ss.insert(ss.end(),vRWIDs.begin(),vRWIDs.end());
+				ss.insert(ss.end(),vROIDs.begin(),vROIDs.end());
+			}			
+		}		
+		return;
+	}
+	//////////////////////////////////////////////////////////////////////
+	vWString JDFNode::GetPartIDKeys(const mAttribute& partMap)
+	{
+		vWString matchingPartIDKeys;
+		if(partMap.size() > 1)
+		{
+			JDFResourceLinkPool resourceLinkPool = GetResourceLinkPool();
+			vElement linkedResources = resourceLinkPool.GetLinkedResources();
+			int linkedResourcesSize = linkedResources.size();
+			for (int i = 0; i < linkedResourcesSize; i++)
+			{
+				JDFResource resource = linkedResources[i];
+				vWString partIDKeys = resource.GetPartIDKeys();
+				if(partIDKeys.size() >= partMap.size() && partIDKeys.containsAll(partMap.GetKeys()))
+				{
+					matchingPartIDKeys = partIDKeys;
+					break;
+				}
+			}
+		}
+		else
+		{
+			matchingPartIDKeys = partMap.GetKeys();
+		}
+		if(matchingPartIDKeys.empty()){
+			// grab output link and partition nodeinfo accordingly
+			vElement vRes=GetResourceLinkPool().GetInOutLinks(false,false);
+
+			// get heuristic list of partidkeys from the output
+			vWString partIDKeys;
+			if(vRes.size()>0){
+				JDFResource r=vRes[0];
+				matchingPartIDKeys=r.GetResourceRoot().GetPartIDKeys();
+			}
+		}
+		return matchingPartIDKeys;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////////////////
+
+	vElement JDFNode::PrepareNodeInfo(const vmAttribute& vSpawnParts){
+		JDFNodeInfo ni=GetCreateNodeInfo(); // make sure we have a nodeinfo in case we have to merge stati 
+		vElement vni;
+		if(ni.HasAttribute(atr_Class)){ // it is a 1.3 style resource
+			mAttribute spawnPart;
+
+			// find the most granular part in the vector
+			int i;
+			for(i=0;i<vSpawnParts.size();i++){
+				if(vSpawnParts[i].size()>spawnPart.size())
+					spawnPart=vSpawnParts[i];
+			}
+
+			vWString partVector=GetPartIDKeys(spawnPart);
+			if(vSpawnParts.size()>0){
+				if(GetStatus()!=Status_Part){
+					ni.SetAttribute(L"NodeStatus",GetAttribute(atr_Status));
+					SetStatus(Status_Part);
 				}
 
-				vWString partVector=GetPartIDKeys(spawnPart);
-				if(vSpawnParts.size()>0){
-					if(GetStatus()!=Status_Part){
-						ni.SetAttribute(L"NodeStatus",GetAttribute(atr_Status));
-						SetStatus(Status_Part);
+				for(i=0;i<vSpawnParts.size();i++){
+					JDFNodeInfo niLeaf=ni.GetPartition(vSpawnParts[i],JDFResource::PartUsage_Explicit);
+					if(niLeaf.isNull()){ // leaves that do not exist yet are assumed waiting
+						niLeaf=ni.GetCreatePartition(vSpawnParts[i],partVector);
+						niLeaf.SetAttribute(L"NodeStatus",L"Waiting");
 					}
-
-					for(i=0;i<vSpawnParts.size();i++){
-						JDFNodeInfo niLeaf=ni.GetPartition(vSpawnParts[i],JDFResource::PartUsage_Explicit);
-						if(niLeaf.isNull()){ // leaves that do not exist yet are assumed waiting
-							niLeaf=ni.GetCreatePartition(vSpawnParts[i],partVector);
-							niLeaf.SetAttribute(L"NodeStatus",L"Waiting");
-						}
-						vni.push_back(niLeaf); 
-					}
-				}else{
-					vni.push_back(ni);
+					vni.push_back(niLeaf); 
 				}
 			}else{
-				vni.push_back(ni); // simply return the 1.2 element
+				vni.push_back(ni);
 			}
-			return vni;
+		}else{
+			vni.push_back(ni); // simply return the 1.2 element
 		}
-		//////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////
+		return vni;
+	}
+	//////////////////////////////////////////////////////////////////////
+	/**
+	* Gets the vector of the string Type/Types attribute values of the given JDFNode by 
+	* recursively traversing the tree
+	* returns exactly one element="Product" if the tested node's type is product
+	*
+	* @param JDFNode jdfRoot - the ProcessGroup JDFNode
+	* @return VString - vector of Type/Types attributes of the tested ProcessGroup JDFNode
+	* @throws JDFException if the testen JDFNode has illegal combination of attribute 'Types' and child JDFNodes
+	*/
+	vWString JDFNode::getAllTypes() const
+	{
+		VString vs;
+		if(GetType().equals(L"Product"))
+		{
+			vs=vWString(L"Product");
+		}
+		else if(GetType().equals(L"Combined"))
+		{
+			vs=GetTypes();
+		}
+		else if(GetType().equals(L"ProcessGroup"))
+		{
+			VElement vNodes = GetvJDFNode(WString::emptyStr,Activation_Unknown,true);
+			vs = GetTypes();
+			if (!vs.empty()) // grey box or simple type 
+			{
+				if (vNodes.size()!=0) 
+				{
+					throw new JDFException ("JDFNode.getAllTypes: illegal combination of the attribute 'Types' and child JDF Nodes");
+				}
+				return vs;// __Lena__  May contain GrayBoxes
+			}
+			for (int i=0; i<vNodes.size(); i++) 
+			{
+				JDFNode node = (JDFNode)vNodes.elementAt(i);
+				VString allTypes = node.getAllTypes();
+				if(!allTypes.empty())
+				{
+					if(vs.empty())
+					{
+						vs=allTypes;
+					}
+					else
+					{
+						vs.addAll(allTypes);
+					}
+				}
+			}
+		}
+		else
+		{
+			WString type=GetType();
+			vs=VString(type);
+		}
+		return vs;
+	}
+	//////////////////////////////////////////////////////////////////////
+	/**
+	* setCombined - set the combined node types to the values in vCombiNodes
+	*
+	* @param Vector vCombiNodes
+	*/
+	void JDFNode::setCombined(const vWString& vCombiNodes)
+	{
+		SetType(JDFNode::TypeString(JDFNode::Type_Combined));
+		SetTypes(vCombiNodes);
+	}
+	//////////////////////////////////////////////////////////////////////
+	/**
+	* Set the Status and StatusDetails of this node
+	* update the PhaseTime audit or append a new phasetime as appropriate  
+	* also generate a status JMF
+	* 
+	* @param nodeStatus the new status of the node
+	* @param nodeStatusDetails the new statusDetails of the node
+	* @param deviceStatus the new status of the device
+	* @param deviceStatusDetails the new statusDetails of the device
+	* @param vPartMap the vector of parts to that should be set
+	* 
+	* @return The root element representing the PhaseTime JMF
+	*/
+	JDFDoc JDFNode::setPhase(JDFNode::EnumStatus nodeStatus, const WString& nodeStatusDetails, const WString& deviceID, 
+		JDFDeviceInfo::EnumDeviceStatus deviceStatus, const WString& deviceStatusDetails, const vmAttribute& vPartMap)
+	{
+		JDFDoc jmfDoc(1);
+		JDFJMF jmf=jmfDoc.GetJMFRoot();
+
+		JDFAuditPool ap=GetCreateAuditPool();
+		JDFPhaseTime pt1=(JDFPhaseTime) ap.GetAudit(-1,JDFAudit::AuditType_PhaseTime,mAttribute::emptyMap);
+		JDFPhaseTime pt2=ap.SetPhase(nodeStatus,nodeStatusDetails,vPartMap);
+		if(!pt1.isNull() && pt2!=pt1) // we explicitly added a new phasetime audit, thus we need to add a closing JMF for the original jobPhase
+		{
+			JDFSignal s=(JDFSignal)jmf.appendMessageElement(JDFMessage::Family_Signal,JDFMessage::Type_Status);
+			JDFDeviceInfo deviceInfo = s.AppendDeviceInfo();
+			deviceInfo.createJobPhaseFromPhaseTime(pt1);
+			if(!deviceID.empty())
+				pt2.AppendDevice().SetDeviceID(deviceID);
+		}
+		JDFSignal s=(JDFSignal)jmf.appendMessageElement(JDFMessage::Family_Signal,JDFMessage::Type_Status);
+		JDFDeviceInfo deviceInfo = s.AppendDeviceInfo();
+		deviceInfo.createJobPhaseFromPhaseTime(pt2); 
+		deviceInfo.SetDeviceStatus(deviceStatus);
+		deviceInfo.SetStatusDetails(deviceStatusDetails);
+		deviceInfo.SetDeviceID(deviceID);
+		SetPartStatus(vPartMap,nodeStatus);
+		// cleanup
+		jmf.eraseEmptyAttributes(true);
+		pt2.eraseEmptyAttributes(true);
+		return jmfDoc;
+	}
+	//////////////////////////////////////////////////////////////////////
+	KElement JDFNode::getNiCi(const WString& elementName, bool bInherit, const WString& xPath) const
+	{
+		// always get the element
+		KElement nici=GetElement(elementName);
+		EnumVersion eVer = GetEnumVersion(true);
+		// if version>=1.0 or no direct element is there try the resource
+		if (eVer >= Version_1_3 || (nici.isNull()) )
+		{
+			JDFResourceLinkPool rlp = GetResourceLinkPool();
+			if( !rlp.isNull() )
+			{
+				JDFResourceLink rl=rlp.GetPoolChild(0,elementName+"Link",JDFAttributeMap(atr_Usage,"Input"),WString::emptyStr);
+				if(! rl.isNull() )
+					nici=rl.GetTarget();
+			}
+		}
+
+		// continue search if not found
+		if(!nici.isNull() || !bInherit)
+		{
+			return nici;
+		}
+
+		JDFNode parent = GetParentJDF();
+		if( !parent.isNull() )
+		{
+			return parent.getNiCi(elementName,bInherit, xPath);
+		}
+		JDFAncestorPool ap=GetAncestorPool();
+		if( !ap.isNull() )
+			return ap.GetAncestorElement(elementName,WString::emptyStr);
+		return JDFElement::DefKElement;
+	}
+	//////////////////////////////////////////////////////////////////////
+
+
+	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
 
 }

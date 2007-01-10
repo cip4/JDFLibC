@@ -173,7 +173,7 @@ public:
 * Enumeration for attribute Context
 */
 
-	enum EnumContext{Context_Unknown,Context_Resource,Context_Link,Context_JMF};
+	enum EnumContext{Context_Unknown,Context_Resource,Context_Link,Context_JMF,Context_Element};
 /**
 * Enumeration for attribute LinkUsage
 */

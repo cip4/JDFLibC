@@ -67,100 +67,54 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FixJDF", "TestWrapper\FixJD
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestJDFDevCap", "TestWrapper\TesCppUnitr.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestJDFDeviceCap", "TestWrapper\TestJDFDeviceCap.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestJDFEvaluation", "TestWrapper\TestJDFEvaluation.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestJDFStateBase", "TestWrapper\TestJDFStateBase.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestJDFTest", "TestWrapper\TestJDFTest.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestJDFAttributeMap", "TestWrapper\TestJDFAttributeMap.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JDFCoreTests", "TestWrapper\JDFCoreTests.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JDFJMFTests", "TestWrapper\JDFJMFTests.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JDFResourceTests", "TestWrapper\JDFResourceTests.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JDFNodeTests", "TestWrapper\JDFNodeTests.vcproj", "{F5D6755C-37BE-4D04-A045-AED1DF8BED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 17
-		SccProjectUniqueName0 = TestWrapper\\AddJDF.vcproj
-		SccProjectName0 = AddJDF
-		SccLocalPath0 = TestWrapper
-		SccProvider0 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName1 = TestWrapper\\BookJDF.vcproj
-		SccProjectName1 = BookJDF
-		SccLocalPath1 = TestWrapper
-		SccProvider1 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName2 = TestWrapper\\CheckJDF.vcproj
-		SccProjectName2 = CheckJDF
-		SccLocalPath2 = TestWrapper
-		SccProvider2 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName3 = TestWrapper\\EatJDF.vcproj
-		SccProjectName3 = EatJDF
-		SccLocalPath3 = TestWrapper
-		SccProvider3 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName4 = TestWrapper\\JDFExample.vcproj
-		SccProjectName4 = JDFExample
-		SccLocalPath4 = TestWrapper
-		SccProvider4 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName5 = TestWrapper\\JDFMessenger.vcproj
-		SccProjectName5 = JDFMessenger
-		SccLocalPath5 = TestWrapper
-		SccProvider5 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName6 = TestWrapper\\JDFSchema.vcproj
-		SccProjectName6 = JDFSchema
-		SccLocalPath6 = TestWrapper
-		SccProvider6 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName7 = TestWrapper\\MergeJDF.vcproj
-		SccProjectName7 = MergeJDF
-		SccLocalPath7 = TestWrapper
-		SccProvider7 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName8 = TestWrapper\\SpawnJDF.vcproj
-		SccProjectName8 = SpawnJDF
-		SccLocalPath8 = TestWrapper
-		SccProvider8 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName9 = TestWrapper\\SpecJDF.vcproj
-		SccProjectName9 = SpecJDF
-		SccLocalPath9 = TestWrapper
-		SccProvider9 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName10 = TestWrapper\\TestJDFState.vcproj
-		SccProjectName10 = TestJDFState
-		SccLocalPath10 = TestWrapper
-		SccProvider10 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName11 = TestWrapper\\TestThreads.vcproj
-		SccProjectName11 = TestThreads
-		SccLocalPath11 = TestWrapper
-		SccProvider11 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName12 = TestWrapper\\TestThreadsCore.vcproj
-		SccProjectName12 = TestThreadsCore
-		SccLocalPath12 = TestWrapper
-		SccProvider12 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName13 = TestWrapper\\TestWrapper.vcproj
-		SccProjectName13 = TestWrapper
-		SccLocalPath13 = TestWrapper
-		SccProvider13 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName14 = TestWrapper\\TestWrapperCore.vcproj
-		SccProjectName14 = TestWrapperCore
-		SccLocalPath14 = TestWrapper
-		SccProvider14 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName15 = TestWrapper\\TestTools.vcproj
-		SccProjectName15 = TestWrapperCore
-		SccLocalPath15 = TestWrapper
-		SccProvider15 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-		SccProjectUniqueName16 = TestWrapper\\FixJDF.vcproj
-		SccProjectName16 = FixJDF
-		SccLocalPath16 = TestWrapper
-		SccProvider16 = MSSCCI:ClearCase
-		CanCheckoutShared = false
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
 		Debug DLL = Debug DLL
 		Release = Release
 		Release DLL = Release DLL
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{FABA807F-8934-4AF5-AE8F-AEB5604775D9}.Debug.ActiveCfg = Debug|Win32
@@ -299,6 +253,86 @@ Global
 		{402D30A1-70A5-4601-8604-3D4C2AE1F756}.Release.Build.0 = Release|Win32
 		{402D30A1-70A5-4601-8604-3D4C2AE1F756}.Release DLL.ActiveCfg = Release DLL|Win32
 		{402D30A1-70A5-4601-8604-3D4C2AE1F756}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.ActiveCfg = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug.Build.0 = Debug|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Debug DLL.Build.0 = Debug DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.ActiveCfg = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release.Build.0 = Release|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.ActiveCfg = Release DLL|Win32
+		{F5D6755C-37BE-4D04-A045-AED1DF8BED47}.Release DLL.Build.0 = Release DLL|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

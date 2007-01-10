@@ -185,6 +185,8 @@ namespace JDF{
 		int siz=vlayoutElement.size();
 		runList.init();
 		runList.SetNPage(nPage);
+		runList.SetIsPage(true);
+
 		for(int i=0;i<sepNames.size();i++){
 			JDFRunList rs=runList.AddPartition(PartIDKey_Separation,sepNames[i]);
 			rs.SetIsPage(false);
@@ -212,6 +214,7 @@ namespace JDF{
 		int siz=fileNames.size();
 		r.init();
 		r.SetNPage(nPage);
+		r.SetIsPage(true);
 		for(int i=0;i<sepNames.size();i++){
 			JDFRunList rs=r.AddPartition(PartIDKey_Separation,sepNames[i]);
 			rs.SetIsPage(false);
@@ -345,4 +348,11 @@ namespace JDF{
 		return GetLayoutElement().GetFileSpec().GetMimeType();
 	}
 
+	void JDFRunList::SetPages(const JDFIntegerRangeList& value)
+	{
+		JDFAutoRunList::SetPages(value);
+		int count = value.NElements();
+		if (count != 0)
+			SetNPage(count);
+	}
 }

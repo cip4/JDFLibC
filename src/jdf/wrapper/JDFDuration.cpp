@@ -261,7 +261,7 @@ namespace JDF{
 			{
 				int nextMPos = ++iMPos;
 				Seconds = theTime.substr (nextMPos, (iSPos-nextMPos));
-				s = (double) Seconds;
+				s = Seconds.isNumber() ? (double) Seconds : 0;
 				duration += s;
 			}
 		}

@@ -786,6 +786,12 @@ namespace JDF
 		return mFile;
 	}
 
+   // RN 31.10.2006: added missing method "getFragment"
+   WString URL::getFragment() const
+   {
+      return mFragment;
+   }
+
 	WString URL::getHost() const
 	{
 		return mHost;
@@ -879,7 +885,6 @@ namespace JDF
 		if (!mHost.empty())
 		{
 			URLText.append(mHost);
-			//
 			//  If the port is zero, then we don't put it in. Else we need
 			//  to because it was explicitly provided.
 			//
@@ -918,22 +923,25 @@ namespace JDF
 		return mHandler->openConnection(*this);
 	}
 
-	void URL::makeRelativeTo(const WString& baseURL)
+	bool URL::makeRelativeTo(const WString& baseURL)
 	{
-		// If this one is not relative, don't bother
-		if (!isRelative())
-			return;
+		// if this one is relative, cannot make it relative to base
+		if (isRelative())
+			return false;
 
 		URL base(baseURL);
-		conglomerateWithBase(base);
+		return makeRelativeToBase(base);
 	}
 
-	void URL::makeRelativeTo(const URL& baseURL)
+
+
+	bool URL::makeRelativeTo(const URL& baseURL)
 	{
-		// If this one is not relative, don't bother
-		if (!isRelative())
-			return;
-		conglomerateWithBase(baseURL);
+		// if this one is relative, cannot make it relative to base
+		if (isRelative())
+			return false;
+
+		return makeRelativeToBase(baseURL);
 	}
 
 	URI URL::toURI() const
@@ -941,38 +949,173 @@ namespace JDF
 		return URI(toString());
 	}
 
-
-
-	/*
-	WString URL::filenameToURI(WString str)
+	bool URL::makeRelativeToBase(const URL& baseURL)
 	{
+		bool     ok       = true;
+		WString  wStr;
+		WString  wNew;
 
-	// handle platform dependent strings
-	str = str.replaceChar(File::separatorChar(), chForwardSlash);
+		// the base URL cannot be relative
+		if (baseURL.isRelative())
+		{
+			ok = false;
+		}
+		else
+		{
+			// check all parts of base URL
+			// protocol
+			wStr  = baseURL.getProtocol();
+			if (wStr.empty() && !mProtocol.empty())
+			{
+				ok = false;
+			}
+			else if (!mProtocol.equalsIgnoreCase(wStr))
+			{
+				ok = false;
+			}
+			if (ok)
+			{
+				// user
+				wStr  = baseURL.getUser();
+				if (wStr.empty() && !mUser.empty())
+				{
+					ok = false;
+				}
+				else if (!mUser.equalsIgnoreCase(wStr))
+				{
+					ok = false;
+				}
+				else
+				{
+					// password
+					wStr  = baseURL.getPassword();
+					if (wStr.empty() && !mPassword.empty())
+					{
+						ok = false;
+					}
+					else if (!mPassword.equalsIgnoreCase(wStr))
+					{
+						ok = false;
+					}
+				}
+			}
+			if (ok)
+			{
+				// host
+				wStr  = baseURL.getHost();
+				if ((wStr.empty() && !mHost.empty()) || !mHost.equalsIgnoreCase(wStr))
+				{
+					ok = false;
+				}
+				else
+				{
+					// port
+					int port = baseURL.getPort();
+					if(mPort != port)
+					{
+						ok = false;
+					}
+				}
+			}
+			if (ok)
+			{
+				// path
+				wStr  = baseURL.getPath();		   
+				if (wStr.empty() && !mPath.empty())
+				{
+					ok = false;
+				}
+				else if (!mPath.equalsIgnoreCase(wStr))
+				{
+					// set relative path
+					wNew  = getRelativePath(mPath,baseURL.getPath());
+					wNew.insert(0, L"./");
+				}
+			}
+			if (ok)
+			{
+				// query
+				wStr  = baseURL.getQuery();		   
+				if (!wStr.empty() && !wStr.equalsIgnoreCase(mQuery))
+				{
+					ok = false;
+				}
+				else if(!mQuery.empty())
+				{
+					wNew.append(chQuestion);
+					wNew.append(mQuery);
+				}
+			}
+			if (ok)
+			{
+				// fragment
+				wStr  = baseURL.getFragment();		   
+				if (!wStr.empty() && !wStr.equalsIgnoreCase(mFragment))
+				{
+					ok = false;
+				} 
+				else if(!mFragment.empty())
+				{
+					wNew.append(chPound);
+					wNew.append(mFragment);
+				}
+			}
+			if (wNew.empty())
+			{
+				// failed, no part found to use for relative URL
+				ok = false;
+			}
 
-	// Windows fix
-	if (str.length() >= 2) {
-	if (str[1] == chColon) 
-	{
-	if (isLetter(str[0]))
-	str.insert((WString::size_type)0,1,chForwardSlash);
+			if (ok)
+			{
+				// set URL (use temporary instance because there is no reset method)
+				const URL tmpURL(wNew);
+				*this = tmpURL;
+			}
+		}
+
+		return ok;
 	}
-	}
 
-	// done
-	return str;
-	}
+   WString URL::getRelativePath(const JDF::WString &relativeUrl, const JDF::WString &baseUrl)
+   {
+	   WString wsBaseDir = baseUrl;
+	   WString wsRelativeUrl = relativeUrl;
 
-	URL URL::fileToURL(File file)
-	{
-	// convert path to URI
-	WString path = filenameToURI(file.getCanonicalPath());
-	//encode path 
-	path = ParseUtil::encodePath(path);
+	   bool found = true;
+	   while (found)
+	   {
+		   int pos = wsBaseDir.find_first_of(WString::slash);
+		   if ( (pos >= 0) && (wsBaseDir.leftStr(pos) == wsRelativeUrl.leftStr(pos)) )
+		   {
+			   wsRelativeUrl.replace(0,pos+1,WString::emptyStr);
+			   wsBaseDir.replace(0,pos+1,WString::emptyStr);
+		   }
+		   else
+			   found = false;
+	   }
 
-	return URL(JDFStrL("file"),JDFStrL(""),path);
-	}
-	*/
+	   // add a sufficient number of "../" before wsRelativeUrl
+	   int pos =  wsBaseDir.find(WString::slash);
+	   while (pos > 0)
+	   {
+		   wsBaseDir.replace(0,pos+1,WString::emptyStr);
+		   wsRelativeUrl = "../" + wsRelativeUrl;
 
+		   pos = wsBaseDir.find(WString::slash);
+	   }
+
+	   // add one more "../" if wsBaseDir has another dir left
+	   if (wsBaseDir.length() > 0)
+	   {
+			wsRelativeUrl = "../" + wsRelativeUrl;
+	   }
+
+	   // remove "/" at the end of wsRelativeUrl, if existing
+	   if (wsRelativeUrl.endsWith(WString::slash))
+		   wsRelativeUrl = wsRelativeUrl.substr(0,wsRelativeUrl.length()-1);
+
+	   return wsRelativeUrl;
+   }
 
 } // namespace JDF

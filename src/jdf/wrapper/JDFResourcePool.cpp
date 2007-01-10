@@ -185,14 +185,13 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
-	vElement JDFResourcePool::GetAllRefs(const vElement& vDoneRefs, bool bRecurse)const{
-		vElement v1=vDoneRefs;
+	VoidSet* JDFResourcePool::GetAllRefs(VoidSet* vDoneRefs, bool bRecurse)const{
 		vElement vResources=GetPoolChildren();
 		for(int i=0;i<vResources.size();i++){
 			JDFResource r=vResources[i];
-			v1.AppendUnique(r.GetResourceRoot().GetAllRefs(v1,bRecurse));
+			r.GetResourceRoot().GetAllRefs(vDoneRefs,bRecurse);
 		}
-		return v1;	
+		return vDoneRefs;	
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	vElement JDFResourcePool::GetPoolChildren(const WString & name, const mAttribute&mAttrib, const WString& nameSpaceURI)const{
@@ -225,6 +224,15 @@ namespace JDF{
 	JDFResource JDFResourcePool::GetResourceByID(const WString& id)const{
 		return GetChildWithAttribute(WString::star,KElementStrings::atr_ID,WString::emptyStr,id,0,true);
 	};
+	//////////////////////////////////////////////////////////////////////
+	bool JDFResourcePool::FixVersion(EnumVersion version)
+	{
+		if (HasAttribute(atr_rRefs))
+		{
+			RemoveAttribute(atr_rRefs);
+		}
+		return JDFElement::FixVersion(version);
+	}
 	//////////////////////////////////////////////////////////////////////
 	
 }

@@ -185,9 +185,12 @@ namespace JDF{
 	
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
-	
-	
 	JDFResourceLink JDFResourceAudit::AddNewOldLink(bool bNew, const JDFResource & r, bool bInput){
+		return addNewOldLink(bNew,r,bInput ? JDFResourceLink::Usage_Input :  JDFResourceLink::Usage_Output);
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+	
+	JDFResourceLink JDFResourceAudit::addNewOldLink(bool bNew, const JDFResource & r, JDFResourceLink::EnumUsage usage){
 		vElement v=GetResourceLinkVector();
 		int iNew=bNew?0:1;
 		if (v.size()!=iNew) 
@@ -195,7 +198,8 @@ namespace JDF{
 
 		JDFResourceLink l=AppendElement(r.GetLinkString());
 		l.SetTarget(r);
-		l.SetUsage(bInput ? JDFResourceLink::Usage_Input : JDFResourceLink::Usage_Output);	
+		if(usage!=JDFResourceLink::Usage_Unknown)
+			l.SetUsage(usage);	
 		return l;
 	}
 	

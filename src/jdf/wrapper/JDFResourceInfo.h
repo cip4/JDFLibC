@@ -166,7 +166,7 @@ class JDFResourceInfo : public JDFAutoResourceInfo
      * 
      * default: GetInvalidElements(level, true, 999999)
      */
-    vWString JDFResourceInfo::getInvalidElements(EnumValidationLevel level,
+    vWString getInvalidElements(EnumValidationLevel level,
             bool bIgnorePrivate, int nMax)const;
  		//@{
 		/**

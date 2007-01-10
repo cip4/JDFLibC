@@ -118,14 +118,19 @@ namespace JDF{
 	
 	//////////////////////////////////////////////////////////////////////
 	
-	bool JDFResourceLink::init(){
+	bool JDFResourceLink::init()
+	{
 		return true;
 	}
 	//////////////////////////////////////////////////////////////////////
 	
-	bool JDFResourceLink::SetTarget(const JDFResource& partLeaf){
+	bool JDFResourceLink::SetTarget(const JDFResource& partLeaf)
+	{
+		if(partLeaf.IsResourceElement())
+			throw new JDFException("attempting to link to a resource subelement");
+
 		AppendHRef(partLeaf.GetResourceRoot(),atr_rRef);
-		if(partLeaf.IsLeaf()){
+		if(!partLeaf.IsResourceRoot()){
 			RemoveChildren(elm_Part);
 			mAttribute mPart=partLeaf.GetPartMap();
 			if(!mPart.empty()){
@@ -166,30 +171,65 @@ namespace JDF{
             return GetAttribute(attrib, nameSpaceURI);
         }
         JDFPartAmount pa = amountPool.GetPartAmount(mPart);
+		WString ret = WString::emptyStr;
         if(!pa.isNull())
-            return pa.GetAttribute(attrib, nameSpaceURI);
-		return WString::emptyStr;
+			ret = pa.GetAttribute(attrib, nameSpaceURI);
+		if (ret.empty())
+			return GetAttribute(attrib, nameSpaceURI);
+		return ret;
 		
 	}
 	//////////////////////////////////////////////////////////////////
 	
 	void JDFResourceLink::SetAmountPoolAttribute(const WString & attrib,const WString & value,const WString & nameSpaceURI, const mAttribute& mPart){
-       // ideally the method would be hidden in PartAmount
-        if(mPart.isEmpty())
-        {
-            SetAttribute(attrib, value, nameSpaceURI);
-            return;
-        }
-        if(GetLocalName()==elm_PartAmount)
-        {
-            throw new JDFException(L"JDFResourceLinkPool.setAmountPoolAttribute: calling method on PartAmount object");
-        }
-        RemoveAttribute(attrib,nameSpaceURI); // either in the pool or the link, not both
-        GetCreateAmountPool().GetCreatePartAmount(mPart).SetAttribute(attrib, value, nameSpaceURI);
+		// ideally the method would be hidden in PartAmount
+		if(mPart.isEmpty())
+		{
+			SetAttribute(attrib, value, nameSpaceURI);
+			return;
+		}
+		if(GetLocalName()==elm_PartAmount)
+		{
+			throw new JDFException(L"JDFResourceLinkPool.setAmountPoolAttribute: calling method on PartAmount object");
+		}
+
+		vmAttribute v;
+		v.push_back(mPart);
+		SetAmountPoolAttribute(attrib, value, nameSpaceURI, v);
 	}
 	
 	//////////////////////////////////////////////////////////////////////
 	
+	void JDFResourceLink::SetAmountPoolAttribute(const WString & attrib,const WString & value,const WString & nameSpaceURI, const vmAttribute& vPart)
+	{
+		// ideally the method would be hidden in PartAmount
+		if(vPart.empty())
+		{
+			SetAttribute(attrib, value, nameSpaceURI);
+			return;
+		}
+		RemoveAttribute(attrib, nameSpaceURI); // either in the pool or the link, not both
+        JDFAmountPool ap=GetCreateAmountPool();
+        JDFPartAmount pa0=JDFPartAmount();
+        for(int i=0;i<vPart.size();i++)
+        {
+            JDFAttributeMap map = vPart[i];
+			JDFPartAmount pa=ap.GetPartAmount(map);
+			if(!pa.isNull())
+            {
+                if(!pa0.isNull() && pa!=pa0)
+                    throw JDFException("inconsistent partamounts");
+                pa0=pa;
+            }
+        }
+        if(pa0.isNull())
+			pa0=ap.AppendPartAmount(vPart);
+        pa0.SetPartMapVector(vPart);    
+		pa0.SetAttribute(attrib, value, nameSpaceURI);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
 	JDFResource JDFResourceLink::GetLinkRoot()const{
 		
     	if(GetLocalName()==elm_PartAmount)
@@ -562,7 +602,8 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	
 	void JDFResourceLink::SetProcessUsage(const WString &value){
-		SetAttribute(atr_ProcessUsage,value);
+		if (value != "Unknown")
+			SetAttribute(atr_ProcessUsage,value);
 	};
 	
 	//////////////////////////////////////////////////////////////////////
@@ -1098,8 +1139,19 @@ namespace JDF{
 	double JDFResourceLink::GetAmount(const mAttribute&mPart) const {
 		WString w= GetAmountPoolAttribute(atr_Amount,WString::emptyStr,mPart);
 		if(w.empty())
-			return GetTarget().GetAmount();
-		return (double)w;
+		{
+			JDFResource target = GetTarget();
+			if (!target.isNull())
+			{
+				target = target.GetPartition(mPart);
+				if (!target.isNull())
+					return target.GetAmount();
+			}
+		}
+		else
+			return (double)w;
+
+		return -1;
 	};
 	
 	//////////////////////////////////////////////////////////////////////
@@ -1196,11 +1248,22 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////////////
 
 	JDFResource::EnumStatus JDFResourceLink::GetMinStatus() const {
-		if(GetBoolAttribute(atr_DraftOK,WString::emptyStr,false)&&!HasAttribute(atr_MinStatus)){
-			return JDFResource::Status_Draft;
+		JDFResource::EnumStatus returnEnum;
+		if (HasAttribute(atr_MinStatus))
+		{
+			returnEnum = (JDFResource::EnumStatus)GetEnumAttribute(atr_MinStatus,JDFResource::StatusString());
 		}
-		int defaultVal= (GetUsage()==Usage_Output) ? (int)JDFResource::Status_Unavailable : (int)JDFResource::Status_Available ;
-		return (JDFResource::EnumStatus) GetEnumAttribute(atr_MinStatus,JDFResource::StatusString(),WString::emptyStr,defaultVal);
+		else
+		{
+			if (GetUsage() == Usage_Output)
+				returnEnum = JDFResource::Status_Unavailable;
+			else if (GetAttribute(atr_DraftOK) == "true")
+				returnEnum = JDFResource::Status_Draft;
+			else
+				returnEnum = JDFResource::Status_Available;
+		}
+
+		return returnEnum;
 	}
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -1361,6 +1424,33 @@ namespace JDF{
 			}
 		}
 		return JDFElement::FixVersion(version);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	bool JDFResourceLink::overlapsResourcePartMap(JDFAttributeMap partMap)
+	{
+		if (partMap.isEmpty())
+        {
+            return true; // speed up...
+        }
+        
+		vmAttribute vPart = GetPartMapVector();
+        
+        int siz = vPart.empty() ? 0 : vPart.size();
+        // if no part, any resource that is linked is valid
+        if (siz == 0)
+        {
+            return true;
+        }
+        
+        for (int i = 0; i < siz; i++)
+        {
+            if (vPart[i].OverlapMap(partMap))
+                return true;
+        }
+        
+        return false;
 	}
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////

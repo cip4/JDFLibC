@@ -89,21 +89,21 @@ namespace JDF{
 	};
 	
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////////
 	bool JDFCutBlock::ConsistentPartIDKeys(EnumPartIDKey key)const{
-		if(key!=PartIDKey_BlockName)
+		if(GetImplicitPartitions().index((int)key)<0)
 			return JDFAutoCutBlock::ConsistentPartIDKeys(key);
-		
-		const WString& s=PartIDKeyString(key);
-		
-		// the key is in PartIDKeys, oops this is not valid for CutBlock
-		if(GetPartIDKeys().hasString(s))
-			return false;
-		
-		// all is well
-		return true;
-		///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+		return false;
 	};
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	vint JDFCutBlock::GetImplicitPartitions() const{
+		vint v=JDFResource::GetImplicitPartitions();
+		v.push_back((int) PartIDKey_BlockName);
+		
+		return v;
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	WString JDFCutBlock::RequiredAttributes()const{

@@ -420,5 +420,17 @@ namespace JDF
 		return res;
 	}
 
+	WString PlatformUtils::createUID()
+	{
+		UUID myUniqueID;
+		wchar_t* myUniqueIDString;
+		::UuidCreate(&myUniqueID);
+		::UuidToString(&myUniqueID, (unsigned short**)&myUniqueIDString);
+		WString s = (wchar_t*)myUniqueIDString;
+		::RpcStringFree((unsigned short**)&myUniqueIDString);
+		return s;
+	}
+
+
 
 } // namespace JDF

@@ -75,15 +75,47 @@
 
  
 #include "jdf/wrapper/JDFAction.h"
+#include "jdf/wrapper/JDFActionPool.h"
 namespace JDF{
-/**
-* copy equivalance operator
-*/
+	/**
+	* copy equivalance operator
+	*/
 	JDFAction& JDFAction::operator=(const KElement& other){
 		KElement::operator=(other);
 		if(!IsValid(ValidationLevel_Construct))
-		throw JDFException(L"Invalid constructor for JDFAction: "+other.GetNodeName());
-	return *this;
-};
+			throw JDFException(L"Invalid constructor for JDFAction: "+other.GetNodeName());
+		return *this;
+	};
 
-	}; // namespace JDF
+	void JDFAction::setTest(JDFTest test)
+	{
+		test.AppendAnchor(WString::emptyStr);
+		WString id2=test.GetID();
+		SetTestRef(id2);
+	}
+
+	JDFTest JDFAction::getTest()
+	{
+		JDFTestPool testPool=getTestPool();
+		if ( testPool.isNull() )
+			return (JDFTest) JDFTest();
+		return testPool.getTest(GetTestRef());
+	}
+
+	JDFTestPool JDFAction::getTestPool()
+	{
+		KElement commonParent = getActionPool();
+		if ( commonParent.isNull() )
+			return (JDFTestPool) JDFTest();
+		JDFTestPool testPool = commonParent.GetElement(elm_TestPool, WString::emptyStr, 0);
+		return testPool;
+	}
+
+	JDFActionPool JDFAction::getActionPool()
+	{
+		JDFActionPool a;
+		a.init();
+		a.GetParentNode();
+		return a;
+	}
+}; // namespace JDF

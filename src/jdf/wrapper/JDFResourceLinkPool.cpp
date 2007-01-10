@@ -87,6 +87,8 @@
 #include "JDFResourceLink.h"
 #include "JDFNode.h"
 #include "JDFResourcePool.h"
+#include "jdf/lang/VoidSet.h"
+
 
 
 using namespace std;
@@ -148,10 +150,15 @@ namespace JDF{
 	vElement JDFResourceLinkPool::GetLinkedResources(const WString & resType,const mAttribute &mLinkAtt,const mAttribute &mResAtt, bool bFollowRefs)const{
 		vElement v=GetPoolChildren(WString::emptyStr,mLinkAtt);
 		vElement vL;
+		WString localResType = resType;
+
+		if (!localResType.empty() && localResType.endsWith(JDFStrings::atr_Link))
+			localResType=localResType.substr(0,resType.length()-4); // remove link
+
 		for(int i=0;i<v.size();i++){
 			JDFResourceLink l=v[i];
 			JDFResource r=l.GetLinkRoot();
-			if(!resType.empty()&&(r.GetResourceType()!=resType)) continue;
+			if(!localResType.empty()&&(r.GetResourceType()!=localResType)) continue;
 			if(r.IncludesAttributes(mResAtt)) {
 				vL.push_back(r);
 				if(bFollowRefs){
@@ -165,9 +172,13 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	
 	vElement JDFResourceLinkPool::GetInOutLinks(bool bInOut, bool bLink, const WString& resName, const WString& resProcUsage)const{
-		WString io=bInOut?L"Input":L"Output";
-		mAttribute mA;
-		mA.AddPair(atr_Usage,io);
+		return getInOutLinks(bInOut?JDFResourceLink::Usage_Input:JDFResourceLink::Usage_Output, bLink, resName,resProcUsage);
+	}
+	//////////////////////////////////////////////////////////////////////
+	
+	vElement JDFResourceLinkPool::getInOutLinks(JDFResourceLink::EnumUsage usage, bool bLink, const WString& resName, const WString& resProcUsage)const{
+		WString io=JDFResourceLink::UsageString(usage);
+		mAttribute mA(atr_Usage,io);
 		vElement v=GetPoolChildren(WString::emptyStr,mA);
 		bool bResNameWildCard=IsWildcard(resName.c_str());
 		bool bResProcUsageWildcard=IsWildcard(resProcUsage.c_str());
@@ -216,17 +227,16 @@ namespace JDF{
 	
 	//////////////////////////////////////////////////////////////////////
 
-	vElement JDFResourceLinkPool::GetAllRefs(const vElement& vDoneRefs, bool bRecurse)const{
-		vElement v1=vDoneRefs;
+	VoidSet* JDFResourceLinkPool::GetAllRefs(VoidSet* vDoneRefs, bool bRecurse)const{
 		vElement vResourceLinks=GetPoolChildren();
 		for(int i=0;i<vResourceLinks.size();i++){
 			JDFResourceLink rl=vResourceLinks[i];
-			if(!v1.hasElement(rl)){
-				v1.push_back(rl);
-				v1.AppendUnique(rl.GetLinkRoot().GetResourceRoot().GetAllRefs(v1,bRecurse));
+			if(!vDoneRefs->contains(rl.GetDOMElement())){
+				vDoneRefs->add(rl.GetDOMElement());
+				rl.GetLinkRoot().GetResourceRoot().GetAllRefs(vDoneRefs,bRecurse);
 			}
 		}
-		return v1;
+		return vDoneRefs;
 		
 	}
 	//////////////////////////////////////////////////////////////////////
@@ -412,5 +422,43 @@ namespace JDF{
 	vWString JDFResourceLinkPool::GetUnknownElements(bool bIgnorePrivate,int nMax)const{
 		return GetUnknownPoolElements(PoolType_ResourceLinkPool,bIgnorePrivate,nMax);
 	};
-			 
+	
+
+	//////////////////////////////////////////////////////////////////////
+
+	JDFResourceLink JDFResourceLinkPool::linkResource(JDFResource r, JDFResourceLink::EnumUsage usage, JDFNode::EnumProcessUsage processUsage)
+	{
+		WString s = r.GetID();
+
+		if (s.equals(WString::emptyStr))
+			return JDFResourceLink::DefKElement;
+
+		JDFResourceLink rl = (JDFResourceLink) AppendElement(r.GetLinkString(), r.GetNamespaceURI());
+		rl.SetTarget(r);
+		if (usage!=JDFResourceLink::Usage_Unknown)
+		{
+			rl.SetUsage(usage);
+			rl.SetProcessUsage(JDFNode::ProcessUsageString(processUsage));
+		}
+
+		//move the resource to the closest common ancestor if it is not already an ancestor of this
+		JDFNode parent=r.GetParentJDF();
+
+		//move the resource to the closest common ancestor if it is not already an ancestor of this
+		while (!parent.isNull() && !parent.IsAncestor(*this))
+		{
+			parent=r.GetParentJDF();
+			if(parent.isNull())
+				break;
+			parent=parent.GetParentJDF();
+			if(parent.isNull())
+			{
+				rl.DeleteNode(); // cleanup
+				throw JDFException(L"JDFResourceLink appendResource resource is not in the same document");
+			}
+
+			r = (JDFResource)parent.GetCreateResourcePool().MoveElement(r, KElement::DefKElement);
+		}  
+		return rl;
+	}
 }

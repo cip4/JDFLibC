@@ -1,3 +1,6 @@
+#if !defined _JDFQueue_H_
+#define _JDFQueue_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -69,13 +72,13 @@
 */
 
 //EndCopyRight
+// Revision history:
+// 281106 NB added getEntry(const int i)
 
 
 ///////////////////////////////////////////////////////////////////
 
 
-#if !defined _JDFQueue_H_
-#define _JDFQueue_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -128,6 +131,13 @@ namespace JDF{
 		* @return the QueueEntry with the QueueEntryID=strQEntryID
 		*/
 		JDFQueueEntry getEntry (const WString& strQEntryID);
+
+		/**
+		* Method getEntry: find a QueueEntry by position
+		* @param i the index of the QueueEntry
+		* @return JDFQueueEntry
+		*/
+		JDFQueueEntry getEntry (const int i);
 
 		/**
 		* Find the position of a queueEntry by QueueEntryID

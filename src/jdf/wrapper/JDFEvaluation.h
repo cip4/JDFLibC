@@ -270,8 +270,17 @@ public:
 	* Appends new BasicPreflightTest element to the end of 'this'  
 	*
 	* @return JDFBasicPreflightTest: newly created child BasicPreflightTest element
+	* @deprecated use appendBasicPreflightTest(name)
 	*/
 	virtual JDFBasicPreflightTest AppendBasicPreflightTest();
+
+	/**
+     * Appends element BasicPreflightTest to the end of 'this' and sets @Name to name
+     * 
+     * @param testName the new Name attribute of the BasicPreflightTest 
+     * @return JDFBasicPreflightTest: newly created BasicPreflightTest element
+     */
+	virtual JDFBasicPreflightTest appendBasicPreflightTest(const WString& testName);
 	//@}
 		
 

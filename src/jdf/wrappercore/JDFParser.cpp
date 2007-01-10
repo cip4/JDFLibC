@@ -283,12 +283,9 @@ namespace JDF{
 		{
 			XMLErrorHandler err;
 			StdInInputSource stdinSource;
-			xercesDOMParser->setDoValidation(bValidate);
-			xercesDOMParser->setDoSchema(bValidate);
-			if(!schemaLocation.empty())
-				xercesDOMParser->setExternalSchemaLocation(schemaLocation.c_str());
+			initParser(schemaLocation,bValidate);
 			// 181201 RP always use namespace handling!
-			xercesDOMParser->setDoNamespaces(true);
+			xercesDOMParser->setDoNamespaces(bDoNamespaces);
 			if (pErrorHandler != NULL){
 				xercesDOMParser->setErrorHandler(pErrorHandler);  
 			}else{
@@ -362,12 +359,9 @@ namespace JDF{
 			return false;
 		}
 		XMLErrorHandler err;
-		xercesDOMParser->setDoValidation(bValidate);
-		xercesDOMParser->setDoNamespaces(true);
-		xercesDOMParser->setDoSchema(bValidate);
-		if(!schemaLocation.empty())
-			xercesDOMParser->setExternalSchemaLocation(schemaLocation.c_str());
-		
+		initParser(schemaLocation,bValidate);
+		xercesDOMParser->setDoNamespaces(bDoNamespaces);
+
 		if (pErrorHandler != NULL){
 			xercesDOMParser->setErrorHandler(pErrorHandler);  
 		}else{
@@ -433,11 +427,8 @@ namespace JDF{
 
 		InputSourceAdapter adapter(&in,false);
 		XMLErrorHandler err;
-		xercesDOMParser->setDoValidation(bValidate);
-		xercesDOMParser->setDoNamespaces(true);
-		xercesDOMParser->setDoSchema(bValidate);
-		if(!schemaLocation.empty())
-			xercesDOMParser->setExternalSchemaLocation(schemaLocation.c_str());
+		initParser(schemaLocation,bValidate);
+		xercesDOMParser->setDoNamespaces(bDoNamespaces);
 		
 		if (pErrorHandler != NULL){
 			xercesDOMParser->setErrorHandler(pErrorHandler);  
@@ -487,6 +478,15 @@ namespace JDF{
 		bool bRet=StreamParse(inStream, bValidate,bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation);
 		return bRet;
 	}
+	/////////////////////////////////////////////////////////////////
+	
+	void JDFParser::initParser(const WString& schemaLocation, bool bValidate)
+	{
+		xercesDOMParser->setDoValidation(bValidate);
+//		xercesDOMParser->setDoNamespaces(true);
+		xercesDOMParser->setDoSchema(bValidate);
+	}
+
 	//////////////////////////////////////////////////////////////////////
 } // namespace JDF
 

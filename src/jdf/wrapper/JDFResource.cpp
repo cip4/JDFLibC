@@ -97,9 +97,10 @@
 #include "JDFRefElement.h"
 #include "JDFQualityControlResult.h"
 #include "JDFIdentificationField.h"
+#include <xercesc/dom/DOMAttr.hpp>
+#include <xercesc/dom/DOMElement.hpp>
 
 #include <algorithm>
-#include <iostream>
 
 using namespace std;
 
@@ -175,10 +176,68 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 	JDFResource JDFResource::GetResourceRoot()const{
-		JDFResource r=GetResourceRootImpl();
-		if(r.isNull())
-			r=*this;
-		return r;
+		JDFResource res;
+		JDFElement e  = (JDFElement) GetDeepParent(GetLocalName(), WString::pINF);
+
+		if (!e.isNull())
+		{
+			JDFElement parentNode = e.GetParentNode();
+			if (!parentNode.isNull())
+			{ 
+				WString parentName = parentNode.GetLocalName();
+
+				if (!parentName.empty())
+				{
+					if (ValidParentNodeNames().HasToken(parentName, WString::comma,0))
+					{
+						res = (JDFResource) e;
+					}
+					else 
+					{
+						while ( !(parentNode.IsResource()) 
+							 && !(parentNode.IsJDFNode())
+							 && !(parentNode.isJDFJMF()) )
+						{
+							// find the first resource uptree
+							parentNode = parentNode.GetParentNode();
+						}
+
+						if ( parentNode.IsResource() )
+						{   // e was a resource element --> search root of the parent element
+							return ((JDFResource)parentNode).GetResourceRoot();
+						}
+
+						if (parentNode.IsJDFNode())
+						{ 
+							if (e.isJDFNodeInfo() || e.isJDFCustomerInfo())
+							{
+								res = (JDFResource) e;
+							}
+							else 
+							{
+								throw new JDFException("JDFResource.getResourceRoot ran into the JDF node while searching");
+							}
+						}
+						else
+						{
+							throw JDFException("JDFResource.getResourceRoot ran into the JMF node while searching");
+						}
+					}
+				}
+			}
+			else // parentNode == null, this is a standalone resource
+			{
+				res=(JDFResource)e;
+			}
+		}
+
+		return res;
+
+		// ----- old version -----
+		//JDFResource r=GetResourceRootImpl();
+		//if(r.isNull())
+		//	r=*this;
+		//return r;
 	}
 	//////////////////////////////////////////////////////////////////////
 	JDFResource JDFResource::GetResourceRootImpl()const{
@@ -274,7 +333,7 @@ namespace JDF{
 		if(IsResourceRootRoot()) {
 			AppendAnchor();
 			SetStatus(Status_Unavailable);
-			EnumVersion v=GetEnumVersion();
+			EnumVersion v=GetEnumVersion(true);
 			if(v>=Version_1_2)
 			{
 				SetAgentName(JDFAudit::getStaticAgentName());
@@ -334,8 +393,10 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 	bool JDFResource::IsValid(EnumValidationLevel level)const{
-		// it is supposed to be incomplete -> don't check for completeness
+		if(level<=ValidationLevel_Construct && isNull()) 
+			return true;
 
+		// it is supposed to be incomplete -> don't check for completeness
 		level=IncompleteLevel(level);
 
 		// no specific details on construct check
@@ -359,7 +420,7 @@ namespace JDF{
 				return false;
 		}else{
 			EnumPartUsage partUsage = GetPartUsage();
-            bool bForceIncomplete=!(partUsage == PartUsage_Implicit)||(partUsage == PartUsage_Sparse);
+			bool bForceIncomplete=!(partUsage == PartUsage_Implicit)||(partUsage == PartUsage_Sparse);
 
 			if(GetInvalidAttributes(IncompleteLevel(level,bForceIncomplete),true,1).size()>0)
 				return false;
@@ -491,7 +552,8 @@ namespace JDF{
 			JDFQualityControlResult child=GetElement(elm_QualityControlResult,WString::emptyStr,i);
 			if (!child.IsValid(level)) {
 				vElem.push_back(elm_QualityControlResult);
-				if (++n>=nMax) return vElem;
+				if (++n>=nMax) 
+					return vElem;
 				break;
 			}
 		}
@@ -500,13 +562,15 @@ namespace JDF{
 			nElem=NumChildElements(elm_Contact);
 			if (nElem>1) {
 				vElem.push_back(elm_Contact);
-				if (++n>=nMax) return vElem;
+				if (++n>=nMax) 
+					return vElem;
 			}
 			for(i=0;i<nElem;i++){
 				JDFContact child=GetElement(elm_Contact,WString::emptyStr,i);
 				if (!child.IsValid(level)) {
 					vElem.push_back(elm_Contact);
-					if (++n>=nMax) return vElem;
+					if (++n>=nMax) 
+						return vElem;
 				}
 			}
 
@@ -515,7 +579,8 @@ namespace JDF{
 				JDFIdentificationField child=GetElement(elm_IdentificationField,WString::emptyStr,i);
 				if (!child.IsValid(level)) {
 					vElem.push_back(elm_IdentificationField);
-					if (++n>=nMax) return vElem;
+					if (++n>=nMax) 
+						return vElem;
 					break;
 				};
 			}
@@ -523,15 +588,33 @@ namespace JDF{
 			nElem=NumChildElements(elm_Location);
 			if (nElem>1) {
 				vElem.push_back(elm_Location);
-				if (++n>=nMax) return vElem;
+				if (++n>=nMax) 
+					return vElem;
 			}
 			for(i=0;i<nElem;i++){
 				JDFLocation child=GetElement(elm_Location,WString::emptyStr,i);
 				if (!child.IsValid(level)) {
 					vElem.push_back(elm_Location);
-					if (++n>=nMax) return vElem;
+					if (++n>=nMax) 
+						return vElem;
 				}
 			}
+
+			nElem=NumChildElements(elm_Identical);
+			if (nElem>1) {
+				vElem.push_back(elm_Identical);
+				if (++n>=nMax) 
+					return vElem;
+			}
+			for(i=0;i<nElem;i++){
+				JDFLocation child=GetElement(elm_Identical,WString::emptyStr,i);
+				if (!child.IsValid(level)) {
+					vElem.push_back(elm_Identical);
+					if (++n>=nMax) 
+						return vElem;
+				}
+			}
+
 		}
 
 		return vElem;
@@ -540,7 +623,7 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////////////
 
 	vWString JDFResource::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-
+		
 		level=IncompleteLevel(level);
 
 		vWString vAtts=JDFElement::GetInvalidAttributes(level, bIgnorePrivate, nMax);
@@ -953,16 +1036,26 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
-	vElement JDFResource::CreatePartitions(vmAttribute vPartMap, vWString vPartIDKeys){
+	vElement JDFResource::CreatePartitions(const vmAttribute& vPartMap, const vWString& vPartIDKeys){
 		vElement v;
 		for(int i=0;i<vPartMap.size();i++){
-			v.push_back(GetCreatePartition(vPartMap[i],vPartIDKeys));
+			vWString tmp;
+			JDFAttributeMap map = vPartMap[i];
+			for (int j=0;j<vPartIDKeys.size();j++)
+			{
+				if (map.HasKey(vPartIDKeys[j]))
+				{
+					tmp.add(vPartIDKeys[j]);
+				}
+			}
+			v.push_back(GetCreatePartition(map,vPartIDKeys));
 		}
+
 		return v;
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	JDFResource JDFResource::GetCreatePartition(EnumPartIDKey key, const WString & value, vWString vPartIDKeys){
+	JDFResource JDFResource::GetCreatePartition(EnumPartIDKey key, const WString & value, const vWString& vPartIDKeys){
 		mAttribute mp;
 		mp.AddPair(PartIDKeyString(key),value);
 		return GetCreatePartition(mp,vPartIDKeys);
@@ -971,80 +1064,110 @@ namespace JDF{
 
 	///////////////////////////////////////////////////////////////////////////
 
-	JDFResource JDFResource::GetCreatePartition(mAttribute partMap, vWString vPartIDKeys){
-		bool appendEnd=true;
-		if(vPartIDKeys.empty()){
-			vPartIDKeys=GetPartIDKeys();
-		}else{
-			//explicitely request vPartIDKeys, don't automagically append anything
-			appendEnd=false;
-		}
+	JDFResource JDFResource::GetCreatePartition(const mAttribute& partMap, const vWString& vPartKeys){
+		if(partMap.empty()) 
+			return GetResourceRoot();
 
-		mAttribute thisMap=GetPartMap();
-		if(!partMap.OverlapMap(thisMap))
-			throw JDFException("JDFResource::GetCreatePartition: non-matching partitions");
+		mAttribute localPartMap(partMap); // create a copy because it might get modified
+		bool appendEnd  = true;
+		vWString vPartIDKeys = reorderPartKeys(vPartKeys);
 
-		vPartIDKeys = expandKeysFromNode(partMap,vPartIDKeys);
-
-		vWString thisKeys=thisMap.GetKeys();
-		int siz=min(thisKeys.size(),vPartIDKeys.size());
-
-		// check whether this is alligned with vPartIDKeys
-		for(int i=0;i<siz;i++){
-			if(vPartIDKeys[i]!=thisKeys[i]){
-				throw JDFException("JDFResource::GetCreatePartition: non-matching partitions");
-			}else{
-				partMap.erase(thisKeys[i]); // erase all previously removed keys
+        // check whether we are already ok
+        int iMore=0;
+		mAttribute::iterator it=localPartMap.begin();
+		while(it!=localPartMap.end()) 
+		{
+			WString key = it.first();
+			it++;       
+			if (!vPartIDKeys.contains(key))
+			{
+				iMore++;
 			}
-
+		}
+		// only heuristically add stuff if needed...
+		if(iMore>1){
+			vPartIDKeys = expandKeysFromNode(localPartMap,vPartIDKeys);
 		}
 
-		// remove the keys of this
-		vPartIDKeys.erase(vPartIDKeys.begin(),vPartIDKeys.begin()+siz);
+		mAttribute thisMap = GetPartMap();
+		if (!JDFPart::overlapPartMap(thisMap,localPartMap))
+		{    
+			throw new JDFException("JDFResource.GetCreatePartition: non-matching partitions");
+		}
 
-		bool allParts=true;
-		bool creating=false;
-		JDFResource leaf=*this;
+		if(!thisMap.empty())
+		{			
+			vWString thisKeys = thisMap.GetKeys();
+			int siz = (thisKeys.size() < vPartIDKeys.size()) ? thisKeys.size() : vPartIDKeys.size();
 
-		siz=vPartIDKeys.size();
+			// remove the keys of this
+			for (int i = 0; i < siz; i++)
+			{
+				WString key = vPartIDKeys[0];
+				localPartMap.remove(key);
+				vPartIDKeys.erase(vPartIDKeys.begin());
+			}
+		}
+
+		bool allParts = true;
+		bool creating = false;
+		JDFResource leaf(*this);
 		// create all partitions
-		for(int lastPos=0;lastPos<siz;lastPos++){
-			const WString& key=vPartIDKeys[lastPos];
-			EnumPartIDKey enumKey=GetPartIDKeyEnum(key);
-			const WString& value= partMap[key];
+		for (int k = 0; k < vPartIDKeys.size(); k++)
+		{
+			WString key = vPartIDKeys.elementAt(k);
+			EnumPartIDKey enumKey = GetPartIDKeyEnum(key);
+			WString value = localPartMap.GetValue(key);
 
-			if(partMap.HasKey(key)){
-				if(allParts){
-					if(!creating){
-						JDFResource nextLeaf=leaf.GetPartition(enumKey,value,PartUsage_Explicit);
-						if(nextLeaf.isNull()){
-							creating=true;
-						}else{
-							leaf=nextLeaf;
-						}					
+			if (localPartMap.HasKey(key))
+			{
+				if (allParts)
+				{
+					if (!creating)
+					{
+						JDFResource nextLeaf = leaf.GetPartition(mAttribute(key,value), PartUsage_Explicit);
+						if (nextLeaf.isNull())
+						{
+							creating = true;
+						}
+						else
+						{
+							leaf = nextLeaf;
+						}                   
 					}
-					if(creating){
-						leaf=leaf.AddPartition(enumKey,value);
+					if (creating)
+					{
+						leaf = leaf.AddPartition(enumKey,value);
 					}
-					if(partMap.erase(key)==0)
+					localPartMap.remove(key);
+					if(localPartMap.size() == 0)
+					{
 						break; // nothing left to do
-				}else{
-					throw JDFException(L"JDFResource::GetCreatePartition: attempting to fill non-matching partIDKeys");
+					}
 				}
-			}else{
-				allParts=false;
+				else
+				{
+					throw JDFException("GetCreatePartition: attempting to fill non-matching partIDKeys");
+				}
+			}
+			else
+			{
+				allParts = false;
 			}
 		}
 
 		// add last partition key
-		int partSize=partMap.size();
-		if(appendEnd && allParts && partSize==1){ // one left and continuous, can add
-			WString key=partMap.GetKeys()[0];
-			leaf=leaf.AddPartition(GetPartIDKeyEnum(key),partMap[key]);
-		}else if(partSize>0){ // either non - continuuos or more than one left
-			throw JDFException(L"JDFResource::AddPartitionMap: incompatible partmap");
+		int partSize = localPartMap.size();
+		if (appendEnd && allParts && partSize == 1)// one left and continuous, can add
+		{ 
+			WString key = localPartMap.GetKeys().elementAt(0);
+			leaf = leaf.AddPartition(JDFResource::GetPartIDKeyEnum(key), localPartMap.GetValue(key));
 		}
-		return leaf;
+		else if (partSize>0)// either non - continuous or more than one left
+		{ 
+			throw JDFException("AddPartitionMap: incompatible partmap");
+		}
+		return leaf; 
 	}
  	//////////////////////////////////////////////////////////////////////
   /**
@@ -1078,6 +1201,36 @@ namespace JDF{
 	}
 	//////////////////////////////////////////////////////////////////////
 
+		//////////////////////////////////////////////////////////////////////
+
+	JDFResource JDFResource::GetPartition(EnumPartIDKey key, const WString & value, bool bIncomplete)const{
+		mAttribute mp;
+		mp.AddPair(PartIDKeyString(key),value);
+		return GetPartition(mp,bIncomplete ? PartUsage_Implicit : PartUsage_Explicit);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	JDFResource JDFResource::GetPartition(const mAttribute& m, bool bIncomplete)const{
+		if(m.empty()) 
+			return *this;
+		return GetDeepPart(m, bIncomplete ? PartUsage_Implicit : PartUsage_Explicit);
+	}
+	//////////////////////////////////////////////////////////////////////
+
+	vElement JDFResource::GetPartitionVector(EnumPartIDKey key, const WString & value,  bool bIncomplete)const{
+		mAttribute mp(PartIDKeyString(key),value);
+		return GetPartitionVector(mp,bIncomplete ? PartUsage_Implicit : PartUsage_Explicit);
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	vElement JDFResource::GetPartitionVector(const mAttribute& m,  bool bIncomplete)const{
+
+		return GetDeepPartVector(m,bIncomplete ? PartUsage_Implicit : PartUsage_Explicit,-1);
+	}
+	//////////////////////////////////////////////////////////////////////
+
 	JDFResource JDFResource::GetPartition(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage)const{
 		mAttribute mp;
 		mp.AddPair(PartIDKeyString(key),value);
@@ -1086,7 +1239,7 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
-	JDFResource JDFResource::GetPartition(mAttribute m, EnumPartUsage partUsage)const{
+	JDFResource JDFResource::GetPartition(const mAttribute& m, EnumPartUsage partUsage)const{
 
 		if(m.empty()) 
 			return *this;
@@ -1142,11 +1295,11 @@ namespace JDF{
 			}
 		}
 		// now loop down towards the root (or this) to check if any element that is closer to the root may be equivalent in terms of matching pairs
-		int retSize=-1;
+		int retSize=-1;		
 		JDFResource loopRes=returnRes;
 		vWString vKeys=m.GetKeys();
 
-		// loop unti we hit this or root, whichever is closer
+		// loop until we hit this or root, whichever is closer
 		while(42){
 			mAttribute returnMap=loopRes.GetPartMap();
 			// only check the keys, not the values since <Identical> elements may screw up the values... 
@@ -1189,18 +1342,19 @@ namespace JDF{
 	vElement JDFResource::GetDeepPartVector(const mAttribute &m_in, EnumPartUsage partUsage, int matchingDepth)const{
 		vElement vReturn;
 		mAttribute m=m_in;
-        m=removeImplicitPartions(m);
+		m=removeImplicitPartions(m);
 		if(partUsage==PartUsage_Unknown){
 			partUsage=GetPartUsage();
 		}
-		
+
 
 		const int msiz=m.size();
 		if(matchingDepth==-1){ // first call - check validity of the map
 			matchingDepth=0;
 			mAttribute thisMap=GetPartMap();
-			for(int i=0;i<msiz;i++){
-				GetPartIDKeyEnum(m.GetKeyByPos(i)); // check map and throw exception if bad
+			for(int i=0;i<msiz;i++)
+			{
+//				GetPartIDKeyEnum(m.GetKeyByPos(i)); // check map and throw exception if bad
 				// check whether we are already in a leaf when initially calling
 				if(thisMap.GetValue(m.GetKeyByPos(i))==m.GetValueByPos(i)){
 					matchingDepth++;
@@ -1270,9 +1424,12 @@ namespace JDF{
 			if((!(nChildren++))||bSnafu){ // must only search the first element, since only one key is allowed and all keys must be in the same sequence;
 				// unless, of course, someone wrote crap JDF (bSnafu=true)
 				for(int im=0;im<msiz;im++){
+					WString strKey = m.GetKeyByPos(im);
+					WString strValue = m.GetValue(strKey);
+
 					WString sTmp=resourceElement.GetAttribute(m.GetKeyByPos(im),WString::emptyStr,WString::quote);
 					if(sTmp!=WString::quote) {// found a matching key;
-						if(sTmp==m.GetValueByPos(im)){
+						if(JDFPart::matchesPart(strKey,sTmp,strValue)) {
 							hasMatchingAttribute=true;
 						}else{
 							badChild=true;
@@ -1396,34 +1553,70 @@ namespace JDF{
 			}
 			return vv;
 		}
+		
+		
+		//// want possibly intermediate nodes, check the kids
+		//vElement vAllChildren = KElement::GetChildElementVector(GetNodeName(), WString::emptyStr, mAttribute::emptyMap, true, 0, false);
+
+		//if (vAllChildren.empty())
+		//{
+		//	// got a leaf
+		//	vAllChildren.add(*this);
+		//}
+		//else
+		//{
+		//	vElement vLeaves;
+		//	// recurse parts tree and sum up the results
+		//	if (bAll)
+		//	{
+		//		vLeaves.AppendUnique(*this);
+		//	}
+
+		//	for (int i = 0; i < vAllChildren.size(); i++)
+		//	{
+		//		JDFResource pi = (JDFResource) vAllChildren.elementAt(i);
+		//		vElement v = pi.GetLeaves(bAll);
+		//		for (int j = 0; j < v.size(); j++)
+		//			vLeaves.add(v.elementAt(j));
+		//	}
+
+		//	vAllChildren = vLeaves;
+		//}
+
+		//return vAllChildren;
 	}
 
 	//////////////////////////////////////////////////////////////////////
 
 	vWString JDFResource::GetPartValues(EnumPartIDKey key)const{
-		vElement v=GetLeaves();
-		vWString vs;
-		WString partType=PartIDKeyString(key);
-
-		for(int i=0;i<v.size();i++){
-			// want recursive 
-			JDFResource p=v[i];
-			WString s=p.GetAttribute(partType);
-			if(s.empty()) 
-				continue;
-			bool bOK=true;
-			// once only
-			for(int i=0;i<vs.size();i++){
-				if(s==vs[i]){
-					bOK=false;
-					break;
-				}
-			}
-			if(bOK)
-				vs.push_back(s);
-		}
-
-		return vs;
+		vElement v = GetLeaves(false);
+        vWString vs;
+        
+        for (int i = 0; i < v.size(); i++)
+        {
+            JDFResource p = (JDFResource) v.elementAt(i);
+			WString s = p.GetAttribute(JDFResource::PartIDKeyString(key), WString::emptyStr, WString::emptyStr);
+            
+            if (!s.empty())
+            {
+                bool bOK = true;
+                for (int j = 0; j < vs.size() && bOK; j++)
+                {
+					
+                    if (s==vs.elementAt(j))
+                    {
+                        bOK = false;
+                    }
+                }
+                
+                if (bOK)
+                {
+                    vs.add(s);
+                }
+            }
+        }
+        
+        return vs;
 	}
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -1451,11 +1644,15 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	void JDFResource::AddPartIDKey(EnumPartIDKey partType){
-		WString s=PartIDKeyString(partType);
-		if(GetImplicitPartitions().index((int)partType)>=0){
-			throw JDFException(L"JDFResource::AddPartIDKey: attempting to add implicit partition: "+s);
-		}
-		GetResourceRoot().AppendAttribute(atr_PartIDKeys,s,WString::emptyStr,WString::blank,true);
+        WString s = PartIDKeyString(partType);
+		JDFResource r = GetResourceRoot();
+        
+		vint implicitPartitions = GetImplicitPartitions();
+		if (!implicitPartitions.empty() && (implicitPartitions.index(partType) >= 0))
+        {
+            throw JDFException("AddPartIDKey: attempting to add implicit partition: "+s);
+        }
+		r.AppendAttribute(atr_PartIDKeys, s, WString::emptyStr, WString::blank, true);
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -1463,11 +1660,17 @@ namespace JDF{
 	mAttribute JDFResource::GetPartMap()const{
 		vWString ids=GetPartIDKeys();
 		mAttribute m;
-		for(int i=0;i<ids.size();i++){
-			if (HasAttribute(ids[i]))
-				m.AddPair(ids[i],GetAttribute(ids[i]));
-		}
-		return m;
+		int size = (ids.empty()) ? 0 : ids.size();
+        for (int i = 0; i < size; i++)
+        {
+			WString atr = GetAttribute((WString) ids.elementAt(i), WString::emptyStr, WString::emptyStr);
+			if (!atr.empty())
+            {
+                m.put((WString) ids.elementAt(i), atr);
+            }
+        }
+
+        return m;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -1491,26 +1694,31 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
-	WString JDFResource::GetAttribute(const WString & attrib, const WString & nameSpaceURI, const WString & def)const{
-		WString s=JDFElement::GetAttribute(attrib,nameSpaceURI,def);
-		if(s!=def) 
-			return s;
+	WString JDFResource::GetAttribute(const WString & attrib, const WString & nameSpaceURI, const WString & def)const
+	{
+		if(throwNull())
+			return WString::emptyStr;
+		XERCES_CPP_NAMESPACE_QUALIFIER DOMAttr* da = GetDOMAttr(attrib.c_str(),nameSpaceURI.c_str());
+		if(da!=0) 
+			return da->getValue();
 
 		JDFElement n=*this;
 
 		// not in the leaf, recurse until root is found
-		WString nodeName=GetNodeName();		
-		while(42){
+		const JDFCh* nodeName=domElement->getNodeName();		
+		while(42)
+		{
 
 			n=n.GetParentNode();
 			if(n.isNull()) 
 				break;
-			if(n.GetNodeName()!=nodeName){ 
+			if(wcscmp(n.domElement->getNodeName(),nodeName))
+			{ 
 				break;
 			}
-			s=n.GetAttribute(attrib,nameSpaceURI,def);
-			if(s!=def) 
-				return s;
+			da = n.GetDOMAttr(attrib.c_str(),nameSpaceURI.c_str());
+			if(da!=0) 
+				return da->getValue();
 		}
 		return def;
 	}
@@ -1657,126 +1865,6 @@ namespace JDF{
 	void JDFResource::SetPartIDKey(EnumPartIDKey key, const WString&value ){
 		SetAttribute(PartIDKeyString(key),value);
 		AddPartIDKey(key);
-		// ensure consistency of waste attribute
-		if(key==PartIDKey_Condition){
-			if(GetLocalName()==elm_Component){
-				SetAttribute(atr_IsWaste,!value.endsWith(L"Good"));
-			}
-		}
-		/*
-		switch(key){
-		case PartIDKey_BlockName:{
-		SetBlockName(value);
-		break;
-		case PartIDKey_DocIndex:{
-		SetDocIndex(value);
-		break;
-		case PartIDKey_DocCopies:{
-		SetDocCopies(value);
-		break;
-		case PartIDKey_DocRunIndex:{
-		SetDocRunIndex(value);
-		break;
-		case PartIDKey_DocSheetIndex:{
-		SetDocSheetIndex(value);
-		break;
-		case PartIDKey_FountainNumber:{
-		SetFountainNumber(value);
-		break;
-		case PartIDKey_LayerIDs:{
-		SetLayerIDs(value);
-		break;
-		case PartIDKey_Location:{
-		SetLocation(value);
-		break;
-		case PartIDKey_Option:{
-		SetOption(value);
-		break;
-		case PartIDKey_PageNumber:{
-		SetPageNumber(value);
-		break;
-
-		if(!ValidPartVersion(level)) {
-		vAtts.push_back(atr_PartVersion);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidPreviewType(level)) {
-		vAtts.push_back(atr_PreviewType);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidRibbonName(level)) {
-		vAtts.push_back(atr_RibbonName);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidRun(level)) {
-		vAtts.push_back(atr_Run);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidRunIndex(level)) {
-		vAtts.push_back(atr_RunIndex);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidRunTags(level)) {
-		vAtts.push_back(atr_RunTags);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidRunPage(level)) {
-		vAtts.push_back(atr_RunPage);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidSeparation(level)) {
-		vAtts.push_back(atr_Separation);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidSetIndex(level)) {
-		vAtts.push_back(atr_SetIndex);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidSheetName(level)) {
-		vAtts.push_back(atr_SheetName);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidSheetIndex(level)) {
-		vAtts.push_back(atr_SheetIndex);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidSide(level)) {
-		vAtts.push_back(atr_Side);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidSignatureName(level)) {
-		vAtts.push_back(atr_SignatureName);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidTileID(level)) {
-		vAtts.push_back(atr_TileID);
-		if(++n>=nMax)
-		return vAtts;
-		};
-		if(!ValidWebName(level)) {
-		vAtts.push_back(atr_WebName);
-		if(++n>=nMax)
-		return vAtts;
-		};
-
-		}
-		//	,,PartIDKey_DocIndex,PartIDKey_DocRunIndex,PartIDKey_DocSheetIndex,PartIDKey_FountainNumber,PartIDKey_LayerIDs,PartIDKey_Location,PartIDKey_Option,PartIDKey_PageNumber,PartIDKey_PartVersion,PartIDKey_PreviewType,PartIDKey_RibbonName,PartIDKey_Run,PartIDKey_RunIndex,PartIDKey_RunTags,PartIDKey_RunPage,PartIDKey_Separation,PartIDKey_SetIndex,PartIDKey_SheetIndex,PartIDKey_SheetName,PartIDKey_Side,PartIDKey_SignatureName,PartIDKey_TileID,PartIDKey_WebName};
-
-		}
-		*/
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -1853,14 +1941,44 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	JDFResource JDFResource::AddPartition(EnumPartIDKey partType, const WString & value){
-		if(IsResourceElement()){
-			throw JDFException(L"Attempting to add partition to resource element: "+GetXPath());
+		if(IsResourceElement())
+		{
+			throw JDFException("Attempting to add partition to resource element");
 		}
-		if(!HasPartIDKey(partType)) 
-			AddPartIDKey(partType);
+		if(partType==PartIDKey_Unknown)
+		{
+			throw JDFException("Attempting to add null partition to resource");            
+		}
 
-		JDFResource p=AppendElement(GetNodeName());
-		p.SetPartIDKey(partType,value);
+
+		vWString vs=GetPartIDKeys();
+		int posOfType = vs.empty() ? -1 : vs.index(PartIDKeyString(partType));
+		if(posOfType<0)
+		{
+			if(!IsLeaf())
+				throw JDFException("addPartion: adding inconsistent partition - must be a leaf");
+		}
+		else if(posOfType==0)
+		{
+			if(!IsResourceRootRoot())
+				throw JDFException("addPartion: adding inconsistent partition - must be root");            
+		}
+		else
+		{
+			WString parentPart=vs.stringAt(posOfType-1);
+			if(!HasAttribute(parentPart,WString::emptyStr,false))
+				throw JDFException("addPartion: adding inconsistent partition - parent must have partIDKey: "+parentPart);
+		}
+		if (!HasAttribute(PartIDKeyString(partType), WString::emptyStr, false))
+		{
+			AddPartIDKey(partType);
+		}
+		JDFResource p = (JDFResource) AppendElement(GetNodeName(), WString::emptyStr);
+
+		if (!p.isNull())
+		{
+			p.SetPartIDKey(partType, value);
+		}
 
 		return p;
 	}
@@ -2016,8 +2134,6 @@ namespace JDF{
 						break;
 					if(r.GetNodeName()!=nodeName)
 						break;
-					if(r==*this)
-						break;
 
 					vWString atts=r.GetAttributeVector();
 					int j;
@@ -2036,6 +2152,8 @@ namespace JDF{
 						vElm[j].DeleteNode();
 					}
 
+					if(r==*this)
+						break;
 					r=r.GetParentNode();
 				}			
 			}
@@ -2463,6 +2581,12 @@ namespace JDF{
 
 			// update the partitions amounts
 			if((amountPolicy!=AmountMerge_None)&&IsPhysical()){
+				JDFResource trgKeep = trg;
+				trg = root.GetPartition(srcMap, JDFResource::PartUsage_Explicit);
+				if (trg.isNull())
+				{
+					trg = trgKeep;
+				}
 				vElement vr=trg.GetLeaves(true);
 				for(int l=0;l<vr.size();l++){
 					double amount=0;
@@ -2552,7 +2676,7 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////////////
 	WString JDFResource::OptionalElements()const{
 		// 270302 RP added Resourceupdate handling
-		WString s=JDFElement::OptionalElements()+WString::comma+GetUpdateName()+L",QuantityControlResult";
+		WString s=JDFElement::OptionalElements()+WString::comma+GetUpdateName()+L",QuantityControlResult,SourceResource,GeneralID,Identical";
 		if (GetResourceRoot().HasAttribute(atr_PartIDKeys)) 
 			s+= WString::comma + GetNodeName();
 		if(IsPhysical()) 
@@ -2892,7 +3016,7 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFResource::ValidParentNodeNames(){
-		static const WString nodeNames=ValidRootParentNodeNames()+L",Ancestor,DropItemIntent,DropItem,ProductionIntent,CustomerInfo,NodeInfo,DeviceInfo";
+		static const WString nodeNames=ValidRootParentNodeNames()+L",Ancestor,DropItemIntent,DropItem,ProductionIntent,CustomerInfo,NodeInfo,DeviceInfo,PhaseTime";
 		return nodeNames;
 	}
 
@@ -3151,24 +3275,11 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 	//////////////////////////////////////////////////////////////////////////////////
 
 
-	vWString JDFResource::GetValidNodeNames()const{
-		vWString vNodeNames=JDFElement::GetValidNodeNames();
-
-		// 180302 RP added resource update handling
-		int siz=vNodeNames.size();
-		for(int i=0;i<siz;i++){
-			if(vNodeNames[i].rightStr(6)!=atr_Update)
-				vNodeNames.AppendUnique(vNodeNames[i]+atr_Update);
-		}
-		return vNodeNames;
-	};
-
-	//////////////////////////////////////////////////////////////////////////////////
 	vElement JDFResource::GetChildElementVector(const WString & element, const WString & nameSpaceURI, const mAttribute &mAttrib, bool bAnd, unsigned int maxSize, bool bResolveTarget)const{
 		if(throwNull()) 
 			return vElement();
 
-		vElement v= JDFElement::GetChildElementVector(element,nameSpaceURI,mAttrib,bAnd,bResolveTarget);
+		vElement v= JDFElement::GetChildElementVector(element,nameSpaceURI,mAttrib,bAnd,maxSize,bResolveTarget);
 		WString nodeName=GetNodeName();
 
 		// remove partitions
@@ -3407,7 +3518,13 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 	//////////////////////////////////////////////////////////////////////////////////
 
 	void JDFResource::SetAgentName(const WString& value){
-		SetAttribute(atr_AgentName,value);
+		if (value.empty())
+		{
+			if (HasAttribute(atr_AgentName))
+				RemoveAttribute(atr_AgentName);
+		}
+		else
+			SetAttribute(atr_AgentName,value);
 	};
 	//////////////////////////////////////////////////////////////////////////////////
 	WString JDFResource::GetAgentName() const {
@@ -3415,7 +3532,13 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 	};
 	//////////////////////////////////////////////////////////////////////////////////
 	void JDFResource::SetAgentVersion(const WString& value){
-		SetAttribute(atr_AgentVersion,value);
+		if (value.empty())
+		{
+			if (HasAttribute(atr_AgentVersion))
+				RemoveAttribute(atr_AgentVersion);
+		}
+		else
+			SetAttribute(atr_AgentVersion,value);
 	};
 	//////////////////////////////////////////////////////////////////////////////////
 	WString JDFResource::GetAgentVersion() const {
@@ -3560,12 +3683,12 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 	};
 
 	//////////////////////////////////////////////////////////////////////////////////
-	void JDFResource::SetStatus( EnumStatus value, bool bCleanLeaves){
-		SetEnumAttribute(atr_Status,value,StatusString());
+	void JDFResource::SetStatus( EnumStatus value, bool bCleanLeaves){		
         if (bCleanLeaves) 
         {
 			RemoveAttributeFromLeaves(atr_Status);
         }
+		SetEnumAttribute(atr_Status,value,StatusString());
 	};
 	//////////////////////////////////////////////////////////////////////
 	JDFResource::EnumStatus JDFResource::GetStatus(bool bRecurseRefs)const{
@@ -4004,6 +4127,7 @@ JDFSourceResource JDFResource::AppendSourceResource(){
         
 		SetAttribute(atr_DeliveryUnit+WString::valueOf(iUnit), value);
     }
+
     /**
      * Gets attribute DeliveryUnit
      * 
@@ -4017,6 +4141,7 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 			throw new JDFException("getDeliveryUnit: invalid iUnit: "+WString::valueOf(iUnit));
 		return GetAttribute(atr_DeliveryUnit+WString::valueOf(iUnit));
     }
+
    /**
      * Gets attribute DeliveryUnit
      * 
@@ -4030,6 +4155,133 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 			throw new JDFException("validDeliveryUnit: invalid iUnit: "+WString::valueOf(iUnit));
 		return ValidAttribute(atr_DeliveryUnit+WString::valueOf(iUnit),AttributeType_NMTOKEN,false);
     }
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	bool JDFResource::isSpawnAllowed()
+	{
+		JDFAttributeMap amPartMap = GetPartMap();
+		bool isSpawnAllowed = true;
+
+		if (amPartMap.size() > 0)     // tuning
+		{
+			// Find first part ID key in amPartMap.
+			WString strPartIDKey;
+			vWString vsPartKeys  = GetPartIDKeys();
+			int nPartKeys = vsPartKeys.size();
+
+			// find a partIDKey, which is in the partMap too (start from the end)
+			for (int i=nPartKeys-1; i >= 0 && strPartIDKey.empty(); i--) 
+			{
+				WString str = vsPartKeys.stringAt(i);
+
+				if (amPartMap.HasKey(str))
+				{
+					strPartIDKey = str;
+				}
+			}
+
+			// Check found part ID key.
+			if (!strPartIDKey.empty())
+			{
+				if ((strPartIDKey.equals(WString("DocIndex")))
+					|| (strPartIDKey.equals(WString("DocCopies")))
+					|| (strPartIDKey.equals(WString("DocRunIndex")))
+					|| (strPartIDKey.equals(WString("DocSheetIndex")))
+					|| (strPartIDKey.equals(WString("RunIndex")))
+					|| (strPartIDKey.equals(WString("SheetIndex")))
+					// values not allowed according to JDF 1.2, 3.8.2.4                 
+					// || (strPartIDKey.equals (AttributeName.SORTING))
+					// || (strPartIDKey.equals (AttributeName.SORTAMOUNT))
+					)
+				{
+					isSpawnAllowed = false;
+				}
+			}
+		}
+
+		return isSpawnAllowed;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	void JDFResource::setPartIDKeys(const vWString& partIDKeys)
+	{
+		GetResourceRoot().SetAttribute(atr_PartIDKeys,partIDKeys.GetString(WString::blank,WString::emptyStr,WString::emptyStr));
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	bool JDFResource::validResourceClass(KElement::EnumValidationLevel level) const
+	{
+		bool b=ValidAttribute(atr_Class, JDFElement::AttributeType_Unknown, RequiredLevel(level));
+		if(!b)
+			return false;
+		// don't need to check for completeness - already done in the standard validAttribute call
+		if(IsResourceRootRoot())
+			return ValidClass();
+		return true;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	vWString JDFResource::reorderPartKeys(const vWString& vPartKeys)
+	{
+		if (vPartKeys.empty())
+        {
+            return GetPartIDKeys();
+        }
+         vWString vPartIDKeys = vWString(vPartKeys);
+         vWString vExistingPartKeys=GetPartIDKeys();
+         vWString vTmpPartIDKeys;
+		 if(!vExistingPartKeys.empty())
+         {
+             int n=vExistingPartKeys.size();
+             if(vPartIDKeys.size()<n)
+                 n=vPartIDKeys.size();
+             
+             for(int i=0;i<n;i++)
+             {
+                 WString partKey = vExistingPartKeys[i];
+                 if(!vPartIDKeys.contains(partKey)) // allow reordering of the existing partidkeys
+                 {
+                     throw JDFException("getCreatePartiton: adding incompatible partitions");
+                 }
+				 vTmpPartIDKeys.add(partKey);
+                 vPartIDKeys.RemoveStrings(vWString(partKey));
+             }
+             for(int i=0;i<vPartIDKeys.size();i++)
+             {
+				 vTmpPartIDKeys.add(vPartIDKeys[i]);
+             }
+             vPartIDKeys=vTmpPartIDKeys;                
+         }            
+         return vPartIDKeys;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	void JDFResource::cleanResourceAttributes()
+	{
+		
+		// clean up resource specific attributes
+		RemoveAttribute(atr_ID);
+		RemoveAttribute(atr_Class);
+		RemoveAttribute(atr_Status);
+		RemoveAttribute(atr_PartUsage);
+		RemoveAttribute(atr_NoOp);
+		vWString v=GetPartIDKeys();
+		if(!v.empty())
+			for(int i=0;i<v.size();i++)
+				RemoveAttribute(v[i]);
+		RemoveAttribute(atr_Locked);
+		RemoveAttribute(atr_PartIDKeys);
+		RemoveAttribute(atr_rRefs); 
+		RemoveAttribute(atr_SpawnIDs); 
+		RemoveAttribute(atr_SpawnStatus); 
+	}
+
+
  	//////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////

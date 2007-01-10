@@ -86,6 +86,7 @@
 #pragma warning( disable : 4786 ) // long debug names from stl
 #pragma warning( disable : 4804 ) // bool checking
 #include "JDFIntegerRange.h"
+#include "jdf\wrappercore\StringUtil.h"
 
 using namespace std;
 namespace JDF{
@@ -133,7 +134,11 @@ namespace JDF{
 
 	bool JDFIntegerRange::InRange(const int& x) const
 	{ 
-		return (x>=GetLeft())&&(x<=GetRight());
+		int _left = GetLeft();
+		int _right = GetRight();
+		int _realLeft = min(_left,_right);
+		int _realRight = max(_left,_right);
+		return (x>=_realLeft)&&(x<=_realRight);
 	}
 	
 	//////////////////////////////////////////////////////////////////////
@@ -211,13 +216,16 @@ namespace JDF{
 	* @return int the number of elements represented by this
 	*/
 	int JDFIntegerRange::NElements()const {
-		return 1 + abs(GetRight()-GetLeft());
+		// note: defaultXDef == 0
+		if(GetRight()<0 || GetLeft()<0)
+            return 0;
+		return 1 + abs(GetLeft()-GetRight());
 	}
 	
 
 	/**
 	* the value of the left range element
-	* this is always the left value, i.e. no chek for min or max is done
+	* this is always the left value, i.e. no check for min or max is done
 	* @return int the left value
 	*/
 	int JDFIntegerRange::GetLeft() const {
@@ -226,7 +234,7 @@ namespace JDF{
 	
 	/** 
 	* the value of the right range element
-	* this is always the right value, i.e. no chek for min or max is done
+	* this is always the right value, i.e. no check for min or max is done
 	* @return int the right value
 	*/
 	int JDFIntegerRange::GetRight() const {
@@ -239,5 +247,19 @@ namespace JDF{
 	void JDFIntegerRange::init(int x, int y, int xdef){
 		IntegerRange::init(x,y);
 		SetDef(xdef);
+	}
+
+	WString JDFIntegerRange::GetString() const
+	{
+		return toString();
+	}
+
+	WString JDFIntegerRange::toString() const
+	{
+		if (GetLeft()==GetRight())
+        {
+			return StringUtil::formatInteger(GetRight());
+        }
+		return StringUtil::formatInteger(GetLeft()) + " ~ " + StringUtil::formatInteger(GetRight());
 	}
 }

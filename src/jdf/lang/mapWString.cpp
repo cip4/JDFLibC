@@ -423,6 +423,11 @@ namespace JDF
 	};
 	////////////////////////////////////////////////////////////////////////
 
+	void MapWString::put(const WString &key, const WString & value){
+		SetPair(key,value);
+	}
+	////////////////////////////////////////////////////////////////////////
+
 	void MapWString::SetPair(const WString &key, const WString & value){
 		int siz = PBASE->size();
 		for(int i = 0; i < siz; i+=2)
@@ -453,6 +458,7 @@ namespace JDF
 	vWString MapWString::GetKeys()const{
 		vWString v;
 		int siz=PBASE->size();
+		v.reserve(siz/2);
 		for (int i=0;i<siz;i+=2){
 			v.push_back(PBASE->at(i)); 
 		}
@@ -590,6 +596,28 @@ namespace JDF
 			return v->at(iPos+1);
 		return WString::emptyStr;
 
+	}
+	////////////////////////////////////////////////////////////////////////
+	bool MapWStringIterator::hasNext() const
+	{
+		int siz = (int)( ((MapWStringBase*)mapVector)->size() / 2 );
+		int pos = (int)( iPos / 2 );
+		if (pos < siz-2)
+			return true;
+		else 
+			return false;
+	}
+	////////////////////////////////////////////////////////////////////////
+	WString MapWStringIterator::next()
+	{
+		if (hasNext())
+		{
+			iPos+=2;
+			return second();
+		}
+		//else
+		//	throw std::exception("MapWStringIterator: no such element");
+		return WString::emptyStr;
 	}
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////

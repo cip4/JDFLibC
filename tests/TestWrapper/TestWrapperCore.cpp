@@ -8,6 +8,8 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include "jdf/WrapperCore/KElement.h"
 #include "jdf/lang/Exception.h"
+#include "jdf/lang/VoidSet.h"
+#include "jdf/lang/SetWString.h"
 #include <iostream>
 #include "jdf/WrapperCore/MyDate.h"
 #include <jdf/WrapperCore/JDFParser.h> 
@@ -38,20 +40,23 @@ int main(int argc, char* argv[]){
 	}
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
-	if(1){
-
-		JDFDate dt = JDFDate( "1970-01-01T00:00:10Z" ); 
+	if(0){
+WString sss111(L"abc");
+JDFDate dt = JDFDate( "1975-01-01T20:00:10+00:00" ); 
 		WString str0 = dt.DateTimeISO(); 
-		cout<<str0<<endl; 
+		cout<<str0.peekBytes()<<endl; 
+		dt = JDFDate( "1975-01-01T20:00:10Z" ); 
+		cout<<str0.peekBytes()<<endl; 
 		dt.AddTime( 0, 0, 10 ); 
 		WString str1 = dt.DateTimeISO(); 
 		cout<<str1<<endl;
-
+		return 0;
 
 		XMLDoc doc;
 		doc.Parse("unicode.xml");
 		WString sss;
 		doc.Write2String(sss);
+		
 
 		const char* foo=sss.GetUTF8Bytes();
 		const char* snafu=sss.getBytes();
@@ -101,17 +106,60 @@ int main(int argc, char* argv[]){
 		doc2.Write2File("philp_out_snafu.jmf");
 		doc3.Parse("philp_out_snafu.jmf");
 
-	}else if(0){
+	}
+	else if(1)
+	{
+		XMLDoc d1("x1");
+		KElement e=d1.GetRoot();
+		XMLDoc d2("x2");
+		KElement e2=d2.GetRoot();
+		KElement foo=e2.AppendElement("foo:bar");
+		cout<<foo.getPrefixLength()<<endl;
+		foo.SetAttribute("foo:at","42");
+		cout<<foo.GetAttribute("at")<<" | "<<foo.GetAttribute("foo:at")<<endl;
 
-		XMLDoc doc=XMLDoc("e1");
-		KElement r=doc.GetRoot();
-		r.SetXPathAttribute("a/@at","1");
-		cout<<r<<endl;
-		try{
-		r.SetXPathAttribute("/a/@aa","2");
-		}catch (...){};
-		cout<<r<<endl;
+		foo.ReplaceElement(e);
+		e.SetAttribute("foo:at","42");
+		cout<<e.GetAttribute("at")<<" | "<<e.GetAttribute("foo:at")<<endl;
 
+		cout<<d2<<endl;
+		cout<<e2<<endl;
+		cout<<foo<<endl;
+		VoidSet vs;
+		vs.add((void*)4);
+		cout<<4<<vs.contains((void*)4)<<5<<vs.contains((void*)5)<<endl;
+		vs.resetIterator();
+		while (vs.hasNext())
+			cout<<vs.next()<<endl;
+		SetWString ss;
+		ss.add("a");
+		ss.add("b");
+		ss.add("a");
+		ss.resetIterator();
+		cout<<"a"<<ss.contains("a")<<"d"<<ss.contains("d")<<endl;
+		while (ss.hasNext())
+			cout<<ss.next()<<endl;
+
+
+	}
+	else if(0)
+	{
+
+		XMLDoc::setDefaultIgnoreNS(true);
+		XMLDoc doc;
+		doc.Parse(L"C:\\local\\bin\\foo.xml",false,true,false);
+		KElement ManufacturingCapabilities=doc.GetRoot().GetElement("Response").GetElement("ManufacturingCapabilities");
+		ManufacturingCapabilities.SetAttribute("newAtt","wattAuchImmer");
+		JDF::XMLDoc CapXmlDoc("ManufacturingCapabilities");
+		KElement RootElement = CapXmlDoc.GetRoot();
+		
+		RootElement.ReplaceElement(ManufacturingCapabilities);
+		cout<<"xmlns= "<<RootElement.GetAttribute("xmlns")<<endl;
+		cout<<"xmlns2= "<<RootElement.GetNamespaceURI()<<endl;
+		RootElement.RemoveAttribute("xmlns",KElement::atr_xmlnsURI);
+		cout<<"xmlns= "<<RootElement.GetAttribute("xmlns")<<endl;
+		cout<<"xmlns2= "<<RootElement.GetNamespaceURI()<<endl;
+		CapXmlDoc.Write2File("C:\\local\\bin\\foo2.xml");
 
 	}else if(0){
 		for(int kkk=0;kkk<100;kkk++){
@@ -133,7 +181,7 @@ int main(int argc, char* argv[]){
 			doc21=doc2;
 			doc22=p.GetRoot();
 		}
-	}else if(1){
+	}else if(0){
 		for(int i=0;i<1;i++){
 			for (wchar_t c=L'a';c<L'e';c++){
 				WString w="p"+WString(i);

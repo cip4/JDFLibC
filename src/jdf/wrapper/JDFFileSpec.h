@@ -153,7 +153,7 @@ namespace JDF{
 		* @param String unc the unc string that represents the file path
 		* @param WString host the host name to appear in the URL
 		*/
-		void JDFFileSpec::SetUNCURL(const WString& unc);
+		void SetUNCURL(const WString& unc);
 
 	}; // endJDFFileSpec
 

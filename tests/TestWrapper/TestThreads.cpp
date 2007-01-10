@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <jdf/wrapper/JDF.h>
 #include <jdf/util/PlatformUtils.h>
+#include <jdf/lang/Mutex.h>
+#include <jdf/lang/Synchronized.h>
 
 using namespace std;
 
@@ -14,6 +16,8 @@ unsigned __stdcall threadproc4 (void* p);
 
 
 using namespace JDF;
+	Mutex* mutex;
+	Mutex* mutex2;
 
 void main()
 {
@@ -25,6 +29,9 @@ void main()
 	} catch (const JDF::Exception&)	{
 		return;
 	}
+	mutex=new Mutex();
+//	mutex2=new Mutex();
+	mutex2=mutex;
 
     int stat1 = 0;
     threadHandle = _beginthreadex (NULL, 0, threadproc1, (void*) &stat1, 0, &threadID);
@@ -75,8 +82,9 @@ void main()
 
 unsigned __stdcall threadproc1 (void* p)
 {
+	{
+	Synchronized sync(*mutex);
     int* pi = (int*) p;
-
     time_t duration = 10;   // wait 60 seconds on Engine init
 
     time_t start_time, current_time;
@@ -84,12 +92,12 @@ unsigned __stdcall threadproc1 (void* p)
 
     current_time = start_time;
 	JDFDoc d;
-	d.Parse("D:/local/bin/merge.jdf",false);    
+	d.Parse("C:/local/bin/merge.jdf",false);    
 	cout<<11<<endl;
 	while (current_time - start_time <= duration)
     {
 		WString w="aa,*,ab,bc,*";
-		int j;
+		int j=0;
 		for(int i=0;i<100;i++){
 //			d.GetJDFRoot().UpDaterRefs();
 			j+=1+w.PosOfToken(WString::star,WString::comma);
@@ -104,7 +112,7 @@ unsigned __stdcall threadproc1 (void* p)
 
     cout<<12<<endl;
     *pi = 1;
-
+	}
     _endthreadex(0);
     return 0;
 }
@@ -113,6 +121,8 @@ unsigned __stdcall threadproc1 (void* p)
 
 unsigned __stdcall threadproc2 (void* p)
 {
+	{
+	Synchronized sync(*mutex);
     int* pi = (int*) p;
 
     time_t duration = 10;   // wait 60 seconds on Engine init
@@ -122,11 +132,11 @@ unsigned __stdcall threadproc2 (void* p)
 
     current_time = start_time;
 	JDFDoc d;
-	d.Parse("D:/local/bin/merge.jdf",false);    
+	d.Parse("C:/local/bin/merge.jdf",false);    
     cout<<21<<endl;
 
 		WString w="aa,*,ab,bc,*";
-		int j;
+		int j=0;
     while (current_time - start_time <= duration)
     {
 		for(int i=0;i<100;i++){
@@ -143,7 +153,7 @@ unsigned __stdcall threadproc2 (void* p)
 
     *pi = 1;
     cout<<22<<endl;
-
+	}
     _endthreadex(0);
     return 0;
 }
@@ -152,6 +162,9 @@ unsigned __stdcall threadproc2 (void* p)
 
 unsigned __stdcall threadproc3 (void* p)
 {
+	{
+	Synchronized sync(*mutex2);
+	
     int* pi = (int*) p;
 
     time_t duration = 10;   // wait 60 seconds on Engine init
@@ -161,7 +174,7 @@ unsigned __stdcall threadproc3 (void* p)
 
     current_time = start_time;
 	JDFDoc d;
-	d.Parse("D:/local/bin/merge.jdf",false);    
+	d.Parse("C:/local/bin/merge.jdf",false);    
     cout<<31<<endl;
 
     while (current_time - start_time <= duration)
@@ -171,6 +184,7 @@ unsigned __stdcall threadproc3 (void* p)
 			WString www=WString::star+L"_"+WString::star+"_";
 			www+=WString(42)+WString('b');
 			delete(WString::star.getBytes());
+			cout<<".";
 		}
 	    cout<<30<<current_time - start_time<<" "<<WString::star<<endl;
         time (&current_time);
@@ -179,7 +193,7 @@ unsigned __stdcall threadproc3 (void* p)
     cout<<32<<endl;
 
     *pi = 1;
-
+	}
     _endthreadex(0);
     return 0;
 }
@@ -188,6 +202,8 @@ unsigned __stdcall threadproc3 (void* p)
 
 unsigned __stdcall threadproc4 (void* p)
 {
+	{
+	Synchronized sync(*mutex2);
     int* pi = (int*) p;
 
     time_t duration = 10;   // wait 60 seconds on Engine init
@@ -195,25 +211,26 @@ unsigned __stdcall threadproc4 (void* p)
     time_t start_time, current_time;
     time (&start_time);
 
-    current_time = start_time;
+	current_time = start_time;
 	JDFDoc d;
-	d.Parse("D:/local/bin/merge.jdf",false);    
-    cout<<41<<endl;
-WString www;
-    while (current_time - start_time <= duration)
-    {
+	d.Parse("C:/local/bin/merge.jdf",false);    
+	cout<<41<<endl;
+	WString www;
+	while (current_time - start_time <= duration)
+	{
 		for(int i=0;i<100;i++){
-			d.GetJDFRoot().UpDaterRefs();
+			//d.GetJDFRoot().UpDaterRefs();
 			www=WString::star+L"_"+WString::star+"_";
 			www+=WString(42)+WString('b');
+			cout<<",";
 		}
 		cout<<www<<40<<current_time - start_time<<" "<<WString::star<<endl;
-        time (&current_time);
-    }
+		time (&current_time);
+	}
     cout<<42<<endl;
 
     *pi = 1;
-
+	}
     _endthreadex(0);
     return 0;
 }

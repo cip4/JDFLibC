@@ -123,12 +123,12 @@
 
 
 
-#ifdef __MWERKS__
-#define JDF_IS_FINITE(arg)	isfinite(arg)
-#define JDF_IS_NAN(arg)	isnan(arg)
+#if defined(__GNUC__) || defined(__MWERKS__)
+	#define JDF_IS_FINITE(arg)	isfinite(arg)
+	#define JDF_IS_NAN(arg)	isnan(arg)
 #else
-#define JDF_IS_FINITE(arg)	_finite(arg)
-#define JDF_IS_NAN(arg)	_isnan(arg)
+	#define JDF_IS_FINITE(arg)	_finite(arg)
+	#define JDF_IS_NAN(arg)	_isnan(arg)
 #endif
 
 /*

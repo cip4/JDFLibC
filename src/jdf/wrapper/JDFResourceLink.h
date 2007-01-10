@@ -1,3 +1,6 @@
+#if !defined(_JDFResourceLink_H__)
+#define _JDFResourceLink_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -118,6 +121,9 @@
 // 120803 RP IsExecutable() added bCheckChildren
 // 211003 RP IsExecutable() fixed bCheckChildren
 // 211003 RP GetTarget() now returns the lowest common denominator resource if all leaves are available
+// 250906 NB fixed SetProcessUsage()
+// 041206 NB fixed GetMinStatus()
+// 051206 NB fixed GetAmount()
 //
 //
 // JDFResourceLink.h: interface for the JDFResourceLink class.
@@ -126,9 +132,6 @@
 // tbd some facades for AmountPool
 //
 // ////////////////////////////////////////////////////////////////////
-
-#if !defined(_JDFResourceLink_H__)
-#define _JDFResourceLink_H__
 
 #include "JDFResource.h"
 
@@ -248,6 +251,18 @@ namespace JDF{
 		* @since 071103 
 		*/
 		void SetAmountPoolAttribute(const WString & attrib,const WString & value, const WString & nameSpaceURI, const mAttribute& mPart);
+
+		/** 
+		* sets  the  attribute occurence in PartAmount 
+		* 
+		* @param attrib        the attribute name
+		* @param value         value to set in string form.
+		* @param nameSpaceURI  the XML-namespace
+		* @param vPart         defines which part of this ResourceLink the Amount belongs to, 
+		*                      if empty set the ResourceLink root attribute.
+		* @since 061122
+		*/
+		void SetAmountPoolAttribute(const WString & attrib,const WString & value,const WString & nameSpaceURI, const vmAttribute& vPart);
 		
 		/**
 		* Get the status of the Resource that is linked by this link
@@ -893,6 +908,8 @@ namespace JDF{
 		Get attribute PipePartIDKeys
 		*/
 		//vint GetPipePartIDKeys();
+
+		bool overlapsResourcePartMap(JDFAttributeMap partMap);
 
 private:
 		/**

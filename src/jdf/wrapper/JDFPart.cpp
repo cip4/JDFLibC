@@ -84,6 +84,9 @@
 */
 
 #include "JDFPart.h"
+#include "JDFResource.h"
+#include "jdf/wrappercore/StringUtil.h"
+
 namespace JDF{
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -102,6 +105,72 @@ namespace JDF{
 	};
 	
 	///////////////////////////////////////////////////////////////////////////
+
+	bool JDFPart::matchesPart(const WString& key, const WString& resourceValue, const WString& linkValue)
+	{
+		JDFResource::EnumPartIDKey eKey=JDFResource::GetPartIDKeyEnum(key);
+		if(eKey==JDFResource::PartIDKey_Unknown)
+			return resourceValue.equals(linkValue);
+        bool b;
+        if(JDFResource::PartIDKey_PartVersion==eKey
+                || JDFResource::PartIDKey_DocTags==eKey
+                || JDFResource::PartIDKey_ItemNames==eKey
+                || JDFResource::PartIDKey_PageTags==eKey
+                || JDFResource::PartIDKey_RunTags==eKey
+                || JDFResource::PartIDKey_SetTags==eKey)
+        
+        {
+			b=StringUtil::matchesAttribute(linkValue,resourceValue,KElement::AttributeType_NMTOKENS);
+        }
+        
+        else if(JDFResource::PartIDKey_DocCopies==eKey
+                || JDFResource::PartIDKey_DocIndex==eKey
+                || JDFResource::PartIDKey_DocRunIndex==eKey
+                || JDFResource::PartIDKey_DocSheetIndex==eKey
+                || JDFResource::PartIDKey_LayerIDs==eKey
+                || JDFResource::PartIDKey_PageNumber==eKey
+                || JDFResource::PartIDKey_RunIndex==eKey
+                || JDFResource::PartIDKey_SectionIndex==eKey
+                || JDFResource::PartIDKey_SetIndex==eKey
+                || JDFResource::PartIDKey_SetRunIndex==eKey
+                || JDFResource::PartIDKey_SetSheetIndex==eKey
+                || JDFResource::PartIDKey_SheetIndex==eKey
+        )
+        {
+			b=StringUtil::matchesAttribute(linkValue,resourceValue,KElement::AttributeType_IntegerRangeList);
+        }
+        else
+        {
+            b=resourceValue.equals(linkValue);
+        }
+        return b;
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+
+	bool JDFPart::overlapPartMap(const mAttribute& resourceMap, const mAttribute& linkMap)
+	{
+		if(resourceMap.empty()||linkMap.empty())
+			return true; // null always overlaps with anything
+
+		vWString subMapEnum = linkMap.GetKeys();
+		// iterate subMapEnum
+		for (int i = 0; i < subMapEnum.size(); i++)
+		{
+			WString key    = subMapEnum[i];
+			WString resVal = resourceMap.GetValue(key);
+
+			if (!resVal.empty())
+			{
+				WString linkVal = linkMap.GetValue(key);
+				if (!matchesPart(key,resVal,linkVal))
+				{
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////

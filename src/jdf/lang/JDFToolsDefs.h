@@ -1,8 +1,10 @@
+#ifndef I_JDFTOOLSDEFS_H
+#define I_JDFTOOLSDEFS_H
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,9 +85,6 @@
  *
  ******************************************************************************/
 
-#ifndef I_JDFTOOLSDEFS_H
-#define I_JDFTOOLSDEFS_H
-
 
 /******************************************************************************
  *	Includes
@@ -128,8 +127,12 @@ typedef long long JDFInt64;
 #else
 #pragma warning( disable : 4786 ) // long debug names from stl
 #pragma warning( disable : 4804 ) // bool checking
+#pragma warning( disable : 4996 ) // deprecated printf etc.
 typedef unsigned __int64 JDFUInt64;
 typedef __int64 JDFInt64;
+#ifndef _CRT_NON_CONFORMING_SWPRINTFS
+#define _CRT_NON_CONFORMING_SWPRINTFS
+#endif
 #endif
 
 

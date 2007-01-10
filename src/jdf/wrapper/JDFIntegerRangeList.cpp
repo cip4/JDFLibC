@@ -231,6 +231,13 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	void JDFIntegerRangeList::SetDef(const int xdef){
 		xDef=xdef;
+		
+		int sz=PBASE->size();
+		for(int i=0;i<sz;i++)
+		{
+			JDFIntegerRange r=PBASE->at(i);
+			r.SetDef(xdef);
+		}
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -374,7 +381,13 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	
 	WString JDFIntegerRangeList::GetString()const{
-		return PBASE->GetString();
+		WString s;
+		int sz=this->size();
+		for(int i=0;i<sz;i++){
+			s+=this->operator [](i).GetString();
+			if(i<(sz-1)) s+=WString::blank;
+		}
+		return s;
 	};
 	
 	//////////////////////////////////////////////////////////////////////

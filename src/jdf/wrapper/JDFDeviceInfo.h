@@ -81,6 +81,7 @@
 #endif // _MSC_VER >= 1000
 
 #include "AutoJDF/JDFAutoDeviceInfo.h"
+#include "JDFPhaseTime.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -94,6 +95,7 @@ class JDFDeviceInfo : public JDFAutoDeviceInfo
 	* This file is hand edited and will not be regenerated
 	*/
 	class JDF_WRAPPERCORE_EXPORT JDFDeviceInfo : public JDFAutoDeviceInfo{
+
 	public:
 		
 		
@@ -126,6 +128,9 @@ class JDFDeviceInfo : public JDFAutoDeviceInfo
 		* @return bool true if valid
 		*/
 		virtual bool ValidDeviceStatus(EnumValidationLevel level=ValidationLevel_Complete) const;
+
+
+		JDFJobPhase createJobPhaseFromPhaseTime(const JDFPhaseTime& pt);
 	}; // endJDFDeviceInfo
 	
 	// ******************************************************

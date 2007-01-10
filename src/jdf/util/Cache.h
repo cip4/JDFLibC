@@ -276,7 +276,7 @@ void Cache<K,T,hashfun>::push(const K& key, T* value)
 
 	if (it != mDict.end())
 	{
-		typename std::list<CacheMap::value_type>::iterator it2;
+		typename std::list<typename CacheMap::value_type>::iterator it2;
 		it2 = std::find_if (mLRUList.begin(), mLRUList.end(), keypair<K,T>(key));
 
 		if (it2 != mLRUList.end())
@@ -330,7 +330,7 @@ T* Cache<K,T,hashfun>::remove(const K& key)
 	{
 		T* value = (*it).second;
 		mDict.erase(it);
-		typename std::list<CacheMap::value_type>::iterator itlist;
+		typename std::list<typename CacheMap::value_type>::iterator itlist;
 		itlist = std::find_if (mLRUList.begin(), mLRUList.end(), keypair<K,T>(key));
 		if (itlist != mLRUList.end())
 		{
@@ -379,8 +379,8 @@ void Cache<K,T,hashfun>::discard(const K& key)
 template <class K, class T,class hashfun>
 void Cache<K,T,hashfun>::addCacheItem(const K& key, T* value)
 {
-	mDict.insert(CacheMap::value_type(key,value));
-	mLRUList.push_back(CacheMap::value_type(key,value));
+	mDict.insert(typename CacheMap::value_type(key,value));
+	mLRUList.push_back(typename CacheMap::value_type(key,value));
 }
 
 template <class K, class T,class hashfun>
@@ -403,7 +403,7 @@ void Cache<K,T,hashfun>::discardLRUItem()
 template <class K, class T,class hashfun>
 void Cache<K,T,hashfun>::markRecentlyUsed(const K& key)
 {
-	typename std::list<CacheMap::value_type>::iterator it;
+	typename std::list<typename CacheMap::value_type>::iterator it;
 
 	it = std::find_if (mLRUList.begin(), mLRUList.end(), keypair<K,T>(key));
 

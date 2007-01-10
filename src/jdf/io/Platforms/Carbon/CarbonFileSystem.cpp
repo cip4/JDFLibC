@@ -91,7 +91,8 @@
 
 #include <xercesc/util/XMLUniDefs.hpp>
 
-#include <jdf/io/Exception.h>
+//John.Klippenstein@kodak.com - Exception.h has moved to a new location
+#include <jdf/lang/Exception.h>
 #include <jdf/io/File.h>
 #include <jdf/lang/Janitor.h>
 

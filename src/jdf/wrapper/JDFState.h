@@ -1,3 +1,6 @@
+#if !defined(_JDFState_H__)
+#define _JDFState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -83,15 +86,13 @@
 //        RP removed all init() routines. They became redundant in JDF 1.1 since DataType is no longer required
 // 250104 ES Modified for JDF 1.2 
 // 270104 ES removed all typesafe classes, but their template is still here
+// 081206 NB added FixVersion(), needed for handling "unbounded"
 // 
 //
 // JDFState.h: interface for the JDFState class.
 // defines the generic State attributes and sub-elements
 //
 // ////////////////////////////////////////////////////////////////////
-
-#if !defined(_JDFState_H__)
-#define _JDFState_H__
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -233,16 +234,31 @@ namespace JDF{
 		* @param EnumValidationLevel level: level of attribute validation 
 		* @return bool: true if valid
 		*/
-		virtual bool ValidDefaultValue(EnumValidationLevel level)const=0;
-		
-		
+		virtual bool ValidDefaultValue(EnumValidationLevel level)const;
+
+    
+    /**
+     * set the default values specified in this in element
+     * @param element the element to set the defaults on
+     * @return true if successful
+     */
+		bool setDefaultsFromCaps(KElement element)const;
+
+   /**
+     * gets the matching Attribute value String or AbstractSpan object from the parent, 
+     * depending on the type of the state
+     * 
+     * @param element the parent in which to search
+     * @return Object either a String or AbstractSpan
+     */
+	bool hasMatchingObjectInNode(const KElement& element)const;
 		/**
 		* Typesafe attribute validation of CurrentValue
 		*
 		* @param EnumValidationLevel level: level of attribute validation 
 		* @return bool: true if valid
 		*/
-		virtual bool ValidCurrentValue(EnumValidationLevel level)const=0;
+		virtual bool ValidCurrentValue(EnumValidationLevel level)const;
 
 		/**
 		* Tests, if the defined value matches Allowed test lists or Present test lists,
@@ -253,7 +269,7 @@ namespace JDF{
 		* Has two values: Allowed and Present.
 		* @return bool: true, if the value matches test lists or if Allowed testlists are not specified
 		*/
-		virtual bool FitsValue(const WString& value, EnumFitsValue testlists) const=0;
+		virtual bool FitsValue(const WString& value, EnumFitsValue testlists) const;
 
 
 		/**
@@ -650,7 +666,9 @@ namespace JDF{
 		JDFLoc AppendLoc();
 		//@}
 
-	};
+		bool FixVersion(JDFElement::EnumVersion version);
+
+	}; // class JDFStateBase
 	
 	
 	
@@ -760,12 +778,10 @@ namespace JDF{
 		};
 		//@}
 
+	}; // class JDFStateBase / template
 
 
-	};
-
-	
-};
+}; // namespace JDF
 
 
 //////////////////////////////////////////////////////////////////////////////////

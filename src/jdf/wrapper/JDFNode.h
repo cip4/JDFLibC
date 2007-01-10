@@ -1,3 +1,6 @@
+#if !defined(_JDFNode_H__)
+#define _JDFNode_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -145,14 +148,32 @@
 // 080205 | RP | Added SpawnInformative()
 // 170205 | RP | added AddInternalPipe()
 // 220605 | RP | split MergeJDF into multiple routines for better readability
+// 160806 | NB | added setCombined()
+// 210806 | NB | added setPhase()
+// 210806 | NB | added getEnumTypes()
+// 210806 | NB | added getLinksForType()
+// 210806 | NB | added getLinksForCombinedProcessIndex()
+// 220806 | NB | added addExecutablePartitions()
+// 230806 | NB | fixed SetType - now attribute "type" is removed correctly
+// 250806 | NB | added EnumProcessUsageFromString()
+// 250806 | NB | fixed addResource()
+// 280806 | NB | fixed PrepareToModifyLink()
+// 300806 | NB | fixed GetNodeInfo(), GetInheritedNodeInfo(), GetCustomerInfo(), GetInheritedCustomerInfo(), GetAncestorElement()
+// 310806 | NB | fixed TypeLinkNames(), TypeLinkInfo()
+// 310806 | NB | added getNiCi()
+// 310806 | NB | fixed RemoveNodeInfos(), RemoveCustomerInfos()
+// 010906 | NB | changed NodeInfo() access to public
+// 040906 | NB | modified checkSpawnedResources(), Spawn(), SpawnInformative to use JDFSpawn
+// 050906 | NB | modified MergeJDF()to use JDFMerge
+// 050906 | NB | added getUnknownLinkVector()
+// 080906 | NB | fixed IsValid()
+// 250906 | NB | fixed GetparentIDs()
+// 281106 | NB | fuxed IsExecutable()
 //
 // JDFNode.h: interface for the JDFNode class.
 // This class wraps all JDF nodes
 //
 //////////////////////////////////////////////////////////////////////
-
-#if !defined(_JDFNode_H__)
-#define _JDFNode_H__
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -162,6 +183,7 @@
 #include "JDFResourceAudit.h"
 #include "JDFNodeInfo.h"
 #include "JDFMISDetails.h"
+#include "JDFDeviceInfo.h"
 
 namespace JDF{
 
@@ -187,6 +209,7 @@ namespace JDF{
 	class JDFNotificationFilter;
 	class JDFCompany;
 	class JDFCustomerMessage;
+	class VoidSet;
 
 
 	/**
@@ -249,6 +272,13 @@ namespace JDF{
 		static const WString ProcessUsageString(EnumProcessUsage processUsage);
 
 		/**
+		* Get the enumeration fitting this ProcessUsage, ProcessUsage_Unknown if non-standard
+		* @param WString pu the string to convert to an enum
+		* @return EnumProcessUsage the node's enumerated processusage
+		*/
+		static EnumProcessUsage EnumProcessUsageFromString(const WString& pu);
+
+		/**
 		* Enumeration for accessing typesafe node types<p>
 		*
 		*/
@@ -302,7 +332,14 @@ namespace JDF{
 		void SetEnumType(JDFNode::EnumType typ);
 
 		/**
-		* Get the enumeration fitting this Type, TypeUnknown if non-standard
+		* get the Types as a vWString of EnumType
+		* @return vWString The vector of enumerated types, null if extensions exist that hinder us from generating a complete vector
+		* e.g. extension types or gray box names
+		*/
+		vWString getEnumTypes();
+
+		/**
+		* Get the enumeration fitting this Type, Type_Unknown if non-standard
 		* @param WString typ the string to convert to an enum
 		* @return EnumType the node's enumerated type
 		*/
@@ -350,15 +387,47 @@ namespace JDF{
 		*/
 		WString LinkNames()const;
 
-		/** 
-		*  get the resourcelink that resides in the resourcepool of this node
-		*  and references the resource r
-		*  @param JDFResource r: The Resource you are searching for
-		*  @param boolean bInput: if true, get links with Usage="Input", else with Usage="Output"
-		*  @return JDFResoourceLink: the resource link you was searching for or if not found, a new empty JDFResource Link
+		/**
+		* getLink - get the resourcelink that resides in the ResourceLinkPool of this node and references
+		* the resource r
+		* @param r      - the resource you are searching a link for
+		* @param bInput - if true, get links with Usage="Input", else with Usage="Output"
+		* @return JDFResourceLink - the resource link you were searching for, or an empty JDFResourceLink if not found
+		* default: getLink(r, true)
+		* @deprecated use getLink(resource, EnumUsage)
 		*/
 		JDFResourceLink GetLink(const JDFResource& r, bool bInput=true);		
+		/**
+		* getLink - get the resourcelink that resides in the ResourceLinkPool of this node and references
+		* the resource r
+		* @param r      - the resource you are searching a link for
+		* @param usage  - the usage attribute of the link. If Usage_Unknown, both input and output resourelinks will be returned
+		* @return JDFResourceLink - the resource link you were searching for, or an empty JDFResourceLink if not found
+		*/
+		JDFResourceLink getLink(const JDFResource& r, JDFResourceLink::EnumUsage usage=JDFResourceLink::Usage_Unknown);		
 
+		/**
+		* get the links that are selected by a given CombinedProcessIndex
+		* all links with no CombinedProcessIndex are included in the list
+		* 
+		* @param combinedProcessIndex the nTh occurence of the CombinedProcessIndex 
+		* field, -1 if all valid positions are ok
+		* 
+		* @default getLinksForCombinedProcessIndex(-1)
+		*/
+		vElement getLinksForCombinedProcessIndex(int combinedProcessIndex);
+
+		/**
+		* get the links that are selected by a given CombinedProcessIndex
+		* all links with no CombinedProcessIndex are included in the list
+		* 
+		* @param type the process type for which to get the links
+		* @param nType the nTh occurence of the Type field, -1 if all valid positions are ok
+		* 
+		* @default getLinksForType(type, -1)
+		*/
+		vElement getLinksForType(JDFNode::EnumType type, int nType);
+		
 		/**
 		* getLinks - get the links matching mLinkAtt out of the resource link pool
 		*
@@ -371,6 +440,7 @@ namespace JDF{
 		* default: getLinks(null,null,null)
 		*/
 		VElement getLinks(WString linkName, const JDFAttributeMap& mLinkAtt, const WString& linkNS=WString::emptyStr)const;
+		
 		/**
 		* spawn a node; url is the file name of the new node,
 		*
@@ -393,9 +463,9 @@ namespace JDF{
 		* @param bool bCopyCustomerInfo copy the CustomerInfo elements into the Ancestors
 		* @param bool bCopyComments if true, also copy the Comment elements into the ancestor
 		* @return JDFDoc: The spawned node's owner document.
+		* @deprecated - use JDFSpawn class 
 		*
 		* @since 2003-07-23 returns JDFDoc instead of JDFNode due to refCounting of the document
-		* @tbd enhance nested spawning of partitioned nodes
 		*/
 		JDFDoc Spawn(const WString &  parentURL, const WString& spawnURL=WString::emptyStr, 
 			const vWString& vRWResourceUsage=vWString::emptyvStr, 
@@ -403,7 +473,7 @@ namespace JDF{
 			bool bSpawnROPartsOnly=false, bool bCopyNodeInfo=false, 
 			bool bCopyCustomerInfo=false, bool bCopyComments=false);
 
-		/** 
+		/**
 		* spawn a node in informative mode without modifying the root JDF; url is the file name of the new node,
 		* the parameters except for the list of rw resources, which are by definition empty, are identical to those of Spawn
 		*
@@ -419,6 +489,7 @@ namespace JDF{
 		* @param bool bCopyCustomerInfo copy the CustomerInfo elements into the Ancestors
 		* @param bool bCopyComments if true, also copy the Comment elements into the ancestor
 		* @return JDFDoc: The spawned node's owner document.
+		* @deprecated USE JDFSpawn::spawnInformative()
 		*
 		*/
 		JDFDoc SpawnInformative(const WString &  parentURL, const WString& spawnURL=WString::emptyStr, 
@@ -469,9 +540,25 @@ namespace JDF{
 		* @param String nameSpaceURI: namespace of the added resource
 		* @param JDFResource& toReplace resource that should be replaced
 		* @return JDFResource:
+		* @deprecated
 		*/
 		JDFResource AddResource(const WString &  name, JDFResource::EnumClass resClass, bool bInput, JDFNode resRoot=JDFNode::DefJDFNode, bool bLink=true, const WString & nameSpaceURI=WString::emptyStr, const JDFResource & toReplace=JDFResource::DefJDFResource);
 
+		/**
+		* addResource - add a resource to resroot and link it to this process
+		*
+		* @param name      the localname of the resource
+		* @param resClass  the JFD/@Class of the resource; if null, find the resource class from factory
+		* @param usage    the Usage attrinute of the ResourceLink. if null, ther resource is not linked
+		* @param processUsage     The processUsage attribute of the link to the resource
+		* @param resRoot   the node where to add the Resource, if null defaults to this. Note that the link is always in this
+		* @param nameSpaceURI the nsURI of the resource, if null take the default ns
+		*
+		* @return JDFResource
+		* 
+		* default: addResource(name, null, usage, null, null, null)
+		*/
+		JDFResource addResource(const WString & name,JDFResource::EnumClass resClass, JDFResourceLink::EnumUsage usage, const WString& procUsage=WString::emptyStr, JDFNode resRoot=JDFNode::DefJDFNode, const WString & nameSpaceURI=WString::emptyStr, const JDFResource & toReplace=JDFResource::DefJDFResource);
 		/**
 		* Add a parameter resource to resroot and link it to this process
 		* <p> except when using this function for private exensions, the  typesafe extensions should be used
@@ -586,7 +673,7 @@ namespace JDF{
 		* else the Status is taken from the appropriate leaf itself
 		* @return bool: true if the node executable, false if not
 		*/
-		bool IsExecutable(const mAttribute & partMap=mAttribute::emptyMap,bool bCheckChildren=true)const;
+		bool IsExecutable(const mAttribute & partMap=mAttribute::emptyMap,bool bCheckChildren=true);
 
 		/**
 		* get a vector of all direct predecessor or following nodes depending on bpre
@@ -620,8 +707,24 @@ namespace JDF{
 		* @param boolean input: if true, usage=input
 		* @param boolean bForce: create a new resourcelink, even if a matching link already exists
 		* @return JDFResourceLink: the newly created resource link
+		* @deprecated use linkResource(enum)
 		*/
 		JDFResourceLink LinkResource(JDFResource r, bool input=true, bool bForce=false);
+
+		/**
+		* LinkResource: create a resourceLink in the resourceLinkPool that refers to 
+		* the resource jdfResource 
+		* also sets the appropriate combined process index
+		* 
+		*
+		* @param jdfResource the resource or partition to link to
+		* @param usage Usage of the resource
+		* @param processUsage processUsage of the resource
+		*
+		* @return JDFResourceLink the new link
+		* default: LinkResource(r, usage, null)
+		*/
+		JDFResourceLink linkResource(JDFResource jdfResource, JDFResourceLink::EnumUsage usage, EnumProcessUsage processUsage);
 
 		/**
 		* generic initialization
@@ -629,7 +732,7 @@ namespace JDF{
 		* @param JDFRoot parent the parent that this is spawned from, defaults to null
 		* @return bool true if successful
 		*/
-		bool init(bool flush=true,const JDFNode& parent=JDFNode());
+		bool init(bool flush=true,const JDFNode& parent=JDFNode::DefJDFNode);
 
 
 		/**
@@ -753,6 +856,15 @@ namespace JDF{
 		* @return  vWString vector of strings that contains missing Link keys
 		*/
 		vWString GetUnknownLinkVector(vWString vInNameSpace=vWString::emptyvStr, int nMax=9999999)const;
+
+		/**
+		* get a vector of Link names that exist but are unknown by this element
+		*
+		* @param vWString& vInNameSpace list of namespaces where unknown Links are searched for. if empty, all namespaces are searched
+		* @param int nMax maximum size of the returned vector
+		* @return  vWString vector of strings that contains missing Link keys
+		*/
+		vElement getUnknownLinkVector(vWString vInNameSpace=vWString::emptyvStr, int nMax=9999999)const;
 
 		/**
 		* true if Links are unknown in this element
@@ -1270,6 +1382,16 @@ namespace JDF{
 		virtual vWString GetTypes() const;
 
 		/**
+		* Gets the vector of the string Type/Types attribute values of the given JDFNode by 
+		* recursively traversing the tree
+		* returns exactly one element="Product" if the tested node's type is product
+		*
+		* @param JDFNode jdfRoot - the ProcessGroup JDFNode
+		* @return VString - vector of Type/Types attributes of the tested ProcessGroup JDFNode
+		* @throws JDFException if the testen JDFNode has illegal combination of attribute 'Types' and child JDFNodes
+		*/
+		vWString getAllTypes() const;
+		/**
 		* Typesafe attribute validation of Types
 		* @param EnumValidationLevel level: validation level
 		* @return bool: true if valid
@@ -1311,7 +1433,7 @@ namespace JDF{
 		* Set attribute Version
 		* @param EnumVersion value: the value to set the attribute to
 		*/
-		void JDFNode::SetEnumVersion(EnumVersion value);
+		void SetEnumVersion(EnumVersion value);
 
 		/**
 		* Typesafe attribute validation of Version
@@ -1871,11 +1993,27 @@ namespace JDF{
 
 		/**
 		* get inter-resource linked resource refs and resourcs links
-		* @param vWString vDoneRefs:
+		* @param vElement vDoneRefs
 		* @param bool bRecurse if true, also return recursively linked references
 		* @return velement: the vector of referenced resource refs and links
 		*/
-		vElement GetAllRefs(const vElement& vDoneRefs=vElement(), bool bRecurse=false)const;
+		VoidSet* GetAllRefs(VoidSet* vs, bool bRecurse=false)const;
+
+		/**
+		* Set the Status and StatusDetails of this node
+		* update the PhaseTime audit or append a new phasetime as appropriate  
+		* also generate a status JMF
+		* 
+		* @param nodeStatus the new status of the node
+		* @param nodeStatusDetails the new statusDetails of the node
+		* @param deviceStatus the new status of the device
+		* @param deviceStatusDetails the new statusDetails of the device
+		* @param vPartMap the vector of parts to that should be set
+		* 
+		* @return The root element representing the PhaseTime JMF
+		*/
+		JDFDoc setPhase(JDFNode::EnumStatus nodeStatus, const WString& nodeStatusDetails, const WString& deviceID, 
+			JDFDeviceInfo::EnumDeviceStatus deviceStatus, const WString& deviceStatusDetails, const vmAttribute& vPartMap);
 
 	protected:
 
@@ -1929,6 +2067,17 @@ namespace JDF{
 		* return -1 if it does not fit
 		*/
 		int GetMatchingIndex(const JDFResourceLink & rl, int &iIndex, int nOccur)const;
+
+		void generateCombinedProcessIndex(const JDFResource& jdfResource, JDFResourceLink::EnumUsage usage, JDFNode::EnumProcessUsage processUsage, JDFResourceLink resourceLink, const vWString& types);
+		bool cleanCombinedProcessIndex(JDFResourceLink::EnumUsage usage, const vWString& types, JDFIntegerList& cpi, const WString& resName, int lastGot, const vWString& typeLinkNamesLast, bool bAddCPI, const vWString& typeInfo);
+
+		/**
+		* gets the existing inherited CustomerInfo or NodeInfo from parents including ancestorpool
+		* attribute xPath is dummy for now
+		* TODO implement xPath in KElement
+		* @return the existing CustomerInfo or NodeInfo.
+		*/
+		KElement getNiCi(const WString& elementName, bool bInherit, const WString& xPath = WString::emptyStr) const;
 
 	public:
 		/**
@@ -2008,7 +2157,7 @@ namespace JDF{
 		* @param JDFNode resourceRoot the node where the ResourcePool resides that will contain the newly created resource
 		* @return JDFResource the newly created resource, null if unsuccessful
 		*/
-		JDFResource AppendMatchingResource(const WString& resName, EnumProcessUsage processUsage, JDFNode resourceRoot=JDFNode());
+		JDFResource AppendMatchingResource(const WString& resName, EnumProcessUsage processUsage, JDFNode resourceRoot=JDFNode::DefJDFNode);
 
 		/**
 		* Append a resource that matches the typesafe link described by resource name
@@ -2131,7 +2280,7 @@ namespace JDF{
 		* @param vWString& vsRO Resource IDs of non-local spawned resources 
 		* @param const WString& spawnID the original spawnID 
 		*/
-		void JDFNode::CleanROResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRO, const WString& spawnID);
+		void CleanROResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRO, const WString& spawnID);
 
 		/**
 		* merge the RW resources of the main JDF
@@ -2141,7 +2290,7 @@ namespace JDF{
 		* @param const WString& spawnID the original spawnID 
 		* @param JDFResource::EnumAmountMerge amountPolicy  
 		*/
-		void JDFNode::MergeRWResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRW, const WString& spawnID, JDFResource::EnumAmountMerge amountPolicy);
+		void MergeRWResources(JDFNode toMerge, const vWString& previousMergeIDs, const vWString& vsRW, const WString& spawnID, JDFResource::EnumAmountMerge amountPolicy);
 
 		/**
 		* merge the comments of local JDF Nodes 
@@ -2174,6 +2323,7 @@ namespace JDF{
 		* @throws JDFException if toMerge has already been merged 
 		* @throws JDFException if toMerge was not spawned from this
 		* @throws JDFException if toMerge has no AncestorPool
+		* @deprecated use JDFMerge class
 		*/
 		bool MergeJDF(JDFNode toMerge, const WString& urlMerge=WString::emptyStr, EnumCleanUpMerge cleanPolicy=CleanUpMerge_None, JDFResource::EnumAmountMerge amountPolicy=JDFResource::AmountMerge_None);
 
@@ -2182,7 +2332,7 @@ namespace JDF{
 		* 
 		* @param WString spawnID: the SpawnID of the spwned node
 		* @return bool true if successful:
-		* @tbd enhance nested spawning of partitioned nodes
+		* @deprecated use new JDFSpawn(this).unSpawn(spawnID);
 		*/
 		bool UnSpawn(const WString & spawnID);
 
@@ -2288,6 +2438,21 @@ namespace JDF{
 		* @return the ordered vector of partIDKeys
 		*/
 		vWString GetPartIDKeys(const mAttribute& partMap=mAttribute::emptyMap);
+
+		/**
+		* setCombined - set the combined node types to the values in vCombiNodes
+		*
+		* @param Vector vCombiNodes
+		*/
+		void setCombined(const vWString& vCombiNodes);
+
+		/**
+		* prepare the nodeinfo for a partitioned spawn
+		* @param vmAttribute& vSpawnParts the list of parts to spawn
+		* @return the vector of nodeinfo leaves
+		*/
+		vElement PrepareNodeInfo(const vmAttribute& vSpawnParts);
+
 	private:
 
 		/**
@@ -2303,24 +2468,6 @@ namespace JDF{
 		*
 		*/
 		virtual WString GetIDPrefix() const;
-
-
-		/**
-		* add any resources that live in ancestor nodes to this node
-		* @param JDFSpawned spawnAudit:
-		* @param JDFNode root:
-		* @param vWString vRWResourceUsage: vector of resource names and Usage / ProcessUsage that are spawned as rw <br>
-		*		the format is one of:<br>
-		*                     ResName<br>
-		*                     ResName:Input<br>
-		*		              ResName:Output<br>
-		*		              ResName:ProcessUsage<br>
-		*		              ID<br>
-		* @param vmAttribute vParts: vector of mAttributes that describe the parts to spawn
-		* @param bool bSpawnROPartsOnly if true, only the parts of RO resources that are specified in vParts are spawned, else the complete resource is spawned
-		* @return int: number of resources added to the spawned node
-		*/
-		int AddSpawnedResources(JDFSpawned spawnAudit, JDFNode root, const vWString& vRWResourceUsage=vWString::emptyvStr, const vmAttribute& vParts=vmAttribute(),bool bSpawnROPartsOnly=false);		
 
 		/**
 		* get a vector of all direct predecessor or following nodes depending on bpre
@@ -2348,7 +2495,7 @@ namespace JDF{
 		*	If any match, the referenced resource is considered rw
 		* @return bool true if rw
 		*/
-		static bool JDFNode::ResFitsRWRes(const JDFResource& r, const vWString& vRWResources);
+		static bool ResFitsRWRes(const JDFResource& r, const vWString& vRWResources);
 		/**
 		* copies a resource recursively and optionally fixes status flags and locks in the source resource
 		* @param JDFREsourcePool p: the pool to copy r into 
@@ -2361,15 +2508,11 @@ namespace JDF{
 		* @return vWString: vector of resource names that have been copied
 		*/
 		static void CopySpawnedResource(JDFResourcePool p, JDFResource r, JDFResource::EnumSpawnStatus copyStatus, const vmAttribute& vParts, const WString &spawnID,const vWString& resInPool,const vWString& vRWResources, vWString& vRWIDs, vWString& vROIDs, bool bSpawnROPartsOnly);
+		
+		// Note: class JDFNode::ExecPartFlags has intentionally not been implemented		
+		
 
-		/**
-		* prepare the nodeinfo for a partitioned spawn
-		* @param vmAttribute& vSpawnParts the list of parts to spawn
-		* @return the vector of nodeinfo leaves
-		*/
-		vElement JDFNode::PrepareNodeInfo(const vmAttribute& vSpawnParts);
-
-	}; // end of class
+	}; // end of class JDFNode
 
 	/**
 	* removed utility class for vectors of Nodes
@@ -2377,6 +2520,6 @@ namespace JDF{
 	*/
 #define vJDFNode vElement
 
-};
+}; // end of namespace JDF
 
 #endif // !defined(_JDFNode_H__)

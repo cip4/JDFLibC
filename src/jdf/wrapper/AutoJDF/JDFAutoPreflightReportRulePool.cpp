@@ -77,12 +77,11 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoPreflightReportRulePool.h"
 #include "jdf/wrapper/JDFPRRule.h"
 #include "jdf/wrapper/JDFPRRuleAttr.h"
-#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoPreflightReportRulePool : public JDFPool
+class JDFAutoPreflightReportRulePool : public JDFResource
 
 *********************************************************************
 */
@@ -110,6 +109,17 @@ JDFAutoPreflightReportRulePool& JDFAutoPreflightReportRulePool::operator=(const 
 	return L"*:,PreflightReportRulePool";
 };
 
+bool JDFAutoPreflightReportRulePool::ValidClass(EnumValidationLevel level) const {
+	if(!HasAttribute(atr_Class))
+		return !RequiredLevel(level);
+	return GetClass()==Class_Parameter;
+};
+
+bool JDFAutoPreflightReportRulePool::init(){
+	bool bRet=JDFResource::init();
+	SetClass(Class_Parameter);
+	return bRet;
+};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -117,32 +127,20 @@ JDFAutoPreflightReportRulePool& JDFAutoPreflightReportRulePool::operator=(const 
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoPreflightReportRulePool::RequiredAttributes()const{
-		return JDFPool::RequiredAttributes()+L",ActionPools";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPreflightReportRulePool::OptionalAttributes()const{
-		return JDFPool::OptionalAttributes()+WString(L",MaxOccurrences");
+		return JDFResource::OptionalAttributes()+WString(L",MaxOccurrences");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoPreflightReportRulePool::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFPool::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidActionPools(level)) {
-			vAtts.push_back(atr_ActionPools);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidMaxOccurrences(level)) {
 			vAtts.push_back(atr_MaxOccurrences);
 			if(++n>=nMax)
@@ -151,24 +149,6 @@ JDFAutoPreflightReportRulePool& JDFAutoPreflightReportRulePool::operator=(const 
 		return vAtts;
 	};
 
-/**
-* Set attribute ActionPools
-*@param vWString value: the value to set the attribute to
-*/
-	 void JDFAutoPreflightReportRulePool::SetActionPools(const vWString& value){
-	SetAttribute(atr_ActionPools,value);
-};
-/**
-* Get string attribute ActionPools
-* @return vWString the vaue of the attribute 
-*/
-	 vWString JDFAutoPreflightReportRulePool::GetActionPools() const {
-	return GetAttribute(atr_ActionPools,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPreflightReportRulePool::ValidActionPools(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ActionPools,AttributeType_IDREFS,RequiredLevel(level));
-	};
 /**
 * Set attribute MaxOccurrences
 *@param int value: the value to set the attribute to
@@ -233,38 +213,13 @@ JDFPRRuleAttr JDFAutoPreflightReportRulePool::AppendPRRuleAttr(){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFQualityControlResult JDFAutoPreflightReportRulePool::GetQualityControlResult(int iSkip)const{
-	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-
-JDFQualityControlResult JDFAutoPreflightReportRulePool::GetCreateQualityControlResult(int iSkip){
-	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
-	e.init();
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-
-JDFQualityControlResult JDFAutoPreflightReportRulePool::AppendQualityControlResult(){
-	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
-	e.init();
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoPreflightReportRulePool::RefQualityControlResult(JDFQualityControlResult& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
-
 /**
  typesafe validator
 */
 	vWString JDFAutoPreflightReportRulePool::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFPool::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
@@ -290,16 +245,6 @@ JDFRefElement JDFAutoPreflightReportRulePool::RefQualityControlResult(JDFQuality
 					return vElem;
 			}
 		}
-		nElem=NumChildElements(elm_QualityControlResult);
-
-		for(i=0;i<nElem;i++){
-			if (!GetQualityControlResult(i).IsValid(level)) {
-				vElem.AppendUnique(elm_QualityControlResult);
-				if (++n>=nMax)
-					return vElem;
-				break;
-			}
-		}
 		return vElem;
 	};
 
@@ -308,13 +253,13 @@ JDFRefElement JDFAutoPreflightReportRulePool::RefQualityControlResult(JDFQuality
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoPreflightReportRulePool::UniqueElements()const{
-		return JDFPool::UniqueElements()+L",PRRuleAttr";
+		return JDFResource::UniqueElements()+L",PRRuleAttr";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoPreflightReportRulePool::OptionalElements()const{
-		return JDFPool::OptionalElements()+L",PRRule,PRRuleAttr,QualityControlResult";
+		return JDFResource::OptionalElements()+L",PRRule,PRRuleAttr";
 	};
 }; // end namespace JDF

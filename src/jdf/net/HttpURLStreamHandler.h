@@ -122,7 +122,7 @@ namespace JDF
  * @nosubgrouping
  */
 
-class HttpURLStreamHandler : public URLStreamHandler
+class JDFTOOLS_EXPORT HttpURLStreamHandler : public URLStreamHandler
 {
 public:
 

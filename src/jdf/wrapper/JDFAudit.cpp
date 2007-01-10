@@ -118,7 +118,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFAudit::init(){
-		EnumVersion v=GetEnumVersion();
+		EnumVersion v=GetEnumVersion(true);
 		SetTimeStamp(JDFDate());
 		if(v>=Version_1_2)
 		{
@@ -282,7 +282,13 @@ namespace JDF{
 	Set attribute AgentName
 	*/
 	void JDFAudit::SetAgentName(const WString& value){
-		SetAttribute(atr_AgentName,value);
+		if (value.empty())
+		{
+			if (HasAttribute(atr_AgentName))
+				RemoveAttribute(atr_AgentName);
+		}
+		else
+			SetAttribute(atr_AgentName,value);
 	};
 	/**
 	Get string attribute AgentName
@@ -300,7 +306,13 @@ namespace JDF{
 	Set attribute AgentVersion
 	*/
 	void JDFAudit::SetAgentVersion(const WString& value){
-		SetAttribute(atr_AgentVersion,value);
+		if (value.empty())
+		{
+			if (HasAttribute(atr_AgentVersion))
+				RemoveAttribute(atr_AgentVersion);
+		}
+		else
+			SetAttribute(atr_AgentVersion,value);
 	};
 	/**
 	Get string attribute AgentVersion

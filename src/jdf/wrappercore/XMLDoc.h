@@ -156,7 +156,8 @@ namespace JDF {
 		XMLDoc& operator =(XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument* other);
 
 		/**
-		* copy ctor
+		* copy ctor - note that this simply creates a copy of the reference container, not the dom tree
+		* use clone() to clone the dom tree
 		*/
 		XMLDoc& operator =(const XMLDoc& other);
 
@@ -187,6 +188,11 @@ namespace JDF {
 		* 
 		*/
 		bool Write2Stream(OutputStream& out)const;
+
+		/**
+		* create a clone of the dom document
+		*/
+		XMLDoc clone();
 
 		/**
 		* write to a String in the system encoding
@@ -410,7 +416,7 @@ namespace JDF {
 		* Set the target with to target
 		* @param KElement target the target element
 		*/
-		void SetTarget(const KElement& target);
+		void SetTarget(const KElement& target, const WString& id);
 
 		/**
 		* Get the target with ID=id
@@ -472,6 +478,46 @@ namespace JDF {
 		* @return the XMLDocUserData of this
 		*/
 		XMLDocUserData* GetCreateXMLDocUserData();
+		/////////////////////////////////////////////////
+		/**
+		* sets the default namespace handling
+		* @param bool bIgnore if true, namespaces are completely ignored
+		*/
+		static void setDefaultIgnoreNS(bool bIgnore);
+
+		/////////////////////////////////////////////////
+		/**
+		* gets the default namespace handling
+		* @return bool bIgnore if true, namespaces are completely ignored
+		*/
+		static bool getDefaultIgnoreNS();
+		/////////////////////////////////////////////////
+		/**
+		* sets the default namespace handling
+		* @param bool if true, UIDs are generated
+		*/
+		static void setGenerateUID(bool bIgnore);
+
+		/////////////////////////////////////////////////
+		/**
+		* gets the default namespace handling
+		* @return bool if true, UIDs are generated
+		*/
+		static bool getGenerateUID();
+		
+		/////////////////////////////////////////////////
+		/**
+		* sets the default output print
+		* @param bool if true, output is compressed (minimize whitespace)
+		*/
+		static void setCompressOutput(bool bIgnore);
+
+		/////////////////////////////////////////////////
+		/**
+		* gets the default output print
+		* @return bool if true, output is compressed (minimize whitespace)
+		*/
+		static bool getCompressOutput();
 
 
 	private:

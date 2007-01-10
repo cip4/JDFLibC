@@ -88,6 +88,7 @@
 * 051102 RP Token() gracefully handle index above limit of number of tokens
 * 241103 RP added GetKeys, erase(vWString)
 * now contains a vector instead of inheriting from stl::map
+* 060906 NB added mapWStringIterator::next(), mapWStringIterator::hasNext()
 *
 *
 ******************************************************************************/
@@ -164,6 +165,7 @@ namespace JDF
 		* @param WString value the value to set the map to
 		*/
 		void AddPair(const WString &key, const WString & value);
+		
 
 		/**
 		* appends a key value pair - for performance, no check is made if key already exists
@@ -179,6 +181,14 @@ namespace JDF
 		* @param WString value the value to set the map to
 		*/
 		void SetPair(const WString &key, const WString & value);
+		
+		/**
+		* set a key value pair - if key already exists, the prior value is overwritten
+		* same as setPair - java compatibility
+		* @param WString key the key to add to the map
+		* @param WString value the value to set the map to
+		*/
+		void put(const WString &key, const WString & value);
 
 		/** 
 		* equivalence operator: all elements are identical. Ordering is not relevant
@@ -406,10 +416,23 @@ namespace JDF
 		*/
 		const WString& second()const;
 
+		/**
+		* check if there is another element after the current one
+		* @return bool true, if there is a next element
+		*/
+		bool hasNext() const;
+
+		/**
+		* gets the value of the next element
+		* @return WString the value of the next element
+		* @throws std::exception if there is no next element
+		*/
+		WString next();
+
 	private:
 		void *mapVector;
 		int iPos;
-	};
+	}; // class MapWStringIterator
 
 	
 } // namespace JDF

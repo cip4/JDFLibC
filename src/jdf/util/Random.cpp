@@ -238,7 +238,7 @@ double Random::nextGaussian(void)
                     v2 = 2 * nextDouble() - 1;   // between -1.0 and 1.0
                     s = v1 * v1 + v2 * v2;
             } while (s >= 1);
-            double norm = sqrt(-2 * log(s)/s);
+            double norm = std::sqrt(-2 * std::log(s)/s);
             mNextGaussian = v2 * norm;
             mHaveNextGaussian = true;
             return v1 * norm;

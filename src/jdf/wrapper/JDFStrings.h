@@ -1,3 +1,6 @@
+#if !defined(_JDFSTRINGS_H__)
+#define _JDFSTRINGS_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -78,9 +81,9 @@
 // 
 // Revision history:
 // 290404 created from JDGFElement
+// 211106 NB changed value of atr_File to lower case
+// 281106 NB added elm_ModifyNodeCmdParams, elm_UpdateJDFCmdParams
 */
-#if !defined(_JDFSTRINGS_H__)
-#define _JDFSTRINGS_H__
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -390,6 +393,7 @@ namespace JDF{
 		static const WString elm_GangInfo;
 		static const WString elm_GangQuFilter;
 		static const WString elm_GatheringParams;
+		static const WString elm_GeneralID;
 		static const WString elm_Glue;
 		static const WString elm_GlueApplication;
 		static const WString elm_GlueLine;
@@ -534,6 +538,7 @@ namespace JDF{
 		static const WString elm_Milestone;
 
 		static const WString elm_Modified;
+		static const WString elm_ModifyNodeCmdParams;
 		static const WString elm_Module;
 		static const WString elm_ModuleCap;
 		static const WString elm_ModulePhase;
@@ -854,6 +859,7 @@ namespace JDF{
 		static const WString elm_TrimmingParams;
 		
 		static const WString elm_Underage;
+		static const WString elm_UpdateJDFCmdParams;
 		static const WString elm_USWeight;
 		
 		static const WString elm_Value;

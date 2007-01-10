@@ -1,3 +1,6 @@
+#ifndef I_JDF_VWSTRING_H
+#define I_JDF_VWSTRING_H
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -88,11 +91,11 @@
 * 051102 RP Token() gracefully handle index above limit of number of tokens
 * 041202 RP remove STL from the interface and hide it in pBase
 * 231104 ES added vector iterator implementation - class vWStringIterator
+* 010906 NB added containsAny()
+* 040906 NB added removeAll()
+* 050906 NB added vWStringIterator::hasNext(), vWStringIterator::next()
 *
 ******************************************************************************/
-
-#ifndef I_JDF_VWSTRING_H
-#define I_JDF_VWSTRING_H
 
 /******************************************************************************
 *	Includes
@@ -194,11 +197,25 @@ namespace JDF
 		}
 
 		/**
-		* does this contain all stringsa specified in other?
+		* does this contain all strings specified in other?
 		* @param vWString& other vector of strings to find
 		* @return bool true if this contains all elements of other
 		*/
 		bool containsAll(const vWString &other)const;
+
+		/**
+		* does this contain any of the strings specified in other?
+		* @param other the vWString of values to test
+		* @return true if at least one string of "other" is in this
+		*/
+		bool containsAny(const vWString &other)const;
+		
+		/**
+		* add all strings specified in other - java compatibility
+		* @param vWString& other vector of strings to add
+		* 
+		*/
+		void addAll(const vWString &other);
 
 		/**
 		* same as set::find
@@ -450,8 +467,6 @@ namespace JDF
 	private:
 
 		void * pBase;
-
-		vWString  operator+(const WString& str);
 		
 };
 
@@ -560,6 +575,19 @@ namespace JDF
 		vWString::reference operator *();
 		
 		vWString::const_reference operator *() const;
+
+		/**
+		* check if there is another element after the current one
+		* @return bool true, if there is a next element
+		*/
+		bool hasNext() const;
+
+		/**
+		* gets the value of the next element
+		* @return WString the value of the next element
+		* @throws std::exception if there is no next element
+		*/
+		WString next();
 		
 
 	private:

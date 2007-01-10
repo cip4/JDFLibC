@@ -132,14 +132,14 @@ bool JDFAutoPreflightReport::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoPreflightReport::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",ErrorState,WarningCount";
+		return JDFResource::RequiredAttributes()+L",ErrorCount,WarningCount";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPreflightReport::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ErrorCount");
+		return JDFResource::OptionalAttributes()+WString(L",ErrorState");
 };
 
 /**
@@ -150,8 +150,8 @@ bool JDFAutoPreflightReport::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidErrorState(level)) {
-			vAtts.push_back(atr_ErrorState);
+		if(!ValidErrorCount(level)) {
+			vAtts.push_back(atr_ErrorCount);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -160,14 +160,50 @@ bool JDFAutoPreflightReport::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidErrorCount(level)) {
-			vAtts.push_back(atr_ErrorCount);
+		if(!ValidErrorState(level)) {
+			vAtts.push_back(atr_ErrorState);
 			if(++n>=nMax)
 				return vAtts;
 		};
 		return vAtts;
 	};
 
+/**
+* Set attribute ErrorCount
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoPreflightReport::SetErrorCount(int value){
+	SetAttribute(atr_ErrorCount,WString::valueOf(value));
+};
+/**
+* Get integer attribute ErrorCount
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoPreflightReport::GetErrorCount() const {
+	return GetIntAttribute(atr_ErrorCount,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreflightReport::ValidErrorCount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ErrorCount,AttributeType_integer,RequiredLevel(level));
+	};
+/**
+* Set attribute WarningCount
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoPreflightReport::SetWarningCount(int value){
+	SetAttribute(atr_WarningCount,WString::valueOf(value));
+};
+/**
+* Get integer attribute WarningCount
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoPreflightReport::GetWarningCount() const {
+	return GetIntAttribute(atr_WarningCount,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreflightReport::ValidWarningCount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_WarningCount,AttributeType_integer,RequiredLevel(level));
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoPreflightReport::ErrorStateString(){
@@ -191,43 +227,7 @@ bool JDFAutoPreflightReport::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPreflightReport::ValidErrorState(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_ErrorState,ErrorStateString(),RequiredLevel(level));
-	};
-/**
-* Set attribute WarningCount
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoPreflightReport::SetWarningCount(int value){
-	SetAttribute(atr_WarningCount,WString::valueOf(value));
-};
-/**
-* Get integer attribute WarningCount
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoPreflightReport::GetWarningCount() const {
-	return GetIntAttribute(atr_WarningCount,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPreflightReport::ValidWarningCount(EnumValidationLevel level) const {
-		return ValidAttribute(atr_WarningCount,AttributeType_integer,RequiredLevel(level));
-	};
-/**
-* Set attribute ErrorCount
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoPreflightReport::SetErrorCount(int value){
-	SetAttribute(atr_ErrorCount,WString::valueOf(value));
-};
-/**
-* Get integer attribute ErrorCount
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoPreflightReport::GetErrorCount() const {
-	return GetIntAttribute(atr_ErrorCount,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPreflightReport::ValidErrorCount(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ErrorCount,AttributeType_integer,false);
+		return ValidEnumAttribute(atr_ErrorState,ErrorStateString(),false);
 	};
 
 /* ******************************************************
@@ -277,6 +277,11 @@ JDFPreflightReportRulePool JDFAutoPreflightReport::AppendPreflightReportRulePool
 	JDFPreflightReportRulePool e=AppendElementN(elm_PreflightReportRulePool,1);
 	e.init();
 	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoPreflightReport::RefPreflightReportRulePool(JDFPreflightReportRulePool& refTarget){
+	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

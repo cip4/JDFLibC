@@ -118,7 +118,7 @@ namespace JDF
 	*	Prototypes
 	******************************************************************************/ 
 	
-	const vint vint::emptyvint;
+	const vint vint::emptyvint=vint();
 	
 	/******************************************************************************
 	*	Implementation
@@ -193,6 +193,10 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	void vint::add(int str){
 		 PBASE->push_back(str);
+	}
+	////////////////////////////////////////////////////////////////////////
+	void vint::pop_back(){
+		PBASE->pop_back();
 	}
 	////////////////////////////////////////////////////////////////////////
 	vint::const_reference vint::operator[](size_type pos) const{

@@ -92,9 +92,9 @@
 #include <jdf/net/URI.h>
 #include <jdf/io/FileInputStream.h>
 #include <jdf/io/FileOutputStream.h>
-#include <jdf/lang/Exception.h>
 #include <jdf/io/File.h>
 
+#include <jdf/lang/Exception.h>
 #include <jdf/lang/Integer.h>
 #include <jdf/lang/Janitor.h>
 #include <typeinfo> //SF160502 needed by STLPORT, otherwise typeid::operator== is undefined //AXEL20020906

@@ -75,7 +75,6 @@
 
 
 #include "JDFLayout.h"
-#include "JDFSignature.h"
 #include "JDFSheet.h"
 #include "JDFSurface.h"
 #include "JDFRefElement.h"
@@ -106,7 +105,7 @@ namespace JDF{
 				bRet=FromNewLayout();
 			}
 		}
-		return JDFAutoLayout::FixVersion(version) && bRet;
+		return JDFSignature::FixVersion(version) && bRet;
 	}
 
 
@@ -150,48 +149,65 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////////
 
 	bool JDFLayout::FromNewLayout(){
-		vElement vLO=JDFElement::GetChildElementVector(elm_Layout);
+		vElement vLO=JDFElement::GetChildElementVector(elm_Layout,WString::emptyStr,mAttribute(atr_SignatureName,WString::emptyStr),false);
 		vElement vSig;
 		if(vLO.empty()){
-			vSig.push_back(AppendElement(elm_Signature));
+			JDFSignature signature = AppendElement(elm_Signature);
+			signature.SetName("Sig_00");
+			vSig.push_back(signature);
+			moveElementsTo((JDFLayout)signature);
 		}else{
 			JDFSignature sig;
 			for(int i=0;i<vLO.size();i++){
-				JDFResource lo=vLO[i];
+				JDFElement lo=vLO[i];
 				if(lo.HasAttribute(atr_SignatureName)){
 					lo.RenameAttribute(atr_SignatureName,atr_Name);
-					lo.RenameElement(elm_Signature);
-					vSig.push_back(lo);
+					sig = lo.RenameElement(elm_Signature);
+					sig.cleanResourceAttributes();
+					vSig.push_back(sig);
 				}else{
 					if(vSig.empty()){
-						sig=AppendElement(elm_Signature);
+						JDFSignature signature = AppendElement(elm_Signature);
+						signature.SetName("Sig_00");
 						vSig.push_back(sig);
 					}
-					sig.MoveElement(lo);
 				}
+				if(!sig.isNull())
+					MoveElement(sig);
 			}
 		}
 
+		int nSheet = 0;
 		for(int iSig=0;iSig<vSig.size();iSig++){
 			JDFSignature sig=vSig[iSig];
-			vElement vLO=JDFElement(sig).GetChildElementVector(elm_Layout);
+			vLO=JDFElement(sig).GetChildElementVector(elm_Layout,WString::emptyStr,mAttribute(atr_SheetName,WString::emptyStr),false);
 			vElement vSheet;
 			if(vLO.empty()){
-				vSheet.push_back(sig.AppendElement(elm_Sheet));
+				nSheet++;
+				JDFSheet sheet = sig.AppendElement(elm_Sheet);
+				sheet.SetName("Sheet_" + WString::valueOf(nSheet));
+				vSheet.push_back(sheet);
+				((JDFLayout)sig).moveElementsTo((JDFLayout)sheet);
 			}else{
 				JDFSheet sheet;
 				for(int i=0;i<vLO.size();i++){
-					JDFResource lo=vLO[i];
+					sheet = JDFSheet();
+					JDFElement lo=vLO[i];
 					if(lo.HasAttribute(atr_SheetName)){
 						lo.RenameAttribute(atr_SheetName,atr_Name);
-						lo.RenameElement(elm_Sheet);
-						vSheet.push_back(lo);
+						sheet=lo.RenameElement(elm_Sheet);
+						sheet.cleanResourceAttributes();
+						vSheet.push_back(sheet);
+						nSheet++;
 					}else{
 						if(vSheet.empty()){
-							sheet=AppendElement(elm_Sheet);
+							nSheet++;
+							sheet=sig.AppendElement(elm_Sheet);
+							sheet.SetName("Sheet_"+WString::valueOf(nSheet));
 							vSheet.push_back(sheet);
 						}
-						sheet.MoveElement(lo);
+						if (!sheet.isNull())
+							sheet.MoveElement(lo);
 					}
 				}
 			}	
@@ -199,26 +215,18 @@ namespace JDF{
 
 			for(int iSheet=0;iSheet<vSheet.size();iSheet++){
 				JDFSheet sheet=vSheet[iSheet];
-				vElement vLO=JDFElement(sheet).GetChildElementVector(elm_Layout);
-				vElement vSurface;
+				vLO=JDFElement(sheet).GetChildElementVector(elm_Layout,WString::emptyStr,mAttribute(atr_Side,WString::emptyStr),false);
 				if(vLO.empty()){
 					JDFSurface surf=sheet.AppendElement(elm_Surface);
 					surf.SetSide(JDFPart::Side_Front);
-					vSurface.push_back(surf);
+					((JDFLayout)sheet).moveElementsTo((JDFLayout)surf);
 				}else{
-					JDFSurface surface;
 					for(int i=0;i<vLO.size();i++){
-						JDFResource lo=vLO[i];
-						if(lo.HasAttribute(atr_Side)){
-							lo.RenameElement(elm_Surface);
-							vSurface.push_back(lo);
-						}else{
-							if(vSurface.empty()){
-								surface=AppendElement(elm_Surface);
-								vSurface.push_back(surface);
-							}
-							surface.MoveElement(lo);
-						}
+						JDFSurface surface=(JDFSurface)vLO[i];
+						surface.RenameElement(elm_Surface);
+						JDFPart::EnumSide sid = surface.GetSide();
+						surface.cleanResourceAttributes();
+						surface.SetSide(sid);
 					}
 				}							
 			}
@@ -242,7 +250,7 @@ namespace JDF{
 	{
 
 		// either Signature, Sheet or Surface --> old
-		if(!sheet.GetLocalName().equals(elm_Layout))
+		if(sheet.GetLocalName() != elm_Layout)
 			return false;
 
 		// it's a layout the only allowed (old) element is a signature , if it exists --> old
@@ -259,7 +267,7 @@ namespace JDF{
             return true;
 
 		// now I'm ready to punt - no partition and no subelements --> assume that version tags are correct
-		WString v=sheet.GetVersion();
+		WString v=sheet.GetVersion(true);
 
 		// no version, we are 1.3 --> assume 1.3
 		if(v.empty())
@@ -291,5 +299,68 @@ namespace JDF{
      }
 
 	///////////////////////////////////////////////////////////////////////////////
+
+	WString JDFLayout::ValidNodeNames() const
+	{
+		return L"*:,Layout,Sheet,Signature,Surface";
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+
+	void JDFLayout::moveElementsTo(JDF::JDFLayout &target)
+	{
+		vElement vPO=getPlacedObjectVector();
+		if(!vPO.empty())
+        {
+            for(int i=0;i<vPO.size();i++)
+				target.MoveElement(vPO[i]);
+        }
+		vPO=JDFElement::GetChildElementVector(elm_Layout,WString::emptyStr,mAttribute::emptyMap,false);
+		if(!vPO.empty())
+        {
+            for(int i=0;i<vPO.size();i++)
+                target.MoveElement(vPO[i]);
+        }
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+
+	int JDFLayout::numSignatures()
+	{
+		return JDFSignature::numLayoutElements(*this, elm_Signature, atr_SignatureName);
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	
+	JDFSignature JDFLayout::AppendSignature()
+	{
+		return appendLayoutElement(*this,elm_Signature,atr_SignatureName);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	JDFSignature JDFLayout::GetCreateSignature(int iSkip)
+	{
+		JDFSignature s = GetSignature(iSkip);
+		if (s.isNull())
+			s=AppendSignature();
+		return s;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	JDFSignature JDFLayout::GetSignature(int iSkip) const
+	{
+		return getLayoutElement(*this,elm_Signature,atr_SignatureName,iSkip);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	WString JDFLayout::RequiredAttributes() const
+	{
+		return JDFResource::RequiredAttributes();
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }; // namespace JDF

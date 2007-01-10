@@ -91,6 +91,7 @@
  *	Includes
  ******************************************************************************/ 
 
+#include <jdf/lang/JDFToolsDefs.h>
 #include "URLStreamHandlerFactory.h"
 
 
@@ -121,7 +122,7 @@ namespace JDF
  * For HTTP it will return a <code>HttpURLStreamHandler</code>
  */
  
-class PlainURLStreamHandlerFactory : public URLStreamHandlerFactory
+class JDFTOOLS_EXPORT PlainURLStreamHandlerFactory : public URLStreamHandlerFactory
 {
 public:
 

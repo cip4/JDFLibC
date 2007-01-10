@@ -115,6 +115,8 @@ namespace JDF{
 * Wrapper class for the ResourcePool
 * also used as a class factory for resources
 	*/
+		class VoidSet;
+
 	class JDF_WRAPPERCORE_EXPORT JDFResourcePool : public JDFPool{
 		friend class JDFNode;
 
@@ -218,7 +220,7 @@ namespace JDF{
 		* @param bool bRecurse if true, also return recursively linked IDS
 		* @return vWString: the vector of referenced resource ids
 		*/
-		vElement GetAllRefs(const vElement& vDoneRefs=vElement(), bool bRecurse=false)const;
+		VoidSet* GetAllRefs(VoidSet* vDoneRefs, bool bRecurse=false)const;
 		
 		/**
 		* Gets all children with the attribute name,mAttrib, nameSpaceURI out of the pool
@@ -238,6 +240,18 @@ namespace JDF{
 		* @return JDFElement: the pool child matching the above conditions
 		*/		
 		JDFResource GetPoolChild(int i, const WString & name=WString::emptyStr, const mAttribute&mAttrib=mAttribute::emptyMap, const WString & nameSpaceURI=WString::emptyStr)const;
+
+		/**
+		* Mother of all version fixing routines
+	    *
+		* uses heuristics to modify this element and its children to be compatible with a given version
+        * in general, it will be able to move from low to high versions but potentially fail 
+		* when attempting to move from higher to lower versions
+		*
+		* @param version: version that the resulting element should correspond to
+		* @return true if successful
+		*/
+		bool FixVersion(EnumVersion version);
 
 	protected:
 		/**

@@ -84,6 +84,8 @@
 * Revision history
 *
 * 050603 TG replaceChar corrected
+* 070806 NB using constants from  LIMITS.H and FLOAT.H for Win32 builds
+* 070806 NB added double constants
 *
 *
 ******************************************************************************/
@@ -96,6 +98,7 @@
 
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/regx/RegularExpression.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
 #include <jdf/lang/WString.h>
@@ -108,6 +111,8 @@
 #include <jdf/util/myuti.h>
 #include <jdf/util/dtoa.h>
 #include <jdf/util/PlatformUtils.h>
+
+#include <cfloat>
 
 
 /**********************************************************************/
@@ -131,6 +136,10 @@
 #define DATAPOINT 
 #endif
 
+#ifdef __MWERKS__
+	#include <time.h>
+#endif
+
 /******************************************************************************
 *	Forward declarations
 ******************************************************************************/ 
@@ -145,14 +154,27 @@ namespace JDF
 	//@{
 
 	/**
-	* the positive INF value 0x7FEDCBAA
+	* the positive INF value INT_MAX
 	*/
-	const long int WString::pINF = 0x7FEDCBAA;
+	const long int WString::pINF = INT_MAX;
+	
+	/**
+	* the negative INF value INT_MIN
+	*/
+	const long int WString::nINF = INT_MIN;
 
 	/**
-	* the negative INF value 0x80123456
+	* the positive double INF value DBL_MAX
 	*/
-	const long int WString::nINF = 0x80123456;
+	const double WString::pDINF = DBL_MAX;
+
+	/**
+	* the positive double INF value DBL_MAX
+	*/
+	const double WString::nDINF = -DBL_MAX;
+	
+
+
 
 	/**
 	* the positive INF string "INF"
@@ -163,6 +185,16 @@ namespace JDF
 	* the negative INF string "-INF"
 	*/
 	const WString WString::nINFstr=L"-INF";
+
+	/**
+	* the positive DINF string "DINF"
+	*/
+	const WString WString::pDINFstr=L"DINF";
+
+	/**
+	* the negative DINF string "-DINF"
+	*/
+	const WString WString::nDINFstr=L"-DINF";
 
 	/**
 	* the empty string WString::emptyStr
@@ -217,20 +249,33 @@ namespace JDF
 	const WString WString::quote=L"\"";
 	const WString WString::slash=L"/";
 	const WString WString::regExp_duration = L"[P](((\\d)*)[Y])?((\\d)*[M])?((\\d)*[D])?([T]((\\d)*[H])?((\\d)*[M])?((\\d)*([.](\\d)*)?[S])?)?";
-	const WString WString::regExp_datetime = L"(19|20)\\d\\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])[:]([0-5][0-9])[:]([0-5][0-9])([.](\\d)*)?(([+-](0[0-9]|1[0-9]|2[0123]|)[:]00)|[A-Z])";
+	const WString WString::regExp_datetime = L"(19|20)\\d\\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])[:]([0-5][0-9])[:]([0-5][0-9])([.](\\d)*)?(([+-](0[0-9]|1[0-9]|2[0123]|)[:](00))|[a-zA-Z])";
 
 	/******************************************************************************
-	*	Typedefs
+	*	class WStringBaseJDF
 	******************************************************************************/ 
 
-	typedef WStringBase<JDFCh> WStringBaseJDF;
+    class  WStringBaseJDF : public WStringBase<JDFCh>
+    {
+    public:
+        WStringBaseJDF()
+            : WStringBase<JDFCh>()
+        {
+        }
+
+        WStringBaseJDF(const wchar_t* str)
+            : WStringBase<JDFCh>(str)
+        {
+        }
+    };
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	static Mutex* tokenMutex=0;
 	static Mutex* idMutex=0;
 	static const WStringBaseJDF emptyBase=L"";
 
-	static bool baseDumpInUse=false;
+// 	static bool baseDumpInUse=false;
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	/******************************************************************************
 	*	Classes
@@ -443,6 +488,16 @@ namespace JDF
 		pc=0;
 		DATAPOINT
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	WString::WString(const long int i){
+		pBase=new WStringBaseJDF();
+		PBASE->assign(valueOf(i).c_str());
+		pc=0;
+		DATAPOINT
+	}
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	WString::WString(const JDFInt64 i){
@@ -1504,19 +1559,25 @@ namespace JDF
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	const char* WString::peekBytes(const WString& encoding){
+	const char* WString::peekBytes(const WString& encoding)const
+	{
+		// hack to make const, this is actually safe since multiple calls do not modify this
+		char** ppc=(char**) &pc; // unconstify pc and access by reference ;-)
 		if(pc)
-			delete[]pc; 
-		pc=getBytes(encoding); 
+			delete[]*ppc; 
+		*ppc=getBytes(encoding); 
 		return pc;
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	const char* WString::peekBytes(){
+	const char* WString::peekBytes()const
+	{
+		// hack to make const, this is actually safe since multiple calls do not modify this
+		char** ppc=(char**) &pc;  // unconstify pc and access by reference ;-)
 		if(pc)
-			delete[]pc; 
-		pc=getBytes(); 
+			delete[]*ppc; 
+		*ppc=getBytes(); 
 		return pc;
 	}
 
@@ -1639,6 +1700,12 @@ namespace JDF
 		if(!str.compare(nINFstr))
 			return true;
 
+		if(!str.compare(pDINFstr))
+			return true;
+
+		if(!str.compare(nDINFstr))
+			return true;
+
 		wchar_t* pEnd = NULL;
 		wcstol(str.c_str(), &pEnd, 10);
 		if (!*pEnd)
@@ -1650,6 +1717,24 @@ namespace JDF
 			return true;
 
 		return false;
+	}
+
+	WString WString::formatInteger(int i)
+	{
+		WString s;
+		if (i == WString::pINF)
+		{
+			s = WString::pINFstr;
+		}
+		else if (i == WString::nINF)
+		{
+			s = WString::nINFstr;
+		}
+		else
+		{
+			s = WString::valueOf(i);
+		}
+		return s;
 	}
 
 
@@ -1730,8 +1815,6 @@ namespace JDF
 			(ch >= chLatin_A && ch <= chLatin_F));
 	}
 
-
-
 	/**
 	* @return conversion to double
 	*/
@@ -1769,6 +1852,10 @@ namespace JDF
 			return pINF;
 		if(!str.compare(nINFstr))
 			return nINF;
+		if(!str.compare(pDINFstr))
+			return pDINF;
+		if(!str.compare(nDINFstr))
+			return nDINF;
 		return  wcstod(c_str(), 0);   
 	}
 	/**
@@ -1804,13 +1891,7 @@ namespace JDF
 		vWString vs=Tokenize(token);
 		int vss=vs.size();
 		for(int i=0;i<vss;i++){
-			// dont zapp the front of the first or the end of the last element
-			if(i==0) 
-				vs[i]=vs[i].trimRight();
-			else if(i==(vss-1))  
-				vs[i]=vs[i].trimLeft();
-			else 
-				vs[i]=vs[i].trim();
+		    vs[i]=vs[i].trim();
 		}
 		return SetvString(vs,token);
 	}
@@ -1862,7 +1943,7 @@ namespace JDF
 			if(!tok)
 				break;
 		}
-		WString s=tok ? tok : emptyStr; /// better do this since I'm deleting buf and thus tok!
+		WString s=tok ? WString(tok) : emptyStr; /// better do this since I'm deleting buf and thus tok!
 		delete[](buf);
 		tokenMutex->unlock();
 
@@ -2003,7 +2084,7 @@ namespace JDF
 
 	WString WString::Escape(const WString& toEscape,const WString& escapeChar, int radix, int escapeLen, int escapeBelow, int escapeAbove)const{
 		WString escapedString;
-		bool size1=escapeChar.size()==1;
+// 		bool size1=escapeChar.size()==1;
 		JDFCh escapeCh=escapeChar[0];
 
 		int l=size();
@@ -2351,6 +2432,18 @@ namespace JDF
 		WString s=pUtf8;
 		return s;
 	}
+	////////////////////////////////////////////////////////////////////////
+
+
+	bool WString::matches(const WString& regExp)const
+	{
+		vWString g;
+		this->c_str();
+		RegularExpression exp(regExp.c_str());
+		return exp.matches(c_str());
+	}
+
+
 
 	////////////////////////////////////////////////////////////////////////
 

@@ -1,3 +1,6 @@
+#if !defined _JDFCustomerInfo_H_
+#define _JDFCustomerInfo_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -83,11 +86,11 @@
 * 260302 RP added GetHRefs()
 * 130902 RP GetLinkedResources now returns vElement
 * 290803 RP Removed GetRRefs - now handled by JDFElement
+* 041206 NB fixed GetGetContactWithContactType(), getContactVectorWithContactType():
+*           GetChildElementVector() now resolves targets
 *
 */
 
-#if !defined _JDFCustomerInfo_H_
-#define _JDFCustomerInfo_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -159,7 +162,7 @@ namespace JDF{
 		* @param contactType the contatcttype string
 		* @return VElement the vector of matching JDFContacts, null if none are found
 		*/
-		vElement JDFCustomerInfo::getContactVectorWithContactType(const WString& contactType)const;
+		vElement getContactVectorWithContactType(const WString& contactType)const;
 
 	}; // endJDFCustomerInfo
 

@@ -100,11 +100,13 @@
 #include <jdf/io/FileOutputStream.h>
 #include <jdf/io/BufferedOutputStream.h>
 #include <jdf/lang/WString.h>
+#include <jdf/lang/Exception.h>
 #include <jdf/mime/MIMEMessage.h>
 #include <jdf/mime/MIMEMessagePart.h>
 #include <jdf/mime/MIMEBasicPart.h>
 #include <jdf/mime/MIMEMultiPart.h>
 #include <jdf/mime/FileMIMEType.h>
+#include <jdf/mime/FileNameMap.h>
 #include <jdf/net/URLConnection.h>
 #include <iostream>
 
@@ -215,7 +217,7 @@ JDF::MIMEBasicPart* createTextPart(std::string inText)
 		l_mbp->setContentDispParams("Some_Params");
 		l_mbp->setHeader ("X-TextPartHeader-1", "myValue-1");
 		l_mbp->setHeader ("X-TextPartHeader-2", "myValue-2");
-		l_mbp->setBodyData (inText);
+		l_mbp->setBodyData (inText.c_str());
 		return l_mbp;
 	}
 	catch (JDF::Exception& )
@@ -226,7 +228,7 @@ JDF::MIMEBasicPart* createTextPart(std::string inText)
 	}
 }
 
-JDF::MIMEBasicPart* createFilePart(const std::string& filename, int encoding)
+JDF::MIMEBasicPart* createFilePart(const JDF::WString& filename, int encoding)
 {
 	JDF::MIMEBasicPart* l_filePart = NULL;
 	JDF::FileInputStream* l_fis;
@@ -271,14 +273,6 @@ JDF::MIMEBasicPart* createFilePart(const std::string& filename, int encoding)
 int main(int argc, char* argv[])
 {
 	  // Initialize the XML4C2 system
-    try
-	{
-        XMLPlatformUtils::Initialize();
-    }
-	catch(const XMLException&)
-	{
-        return 1;
-    }
 	
 	// Initialize the JDFTools system
 	try
@@ -296,12 +290,12 @@ int main(int argc, char* argv[])
 	JDF::MIMEBasicPart* bpFile;
 	JDF::MIMEMessagePart* mmsgpart;
 	JDF::FileOutputStream* fos = NULL;
-	std::string filename;
+	JDF::WString filename;
 	int encoding = -1;
 	
 	if (argc < 2)
 	{
-		std::cout << "usage: TestMIMEMultiPartMessage <file-name> <B|Q>" << std::endl;
+		std::cout << "usage: TestMIMEMultiPartMessage <file-name> <Base64|Qp|Raw>" << std::endl;
 	}
 	else
 	{
@@ -324,6 +318,8 @@ int main(int argc, char* argv[])
 				encoding = JDF::MIMEBodyPart::BASE64;
 			else if (JDF::WString(argv[2]).equalsIgnoreCase("Q"))
 				encoding = JDF::MIMEBodyPart::QP;
+			else if (JDF::WString(argv[2]).equalsIgnoreCase("R"))
+				encoding = JDF::MIMEBodyPart::BINARY;
 		}
 
 		try
@@ -362,9 +358,12 @@ int main(int argc, char* argv[])
 
 			// Now the message is completely built!
 			// Encode it in MIME canonical form
-			fos = new JDF::FileOutputStream(JDF::File(JDF::File::getTempDirectory(),"MsgWithMultiPart.out"));
+//			fos = new JDF::FileOutputStream(JDF::File(JDF::File::getTempDirectory(),"MsgWithMultiPart.out"));
+			fos = new JDF::FileOutputStream(JDF::File(".","test.mjm"));
 			JDF::BufferedOutputStream bout(*fos,4096);
 			mmsg->putByteStream(bout);
+			bout.flush();
+			bout.close();
 			delete fos;
 			delete mmsg;
 		} catch (JDF::Exception& )
@@ -382,14 +381,6 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-    try
-	{
-        XMLPlatformUtils::Terminate();
-    }
-	catch(const XMLException&)
-	{
-        return 1;
-    }
 	return 0;
 
 } // main()

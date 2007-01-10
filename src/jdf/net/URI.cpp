@@ -176,8 +176,8 @@ namespace JDF
 	// ---------------------------------------------------------------------------
 	//  Local methods and data
 	// ---------------------------------------------------------------------------
-	static const int BUF_LEN = 64;
-	static JDFCh value1[BUF_LEN+1];
+	// static const int BUF_LEN = 64;
+	// static JDFCh value1[BUF_LEN+1];
 
 	//
 	// "Scheme"

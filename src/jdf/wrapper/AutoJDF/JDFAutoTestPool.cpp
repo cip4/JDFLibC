@@ -123,4 +123,8 @@ JDFAutoTestPool& JDFAutoTestPool::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/* ******************************************************
+// Element Getter / Setter
+******************************************************** */
+	
 }; // end namespace JDF

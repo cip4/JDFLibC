@@ -118,7 +118,12 @@ public:
 * dtor
 */
 	virtual ~JDFTool(){};
+
+
+	bool FixVersion(EnumVersion version);
+
 }; // endJDFTool
+
 
 // ******************************************************
 }; // end namespace JDF

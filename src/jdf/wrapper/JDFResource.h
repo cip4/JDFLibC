@@ -1,3 +1,6 @@
+#if !defined(__JDFRESOURCE_H__)
+#define __JDFRESOURCE_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -148,14 +151,21 @@
 // 220104 RP removed RequiredRootAttributes()
 // 220104 RP removed OptionalRootAttributes()
 // 260804 RP removed class vResource, use vElement instead
-
+// 010906 NB added setPartIDKeys()
+// 060906 NB fixed GetPartValues(), GetLeaves()
+// 070906 NB added validResourceClass()
+// 070906 NB fixed GetInvalidAttributes(), GetCreatePartition()
+// 080906 NB fixed GetResourceRoot()
+// 150906 NB fixed GetLeaves()
+// 250906 NB fixed GetPartMap, AddPartIDKey(), Expand()
+// 041206 NB fixed GetChildElementVector()
+// 051206 NB added reorderPartKeys()
+// 131206 NB SetPartIDKey(): removed waste attribute for JDFComponent
+// 151206 NB added cleanResourceAttributes()
 //
 // JDFResource.h: interface for the JDFResource class.
 //
 // ////////////////////////////////////////////////////////////////////
-
-#if !defined(__JDFRESOURCE_H__)
-#define __JDFRESOURCE_H__
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -1548,12 +1558,13 @@ namespace JDF{
 		* 
 		*
 		* @param mAttribute m: the map of key-value partitions (where key - PartIDKey, value - its value)
+		* @param bool bIncomplete: if true use PartUsage_Implicit, else PartUsage_Explicit
 		* @param EnumPartUsage partUsage: also accept nodes that are are not completely specified in the partmap, 
 		*  e.g. if partitioned by run, RunPage and only Run is specified
 		* @return JDFResource: the first matching resource leaf or node
 		* @throws JDFException if the map contains keys that are not JDF defined partition keys
 		*/
-		JDFResource GetPartition(mAttribute m, EnumPartUsage partUsage=PartUsage_Unknown)const;
+		JDFResource GetPartition(const mAttribute& m, EnumPartUsage partUsage=PartUsage_Unknown)const;
 
 		/**
 		* If parts are distributed over multiple children, the closest common ancestor of all matching children is returned.<br>
@@ -1570,6 +1581,58 @@ namespace JDF{
 		JDFResource GetPartition(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage=PartUsage_Unknown)const;
 
 		/**
+		* Gets the vector of parts (resource leaves or nodes) that match mAttribute
+		*
+		* @param mAttribute m: the map of key-value partitions (where key - PartIDKey, value - its value)
+		* @param bool bIncomplete: if true use PartUsage_Implicit, else PartUsage_Explicit
+		* @deprecated use signature with enumPartUsage! will be time-bombed October 1 2006
+		* @return vElement: the vector of matching resource leaves or nodes
+		* @throws JDFException if the map contains keys that are not JDF defined partition keys
+		*/
+		vElement GetPartitionVector(const mAttribute& m, bool bIncomplete)const;
+
+		/**
+		* Gets the vector of parts that matches specified key-value pair
+		*
+		* @param EnumPartIDKey key: the PartIDKey attribute name
+		* @param WString& value: the string value of the partition key
+		* @param bool bIncomplete: if true use PartUsage_Implicit, else PartUsage_Explicit
+		* @deprecated use signature with enumPartUsage! will be time-bombed October 1 2006
+		* @return vElement: the vector matching resource leaves or nodes
+		* @throws JDFException if the map contains keys that are not JDF defined partition keys
+		*/
+		vElement GetPartitionVector(EnumPartIDKey key, const WString & value, bool bIncomplete)const;
+
+		/**
+		* Gets the part that best matches mAttribute
+		*
+		* If parts are distributed over multiple children, the closest common ancestor of all matching children is returned.<br>
+		* Therefore it is recommended to use GetPartitionVector in case multiple parts are anticipated<br>
+		* If Partmap is already non-ovelapping, i.e. keys with different values than those specified in mAttribute exist, a null resource is returned
+		* 
+		*
+		* @param mAttribute m: the map of key-value partitions (where key - PartIDKey, value - its value)
+		* @param bool bIncomplete: if true use PartUsage_Implicit, else PartUsage_Explicit
+		* @deprecated use signature with enumPartUsage! will be time-bombed October 1 2006
+		* @return JDFResource: the first matching resource leaf or node
+		* @throws JDFException if the map contains keys that are not JDF defined partition keys
+		*/
+		JDFResource GetPartition(const mAttribute& m, bool bIncomplete)const;
+
+		/**
+		* If parts are distributed over multiple children, the closest common ancestor of all matching children is returned.<br>
+		* Therefore it is recommended to use GetPartitionVector in case multiple parts are anticipated<br>
+		* If Partmap is already non-ovelapping, i.e. keys with different values than those specified in mAttribute exist, a null resource is returned
+		*
+		* @param EnumPartIDKey key: the PartIDKey attribute name
+		* @param WString& value: the string value of the partition key
+		* @param EnumPartUsage partUsage: also accept nodes that are are not completely specified in the partmap, 
+		*  e.g. if partitioned by run, RunPage and only Run is specified
+		* @return JDFResource: the first matching resource leaf or node
+		* @throws JDFException if the map contains keys that are not JDF defined partition keys
+		*/
+		JDFResource GetPartition(EnumPartIDKey key, const WString & value, bool bIncomplete)const;
+		/**
 		* Recursively adds the partition leaves defined in vPartMap
 		*
 		* @param vmAttribute vPartMap: the vector of maps of part keys
@@ -1582,7 +1645,7 @@ namespace JDF{
 		* @throws JDFException if there is an attempt to fill non-matching partIDKeys
 		* @throws JDFException if by adding of last partition key there is either non-continuous partmap or left more than one key
 		*/
-		vElement JDFResource::CreatePartitions(vmAttribute vPartMap, vWString vPartIDKeys=vWString::emptyvStr);
+		vElement CreatePartitions(const vmAttribute& vPartMap, const vWString& vPartIDKeys=vWString::emptyvStr);
 
 		/**
 		* Recursively adds the partition leaves defined in partMap
@@ -1596,7 +1659,7 @@ namespace JDF{
 		* @throws JDFException if there is an attempt to fill non-matching partIDKeys
 		* @throws JDFException if by adding of last partition key there is either non-continuous partmap or left more than one key
 		*/
-		JDFResource GetCreatePartition(mAttribute partMap, vWString vPartIDKeys=vWString::emptyvStr);
+		JDFResource GetCreatePartition(const mAttribute& partMap, const vWString& vPartIDKeys=vWString::emptyvStr);
 
 		/**
 		* Gets the first part that matches key-value
@@ -1606,7 +1669,7 @@ namespace JDF{
 		* @param WString & value: the string value of the partition key
 		* @return JDFResource: the matching resource
 		*/
-		JDFResource GetCreatePartition(EnumPartIDKey key, const WString & value, vWString vPartIDKeys=vWString::emptyvStr);
+		JDFResource GetCreatePartition(EnumPartIDKey key, const WString & value, const vWString& vPartIDKeys=vWString::emptyvStr);
 
 		/**
 		* Gets a list of the values for attribute part type within the leaves
@@ -1708,7 +1771,7 @@ namespace JDF{
 		* @param bool bResolveTarget: if true, IDRef elements are followed, dummy at this level but needed in JDFElement
 		* @return vElement: vector with all found elements
 		*/
-		virtual vElement GetChildElementVector(const WString & element=WString::star, const WString & nameSpaceURI=WString::emptyStr, const mAttribute& mAttrib=mAttribute(), bool bAnd=true, unsigned int maxSize=0,bool bResolveTarget=false)const;
+		virtual vElement GetChildElementVector(const WString & element=WString::star, const WString & nameSpaceURI=WString::emptyStr, const mAttribute& mAttrib=mAttribute::emptyMap, bool bAnd=true, unsigned int maxSize=0,bool bResolveTarget=false)const;
 
 		/**
 		* The same as KElement::GetElement but also follows References and searches parents
@@ -1765,7 +1828,7 @@ namespace JDF{
 		*
 		* @param WString attrib: the name of the attribute to look for
 		* @param WString nameSpaceURI: the nameSpace to look in
-		* @param bool bInherit: if true also check recursively in parent elements, regardless of partitioning
+		* @param bool bInherit: if true also check recursively in inherited elements, regardless of partitioning
 		* @return bool: true, if the attribute is present
 		*/
 		virtual bool HasAttribute(const WString & attrib, const WString & nameSpaceURI=WString::emptyStr, bool bInherit=false) const;
@@ -3007,12 +3070,6 @@ namespace JDF{
 		*/
 		virtual bool FixVersion(EnumVersion version);
 
-		/**
-		* Definition of the allowed node names for elements of this type
-		*
-		* @return vWString: vector of valid node names, '*' if any
-		*/
-		virtual vWString GetValidNodeNames()const;
 
 		/**
 		* Gets the id of a modified resource
@@ -3038,6 +3095,37 @@ namespace JDF{
 		* @return bool: true if validation level is one of: Complete or RecursiveComplete
 		*/
 		virtual bool RequiredLevel(EnumValidationLevel level)const;
+
+		/**
+		* Tests if a spawn of the given partition of the resource is allowed
+		* (by means of the JDF specification).
+		* 
+		* @param amPartMap Map of possible PartIDKeys
+		* 
+		* @return boolean - true if spawn is allowed.
+		*/
+		bool isSpawnAllowed();
+
+		/**
+		* set the partIDKeys attribute of the root of this
+		* @param partIDKeys
+		*/
+		void setPartIDKeys(const vWString& partIDKeys);
+
+		/**
+		* Typesafe attribute validation of Class
+		* 
+		* corresponds to C++ JDFResource::ValidClass()
+		* 
+		* @param level level of attribute validation
+		* @return boolean true, if valid
+		*/
+		bool validResourceClass(KElement::EnumValidationLevel level) const;
+
+		/**
+		* remove any resource specific attribute when making this to an element
+		*/
+		void cleanResourceAttributes();
 
 	protected:
 
@@ -3125,6 +3213,13 @@ namespace JDF{
 		vWString expandKeysFromNode(const mAttribute& partMap, const vWString& vPartIDKeys) const;
 
 		mAttribute removeImplicitPartions(mAttribute & m) const;
+
+		/**
+		* reorder the partIDKeys used for generating the new partition based on existing partIDKeys
+		* @param vPartKeys
+		* @return VString the reordered VString of partIDKeys
+		*/
+		vWString reorderPartKeys(const vWString& vPartKeys);
 
 
 	};

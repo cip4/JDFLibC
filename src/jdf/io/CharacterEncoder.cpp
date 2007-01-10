@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 0.1
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -174,7 +174,7 @@ void CharacterEncoder::encode(InputStream& inStream, OutputStream& outStream)
 	ArrayJanitor<char> tmpbufferJanitor(tmpbuffer);
 
 	encodeBufferPrefix(outStream);
-	
+	const int bpa=bytesPerAtom();
 	while (true) 
 	{
 		numBytes = readFully(inStream, tmpbuffer,len);
@@ -183,17 +183,17 @@ void CharacterEncoder::encode(InputStream& inStream, OutputStream& outStream)
 			break;
 		}
 		encodeLinePrefix(outStream, numBytes);
-		for (j = 0; j < numBytes; j += bytesPerAtom()) 
+		for (j = 0; j < numBytes; j += bpa) 
 		{
-			if ((j + bytesPerAtom()) <= numBytes) 
+			if ((j + bpa) <= numBytes) 
 			{
-				encodeAtom(outStream, tmpbuffer, numBytes, j, bytesPerAtom());
+				encodeAtom(outStream, tmpbuffer, numBytes, j, bpa);
 			} else 
 			{
 				encodeAtom(outStream, tmpbuffer, numBytes, j, (numBytes)- j);
 			}
 		}
-		if (numBytes < bytesPerLine()) 
+		if (numBytes < len) 
 		{
 			break;
 		} 
@@ -242,6 +242,7 @@ void CharacterEncoder::encodeBuffer(InputStream& inStream, OutputStream& outStre
 	memset(tmpbuffer,0,len);
 
 	encodeBufferPrefix(outStream);
+	const int bpa=bytesPerAtom();
 
 	while (true) 
 	{
@@ -251,18 +252,18 @@ void CharacterEncoder::encodeBuffer(InputStream& inStream, OutputStream& outStre
 			break;
 		}
 		encodeLinePrefix(outStream, numBytes);
-		for (j = 0; j < numBytes; j += bytesPerAtom()) 
+		for (j = 0; j < numBytes; j += bpa) 
 		{
-			if ((j + bytesPerAtom()) <= numBytes) 
+			if ((j + bpa) <= numBytes) 
 			{
-				encodeAtom(outStream, tmpbuffer, numBytes, j, bytesPerAtom());
+				encodeAtom(outStream, tmpbuffer, numBytes, j, bpa);
 			} else 
 			{
 				encodeAtom(outStream, tmpbuffer, numBytes, j, (numBytes)- j);
 			}
 		}
 		encodeLineSuffix(outStream);
-		if (numBytes < bytesPerLine()) 
+		if (numBytes < len) 
 		{
 			break;
 		} 

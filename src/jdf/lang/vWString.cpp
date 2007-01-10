@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of
+* Copyright (c) 2001-2006 The International Cooperation for the Integration of
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights
 * reserved.
 *
@@ -86,6 +86,7 @@
 #include "vWString.h"
 
 #include "vint.h"
+#include "JDF/lang/SetWString.h"
 
 #include <vector>
 #include <algorithm> // for sort
@@ -333,17 +334,48 @@ namespace JDF
 		}
 		return true;
 	}
-
 	////////////////////////////////////////////////////////////////////////
-	/// remove the last n occurrences of a string
-	void vWString::Unify(){
-		for (unsigned int i=0;i<size();i++){
-			const WString& s=at(i);
-			for(unsigned int j=size()-1;j>i;j--)
-				if (!s.compare(at(j))) {
-					PBASE->erase(PBASE->begin()+j);
-				}
+	bool vWString::containsAny(const vWString &other) const
+	{
+		for (int i=other.size()-1;i>=0;i--) {
+			if (hasString(other.at(i))) {
+				return true;
+			}
 		}
+		return false;
+	}
+////////////////////////////////////////////////////////////////////////
+
+	void vWString::addAll(const vWString &v)
+	{
+		int sumsiz=PBASE->size()+v.size();
+		if(PBASE->capacity()<sumsiz)
+			reserve(sumsiz);
+
+		for(unsigned int i=0; i<v.size(); i++)
+			push_back(v.at(i));
+
+	}
+////////////////////////////////////////////////////////////////////////
+	/// remove the last n occurrences of a string
+	void vWString::Unify()
+	{
+		SetWString set;
+		int siz=size();
+		for (int i=0;i<siz;i++)
+		{
+			const WString& s=at(i);
+			if(set.contains(s))
+			{
+				PBASE->erase(PBASE->begin()+i);
+				i--;
+				siz--;
+			}
+			else
+			{
+				set.add(s);
+			}
+		}        
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -388,12 +420,8 @@ namespace JDF
 
 	////////////////////////////////////////////////////////////////////////
 	void vWString::AppendUnique(const vWString& v){
-		int sumsiz=PBASE->size()+v.size();
-		if(PBASE->capacity()<sumsiz)
-			reserve(sumsiz);
-
-		for(unsigned int i=0; i<v.size(); i++)
-			AppendUnique(v.at(i));
+		addAll(v);
+		Unify();
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -519,6 +547,27 @@ namespace JDF
 	///////////////////////////////////////////////////////////////////////
 	vWString::const_reference vWStringIterator::operator *() const{
 		return ((vWStringBase*)vWStringVector)->at(iPos);
+	}
+	///////////////////////////////////////////////////////////////////////
+	bool vWStringIterator::hasNext() const
+	{
+		int siz = ((vWStringBase*)vWStringVector)->size();
+		if (iPos < siz)
+			return true;
+		else 
+			return false;
+	}
+	///////////////////////////////////////////////////////////////////////
+	WString vWStringIterator::next()
+	{
+		if (hasNext())
+		{
+			iPos++;
+			return ((vWStringBase*)vWStringVector)->at(iPos-1);
+		}
+		else
+			throw (L"vWStringIterator: no such element");
+		return WString::emptyStr;
 	}
 
 } // namespace JDF

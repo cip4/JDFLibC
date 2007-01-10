@@ -368,7 +368,7 @@ namespace JDF
 	{
 		if (0)
 		{
-			unsigned short buf[MAX_PATH+1];
+			JDFCh buf[MAX_PATH+1];
 			HRESULT hres = LLResolveLinkW(buf, file.getAbsolutePath().c_str());
 			if (!SUCCEEDED(hres))
 				throw IOException("Failed to create alias");
@@ -622,14 +622,14 @@ namespace JDF
 #ifdef UNICODE
 		if (gOnNT)
 		{
-			unsigned short *temp = new unsigned short[size];
+			JDFCh *temp = new JDFCh[size];
 			unsigned int retSize;
 
 			if ((retSize = ::GetLogicalDriveStringsW(size,temp)) > size)
 			{
 				size =  retSize;
 				delete[] temp;
-				temp = new unsigned short[size];
+				temp = new JDFCh[size];
 				retSize = ::GetLogicalDriveStringsW(size,temp);
 			}
 			deviceStrings = temp;
@@ -1375,11 +1375,11 @@ namespace JDF
 #ifdef UNICODE
 		if (gOnNT)
 		{
-			unsigned short *tempPath;
+			JDFCh *tempPath;
 
 			retSize = ::GetTempPathW(0,NULL);
-			tempPath = new unsigned short[retSize];
-			ArrayJanitor<unsigned short> tempPathJanitor(tempPath);
+			tempPath = new JDFCh[retSize];
+			ArrayJanitor<JDFCh> tempPathJanitor(tempPath);
 			::GetTempPathW(retSize,tempPath);
 			return File(tempPath);		
 		}

@@ -100,6 +100,7 @@
 namespace JDF{
 	
 	typedef std::vector<KElement> vElementBase;
+	const vElement vElement::emptyVector=vElement();
 	
 	//////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
@@ -528,5 +529,27 @@ namespace JDF{
 	vElement::const_reference vElementIterator::operator *() const{
 		return ((vElementBase*)vElementVector)->at(iPos);
 	}
+	///////////////////////////////////////////////////////////////////////
+	bool vElementIterator::hasNext() const
+	{
+		int siz = ((vElementBase*)vElementVector)->size();
+		if (iPos < siz)
+			return true;
+		else 
+			return false;
+	}
+	///////////////////////////////////////////////////////////////////////
+	KElement vElementIterator::next()
+	{
+		if (hasNext())
+		{
+			iPos++;
+			return ((vElementBase*)vElementVector)->at(iPos-1);
+		}
+		else
+			throw (L"vElementIterator: no such element");
+		return KElement::DefKElement;
+	}
+
 
 }

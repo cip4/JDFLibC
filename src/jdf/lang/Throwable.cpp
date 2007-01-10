@@ -1,4 +1,3 @@
-
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -134,24 +133,11 @@ namespace JDF
 	}
 	
 	/////////////////////////////////////////////////////////////////
-	static char* myThreadUnsafeCharStar=0;
-
 
 	const char* Throwable::what() const throw()
 	{
-		static Mutex whatMutex;
-		Synchronized sync(whatMutex);
-		if (myThreadUnsafeCharStar)
-			delete []myThreadUnsafeCharStar;
+		return mMessage.peekBytes();
+	}
 
-		myThreadUnsafeCharStar=mMessage.getBytes();
-		whatMutex.unlock();
-
-		return myThreadUnsafeCharStar;
-
-	};
-	
 } // namespace JDF
 
-
-/* end of file */

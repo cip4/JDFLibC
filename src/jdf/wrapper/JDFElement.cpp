@@ -93,12 +93,18 @@
 #include "jdf/wrapper/JDFRefElement.h"
 #include "jdf/wrapper/JDFFactory.h"
 #include "jdf/wrappercore/XMLDoc.h"
+#include "jdf/lang/VoidSet.h"
+#include "jdf/lang/SetWString.h"
+#include "jdf/util/PlatformUtils.h"
+#include <xercesc/dom/DOMAttr.hpp>
 
+XERCES_CPP_NAMESPACE_USE
 
-#include <iostream>
 
 using namespace std;
 namespace JDF{
+
+
 
 	// the static default version for any new elements
 	static JDFElement::EnumVersion defaultVersion=JDFElement::Version_1_3;
@@ -485,7 +491,7 @@ namespace JDF{
 		for(int i=0;i<value.size();i++){
 			int vi=value[i];
 			if(vi>0){ // don't set explicit value of "Unknown"				
-				if((vi==0)||(vi>=vAllowed.size()))
+				if(vi>=vAllowed.size()) // NB removed (vi==0)
 					throw JDFException("JDFElement::SetEnumerationsAttribute illegal value");
 				if(n++) 
 					s+=WString::blank;
@@ -981,6 +987,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	WString JDFElement::UniqueID(int ID){
+		WString s;
 		static int id=ID;
 		if(ID<0){ // increment by a large chunk e.g. in case of spawning
 			id=id-ID;
@@ -991,14 +998,24 @@ namespace JDF{
 		}
 
 		id=id%10000;
-
 		char buf[8];
 		sprintf(buf,"_%.4i",id++);
-		JDFDate md;
-		WString s= md.DateYYYYMMDD()+md.TimeHHMMSS()+ (const char *) buf;
-		// for the beginning, use a readable but not so unique id
-		// RP 280604 made longer but more unique by retaining the date
-		return s.substr(2,19);
+		
+		if(XMLDoc::getGenerateUID())
+		{
+			s=PlatformUtils::createUID();
+		}
+
+		if(s.empty())
+		{
+			JDFDate md;
+			s= md.DateYYYYMMDD()+md.TimeHHMMSS();
+			// for the beginning, use a readable but not so unique id
+			// RP 280604 made longer but more unique by retaining the date
+			s=s.substr(2,15);
+		}
+		s+=(char*)buf;
+		return s;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -1140,6 +1157,36 @@ namespace JDF{
 			return false;
 		return true;
 	}
+	//////////////////////////////////////////////////////////////////////
+
+	bool JDFElement::isJDFJMF()const
+	{
+		if(throwNull())
+			return false;
+		if(GetLocalName()==elm_JMF) 
+			return true;
+		return false;
+	}
+	//////////////////////////////////////////////////////////////////////
+
+	bool JDFElement::isJDFNodeInfo()const
+	{
+		if(throwNull())
+			return false;
+		if(GetLocalName()==elm_NodeInfo) 
+			return true;
+		return false;
+	}
+	//////////////////////////////////////////////////////////////////////
+
+	bool JDFElement::isJDFCustomerInfo()const
+	{
+		if(throwNull())
+			return false;
+		if(GetLocalName()==elm_CustomerInfo) 
+			return true;
+		return false;
+	}
 
 	//////////////////////////////////////////////////////////////////////
 
@@ -1151,6 +1198,7 @@ namespace JDF{
 			return ret;
 
 		WString id_=id.empty()?GetAttribute(atr_rRef):id;
+		const JDFCh* pc_ID=id_.c_str();
 		bool bSearching=true;
 
 		bool hasUserData=GetOwnerDocument().HasXMLDocUserData();
@@ -1188,8 +1236,11 @@ namespace JDF{
 					if(!rp.isNull()){				
 						JDFElement r=rp.GetFirstChildElement();
 
-						while(!r.isNull()){						
-							if((r.GetID()==id_)&&(!r.IsComment())){
+						while(!r.isNull())
+						{
+							DOMAttr* da=r.GetDOMAttr(L"ID",0,false);
+							if(da!=0 && !wcscmp(pc_ID,da->getNodeValue())&& !r.IsComment() )
+							{
 								bSearching=false;
 								ret=r;
 								break;
@@ -1215,7 +1266,7 @@ namespace JDF{
 			}
 		}
 		if(!ret.isNull() && hasUserData){
-			GetOwnerDocument().SetTarget(ret);
+			GetOwnerDocument().SetTarget(ret,id_);
 		}
 
 		return ret;
@@ -1314,6 +1365,8 @@ namespace JDF{
 	KElement JDFElement::GetElement(const WString& nodeName,const WString & nameSpaceURI, int iSkip)const{
 		if(throwNull()) 
 			return KElement();
+		if (iSkip < 0)
+			iSkip = NumChildElements(nodeName,nameSpaceURI) + iSkip;
 
 		const JDFCh* pcNodeName=nodeName.c_str();
 		const JDFCh* pcNameSpaceURI=nameSpaceURI.c_str();
@@ -1424,39 +1477,60 @@ namespace JDF{
 	}
 
 	//////////////////////////////////////////////////////////////////////
+	/**
+	* GetHRefs - get inter-resource linked resource IDs
+	*
+	* @param vDoneRefs (use null by default)
+	* @param bRecurse if true recurse followed refs
+	* @param bExpand if true expand partitioned resources
+	*
+	* @return VString - the vector of referenced resource IDs
+	* 
+	* @default GetHRefs(null, false);
+	*/
+	vWString JDFElement::GetHRefs(const vWString& vDoneRefs, bool bRecurse, bool bExpand)const{
 
-	vWString JDFElement::GetHRefs(const vWString& vDoneRefs, bool bRecurse)const{
+
 		if(throwNull())
 			return vDoneRefs;
 
-		vWString vrRefs;
-		if(IsResource()){
+		vWString vrRefs=vDoneRefs;
+		SetWString h;
+
+		if(bExpand&&IsResource())
+		{
 			JDFResource r=*this;
-			vrRefs=r.GetResourceRoot().UpDaterRefs();
-		}else if(IsAudit()){
-			JDFAudit a=*this;
-			vrRefs=a.GetAuditPool().UpDaterRefs();
-		}else{
-			vrRefs=UpDaterRefs();
+			vElement vLeaves=r.GetLeaves(true);
+			int siz=vLeaves.size();
+			for(int i=0;i<siz;i++)
+				vLeaves.elementAt(i).fillHashSet(atr_rRef,WString::emptyStr,&h);
+		}
+		else
+		{
+			fillHashSet(atr_rRef,WString::emptyStr,&h);
+		}
+		int iFirstPos = vrRefs.size(); // get the previous size
+		vWString v2;
+		h.addTo(v2);
+
+		vrRefs.AppendUnique(v2); // get the new size
+		if(bRecurse)
+		{
+			int iLastPos  = vrRefs.size();
+
+			// recurse only the new rrefs
+			for (int i = iFirstPos; i < iLastPos; i++)
+			{
+				WString& s     = vrRefs.elementAt(i);
+				JDFElement e = GetTarget(s, atr_ID);
+				if (!e.isNull())
+				{
+					vrRefs = e.GetHRefs(vrRefs, true, bExpand);
+				}
+			}
 		}
 
-		if(!bRecurse){
-			vrRefs.AppendUnique(vDoneRefs);	
-			return vrRefs;
-		}
-		vWString v1=vDoneRefs;
-		// get the previous size
-		int iFirstPos=vDoneRefs.size();
-		v1.AppendUnique(vrRefs);	
-		// get the new size
-		int iLastPos=v1.size();
-		// recurse only the new rrefs
-		for(int i=iFirstPos;i<iLastPos;i++){
-			WString s=v1[i];
-			JDFElement e=GetTarget(s);
-			v1=e.GetHRefs(v1,true);
-		}		
-		return v1;
+		return vrRefs;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1532,25 +1606,29 @@ namespace JDF{
 	}
 	////////////////////////////////////////////////////////////////////////////
 
-	vElement JDFElement::GetAllRefs(const vElement& vDoneRefs, bool bRecurse)const{		
+	VoidSet* JDFElement::GetAllRefs(VoidSet* vDoneRefs, bool bRecurse)const
+	{		
+		if(vDoneRefs->contains(GetDOMElement()))
+			return vDoneRefs;
+
 		vElement v=GetChildElementVector(); // grabemall
-		vElement v1=vDoneRefs;
 		for(int i=0;i<v.size();i++){
 			JDFElement e=v[i];
 			if(e.IsRefElement()){
 				JDFRefElement ref=e;
-				if(!v1.hasElement(ref)){
-					v1.push_back(ref);
+				if(!vDoneRefs->contains(e.GetDOMElement()))
+				{
+					vDoneRefs->add(e.GetDOMElement());
 					if(bRecurse){
 						JDFResource r=ref.GetTarget();
-						v1.AppendUnique(r.GetAllRefs(vDoneRefs,bRecurse));
+						r.GetAllRefs(vDoneRefs,bRecurse);
 					}
 				}
 			}else{ // recurse tree
-				v1.AppendUnique(e.GetAllRefs(vDoneRefs,bRecurse));
+				e.GetAllRefs(vDoneRefs,bRecurse);
 			}
 		}
-		return v1;
+		return vDoneRefs;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -1914,6 +1992,7 @@ namespace JDF{
 		int n=0;
 		for(int i=0;i<siz;i++){
 			JDFElement e=v[i];
+			e = e.GetTarget(); // NB fixed to use elements instead of refs
 			if(e.IncludesMatchingAttribute(attName,attVal,dataType)){
 				if(n++==index)
 					return e;
@@ -1937,6 +2016,34 @@ namespace JDF{
 			vWString vs=thisVal.Tokenize();
 			if(vs.hasString(attVal))
 				return true;
+		}
+
+		if(dataType==AttributeType_IntegerList)
+		{
+			try{
+				vWString vs=thisVal.Tokenize();
+				for (int i=0; i<= vs.size()-1; i++)
+				{					
+					if ((int)vs[i] == (int)attVal)
+						return true;
+				}
+			}catch (JDFException& x){
+			}catch (IllegalArgumentException& x1){
+			}
+		}
+
+		if(dataType==AttributeType_NumberList)
+		{
+			try{
+				vWString vs=thisVal.Tokenize();
+				for (int i=0; i<= vs.size()-1; i++)
+				{					
+					if ((double)vs[i] == (double)attVal)
+						return true;
+				}
+			}catch (JDFException& x){
+			}catch (IllegalArgumentException& x1){
+			}
 		}
 
 		if(dataType==AttributeType_NumberRange){
@@ -2388,7 +2495,9 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	JDFComment JDFElement::AppendComment(){
-		return AppendElement(elm_Comment);
+		JDFComment c = AppendElement(elm_Comment);
+		c.init();
+		return c;//AppendElement(elm_Comment);
 	};
 
 	///////////////////////////////////////////////////////////////////////
@@ -2420,6 +2529,66 @@ namespace JDF{
 		}
 		return false;
 	};
+
+	//////////////////////////////////////////////////////////////////////
+
+	bool JDFElement::matchesPath(WString path, bool bFollowRefs)
+	{ 
+		if(path.empty())
+			return true;
+
+		vWString v = path.Tokenize("/");
+		JDFElement e=*this;
+		JDFElement eLast;
+		for(int i=v.size()-1;i>=0;i--)
+		{ 
+			if(e.isNull())
+				return false;
+			WString locName = e.GetLocalName();
+			if(!locName.equals(v.stringAt(i)))
+			{
+				if(bFollowRefs && !eLast.isNull() && locName.equals(JDFStrings::elm_ResourcePool))
+				{ // now look for a refelement that points at this
+					if (eLast.IsResource())
+					{
+						JDFResource r=(JDFResource)eLast;
+						VElement vRefs=r.GetLinks(r.GetRefString(),WString::emptyStr);
+						if(!vRefs.empty())
+						{
+							WString subPath=v.stringAt(0);
+							for(int k=1;k<=i+1;k++)
+								subPath+="/"+v.stringAt(k);
+							subPath+="Ref";
+							for(int j=0;j<vRefs.size();j++)
+							{
+								JDFElement eRef=vRefs.elementAt(j);
+								bool b=eRef.matchesPath(subPath, bFollowRefs);
+								if(b)
+									return true;
+							}
+						}
+					}
+				}
+				if(eLast.isNull())
+				{
+					if(eLast.IsResource())
+					{
+						if(locName.equals(eLast.GetLocalName())){
+							e=e.GetParentNode();
+							i++; // undo i--
+							continue;
+						}
+					}
+				}
+				return false;                
+			}
+			eLast=e;
+			e=e.GetParentNode();
+		}  
+		if(path.startsWith("/"))
+			return e.isNull(); // must be root
+		return true; // any location
+	}
 
 	//////////////////////////////////////////////////////////////////////
 	/**

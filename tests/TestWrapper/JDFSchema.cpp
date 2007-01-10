@@ -730,6 +730,7 @@ public:
 		if(name.rightStr(4)=="Pool") {
 			if(name=="ColorPool") 			return"JDFResource";
 			if(name=="TransferCurvePool") 			return"JDFResource";
+			if(name=="PreflightReportRulePool") 			return"JDFResource";
 			
 			return "JDFPool";
 		}
@@ -2051,6 +2052,7 @@ public:
 			LicOpen(hName,h);			
 			h<<"\n\n///////////////////////////////////////////////////////////////////\n\n "<<endl;
 			WString saver="_"+cName+"_H_";
+			cout<<elmseq<<endl;
 			vElement vElm1=elmseq.GetChildrenByTagName("xs:element");
 			vElement vGroup=elmseq.GetChildrenByTagName("xs:group");
 			for(int gg=0;gg<vGroup.size();gg++){
@@ -2387,7 +2389,7 @@ public:
 					}else if(schemaName=="PreflightValue"){
 						h<<"\n\tWString "+cName+"::ValidNodeNames()const{\n\treturn L\"*:,Value,ConstraintValue\";\n};\n\n";
 					}else if(schemaName=="Message"){
-						h<<"\n\tWString "+cName+"::ValidNodeNames()const{\n\treturn L\"*:,Query,Command,Response,Acknowledge,Signal\";\n};\n\n";
+						h<<"\n\tWString "+cName+"::ValidNodeNames()const{\n\treturn L\"*:,Query,Command,Response,Acknowledge,Signal,Registration\";\n};\n\n";
 					}else{
 						h<<"\n\tWString "+cName+"::ValidNodeNames()const{\n\treturn L\"*:,"+schemaName+"\";\n};\n\n";
 					}

@@ -160,6 +160,14 @@ namespace JDF{
 	};
 	//////////////////////////////////////////////////////////////////////
 
+	void JDFIntegerEvaluation::appendValueList(int value)
+	{
+		JDFIntegerRangeList irl = GetValueList();
+		irl.Append(value);
+		SetValueList(irl);
+	}
+	//////////////////////////////////////////////////////////////////////
+
 	JDFIntegerRangeList JDFIntegerEvaluation::GetValueList() const {
 		return GetAttribute(atr_ValueList,WString::emptyStr);
 	};

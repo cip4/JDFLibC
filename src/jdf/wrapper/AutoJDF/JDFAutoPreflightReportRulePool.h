@@ -80,15 +80,14 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFPool.h"
+#include "jdf/wrapper/JDFResource.h"
 namespace JDF{
 class JDFPRRule;
 class JDFPRRuleAttr;
-class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoPreflightReportRulePool : public JDFPool
+class JDFAutoPreflightReportRulePool : public JDFResource
 
 *********************************************************************
 */
@@ -98,7 +97,7 @@ class JDFAutoPreflightReportRulePool : public JDFPool
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFPreflightReportRulePool should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoPreflightReportRulePool : public JDFPool{
+class JDF_WRAPPERCORE_EXPORT JDFAutoPreflightReportRulePool : public JDFResource{
 public:
 
 
@@ -109,11 +108,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoPreflightReportRulePool():JDFPool(){};
+	inline JDFAutoPreflightReportRulePool():JDFResource(){};
 /**
 * copy ctor
 */
-	inline JDFAutoPreflightReportRulePool(const KElement & other):JDFPool(){
+	inline JDFAutoPreflightReportRulePool(const KElement & other):JDFResource(){
 	*this=other;
 };
 /**
@@ -165,33 +164,24 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
-
-/**
- * definition of required attributes in the JDF namespace
+/** 
+ * Typesafe attribute validation of Class
+* @return true if class is valid
 */
-	virtual WString RequiredAttributes()const;
+virtual bool ValidClass(EnumValidationLevel level) const;
+
+/** 
+ * Typesafe initialization
+ * @return true if succcessful
+*/
+virtual bool init();
+
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
-/**
-* Set attribute ActionPools
-*@param vWString value: the value to set the attribute to
-*/
-	virtual void SetActionPools(const vWString& value);
-/**
-* Get string attribute ActionPools
-* @return vWString the vaue of the attribute 
-*/
-	virtual vWString GetActionPools() const;
-/**
-* Typesafe attribute validation of ActionPools
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidActionPools(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MaxOccurrences
 *@param int value: the value to set the attribute to
@@ -248,30 +238,6 @@ public:
  * 
 */
 	JDFPRRuleAttr AppendPRRuleAttr();
-
-/** Get Element QualityControlResult
-* 
-* @param int iSkip number of elements to skip
-* @return JDFQualityControlResult The element
-*/
-	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
-
-/**
-* const get element QualityControlResult
-* @param int iSkip number of elements to skip
-* @return JDFQualityControlResult The element
-*/
-	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
-/**
-* Append element QualityControlResult
- */
-	JDFQualityControlResult AppendQualityControlResult();
-/**
-* create inter-resource link to refTarget
-* @param JDFQualityControlResult& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of unique elements in the JDF namespace

@@ -4,9 +4,7 @@
 	Version="8,00"
 	Name="JDFWrapperLib"
 	ProjectGUID="{766A96F7-A4F7-45C1-BE16-AC8F96748B33}"
-	SccProjectName="JDFWrapperLib"
-	SccLocalPath="..\.."
-	SccProvider="MSSCCI:ClearCase"
+	RootNamespace="JDFWrapperLib"
 	>
 	<Platforms>
 		<Platform
@@ -48,13 +46,14 @@
 				PreprocessorDefinitions="_DEBUG;_WINDOWS;WIN32;JDF_TOOLS_LIB;JDF_WRAPPERCORE_LIB;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFWrapperLib/JDFWrapperLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFWrapperLib/"
 				ObjectFile=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFWrapperLib/"
 				ProgramDataBaseFileName="..\..\..\Build\Win32\VC8\Debug\JDFWrapperLib"
 				BrowseInformation="1"
+				BrowseInformationFile="$(IntDir)\"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 				CompileAs="0"
@@ -128,7 +127,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JDFWrapperDLL_EXPORTS;_CRT_SECURE_NO_DEPRECATE;JDF_WRAPPERCORE;_REENTRANT;UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\DebugDLL\obj\JDFWrapperDLL/JDFWrapperLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\DebugDLL\obj\JDFWrapperDLL/"
@@ -191,79 +190,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug LineOnly|Win32"
-			OutputDirectory=".\..\..\..\Build\Win32\VC8\DebugLineOnly"
-			IntermediateDirectory=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperLib"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\src\jdf,..\..\..\external\xerces\include,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG,_WINDOWS,WIN32,JDF_TOOLS_LIB,JDF_WRAPPERCORE_LIB,_REENTRANT,UNICODE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperLib/JDFWrapperLib.pch"
-				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperLib/"
-				ObjectFile=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperLib/"
-				ProgramDataBaseFileName="..\..\..\Build\Win32\VC8\DebugLineOnly\JDFWrapperLib"
-				BrowseInformation="1"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="1"
-				CompileAs="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2067"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\..\..\Build\Win32\VC8\DebugLineOnly\JDFWrapperLib_D.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Release DLL|Win32"
 			OutputDirectory=".\..\..\..\Build\Win32\VC8\ReleaseDLL"
 			IntermediateDirectory=".\..\..\..\Build\Win32\VC8\ReleaseDLL\obj\JDFWrapperDLL"
@@ -301,7 +227,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\ReleaseDLL\obj\JDFWrapperDLL/JDFWrapperLib.pch"
@@ -395,7 +321,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\Release\obj\JDFWrapperLib/JDFWrapperLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\Release\obj\JDFWrapperLib/"
@@ -525,6 +451,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFMerge.cpp"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFMerged.cpp"
 						>
 					</File>
@@ -582,6 +512,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFResourcePool.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFSpawn.cpp"
 						>
 					</File>
 					<File
@@ -674,6 +608,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFMerge.h"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFMerged.h"
 						>
 					</File>
@@ -731,6 +669,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFResourcePool.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFSpawn.h"
 						>
 					</File>
 					<File
@@ -808,6 +750,18 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFFlushResourceParams.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGangCmdFilter.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGangInfo.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGangQuFilter.cpp"
 						>
 					</File>
 					<File
@@ -1081,6 +1035,18 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFFlushResourceParams.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGangCmdFilter.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGangInfo.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGangQuFilter.h"
 						>
 					</File>
 					<File
@@ -1806,6 +1772,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFBarCodeDetails.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFBarcodeProductionParams.cpp"
 							>
 						</File>
 						<File
@@ -2547,6 +2517,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFBarCodeDetails.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFBarcodeProductionParams.h"
 							>
 						</File>
 						<File
@@ -6376,6 +6350,10 @@
 								>
 							</File>
 							<File
+								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoBarcodeProductionParams.cpp"
+								>
+							</File>
+							<File
 								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoBinderySignature.cpp"
 								>
 							</File>
@@ -7058,6 +7036,10 @@
 							</File>
 							<File
 								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAutomatedOverprintParams.h"
+								>
+							</File>
+							<File
+								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoBarcodeProductionParams.h"
 								>
 							</File>
 							<File
@@ -8842,6 +8824,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrappercore\StringUtil.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrappercore\vElement.cpp"
 					>
 				</File>
@@ -8934,6 +8920,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrappercore\StringUtil.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrappercore\vElement.h"
 					>
 				</File>
@@ -8971,14 +8961,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug LineOnly|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -8992,14 +8974,6 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug LineOnly|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -9024,7 +8998,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\external\xerces\lib\xerces-c_2.lib"
+				RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -9042,27 +9016,12 @@
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug LineOnly|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\external\xerces\lib\xerces-c_2D.lib"
+				RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2D.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug LineOnly|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"

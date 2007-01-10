@@ -87,16 +87,17 @@
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/Platforms/MacOS/MacCarbonFile.hpp>
+#include <xercesc/util/XMLString.hpp>
 
 #include <jdf/util/PlatformUtils.h>
 #include <jdf/util/Platforms/Carbon/JDFCarbonFile.h>
 #include <jdf/lang/Janitor.h>
-#include <jdf/io/Exception.h>
+//John.Klippenstein@kodak.com - Exception.h has moved to a new location
+#include <jdf/lang/Exception.h>
 #include <jdf/io/File.h>
 #include <jdf/io/Platforms/Carbon/CarbonFileSystem.h>
 #include <jdf/net/Platforms/Carbon/CarbonSocketFactoryService.h>
 #include <jdf/net/Platforms/Carbon/CarbonInetAddressImpl.h>
-#include <jdf/util/Exception.h>
 
 
 
@@ -379,5 +380,15 @@ void PlatformUtils::sleep(int millis)
 
 }
 
+// John.Klippenstein@kodak.com - borrow this implementation from the macosPlatformUtils.  
+// It's not really platform specific at the jdf level,  they should all just echo it through to the Xerces level.
+WString PlatformUtils::weavePaths(const WString&  basePath
+							    , const WString&  relativePath)
+{
+	XMLCh* tmp = XMLPlatformUtils::weavePaths(basePath.c_str(),relativePath.c_str());
+	WString res (tmp);
+	XMLString::release(&tmp);
+	return res;
+}
 
 } // namespace JDF

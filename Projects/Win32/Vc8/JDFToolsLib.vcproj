@@ -4,9 +4,6 @@
 	Version="8,00"
 	Name="JDFToolsLib"
 	ProjectGUID="{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}"
-	SccProjectName="JDFToolsLib"
-	SccLocalPath="..\.."
-	SccProvider="MSSCCI:ClearCase"
 	>
 	<Platforms>
 		<Platform
@@ -49,7 +46,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\Release\obj\JDFToolsLib/JDFToolsLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\Release\obj\JDFToolsLib/"
@@ -72,81 +69,8 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="rpcrt4.lib"
 				OutputFile=".\..\..\..\Build\Win32\VC8\Release\JDFToolsLib.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug LineOnly|Win32"
-			OutputDirectory=".\..\..\..\Build\Win32\VC8\DebugLineOnly"
-			IntermediateDirectory=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFToolsLib"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\external\xerces\src,..\..\..\external\xerces\src\xercesc,..\..\..\external\zlib,..\..\..\external,..\..\..\src,..\..\..\external\xerces\include"
-				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,JDF_TOOLS_LIB,UNICODE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFToolsLib/JDFToolsLib.pch"
-				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFToolsLib/"
-				ObjectFile=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFToolsLib/"
-				ProgramDataBaseFileName="..\..\..\Build\Win32\VC8\DebugLineOnly\JDFToolsLib"
-				BrowseInformation="1"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="1"
-				CompileAs="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2067"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\..\..\Build\Win32\VC6\DebugLineOnly\jdftoolslib_D.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -197,7 +121,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;JDF_TOOLS_LIB;UNICODE;_CRT_SECURE_NO_DEPRECATE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFToolsLib/JDFToolsLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFToolsLib/"
@@ -221,6 +145,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="rpcrt4.lib"
 				OutputFile="..\..\..\Build\Win32\VC8\Debug\jdftoolslib_D.lib"
 				SuppressStartupBanner="true"
 			/>
@@ -278,7 +203,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\ReleaseDLL\obj\JDFToolsDLL/JDFToolsLib.pch"
@@ -303,7 +228,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib rpcrt4.lib"
 				OutputFile="..\..\..\Build\Win32\VC8\ReleaseDLL/JDFToolsDLL.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -376,7 +301,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JDF_TOOLS;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\DebugDLL\obj\JDFToolsDLL/JDFToolsLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\DebugDLL\obj\JDFToolsDLL/"
@@ -401,7 +326,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib rpcrt4.lib"
 				OutputFile="..\..\..\Build\Win32\VC8\DebugDLL/JDFToolsDLLd.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -433,80 +358,6 @@
 			/>
 			<Tool
 				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DEBUG STLPORT|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\external\STLport\stlport;..\..\..\external;..\..\..\src;..\..\..\external\xerces\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;JDF_TOOLS_LIB;UNICODE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFToolsLib/JDFToolsLib.pch"
-				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFToolsLib/"
-				ObjectFile=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFToolsLib/"
-				ProgramDataBaseFileName="..\..\..\Build\Win32\VC8\Debug\JDFToolsLib"
-				BrowseInformation="1"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-				CompileAs="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\..\..\Build\Win32\VC8\Debug\jdftoolslib_D.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1520,6 +1371,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\jdf\lang\SetWString.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\lang\SetWString.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\jdf\lang\Synchronized.cpp"
 				>
 			</File>
@@ -1560,6 +1419,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\jdf\lang\VoidSet.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\lang\VoidSet.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\jdf\lang\vWString.cpp"
 				>
 			</File>
@@ -1591,14 +1458,6 @@
 				/>
 			</FileConfiguration>
 			<FileConfiguration
-				Name="Debug LineOnly|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
 				Name="Debug|Win32"
 				ExcludedFromBuild="true"
 				>
@@ -1615,14 +1474,6 @@
 			</FileConfiguration>
 			<FileConfiguration
 				Name="Debug DLL|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="DEBUG STLPORT|Win32"
 				ExcludedFromBuild="true"
 				>
 				<Tool
@@ -1651,16 +1502,8 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\..\external\xerces\lib\xerces-c_2.lib"
+			RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2.lib"
 			>
-			<FileConfiguration
-				Name="Debug LineOnly|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
 			<FileConfiguration
 				Name="Debug|Win32"
 				ExcludedFromBuild="true"
@@ -1677,17 +1520,9 @@
 					Name="VCCustomBuildTool"
 				/>
 			</FileConfiguration>
-			<FileConfiguration
-				Name="DEBUG STLPORT|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\..\external\xerces\lib\xerces-c_2D.lib"
+			RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2D.lib"
 			>
 			<FileConfiguration
 				Name="Release|Win32"

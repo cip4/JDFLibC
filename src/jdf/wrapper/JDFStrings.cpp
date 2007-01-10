@@ -378,6 +378,7 @@ namespace JDF{
 	const WString JDFStrings::elm_GangInfo=L"GangInfo";
 	const WString JDFStrings::elm_GangQuFilter=L"GangQuFilter";
 	const WString JDFStrings::elm_GatheringParams=L"GatheringParams";
+	const WString JDFStrings::elm_GeneralID=L"GeneralID";
 	const WString JDFStrings::elm_Glue=L"Glue";
 	const WString JDFStrings::elm_GlueApplication=L"GlueApplication";
 	const WString JDFStrings::elm_GlueLine=L"GlueLine";
@@ -519,6 +520,7 @@ namespace JDF{
 	const WString JDFStrings::elm_Milestone=L"Milestone";
 	const WString JDFStrings::elm_MISDetails=L"MISDetails";
 	const WString JDFStrings::elm_Modified=L"Modified";
+	const WString JDFStrings::elm_ModifyNodeCmdParams=L"ModifyNodeCmdParams";
 	const WString JDFStrings::elm_Module=L"Module";
 	const WString JDFStrings::elm_ModuleCap=L"ModuleCap";
 	const WString JDFStrings::elm_ModulePhase=L"ModulePhase";
@@ -841,6 +843,7 @@ namespace JDF{
 	const WString JDFStrings::elm_TrimmingParams=L"TrimmingParams";
 
 	const WString JDFStrings::elm_Underage=L"Underage";
+	const WString JDFStrings::elm_UpdateJDFCmdParams=L"UpdateJDFCmdParams";
 	const WString JDFStrings::elm_USWeight=L"USWeight";
 
 	const WString JDFStrings::elm_Value=L"Value";
@@ -1364,7 +1367,7 @@ namespace JDF{
 	const WString JDFStrings::atr_FeederSynchronization=L"FeederSynchronization";
 	const WString JDFStrings::atr_FeederType=L"FeederType";
 	const WString JDFStrings::atr_FieldRange=L"FieldRange";
-	const WString JDFStrings::atr_File=L"File";
+	const WString JDFStrings::atr_File=L"file";
 	const WString JDFStrings::atr_FileFormat=L"FileFormat";
 	const WString JDFStrings::atr_FileName=L"FileName";
 	const WString JDFStrings::atr_FilePath=L"FilePath";

@@ -178,7 +178,9 @@ void JDFCarbonFile::open(const XMLCh* const fileName)
     if (!gFileSystemCompatible)
         ThrowXML1(XMLPlatformUtilsException, XMLExcepts::File_CouldNotOpenFile, fileName);
 
-    Janitor<XMLMacAbstractFile> file(XMLMakeMacFile());
+    // John.Klippenstein - this line compiles with Xerces 2.5 but not 2.7
+    // But the object being constructed is never used!!
+    //Janitor<XMLMacAbstractFile> file(XMLMakeMacFile());
 
     if (!m_file.open(fileName, false))
         ThrowXML1(XMLPlatformUtilsException, XMLExcepts::File_CouldNotOpenFile, fileName);

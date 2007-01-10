@@ -92,7 +92,8 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "AutoJDF/JDFAutoSurface.h"
+#include "JDFSheet.h"
+
 namespace JDF{
 /*
 *********************************************************************
@@ -101,11 +102,11 @@ class JDFSurface : public JDFAutoSurface
   *********************************************************************
 	*/
 	/**
-	* Typesafe resource wrapper calss JDFSurface 
+	* Typesafe resource wrapper calls JDFSurface 
 	*
 	* This file is hand edited and will not be regenerated
 	*/
-	class JDF_WRAPPERCORE_EXPORT JDFSurface : public JDFAutoSurface{
+	class JDF_WRAPPERCORE_EXPORT JDFSurface : public JDFSheet {
 	public:
 		
 		
@@ -115,11 +116,11 @@ class JDFSurface : public JDFAutoSurface
 		/**
 		* null ctor
 		*/
-		inline JDFSurface():JDFAutoSurface(){};
+		inline JDFSurface():JDFSheet(){};
 		/**
 		* copy ctor
 		*/
-		inline JDFSurface(const KElement & other):JDFAutoSurface(){*this=other;};
+		inline JDFSurface(const KElement & other):JDFSheet(){*this=other;};
 		/**
 		* copy equivalance operator
 		*/
@@ -157,6 +158,14 @@ class JDFSurface : public JDFAutoSurface
 		* @return WString: list of required attributes
 		*/
 		virtual WString RequiredAttributes()const;
+
+	protected:
+		/**
+		* typesafe validator utility - list of valid node names for this class 
+		* @return WString& comma separated list of valid node names
+		*/
+		WString ValidNodeNames()const;
+
 	}; // endJDFSurface
 	
 	// ******************************************************

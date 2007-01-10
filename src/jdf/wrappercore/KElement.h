@@ -1,3 +1,6 @@
+#ifndef _KELEMENT_H_
+#define _KELEMENT_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -125,7 +128,18 @@
 // 260804 RP GetDOMAttr new private routine
 // 260804 RP GetAttribute, RemoveAttribute, HasAttribute now also retrieve attributes using the local namespace prefix when called in DOM level 1 mode
 // 140205 RP AppendElement, SetAttribute now heuristically determine the namespace URI and attempt to call the appropriate dom lvl 2 routine when called in lvl 1 mode
-//
+// 040806 NB fixed ReplaceElement, return values were mixed up
+// 040680 NB added GetPreviousSiblingElement, eraseEmptyAttributes, matchesPath
+// 070806 NB fixed GetDeepChild()
+// 080806 NB added getNumChildNodes()
+// 240806 NB fixed GetDomAttr()
+// 280806 NB fixed SetAttribute()
+// 301006 NB changed GetElement(...) to handle negative iSkip's
+// 301006 NB fixed maxSize being ignored in GetChildrenByTagName()
+// 271106 NB added parameter bInherit to GetDOMAttr()
+// 281106 NB fixed GetChildWithAttribute(), GetDOMElement(), GetDOMAttr()
+// 011206 NB added SetXSIType(), GetXSIType()
+// 211206 NB moved EnumAttributeType from JDFElement to KElement (allows StringUtil to move to WrapperCore)
 //
 // KElement.h: interface for the KElement class.
 // KElement wraps DOMElement and has some stl WString conversion utilities
@@ -133,8 +147,6 @@
 //
 //
 */
-#ifndef _KELEMENT_H_
-#define _KELEMENT_H_
 
 #include <jdf/lang/vWString.h>
 #include <jdf/lang/mapWString.h>
@@ -160,6 +172,7 @@ namespace JDF {
 	*/
 	class XMLDoc;
 	class XMLDocUserData;
+	class SetWString;
 
 	/**
 	* stl vector of KElements.
@@ -751,6 +764,18 @@ namespace JDF {
 		vWString GetChildAttributeList(const WString & nodeName, const WString & attName, const WString & nameSpaceURI=WString::emptyStr,const WString & attVal=WString::star,bool bDirect=true, bool bUnique=true)const;
 
 		/**
+		* Gets a list of all values of the attribute attName in the children of this node
+		*
+		* @param WString & nodeName: element name you are searching for
+		* @param WString & attName: attributes you are looking for
+		* @param WString & nameSpaceURI: nameSpace you are searching for
+		* @param WString & attVal: value of the attribute you are searching for
+		* @param bool bDirect: if true, looks only in direct children, else searches through all children, grandchildren etc.
+		* @param SetWString* the set to fill
+		*/
+		void getChildAttributeSet(SetWString*sSet,const WString & nodeName, const WString & attName,  const WString & nameSpaceURI=WString::emptyStr,const WString & attVal=WString::star,bool bDirect=true)const;
+
+		/**
 		* Gets a vector of all children with a matching attribute
 		*
 		* @param WString & nodeName: elementname you are searching for
@@ -1020,6 +1045,13 @@ namespace JDF {
 		* @return KElement: the next sibling element of 'this'
 		*/
 		KElement GetNextSiblingElement(const WString& nodeName, const WString& nameSpaceURI)const;
+
+		/**
+		* Gets the previous sibling element of 'this'
+		*
+		* @return KElement: the previous sibling element of 'this'
+		*/
+		KElement GetPreviousSiblingElement()const;
 
 		/**
 		* Checks, if 'this' has child element nodes
@@ -1491,7 +1523,7 @@ namespace JDF {
 		* If the actual document owner is the same as the src document owner,'this' is replaced by src. <br>
 		* If the actual document owner and the src document owner are different, 
 		* src is positioned at the position of 'this' in the current document
-		* and removed from the old parent document. <br>
+		* and not removed from the old parent document. <br>
 		* 
 		* @since 130103 ReplaceElement works on all elements including the document root
 		* @param KElement & src: node, that 'this' will be replaced with
@@ -1578,229 +1610,314 @@ namespace JDF {
 		* @return WString: The nameSpaceURI that maps to prfix
 		*/
 
-		WString KElement::GetNamespaceURIFromPrefix(const WString& prefix)const;
+		WString GetNamespaceURIFromPrefix(const WString& prefix)const;
 
-			/**
-			* Gets the namespace prefix of 'this'
-			*
-			* @return WString: the namespace prefix of 'this'
-			*/
-			WString GetPrefix()const;
+		/**
+		* Gets the namespace prefix of 'this'
+		*
+		* @return WString: the namespace prefix of 'this'
+		*/
+		WString GetPrefix()const;
 
-			/**
-			* Gets the local name of 'this'
-			*
-			* @return WString: the local name of 'this'
-			*/
-			WString GetLocalName()const;
+		/**
+		* Gets the length of the namespace prefix of 'this', -1 if no prefix is set
+		*
+		* @return WString: the namespace prefix of 'this'
+		*/
+		int getPrefixLength()const;
 
-			/**
-			* Parses s for it's namespace prefix
-			*
-			* @param WString & s: string to parse
-			* @return WString: namespace prefix - empty if no ":" is in s
-			*
-			* @deprecated  use XMLNSPrefix
-			*/
-			static WString XMLNameSpace(const WString& s);
+		/**
+		* Gets the local name of 'this'
+		*
+		* @return WString: the local name of 'this'
+		*/
+		WString GetLocalName()const;
 
-			/**
-			* Parses pc for it's namespace prefix
-			*
-			* @param JDFCh* pc: pointer to string to parse
-			* @return WString: namespace prefix of element - empty if no ":" is in pc 
-			*/
-			static WString XMLNSPrefix(const JDFCh* pc);
+		/**
+		* Parses s for it's namespace prefix
+		*
+		* @param WString & s: string to parse
+		* @return WString: namespace prefix - empty if no ":" is in s
+		*
+		* @deprecated  use XMLNSPrefix
+		*/
+		static WString XMLNameSpace(const WString& s);
 
-			/**
-			* Parses pc for it's local name
-			*
-			* @param JDFCh* pc: pointer to string to parse 
-			* @return WString: local name  
-			*/
-			static WString XMLNSLocalName(const JDFCh* pc);
+		/**
+		* Parses pc for it's namespace prefix
+		*
+		* @param JDFCh* pc: pointer to string to parse
+		* @return WString: namespace prefix of element - empty if no ":" is in pc 
+		*/
+		static WString XMLNSPrefix(const JDFCh* pc);
 
-			/**
-			* Sets the namespace prefix of 'this'
-			*
-			* @param WString prefix: namespace prefix to set
-			*
-			* @throws JDFException if 'this' is a null element and thus no settings can be made
-			*/
-			void SetPrefix(const WString& prefix);
+		/**
+		* Parses pc for it's local name
+		*
+		* @param JDFCh* pc: pointer to string to parse 
+		* @return WString: local name  
+		*/
+		static WString XMLNSLocalName(const JDFCh* pc);
 
-			/*
-			* 
-			* misceleneous
-			*
-			*/
-			/**
-			* Enumeration for validation level <br>
-			* level ValidationLevel_None: always return true <br>
-			* level ValidationLevel_Construct: incomplete and null elements are valid <br>
-			* level ValidationLevel_Incomplete: incomplete elements are valid <br>
-			* level ValidationLevel_Complete: full validation of an individual resource <br>
-			* level ValidationLevel_RecursiveIncomplete: incomplete validation of an individual resource and all of its child elements - e.g. for pools <br>
-			* level ValidationLevel_RecursiveComplete: full validation of an individual resource and all of its child elements - e.g. for pools <br>
-			*/
-			enum EnumValidationLevel{ValidationLevel_None,ValidationLevel_Construct,ValidationLevel_Incomplete,ValidationLevel_Complete,ValidationLevel_RecursiveIncomplete,ValidationLevel_RecursiveComplete};
+		/**
+		* Sets the namespace prefix of 'this'
+		*
+		* @param WString prefix: namespace prefix to set
+		*
+		* @throws JDFException if 'this' is a null element and thus no settings can be made
+		*/
+		void SetPrefix(const WString& prefix);
 
-			/**
-			* Mother of all validators
-			*
-			* @param EnumValidationLevel level: validation level
-			* level ValidationLevel_None: always return true <br>
-			* level ValidationLevel_Construct: incomplete and null elements are valid <br>
-			* level ValidationLevel_Incomplete: incomplete elements are valid <br>
-			* level ValidationLevel_Complete: full validation of an individual resource <br>
-			* level ValidationLevel_RecursiveIncomplete: incomplete validation of an individual resource and all of its child elements - e.g. for pools <br>
-			* level ValidationLevel_RecursiveComplete: full validation of an individual resource and all of its child elements - e.g. for pools <br>
-			* @return bool: true, if the node is valid.
-			*/
-			virtual bool IsValid(EnumValidationLevel level=ValidationLevel_Complete)const;
+		/*
+		* 
+		* misceleneous
+		*
+		*/
+		/**
+		* Enumeration for validation level <br>
+		* level ValidationLevel_None: always return true <br>
+		* level ValidationLevel_Construct: incomplete and null elements are valid <br>
+		* level ValidationLevel_Incomplete: incomplete elements are valid <br>
+		* level ValidationLevel_Complete: full validation of an individual resource <br>
+		* level ValidationLevel_RecursiveIncomplete: incomplete validation of an individual resource and all of its child elements - e.g. for pools <br>
+		* level ValidationLevel_RecursiveComplete: full validation of an individual resource and all of its child elements - e.g. for pools <br>
+		*/
+		enum EnumValidationLevel{ValidationLevel_None,ValidationLevel_Construct,ValidationLevel_Incomplete,ValidationLevel_Complete,ValidationLevel_RecursiveIncomplete,ValidationLevel_RecursiveComplete};
 
-			/**
-			* Shorthand for lazy people. Uses isNull
-			* Checks, whether 'this' is null or not. 
-			*
-			* @return bool: true, if 'this' is a null element
-			*/
-			bool operator !()const;
+		/**
+		* Mother of all validators
+		*
+		* @param EnumValidationLevel level: validation level
+		* level ValidationLevel_None: always return true <br>
+		* level ValidationLevel_Construct: incomplete and null elements are valid <br>
+		* level ValidationLevel_Incomplete: incomplete elements are valid <br>
+		* level ValidationLevel_Complete: full validation of an individual resource <br>
+		* level ValidationLevel_RecursiveIncomplete: incomplete validation of an individual resource and all of its child elements - e.g. for pools <br>
+		* level ValidationLevel_RecursiveComplete: full validation of an individual resource and all of its child elements - e.g. for pools <br>
+		* @return bool: true, if the node is valid.
+		*/
+		virtual bool IsValid(EnumValidationLevel level=ValidationLevel_Complete)const;
 
-			/**
-			* Gets the target of link
-			* Follows an ID-IDREF pair by recursively searching for an attrib with the value id
-			*
-			* @param WString id: value of the ID tag to search
-			* @param WString attrib: name of the ID tag, defaults to "ID"
-			*
-			* @tbd add namespace search String nameSpaceURI: nameSpace of the ID attribute, defaults to empty
-			* @return KElement: the target of link - the element node.
-			*/	
-			KElement GetTarget(const WString & id,const WString & attrib=L"ID") const;
+		/**
+		* Shorthand for lazy people. Uses isNull
+		* Checks, whether 'this' is null or not. 
+		*
+		* @return bool: true, if 'this' is a null element
+		*/
+		bool operator !()const;
 
-			/**
-			* Checks, whether 'this' is null or not
-			* 
-			* @return bool: true, if 'this' points at an element in the DOM tree
-			*/
-			inline bool isNull()const{
-				return domElement==0;
-			}
+		/**
+		* Gets the target of link
+		* Follows an ID-IDREF pair by recursively searching for an attrib with the value id
+		*
+		* @param WString id: value of the ID tag to search
+		* @param WString attrib: name of the ID tag, defaults to "ID"
+		*
+		* @tbd add namespace search String nameSpaceURI: nameSpace of the ID attribute, defaults to empty
+		* @return KElement: the target of link - the element node.
+		*/	
+		KElement GetTarget(const WString & id,const WString & attrib=L"ID") const;
 
-			/**
-			* Switches between limp-along and picky mode; if the MACRO THROWNULL is defined,
-			* throws an exception for NULL objects, else returns DOMElement::isNull()    <p> 
-			* Checkes if 'this' is null and if so, throws a warning message
-			*
-			* @return bool: true, if 'this' is null
-			*
-			* @throws JDFException if there was attempt to operate with a null element
-			*/
-			inline bool throwNull()const{
-#ifdef THROWNULL
-				if(isNull()) 
-					throw JDFException(L"Attempting operation on a NULL KElement");
-				return true;
-#else
-				return isNull();
-#endif
-			};
+		/**
+		* Checks, whether 'this' is null or not
+		* 
+		* @return bool: true, if 'this' points at an element in the DOM tree
+		*/
+		inline bool isNull()const{
+			return domElement==0;
+		}
+
+		/**
+		* Switches between limp-along and picky mode; if the MACRO THROWNULL is defined,
+		* throws an exception for NULL objects, else returns DOMElement::isNull()    <p> 
+		* Checkes if 'this' is null and if so, throws a warning message
+		*
+		* @return bool: true, if 'this' is null
+		*
+		* @throws JDFException if there was attempt to operate with a null element
+		*/
+		inline bool throwNull()const{
+		#ifdef THROWNULL
+			if(isNull()) 
+				throw JDFException(L"Attempting operation on a NULL KElement");
+			return true;
+		#else
+			return isNull();
+		#endif
+		};
 
 
 
-			/**
-			* Sets 'this' or its closest parent element with an id as dirty 
-			* @param bool bAttribute if true, only attributes are dirty, else child elements
-			*/
-			void SetDirty(bool bAttribute)const;
+		/**
+		* Sets 'this' or its closest parent element with an id as dirty 
+		* @param bool bAttribute if true, only attributes are dirty, else child elements
+		*/
+		void SetDirty(bool bAttribute)const;
 
-			/**
-			* Writes a character representation of 'this' to a string <br> 
-			* Always assumes utf-8 encoding
-			*
-			* @param WString& out : string to write to
-			* @return bool: true if successful
-			* 
-			*/
-			bool Write2String(WString& out)const;
+		/**
+		* Writes a character representation of 'this' to a string <br> 
+		* Always assumes utf-8 encoding
+		*
+		* @param WString& out : string to write to
+		* @return bool: true if successful
+		* 
+		*/
+		bool Write2String(WString& out)const;
 
-			/**
-			* Returns a  character representation of 'this' <br> Writes to a string <br>
-			* Always assumes utf-8 encoding
-			*
-			* @return WString: the string
-			*/
-			WString ToString()const;
+		/**
+		* Returns a  character representation of 'this' <br> Writes to a string <br>
+		* Always assumes utf-8 encoding
+		*
+		* @return WString: the string
+		*/
+		WString ToString()const;
 
-			/**
-			* Gets the number of direct child nodes of 'this', that match NodeType
-			*
-			* @param int nodeType: the DOM NodeType, if 0 count all nodes
-			* @return int: the counted number of direct child nodes, that match NodeType
-			*/
-			int NumChildNodes(int nodeType)const;
+		/**
+		* Gets the number of direct child nodes of 'this', that match NodeType
+		*
+		* @param int nodeType: the DOM NodeType, if 0 count all nodes
+		* @return int: the counted number of direct child nodes, that match NodeType
+		*/
+		int NumChildNodes(int nodeType)const;
 
-			/**
-			* Removes from 'this' iSkip-th child node, that match NodeType
-			*
-			* @param int nodeType: the DOM NodeType,if 0 count all nodes
-			* @param iSkip number: number of matching child nodes to skip
-			*/
-			void RemoveChildNode(int nodeType, int iSkip);
+		/**
+		* Removes from 'this' iSkip-th child node, that match NodeType
+		*
+		* @param int nodeType: the DOM NodeType,if 0 count all nodes
+		* @param iSkip number: number of matching child nodes to skip
+		*/
+		void RemoveChildNode(int nodeType, int iSkip);
 
-			/**
-			* Checks, if 'this' has child nodes, that match NodeType, or not.
-			*
-			* @param int nodeType: the DOM NodeType, if 0 count all nodes
-			* @return bool: true, if there are child nodes of defined NodeType in 'this'
-			*/
-			bool HasChildNodes(int nodeType)const;
+		/**
+		* Checks, if 'this' has child nodes, that match NodeType, or not.
+		*
+		* @param int nodeType: the DOM NodeType, if 0 count all nodes
+		* @return bool: true, if there are child nodes of defined NodeType in 'this'
+		*/
+		bool HasChildNodes(int nodeType)const;
 
-			/**
-			* Checks, if the node is abstract, i.e. is not completely described.
-			* Utility used by GetUnknownElements, GetUnknownAttributes
-			*
-			* @return bool: true, if the node is abstract
-			*/
-			virtual bool IsAbstract()const;
+		/**
+		* Checks, if the node is abstract, i.e. is not completely described.
+		* Utility used by GetUnknownElements, GetUnknownAttributes
+		*
+		* @return bool: true, if the node is abstract
+		*/
+		virtual bool IsAbstract()const;
 
-			/**
-			* Gets the name of the iSkip-th child node, that fits NodeType
-			*
-			* @param int nodeType: the DOM NodeType, if 0 count all nodes
-			* @param int iSkip:  number of matching child nodes to skip
-			* @return WString: the node name of the matching child
-			*/
-			WString GetChildNodeName(int nodeType,int iSkip)const;
+		/**
+		* Gets the name of the iSkip-th child node, that fits NodeType
+		*
+		* @param int nodeType: the DOM NodeType, if 0 count all nodes
+		* @param int iSkip:  number of matching child nodes to skip
+		* @return WString: the node name of the matching child
+		*/
+		WString GetChildNodeName(int nodeType,int iSkip)const;
 
-			/**
-			* Gets the value of the iSkip-th child node, that fits NodeType
-			*
-			* @param int nodeType: the DOM NodeType, if 0 count all nodes
-			* @param int iSkip: number of matching child nodes to skip
-			* @return WString: the node value of the matching child
-			*/
-			WString GetChildNodeValue(int nodeType,int iSkip)const;
+		/**
+		* Gets the value of the iSkip-th child node, that fits NodeType
+		*
+		* @param int nodeType: the DOM NodeType, if 0 count all nodes
+		* @param int iSkip: number of matching child nodes to skip
+		* @return WString: the node value of the matching child
+		*/
+		WString GetChildNodeValue(int nodeType,int iSkip)const;
 
-			/**
-			* Gets the NodeType of the iSkip-th child node
-			*
-			* @param int iSkip: number of child nodes to skip
-			* @return int: number, that determines the DOM NodeType of the child
-			*/
-			int GetChildNodeType(int iSkip=0)const;
+		/**
+		* Gets the NodeType of the iSkip-th child node
+		*
+		* @param int iSkip: number of child nodes to skip
+		* @return int: number, that determines the DOM NodeType of the child
+		*/
+		int GetChildNodeType(int iSkip=0)const;
 
-			/**
-			* Gets the iSkip-th child node, if it fits nodeType ELEMENT_NODE 
-			* (child node is a element node, not text node, comment node ect).
-			* Otherwise empty KElement is returned. <br>
-			* Note, that this differs from the pure element accessors, in that intermediate text nodes etc are NOT skipped
-			*
-			* @param int iSkip: number of child nodes to skip, regardless of its type
-			* @return KElement: the iSkip-th child node, if it is element node or otherwise an empty KElement
-			*/
-			KElement GetChildNodeElement(int iSkip=0)const;
+		/**
+		* Gets the iSkip-th child node, if it fits nodeType ELEMENT_NODE 
+		* (child node is a element node, not text node, comment node ect).
+		* Otherwise empty KElement is returned. <br>
+		* Note, that this differs from the pure element accessors, in that intermediate text nodes etc are NOT skipped
+		*
+		* @param int iSkip: number of child nodes to skip, regardless of its type
+		* @return KElement: the iSkip-th child node, if it is element node or otherwise an empty KElement
+		*/
+		KElement GetChildNodeElement(int iSkip=0)const;
+
+		/**
+		* remove all empty attributes from this (e.g. att="")
+		* @param bRecurse if true, alse recurse subelements, else only local
+		*/
+		void eraseEmptyAttributes(bool bRecurse);
+
+		/**
+		* check whether this matches a simple xpath
+		* @param path
+		* @return
+		*/
+		bool matchesPath(const WString& path, bool bFollowRefs);
+
+		/**
+		* Gets the number of direct child nodes of 'this', that match NodeType
+		*
+		* @param int nodeType: the DOM NodeType, if 0 count all nodes
+		* <blockquote><ul>
+		*    <li>ELEMENT_NODE                = 1
+		*    <li>ATTRIBUTE_NODE              = 2
+		*    <li>TEXT_NODE                   = 3
+		*    <li>CDATA_SECTION_NODE          = 4
+		*    <li>ENTITY_REFERENCE_NODE       = 5
+		*    <li>ENTITY_NODE                 = 6
+		*    <li>PROCESSING_INSTRUCTION_NODE = 7
+		*    <li>COMMENT_NODE                = 8
+		*    <li>DOCUMENT_NODE               = 9
+		*    <li>DOCUMENT_TYPE_NODE          = 10
+		*    <li>DOCUMENT_FRAGMENT_NODE      = 11
+		*    <li>NOTATION_NODE               = 12
+		*    <li>XML_DECL_NODE               = 13
+		* </blockquote></ul>
+		* @return int: the counted number of direct child nodes, that match NodeType
+		*/
+		int getNumChildNodes(int nodeType);
+
+		/**
+		* fills a HashSet with all values of the attribute in all child elements
+		* @param attName attribute name
+		* @param attNS attrib ute namespaceuri
+		* @param preFill the HashSet to fill
+		*/
+		void fillHashSet(const WString& attName,const WString& attNS, SetWString* preFill)const;
+
+		/*
+		* set attribute "xsi:type"
+		* @param typ the value to set the attribute to
+		*/
+		void setXSIType(const WString& typ);
+
+		/**
+		* returns the xsi:type of this element, null if not present
+		* @return String the xsi:type of this element, null if not present
+		*/
+		WString getXSIType();
+
+		/**
+		* Attribute data types used by the autogenerator
+		* @since 011001 added NMTOKENS, enumeration, enumerations
+		* @since 160104 added URI, IDREFS, IDREF, XYPairRangeList, XYRelation, RectangleRangeList, regExp, 
+		* NumberList, ShapeRangeList, DateTimeRangeList, DurationRangeList, DateTimeRange, DurationRange
+		* @since 110205 added Unknown 
+		* @since 211206 moved to KElement
+		*/
+		enum EnumAttributeType{AttributeType_Unknown,AttributeType_Any,AttributeType_boolean,AttributeType_double,AttributeType_integer,
+			AttributeType_NMTOKEN,AttributeType_NMTOKENS,AttributeType_string,AttributeType_IntegerRange,
+			AttributeType_IntegerList,AttributeType_IntegerRangeList,AttributeType_matrix,AttributeType_rectangle,AttributeType_XYPair,
+			AttributeType_URL,AttributeType_URI,AttributeType_enumeration,AttributeType_enumerations,AttributeType_NumberRangeList,AttributeType_NameRangeList,
+			AttributeType_NumberRange,AttributeType_ID,AttributeType_dateTime,AttributeType_duration,AttributeType_shape,
+			AttributeType_IDREFS,AttributeType_IDREF,AttributeType_XYPairRange,AttributeType_XYPairRangeList,AttributeType_XYRelation,
+			AttributeType_RectangleRangeList,AttributeType_regExp,AttributeType_NumberList,AttributeType_ShapeRangeList,
+			AttributeType_DateTimeRangeList,AttributeType_DurationRangeList,AttributeType_DateTimeRange,AttributeType_DurationRange,
+			AttributeType_language,AttributeType_languages,AttributeType_PDFPath,AttributeType_XPath,
+			AttributeType_LabColor,AttributeType_RGBColor,AttributeType_CMYKColor,AttributeType_hexBinary,AttributeType_TransferFunction,
+			AttributeType_NameRange,AttributeType_RectangleRange,AttributeType_ShapeRange,AttributeType_JDFJMFVersion,AttributeType_shortString,AttributeType_longString
+		};
+
 
 	protected:
 
@@ -1895,12 +2012,13 @@ namespace JDF {
 		* @param KElement & childToExclude: child to exclude during the search 
 		* @return KElement: the matching element node
 		*/	
-		KElement GetDeepElementByID(const JDFCh* name, const JDFCh* id,const KElement& childToExclude)const;
-
+		KElement GetDeepElementByID(const JDFCh* name, const JDFCh* id,const KElement& childToExclude, XMLDocUserData* ud)const;
 
 
 	private:
 		friend class XMLDoc;
+		friend class JDFResource;
+		friend class JDFElement;
 		XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* domElement;
 
 		/**
@@ -1931,20 +2049,23 @@ namespace JDF {
 		* It if attrib has no namespace prefix and nameSpaceURI is a wildcard
 		* the attribute with the element prefix will be returned if no empty attribute exists
 		* e.g. GetDOMAttr("a") will return the node x:a in <x:e x:a="b"/>
+		* <br>
+		* default: GetDomAttr(attrib,nameSpaceURI,false)
 		*
 		* @param JDFCh* attrib the attribute Name
 		* @param JDFCh* nameSpaceURI then manespaceURI, defaults to the local namespace
+		* @param bInherit search in parent elements as well
 		* @return DOMAttr*  the DOMAttr node of the matching attribute
 		* 
 		*/
-		XERCES_CPP_NAMESPACE_QUALIFIER DOMAttr* GetDOMAttr(const JDFCh* attrib, const JDFCh* nameSpaceURI) const;
-		}; // class KElement
+		XERCES_CPP_NAMESPACE_QUALIFIER DOMAttr* GetDOMAttr(const JDFCh* attrib, const JDFCh* nameSpaceURI, bool bInherit=false) const;
+	}; // class KElement
 
-		/** overload << for KElement
-		*/
-		JDF_WRAPPERCORE_EXPORT std::ostream& operator<<(std::ostream& target, const JDF::KElement& toWrite);
+	/** overload << for KElement
+	*/
+	JDF_WRAPPERCORE_EXPORT std::ostream& operator<<(std::ostream& target, const JDF::KElement& toWrite);
 
-	} // namespace JDF
+} // namespace JDF
 
 
 #endif // !defined(_KELEMENT_H_)

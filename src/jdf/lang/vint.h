@@ -88,8 +88,8 @@
 * 051102 RP Token() gracefully handle index above limit of number of tokens
 * 041202 RP remove STL from the interface and hide it in pBase
 * 140104 RP added = operator
-*
 * 231104 ES added vector iterator implementation - class vintIterator
+* 300806 NB added pop_back()
 ******************************************************************************/
 
 #ifndef I_JDF_VINT_H
@@ -280,6 +280,11 @@ namespace JDF
 		* @param int str:
 		*/
 		void add(int str);
+
+		/**
+		* Removes the last element of the controlled sequence, which must be non-empty
+		*/
+		void pop_back();
 
 		/**
 		* Overloaded operator [] provides an access to the element of sequence with index = pos

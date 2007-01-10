@@ -129,18 +129,19 @@ void CharacterDecoder::decodeBuffer(InputStream& aStream, OutputStream& bStream)
 	{
 	    int length;
 
+		const int bpa=bytesPerAtom();
 	    try 
 		{
 			length = decodeLinePrefix(aStream, bStream);
-			for (i = 0; (i+bytesPerAtom()) < length; i += bytesPerAtom()) 
+			for (i = 0; (i+bpa) < length; i += bpa) 
 			{
-				decodeAtom(aStream, bStream, bytesPerAtom());
-				totalBytes += bytesPerAtom();
+				decodeAtom(aStream, bStream, bpa);
+				totalBytes += bpa;
 			}
-			if ((i + bytesPerAtom()) == length) 
+			if ((i + bpa) == length) 
 			{
-				decodeAtom(aStream, bStream, bytesPerAtom());
-				totalBytes += bytesPerAtom();
+				decodeAtom(aStream, bStream, bpa);
+				totalBytes += bpa;
 			}
 			else
 			{

@@ -80,6 +80,7 @@
  *	Includes
  ******************************************************************************/ 
 #include "Win32Shortcut.h"
+#include "jdf/lang/JDFToolsDefs.h"
 
 #include <shlguid.h>
 #include <shlobj.h>
@@ -112,7 +113,7 @@ HRESULT LLCreateLink(LPCSTR lpszPathObj, LPCSTR lpszPathLink)
  
         if (SUCCEEDED(hres))
 		{ 
-            WORD wsz[MAX_PATH]; 
+            JDFCh wsz[MAX_PATH]; 
             MultiByteToWideChar(CP_ACP, 0, lpszPathLink, -1, wsz, MAX_PATH); 
             hres = ppf->Save(wsz, TRUE); 
             ppf->Release(); 
@@ -140,7 +141,7 @@ HRESULT LLResolveLink(LPSTR lpszPathObj, LPCSTR lpszPathLink)
  
         if (SUCCEEDED(hres)) 
 		{ 
-            WORD wsz[MAX_PATH]; 
+            JDFCh wsz[MAX_PATH]; 
 			MultiByteToWideChar(CP_ACP, 0, lpszPathLink, -1, wsz, MAX_PATH); 
 			hres = ppf->Load(wsz, 0); 
             ppf->Release();
@@ -172,7 +173,7 @@ bool    LLCheckLink(LPCSTR lpszPathLink)
  
         if (SUCCEEDED(hres)) 
 		{ 
-            WORD wsz[MAX_PATH]; 
+            JDFCh wsz[MAX_PATH]; 
 			MultiByteToWideChar(CP_ACP, 0, lpszPathLink, -1, wsz, MAX_PATH); 
 			hres = ppf->Load(wsz, 0); 
             ppf->Release();
@@ -258,7 +259,7 @@ bool    LLCheckLinkW(LPCWSTR lpszPathLink)
 
     HRESULT hres; 
     IShellLinkW* psl; 
-	unsigned short lpszPathObj[MAX_PATH+1];
+	JDFCh lpszPathObj[MAX_PATH+1];
 	bool ret = false;
  
 	hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (void**)&psl); 

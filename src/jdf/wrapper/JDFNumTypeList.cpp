@@ -188,10 +188,22 @@ namespace JDF{
 		if(!size()) 
 			return s;
 
-		s=at(0);
-		for (int i=1;i<size();i++){
-			s+=WString::blank;
-			s+=WString::valueOf(at(i));
+		for (int i=0;i<size();i++){
+			if (i!=0)
+				s+=WString::blank;
+			WString value;
+			WString actValue = WString::valueOf(at(i));
+			if (actValue == WString(WString::pINF))
+				value = WString::pINFstr;
+			else if (actValue == WString(WString::nINF))
+				value = WString::nINFstr;
+			else if (actValue == WString(WString::pDINF))
+				value = WString::pDINFstr;
+			else if (actValue == WString(WString::nDINF))
+				value = WString::nDINFstr;
+			else
+				value = WString::valueOf(at(i));
+			s+=value;
 		}
 		return s;
 	}
@@ -321,10 +333,18 @@ namespace JDF{
 		if(!size()) 
 			return s;
 
-		s=at(0);
-		for (int i=1;i<size();i++){
-			s+=WString::blank;
-			s+=WString::valueOf(at(i));
+		for (int i=0;i<size();i++){
+			if (i!=0)
+				s+=WString::blank;
+			WString value;
+			WString actValue = WString::valueOf(at(i));
+			if (actValue == WString(WString::pINF))
+				value = WString::pINFstr;
+			else if (actValue == WString(WString::nINF))
+				value = WString::nINFstr;
+			else
+				value = WString::valueOf(at(i));
+			s+=value;
 		}
 		return s;
 	}

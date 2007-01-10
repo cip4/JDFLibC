@@ -131,7 +131,7 @@ namespace JDF{
 		if(GetParentNode().GetLocalName()==elm_ResourcePool){
 			bRet=JDFResource::init();
 			SetPartUsage(JDFResource::PartUsage_Implicit);
-			SetStatus(JDFResource::EnumStatus::Status_Available);
+			SetStatus(JDFResource::Status_Available);
 			SetClass(Class_Parameter);
 		}
 		return bRet;
@@ -145,7 +145,7 @@ namespace JDF{
      */
 	JDFContact JDFCustomerInfo::GetContactWithContactType(const WString& contactType,int iSkip) const
     {
-        vElement v=GetChildElementVector(elm_Contact);
+		vElement v=GetChildElementVector(elm_Contact,WString::emptyStr,mAttribute::emptyMap,true,0,true);
         int siz=v.size();
         int n=0;
         for(int i=0;i<siz;i++)
@@ -163,7 +163,7 @@ namespace JDF{
 
 	vElement JDFCustomerInfo::getContactVectorWithContactType(const WString& contactType)const
     {
-		vElement v=GetChildElementVector(elm_Contact);
+		vElement v=GetChildElementVector(elm_Contact,WString::emptyStr,mAttribute::emptyMap,true,0,true);
         vElement v2;
         int siz=v.size();
         for(int i=0;i<siz;i++)

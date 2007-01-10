@@ -1,3 +1,6 @@
+#if !defined(_JDFResourceLinkPool_H__INCLUDED_)
+#define _JDFResourceLinkPool_H__INCLUDED_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -89,13 +92,11 @@
 // 130902 RP GetLinkedResources now returns vResource
 // 210203 RP AppendResource() now moves the resource to a valid resourcepool, if it is not yet there
 // 120803 RP ResourceVector now correctly follows <Part> elements
+// 291106 NB GetLinkedResources() now processes "...Link" resTypes correctly
 //
 // JDFResourceLinkPool.h: interface for the JDFResourceLinkPool class.
 //
 // ////////////////////////////////////////////////////////////////////
-
-#if !defined(_JDFResourceLinkPool_H__INCLUDED_)
-#define _JDFResourceLinkPool_H__INCLUDED_
 
 #if _MSC_VER >= 1000
 #pragma once
@@ -103,11 +104,14 @@
 
 #include "JDFPool.h"
 #include "JDFResource.h"
+#include "JDFResourceLink.h"
+#include "JDFNode.h"
 
 namespace JDF{
 	
-	class JDFResourceLink;
 	class JDFResource;
+	class JDFNode;
+	class VoidSet;
 	/**
 	* Class wrapper for the ResourceLinkPool
 	* also Factory for ResourceLink and related objects
@@ -190,7 +194,7 @@ namespace JDF{
 		* @param mAttribute mResAtt: map of Resource attributes to search for
 		* @return vResource: vector with all elements matching the conditions
 		*/
-		vElement GetLinkedResources(const WString &resType=WString::emptyStr,const mAttribute &mLinkAtt=mAttribute::emptyMap,const mAttribute &mResAtt=mAttribute::emptyMap,bool bFollowRefs=false)const;
+		vElement GetLinkedResources(const WString& resType=WString::emptyStr,const mAttribute &mLinkAtt=mAttribute::emptyMap,const mAttribute &mResAtt=mAttribute::emptyMap,bool bFollowRefs=false)const;
 		
 		/**
 		* Get the links from the pool (input or output)
@@ -200,8 +204,19 @@ namespace JDF{
 		* @param String resProcUsage: process usage of the resource to get (* for all)
 		* resName and resProcUsage perform a logical "and"-operation on the links
 		* @return vElement: Vector with the found resource links
+		* @deprecated
 		*/
 		vElement GetInOutLinks(bool bInOut,bool bLink=true, const WString& resName=WString::star, const WString& resProcUsage=WString::star)const;
+		/**
+		* Get the links from the pool (input or output)
+		* @param usage  - what kind of links you want to have (input, output) if null all are selected
+		* @param boolean bLink: if false, returns the linked resources, else if true, returns the ResourceLink elements
+		* @param String resName: name of the resource to get ( * for all)
+		* @param String resProcUsage: process usage of the resource to get (* for all)
+		* resName and resProcUsage perform a logical "and"-operation on the links
+		* @return vElement: Vector with the found resource links
+		*/
+		vElement getInOutLinks(JDFResourceLink::EnumUsage usage,bool bLink=true, const WString& resName=WString::star, const WString& resProcUsage=WString::star)const;
 		/**
 		* default initialization
 		* @return bool true if successful
@@ -273,9 +288,24 @@ namespace JDF{
 		* @param bool bRecurse if true, also return recursively linked IDS
 		* @return vElement: the vector of referenced resource ids
 		*/
-		vElement GetAllRefs(const vElement& vDoneRefs=vElement(), bool bRecurse=false)const;
-		
-	};
-};
+		VoidSet* GetAllRefs(VoidSet* vDoneRefs, bool bRecurse=false)const;
+
+		/**
+		* linkResource - link resource r to this link pool 
+		*
+		* @param r      - the resource to link
+		* @param usage  - usage of the link 
+		* @param processUsage  - processUsage of the link null, if none
+		*
+		* @return JDFResourceLink - new link  resource
+		* 
+		* @throws JDFException if r is not in the same document as this
+		* default: linkResource(r, usage, null)
+		* 
+		*/
+		JDFResourceLink linkResource(JDFResource r, JDFResourceLink::EnumUsage usage, JDFNode::EnumProcessUsage processUsage);
+
+	}; // class JDFResourceLinkPool
+}; // namespace JDF
 
 #endif // !defined(_JDFResourceLinkPool_H__INCLUDED_)

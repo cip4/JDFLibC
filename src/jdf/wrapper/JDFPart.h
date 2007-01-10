@@ -81,6 +81,7 @@
 * Revision history:
 * created 2001-07-08
 *
+* 070906 NB added overlapPartMap()
 */
 
 #if !defined _JDFPart_H_
@@ -90,6 +91,7 @@
 #endif // _MSC_VER >= 1000
 
 #include "AutoJDF/JDFAutoPart.h"
+//#include "JDFResource.h"
 
 namespace JDF{
 /*
@@ -130,12 +132,38 @@ class JDFPart : public JDFAutoPart
 		* dtor
 		*/
 		virtual ~JDFPart(){};
+
+
+		// Methods 
+
+
 		/**
 		* return the map of attributes defined by this part
 		* @return mAttribute the attribute map
 		* @tbd add some validity checks
 		*/
 		mAttribute GetPartMap()const;
+
+		/**
+		* check whether the partition value match
+		* clode to .equals but also handles inclusion in lists
+		* 
+		* @param key the partition key
+		* @param resourceValue the value of key in the resource
+		* @param linkValue the value of key in the part element or ref
+		* @return boolean true if linkValue matches the value or list in resourceValue
+		* 
+		*/
+		static bool matchesPart(const WString& key, const WString& resourceValue, const WString& linkValue);
+
+		/**
+		* overlapMap - identical keys must have the same values in both maps
+		* similar to JDFAttribute.overlapMap but uses matchesPart instead of equals for the comparison
+		* @param JDFAttributeMap subMap - the map to compare
+		*
+		* @return boolean - true if identical keys have the same values in both maps
+		*/
+		static bool overlapPartMap(const mAttribute& resourceMap, const mAttribute& linkMap);
 
 	}; // endJDFPart
 	

@@ -88,7 +88,7 @@
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoDeviceCap : public JDFResource
+class JDFAutoDeviceCap : public JDFElement
 
 *********************************************************************
 */
@@ -116,17 +116,6 @@ JDFAutoDeviceCap& JDFAutoDeviceCap::operator=(const KElement& other){
 	return L"*:,DeviceCap";
 };
 
-bool JDFAutoDeviceCap::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoDeviceCap::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -137,14 +126,14 @@ bool JDFAutoDeviceCap::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDeviceCap::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",CombinedMethod,ExecutionPolicy,GenericAttributes,Lang,OptionalCombinedTypes,Type,TypeExpression,TypeOrder,Types");
+		return JDFElement::OptionalAttributes()+WString(L",CombinedMethod,ExecutionPolicy,GenericAttributes,Lang,OptionalCombinedTypes,Type,TypeExpression,TypeOrder,Types");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoDeviceCap::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -210,16 +199,33 @@ bool JDFAutoDeviceCap::init(){
 	};
 
 /////////////////////////////////////////////////////////////////////////
+	vint JDFAutoDeviceCap::AddCombinedMethod( EnumCombinedMethod value){
+	return AddEnumerationsAttribute(atr_CombinedMethod,value,CombinedMethodString());
+};
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoDeviceCap::RemoveCombinedMethod( EnumCombinedMethod value){
+	return RemoveEnumerationsAttribute(atr_CombinedMethod,value,CombinedMethodString());
+};
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoDeviceCap::GetCombinedMethod() const {
+	return GetEnumerationsAttribute(atr_CombinedMethod,CombinedMethodString(),WString::emptyStr,(unsigned int)CombinedMethod_None);
+};
+/////////////////////////////////////////////////////////////////////////
 	void JDFAutoDeviceCap::SetCombinedMethod( EnumCombinedMethod value){
 	SetEnumAttribute(atr_CombinedMethod,value,CombinedMethodString());
 };
 /////////////////////////////////////////////////////////////////////////
-	 JDFAutoDeviceCap::EnumCombinedMethod JDFAutoDeviceCap:: GetCombinedMethod() const {
-	return (EnumCombinedMethod) GetEnumAttribute(atr_CombinedMethod,CombinedMethodString(),WString::emptyStr,CombinedMethod_None);
+	void JDFAutoDeviceCap::SetCombinedMethod( const vint& value){
+	SetEnumerationsAttribute(atr_CombinedMethod,value,CombinedMethodString());
 };
+/**
+* Typesafe attribute validation of CombinedMethod
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDeviceCap::ValidCombinedMethod(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_CombinedMethod,CombinedMethodString(),false);
+		return ValidEnumerationsAttribute(atr_CombinedMethod,CombinedMethodString(),false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -831,7 +837,7 @@ JDFXYPairState JDFAutoDeviceCap::AppendXYPairState(){
 	vWString JDFAutoDeviceCap::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
@@ -1063,6 +1069,6 @@ JDFXYPairState JDFAutoDeviceCap::AppendXYPairState(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoDeviceCap::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ActionPool,DevCapPool,DevCaps,DisplayGroupPool,FeaturePool,MacroPool,ModulePool,Performance,TestPool,BooleanState,DateTimeState,DurationState,EnumerationState,IntegerState,MatrixState,NameState,NumberState,PDFPathState,RectangleState,ShapeState,StringState,XYPairState";
+		return JDFElement::OptionalElements()+L",ActionPool,DevCapPool,DevCaps,DisplayGroupPool,FeaturePool,MacroPool,ModulePool,Performance,TestPool,BooleanState,DateTimeState,DurationState,EnumerationState,IntegerState,MatrixState,NameState,NumberState,PDFPathState,RectangleState,ShapeState,StringState,XYPairState";
 	};
 }; // end namespace JDF

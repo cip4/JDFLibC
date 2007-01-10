@@ -99,6 +99,11 @@
 #include <typeinfo> //SF160502 needed by STLPORT, otherwise typeid::operator== is undefined //AXEL20020906
 
 
+#ifdef __MWERKS__
+#include <ctype>
+#include <cctype>
+#endif
+
 XERCES_CPP_NAMESPACE_USE
 
 namespace JDF
@@ -333,7 +338,7 @@ char MIMEHelper::Base64DecMap[] =
 
 int MIMEHelper::hexdigit(char ch)
 {
-	char c = tolower(ch);
+	char c = std::tolower(ch);
 	int tmp;
 	if ((int) c >= (int)'a')
 		tmp = (int) (c - 'a' + 10);
@@ -1025,7 +1030,13 @@ void MIMEParser::decodeDataBuffer()
 	{
 		m_ResourceStream->close();
 		InputStream* in = m_Resource->getInputStream();
-		saveBodyData(in, mimeBasicPart);
+
+		BASE64Decoder baseDec;
+		ByteBuffer* byteBuf = baseDec.decodeBuffer(*in);
+		saveBodyData(byteBuf, byteBuf->size(), mimeBasicPart);
+
+
+//		saveBodyData(in, mimeBasicPart);
 		delete m_Resource;
 		delete m_ResourceStream;
 		m_Resource = NULL;
@@ -1135,11 +1146,11 @@ int MIMEParser::parseLine(char* s, int len, int type, bool lastLine)
 	bool finished = false;
 	mimeInfo mi;
 
-	MIMEMessagePart* mimeMessagePart = NULL;
+//	MIMEMessagePart* mimeMessagePart = NULL;
 	MIMEBasicPart*   mimeBasicPart   = NULL;
 	MIMEMultiPart*   mimeMultiPart   = NULL;
 
-	MIMEBodyPart* m = (MIMEBodyPart*) m_currentMessage;
+//	MIMEBodyPart* m = (MIMEBodyPart*) m_currentMessage;
 
 	if (s==NULL)
 		throw MIMEException(MIMEHelper::szERROR_BAD_PARAMETER);

@@ -168,7 +168,7 @@ namespace JDF{
 		* @return JDF::WString: The MimeType string, if the attribute is present, the empty string otherwise.
 		* 
 		*/
-		WString JDFRunList::getMimeType()const;
+		WString getMimeType()const;
 
 		/// deserialize the runlist into a vector of runelements
 		JDFRunElementList GetvRunElement();
@@ -262,6 +262,12 @@ namespace JDF{
 		* @return vWString vector of invalid element names
 		*/
 		virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
+		/**
+		* set attribute Pages
+		* @param value: the value to set the attribute to
+		*/
+		void SetPages(const JDFIntegerRangeList& value);
 
 	protected:
 

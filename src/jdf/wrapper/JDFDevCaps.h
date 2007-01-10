@@ -188,6 +188,20 @@ namespace JDF{
 		WString GetNamePath(bool onlyNames=false)const;
 
 		/**
+		* Gets the NamePath of this DevCap in form 
+		* "DevCapsName/SubelemName1/SubelemName2/..."
+		* If this DevCap is located in DevCapPool and not in a DevCaps - it describes the reusable resource 
+		* and DevCap root will have the attribute "Name" = value of DevCaps/@Name 
+		* but will have no info about DevCaps/@Context or DevCaps/@LinkUsage 
+		*
+		* @param bRecurse - if true, returns "DevCapsName/SubelemName1/SubelemName2/..."
+		* @return String - NamePath of this DevCap
+		* 
+		* default: getNamePath(false)  
+		*/
+		VString getNamePathVector();
+
+		/**
 		* devCapReport - tests if the elements in vElem fit any (logical OR) DevCap element 
 		* that DevCaps consists of. Composes a detailed report in XML form of the found errors.
 		* If XMLDoc equals null - there are no errors.
@@ -225,6 +239,49 @@ namespace JDF{
 		*/
 		virtual bool FixVersion(EnumVersion version);
 
+		/**
+		* sets default elements and adds them if therw are less than minorrurs
+		*/
+		bool setDefaultsFromCaps(JDFNode node) const;
+		/**
+		* append elements that match this devCap to node, if they do not yet exist
+		* 
+		* @param node the node to append the elements to
+		* 
+		* @return KElement the last element that was appended
+		*/
+		KElement appendMatchingElementsToNode(JDFNode node)const;
+		/**
+		* gets the matching elements in node that match this devcap
+		* 
+		* @param node the node to search in
+		* @return VElement the element vector of matching elements, 
+		* null if none were found
+		*/
+		vElement getMatchingElementsFromNode(JDFNode node)const;
+		/**
+		* get the one and only devCap - note that the spec allows * but recommends only one + additional actions
+		* also search devCapPool for a matching element to DevCapRef
+		* @return the devCap
+		*/
+		JDFDevCap getDevCap()const;
+
+		VElement getDevCapVector();
+
+		/**
+		* return the highest maxOccurs of all devCap elements
+		* @return int the highest maxOccurs of all devCap elements
+		*/
+		int getMaxOccurs();
+
+		/**
+		* return the lowest minOccurs of all devCap elements
+		* @return int the lowest minOccurs of all devCap elements
+		*/
+		int getMinOccurs();
+
+	private:
+		WString getDevCapsName();
 	}; // endJDFDevCaps
 
 	// ******************************************************

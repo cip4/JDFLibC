@@ -288,7 +288,7 @@ public:
 
 protected:
 
-	std::string MIMEBodyPart::encodeContDispParams(WString contDispParams);
+	std::string encodeContDispParams(WString contDispParams);
 	
 	static const int DATABUFSZ;
 	static const int HDRBUFSZ;

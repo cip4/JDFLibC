@@ -93,7 +93,8 @@
 #include <jdf/lang/JDFToolsDefs.h>
 #include <jdf/net/InetAddress.h>
 #include <jdf/net/SocketImpl.h>
-#include <jdf/net/Exception.h>
+//John.Klippenstein@kodak.com - Exception.h has moved to a new location
+#include <jdf/lang/Exception.h>
 #include <jdf/net/Platforms/Carbon/SocketProxy.h>
 
 namespace JDF

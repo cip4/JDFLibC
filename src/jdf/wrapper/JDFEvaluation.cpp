@@ -365,6 +365,18 @@ JDFEvaluation& JDFEvaluation::operator=(const KElement& other){
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
+
+	JDFBasicPreflightTest JDFEvaluation::appendBasicPreflightTest(const WString& testName)
+	{
+		JDFBasicPreflightTest pft=(JDFBasicPreflightTest)AppendElementN(JDFStrings::elm_BasicPreflightTest, 1, WString::emptyStr);
+		if (pft.isNull())
+			return JDFBasicPreflightTest();
+		if (!testName.empty())
+			pft.SetName(testName);
+		return pft;
+	}
+	
+	/////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////
 
 }; // end namespace JDF

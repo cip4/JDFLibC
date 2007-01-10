@@ -1,3 +1,6 @@
+#if !defined(AFX_JDFIntegerRangeList_H__)
+#define AFX_JDFIntegerRangeList_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -85,13 +88,12 @@
 // 120204 ES added IsPartOfRange() for ranges and lists of ranges
 // 040304 ES added IsOrdered(),IsUniqueOrdered(),IsUnique(), IsList()
 // 300304 ES added begin(), end(), erase()
+// 301006 NB fixed JDFIntegerRangeList::setDef()
+// 071206 NB fixed GetString(), the shortcut PBASE->GetString() failed for INF
 //
 // JDFIntegerRangeList.h: interface for the JDFIntegerRangeList class.
 //
 // ////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_JDFIntegerRangeList_H__)
-#define AFX_JDFIntegerRangeList_H__
 
 #if _MSC_VER >= 1000
 #pragma once

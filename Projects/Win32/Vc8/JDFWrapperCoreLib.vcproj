@@ -4,9 +4,7 @@
 	Version="8,00"
 	Name="JDFWrapperCoreLib"
 	ProjectGUID="{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}"
-	SccProjectName="JDFWrapperCoreLib"
-	SccLocalPath="..\.."
-	SccProvider="MSSCCI:ClearCase"
+	RootNamespace="JDFWrapperCoreLib"
 	>
 	<Platforms>
 		<Platform
@@ -53,7 +51,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JDFWrapperDLL_EXPORTS;_CRT_SECURE_NO_DEPRECATE;JDF_WRAPPERCORE;_REENTRANT;UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\DebugDLL\obj\JDFWrapperCoreDLL/JDFWrapperCoreLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\DebugDLL\obj\JDFWrapperCoreDLL/"
@@ -116,81 +114,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug LineOnly|Win32"
-			OutputDirectory=".\..\..\..\Build\Win32\VC8\DebugLineOnly"
-			IntermediateDirectory=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperCoreLib"
-			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\external\xerces\include,..\..\..\src\jdf\wrappercore,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG,_WINDOWS,WIN32,JDF_WRAPPERCORE_LIB,JDF_TOOLS_LIB,_REENTRANT,UNICODE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
-				RuntimeTypeInfo="false"
-				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperCoreLib/JDFWrapperCoreLib.pch"
-				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperCoreLib/"
-				ObjectFile=".\..\..\..\Build\Win32\VC8\DebugLineOnly\obj\JDFWrapperCoreLib/"
-				ProgramDataBaseFileName="..\..\..\Build\Win32\VC8\DebugLineOnly\JDFWrapperCoreLib"
-				BrowseInformation="1"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="1"
-				CompileAs="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2067"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\..\..\Build\Win32\VC8\DebugLineOnly\JDFWrapperCoreLib_D.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\..\..\..\Build\Win32\VC8\Debug"
 			IntermediateDirectory=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFWrapperCoreLib"
@@ -222,7 +145,7 @@
 				PreprocessorDefinitions="_DEBUG;_WINDOWS;WIN32;JDF_WRAPPERCORE_LIB;JDF_TOOLS_LIB;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFWrapperCoreLib/JDFWrapperCoreLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\Debug\obj\JDFWrapperCoreLib/"
@@ -298,7 +221,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\Release\obj\JDFWrapperCoreLib/JDFWrapperCoreLib.pch"
 				AssemblerListingLocation=".\..\..\..\Build\Win32\VC8\Release\obj\JDFWrapperCoreLib/"
@@ -378,7 +301,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				TreatWChar_tAsBuiltInType="false"
+				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\..\..\..\Build\Win32\VC8\ReleaseDLL\obj\JDFWrapperCoreDLL/JDFWrapperCoreLib.pch"
@@ -531,6 +454,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrappercore\StringUtil.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrappercore\vElement.h"
 					>
 				</File>
@@ -624,6 +551,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrappercore\StringUtil.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrappercore\vElement.cpp"
 					>
 				</File>
@@ -653,14 +584,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug LineOnly|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -680,14 +603,6 @@
 			<File
 				RelativePath="..\..\..\Build\Win32\VC8\DebugDLL\JDFToolsDLLd.lib"
 				>
-				<FileConfiguration
-					Name="Debug LineOnly|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -714,18 +629,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\external\xerces\lib\xerces-c_2.lib"
+				RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2.lib"
 				>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug LineOnly|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -742,15 +649,8 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\external\xerces\lib\xerces-c_2D.lib"
+				RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2D.lib"
 				>
-				<FileConfiguration
-					Name="Debug LineOnly|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>

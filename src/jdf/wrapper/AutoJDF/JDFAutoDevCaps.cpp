@@ -238,7 +238,7 @@ JDFAutoDevCaps& JDFAutoDevCaps::operator=(const KElement& other){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoDevCaps::ContextString(){
-		static const WString enums=WString(L"Unknown,Resource,Link,JMF");
+		static const WString enums=WString(L"Unknown,Resource,Link,JMF,Element");
 		return enums;
 	};
 

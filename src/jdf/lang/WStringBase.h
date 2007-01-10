@@ -98,6 +98,9 @@
 
 #include <string>
 
+#ifdef __MWERKS__
+	#include <ctype.h>
+#endif
 
 namespace JDF
 {
@@ -428,7 +431,7 @@ public:
 	* Test operator to test if a string is invalid (empty)
 	*/
 	bool operator!() const { 
-		return empty(); 
+		return this->empty(); 
 	}
 	
 	/**
@@ -608,7 +611,7 @@ public:
 	* @return the specified substring
 	*/
 	inline WStringBase<T> substring(int beginIndex) const { 
-		return substring(beginIndex,length()); 
+		return substring(beginIndex,this->length()); 
 	}
 	
 	/**
@@ -662,7 +665,7 @@ public:
 			return *this; 
 		else if (n==0) 
 			return L""; 
-		else return substr(length()-n); 
+		else return substr(this->length()-n); 
 	}
 	
 	
@@ -672,7 +675,7 @@ public:
 	*/
 	inline WStringBase<T> leftStr (int n) const {
 		if (n<0) 
-			n=length()+n; 
+			n=this->length()+n; 
 		if(n<=0) 
 			return L""; 
 		return substr(0, n); 
@@ -683,12 +686,12 @@ public:
 	*/
 	inline WStringBase<T> rightStr(int n) const {
 		if (n<0) 
-			n=length()+n; 
+			n=this->length()+n; 
 		if(n<=0) 
 			return L""; 
-		if (static_cast<unsigned int>(n) > length()) 
+		if (static_cast<unsigned int>(n) > this->length()) 
 			return *this; 
-		return substr(length() - n); 
+		return substr(this->length() - n); 
 	}
 	
 	/**
@@ -751,7 +754,7 @@ public:
 	* @param prefix the prefix
 	*/
     inline bool endsWith(const WStringBase<T>& suffix) const{ 
-		int pos = length() - suffix.length();
+		int pos = this->length() - suffix.length();
 		if (pos < 0)
 			return false;
 		return startsWith(suffix,pos); 
@@ -874,7 +877,7 @@ WStringBase<T> WStringBase<T>::replaceChar(T oldChar, T newChar) const
 template <class T>
 bool WStringBase<T>::regionMatches(int toffset, const WStringBase<T>& other, int ooffset, int len) const
 {
-	if ((ooffset < 0) || (toffset < 0) || (toffset > (long)length() - len)
+	if ((ooffset < 0) || (toffset < 0) || (toffset > (long)this->length() - len)
 		|| (ooffset > (long)other.length() - len)) 
 	{
 		return false;
@@ -889,7 +892,7 @@ bool WStringBase<T>::regionMatches(int toffset, const WStringBase<T>& other, int
 template <class T>
 bool WStringBase<T>::regionMatches(bool ignoreCase, int toffset, const WStringBase<T>& other, int ooffset, int len) const
 {
-	if ((ooffset < 0) || (toffset < 0) || (toffset > (long)length() - len)
+	if ((ooffset < 0) || (toffset < 0) || (toffset > (long)this->length() - len)
 		|| (ooffset > (long)other.length() - len)) 
 	{
 		return false;
@@ -978,11 +981,11 @@ int WStringBase<T>::indexOf(const WStringBase<T>& str, int fromIndex) const
 	const T* v1 = c_str();
 	const T* v2 = str.c_str();
 	
-	int max =length() - str.length();
-	if (static_cast<unsigned int>(fromIndex) >= length())
+	int max =this->length() - str.length();
+	if (static_cast<unsigned int>(fromIndex) >= this->length())
 	{
 		// there is an empty string at index 0 in an empty string
-		if (length() == 0 && fromIndex == 0 && str.length() == 0)
+		if (this->length() == 0 && fromIndex == 0 && str.length() == 0)
 			return 0;
 		return -1;
 	}

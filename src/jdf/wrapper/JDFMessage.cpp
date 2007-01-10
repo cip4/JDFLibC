@@ -191,19 +191,19 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 	const WString& JDFMessage::CommandTypeObjString(){
-		static const WString enums=WString(L"Unknown,FlushQueueParams,FlushResourceParams,NewJDFCmdParams,NodeInfoCmdParams,PipeParams,QueueEntryDef,QueueEntryPriParams,QueueEntryPosParams,QueueFilter,QueueSubmissionParams,RequestQueueEntryParams,ResourceCmdParams,ResourcePullParams,ResubmissionParams,ReturnQueueEntryParams,ShutDownCmdParams,StopPersChParams,WakeUpCmdParams"); 
+		static const WString enums=WString(L"Unknown,FlushQueueParams,FlushResourceParams,NewJDFCmdParams,NodeInfoCmdParams,PipeParams,QueueEntryDef,QueueEntryPriParams,QueueEntryPosParams,QueueFilter,QueueSubmissionParams,RequestQueueEntryParams,ResourceCmdParams,ResourcePullParams,ResubmissionParams,ReturnQueueEntryParams,ShutDownCmdParams,StopPersChParams,UpdateJDFCmdParams,WakeUpCmdParams"); 
 		return enums;
 	};
 	//////////////////////////////////////////////////////////////////////
 	const WString& JDFMessage::QueryTypeObjString(){
-		static const WString enums=WString(L"Unknown,DeviceFilter,EmployeeDef,KnownMsgQuParams,MsgFilter,NewJDFQuParams,NodeInfoQuParams,NotificationFilter,QueueEntryDefList,QueueFilter,ResourceQuParams,StatusQuParams,TrackFilter"); 
+		static const WString enums=WString(L"Unknown,DeviceFilter,EmployeeDef,KnownMsgQuParams,MsgFilter,ModifyNodeCmdParams,NewJDFQuParams,NodeInfoQuParams,NotificationFilter,QueueEntryDefList,QueueFilter,ResourceQuParams,StatusQuParams,TrackFilter,UpdateJDFCmdParams"); 
 		return enums;
 	};
 	
 	
 	//////////////////////////////////////////////////////////////////////
 	const WString& JDFMessage::ResponseTypeObjString(){
-		static const WString enums=WString(L"Unknown,Acknowledge,Command,DeviceList,DeviceInfo,FlushedResources,IDInfo,JDFController,JDFService,JobPhase,MessageService,NodeInfoResp,NotificationDef,Occupation,Queue,QueueEntry,Query,ResourceInfo,Response,Signal,SubmissionMethods,TrackResult"); 
+		static const WString enums=WString(L"Unknown,Acknowledge,Command,DeviceList,DeviceInfo,FlushedResources,IDInfo,JDFController,JDFService,JobPhase,MessageService,NodeInfoResp,NotificationDef,Occupation,Queue,QueueEntry,Query,Registration,ResourceInfo,Response,Signal,SubmissionMethods,TrackResult"); 
 		return enums;
 	};
 	
@@ -575,6 +575,12 @@ namespace JDF{
 
 		}else if(elementName==elm_TrackResult){
 			validList.push_back(Type_Track);
+
+		}else if(elementName==elm_UpdateJDFCmdParams){
+			validList.push_back(Type_UpdateJDF);
+
+		}else if(elementName==elm_ModifyNodeCmdParams){
+			validList.push_back(Type_ModifyNode);
 			
 		}else if(FamilyString().HasToken(elementName,WString::comma)){
 			validList.push_back(Type_RepeatMessages);
@@ -622,6 +628,16 @@ namespace JDF{
 		return GetCreateElement(nodeName, nameSpaceURI, iSkip);
 	};
 	
+	//////////////////////////////////////////////////////////////////////	
+
+	void JDFMessage::SetType(const WString& typ)
+	{
+		RemoveAttribute("type",atr_xsiURI); // removing "xsi:uri"
+		SetAttribute(atr_Type,typ);
+		if(XMLNSPrefix(typ.c_str()).empty())
+			setXSIType(GetLocalName()+typ);
+	}
+
 	//////////////////////////////////////////////////////////////////////	
 	
 	bool JDFMessage::ValidType(EnumValidationLevel level) const {

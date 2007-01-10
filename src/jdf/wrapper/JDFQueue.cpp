@@ -102,6 +102,13 @@ namespace JDF{
     }
 	//////////////////////////////////////////////////////////////////////////
 
+	JDFQueueEntry JDFQueue::getEntry (const int i)
+    {
+		return (JDFQueueEntry) GetChildByTagName(elm_QueueEntry,WString::emptyStr,1);
+    }
+
+	//////////////////////////////////////////////////////////////////////////
+
 	/**
 	* Find the position of a queueEntry by QueueEntryID
 	* @param strQEntryID the QueueEntryID of the requeste QueueEntry

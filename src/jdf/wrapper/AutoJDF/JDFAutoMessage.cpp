@@ -101,7 +101,7 @@ JDFAutoMessage& JDFAutoMessage::operator=(const KElement& other){
  */
 
 	WString JDFAutoMessage::ValidNodeNames()const{
-	return L"*:,Query,Command,Response,Acknowledge,Signal";
+	return L"*:,Query,Command,Response,Acknowledge,Signal,Registration";
 };
 
 

@@ -113,11 +113,14 @@ XERCES_CPP_NAMESPACE_USE
 
 namespace JDF{
 	const JDFCh* xmlDocRef=L"XMLDocRef";
-	
+	static bool setIgnoreNSDefault=false;
+	static bool generateUID=false;
+	static bool compressPrint=false;
+
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
-	
+
 	//////////////////////////////////////////////////////////////////////
 	XMLDoc::XMLDoc(DOMDocument* D){
 		domDocument=D;
@@ -159,72 +162,72 @@ namespace JDF{
 		GetCreateXMLDocUserData();
 
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	DOMDocument* XMLDoc::GetDOMDocument()const{
 		return domDocument;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	// cleanup
 	bool XMLDoc::Flush(){
 		return GetRoot().Flush();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool XMLDoc::StringParse(const WString& in,bool bValidate, bool bEraseEmpty,
 		bool bDoNamespaces, XERCES_CPP_NAMESPACE_QUALIFIER ErrorHandler* pErrorHandler,
 		const WString& schemaLocation){
-		JDFParser p;
-		bool b=p.StringParse( in, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation);
-		*this=p.GetDocument();
-		GetCreateXMLDocUserData();
+			JDFParser p;
+			bool b=p.StringParse( in, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation);
+			*this=p.GetDocument();
+			GetCreateXMLDocUserData();
 
-		return b;
+			return b;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	bool XMLDoc::StreamParse( InputStream& in,bool bValidate, bool bEraseEmpty,
 		bool bDoNamespaces, XERCES_CPP_NAMESPACE_QUALIFIER ErrorHandler* pErrorHandler,
 		const WString& schemaLocation){
-		JDFParser p;
-		bool b=p.StreamParse( in, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation);
-		*this=p.GetDocument();
-		GetCreateXMLDocUserData();
+			JDFParser p;
+			bool b=p.StreamParse( in, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation);
+			*this=p.GetDocument();
+			GetCreateXMLDocUserData();
 
-		return b;
+			return b;
 	}
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
 	bool XMLDoc::Parse(const WString& inFile,bool bValidate, bool bEraseEmpty,
 		bool bDoNamespaces, XERCES_CPP_NAMESPACE_QUALIFIER ErrorHandler* pErrorHandler,
 		const WString& schemaLocation, int nRetry, int waitMilliSecs){
-		JDFParser p;
-		bool b=p.Parse( inFile, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation, nRetry, waitMilliSecs);
-		*this=p.GetDocument();
-		GetCreateXMLDocUserData();
+			JDFParser p;
+			bool b=p.Parse( inFile, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation, nRetry, waitMilliSecs);
+			*this=p.GetDocument();
+			GetCreateXMLDocUserData();
 
-		return b;
+			return b;
 	}
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
 	bool XMLDoc::Parse(JDF::File inFile, bool bValidate, bool bEraseEmpty,
 		bool bDoNamespaces, XERCES_CPP_NAMESPACE_QUALIFIER ErrorHandler* pErrorHandler,
 		const WString& schemaLocation, int nRetry, int waitMilliSecs){
-		JDFParser p;
-		bool b=p.Parse(inFile, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation, nRetry, waitMilliSecs);
-		*this=p.GetDocument();
-		GetCreateXMLDocUserData();
+			JDFParser p;
+			bool b=p.Parse(inFile, bValidate,  bEraseEmpty, bDoNamespaces, pErrorHandler,schemaLocation, nRetry, waitMilliSecs);
+			*this=p.GetDocument();
+			GetCreateXMLDocUserData();
 
-		return b;
+			return b;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	KElement XMLDoc::GetRoot(const WString& docRootString, const WString& docRootNS)const{
 		if(throwNull())
 			return KElement();
@@ -236,7 +239,7 @@ namespace JDF{
 		if((!docRootNS.empty())&&(root.GetNamespaceURI()!=docRootNS))
 			throw JDFException(L"GetRoot: illegal root namespace uri: "+docRootString);
 		return root;
-		
+
 	}
 	//////////////////////////////////////////////////////////////////////
 	int XMLDoc::DecRef(){
@@ -249,7 +252,7 @@ namespace JDF{
 		}else{
 			(*pRefCount)--;
 		}
-		
+
 		return *pRefCount;
 	}
 	//////////////////////////////////////////////////////////////////////
@@ -266,14 +269,14 @@ namespace JDF{
 		}
 		return *pRefCount;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	void XMLDoc::DeleteAdopted(){
 		if(!isNull()){
 			XMLDocUserData* ud=GetXMLDocUserData();
 			if(ud)
 				delete ud;
-			
+
 			int* pRefCount=(int*)domDocument->getUserData(xmlDocRef);
 			delete pRefCount;
 			domDocument->setUserData(xmlDocRef,0,0);
@@ -281,16 +284,16 @@ namespace JDF{
 			domDocument=0;
 		}
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	KElement XMLDoc::SetRoot(const WString& docRootString, const WString& docRootNS){
 		if(isNull()) {
 			DOMImplementation* impl = DOMImplementation::getImplementation();
 			domDocument= impl->createDocument();
 			IncRef();
 		}
-		
+
 		KElement root=domDocument->getDocumentElement();
 		// create a new document root element
 		if(root.isNull()){
@@ -302,21 +305,34 @@ namespace JDF{
 		GetCreateXMLDocUserData();
 		return root;
 	}
-	
-    //////////////////////////////////////////////////////////////////////
-	
-    XMLDoc XMLDoc::Write2URL(const WString& strURL, const WString& strContentType, const WString& schemaLocation) const
-    {
+
+	//////////////////////////////////////////////////////////////////////
+
+	XMLDoc XMLDoc::clone(){
+		if(isNull()) {
+			return XMLDoc();
+		}
+		KElement root=GetRoot();
+
+		XMLDoc clon(root.GetNodeName(),root.GetNamespaceURI());
+		clon.GetRoot().ReplaceElement(root);
+		return clon;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	XMLDoc XMLDoc::Write2URL(const WString& strURL, const WString& strContentType, const WString& schemaLocation) const
+	{
 		XMLDoc docResponse;
 		bool bValidate=!schemaLocation.empty();	
-        try
-        {
-            JDF::URL url;
-			
-            url.setURL(strURL);
+		try
+		{
+			JDF::URL url;
+
+			url.setURL(strURL);
 			WString protocol=url.getProtocol();
 			if((protocol.compareToIgnoreCase(L"File")==0)||(protocol.empty())){ // either a file or relative
-				
+
 				// workaround for buggy url file handler
 				WString path=url.getPath().UnEscape(L'%',16,2);
 				if(path.empty()){
@@ -324,22 +340,22 @@ namespace JDF{
 				}
 				if((path[0]==L'/')&&(path[2]==L':'))
 					path=path.substr(1,path.npos);
-				
+
 				Write2File(path);
 				// a file returns an empty response
 				return docResponse;
 			}
-			
-            JDF::Janitor<JDF::URLConnection> pURLConnection(url.openConnection());
-			
-            pURLConnection->setDoOutput(true);
-            pURLConnection->setRequestProperty(L"Connection",   L"close");
-            pURLConnection->setRequestProperty(L"Content-Type", strContentType);
-			
-            if (!Write2Stream(pURLConnection->getOutputStream()))
-                return docResponse;
-			
-            JDF::JDFParser parser;
+
+			JDF::Janitor<JDF::URLConnection> pURLConnection(url.openConnection());
+
+			pURLConnection->setDoOutput(true);
+			pURLConnection->setRequestProperty(L"Connection",   L"close");
+			pURLConnection->setRequestProperty(L"Content-Type", strContentType);
+
+			if (!Write2Stream(pURLConnection->getOutputStream()))
+				return docResponse;
+
+			JDF::JDFParser parser;
 
 			JDF::PushbackInputStream pbin(pURLConnection->getInputStream(),6);
 			char xmlHeader[6];
@@ -356,54 +372,55 @@ namespace JDF{
 				if (!parser.StreamParse(pbin, bValidate,true,true,0,schemaLocation))
 					return docResponse;
 
-	            docResponse = parser.GetDocument();
+				docResponse = parser.GetDocument();
 			}
 			else
 				// not a valid xml response return empty doc
 				return docResponse;
-        }
-        catch (const XMLException&)
-        {
-			throw JDFException(L"XMLDoc::Write2URL: error writing URL "+strURL);
-        }
-        catch (const JDF::Exception&)
-        {
+		}
+		catch (const XMLException&)
+		{
 			throw JDFException(L"XMLDoc::Write2URL: error writing URL "+strURL);
 		}
-		
-        return docResponse;
-    }
-	
-	
-    //////////////////////////////////////////////////////////////////////
-	
+		catch (const JDF::Exception&)
+		{
+			throw JDFException(L"XMLDoc::Write2URL: error writing URL "+strURL);
+		}
+
+		return docResponse;
+	}
+
+
+	//////////////////////////////////////////////////////////////////////
+
 	bool XMLDoc::Write2File(JDF::File outFile)const{
 		WString outFileName = outFile.getAbsolutePath();
 		return Write2File(outFileName);
 	}
-	
-    //////////////////////////////////////////////////////////////////////
-	
+
+	//////////////////////////////////////////////////////////////////////
+
 	bool XMLDoc::Write2File(const WString& outFile)const{
 		LocalFileFormatTarget *formTarget = new LocalFileFormatTarget(outFile.c_str());
 		bool bRet=Write2FormatTarget(formTarget,domDocument);
 		delete formTarget;
 		return bRet;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool XMLDoc::Write2FormatTarget(XMLFormatTarget* formTarget,const DOMNode* node){
-        try 
+		try 
 		{
 			// get a serializer, an instance of DOMWriter
 			XMLCh tempStr[100];
 			XMLString::transcode("LS", tempStr, 99);
 			DOMImplementation *impl          = DOMImplementationRegistry::getDOMImplementation(tempStr);
 			DOMWriter         *theSerializer = ((DOMImplementationLS*)impl)->createDOMWriter();
+
 			
 			if (theSerializer->canSetFeature(XMLUni::fgDOMWRTFormatPrettyPrint, true))
-				theSerializer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint, true);
+				theSerializer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint, !compressPrint);
 
 			XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument* document=node->getOwnerDocument();
 			if(document==0 && node->getNodeType()==KElement::DOCUMENT_NODE)
@@ -425,34 +442,34 @@ namespace JDF{
 			//
 			// do the serialization through DOMWriter::writeNode();
 			//
-			
+
 			theSerializer->writeNode(formTarget, *node);
 			delete theSerializer;
 			return true;
-			
-        } 
+
+		} 
 		catch (XMLException& e) 
 		{
 			std::cerr << "An error occurred during creation of output transcoder. Msg is:"
-                << std::endl
-                << WString(e.getMessage()) << std::endl;
-        }
+				<< std::endl
+				<< WString(e.getMessage()) << std::endl;
+		}
 		return false;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool XMLDoc::Write2Stream(JDF::OutputStream& out)const{
-		
+
 		MemBufFormatTarget *formTarget = new MemBufFormatTarget();
 		bool bRet=Write2FormatTarget(formTarget,domDocument);
 		out.write((const char*) formTarget->getRawBuffer(),formTarget->getLen());
 		delete formTarget;
 		return bRet;
-		
+
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool XMLDoc::Write2String(JDF::WString& out)const{
 		if(!domDocument){ // return an empty string if this is a null object
 			out.erase();
@@ -465,18 +482,18 @@ namespace JDF{
 		return bRet;
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDF::WString XMLDoc::ToString()const{
 		WString s;
 		Write2String(s);
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
-	
+
+
 	/////////////////////////////////////////////////////////////////
-	
+
 	KElement XMLDoc::CreateElement(const WString& tagName,const WString& nameSpaceURI){
 		if(nameSpaceURI.empty()){
 			return domDocument->createElement(tagName.c_str());
@@ -485,8 +502,8 @@ namespace JDF{
 		}
 	};
 	/////////////////////////////////////////////////////////////////
-	
-	
+
+
 	/**
 	* get the associated XMLDocUserData
 	* @throw JDFException if no XMLDocUserData is set or this is NULL
@@ -516,7 +533,7 @@ namespace JDF{
 		XMLDocUserData* pUserData=(XMLDocUserData*)pDomDocument->getUserData(L"JDFTargetDirty");
 		return pUserData;
 	}
-	
+
 	/**
 	* does the owner document of this have an associated XMLDocUserData
 	* @throw JDFException if no XMLDocUserData is set or this is NULL
@@ -529,7 +546,7 @@ namespace JDF{
 		XMLDocUserData* pUserData=(XMLDocUserData*)domDocument->getUserData(L"JDFTargetDirty");
 		return pUserData!=0;
 	}
-	
+
 	/**
 	* get/create the associated XMLDocUserData
 	* @throw JDFException if is NULL
@@ -546,7 +563,7 @@ namespace JDF{
 		}
 		return pUserData;
 	}
-	
+
 	/**
 	* delete the XMLDocUserData structure
 	* @return void
@@ -560,7 +577,7 @@ namespace JDF{
 		delete(pUserData);
 		domDocument->setUserData(L"JDFTargetDirty",0,0);
 	};
-	
+
 	/**
 	* get a vector of all IDs of elements that are dirty
 	* @return vWString the vector of element IDs
@@ -575,8 +592,8 @@ namespace JDF{
 	const vWString& XMLDoc::GetDirtyXPaths()const{
 		return GetXMLDocUserData()->GetDirtyXPaths();
 	};
-	
-///////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////
 	XMLDoc XMLDoc::GetDirtyDiff()const{
 		vWString vs=GetXMLDocUserData()->GetDirtyXPaths();
 		XMLDoc diffDoc(L"Diffs");
@@ -610,8 +627,8 @@ namespace JDF{
 			root.AddNameSpace(DummyNS[j],L"NS"+WString(j));
 		return diffDoc;
 	};
-	
-///////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////
 	void XMLDoc::SetDirtyDiff(const XMLDoc &diffDoc){
 		KElement diffRoot=diffDoc.GetRoot();
 		KElement root=GetRoot();
@@ -642,7 +659,7 @@ namespace JDF{
 			}
 		}
 	}
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 	/**
 	* clear the vector of all IDs of elements that are dirty
 	* @return void
@@ -652,7 +669,7 @@ namespace JDF{
 		if(pUserData)
 			pUserData->ClearDirtyIDs();
 	};
-	
+
 	/**
 	* clear the vector of all IDs of elements that are dirty
 	* @param WString id the id to be added to the dirty list
@@ -661,7 +678,7 @@ namespace JDF{
 	const vWString& XMLDoc::SetDirty(const WString &id){
 		return GetCreateXMLDocUserData()->SetDirty(id);
 	}
-	
+
 	/**
 	* is the node with ID dirty?
 	* @param WString id the id to be checked
@@ -670,7 +687,7 @@ namespace JDF{
 	bool XMLDoc::IsDirty(const WString &id)const{
 		return GetXMLDocUserData()->IsDirty(id);
 	}
-	
+
 	/**
 	* Remove the target from the target list
 	* @param KElement target the target element
@@ -678,15 +695,15 @@ namespace JDF{
 	void XMLDoc::RemoveTarget(const KElement& target){
 		GetCreateXMLDocUserData()->RemoveTarget(target);
 	}
-	
+
 	/**
 	* Set the target with to target
 	* @param KElement target the target element
 	*/
-	void XMLDoc::SetTarget(const KElement& target){
-		GetCreateXMLDocUserData()->SetTarget(target);
+	void XMLDoc::SetTarget(const KElement& target, const WString &id){
+		GetCreateXMLDocUserData()->SetTarget(target, id);
 	}
-	
+
 	/**
 	* Get the target with ID=id
 	* @param WString id the id of the target to search 
@@ -695,8 +712,8 @@ namespace JDF{
 	KElement XMLDoc::GetTarget(const WString& id)const{
 		return GetXMLDocUserData()->GetTarget(id);
 	}
-	
-	
+
+
 	/**
 	* clear the map of all targets
 	* @return void
@@ -706,10 +723,42 @@ namespace JDF{
 		if(pUserData)
 			pUserData->ClearTargets();
 	}
-	
+
 	/////////////////////////////////////////////////
-	
-	
+	void XMLDoc::setDefaultIgnoreNS(bool bIgnore)
+	{
+		setIgnoreNSDefault=bIgnore;
+	}
+
+	/////////////////////////////////////////////////
+	bool XMLDoc::getDefaultIgnoreNS()
+	{
+		return setIgnoreNSDefault;
+	}
+	/////////////////////////////////////////////////
+	void XMLDoc::setGenerateUID(bool bGenerateUID)
+	{
+		generateUID=bGenerateUID;
+	}
+
+	/////////////////////////////////////////////////
+	bool XMLDoc::getGenerateUID()
+	{
+		return generateUID;
+	}
+
+	/////////////////////////////////////////////////
+	void XMLDoc::setCompressOutput(bool bCompressPrint)
+	{
+		compressPrint=bCompressPrint;
+	}
+
+	/////////////////////////////////////////////////
+	bool XMLDoc::getCompressOutput()
+	{
+		return compressPrint;
+	}
+
 	//////////////////////////////////////////////////////////////////////
 	JDF_WRAPPERCORE_EXPORT std::ostream& operator<<(std::ostream& target, const JDF::XMLDoc& toWrite){
 		return target<<toWrite.ToString();

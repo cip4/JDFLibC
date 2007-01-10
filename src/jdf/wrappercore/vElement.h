@@ -80,6 +80,7 @@
 // Revision history:
 //
 // 231104 ES added vector iterator implementation - class vElementIterator
+// 050906 NB added vElementIterator::hasNext()
 //
 // vElement.h: interface for the vElement class.
 //
@@ -89,7 +90,6 @@
 #define _vElement_H_
 
 #include <jdf/lang/WString.h>
-
 
 namespace JDF{
 
@@ -107,6 +107,10 @@ namespace JDF{
 		typedef vElementIterator const_iterator;
 		typedef KElement& reference;
 		typedef const KElement& const_reference;
+
+		static const vElement emptyVector;
+
+
 	public:
 	/**
 	* null ctor
@@ -415,6 +419,7 @@ namespace JDF{
 		* @since 050721 
 		*/
 		KElement GetCommonAncestor()const;
+
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -540,6 +545,18 @@ namespace JDF{
 
 		vElement::const_reference operator *() const;
 
+		/**
+		* check if there is another element after the current one
+		* @return bool true, if there is a next element
+		*/
+		bool hasNext() const;
+
+		/**
+		* gets the value of the next element
+		* @return KElement the value of the next element
+		* @throws std::exception if there is no next element
+		*/
+		KElement next();
 
 	private:
 

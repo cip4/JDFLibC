@@ -94,6 +94,8 @@
 namespace JDF{
 
 	typedef std::map<WString,KElement> targetMap;
+
+	bool useIDCache=true;
 	
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
@@ -103,6 +105,7 @@ namespace JDF{
 		ClearDirtyIDs();
 		mapTarget=new targetMap;
 		dirtyPolicy=DirtyPolicy_None;
+		useIDCache=true;
 	}
 	//////////////////////////////////////////////////////////////////////
 	XMLDocUserData::~XMLDocUserData(){
@@ -202,21 +205,13 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
-	void XMLDocUserData::SetTarget(const KElement& target){
+	void XMLDocUserData::SetTarget(const KElement& target, const WString& id){
 		if(!this)
 			throw JDFException(L"XMLDocUserData::SetTarget used on null object");
-		const WString id=target.GetAttribute(L"ID");
 		if(id.empty())
 			return;
 
 		targetMap*pt=(targetMap*)mapTarget;
-		targetMap::iterator it=pt->find(id);
-	
-		if(it!=pt->end()){
-			if(it->second==target)
-				return;
-			pt->erase(it);
-		}
 		pt->insert(targetMap::value_type(id,target));
 	}
 	
@@ -260,6 +255,21 @@ namespace JDF{
 	};
 	
 	//////////////////////////////////////////////////////////////////////
-	
+
+	void XMLDocUserData::setIDCache(bool bCache)
+	{
+		useIDCache=bCache;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+	bool XMLDocUserData::getIDCache()
+	{
+		return useIDCache;
+	}
+
+	//////////////////////////////////////////////////////////////////////
+
+
 	
 }

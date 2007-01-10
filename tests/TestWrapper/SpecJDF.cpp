@@ -309,6 +309,7 @@ int SpecDoc::DoSimple(){
 	p.init();
 	p.SetEnumType(JDFNode::Type_ImageSetting);
 	JDFImageSetterParams inputParams=p.AppendMatchingResource(JDFNode::elm_ImageSetterParams,JDFNode::ProcessUsage_AnyInput);
+	cout<<p<<endl;
 	JDFMedia inputMedia=p.AppendMatchingResource(JDFNode::elm_Media,JDFNode::ProcessUsage_AnyInput);
 	JDFExposedMedia outputMedia=p.AppendMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyOutput);
 	outputMedia.RefElement(inputMedia);
@@ -321,7 +322,9 @@ int SpecDoc::DoSimple(){
 int SpecDoc::DoSimplePartition(){
 	DoSimple();
 	JDFNode p=GetRoot();
+	cout<<p<<endl;
 	JDFMedia inputMedia=p.GetMatchingResource(JDFNode::elm_Media);
+	cout<<inputMedia;
 	inputMedia.AddPartitions(JDFResource::PartIDKey_Separation,vWString("Cyan Magenta Yellow Black"));
 	JDFExposedMedia outputMedia=p.GetMatchingResource(JDFNode::elm_ExposedMedia);
 	outputMedia.AddPartitions(JDFResource::PartIDKey_Separation,vWString("Cyan Magenta Yellow Black"));
@@ -452,7 +455,7 @@ int SpecDoc::DoCPrint(){
 	media.SetAvailable();
 	media.SetDimensionInch(JDFXYPair(10,15));
 	
-	for(i=0;i<v.size();i++){
+	for(int i=0;i<v.size();i++){
 		JDFExposedMedia pplate=v[i];
 		pplate.SetProductID(WString("J1P1")+vsepstring[i]);
 		pplate.SetDescriptiveName(WString("Platte ")+vsepstring[i]);
@@ -492,11 +495,12 @@ int SpecDoc::DoCPrint(){
 	
 	// select the front side and set the appropriate attributes
 	JDFConventionalPrintingParams sp=cpp.GetPartition(mp);
-	cout<<cpp;
+	cout<<sp;
 	sp.SetAttribute("Powder",12.1);
 	
 	// create the separations for the front
 	sp.AddPartitions(sp.PartIDKey_Separation,vsepstring);
+	cout<<sp;
 	
 	// get the individual parts by number and modify appropriately
 	JDFConventionalPrintingParams sep=sp.GetLeaves()[0];
@@ -559,7 +563,7 @@ int SpecDoc::DoCPrint(){
 	JDFAmountPool amountPool=inkLink.AppendAmountPool();
 	WString amounts="1000 1200 777 3000 300 33";
 	vElement vInk=ink.GetLeaves();
-	for(iCol=0;iCol<vsepstring.size();iCol++){
+	for(int iCol=0;iCol<vsepstring.size();iCol++){
 		JDFInk ie=vInk[iCol];
 		ie.SetColorName(vsepstring[iCol]);
 		mAttribute sepMap;
@@ -639,7 +643,7 @@ int SpecDoc::DoColorConv(){
 	WString cmyk="1 0 0 0,0 1 0 0,0 0 1 0,0 0 0 1,0.8 0.8 0 0";
 	
 	vWString vc=Colors.Tokenize(" ");
-	for(i=0;i<vc.size();i++){
+	for(int i=0;i<vc.size();i++){
 		JDFElement color=colorPool.AppendElement("Color");
 		color.SetAttribute("Name",vc[i]);
 		color.SetAttribute("CMYK",cmyk.Tokenize(",")[i]);
@@ -706,7 +710,7 @@ int SpecDoc::PrepareQuote(){
 	
 	setnodecustomer(p,JDFResource(),"RFQ");
 	p.SetType("Product");
-	for(i=0;i<1;i++) {
+	for(int i=0;i<1;i++) {
 		JDFNode n=vQuotes[i];
 		JDFComponent comp=n.AppendMatchingResource(JDFNode::elm_Component,n.ProcessUsage_AnyOutput);
 		comp.SetAttribute("Amount",10000);
@@ -734,7 +738,7 @@ int SpecDoc::PrepareQuote(){
 	JDFIntegerSpan intInt=LayoutIntent.GetCreateSpan("Pages",JDFSpanBase::DataType_Integer);
 	intInt.SetPreferred(16);
 	
-	for(i=0;i<2;i++) {
+	for(int i=0;i<2;i++) {
 		JDFNode n=vQuotes[i];
 		JDFResourceLink l=n.LinkResource(LayoutIntent);
 	}
@@ -751,7 +755,7 @@ int SpecDoc::PrepareQuote(){
 	namInt=MediaIntent.GetCreateSpan("BackCoatings",JDFSpanBase::DataType_Name);
 	namInt.SetPreferred("none");
 	
-	for(i=0;i<2;i++) {
+	for(int i=0;i<2;i++) {
 		JDFNode n=vQuotes[i];
 		JDFResourceLink l=n.LinkResource(MediaIntent);
 		if(i==1) 
@@ -794,7 +798,7 @@ int SpecDoc::PrepareQuote2(){
 	intInt=p.GetCreateSpan("Pages",JDFSpanBase::DataType_Integer);
 	intInt.SetPreferred(36);
 	
-	for(i=0;i<6;i++) {
+	for(int i=0;i<6;i++) {
 		JDFNode n=vQuotes[i];
 		JDFResourceLink l=n.LinkResource(LayoutIntent);
 		if(i==3) l.SetPartition(JDFResource::PartIDKey_Option,"3");
@@ -817,7 +821,7 @@ int SpecDoc::PrepareQuote2(){
 	namInt=MediaIntent.GetCreateSpan("BackCoatings",JDFSpanBase::DataType_Name);
 	namInt.SetPreferred("none");
 	
-	for(i=0;i<6;i++) {
+	for(int i=0;i<6;i++) {
 		JDFNode n=vQuotes[i];
 		JDFResourceLink l=n.LinkResource(MediaIntent);
 		if(i==1) l.SetPartition(JDFResource::PartIDKey_Option,"1");
@@ -833,7 +837,7 @@ int SpecDoc::PrepareQuote2(){
 	cu=p.AppendElement("ColorsUsed");
 	cu.AppendElement("SeparationSpec").SetAttribute("Name","Black");
 	
-	for(i=0;i<6;i++) {
+	for(int i=0;i<6;i++) {
 		JDFNode n=vQuotes[i];
 		JDFResourceLink l=n.LinkResource(ColorIntent);
 		if(i==4) l.SetPartition(JDFResource::PartIDKey_Option,"4");
@@ -848,7 +852,7 @@ int SpecDoc::PrepareQuote2(){
 	address.SetCountry("Germany");
 	address.SetPostalCode("24000");
 	
-	for(i=0;i<6;i++) {
+	for(int i=0;i<6;i++) {
 		JDFNode n=vQuotes[i];
 		JDFComponent comp=n.AppendMatchingResource(JDFNode::elm_Component,n.ProcessUsage_AnyOutput);
 		comp.SetAttribute("Amount",10000);
@@ -1496,12 +1500,12 @@ int SpecDoc::DoBible(){
 	p.SetType("Product");
 	MyDate date;
 	date.SetDate(2000,12,6);
-	for(i=2;i<5;i++) {
+	for(int i=2;i<5;i++) {
 		JDFNode n=vP[i];
 		JDFResourceLink l=n.LinkResource(LayoutIntent);
 	}
 	
-	for(i=0;i<3;i++) {
+	for(int i=0;i<3;i++) {
 		JDFIntentResource del=p.AppendMatchingResource(JDFNode::elm_DeliveryIntent,JDFNode::ProcessUsage_AnyInput);
 		JDFNameSpan nameI=del.GetCreateNameSpan("Method");
 		nameI.SetPreferred("none");

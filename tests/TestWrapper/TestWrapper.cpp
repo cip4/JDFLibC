@@ -320,40 +320,26 @@ int main(int argC, char* argV[]){
 		doc.Write2File(outFile);
 		cout <<WString(L"a");
 	}else if(0){
-		JDFDoc doc(0);
-		JDFNode n=doc.GetJDFRoot();
-		n.SetType("ConventionalPrinting");
-		cout<<n<<endl;
-		//JDFColorantControl cc=n.AppendResourcePool().AppendEleme
-
-
+      JDFDoc doc(0);
+       JDFNode root = doc.GetJDFRoot();
+	   root.SetEnumVersion(JDFElement::Version_1_3);
+       JDFAttributeMap pm("SheetName","s1");
+       root.SetPartStatus(pm, JDFElement::Status_Waiting);
+       JDFNodeInfo ni=root.GetNodeInfo().GetPartition(pm);
+	   cout<<root<<endl;
+       
+	   root.SetEnumVersion(JDFElement::Version_1_2);
+       root.SetPartStatus(pm, JDFElement::Status_Completed);
+	   cout<<root<<endl;
 	}else if(1){
-    JDFDoc d= JDFDoc(0);
-        JDFNode n=d.GetJDFRoot();
-		n.SetEnumVersion(n.Version_1_2);
+		JDFDoc dc;
+		dc.Parse("mimetest1.xml",false);
+		cout<<dc<<endl;
+          JDFDoc d(0);
+        JDFNode n=d.GetJDFRoot();         
+        n.SetType("fnarf");
 		cout<<n<<endl;
-        n.SetType("Combined");
-        VString v("Folding Cutting Foo:Bar Folding"," ");
-        n.SetTypes(v);
-        JDFResource foPa= n.AddResource("FoldingParams",JDFResource::Class_Parameter,true);
-        JDFResourceLink rlfoPa=n.GetLink(foPa);
-        JDFResource cuPa= n.AddResource("CuttingParams",JDFResource::Class_Parameter,true,JDFNode(),false);
-        JDFResourceLink rlCuPa=n.LinkResource(cuPa,true,false);
-        
-        JDFResource pePa= n.AddResource("PerforatingingParams",JDFResource::Class_Parameter,true,JDFNode(),false);
-        JDFResourceLink rlPePa=n.LinkResource(pePa,true,false);
-        
-        n.insertTypeInTypes(n.Type_AdhesiveBinding,999);
-        v=n.GetTypes();
-		cout<<v<<endl;
-        
-        n.insertTypeInTypes(n.Type_Bundling,-2);
-        v=n.GetTypes();
-		cout<<v<<endl;
-        
-        n.insertTypeInTypes(n.Type_BoxPacking,0);
-        v=n.GetTypes();
-		cout<<v<<endl<<n<<endl;
+
 	}else if(1){
 		JDFDoc doc;
 		doc.Parse(inFile,false);

@@ -176,7 +176,7 @@ namespace JDF{
 		/**
 		* get the refElement of this
 		*/
-		JDFRefElement JDFSourceResource::GetRefElement()const;
+		JDFRefElement GetRefElement()const;
 
 
 		}; // endJDFSourceResource

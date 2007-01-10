@@ -29,7 +29,8 @@ namespace JDF{
 		ExampleDoc(const XMLDoc & d):JDFDoc(d){};
 		~ExampleDoc(){};
 		int DoExample(WString action, WString infile, WString outFile);
-		
+		bool bQuiet;
+
 	protected:
 		//  list of individual example routines
 		int CreateRIP();
@@ -151,10 +152,12 @@ namespace JDF{
 			remove(outFile.peekBytes());			
 			// write the output file
 			Write2File(outFile.peekBytes());
-		}else{
+		}
+		else if(!bQuiet)
+		{
 			// no output file -> Send to console
 			cout<<">>>>>>>>>>>>>>> output of "<<action<<endl<<endl;
-			std::cout<<ToString();
+	//		std::cout<<ToString();
 		}
 		return iReturn;
 	}
@@ -335,6 +338,8 @@ namespace JDF{
 		typedef map<WString,int> intMap;
 		intMap mapNames;
 		intMap mapSizes;
+		intMap mapAttSizes;
+		intMap mapAttNames;
 		vElement allElements=root.GetChildrenByTagName(WString::star,WString::star,MapWString::emptyMap,false);
 		allElements.push_back(root);
 		vElement zappElems;
@@ -361,6 +366,21 @@ namespace JDF{
 			WString bigString=allElements[j].ToString();
 			if(allElements[j].GetNodeName()!=allElements[j].GetParentNode().GetNodeName()){
 				its->second+=bigString.size();
+			}
+			mAttribute attMap=allElements[j].GetAttributeMap();
+			for(mAttribute::iterator i2=attMap.begin();i2!=attMap.end();i2++)
+			{
+				WString attPath=allElements[j].GetNodeName()+WString(L"/@")+WString(i2->first());
+				intMap::iterator its=mapAttSizes.find(attPath);
+				intMap::iterator itn=mapAttNames.find(attPath);
+				if(its==mapAttSizes.end()){
+					mapAttSizes.insert(intMap::value_type(attPath,0)); // insert new entry with 1 occurrence (this one)
+					mapAttNames.insert(intMap::value_type(attPath,0)); // insert new entry with 1 occurrence (this one)
+					its=mapAttSizes.find(attPath);
+					itn=mapAttNames.find(attPath);
+				}
+				(*its).second+=4+i2->first().length()+i2->second().length();
+				(*itn).second++;
 			}
 
 //			if(WString("ColorPool Spawned Merged HDM:FilePage RunList Notification Comment PartStatus ProcessRun").HasToken(name)){
@@ -399,6 +419,37 @@ namespace JDF{
 				WString((*it1).first+L"                                               ").leftStr(ipos)<<
 				(*it1).second<<" "<<its->second<<endl;
 			mapSizes.erase(it1);
+		}
+
+				cout<<endl;
+		s=mapAttSizes.size();
+		
+		ipos=42; // for formatting
+
+		// map has no sort - let's just use brute force...
+		for(int k=0;k<s;k++){
+			intMap::iterator it1;
+			int n=0;
+			for(intMap::iterator it=mapAttSizes.begin();it!=mapAttSizes.end();it++){
+				// highest # of occurence
+				if((*it).second>n){
+					it1=it;
+					n=(*it).second;
+				}
+			};
+			// beautify the output
+			if(k==10)
+				ipos--;
+			if(k==100)
+				ipos--;
+			if(k==1000)
+				ipos--;
+
+			intMap::iterator its=mapAttNames.find(it1->first);
+				cout<<k<<" "<<
+				WString(it1->first+L"                                               ").leftStr(ipos)<<
+				it1->second<<" "<<its->second<<endl;
+			mapAttSizes.erase(it1);
 		}
 
 		for(int jj=0;jj<zappElems.size();jj++){
@@ -1195,7 +1246,7 @@ int main(int argC, char* argV[]){
 	// these brackets are necessary because otherwise the document goes out of scope after Terminate and causes an exception
 	{
 		// trivial argument handling
-		MyArgs args(argC,argV,"","aio");
+		MyArgs args(argC,argV,"q","aio");
 		
 		// Watch for special case help request
 		WString usage="JDFExample; example usages of the JDF Library\nArguments: -a: actions to perform \n";
@@ -1223,7 +1274,7 @@ int main(int argC, char* argV[]){
 		if(action.rightStr(7)=="Message")
 			iDoc=1;
 		ExampleDoc doc(iDoc);
-		
+		doc.bQuiet=args.BoolParameter('q',false);
 		// do the specified example
 		doc.DoExample(action,inFile,outFile);
 

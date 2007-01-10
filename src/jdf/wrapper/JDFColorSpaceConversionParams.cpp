@@ -91,8 +91,7 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////////
 
 	JDFFileSpec JDFColorSpaceConversionParams::GetFinalTargetDevice() const{
-		
-		vElement v=GetChildElementVector(elm_FileSpec);
+		vElement v=GetChildElementVector(elm_FileSpec,WString::emptyStr,mAttribute::emptyMap,true,0,true);
 		int siz=v.size();
 		for(int i=0;i<siz;i++)
 		{

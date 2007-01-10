@@ -93,7 +93,7 @@
 #include <jdf/lang/JDFToolsDefs.h>
 #include <jdf/net/InetAddress.h>
 #include <jdf/net/SocketImpl.h>
-#include <jdf/net/Exception.h>
+#include <jdf/lang/Exception.h>
 #include <jdf/net/Platforms/MacOS/SocketProxy.h>
 
 namespace JDF
@@ -158,6 +158,7 @@ public:
 	virtual OutputStream& getOutputStream();
 	virtual SocketOption  getOption(int optID); // throw SocketException
 	virtual void          setOption(int optID, const SocketOption& value);
+    
 	inline virtual int	  getFileDescriptor();
 
 	typedef enum {

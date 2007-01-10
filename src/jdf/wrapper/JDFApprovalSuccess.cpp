@@ -97,39 +97,43 @@ namespace JDF{
 	{
 		bool bRet=true;
 
-		// create ApprovalDetails
-		if(version>=Version_1_3){
-			if(HasChildElement(elm_Contact)||HasChildElement(elm_FileSpec))
-			{
-				JDFApprovalDetails ad=AppendApprovalDetails();
-				ad.SetApprovalState(JDFApprovalDetails::ApprovalState_Approved);
-				ad.MoveElement(GetContact());
-				ad.MoveElement(GetFileSpec());
-			}
-		}else{   // remove ApprovalDetails
-			for(int i=0;i<99999;i++)
-			{
-				JDFApprovalDetails ad=GetApprovalDetails(i);
-				int iAccept=0;
-				if(!ad.isNull())
-				{
-					if(iAccept==0)
-					{
-						SetStatus(Status_Rejected);
-					}
-					break; // none left
-				}
+		if (version != Version_Unknown)
+		{
 
-				if(ad.GetApprovalState()==JDFApprovalDetails::ApprovalState_Rejected)
+			// create ApprovalDetails
+			if(version>=Version_1_3){
+				if(HasChildElement(elm_Contact)||HasChildElement(elm_FileSpec))
 				{
-					bRet=false;
-					ad.DeleteNode();               
-					continue;  // semantics of reject are not available in 1.2 and below ignore
+					JDFApprovalDetails ad=AppendApprovalDetails();
+					ad.SetApprovalState(JDFApprovalDetails::ApprovalState_Approved);
+					ad.MoveElement(GetContact());
+					ad.MoveElement(GetFileSpec());
 				}
-				iAccept++;
-				MoveElement(ad.GetContact());
-				MoveElement(ad.GetFileSpec());
-				ad.DeleteNode();               
+			}else{   // remove ApprovalDetails
+				for(int i=0;i<99999;i++)
+				{
+					JDFApprovalDetails ad=GetApprovalDetails(i);
+					int iAccept=0;
+					if(ad.isNull())
+					{
+						if(iAccept==0)
+						{
+							SetStatus(Status_Rejected);
+						}
+						break; // none left
+					}
+
+					if(ad.GetApprovalState()==JDFApprovalDetails::ApprovalState_Rejected)
+					{
+						bRet=false;
+						ad.DeleteNode();               
+						continue;  // semantics of reject are not available in 1.2 and below ignore
+					}
+					iAccept++;
+					MoveElement(ad.GetContact());
+					MoveElement(ad.GetFileSpec());
+					ad.DeleteNode();               
+				}
 			}
 		}
 		return JDFAutoApprovalSuccess::FixVersion(version) && bRet;

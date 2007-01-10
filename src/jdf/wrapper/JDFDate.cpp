@@ -121,29 +121,29 @@ XERCES_CPP_NAMESPACE_USE
 using namespace std;
 
 namespace JDF{
-	
+
 	JDFDate::JDFDate(int iOffset){
 		offset=iOffset;
 		Refresh();
 	};
-	
+
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDate& JDFDate::operator =(const JDFDate& other){
 		offset=other.offset;
 		sTim=other.sTim;
 		t=other.t;
 		return *this;
 	};
-	
+
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDate::JDFDate(const JDFDate & other){
 		*this=other;
 	}
 
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDate::JDFDate(const MyDate& other){
 		offset=other.offset;
 		sTim=other.sTim;
@@ -151,20 +151,20 @@ namespace JDF{
 	};
 
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDate::JDFDate(const time_t tsec)
 	{
 		struct tm *tmFromTimet;
 		offset=0;
 		t = tsec;
-		
+
 		tmFromTimet = localtime(&t);
 		if(tmFromTimet != NULL)
 		{
 			memcpy(&sTim,tmFromTimet,sizeof(tm));
 		}
 	}
-	
+
 	///////////////////////////////////////////////////////////////////
 
 	JDFDate& JDFDate::operator=(const WString & a_aTimeFormat){
@@ -192,7 +192,7 @@ namespace JDF{
 
 	void JDFDate::SetDateTimeString(const WString & a_aTime){
 		offset=0;
-		
+
 		int h,mi,y,mo,d, h_bias, mi_bias, s;
 		y=sTim.tm_year+1900;
 		mo=sTim.tm_mon+1;
@@ -201,15 +201,15 @@ namespace JDF{
 		mi=sTim.tm_min;
 		s=sTim.tm_sec;
 
-		
+
 		// set daylight time insert by MG 08.07.2002 
 		sTim.tm_isdst = GetDaylight();
-		
+
 		WString  theDate, theTime, thePureTime, theBiasTime;
-		
+
 		// devide timeInstant into date and time part, which are separated by 'T'
 		int iTPos = a_aTime.find_first_of(L"T");
-		
+
 		if (iTPos >= 0) 
 		{
 			theDate = a_aTime.substr (0, iTPos);
@@ -218,7 +218,7 @@ namespace JDF{
 			// may be which are separated by '+' or '-'
 			int iTPosP = theTime.find_first_of(L"+");
 			int iTPosN = theTime.find_first_of(L"-");
-			
+
 			// *!* -af- added std:: scope to prevent overloading ambiguity
 			iTPos = std::max (iTPosN, iTPosP); 
 			if (iTPos > 0)
@@ -250,46 +250,48 @@ namespace JDF{
 					}
 					thePureTime = theTime.leftStr(-1);
 				}else{
-				thePureTime = theTime;
+					thePureTime = theTime;
+				}
 			}
-			}
-			
+
 		}
 		else
 		{
 			theDate = a_aTime;
 		}
-		
+
 		if (theDate.length() > 0)
 		{
 			vWString vDate=theDate.Tokenize(L"-");
 			int siz=vDate.size();
 			if(siz>0)
-			y = vDate[0];
+				y = vDate[0];
 			if(siz>1)
-			mo = vDate[1];
+				mo = vDate[1];
 			if(siz>2)
-			d = vDate[2];
+				d = vDate[2];
 		}
-		
+
 		if (thePureTime.length() > 0)
 		{
 			vWString vTime=thePureTime.Tokenize(WString::colon);
 			int siz=vTime.size();
 			// iRes is not used
 			if(siz>0)		
-			h = vTime[0];
+				h = vTime[0];
 			if(siz>1)		
-			mi = vTime[1];
+				mi = vTime[1];
 			if(siz>2)		
-			s = vTime[2];
+				s = vTime[2];
 		}
-		
+
 		if (theBiasTime.length() > 0)
 		{
 			vWString vTime=theBiasTime.Tokenize(WString::colon);
+			int siz=vTime.size();
 			h_bias = vTime[0];
-			mi_bias = vTime[1];
+
+			mi_bias = (siz > 1) ? (int) vTime[1] : 0;
 			// TBD-MMOE handle bias
 			int dZone = DeltaTimeZone();
 			if (h_bias==dZone)
@@ -319,356 +321,356 @@ namespace JDF{
 		}
 	}
 
-	
 
-//////////////////////////////////////////////////////////////////////
 
-void JDFDate::Refresh(){
-	time(&t);
-	t+=offset;
-	struct tm * pTm=localtime(&t);
-	memcpy(&sTim,pTm,sizeof(sTim));
-}
+	//////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////
-
-WString  JDFDate::DateYYYYMMDD() const {
-	int year=sTim.tm_year+1900;
-	int month=sTim.tm_mon+1;
-	int day=sTim.tm_mday;
-	char buf[256];
-	sprintf(buf,"%.4i%.2i%.2i",year,month,day);
-	return buf;
-}
-
-///////////////////////////////////////////////////////////////////
-
-WString  JDFDate::DateISO() const {
-	int year=sTim.tm_year+1900;
-	int month=sTim.tm_mon+1;
-	int day=sTim.tm_mday;
-	char buf[256];
-	sprintf(buf,"%.4i-%.2i-%.2i",year,month,day);
-	return buf;
-}
-
-///////////////////////////////////////////////////////////////////
-
-WString  JDFDate::TimeHHMMSS() const {
-	int hour=sTim.tm_hour;
-	int minute=sTim.tm_min;
-	int sec=sTim.tm_sec;
-	char buf[256];
-	sprintf(buf,"%.2i%.2i%.2i",hour,minute,sec);
-	return buf;
-}
-
-///////////////////////////////////////////////////////////////////
-WString  JDFDate::TimeISO() const {
-	int hour=sTim.tm_hour;
-	int minute=sTim.tm_min;
-	int sec=sTim.tm_sec;
-	char buf[256];
-	sprintf(buf,"%.2i:%.2i:%.2i",hour,minute,sec);
-	return buf;
-}
-
-///////////////////////////////////////////////////////////////////
-
-WString  JDFDate::DateTime() const {
-	return DateYYYYMMDD()+TimeHHMMSS();
-}
-
-///////////////////////////////////////////////////////////////////
-
-WString  JDFDate::DateTimeISO() const {
-	return DateISO()+WString(L"T")+TimeISO()+ISOTimeZone();
-}
-
-///////////////////////////////////////////////////////////////////
-
-int JDFDate::DeltaTimeZone() const {
-	time_t t;
-	time(&t);
-	struct tm * pTm=localtime(&t);
-	int i0=pTm->tm_hour;
-	pTm=gmtime(&t);
-	int i1=pTm->tm_hour;
-	return (i0+36-i1)%24-12;
-}
-
-///////////////////////////////////////////////////////////////////
-
-WString  JDFDate::ISOTimeZone() const {
-	int i=DeltaTimeZone();
-	// 301002 RP this does not work and is not necessary: _daylight is always true on Win2k, regardless of the time zone.
-	int iDayLight = GetDaylight();
-    if( iDayLight != sTim.tm_isdst)
-    {
-        if(sTim.tm_isdst == 0)
-        {
-            i -= 1;
-        }else{
-			i +=1;
-		}
-    }
-	
-	//-----------------------------------------------------
-	char buf[10];
-	if (i<0){
-		sprintf(buf,"%.2i:00",i);
-	}else{
-		sprintf(buf,"+%.2i:00",i);
+	void JDFDate::Refresh(){
+		time(&t);
+		t+=offset;
+		struct tm * pTm=localtime(&t);
+		memcpy(&sTim,pTm,sizeof(sTim));
 	}
-	return buf;
-}
+
+	//////////////////////////////////////////////////////////////////////
+
+	WString  JDFDate::DateYYYYMMDD() const {
+		int year=sTim.tm_year+1900;
+		int month=sTim.tm_mon+1;
+		int day=sTim.tm_mday;
+		char buf[256];
+		sprintf(buf,"%.4i%.2i%.2i",year,month,day);
+		return buf;
+	}
+
+	///////////////////////////////////////////////////////////////////
+
+	WString  JDFDate::DateISO() const {
+		int year=sTim.tm_year+1900;
+		int month=sTim.tm_mon+1;
+		int day=sTim.tm_mday;
+		char buf[256];
+		sprintf(buf,"%.4i-%.2i-%.2i",year,month,day);
+		return buf;
+	}
+
+	///////////////////////////////////////////////////////////////////
+
+	WString  JDFDate::TimeHHMMSS() const {
+		int hour=sTim.tm_hour;
+		int minute=sTim.tm_min;
+		int sec=sTim.tm_sec;
+		char buf[256];
+		sprintf(buf,"%.2i%.2i%.2i",hour,minute,sec);
+		return buf;
+	}
+
+	///////////////////////////////////////////////////////////////////
+	WString  JDFDate::TimeISO() const {
+		int hour=sTim.tm_hour;
+		int minute=sTim.tm_min;
+		int sec=sTim.tm_sec;
+		char buf[256];
+		sprintf(buf,"%.2i:%.2i:%.2i",hour,minute,sec);
+		return buf;
+	}
+
+	///////////////////////////////////////////////////////////////////
+
+	WString  JDFDate::DateTime() const {
+		return DateYYYYMMDD()+TimeHHMMSS();
+	}
+
+	///////////////////////////////////////////////////////////////////
+
+	WString  JDFDate::DateTimeISO() const {
+		return DateISO()+WString(L"T")+TimeISO()+ISOTimeZone();
+	}
+
+	///////////////////////////////////////////////////////////////////
+
+	int JDFDate::DeltaTimeZone() const {
+		time_t t;
+		time(&t);
+		struct tm * pTm=localtime(&t);
+		int i0=pTm->tm_hour;
+		pTm=gmtime(&t);
+		int i1=pTm->tm_hour;
+		return (i0+36-i1)%24-12;
+	}
+
+	///////////////////////////////////////////////////////////////////
+
+	WString  JDFDate::ISOTimeZone() const {
+		int i=DeltaTimeZone();
+		// 301002 RP this does not work and is not necessary: _daylight is always true on Win2k, regardless of the time zone.
+		int iDayLight = GetDaylight();
+		if( iDayLight != sTim.tm_isdst)
+		{
+			if(sTim.tm_isdst == 0)
+			{
+				i -= 1;
+			}else{
+				i +=1;
+			}
+		}
+
+		//-----------------------------------------------------
+		char buf[10];
+		if (i<0){
+			sprintf(buf,"%.2i:00",i);
+		}else{
+			sprintf(buf,"+%.2i:00",i);
+		}
+		return buf;
+	}
 
 
-//new by MG 08.07.2002
-///////////////////////////////////////////////////////////////////
+	//new by MG 08.07.2002
+	///////////////////////////////////////////////////////////////////
 
-int JDFDate::SetTimeOverflow(int h, int m, int s){
-    int iOverflow = 0;
-	sTim.tm_sec=s;
-	sTim.tm_min=m;
-	
-    if(h<0)
-    {
-        h+=24;
-        iOverflow = -1;
-    }
-    else if(h>23)
-    {
-        h-=24;
-        iOverflow = 1;
-    }
-	
-	sTim.tm_hour=h;
-    return iOverflow;
-}
+	int JDFDate::SetTimeOverflow(int h, int m, int s){
+		int iOverflow = 0;
+		sTim.tm_sec=s;
+		sTim.tm_min=m;
 
-//new by MG 08.07.2002
-///////////////////////////////////////////////////////////////////
+		if(h<0)
+		{
+			h+=24;
+			iOverflow = -1;
+		}
+		else if(h>23)
+		{
+			h-=24;
+			iOverflow = 1;
+		}
 
-void JDFDate::SetDate(int y, int m, int d,int carry){
-	
-    int iOverflow;
-    iOverflow = SetDayOverflow(d+carry,m,y);
-    iOverflow = SetMonthOverflow(m+iOverflow);
-	
-	sTim.tm_year = y + iOverflow - 1900;
-	t=GetSecondsSince1970();
-}
+		sTim.tm_hour=h;
+		return iOverflow;
+	}
 
-//new by MG 08.07.2002
-///////////////////////////////////////////////////////////////////
-int JDFDate::SetMonthOverflow(int m){
-    int i = m-1;
-    int iOverflow = 0;
-	
-    if(i<0)
-    {
-        i+=12;
-        iOverflow = -1;
-    }
-    else if(i>11)
-    {
-        i-=12;
-        iOverflow = 1;
-    }
-	
-	sTim.tm_mon=i;
-    return iOverflow;
-}
+	//new by MG 08.07.2002
+	///////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////
+	void JDFDate::SetDate(int y, int m, int d,int carry){
 
-//new by MG 08.07.2002
-int JDFDate::SetDayOverflow(int d,int m,int y){
-	
-    int iOverflow = 0;
-	
-	d-=1;
-	
-    if((d>=0) && (d<28))
-    {
+		int iOverflow;
+		iOverflow = SetDayOverflow(d+carry,m,y);
+		iOverflow = SetMonthOverflow(m+iOverflow);
+
+		sTim.tm_year = y + iOverflow - 1900;
+		t=GetSecondsSince1970();
+	}
+
+	//new by MG 08.07.2002
+	///////////////////////////////////////////////////////////////////
+	int JDFDate::SetMonthOverflow(int m){
+		int i = m-1;
+		int iOverflow = 0;
+
+		if(i<0)
+		{
+			i+=12;
+			iOverflow = -1;
+		}
+		else if(i>11)
+		{
+			i-=12;
+			iOverflow = 1;
+		}
+
+		sTim.tm_mon=i;
+		return iOverflow;
+	}
+
+	///////////////////////////////////////////////////////////////////
+
+	//new by MG 08.07.2002
+	int JDFDate::SetDayOverflow(int d,int m,int y){
+
+		int iOverflow = 0;
+
+		d-=1;
+
+		if((d>=0) && (d<28))
+		{
+			sTim.tm_mday=d+1;
+			return 0;
+		}
+		else if(d<0)
+		{
+			iOverflow = -1;
+			switch(m)
+			{
+			case 3:
+				{
+					int k = y%4;
+					if(k!=0)
+					{
+						d+=28;
+					}
+					else
+					{
+						d+=29;
+					}
+
+				}
+				break;
+			case 5:
+			case 7:
+			case 10:
+			case 12:
+				{
+					d+=30;
+				}
+				break;
+			default:
+				{
+					d+=31;
+				}
+
+			}
+		}
+		else
+		{
+			switch(m)
+			{
+			case 2:
+				{
+					int k = y%4;
+					if(k!=0)
+					{
+						d-=28;
+						iOverflow = 1;
+					}
+					else
+					{
+						if(d>28)
+						{
+							d-=29;
+							iOverflow = 1;
+						}
+					}
+
+				}
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				{
+					if(d>29)
+					{
+						d-=30;
+						iOverflow = 1;
+					}
+				}
+				break;
+			default:
+				{
+					if(d>30)
+					{
+						d-=31;
+						iOverflow = 1;
+					}
+				}
+
+			}
+
+		}
+
 		sTim.tm_mday=d+1;
-        return 0;
-    }
-    else if(d<0)
-    {
-        iOverflow = -1;
-        switch(m)
-        {
-		case 3:
-            {
-                int k = y%4;
-                if(k!=0)
-                {
-                    d+=28;
-                }
-                else
-                {
-                    d+=29;
-                }
-				
-            }
-            break;
-		case 5:
-		case 7:
-		case 10:
-		case 12:
-            {
-                d+=30;
-            }
-            break;
-		default:
-            {
-                d+=31;
-            }
-			
-        }
-    }
-    else
-    {
-        switch(m)
-        {
-		case 2:
-            {
-                int k = y%4;
-                if(k!=0)
-                {
-                    d-=28;
-                    iOverflow = 1;
-                }
-                else
-                {
-                    if(d>28)
-                    {
-                        d-=29;
-                        iOverflow = 1;
-                    }
-                }
-				
-            }
-            break;
-		case 4:
-		case 6:
-		case 9:
-		case 11:
-            {
-                if(d>29)
-                {
-                    d-=30;
-                    iOverflow = 1;
-                }
-            }
-            break;
-		default:
-            {
-                if(d>30)
-                {
-                    d-=31;
-                    iOverflow = 1;
-                }
-            }
-			
-        }
-		
-    }
-	
-	sTim.tm_mday=d+1;
-    return iOverflow;
-}
+		return iOverflow;
+	}
 
 
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
-void JDFDate::SetTime(int h, int m, int s){
-	sTim.tm_hour=h;
-	sTim.tm_min=m;
-	sTim.tm_sec=s;
-	// added 060303
-	t=GetSecondsSince1970();
-}
+	void JDFDate::SetTime(int h, int m, int s){
+		sTim.tm_hour=h;
+		sTim.tm_min=m;
+		sTim.tm_sec=s;
+		// added 060303
+		t=GetSecondsSince1970();
+	}
 
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
-void JDFDate::SetDate(int y, int m, int d){
-	sTim.tm_year=y-1900;
-	sTim.tm_mon=m-1;
-	sTim.tm_mday=d;
-	// added 060303
-	t=GetSecondsSince1970();
-}
+	void JDFDate::SetDate(int y, int m, int d){
+		sTim.tm_year=y-1900;
+		sTim.tm_mon=m-1;
+		sTim.tm_mday=d;
+		// added 060303
+		t=GetSecondsSince1970();
+	}
 
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
-void JDFDate::AddDate(int y, int m, int d)
-{
-	const int secondesPerDay = 24*3600;
-	t += secondesPerDay * d;
-	struct tm * pTm=localtime(&t);
-	memcpy(&sTim, pTm, sizeof(sTim));
-	sTim.tm_mon += m;
-	int dYears = (sTim.tm_mon)/12;
-	sTim.tm_mon += -(dYears*12);
-	sTim.tm_year += y + dYears;
-}
+	void JDFDate::AddDate(int y, int m, int d)
+	{
+		const int secondesPerDay = 24*3600;
+		t += secondesPerDay * d;
+		struct tm * pTm=localtime(&t);
+		memcpy(&sTim, pTm, sizeof(sTim));
+		sTim.tm_mon += m;
+		int dYears = (sTim.tm_mon)/12;
+		sTim.tm_mon += -(dYears*12);
+		sTim.tm_year += y + dYears;
+	}
 
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
-void JDFDate::AddTime(int h, int m, int s)
-{
-	t += ( s + 60*m + 3600*h);
-	struct tm * pTm=localtime(&t);
-	memcpy(&sTim, pTm, sizeof(sTim));
-}
+	void JDFDate::AddTime(int h, int m, int s)
+	{
+		t += ( s + 60*m + 3600*h);
+		struct tm * pTm=localtime(&t);
+		memcpy(&sTim, pTm, sizeof(sTim));
+	}
 
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
-time_t JDFDate::GetSecondsSince1970() const
-{
-	struct tm sMyTm;
-	memcpy(&sMyTm,&sTim,sizeof(tm));
-    return (mktime(&sMyTm));
-}
+	time_t JDFDate::GetSecondsSince1970() const
+	{
+		struct tm sMyTm;
+		memcpy(&sMyTm,&sTim,sizeof(tm));
+		return (mktime(&sMyTm));
+	}
 
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
-int JDFDate::GetDaylight() const
-{
-	time_t tMyt;
-	time(&tMyt);
-	struct tm *psMyTm = localtime(&tMyt);
-	return psMyTm->tm_isdst;
-}
+	int JDFDate::GetDaylight() const
+	{
+		time_t tMyt;
+		time(&tMyt);
+		struct tm *psMyTm = localtime(&tMyt);
+		return psMyTm->tm_isdst;
+	}
 
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
-bool JDFDate::operator ==(const JDFDate & md)const{
-	return GetSecondsSince1970()==md.GetSecondsSince1970();
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDate::operator !=(const JDFDate & md)const{
-	return GetSecondsSince1970()!=md.GetSecondsSince1970();
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDate::operator >=(const JDFDate & md)const{
-	return GetSecondsSince1970()>=md.GetSecondsSince1970();
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDate::operator <=(const JDFDate & md)const{
-	return GetSecondsSince1970()<=md.GetSecondsSince1970();
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDate::operator >(const JDFDate & md)const{
-	return GetSecondsSince1970()>md.GetSecondsSince1970();
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDate::operator <(const JDFDate & md)const{
-	return GetSecondsSince1970()<md.GetSecondsSince1970();
-}
-///////////////////////////////////////////////////////////////////
+	bool JDFDate::operator ==(const JDFDate & md)const{
+		return GetSecondsSince1970()==md.GetSecondsSince1970();
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDate::operator !=(const JDFDate & md)const{
+		return GetSecondsSince1970()!=md.GetSecondsSince1970();
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDate::operator >=(const JDFDate & md)const{
+		return GetSecondsSince1970()>=md.GetSecondsSince1970();
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDate::operator <=(const JDFDate & md)const{
+		return GetSecondsSince1970()<=md.GetSecondsSince1970();
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDate::operator >(const JDFDate & md)const{
+		return GetSecondsSince1970()>md.GetSecondsSince1970();
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDate::operator <(const JDFDate & md)const{
+		return GetSecondsSince1970()<md.GetSecondsSince1970();
+	}
+	///////////////////////////////////////////////////////////////////
 
 } // namespace JDF

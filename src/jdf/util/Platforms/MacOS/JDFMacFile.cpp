@@ -87,7 +87,7 @@
 /******************************************************************************
  *	Includes
  ******************************************************************************/ 
-#include <util/Platforms/MacOS/JDFMacFile.h>
+#include <jdf/util/Platforms/MacOS/JDFMacFile.h>
 #include <util/Janitor.hpp>
 
 namespace JDF

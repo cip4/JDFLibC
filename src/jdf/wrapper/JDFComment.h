@@ -136,7 +136,7 @@ namespace JDF{
 		/**
 		* add ID during initialization
 		*/
-		virtual bool JDFComment::init();
+		virtual bool init();
 
 		/**
 		* Version fixing routine

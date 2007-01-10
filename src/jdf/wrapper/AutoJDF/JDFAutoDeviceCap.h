@@ -80,7 +80,7 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 #include "jdf/wrapper/JDFState.h"
 #include "jdf/wrapper/JDFBooleanState.h"
 #include "jdf/wrapper/JDFDateTimeState.h"
@@ -108,7 +108,7 @@ class JDFTestPool;
 class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoDeviceCap : public JDFResource
+class JDFAutoDeviceCap : public JDFElement
 
 *********************************************************************
 */
@@ -118,7 +118,7 @@ class JDFAutoDeviceCap : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFDeviceCap should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoDeviceCap : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoDeviceCap : public JDFElement{
 public:
 
 
@@ -129,11 +129,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoDeviceCap():JDFResource(){};
+	inline JDFAutoDeviceCap():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoDeviceCap(const KElement & other):JDFResource(){
+	inline JDFAutoDeviceCap(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -185,18 +185,6 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
-
 /**
 * Enumeration for attribute CombinedMethod
 */
@@ -230,17 +218,34 @@ virtual bool init();
 */
 	static WString CombinedMethodString(EnumCombinedMethod value);
 /**
-* Set attribute CombinedMethod
+* Append value to the attribute CombinedMethod
 * @param EnumCombinedMethod value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
 */
-	virtual void SetCombinedMethod( EnumCombinedMethod value);
-
+	virtual vint AddCombinedMethod( EnumCombinedMethod value);
+/**
+* Remove value from the attribute CombinedMethod
+* @param EnumCombinedMethod value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual vint RemoveCombinedMethod( EnumCombinedMethod value);
 /**
 * Typesafe enumerated attribute CombinedMethod; defaults to None
 * @return EnumCombinedMethodthe enumeration value of the attribute
 */
-	virtual EnumCombinedMethod GetCombinedMethod() const;
-
+	virtual vint GetCombinedMethod() const;
+/**
+* Set value of the attribute CombinedMethod
+* @param EnumCombinedMethod value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual void SetCombinedMethod( EnumCombinedMethod value);
+/**
+* Set value of the attribute CombinedMethod to a list
+* @param vint value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual void SetCombinedMethod( const vint& value);
 /**
 * Typesafe attribute validation of CombinedMethod
 * @param EnumValidationLevel level element validation level 
