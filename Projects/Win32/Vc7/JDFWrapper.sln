@@ -1,0 +1,86 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JDFWrapperLib", "JDFWrapperLib.vcproj", "{766A96F7-A4F7-45C1-BE16-AC8F96748B33}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JDFToolsLib", "JDFToolsLib.vcproj", "{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JDFWrapperCoreLib", "JDFWrapperCoreLib.vcproj", "{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccProjectUniqueName0 = JDFWrapperLib.vcproj
+		SccProjectName0 = JDFWrapperLib
+		SccLocalPath0 = ..\\..
+		SccProvider0 = MSSCCI:ClearCase
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection0 = Win32\\Vc7\\
+		SccProjectUniqueName1 = JDFToolsLib.vcproj
+		SccProjectName1 = JDFToolsLib
+		SccLocalPath1 = ..\\..
+		SccProvider1 = MSSCCI:ClearCase
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection1 = Win32\\Vc7\\
+		SccProjectUniqueName2 = JDFWrapperCoreLib.vcproj
+		SccProjectName2 = JDFWrapperCoreLib
+		SccLocalPath2 = ..\\..
+		SccProvider2 = MSSCCI:ClearCase
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection2 = Win32\\Vc7\\
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug DLL = Debug DLL
+		Debug LineOnly = Debug LineOnly
+		DEBUG STLPORT = DEBUG STLPORT
+		Release = Release
+		Release DLL = Release DLL
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Debug.ActiveCfg = Debug|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Debug.Build.0 = Debug|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Debug DLL.Build.0 = Debug DLL|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Debug LineOnly.ActiveCfg = Debug LineOnly|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Debug LineOnly.Build.0 = Debug LineOnly|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.DEBUG STLPORT.ActiveCfg = DEBUG STLPORT|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.DEBUG STLPORT.Build.0 = DEBUG STLPORT|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Release.ActiveCfg = Release|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Release.Build.0 = Release|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Release DLL.ActiveCfg = Release DLL|Win32
+		{766A96F7-A4F7-45C1-BE16-AC8F96748B33}.Release DLL.Build.0 = Release DLL|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Debug.ActiveCfg = Debug|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Debug.Build.0 = Debug|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Debug DLL.Build.0 = Debug DLL|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Debug LineOnly.ActiveCfg = Debug LineOnly|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Debug LineOnly.Build.0 = Debug LineOnly|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.DEBUG STLPORT.ActiveCfg = DEBUG STLPORT|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.DEBUG STLPORT.Build.0 = DEBUG STLPORT|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Release.ActiveCfg = Release|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Release.Build.0 = Release|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Release DLL.ActiveCfg = Release DLL|Win32
+		{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}.Release DLL.Build.0 = Release DLL|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Debug.ActiveCfg = Debug|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Debug.Build.0 = Debug|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Debug DLL.Build.0 = Debug DLL|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Debug LineOnly.ActiveCfg = Debug LineOnly|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Debug LineOnly.Build.0 = Debug LineOnly|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.DEBUG STLPORT.ActiveCfg = Debug|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.DEBUG STLPORT.Build.0 = Debug|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Release.ActiveCfg = Release|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Release.Build.0 = Release|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Release DLL.ActiveCfg = Release DLL|Win32
+		{DF055C8C-CE2F-4DE8-A518-EFD111BD7299}.Release DLL.Build.0 = Release DLL|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

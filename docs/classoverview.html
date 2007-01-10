@@ -1,0 +1,508 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta name="documentation" content="JDF">
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>JDF CIP4 Library Class Overview</title>
+<Script language='JavaScript'>
+<!--
+function toggleJDFToolsLib(){
+  eTarget=idJDFToolsLib
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapperCoreLib(){
+  eTarget=idJDFWrapperCoreLib
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapperLib(){
+  eTarget=idJDFWrapperLib
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapper(){
+  window.event.cancelBubble=true
+  eTarget=idJDFWrapper
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFResource(){
+  window.event.cancelBubble=true
+  eTarget=idResources
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapperJDFNode(){
+  eTarget=idJDFNode
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapperJDFJMF(){
+  eTarget=idJDFJMF
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapperJDFResources(){
+  eTarget=idJDFResources
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapperJDFCore(){
+  eTarget=idJDFCore
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function toggleJDFWrapperAuto(){
+  eTarget=idJDFAuto
+  eTarget.style.display == "none" ? eTarget.style.display="block": eTarget.style.display ="none"
+  eTarget.display == "none" ? eTarget.display="block":  eTarget.display ="none"
+}
+function flashMe (eSrc, sColor) {
+  eSrc.style.color=sColor
+  idJDFToolsLib.style.color="black"
+}
+//-->
+</Script>
+<style type="text/css"><!--
+  
+   H1 {font-family: Arial;
+      font-weight: 700;
+      font-size: 16pt;}
+	  
+   H2 {font-family: Arial;
+      font-weight: 700;
+      font-size: 12pt;}
+
+   H3 {font-family: Tahoma;
+      font-weight: 700;
+      font-size: 10pt;
+      color: black;
+     }
+   H4 {font-family: Tahoma;
+      font-weight: 500;
+      font-size: 10pt;
+      color: black;
+     }
+   H5 {font-family: Arial;
+      font-weight: 500;
+      font-size: 10pt;
+      color: black;
+     }
+     
+--></Style>
+</head><body bgcolor="#ffffff">
+<strong><font size="+2" face="Verdana, Arial, Helvetica, sans-serif">JDF Library Classoverview</font></strong>
+<p>
+
+<hr>
+<H3>
+<h5>JDFToolsLib, JDFWrapperCoreLib and JDFWrapperLib are three library parts that JDF Library consists of. <br><br>
+<a id="s1">Mouse click on any of the libraries below will show you its package structure</a>, the same as you see in Workspace window of Microsoft Visual C++. <br>
+The packages of JDFWrapperLib are grouped in the way to reflect the Specification design.<br>
+
+<UL ID="idList" Name="idList">
+    <LI OnClick="toggleJDFToolsLib()"
+	    OnMouseOver="flashMe(this, 'darkblue')"
+	    OnMouseOut="flashMe(this, 'black')"
+	    Title="The Packages of JDFToolsLib "
+	    STYLE="cursor: hand;"
+	    > JDFToolsLib
+	<UL ID="idJDFToolsLib"
+	    Name="idJDFToolsLib"
+	    STYLE="display: none; cursor: default;">
+	    <LI Title="input/output"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	    >io
+	    <LI Title="net"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	    >net
+	    <LI Title="util"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	    >util
+	    <LI Title="mime"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	    >mime
+	    <LI Title="lang"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	    >lang
+	  </UL>
+	<LI OnClick="toggleJDFWrapperCoreLib()"
+	    OnMouseOver="flashMe(this, 'darkblue')"
+	    OnMouseOut="flashMe(this, 'black')"
+	    Title="The Packages of JDFWrapperCoreLib "
+	    STYLE="cursor: hand;"
+	    >JDFWrapperCoreLib
+	  <UL ID="idJDFWrapperCoreLib"
+	    Name="idJDFWrapperCoreLib"
+	    STYLE="display: none; cursor: default;">
+	    <LI Title="wrappercore"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	      >wrappercore
+	    <LI Title="Lib"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	      >Lib
+	  </UL>
+	<LI OnClick="toggleJDFWrapperLib()";
+	    OnMouseOver="flashMe(this, 'darkblue')"
+	    OnMouseOut="flashMe(this, 'black')"
+	    Title="The Packages of JDFWrapperLib "
+	    STYLE="cursor: hand;"
+	    >JDFWrapperLib
+	<UL ID="idJDFWrapperLib"
+	    Name="idJDFWrapperLib"
+	    STYLE="display: none; cursor: default;">
+        <LI OnClick="window.event.cancelBubble=true"
+		  OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	      Title="The Packages of JDFWrapperLib "
+	      >JDFWrapper
+        <UL>
+	        <LI Title="JDFNode"
+	            OnClick="window.event.cancelBubble=true"
+				OnMouseOver="flashMe(this, 'blue')"
+	            OnMouseOut="flashMe(this, 'black')"
+	            >JDFNode
+	        <LI Title="JDFJMF"
+	            OnClick="window.event.cancelBubble=true"
+				OnMouseOver="flashMe(this, 'blue')"
+	            OnMouseOut="flashMe(this, 'black')"
+	            >JDFJMF
+	        <LI OnClick="window.event.cancelBubble=true"
+				OnMouseOver="flashMe(this, 'darkblue')"
+	            OnMouseOut="flashMe(this, 'black')"
+	            Title="Resources"
+	            >JDFResources
+	    	<UL>
+		    	<LI Title="IntentResources"
+	                OnClick="window.event.cancelBubble=true"
+					OnMouseOver="flashMe(this, 'blue')"
+	                OnMouseOut="flashMe(this, 'black')"
+	                >IntentResources
+	            <LI Title="IntentSubelements"
+	                OnClick="window.event.cancelBubble=true"
+					OnMouseOver="flashMe(this, 'blue')"
+	                OnMouseOut="flashMe(this, 'black')"
+	                >IntentSubelements
+	            <LI Title="ProcessResources"
+	                OnClick="window.event.cancelBubble=true"
+					OnMouseOver="flashMe(this, 'blue')"
+	                OnMouseOut="flashMe(this, 'black')"
+	                >ProcessResources
+		    	<LI Title="ProcessSubelements"
+	                OnClick="window.event.cancelBubble=true"
+					OnMouseOver="flashMe(this, 'blue')"
+	                OnMouseOut="flashMe(this, 'black')"
+	                >ProcessSubelements
+			</UL>
+	        <LI Title="JDFDeviceCapability"
+	            OnClick="window.event.cancelBubble=true"
+				OnMouseOver="flashMe(this, 'blue')"
+	            OnMouseOut="flashMe(this, 'black')"
+	            >JDFDeviceCapability
+	        <LI Title="JDFCore"
+	            OnClick="window.event.cancelBubble=true"
+				OnMouseOver="flashMe(this, 'blue')"
+	            OnMouseOut="flashMe(this, 'black')"
+	            >JDFCore
+	        <LI Title="Auto"
+	            OnClick="window.event.cancelBubble=true"
+				OnMouseOver="flashMe(this, 'blue')"
+	            OnMouseOut="flashMe(this, 'black')"
+	            >Auto
+          </UL>
+	    
+	    
+	    <LI Title="wrappercore"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	      >wrappercore
+	    <LI Title="Lib"
+	      OnClick="window.event.cancelBubble=true"
+	      OnMouseOver="flashMe(this, 'blue')"
+	      OnMouseOut="flashMe(this, 'black')"
+	      >Lib
+	  </UL>
+</UL>
+<br>Below you can find the appropriate description of these libraries.</h5>
+
+<p>&nbsp;
+</p>
+<hr>
+<h3>
+<a id="q1">JDFToolsLib</a></h3>
+<h5>This library of packages contains tools to provide support for JDFWrapperLib and JDFWrapperCoreLib libraries.<br>
+<br>
+  JDFToolsLib has the following structure:</h5>
+<h5>
+<ul>
+   <li><Font Face="Tahoma" size="2">io</Font> - Provides the classes for system input and output through data streams, serialization and the file system</li>
+   <li><Font Face="Tahoma" size="2">net</Font> - Provides the classes for implementing networking applications.</li>
+   <li><Font Face="Tahoma" size="2">util</Font> - Contains different utility classes (such as string tokenizer), classes for RegularExpressions support.</li>
+   <li><Font Face="Tahoma" size="2">mime</Font> - Provides the classes for MIME support</li>
+   <li><Font Face="Tahoma" size="2">lang</Font> - Provides the fundamental classes for C++ language such as WStirng, vectors (vint, vdouble, vWString...), maps</li>
+</ul>
+</h5><br>
+<hr><h3>
+<a id="q2">JDFWrapperCoreLib</a></h3>
+<h5>This library contains packages to provide support for defined in JDF data types (such as Shape, Rectangle, various lists, rangelists) and the core packages such as<br><br>
+<ul>
+<LI><Font Face="Tahoma" size="2">
+KElement </Font>
+- Simple wrapper around DOMElement. Additional vector functionality is also provided for tree walking 
+<LI><Font Face="Tahoma" size="2">
+XMLDoc</Font> 
+- Simple wrapper around DOMDocument. Additional io support
+<LI><Font Face="Tahoma" size="2">
+Parser</Font>
+</ul>
+<br><br>
+JDFWrapperCore packages wrap STL around Xerces to provide STL string support and STL vector support for tree walking. 
+That allows using of non type-safe DOM classes, i.e. classes that access elements and attributes based on strings only.
+It also provides some simple io functionality. Details can be found 
+<a class="qindex" href=jdfwrappercore/html/index.html>here</a></h5><br>
+
+<hr><h3><a id="q3">JDFWrapperLib</a></h3>
+<h5>The main library. It contains JDFWrapper packages and provides generic and typesafe support for Nodes, Messages, Resources, DeviceCapabilities and the core JDF packages.
+All automatically generated packages have the same grouping and are gathered into Auto package.<p> 
+To see more choose any package. The following list provides a quick overview of the <a href="#s1">class tree</a>. For a complete list, please refer to the full 
+<a class="qindex" href="jdfwrapper/html/index.html">documentation tree</a>.</h5> 
+<p>
+<h3>
+
+<UL ID="idStructure" Name="idStructure">
+
+<LI OnClick="toggleJDFWrapperJDFNode()"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    Title="The Packages of JDFNode "
+    STYLE="cursor: hand;"
+>JDFWrapper JDFNode
+<h5>Here you can find the packages that reflect general structure of JDF Nodes and Jobs (see JDF Specification 1.2 chapter 3). Among them are JDFNode, JDFAncestorPool, JDFCustomerInfo, JDFNodeInfo, JDFStatusPool,  JDFResourcePool, JDFResourceLinkPool, JDFAuditPool </h5>
+<UL ID="idJDFNode"
+    Name="idJDFNode"
+    STYLE="display: none; cursor: default;">
+
+<LI Type=disc 
+    Title="JDFNode"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFNode
+<h5>Access to the JDF Node and its direct children. No typesafe support for specific elements</h5>
+
+<LI Type=disc
+    Title="Container element for resources"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFResourcePool</LI>
+<h5>Access to the ResourcePool and all its children. No typesafe support for specific resources </h5>
+
+<LI Type=disc
+    Title="Container element for ResourceLink elements, which describe the input and output resources of the node"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFResourceLinkPool
+<h5>Access to the ResourceLinkPool and its children. Contains routines for access to the Resources in ResourcePool described by ResourceLinks.</h5>
+</UL>
+</LI>
+
+<LI OnClick="toggleJDFWrapperJDFJMF()"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    Title="The Packages of JDFJMF "
+    STYLE="cursor: hand;"
+>JDFWrapper JDFJMF
+<h5>The following packages provide both generic and typesafe support for Messages. All functionality is provided by JDFMessage.cpp and child classes.</h5>
+<UL ID="idJDFJMF"
+    Name="idJDFJMF"
+    STYLE="display: none; cursor: default;">
+<LI Type=disc
+    Title="JMF Root"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFJMF
+<h5>Access to JMF Root</h5>
+<LI Type=disc
+    Title="Abstract Message element"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFMessage
+    <h5>Typesafe access to the messages. Core routines for JMF messages including the 5 message families:<p>
+JDFAcknowledge<br>
+JDFCommand<br>
+JDFQuery<br>
+JDFResponse<br>
+JDFSignal<br></h5>
+</UL>
+</LI>
+
+<LI OnClick="toggleJDFWrapperJDFResources()"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    Title="The Packages of JDFResources "
+    STYLE="cursor: hand;"
+>JDFWrapper JDFResources
+<h5>Two packages provide typesafe access to all resources described in JDFSpecification. Additional two packages provide access to all subelements described in these Resources.  
+All of them are based on automatically generated classes that are created from the XML Schema. 
+All typesafe resources inherit from JDFResource. All their subelements inherit from JDFElement.
+Subelements are grouped into the appropriate packages </h5>
+<UL ID="idJDFResources"
+    Name="idJDFResources"
+    STYLE="display: none; cursor: default;">
+<LI Type=disc
+    Title="Intent Resources"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >IntentResources
+<h5>Typesafe access to JDF Intent Resources</h5>
+<LI Type=disc
+    Title="Process Resources"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >ProcessResources
+<h5>Typesafe access to JDF Process Resources</h5>
+</UL>
+</LI>
+
+
+<LI OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    Title="The Packages of JDFDeviceCapability "
+    STYLE="cursor: default;"
+>JDFWrapper JDFDeviceCapability
+<h5>Packages of JDFDeviceCapability are used to specify the Capabilities of various Devices. 
+These provide the typesafe access to elements and attributes and implement DeviceCapability functionality according to JDFSpecification.</h5>
+</LI>
+
+
+<LI OnClick="toggleJDFWrapperJDFCore()"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    Title="The Packages of JDFCore "
+    STYLE="cursor: hand;"
+>JDFWrapper JDFCore
+<h5>The following packages provide generic support for all Elements and Resources, but not typesafe support for specific elements.
+ Here also you can find JDF Factory package</h5>
+<UL ID="idJDFCore"
+    Name="idJDFCore"
+    STYLE="display: none; cursor: default;">
+<LI Type=disc
+    Title="JDF Element"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFElement
+<h5>Implementation of JDFElement. Provides an access to the elements and attributes of JDFElement and all classes inherited from it</h5>
+<LI Type=disc
+    Title="JDF RefElement"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFRefElement
+<h5>Implementation of JDFRefElement. Provides an access to the appropriate Element described by this RefElement</h5>
+<LI Type=disc
+    Title="Abstract Resource element"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFResource
+<h5>Implementation of JDF Resource. Provides an access to JDF Resources including partition support</h5>
+<LI Type=disc
+    Title="ResourceLink element"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFResourceLink
+<h5>Implementation of JDF ResourceLink. Provides an access to JDF ResourceLinks including partition support</h5></LI>
+<LI Type=disc
+    Title="Elements factory"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >JDFFactory
+<h5>Factory of elements</h5></LI>
+</UL>
+</LI>
+
+
+<LI OnClick="toggleJDFWrapperAuto()"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    Title="The automatically generated packages"
+    STYLE="cursor: hand;"
+>JDFWrapper Auto
+<h5>The Auto packages are automatically generated packages and created from the XML Schema.</h5>
+<UL ID="idJDFAuto"
+    Name="idJDFAuto"
+    STYLE="display: none; cursor: default;">
+<LI Type=disc
+    Title="Auto Node Packages"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >AutoNode
+<h5>Access to the automatically generated classes of JDFNode packages</h5>
+<LI Type=disc
+    Title="Auto JMF Packages"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >AutoJMF
+<h5>Access to the automatically generated classes of JDFJMF packages</h5>
+<LI Type=disc
+    Title="Auto Resource Packages"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >AutoResources
+<h5>Access to the automatically generated classes of JDFResources packages</h5>
+<LI Type=disc
+    Title="Auto Device Capability Packages"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >AutoDeviceCapability
+<h5>Access to the automatically generated classes of JDFDeviceCapability packages</h5>
+<LI Type=disc
+    Title="Auto Core Packages"
+    OnClick="window.event.cancelBubble=true"
+    OnMouseOver="flashMe(this, 'darkblue')"
+    OnMouseOut="flashMe(this, 'black')"
+    >AutoCore
+<h5>Access to the automatically generated classes of JDFCore packages</h5>
+</UL>
+</LI>
+
+</UL>
+<br>
+
+
+<hr>
+<address>
+<small>Hand-coded for the main documentation</small>
+</address>
+<hr>
+</body>
+</html>

@@ -1,0 +1,9 @@
+
+The html documentation can be generated with doxygen:
+http://www.doxygen.org/
+
+wrapper + wrappercore:
+doxygen jdfwrapper.dox
+
+jdftools
+doxygen jdf.cfg

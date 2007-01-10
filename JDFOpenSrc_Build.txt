@@ -1,0 +1,5 @@
+Label:		JDFOPENSRC_0.2
+Version:	JDFOpenSrc 0.2 mplementation
+ExeName:	Not yet available
+ExePath:	Currently only in this VOB
+Comment:	Library to modify JDF files

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Installation manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+  H2 {font-family: Arial;
+      font-weight: 700;
+      font-size: 12pt;}
+
+   H3 {font-family: Tahoma;
+      font-weight: 700;
+      font-size: 10pt;
+      color: black;
+     }
+   H4 {font-family: Tahoma;
+      font-weight: 500;
+      font-size: 10pt;
+      color: black;
+     }
+   H5 {font-family: Arial;
+      font-weight: 500;
+      font-size: 10pt;
+      color: black;
+     }-->
+</style>
+</head>
+
+<body>
+<h5>
+<h2>Step 2&nbsp;&nbsp; Install external packages (LibPng, Zlib, OpenSSL, Xerces, STL)<br>
+</h2>
+<br><h5>
+<strong>2 a &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIBPNG and ZLIB</strong><br><br>
+<strong>2 a 1 &nbsp;&nbsp;Download and extract LibPng</strong>
+<blockquote>
+  <h5>JDFTools uses PNG Library version 1.0.9 (lpng109.zip).&nbsp;&nbsp;&nbsp;&nbsp;<a href="LibPNG.htm" target="bottomFrame"><strong>!!!&nbsp;Note</strong></a><br>
+   The latest version of LibPng can be found at the PNG home page: 
+    <a href="http://www.libpng.org/pub/png" target="_blank">http://www.libpng.org/pub/png</a> or at <a href="ftp://ftp.uu.net/graphics/png/src" target="_blank">ftp://ftp.uu.net/graphics/png/src</a></h5>
+  <h5>Extract &nbsp;<code>Lpngxxx.zip</code>&nbsp; to &nbsp;<code>.\external\LipPng </code><br>
+  If neccesary, rename the directory in <code>.\external\libpng</code></h5>
+</blockquote>
+<h5><strong>2 a 2 &nbsp;&nbsp;Download and extract Zlib.zip</strong></h5>
+<blockquote>
+  <h5>JDFTools uses ZLIB version 1.13 (zlib113.zip). &nbsp;&nbsp;&nbsp;&nbsp;<a href="Zlib113.htm" target="bottomFrame"><strong>!!!&nbsp;Note</strong></a><br>
+    Zlib should be available at the same place that libpng is.<br>
+    If not, it should be at <a href="ftp://ftp.uu.net/graphics/png/src" target="_blank">ftp://ftp.uu.net/graphics/png/src</a> or at <a href="ftp://ftp.uu.net/pub/archiving/zip/zlib" target="_blank">ftp://ftp.uu.net/pub/archiving/zip/zlib</a></h5>
+  <h5>Extract &nbsp;<code>Zlib.zip</code>&nbsp; to &nbsp;<code>.\external\Zlib</code> <br>
+      If neccesary, rename the directory in <code>.\external\zlib</code><br>
+	  </h5>
+</blockquote>     
+<h5><strong>2 a 3 &nbsp;&nbsp;Create DLLs</strong></h5>
+  <blockquote>
+    <h5><strong>2.a.3.1</strong> Open Workspace &quot;<code>external\libpng\projects\msvc\libpng.dsw</code>&quot;</p>
+    <p><strong>2.a.3.2</strong> Open &quot;Menu -&gt; Build -&gt; Set Active Configuration...&quot; and select &quot;<code>libpng Win32 DLL</code>&quot; configuration<br>
+    <p><strong>2.a.3.3</strong> Run &quot;Menu -&gt; Build -&gt; Clean&quot;.  Ignore error messages ... (Could not find the file ...)</p>
+    <p><strong>2.a.3.4</strong> Open &quot;FileView -&gt; zlib files -&gt; Header Files&quot; in workspace window and select &quot;Properties&quot; of zlib.h. <br>&quot;Persist as&quot; should be &quot;<code>..\..\..\zlib\zlib.h</code>&quot; </p>
+    <p><strong>2.a.3.5</strong> Select &quot;Menu -&gt; Build -&gt; Rebuild all&quot;. Creates: zlib.lib, zlib.dll and libpng13.lib, libpng13.dll</p>
+    <p><strong>2.a.3.6</strong> Repeat Step 2.a.3 for  &quot;<code>libpng Win32 DLL Debug</code>&quot; ,&quot;<code>libpng Win32 Lib</code>&quot; and &quot;<code>libpng Win32 Lib Debug</code>&quot; configurations (see 2.a.3.2)<br>
+    </h5>
+</blockquote>
+ 
+<br><h3><a href="mainTop-2_Step1.htm"><img src="arrowLeft.gif" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;&nbsp;
+Next&nbsp;&nbsp;&nbsp;&nbsp;<a href="mainTop-2_Step2b.htm"><img src="arrowRight.gif" border="0"></a></h3>
+</body>
+</html>

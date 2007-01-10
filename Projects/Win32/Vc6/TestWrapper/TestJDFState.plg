@@ -1,0 +1,37 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TestJDFState - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\skobchen\LOCALS~1\Temp\RSP510.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /Zi /Od /I "..\..\..\..\external\stlport\stlport" /I "..\..\..\..\external\xerces\include" /I "..\..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "JDF_TOOLS_LIB" /D "JDF_WRAPPERCORE_LIB" /D "UNICODE" /D "_UNICODE" /FR"..\..\..\..\Build\Win32\VC6\Debug\obj\test/" /Fp"..\..\..\..\Build\Win32\VC6\Debug\obj\test/TestJDFState.pch" /YX"jdf.h" /Fo"..\..\..\..\Build\Win32\VC6\Debug\obj\test/" /Fd"..\..\..\..\Build\Win32\VC6\Debug\obj\test/" /FD /c 
+"D:\ClearCaseSnapshotView\Matternk_skobchenko_JDFLibJ_2.1.2_view\cmpINFRA_CommonParsers\JDFOpenSrc\tests\TestWrapper\TestJDFState.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\skobchen\LOCALS~1\Temp\RSP510.tmp" 
+Creating temporary file "C:\DOCUME~1\skobchen\LOCALS~1\Temp\RSP511.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /profile /debug /machine:I386 /nodefaultlib:"libc.lib" /out:"..\..\..\..\Build\Win32\VC6\Debug/TestJDFState.exe" /libpath:"..\..\..\..\external\stlport\lib" 
+\ClearCaseSnapshotView\Matternk_skobchenko_JDFLibJ_2.1.2_view\cmpINFRA_CommonParsers\JDFOpenSrc\Build\Win32\VC6\Debug\obj\test\JDFSimulator.obj
+\ClearCaseSnapshotView\Matternk_skobchenko_JDFLibJ_2.1.2_view\cmpINFRA_CommonParsers\JDFOpenSrc\Build\Win32\VC6\Debug\obj\test\MyArgs.obj
+\ClearCaseSnapshotView\Matternk_skobchenko_JDFLibJ_2.1.2_view\cmpINFRA_CommonParsers\JDFOpenSrc\Build\Win32\VC6\Debug\obj\test\MyTime.obj
+\ClearCaseSnapshotView\Matternk_skobchenko_JDFLibJ_2.1.2_view\cmpINFRA_CommonParsers\JDFOpenSrc\Build\Win32\VC6\Debug\obj\test\TestJDFState.obj
+..\..\..\..\Build\Win32\Vc6\Debug\jdftoolslib_D.lib
+..\..\..\..\Build\Win32\VC6\Debug\JDFWrapperLib_D.lib
+]
+Creating command line "link.exe @C:\DOCUME~1\skobchen\LOCALS~1\Temp\RSP511.tmp"
+<h3>Output Window</h3>
+Compiling...
+TestJDFState.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+TestJDFState.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

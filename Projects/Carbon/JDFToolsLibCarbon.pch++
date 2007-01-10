@@ -1,0 +1,5 @@
+#pragma precompile_target "JDFToolsLibCarbon.mch"
+
+#define MWERKS_PCH
+#include "JDFToolsLibCarbon.h"
+#undef MWERKS_PCH

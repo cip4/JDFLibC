@@ -1,0 +1,487 @@
+
+InetAddress:
+* 092602 RP removed printf statements
+
+
+JDFAutoXXX:
+// 270602 RP RefYYY: the reference values now return a JDFRefElement
+// 270602 RP removed IsRefElement check from GetInvalidElements	
+// 270602 RP renamed GetXXX(bCreate) ->GetCreateXXX
+// 270602 RP added iSkip to GetXXX(= where appropriate
+// 270602 RP AppendXXX calls GetCreateXXX if one is max.
+
+KElement:
+// 300402 RP added bInherit to HasAttribute,
+// 300402 RP added def to GetInheritedAttribute()
+// 060502 RP made HasAttribute() virtual and call KElement::GetAttribute
+// 080502 RP added bInherit to HasAttribute() 
+// 220502 RP renamed protected fuction GetDeepElement() to GetDeepElementByID()
+// 270502 RP renamed GetElement (not const) to GetCreateElement
+// 270502 RP added GetCreateXPathElement
+// 140802 RP DeleteNode(), HasChildNodes(), HasAttributes(): added throwNull check
+// 200802 RP clean up DeleteNode
+// 300802 RP NumChildElements: inlined FitsName()
+// 060902 RP DeleteNode() also gracefully handle previosly deleted nodes (parent=Null)
+// 060902 RP AppendElementN() added
+// 060902 RP added getters / setters for XML Comments and CData sections
+// 060902 RP AppendCDATA, AppendXMLComment etc. now are void (used to return DOM_CDATA...)
+
+KNode:
+// 070502 RP added SetDirty 
+// 070502 RP GetParentNode now returns KNode and is const
+// 140802 RP DeleteNode added throwNull check
+// 200802 RP clean up DeleteNode
+// 210802 RP GetParentNode replace isNull() with throwNull()
+// 210802 RP using namespace --> namespace	
+
+JDF.h:
+// 180602 RP rordered and made compatible with JDF 1.1
+
+JDFAmountPool:
+// 260602 RP changed inheritance to JDFAutoAmountPool and removed excess routines
+//           added GetPartAmount() pass throughs to JDFAutoAmountPool
+//           added AppendPartAmount(mAttribute), Removemount(mAttribute)
+
+JDFAncestor:
+* 120902 RP GetAncestorPool() added
+
+JDFAncestorPool:
+* 150102 RP added Part element support
+* 020502 RP added GetPoolChild, GetPoolChildren
+* 020502 RP added CopyNodeData
+* 180502 RP added GetAncestorAttribute(), HasAncestorAttribute()
+* 290502 | RP | added GetAncestorElement(), HasAncestorElement()
+// 210602 RP changed calls to protected _XXX() to XXXGeneric()
+// 170902 RP CopyNodeData() cleanup for differing spawns
+
+JDFAudit:
+// 180700 RP MyString -> KString : all strings now 16 bit
+// 040900 RP renamed JDFProcess to JDFNode
+// 201100 RP cleanup + comment
+// 170501 RP added GetPartMap, GetPartMapVector
+// 050601 RP merge AutoAudit stuff into JDFAudit
+// 240102 RP add SpawnID support
+// 200802 RP ValidTimeStamp() changed datatype 
+//           GetInvalidAttributes() added call to ValidTimeStamp()
+// 120902 RP GetAuditPool() added
+
+JDFAuditPool:
+// 040900 RP renamed JDFProcess to JDFNode
+// 080102 RP SetPhase modified first parameter to be JDFPhaseTime::EnumStatus
+// 130202 RP added IsAbstract, removed IsValid 
+// 210302 RP GetAudits added const mAttribute &mAttributes=mAttribute() also fixed inversion logic bug
+//			 GetAudit modified 3rd parameter to const mAttribute &mAttributes=mAttribute()
+// 220302 RP remove GetPoolChildName
+// 210602 RP changed calls to protected _XXX() to XXXGeneric()
+// 230802 RP Bug Fix of misalligned brackets in GetAudits()
+* 130902 RP GetLinkedResources now returns vResource
+
+JDFCommand:
+* 160602 RP init() Also call super::init()
+
+JDFContact:
+* 070602 RP added support for extended ContactTypes
+
+JDFContentObject:
+// 030602 RP init() removed SetType()
+
+JDFCoverApplication:
+//  270602 RP removed
+
+JDFCustomerInfo:
+* 260302 RP added GetHRefs()
+* 130902 RP GetLinkedResources now returns vResource
+
+JDFCuttingParams:
+// 050702 RP added ConsistentPartIDKeys()
+
+JDFDevCap:
+// 080802 RP created
+
+JDFDevCaps:
+// 080802 RP created
+
+JDFDeviceCap:
+// 080802 RP created
+
+JDFDoc:
+// 300802 RP GetJDFNodeByID(const KString & ID)const added
+
+JDFElement:
+// 300402 RP add SettingsPolicy Support
+// 300402 RP removed AppendElement - it is now only in KElement
+// 020502 RP added IsJDFNode()
+// 070502 RP added RemoveChild() / RemoveChildren
+// 080502 RP GetEnumerationsAttribute() bug fix in loop counter
+// 160502 RP removed GetTarget(int id,const KString & attrib) const;
+// 180502 RP GetJDFRoot, GetJMFRoot now const
+// 290502 RP GetLinks added rSubRef check to map of checked attributes
+// 300502 RP added NamedColor support
+// 300502 RP GetElement - added a check that returns the refElement if a refElement is explicitly required
+// 180602 RP added GetSchemaURL()
+// 190602 RP ValidAttribute() added catch IllegalArgumentException where appropriate
+// 200602 RP ValidAttribute() added enumeration types AttributeType_dateTime,AttributeType_duration
+// 260602 RP RefElement() changed return type to JDFRefElement and modified usage for parts
+// 010702 RP RefElement bug fix for ResourceElements
+// 020702 RP added GetRefString()
+// 020702 RP reintroduced GetNameVector()
+// 020702 RP GetChildElementVector() now does not follow references
+// 050702 RP GetInvalidElements() bug fix for refElement
+// 200802 RP EnumNamedColor typo fix for clearlightgray
+// 260802 RP GetComment(iSkip) implemented iSkip support
+// 300802 RP GetChildElementVector() now skips invalid refelements
+// 040902 RP IncludesAttribute() added support for NMTOKENS
+// 050902 RP GetChildIds() added ! to throwNull check
+// 060902 RP moved all remaining refElement handling from JDFResource to JDFElement and cleaned up refElement
+// 060902 RP UniqueID made string a bit longer for uniqueness
+// 120902 RP IsAudit() added
+// 120902 RP GetHRefs() fixed handling of references in audit elements
+// 250902 RP UniqueID() addeed "_" between time and number generated part
+
+JDFFactory:
+* 020902 RP Added QueueEntyDefList
+
+JDFFileSpec:
+* 020702 RP Added ValidAppOS
+
+JDFIntentResource:
+// 260102 RP Added AppendXXX and the const GetXXX routines
+// 260602 RP removed the typed Get / GetCreate / Append routines
+// 260602 RP GetXXX -> GetCreateXXX
+
+JDFJMF:
+// 180700 RP MyString -> KString : all strings now 16 bit
+// 121101 RP remove type argument to get / set
+//		     added AppendXXX methods
+// 031201 RP renamed GetMessage to GetAnyMessage to avoid windows GetMessage macro redefinition
+// 130602 RP modifications in GetMessageElement()
+// 150602 RP added GetInvalidElements(), RequiredElements()
+// 160602 RP added EnumTyp to calls of AppendCommand/Response/...
+// 180602 RP init() added call to GetSchemaURL()
+// 040702 RP added ValidVersion()
+// 040702 RP init() added call to SetVersion()
+// 120802 RP removed GetInvalidElements(), OptionalElements() - these are handled by JDFAutoJMF
+// 270902 RP added RequiredAttributes for xmlns handling
+JDFJobSheet:
+// 270602 RP removed -> replaced by JDFIDPJobSheet
+
+JDFLayoutElement:
+* 020702 RP Added ValidElementType
+
+JDFMarkObject
+// 030602 RP init() removed SetType()
+
+JDFMedia
+* 050602 RP added ValidMediaType() to correctly handle explicit Unknown enumeration
+* 050602 RP de-inlined copy constructor
+
+JDFMerged:
+* 090102 RP added MergeID handling
+* 180602 RP removed MergeID handling - now done in JDFAutoMerged
+
+JDFMessage:
+// 160602 RP added IsValidMessageElement() and all detailed mesaage element manipulation
+// 230802 RP GetValidTypeVector() added Status to valid types of "Queue"
+// 300802 RP IsValidMessageElement() now returns true if not in JDF namespace
+//        RP added DeviceList Support
+//        RP added QueueEntryDefList Support
+
+JDFNode:
+// 210302 | RP | added UnSpawn
+// 300402 | RP | modified activation list
+// 300402 | RP | added ProjectID support
+// 020502 | RP | modified GetParentJDFNode()
+// 030502 | RP | added 	bSpawnROPartsOnly to Spawn(...) and AddSpawnedResources(...)
+// 180502 | RP | added GetAncestorAttribute(), HasAncestorAttribute()
+// 270502 | RP | GetMatchingLinks() minor bug fixes
+// 290502 | RP | renamed UnSpawn to UnSpawnNode()
+// 290502 | RP | added GetAncestorElement(), HasAncestorElement()
+// 100602 | RP | fixed StatusPool Handling in UnspawnNode() and SetPartStatus()
+// 110602 | RP | GetMissingLinkVecor() bug fix
+// 110602 | RP | removed GetAncestorNode -> use GetParentJDFNode instead
+// 110602 | RP | calls to GetInheritedAttribute replaced by calls to GetAncestorAttribute
+// 140602 | RP | calls to HasAttribute replaced by calls to HasAncestorAttribute
+// 140602 | RP | AddSpawnedResources() bug fix for appending to rRefsRO / rRefsRW, remove call to SetLocked for root of partitioned resource
+// 180602 | RP | MergePartition added calls to Expand() and Collapse()
+// 200602 | RP | AddSpawnedResources() bug fix for  rRefsRW
+// 260602 | RP | SetAmount() removed - was only useful for prototyping. Use dedicated SetAmount for the appropriate resources + ResourceLinks instead
+// 260602 | RP | Added typesafe Tool Support
+// 010702 | RP | AddSpawnedResources() bug fix for locks of partitioned resources
+// 010702 | RP | GetAncestorIDs() inverted sequence
+// 010702 | RP | AddSpawnedResources() bug fix for referenced resources in local resources
+// 080802 | RP | StatusString() is now public
+// 120802 | RP | Added Preview to list of potential generic resources
+// 120802 | RP | GetMatchingIndex() add check for "*"
+// 150802 | RP | enabled bInherit for Version attribute
+// 160802 | RP | AddSpawnedResources() Massive cleanup for rRef referenced resources
+//        | RP | Spawn() Gracefully handle implied partitions
+// 190802 | RP | GetChildJDFNode(id) added
+// 300802 | RP | Spawn fixed handling of http / file prefix in SpawnURL
+// 050902 | RP | AddSpawnedResources() major overhaul
+// 050902 | RP | UnSpawnNode() major overhaul
+// 100902 | RP | MapEnumToInfo > --> >=
+// 130902 | RP | GetLinkedResources added
+
+JDFNodeCombined:
+// 290502 RP LinkInfo() remove required exchange resources from list
+// 240602 RP LinkInfo() fix for removing required exchange resources from list
+
+JDFNodeInfo:
+* 260302 RP added GetHRefs()
+* 130902 RP GetLinkedResources now returns vResource
+* 270902 added ValidDueLevel for explicit "Unknown"
+
+JDFNodeProduct:
+// 120700 RP GetLink added
+// 180700 RP MyString -> KString : all strings now 16 bit
+// 180700 RP AddInkingIntent added
+// 230802 RP AddProduct() Added call to init() 
+
+JDFPartAmount:
+// 260602 RP OptionalAttributes() added list of attributes that are NOT inherited from JDFResourceLink
+
+JDFPartStatus:
+// 030902 RP changed inheritance to JDFAutoPartStatus and removed duplicate routines
+
+JDFPhaseTime:
+* 260602 RP added ValidStatus to reduce the list of allowed values
+
+JDFPool:
+// 300401 RP added some refelement support for nodeinfo and customerinfo
+// 170501 RP added AppendUnique with JDFPool as parameter
+// 220302 RP remove GetPoolChildName, AddPoolElement
+// 020502 RP remove 		AddResID, GetHRefs GetvHRefRes
+// 210602 RP renamed protected _XXX() to XXXGeneric()
+
+JDFPreflightGroup:
+*270602 RP removed
+
+JDFPreflightConstraintsPool
+* 030902 RP IsValid() removed erroneous check for maxOccurs=1 of  PreflightConstraint
+
+JDFPreflightResultsPool
+* 030902 RP IsValid() removed erroneous check for maxOccurs=1 of  PreflightDetail and PreflightInstance
+
+JDFProcessRun:
+* 260602 RP modified ValidStatus to reduce the list of allowed values
+
+JDFQuery:
+* 160602 RP init() Also call super::init()
+
+JDFRefElement:
+// 150302 RP modified GetTarget to handle parts
+//        RP added part handling
+//        RP added OptionalElements
+// 260302 RP added InlineRef
+// 300402 RP modified GetTarget for parts pointing to elements that are not 
+// 290502 RP added DeleteRef 
+// 260602 RP added Part support
+// 050702 RP IsValid() added factory for recursive check; added call to ValidResourcePosition()
+// 050702 RP added ValidResourcePosition()
+// 260802 RP GetTarget() now returns null for invalid names
+
+JDFResource:
+// 300402 RP modified IsValid to include the factory call for GetLeaves
+// 300402 RP added new JDF 1.1 routines: UpdateID, PartUsage, PartID enumeration handling
+// 300402 RP removed GetPartition (int i)
+// 060502 RP removed GetAllAttributeVector()
+// 060502 RP removed GetMissingAttributeVector()
+// 060502 RP removed GetUnknownAttributeVector()
+// 060502 RP removed RequiredElements()
+// 060502 RP added RequiredRootAttributes()
+// 060502 RP added OptionalRootAttributes()
+// 060502 RP added OptionalPartAttributes()
+// 060502 RP put back HasAttribute()
+// 080502 RP GetPartition(), GetPartValues() also use enumerated PartIDKeys
+// 270502 RP AddPartition() - modified to simply call GetPartition
+// 070602 RP mofified calls to AppendAttribut("PartIDKey") to have bUnique=true.
+// 070602 RP changed return value of AddPartIDKey to void
+// 070602 RP replaced all IsValid and ValidElement() entries with those from the JDF 1.1 generator
+// 140602 RP GetInvalidAttributes() added consistency check with PartIDKeys
+// 140602 RP added virtual ConsistentPartIDKeys()
+// 190602 RP GetLeaves() added throwNull check
+//           Collapse() / Expand() added element support
+//           MergePartition added Collapse / Expand 
+// 200602 RP Collapse() modified handling of non-identical elements
+// 260602 RP RefElement(removed) The JDFElement version is sufficient
+// 270602 RP GetElement --> GetCreateElement for non const version
+//        RP GetDeepPart / GetPartition removed bCreate and added GetCreateDeepPart, GetCreatePartition
+// 020702 RP Collapse() Bug fix for ResourceRefs
+// 050802 RP AddPartition() Bug Fix
+// 140802 RP Collapse() added bool bCollapseToNode option
+//        RP Expand() added bool bDeleteFromNode option
+// 150802 RP GetDeepPart() now returns the last matching node if bIncomplete=true
+//        RP GetPartUsage() now defaults to PartUsage_Explicit
+//        RP GetSpawnStatus() now defaults to SpawnStatus_NotSpawned
+// 160802 RP MergePartition() Gracefully handle implied partitions
+// 030902 RP GetDeepPartVector() GetPartitionVector() added routines
+//        RP GetDeepPart now internally calls GetDeepPartVector()
+// 040902 RP SpawnPart(const KString & SpawnID, const vmAttribute& vParts) added
+// 040902 RP UnSpawnPart(const KString & SpawnID, const vmAttribute& vParts) added
+// 040902 RP GetNodesWithSpawnID() added
+// 050902 RP GetDeepPartVector() fixes for really weird configurations...
+// 050902 RP MergePartition() fixes for really weird configurations...
+// 050902 RP GetNodesWithSpawnID() added
+// 060902 RP moved all remaining refElement handling from JDFResource to JDFElement and cleaned up refElement
+// 060902 RP MakeRootResource cosmetics for link names
+// 120902 RP GetResourcePool() added
+// 160902 RP GetDeepPartVector() slightly modified algorithm for finding the closest next element
+// 180902 RP MergePartition made parameters const
+// 240902 RP MergePartition changed 2. Parameter from vParts to SpawnID
+// 250902 RP GetLeaves() added bIntermediate
+// 250902 RP GetPartMapVector() added 
+// 260902 RP ReducePartVector() added 
+// 260902 RP MergeSpawnIDs(const JDFResource& resToMerge) added
+
+
+JDFResourceLink:
+// 120700 RP added Get/SetProcessUsage
+// 180700 RP MyString -> KString : all strings now 16 bit
+// 030501 RP now inherits from JDFElement
+// 161101 RP GetProcessUsage and GetLinkedResourceName are now 2 sepaarte functions
+// 061201 RP completely removed selector handling
+// 070102 RP HasResourcePartMap bug fix if no parts in this - now returns true for no parts in this
+// 150302 RP removed JDFResource GetPartition(bool bCreate=false, int i=0);
+//        RP added AppendPart
+//        RP added CombinedProcessIndex, PipeProtocol support
+//        RP added AmountPool
+//        RP added Transformation + Orientation support
+//        RP removed GetAmount(bool bSelector)
+//        RP removed GetPartTarget(int iPart=0,int iSelector=-1);
+// 030502 RP modified GetNamedProcessUsage to default to xxx:Input / xxx:Output respectively
+// 080502 RP SetPartition() now uses JDFResource::EnumPartIDKey
+// 160502 RP added GetTarget
+// 160502 RP GetTargetVector is now const
+// 050602 RP added GetTarget()
+// 200602 RP GetInvalidElements() added AmountPool check
+//        RP OptionalAttributes(),GetInvalidAttributes: added support for implementation resources
+//        RP added support for Recommendation,Start,StartOffset,Duration
+// 260602 RP changed implementation of GetPartMapVector()
+//        RP init() removed call to SetInput() 
+//        RP SetInput(), IsInput() removed - Use Get/SetUsage() instead
+// 050702 RP IsValid() added factory for recursive chack; added call to ValidResourcePosition()
+//        RP added ValidResourcePosition()
+//        RP IsLocal() cleanup
+// 080702 RP IsValid() bug fix for dangling links
+// 150802 RP GetTarget now based on GetTargetVector
+//        RP GetTargetVector modified to evaluate PartUsage and added nMax
+// 260802 RP GetStatus() now uses GetTarget()
+// 260802 RP SetStatus() now uses GetTargetVector()
+//        RP IsResourceSelected() added
+// 120902 RP GetResourceLinkPool() added
+// 260902 RP ReduceParts() added
+
+JDFResourceLinkPool:
+// 270401 RP added IsValid()
+// 030501 RP now inherits from JDFPool
+// 120202 RP added IsAbstract
+// 020502 RP added GetPoolChild, GetPoolChildren
+// 080502 RP GetPartValues() first parameter is now JDFRessource::EnumPartIDKey
+// 210602 RP changed calls to protected _XXX() to XXXGeneric()
+* 130902 RP GetLinkedResources now returns vResource
+
+JDFResourcePool:
+// 030501 RP now inherits from JDFAutoResourcePool
+// xxyy01 RP back to inheriting from JDFPool
+// 050401 TG CopyResource: setting the SpawnStatus after copying the node
+// 060601 TG CopyResource: don't add partitions in unpartitioned resources
+//                         to set the spawn status
+// 071101 RP CopyResource  fixed HRefs handling
+// 101201 RP CopyResource added spawnID parameter
+// 060202 RP CopyResource does not add new partitions any more
+// 070202 RP removed AddDevice, AddOperator, AddScan and AddPDF
+// 020502 RP added GetPoolChild, GetPoolChildren
+// 180602 RP GetInvalidElements - added factory
+// 210602 RP changed calls to protected _XXX() to XXXGeneric()
+// 050902 RP CopyResource() also track rrefs of resourecs that are here
+
+JDFResponse:
+* 160602 RP init() Also call super::init()
+
+JDFRoot:
+// 080102 RP SetSpawnParent the ordering of the ancestor elements was reversed!
+// 090102 RP Merge added SpawnID support
+// 150102 RP SetSpawnParent added vSpawnParts
+// 230102 RP init() added xmlns definition 
+// 070202 RP GetParentIDs add check for real resource
+// 180502 RP SetSpawnParent() also copy additional data to the ancestors, the first parameter is now const, return is void
+// 290502 RP added UnSpawn 
+// 010702 RP SetSpawnParent the ordering of the ancestor elements was still reversed!
+// 020702 RP MergeJDF fixed Ancestor ordering
+// 080802 RP MergeJDF gracefully handle any ancestor ordering 
+// 300802 RP MergeJDF fixed handling of http / file prefix in MergeURL
+// 050902 RP MergeJDF fixed handling of weird configurations
+// 160902 RP MergeJDF() now throws an exception if the same merge has already occurred
+// 170902 RP SetSpawnParent() cleanup
+
+
+
+JDFRunList:	
+// 180602 RP added ConsistentPartIDKeys()
+// 130902 RP GetCommonURLFileSpecMap() added
+
+JDFSeparationList:
+// 110602 newly created
+
+JDFSignal:
+* 160602 RP init() Also call super::init()
+
+JDFSpan:
+// 310502 RP added DurationSpan and ShapeSpan support
+// 310502 RP GetName() now calls GetLocalName
+// 310502 RP JDFSpanBase::GetInvalidAttributes() modified
+// 310502 RP JDFStringSpan::GetRange() modified
+
+JDFSpawned:
+* 090102 RP added NewSpawnID handling
+// 180602 RP Removed NewSpawnID and URL handling -> now done by JDFAutoSpawned
+
+JDFState:
+// 080802 RP Modified for JDF 1.1a
+// 160802 RP type type for Name attribute - now KString
+//        RP removed all init() routines. They became redundant in JDF 1.1 since DataType is no longer required
+
+JDFStatusPool:
+// 130802 RP added GetPoolChild, GetPoolChildren
+
+JDFStripBinding:
+* 020702 RP added support for deprecated VeloBindingParams
+
+JDFSurface:
+// 140602 RP added virtual ConsistentPartIDKeys()
+
+JDFTranferCurve:
+// 180602 RP added ConsistentPartIDKeys()
+
+MyDate:
+// 2000-04-14 RP added settime, setdate
+// 2000-07-11 RP SetOffset: added call to Refresh()
+// 2000-09-14 RP added duration and DurationISO
+// 2002-01-11 RP added constructor MyDate(const MyDate& other) and operator = MyDate
+// 2000-12-20 MM added constructor MyDate(const KString & aTime) 
+// 2002-01-30 MG added constructor MyDate(const time_t tsec) 
+// 2002-01-30 MG added GetSecondsSince1970 
+// 2002-07-08 MG added int SetTimeOverflow(int h, int m=0, int s=0)	
+// 2002-07-08 MG added void SetDate(int y, int m, int d,int carry) 
+// 2002-07-08 MG added int SetDayOverflow(int d,int m,int y)
+// 2002-07-08 MG added int SetMonthOverflow(int m)
+// 2002-07-12 SF remove mac exclusion
+// 2002-08-27 RP replace std:string with KString
+// 2002-09-24 RP ISOTimeZone() bug fix for negative time zones, used to print --
+
+
+MyUti;
+// 150802 RP min and max templates are only defined for WIN32. Any predefined min/max macros are explicitely undefined 
+// 150802 RP #pragma warnings are #ifdef WIN32
+
+WStringBase:
+// 260802 RP WStringBase<T>::operator=() fix NULL pointer bug for mbstowcs call
+
+XMLDoc:
+// 020702 RP XXXParse added call to doSchema(bValidate)
+
+XMLstrm:
+// 180700 RP MyString -> KString : all strings now 16 bit
+// 060301 RP now always escapes <>&
+// 230102 RP added xmlns check to streamoutNSDefs
+// 060902 RP added \n to write CDATA
