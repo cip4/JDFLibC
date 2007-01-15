@@ -96,7 +96,6 @@
 #include <jdf/io/BufferedOutputStream.h>
 
 #include <xercesc/util/XMLUniDefs.hpp>
-#include <typeinfo> //SF160502 needed by STLPORT, otherwise typeid::operator== is undefined //AXEL20020906
 
 
 #ifdef __MWERKS__
@@ -1163,12 +1162,12 @@ int MIMEParser::parseLine(char* s, int len, int type, bool lastLine)
 		{
 			std::vector<MIMEHeader> h;
 
-			if (typeid(*m_headerParent) == typeid(MIMEBasicPart))
+			if (m_headerParent->mimeObjType == MIMEComponent::MIMEObjType_BasicPart)
 			{
 				mimeBasicPart = (MIMEBasicPart*) m_currentMessage;
 				mimeBasicPart->addHeader( m_previousHeaderName.c_str(), WString ("\r\n") +  WString(s, len ) );
 			}
-			else if (typeid(*m_headerParent) == typeid(MIMEMessagePart) )
+			else if (m_headerParent->mimeObjType == MIMEComponent::MIMEObjType_MessagePart)
 			{  // Ignore!!
 
 				m_currentMimeMessage->addHeader( m_previousHeaderName.c_str(), WString ("\r\n") +  WString(s, len ) );
@@ -1269,7 +1268,7 @@ int MIMEParser::parseLine(char* s, int len, int type, bool lastLine)
 			
 			// change header parent
 			// todo multipart
-			if ( m_nextHeaderParent != NULL && !( typeid(*m_nextHeaderParent) == typeid(MIMEMultiPart)) )
+			if ( m_nextHeaderParent != NULL && !( m_nextHeaderParent->mimeObjType == MIMEComponent::MIMEObjType_MultiPart) )
 				m_headerParent = m_nextHeaderParent;
 		}
 	}
@@ -1679,21 +1678,21 @@ void MIMEParser::addHeader( const std::string& name, const std::string& value, b
 		m_headerQueue.push_back( mi );
 	}
 	
-	else if ( typeid(*m_headerParent) == typeid(MIMEMessage) )
+	else if ( m_headerParent->mimeObjType == MIMEComponent::MIMEObjType_Message )
 	{
 		mimeMessage = (MIMEMessage*) m_headerParent;
 		mimeMessage->addRHeader( name.c_str(), value.c_str() );
 		m_previousHeaderName = name;
 	}
-	else if ( m_emptyLineNo > 0 || (typeid(*m_headerParent) == typeid(MIMEBasicPart) && m_fSeenBoundary))
+	else if ( m_emptyLineNo > 0 || (m_headerParent->mimeObjType == MIMEComponent::MIMEObjType_BasicPart) && m_fSeenBoundary)
 	{
-		if (typeid(*m_headerParent) ==typeid(MIMEBasicPart) )
+		if (m_headerParent->mimeObjType ==  MIMEComponent::MIMEObjType_BasicPart )
 		{
 			mimeBasicPart = (MIMEBasicPart*) m_headerParent;
 			mimeBasicPart->setHeader( name.c_str(), value.c_str() );
 			m_previousHeaderName = name;
 		}
-		else if ( typeid(*m_headerParent) ==typeid(MIMEMessagePart) || typeid(*m_headerParent) ==typeid(MIMEMultiPart) )
+		else if ( m_headerParent->mimeObjType ==  MIMEComponent::MIMEObjType_MessagePart || m_headerParent->mimeObjType ==  MIMEComponent::MIMEObjType_MultiPart )
 		{
 			mimeMessage = (MIMEMessage*) m_currentMimeMessage;
 			mimeMessage->addRHeader( name.c_str(), value.c_str() );
@@ -1800,7 +1799,7 @@ void MIMEParser::setData( const mimeInfo& mi )
 			m_mimeInfoQueue.push_back( mi );
 		else
 		{
-			if ( typeid(*m_currentMessage) == typeid(MIMEBasicPart) )
+			if ( m_currentMessage->mimeObjType ==  MIMEComponent::MIMEObjType_BasicPart )
 			{
 				mimeBasicPart = (MIMEBasicPart*) m_currentMessage;
 				int encoding;
@@ -1812,7 +1811,7 @@ void MIMEParser::setData( const mimeInfo& mi )
 					m_qp = true;
 			}
 			
-			else if ( typeid(*m_currentMessage) == typeid(MIMEMessagePart) )
+			else if ( m_currentMessage->mimeObjType ==  MIMEComponent::MIMEObjType_MessagePart )
 			{
 				mimeMessagePart = (MIMEMessagePart*) m_currentMessage;
 				int encoding;
@@ -1820,7 +1819,7 @@ void MIMEParser::setData( const mimeInfo& mi )
 				encoding = mime_translateMimeEncodingType( mi.m_value );
 				mimeMessagePart->setContentEncoding( encoding );
 			}
-			else if ( typeid(*m_currentMessage) ==typeid(MIMEMultiPart) )
+			else if ( m_currentMessage->mimeObjType ==  MIMEComponent::MIMEObjType_MultiPart )
 			{
 				MIMEMultiPart* mimeMultiPart = (MIMEMultiPart*) m_currentMessage;
 				int encoding = mime_translateMimeEncodingType( mi.m_value );
@@ -2507,13 +2506,13 @@ int MIMEParser::getCurrentParentType()
 		
 		if ( o != NULL )
 		{
-			if ( typeid(*o) == typeid(MIMEBasicPart) )
+			if ( o->mimeObjType ==  MIMEComponent::MIMEObjType_BasicPart )
 				return MIMEMessage::BASICPART;
 
-			else if ( typeid(*o) == typeid(MIMEMultiPart) )
+			else if ( o->mimeObjType ==  MIMEComponent::MIMEObjType_MultiPart )
 				return MIMEMessage::MULTIPART;
 			
-			else if ( typeid(*o) == typeid(MIMEMessagePart) )
+			else if ( o->mimeObjType ==  MIMEComponent::MIMEObjType_MessagePart )
 				return MIMEMessage::MESSAGEPART;
 		}
 	}
@@ -2540,7 +2539,7 @@ WString MIMEParser::getCurrentBoundary()
 		{
 			MIMEComponent* o = m_currentParent[i - 1];
 			
-			if ( o != NULL && typeid(*o) == typeid(MIMEMultiPart) )
+			if ( o != NULL && o->mimeObjType == MIMEComponent::MIMEObjType_MultiPart )
 				return ( (MIMEMultiPart*) o )->getBoundary();
 		}
 	}
@@ -2570,7 +2569,7 @@ void MIMEParser::unwindCurrentParent( char* s, int len, bool deleteIt)
 		{
 			MIMEComponent* o = m_currentParent[i - 1];
 			
-			if ( o != NULL && typeid(*o)== typeid(MIMEMultiPart) && boundary.startsWith(((MIMEMultiPart*) o)->getBoundary(),0 ) )
+			if ( o != NULL && (o->mimeObjType==MIMEComponent::MIMEObjType_MultiPart) && boundary.startsWith(((MIMEMultiPart*) o)->getBoundary(),0 ) )
 			{
 				if ( deleteIt )
 				{
@@ -2581,7 +2580,7 @@ void MIMEParser::unwindCurrentParent( char* s, int len, bool deleteIt)
 					{
 						o = m_currentParent.back();
 						
-						if ( typeid(*o) ==  typeid(MIMEMultiPart) )
+						if ( o->mimeObjType == MIMEComponent::MIMEObjType_MultiPart )
 							return;
 						m_currentParent.pop_back();
 					}
@@ -2599,17 +2598,17 @@ void MIMEParser::checkForEmptyMessages( MIMEComponent* o )
 	if ( o == NULL )
 		throw MIMEException( MIMEHelper::szERROR_BAD_PARAMETER );
 	
-	if ( typeid(*o) == typeid(MIMEMessage ) )
+	if ( o->mimeObjType == MIMEComponent::MIMEObjType_Message  )
 	{
 		checkForEmptyMessages( ((MIMEMessage*) o)->getBody(false) );
 	}
 	
-	else if ( typeid(*o) == typeid(MIMEBasicPart) )
+	else if ( o->mimeObjType == MIMEComponent::MIMEObjType_BasicPart )
 	{
 		//if ( ((MIMEBasicPart*) o)->getMessageDataLen() == 0 )
 		//	throw MIMEException( MIMEHelper::szERROR_EMPTY_MESSAGE );
 	}
-	else if ( typeid(*o) == typeid(MIMEMultiPart) )
+	else if ( o->mimeObjType == MIMEComponent::MIMEObjType_MultiPart )
 	{
 		MIMEMultiPart* m = (MIMEMultiPart*) o;
 		int count = m->getBodyPartCount();
@@ -2620,7 +2619,7 @@ void MIMEParser::checkForEmptyMessages( MIMEComponent* o )
 			checkForEmptyMessages( part );
 		}
 	}
-	else if ( typeid(*o) == typeid(MIMEMessagePart) )
+	else if ( o->mimeObjType == MIMEComponent::MIMEObjType_MessagePart )
 	{
 		WString cst = (((MIMEMessagePart*)o)->getContentSubType()).second.trim();
 		

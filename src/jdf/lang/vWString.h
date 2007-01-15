@@ -464,6 +464,12 @@ namespace JDF
 		*/
 		void sort(int first=0, int last=-1);
 
+		/**
+		* get a WString representation
+		* @return WString
+		*/
+		WString toString();
+
 	private:
 
 		void * pBase;

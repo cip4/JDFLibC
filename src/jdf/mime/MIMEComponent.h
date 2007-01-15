@@ -119,8 +119,14 @@ class JDFTOOLS_EXPORT MIMEComponent
 {
 public:
 
-	MIMEComponent() {}
+	MIMEComponent() { mimeObjType=MIMEObjType_Unknown; }
 	virtual ~MIMEComponent() {}
+	
+	// enumerator for the different types of MIME objects
+	enum EnumMIMEObjType{MIMEObjType_Unknown,MIMEObjType_BodyPart,MIMEObjType_BasicPart,MIMEObjType_MessagePart,MIMEObjType_MultiPart,MIMEObjType_Message};
+
+	// MIME object type (BodyPart, BasicPart, MultiPart,...)
+	EnumMIMEObjType mimeObjType;
 };
 
 /******************************************************************************

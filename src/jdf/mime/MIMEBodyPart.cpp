@@ -148,6 +148,7 @@ MIMEBodyPart::MIMEBodyPart() :
 	m_contentDispParams		(false,""),
 	m_contentDescription	(false,"")
 {
+	mimeObjType = MIMEObjType_BodyPart;
 }
 
 MIMEBodyPart::~MIMEBodyPart()
@@ -162,6 +163,7 @@ MIMEBodyPart::MIMEBodyPart(const MIMEBodyPart& part)
 	m_contentID          = part.m_contentID;
 	m_contentDispParams  = part.m_contentDispParams;
 	m_contentDescription = part.m_contentDescription;
+	mimeObjType        = MIMEObjType_BodyPart;
 }
 
 

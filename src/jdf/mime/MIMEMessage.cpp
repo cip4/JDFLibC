@@ -97,7 +97,6 @@
 #include <jdf/lang/Exception.h>
 #include <jdf/lang/Integer.h>
 #include <jdf/lang/Janitor.h>
-#include <typeinfo> //SF160502 needed by STLPORT, otherwise typeid::operator== is undefined //AXEL20020906
 
 
 namespace JDF
@@ -143,6 +142,7 @@ namespace JDF
 		m_parsedPart               = false; 
 		m_fplaceTwo                = false;
 		m_theBody                  = NULL;
+		mimeObjType                = MIMEObjType_Message;
 	}
 	
 	MIMEMessage::MIMEMessage(const std::vector<MIMEHeader>& headers)
@@ -152,6 +152,7 @@ namespace JDF
 		m_parsedPart               = false; 
 		m_fplaceTwo                = false;
 		m_theBody                  = NULL;
+		mimeObjType                = MIMEObjType_Message;
 		
 		std::vector<MIMEHeader>::const_iterator it = headers.begin();
 		
@@ -185,6 +186,7 @@ namespace JDF
 		m_parsedPart               = false; 
 		m_fplaceTwo                = false;
 		m_theBody                  = NULL;
+		mimeObjType                = MIMEObjType_Message;
 		
 		if (textIS == NULL && filename == JDFStrL(""))
 			throw MIMEException("Invalid empty filename:" + filename);
@@ -248,6 +250,7 @@ namespace JDF
 		m_parsedPart               = false; 
 		m_fplaceTwo                = false;
 		m_theBody                  = NULL;
+		mimeObjType                = MIMEObjType_Message;
 		
 		m_822HeadersTable          = m.m_822HeadersTable;
 		m_repeatHdrs               = m.m_repeatHdrs;
@@ -442,17 +445,17 @@ namespace JDF
 		if (part == NULL)
 			throw MIMEException("setBody(): NULL part passed!");
 		
-		if (typeid(*part) == typeid(MIMEBasicPart))
+		if (part->mimeObjType == MIMEComponent::MIMEObjType_BasicPart)
 		{
-			setBodyPart(dynamic_cast<MIMEBasicPart*>(part), clone);
+			setBodyPart((MIMEBasicPart* )part, clone);
 		}
-		else if (typeid(*part) == typeid(MIMEMessagePart))
+		else if (part->mimeObjType == MIMEComponent::MIMEObjType_MessagePart)
 		{
-			setBodyPart(dynamic_cast<MIMEMessagePart*>(part), clone);
+			setBodyPart((MIMEMessagePart* )part, clone);
 		}
-		else if (typeid(*part) == typeid(MIMEMultiPart))
+		else if (part->mimeObjType == MIMEComponent::MIMEObjType_MultiPart)
 		{
-			setBodyPart(dynamic_cast<MIMEMultiPart*>(part), clone);
+			setBodyPart((MIMEMultiPart* )part, clone);
 		}
 		else
 			throw MIMEException("setBody(): Invalid part ");

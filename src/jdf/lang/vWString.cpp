@@ -569,6 +569,16 @@ namespace JDF
 			throw (L"vWStringIterator: no such element");
 		return WString::emptyStr;
 	}
-
+	///////////////////////////////////////////////////////////////////////
+	WString vWString::toString()
+	{
+		WString ret;
+		for (int i=0;i<this->size();i++)
+		{
+			ret.append(this->elementAt(i));
+			ret += " ";
+		}
+		return ret;
+	}
 } // namespace JDF
 

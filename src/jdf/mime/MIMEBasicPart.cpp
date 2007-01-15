@@ -193,6 +193,7 @@ namespace JDF
 			m_nEndMessageDataIndex    = UNINITIALIZED;
 			m_nMessageDataLen         = 0;
 			m_bDecodedData            = false;
+			mimeObjType             = MIMEObjType_BasicPart;
 		}
 		
 		MIMEBasicPart::MIMEBasicPart(const MIMEBasicPart& part) : MIMEBodyPart(part),
@@ -206,6 +207,7 @@ namespace JDF
 			m_contentDisposition      = UNINITIALIZED;
 			// use the content transfer encoding of the original part
 			m_contentTransferEncoding = part.m_contentTransferEncoding;
+			mimeObjType             = MIMEObjType_BasicPart;
 
 			
 			if (part.m_databuf)

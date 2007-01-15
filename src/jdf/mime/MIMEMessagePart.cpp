@@ -155,6 +155,7 @@ namespace JDF
 		m_contentTransferEncoding = UNINITIALIZED;
 		m_theMessage              = NULL;
 		m_partial                 = NULL;
+		mimeObjType             = MIMEObjType_MessagePart;
 	}
 
 	MIMEMessagePart::MIMEMessagePart(MIMEMessage* msg)
@@ -164,6 +165,7 @@ namespace JDF
 		m_contentTransferEncoding = UNINITIALIZED;
 		m_theMessage              = NULL;
 		m_partial                 = NULL;
+		mimeObjType               = MIMEObjType_MessagePart;
 
 		if (msg != NULL)
 		{
@@ -180,6 +182,7 @@ namespace JDF
 		m_contentTransferEncoding = UNINITIALIZED;
 		m_theMessage              = NULL;
 		m_partial                 = NULL;
+		mimeObjType             = MIMEObjType_MessagePart;
 
 		if (part.m_theMessage != NULL)
 		{

@@ -96,7 +96,6 @@
 #include <jdf/lang/Integer.h>
 #include <jdf/lang/Integer64.h>
 #include <jdf/lang/Janitor.h>
-#include <typeinfo> //SF160502 needed by STLPORT, otherwise typeid::operator== is undefined //AXEL20020906
 
 
 namespace JDF
@@ -235,6 +234,7 @@ namespace JDF
 		m_contentTransferEncoding = UNINITIALIZED;
 		m_needPreamble            = false;
 		m_boundary                = "";
+		mimeObjType               = MIMEObjType_MultiPart;
 	}
 	
 	MIMEMultiPart::MIMEMultiPart(InputStream* textIS, const WString& fileName, int encoding) :
@@ -249,6 +249,7 @@ namespace JDF
 		m_contentDisposition      = UNINITIALIZED;
 		m_contentTransferEncoding = UNINITIALIZED;
 		m_needPreamble            = false;
+		mimeObjType               = MIMEObjType_MultiPart;
 		
 		if (textIS == NULL)
 			throw MIMEException("Invalid NULL inputStream");
@@ -294,6 +295,7 @@ namespace JDF
 	MIMEMultiPart::MIMEMultiPart(const MIMEMultiPart& m) : MIMEBodyPart(m)
 	{
 		m_needPreamble = false;
+		mimeObjType = MIMEObjType_MultiPart;
 		
 		std::vector<MIMEBodyPart*>::const_iterator it = m.m_bodyParts.begin();
 		while (it != m.m_bodyParts.end())
@@ -332,7 +334,7 @@ namespace JDF
 		
 		MIMEBodyPart* obj = m_bodyParts[index];
 		
-		if (typeid(*obj) == typeid(MIMEBasicPart))
+		if (obj->mimeObjType == MIMEObjType_BodyPart)
 		{
 			MIMEBasicPart* part = (MIMEBasicPart*) obj;
 			if (clone)
@@ -340,7 +342,7 @@ namespace JDF
 			else
 				return part;
 		}
-		else if (typeid(*obj) == typeid(MIMEMessagePart))
+		else if (mimeObjType == MIMEObjType_MessagePart)
 		{
 			MIMEMessagePart* part = (MIMEMessagePart*) obj;
 			if (clone)
@@ -348,7 +350,7 @@ namespace JDF
 			else
 				return part;
 		}
-		else if (typeid(*obj) == typeid(MIMEMultiPart))
+		else if (mimeObjType == MIMEObjType_MultiPart)
 		{
 			MIMEMultiPart* part = (MIMEMultiPart*) obj;
 			if (clone)
@@ -377,7 +379,7 @@ namespace JDF
 		
 		MIMEBodyPart* obj = (*it);
 		
-		if (typeid(*obj) == typeid(MIMEBasicPart))
+		if (obj->mimeObjType == MIMEObjType_BasicPart)
 		{
 			MIMEBasicPart* part = (MIMEBasicPart*) obj;
 			if (clone)
@@ -385,7 +387,7 @@ namespace JDF
 			else
 				return part;
 		}
-		else if (typeid(*obj) == typeid(MIMEMessagePart))
+		else if (obj->mimeObjType == MIMEObjType_MessagePart)
 		{
 			MIMEMessagePart* part = (MIMEMessagePart*) obj;
 			if (clone)
@@ -393,7 +395,7 @@ namespace JDF
 			else
 				return part;
 		}
-		else if (typeid(*obj) == typeid(MIMEMultiPart))
+		else if (obj->mimeObjType == MIMEObjType_MultiPart)
 		{
 			MIMEMultiPart* part = (MIMEMultiPart*) obj;
 			if (clone)
@@ -616,7 +618,7 @@ namespace JDF
 		while (it != m_bodyParts.end())
 		{
 			MIMEBodyPart* obj = (*it);
-			if (typeid(*obj) == typeid(MIMEBasicPart))
+			if (obj->mimeObjType == MIMEObjType_BasicPart)
 			{
 				//if (!crlfos.crlfSeen())
 				if (it!=m_bodyParts.begin())
@@ -631,7 +633,7 @@ namespace JDF
 				MIMEBasicPart* part = (MIMEBasicPart*) obj;
 				part->putByteStream(crlfos);
 			}
-			else if (typeid(*obj) == typeid(MIMEMessagePart))
+			else if (obj->mimeObjType == MIMEObjType_MessagePart)
 			{
 				//if (!crlfos.crlfSeen())
 				if (it!=m_bodyParts.begin())
@@ -646,7 +648,7 @@ namespace JDF
 				MIMEMessagePart* part = (MIMEMessagePart*) obj;
 				part->putByteStream(crlfos);
 			}
-			else if (typeid(*obj) == typeid(MIMEMultiPart))
+			else if (obj->mimeObjType == MIMEObjType_MultiPart)
 			{
 				//if (!crlfos.crlfSeen())
 				if (it!=m_bodyParts.begin())
@@ -738,9 +740,9 @@ int MIMEMultiPart::addBodyPart(MIMEBodyPart* part, bool clone)
 	if (part == NULL)
 		throw MIMEException("addBodyPart() : NULL part passed!");
 	
-	if (typeid(*part) == typeid(MIMEBasicPart) ||
-		typeid(*part) == typeid(MIMEMultiPart) ||
-		typeid(*part) == typeid(MIMEMessagePart))		
+	if (part->mimeObjType == MIMEObjType_BasicPart ||
+		part->mimeObjType == MIMEObjType_MultiPart ||
+		part->mimeObjType == MIMEObjType_MessagePart)		
 	{
 		MIMEBodyPart* l_part = (clone ? part->clone() : part);
 		m_bodyParts.push_back(l_part);

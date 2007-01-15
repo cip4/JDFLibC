@@ -163,9 +163,7 @@ namespace JDF{
 		JDFSpawned spawnAudit = createSpawnAudit(rootOut, spawnID, spawnParentNode);
 
 		// find resources that must be copied
-		WString strRO = rootOut.ToString(); // TODO remove after debugging
 		addSpawnedResources(rootOut,spawnAudit);
-		strRO = rootOut.ToString(); // TODO remove after debugging
 
 		finalizeSpawn(vLocalSpawnParts,outLinks,spawnAudit);
 

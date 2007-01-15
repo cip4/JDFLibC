@@ -285,6 +285,12 @@ namespace JDF
         WString GetValueByPos(unsigned int i)const;
 
 		WString operator [](const WString & key)const;
+
+		/**
+		* get a WString representation
+		* @return WString
+		*/
+		WString toString();
 			
 		
 		

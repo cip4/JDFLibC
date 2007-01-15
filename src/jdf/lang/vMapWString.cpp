@@ -83,6 +83,7 @@
 
 
 #include "vMapWString.h"
+#include <jdf/lang/WString.h>
 
 #include <vector>
 
@@ -352,6 +353,8 @@ namespace JDF
 	bool vMapWString::operator==(const vMapWString&other)const{
 		return IsEqual(other);
 	}
+	////////////////////////////////////////////////////////////////////////
+
 	bool vMapWString::operator!=(const vMapWString&other)const{
 		return !IsEqual(other);
 	}
@@ -364,6 +367,22 @@ namespace JDF
 			s<<t.at(i)<<std::endl;
 		}
 		return s; 
+	}
+
+	////////////////////////////////////////////////////////////////////////
+
+	WString vMapWString::toString()
+	{
+		WString ret;
+
+		for (int i=0;i<(this->size());i++)
+		{
+			ret += "[";
+			ret.append(this->at(i).toString());
+			ret += "] ";
+		}
+
+		return ret;
 	}
 
 	////////////////////////////////////////////////////////////////////////
