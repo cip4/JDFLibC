@@ -184,7 +184,6 @@ static JDFDoc creatXMDoc()
 	return doc;
 }
 
-
 // currently working on: JDFSpawnTest::testSpawnPartMulti()
 void AtomicTest::testAtomic()
 {
@@ -203,16 +202,16 @@ void AtomicTest::testAtomic()
 		JDFNode nPS=nRoot.AddJDFNode(JDFNode::Type_ImageSetting);
 		nPS.linkResource(xm,JDFResourceLink::Usage_Output,JDFNode::ProcessUsage_Unknown);
         vWString v;
-		v.add(JDFNode::elm_ExposedMedia);
+		v.add(JDFNode::elm_ExposedMedia);		
         vmAttribute vMap;
         JDFAttributeMap map;
         map.put("SignatureName","Sig1");
 		vMap.push_back(map);
-        JDFSpawn spawn=JDFSpawn(nPS);
+		WString jobPartID = nPS.GetJobPartID();
+        JDFSpawn spawn=JDFSpawn(nPS);		
 		
 		JDFDoc spawnedPSDocInfo=spawn.spawnInformative(WString::emptyStr, WString::emptyStr, vMap, false, true, true, true);
-		WString strNode = spawnedPSNodeDoc.ToString();
-		JDFNode spawnedPSNodeInfo=spawnedPSDocInfo.GetJDFRoot();		
+		JDFNode spawnedPSNodeInfo=spawnedPSDocInfo.GetJDFRoot().GetJobPart(jobPartID);
 		CPPUNIT_ASSERT_EQUAL( (WString)"foo",spawnedPSNodeInfo.GetInheritedCustomerInfo().GetCustomerProjectID() ); // cpi		
         spawn=JDFSpawn(nPS);
 
@@ -222,43 +221,54 @@ void AtomicTest::testAtomic()
         // this one spawns the component rw
 		v.clear();
 		v.add(JDFNode::elm_Component);
+		WString jobPartIdN = n.GetJobPartID();
         spawn=JDFSpawn(n);
 
 		JDFDoc spawnedDocAll=spawn.spawn("thisUrl","newURL",v,vmAttribute::emptyvMap,false,true,true,true); 
-		JDFNode spawnedNodeAll=spawnedDocAll.GetJDFRoot(); 
+		JDFNode spawnedNodeAll=spawnedDocAll.GetJDFRoot();
         WString spawnID=spawnedNodeAll.GetSpawnID();
         // merge and immediately respawn the same thing
 		JDFMerge merge=JDFMerge(n);
 		JDFDoc docMerge = merge.mergeJDF(spawnedNodeAll, WString::emptyStr, JDFNode::CleanUpMerge_RemoveAll, JDFResource::AmountMerge_UpdateLink);
-		n=docMerge.GetJDFRoot();
+		n=docMerge.GetJDFRoot().GetJobPart(jobPartIdN);
 		CPPUNIT_ASSERT( nRoot.ToString().indexOf(spawnID)<0 ); // spawnID gone
-        spawn=JDFSpawn(n);
+		jobPartID = n.GetJobPartID();
+		spawn=JDFSpawn(n);
 
 		JDFDoc spawnedDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true); 
-		JDFNode spawnedNode=spawnedDoc.GetJDFRoot();
+		JDFNode spawnedNode=spawnedDoc.GetJDFRoot().GetJobPart(jobPartID);
         spawnID=spawnedNode.GetSpawnID(false);
 		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // has AncestorPool
 
         // merge and immediately respawn the same thing
+		jobPartIdN = n.GetJobPartID();
 		merge=JDFMerge(n);
 		docMerge=merge.mergeJDF(spawnedNode, WString::emptyStr, JDFNode::CleanUpMerge_RemoveAll, JDFResource::AmountMerge_UpdateLink);
-		n=docMerge.GetJDFRoot();
+		n=docMerge.GetJDFRoot().GetJobPart(jobPartIdN);
+// fine up to here
+
 		CPPUNIT_ASSERT( nRoot.ToString().indexOf(spawnID)<0 ); // spawnID gone
         spawn=JDFSpawn(n);
-
+WString nStr = n.ToString(); // TODO remove after debugging
+		jobPartIdN = n.GetJobPartID();
 		spawnedDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true);
-		spawnedNode=spawnedDoc.GetJDFRoot();
+		spawnedNode=spawnedDoc.GetJDFRoot().GetJobPart(jobPartIdN);
+// SpawnedRO statt RW? 
 		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool present after merge
 
         map.put("SheetName","S1");
         spawn=JDFSpawn(spawnedNode);
+		//WString jobPartIdSpawnedNode=spawnedNode.GetJobPartID();
 		JDFDoc respawnedDoc=spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
-		JDFNode respawnedNode=respawnedDoc.GetJDFRoot();
-		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool present after respawn
+		JDFNode respawnedNode=respawnedDoc.GetJDFRoot().GetJobPart(jobPartID);
+// ExposedMedia fehlt in respawnedNode
 
+		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool present after respawn
 		xm=(JDFExposedMedia) respawnedNode.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput);
 		JDFComponent comp=(JDFComponent) respawnedNode.GetMatchingResource(JDFNode::elm_Component,JDFNode::ProcessUsage_AnyOutput);
         vWString vSpID=xm.GetSpawnIDs(false);
+// assertion
+		WString strNode = xm.ToString(); // TODO remove after debugging
 		CPPUNIT_ASSERT( !vSpID.empty() ); // spawnIDs present
 		xm=(JDFExposedMedia) xm.GetPartition(map);
 		CPPUNIT_ASSERT( xm.GetLocked() ); // xm rw
