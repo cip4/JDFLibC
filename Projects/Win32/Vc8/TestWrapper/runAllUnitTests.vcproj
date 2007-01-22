@@ -959,10 +959,26 @@
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug DLL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\..\external\CppUnit\lib\cppunitd.lib"
 				>
+				<FileConfiguration
+					Name="Release DLL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\..\Build\Win32\Vc8\ReleaseDLL\JDFToolsDLL.lib"
@@ -1013,7 +1029,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1069,7 +1084,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1133,7 +1147,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCustomBuildTool"

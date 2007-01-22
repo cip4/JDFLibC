@@ -245,31 +245,6 @@ static WString spawn(WString strXMLFile, WString strSpawnedFile, WString strElem
 	}
 }
 
-void JDFNodeTest::testBookintent()
-{
-	try
-	{
-		WString fileNameIn            = "bookintent.jdf";
-		WString fileNameOut           = "spawned.jdf";
-		WString spawnNodeID           = "n0016";
-
-		vWString vRWResources;
-		vRWResources.add("Component");
-		vRWResources.add("RunList");
-		vmAttribute vSpawnParts;
-
-		// TODO continue when "static void unSpawn()" is implemented
-		//WString strSpawnID = spawn(fileNameIn, fileNameOut, spawnNodeID, vRWResources, vSpawnParts);
-		//unSpawn(fileNameIn, strSpawnID);   // "Sp7cb:-7fff"
-	}
-	catch (const JDF::JDFException& e)
-	{
-		CPPUNIT_FAIL( e.what() );
-	}
-}
-
-
-
 void JDFNodeTest::testSetType()
 {
 	try

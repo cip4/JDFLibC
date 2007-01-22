@@ -109,7 +109,6 @@ class JDFResourceTest : public CppUnit::TestCase
 		CPPUNIT_TEST ( testImplicitPartitions );
 		CPPUNIT_TEST ( testRemoveImplicitPartions );
 		CPPUNIT_TEST ( testCollapse );
-		CPPUNIT_TEST ( testExpand );
 		CPPUNIT_TEST ( testGetElement );
 		CPPUNIT_TEST ( testGetResStatus ); 
 		CPPUNIT_TEST ( testConsistentPartIDKeys );
@@ -118,7 +117,6 @@ class JDFResourceTest : public CppUnit::TestCase
 		CPPUNIT_TEST ( testGetPartValues );
 		CPPUNIT_TEST ( testMatchesPart );
 		CPPUNIT_TEST ( testOverlapPartMap );
-		CPPUNIT_TEST ( testGetResourcePoolNS );
 		CPPUNIT_TEST ( testGetLinks );
 		CPPUNIT_TEST ( testGetCreatePartition2 );
 		CPPUNIT_TEST ( testAgentNameAgentVersion );
@@ -143,7 +141,6 @@ class JDFResourceTest : public CppUnit::TestCase
 		void testImplicitPartitions();
 		void testRemoveImplicitPartions();
 		void testCollapse();
-		void testExpand();
 		void testGetElement();
 		void testGetResStatus();
 		void testConsistentPartIDKeys();

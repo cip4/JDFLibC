@@ -908,91 +908,6 @@ void JDFResourceTest::testCollapse()
 	}
 }
 
-void JDFResourceTest::testExpand()
-{
-	try
-	{
-		JDFDoc doc=creatXMDoc();
-		JDFNode n=doc.GetJDFRoot();
-		JDFExposedMedia xm=(JDFExposedMedia)n.GetMatchingResource("ExposedMedia",JDFNode::ProcessUsage_AnyInput,mAttribute::emptyMap,0);
-		xm.SetBrand("rootBrand");
-		// TODO continue when JDFAutoGeneralID is fixed / GeneralID has been implemented in JDFResource
-		//xm.setGeneralID("testID","rootValue");
-		//xm.expand(false);
-		//xm.collapse(true);
-		//xm.expand(true);
-		//xm.collapse(false);
-
-		//JDFAttributeMap mPart=new JDFAttributeMap("SignatureName","Sig1");
-		//mPart.put("SheetName","S1");
-		//mPart.put("Side","Front");       
-		//JDFExposedMedia xmPart=(JDFExposedMedia)xm.getPartition(mPart,null);
-		//mPart.put("SheetName","S2");
-		//JDFExposedMedia xmPart2=(JDFExposedMedia)xm.getPartition(mPart,null);
-
-		//xmPart.setBrand("PartBrand");
-		//xmPart.setGeneralID("testID","partValue");
-
-		//xm.expand(false);
-		//assertEquals("expanded sub",xmPart.getBrand(),"PartBrand");
-		//assertEquals("expanded sub",xmPart.getGeneralID("testID"),"partValue");
-		//assertEquals("expanded sub2",xmPart2.getBrand(),"rootBrand");
-		//assertEquals("expanded sub2",xmPart2.getGeneralID("testID"),"rootValue");
-		//CPPUNIT_ASSERT( "hasBrand",xmPart2.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( "hasID",xmPart2.getElement_KElement("GeneralID",null,0)!=null);
-		//CPPUNIT_ASSERT( !"has part Key",xmPart.hasAttribute_KElement(AttributeName.SHEETNAME,null,false));
-		//CPPUNIT_ASSERT( !"has part Key",xmPart2.hasAttribute_KElement(AttributeName.SHEETNAME,null,false));
-
-		//xm.collapse(false);
-		//assertEquals("expanded sub after collapse",xmPart.getBrand(),"PartBrand");
-		//assertEquals("expanded sub after collapse",xmPart.getGeneralID("testID"),"partValue");
-		//assertEquals("expanded sub2 after collapse",xmPart2.getBrand(),"rootBrand");
-		//assertEquals("expanded sub2 after collapse",xmPart2.getGeneralID("testID"),"rootValue");
-		//CPPUNIT_ASSERT( !"hasBrand",xmPart2.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( "hasID",xmPart2.getElement_KElement("GeneralID",null,0)==null);
-		//CPPUNIT_ASSERT( !"has part Key",xmPart.hasAttribute_KElement(AttributeName.SHEETNAME,null,false));
-		//CPPUNIT_ASSERT( !"has part Key",xmPart2.hasAttribute_KElement(AttributeName.SHEETNAME,null,false));
-
-		//JDFExposedMedia xmPart3=(JDFExposedMedia)xmPart2.getParentNode_KElement().getParentNode_KElement();
-		//mPart.put("SignatureName","Sig2");
-		//JDFExposedMedia xmPart4=(JDFExposedMedia)xm.getPartition(mPart,null);
-
-		//xmPart3.expand(true);
-		//CPPUNIT_ASSERT( "hasBrand",xmPart2.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( !"hasBrand",xmPart4.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( "hasID",xmPart2.getElement_KElement("GeneralID",null,0)!=null);
-		//CPPUNIT_ASSERT( !"hasID",xmPart4.getElement_KElement("GeneralID",null,0)!=null);
-		//CPPUNIT_ASSERT( !"has part Key",xmPart.hasAttribute_KElement(AttributeName.SHEETNAME,null,false));
-		//CPPUNIT_ASSERT( !"has part Key",xmPart2.hasAttribute_KElement(AttributeName.SHEETNAME,null,false));
-
-		//xmPart3.collapse(false);
-		//CPPUNIT_ASSERT( !"hasBrand",xmPart2.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( "hasBrand",xmPart3.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( !"hasID",xmPart2.getElement_KElement("GeneralID",null,0)!=null);
-
-		//xmPart3=(JDFExposedMedia)xmPart4.getParentNode_KElement().getParentNode_KElement();
-		//xmPart3.expand(true);
-		//CPPUNIT_ASSERT( "hasBrand",xmPart4.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( !"hasBrand",xmPart2.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( "hasID",xmPart4.getElement_KElement("GeneralID",null,0)!=null);
-		//CPPUNIT_ASSERT( !"hasID",xmPart2.getElement_KElement("GeneralID",null,0)!=null);
-		//xmPart3.collapse(false);
-		//CPPUNIT_ASSERT( !"hasBrand",xmPart4.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( "hasBrand",xmPart3.hasAttribute_KElement("Brand",null,false));
-		//CPPUNIT_ASSERT( !"hasID",xmPart4.getElement_KElement("GeneralID",null,0)!=null);
-		//CPPUNIT_ASSERT( "hasID",xmPart3.getElement("GeneralID",null,0)!=null);
-
-		//JDFDigitalPrintingParams dpp=(JDFDigitalPrintingParams) n.addResource(ElementName.DIGITALPRINTINGPARAMS, null, EnumUsage.Input, null, null, null, null);
-		//dpp.expand(true);
-		//dpp.expand(false);
-		//CPPUNIT_ASSERT( dpp.hasAttribute("ID"));
-	}
-	catch (const JDFException& e)
-	{
-		CPPUNIT_FAIL( e.what() );
-	}
-}
-
 void JDFResourceTest::testGetElement()
 {
 	try
@@ -1295,26 +1210,6 @@ void JDFResourceTest::testOverlapPartMap()
 		CPPUNIT_ASSERT( JDFPart::overlapPartMap(m1,m2) );
 		m2.put("Run","r2");
 		CPPUNIT_ASSERT( JDFPart::overlapPartMap(m1,m2) );
-	}
-	catch (const JDFException& e)
-	{
-		CPPUNIT_FAIL( e.what() );
-	}
-}
-
-void JDFResourceTest::testGetResourcePoolNS()
-{
-	try
-	{
-		// set up a test document
-        JDFDoc jdfDoc = JDFDoc(0);
-        JDFNode root = jdfDoc.GetJDFRoot();
-		root.AppendElement("foo:elem","www.foo.com");
-        JDFResourcePool rp=root.AppendResourcePool();
-		JDFResource r=rp.AppendResource("foo:res",JDFResource::Class_Parameter,"www.foo.com");
-		JDFResource r2=(JDFResource)rp.AppendElement("foo:res","www.foo.com");
-		rp.AppendElement("foo:elem","www.foo.com");
-		// TODO add some test logic
 	}
 	catch (const JDFException& e)
 	{

@@ -775,7 +775,7 @@ void JDFSpawnTest::testBigSpawn()
 {
 	try
 	{
-		cout << " *warning: this test is slow*";
+		cout << " *warning: this test is slow* (~350s) ";
 
 		WString strJDFName = sm_dirTestData + "000023_Test_PR3.0.jdf";
 		JDFParser parser;
@@ -876,7 +876,7 @@ void JDFSpawnTest::testCheckSpawnedResources()
 {
 	try
 	{
-		cout << " *warning: this test is slow*";
+		cout << " *warning: this test is slow* (~75s) ";
 		WString strJDFName = "000023_Test_PR3.0.jdf";
 		WString strJDFPath = sm_dirTestData + strJDFName;
 		JDFParser parser;

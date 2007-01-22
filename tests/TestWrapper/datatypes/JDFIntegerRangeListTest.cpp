@@ -182,7 +182,7 @@ void JDFIntegerRangeListTest::testDef()
 
 void JDFIntegerRangeListTest::testGetIntegerList()
 {
-	cout << " (warning: this test is *slow*)";
+	cout << " warning: this test is *slow* (~350s) ";
 	try
 	{
 		JDFIntegerRangeList rangeList = JDFIntegerRangeList("0 1~2 3~6 8 ~ 7");
@@ -449,20 +449,6 @@ void JDFIntegerRangeListTest::testDefaultDef()
 		CPPUNIT_ASSERT( irl.InRange(-99) );
 		CPPUNIT_ASSERT( !irl.InRange(99) );
 		CPPUNIT_ASSERT( irl.InRange(2) );
-
-		// TODO implement 'static JDFIntegerRange::setDefaultDef()'
-		//try
-		//{
-		//	JDFIntegerRange::setDefaultDef(Integer.MAX_VALUE);
-		//	irl=JDFIntegerRangeList("-INF ~ 0 5 ~ -1");
-		//}
-		//catch ( ... )
-		//{
-		//	CPPUNIT_FAIL( "constructor" );
-		//}
-		//CPPUNIT_ASSERT( !irl.InRange(-99) );
-		//CPPUNIT_ASSERT( irl.InRange(99) );
-		//CPPUNIT_ASSERT( !irl.InRange(2) );
 	}
 	catch (const JDFException& ex)
 	{

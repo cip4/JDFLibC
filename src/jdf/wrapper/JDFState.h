@@ -102,8 +102,6 @@
 #include "JDFDevCaps.h"
 #include "JDFLoc.h"
 
-
-
 namespace JDF{
 
 	

@@ -97,7 +97,7 @@ class JDFIntegerRangeListTest : public CppUnit::TestCase
 		CPPUNIT_TEST( testJDFIntegerRangeListString );
 		CPPUNIT_TEST( testJDFIntegerRangeListXDef );
 		CPPUNIT_TEST( testConstruct );
-		//CPPUNIT_TEST( testDef );                                // Fehler: GetString() ?
+		//CPPUNIT_TEST( testDef );                                // Fehler: Vererbung
 		CPPUNIT_TEST( testGetIntegerList );
 		CPPUNIT_TEST( testJDFIntegerRangeList_CopyConstructor );
 		CPPUNIT_TEST( testAppend );

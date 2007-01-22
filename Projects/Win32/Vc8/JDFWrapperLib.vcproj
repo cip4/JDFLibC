@@ -8981,6 +8981,13 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Debug DLL|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Release DLL|Win32"
 					ExcludedFromBuild="true"
 					>

@@ -318,6 +318,20 @@ WString  JDFDuration::DurationISO() const {
 
 ///////////////////////////////////////////////////////////////////
 
+void JDFDuration::SetDuration(double iSec)
+{
+	duration=iSec;
+}
+
+///////////////////////////////////////////////////////////////////
+
+double JDFDuration::getDuration()
+{
+	return duration;
+}
+
+///////////////////////////////////////////////////////////////////
+
 bool JDFDuration::operator ==(const JDFDuration & md)const{
 	return fabs(duration-md.duration)<0.000000001;
 }

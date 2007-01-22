@@ -95,11 +95,15 @@ class JDFXYPairTest : public CppUnit::TestCase
 {
 	CPPUNIT_TEST_SUITE( JDFXYPairTest );
 		CPPUNIT_TEST( testSetString );
+		CPPUNIT_TEST( testEquals );
+		CPPUNIT_TEST( testIsLessOrEqual );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
 		void setUp();
 		void testSetString();
+		void testEquals();
+		void testIsLessOrEqual();
 
 }; // class JDFXYPairTest
 

@@ -1864,7 +1864,7 @@ namespace JDF
 	*/
 	WString::operator int()  const  {
 		if(!isNumber()) 
-			throw IllegalArgumentException(); 
+			throw IllegalArgumentException("WString::operator int(): " + *this + " is not a number"); 
 
 		WString str(this->trim());
 
@@ -1880,7 +1880,7 @@ namespace JDF
 	*/
 	WString::operator bool()  const  {
 		if(!isBoolean()) 
-			throw IllegalArgumentException(); 
+			throw IllegalArgumentException("WString::operator bool(): " + *this + " is not a boolean"); 
 		return (compareToIgnoreCase(L"true") == 0);
 	}
 

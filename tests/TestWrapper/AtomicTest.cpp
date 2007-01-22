@@ -184,121 +184,151 @@ static JDFDoc creatXMDoc()
 	return doc;
 }
 
-
-// currently working on: JDFSpawnTest::testSpawnPartMulti()
+// JDFXYPairTest::testIsLessOrEqual()
 void AtomicTest::testAtomic()
 {
 	try
 	{
-		JDFDoc dRoot=JDFDoc(0);
-        JDFNode nRoot=dRoot.GetJDFRoot();
-        JDFCustomerInfo ci=nRoot.AppendCustomerInfo();
-        ci.SetCustomerProjectID("foo");
-
-		nRoot.SetType("Product");
-
-        JDFDoc d=creatXMDoc();
-        JDFNode n=(JDFNode) nRoot.CopyElement(d.GetJDFRoot());
-		JDFExposedMedia xm=(JDFExposedMedia) n.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput);
-		JDFNode nPS=nRoot.AddJDFNode(JDFNode::Type_ImageSetting);
-		nPS.linkResource(xm,JDFResourceLink::Usage_Output,JDFNode::ProcessUsage_Unknown);
-        vWString v;
-		v.add(JDFNode::elm_ExposedMedia);
-        vmAttribute vMap;
-        JDFAttributeMap map;
-        map.put("SignatureName","Sig1");
-		vMap.push_back(map);
-        JDFSpawn spawn=JDFSpawn(nPS);
-		
-		JDFDoc spawnedPSDocInfo=spawn.spawnInformative(WString::emptyStr, WString::emptyStr, vMap, false, true, true, true);
-		WString strNode = spawnedPSNodeDoc.ToString();
-		JDFNode spawnedPSNodeInfo=spawnedPSDocInfo.GetJDFRoot();		
-		CPPUNIT_ASSERT_EQUAL( (WString)"foo",spawnedPSNodeInfo.GetInheritedCustomerInfo().GetCustomerProjectID() ); // cpi		
-        spawn=JDFSpawn(nPS);
-
-		JDFDoc spawnedPSDoc=spawn.spawn(WString::emptyStr,WString::emptyStr,v,vMap,false,true,true,true);
-		JDFNode spawnedPSNode=spawnedPSDoc.GetJDFRoot();
-		CPPUNIT_ASSERT_EQUAL( (WString)"foo",spawnedPSNode.GetInheritedCustomerInfo().GetCustomerProjectID() ); // cpi
-        // this one spawns the component rw
-		v.clear();
-		v.add(JDFNode::elm_Component);
-        spawn=JDFSpawn(n);
-
-		JDFDoc spawnedDocAll=spawn.spawn("thisUrl","newURL",v,vmAttribute::emptyvMap,false,true,true,true); 
-		JDFNode spawnedNodeAll=spawnedDocAll.GetJDFRoot(); 
-        WString spawnID=spawnedNodeAll.GetSpawnID();
-        // merge and immediately respawn the same thing
-		JDFMerge merge=JDFMerge(n);
-		JDFDoc docMerge = merge.mergeJDF(spawnedNodeAll, WString::emptyStr, JDFNode::CleanUpMerge_RemoveAll, JDFResource::AmountMerge_UpdateLink);
-		n=docMerge.GetJDFRoot();
-		CPPUNIT_ASSERT( nRoot.ToString().indexOf(spawnID)<0 ); // spawnID gone
-        spawn=JDFSpawn(n);
-
-		JDFDoc spawnedDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true); 
-		JDFNode spawnedNode=spawnedDoc.GetJDFRoot();
-        spawnID=spawnedNode.GetSpawnID(false);
-		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // has AncestorPool
-
-        // merge and immediately respawn the same thing
-		merge=JDFMerge(n);
-		docMerge=merge.mergeJDF(spawnedNode, WString::emptyStr, JDFNode::CleanUpMerge_RemoveAll, JDFResource::AmountMerge_UpdateLink);
-		n=docMerge.GetJDFRoot();
-		CPPUNIT_ASSERT( nRoot.ToString().indexOf(spawnID)<0 ); // spawnID gone
-        spawn=JDFSpawn(n);
-
-		spawnedDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true);
-		spawnedNode=spawnedDoc.GetJDFRoot();
-		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool present after merge
-
-        map.put("SheetName","S1");
-        spawn=JDFSpawn(spawnedNode);
-		JDFDoc respawnedDoc=spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
-		JDFNode respawnedNode=respawnedDoc.GetJDFRoot();
-		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool present after respawn
-
-		xm=(JDFExposedMedia) respawnedNode.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput);
-		JDFComponent comp=(JDFComponent) respawnedNode.GetMatchingResource(JDFNode::elm_Component,JDFNode::ProcessUsage_AnyOutput);
-        vWString vSpID=xm.GetSpawnIDs(false);
-		CPPUNIT_ASSERT( !vSpID.empty() ); // spawnIDs present
-		xm=(JDFExposedMedia) xm.GetPartition(map);
-		CPPUNIT_ASSERT( xm.GetLocked() ); // xm rw
-		comp=(JDFComponent) comp.GetPartition(map);
-		CPPUNIT_ASSERT( !comp.GetLocked() ); // comp rw
-
-        map.put("SheetName","S2");
-        spawn=JDFSpawn(spawnedNode);
-		JDFDoc respawnedDoc2=spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
-		JDFNode respawnedNode2=respawnedDoc2.GetJDFRoot();
-		xm=(JDFExposedMedia) respawnedNode2.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput);
-		comp=(JDFComponent) respawnedNode2.GetMatchingResource(JDFNode::elm_Component,JDFNode::ProcessUsage_AnyOutput);
-        vSpID=xm.GetSpawnIDs(false);
-		CPPUNIT_ASSERT( !vSpID.empty() ); // spawnIDs present
-		xm=(JDFExposedMedia) xm.GetPartition(map);       
-
-		CPPUNIT_ASSERT( xm.GetLocked() ); // xm rw
-		comp=(JDFComponent) comp.GetPartition(map);
-		CPPUNIT_ASSERT( !comp.GetLocked() ); // comp rw
-        WString spawnID1=spawnedNode.GetSpawnID(false);
-		JDFMerge merge2 = JDFMerge(spawnedNode);
-		JDFDoc testSpawnedDoc = merge2.mergeJDF(respawnedNode2, WString::emptyStr, JDFNode::CleanUpMerge_None, JDFResource::AmountMerge_UpdateLink);
-		JDFNode testSpawnedNode=testSpawnedDoc.GetJDFRoot();
-		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool after respawn merge
-		CPPUNIT_ASSERT_EQUAL( spawnID1,testSpawnedNode.GetSpawnID() ); // SpawnID ok?
-        spawn=JDFSpawn(spawnedNode);
-		respawnedDoc2 = spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
-		respawnedNode2 = respawnedDoc.GetJDFRoot();
-
-        //// now go backwards!
-        //new JDFMerge(nRoot).mergeJDF(spawnedNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
-        //new JDFMerge(nRoot).mergeJDF(respawnedNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
-        //new JDFMerge(nRoot).mergeJDF(respawnedNode2, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
+		JDFXYPair xy1 = JDFXYPair("-3 5");
+		JDFXYPair xy2 = JDFXYPair("3 5");
+		CPPUNIT_ASSERT( xy1<=xy2 );
 
 
-        //new JDFMerge(nRoot).mergeJDF(spawnedPSNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
-        //assertTrue("spawnIDs gone",nRoot.toString().indexOf("SpawnIDs")<0);
 	}
-	catch (JDFException& e)
+	catch (JDFException& ex)
 	{
-		CPPUNIT_FAIL( e.what() );
+		CPPUNIT_FAIL( ex.what() );
 	}
 }
+
+
+
+//// currently working on: JDFSpawnTest::testSpawnPartMulti()
+//void AtomicTest::testAtomic()
+//{
+//	try
+//	{
+//
+//		JDFDoc dRoot=JDFDoc(0);
+//        JDFNode nRoot=dRoot.GetJDFRoot();
+//        JDFCustomerInfo ci=nRoot.AppendCustomerInfo();
+//        ci.SetCustomerProjectID("foo");
+//
+//		nRoot.SetType("Product");
+//
+//        JDFDoc d=creatXMDoc();
+//        JDFNode n=(JDFNode) nRoot.CopyElement(d.GetJDFRoot());
+//		JDFExposedMedia xm=(JDFExposedMedia) n.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput);
+//		JDFNode nPS=nRoot.AddJDFNode(JDFNode::Type_ImageSetting);
+//		nPS.linkResource(xm,JDFResourceLink::Usage_Output,JDFNode::ProcessUsage_Unknown);
+//        vWString v;
+//		v.add(JDFNode::elm_ExposedMedia);		
+//        vmAttribute vMap;
+//        JDFAttributeMap map;
+//        map.put("SignatureName","Sig1");
+//		vMap.push_back(map);
+//		WString jobPartID = nPS.GetJobPartID();
+//        JDFSpawn spawn=JDFSpawn(nPS);		
+//		
+//		JDFDoc spawnedPSDocInfo=spawn.spawnInformative(WString::emptyStr, WString::emptyStr, vMap, false, true, true, true);
+//		JDFNode spawnedPSNodeInfo=spawnedPSDocInfo.GetJDFRoot().GetJobPart(jobPartID);
+//		CPPUNIT_ASSERT_EQUAL( (WString)"foo",spawnedPSNodeInfo.GetInheritedCustomerInfo().GetCustomerProjectID() ); // cpi		
+//        spawn=JDFSpawn(nPS);
+//
+//		JDFDoc spawnedPSDoc=spawn.spawn(WString::emptyStr,WString::emptyStr,v,vMap,false,true,true,true);
+//		JDFNode spawnedPSNode=spawnedPSDoc.GetJDFRoot();
+//		CPPUNIT_ASSERT_EQUAL( (WString)"foo",spawnedPSNode.GetInheritedCustomerInfo().GetCustomerProjectID() ); // cpi
+//        // this one spawns the component rw
+//		v.clear();
+//		v.add(JDFNode::elm_Component);
+//		WString jobPartIdN = n.GetJobPartID();
+//        spawn=JDFSpawn(n);
+//
+//		JDFDoc spawnedDocAll=spawn.spawn("thisUrl","newURL",v,vmAttribute::emptyvMap,false,true,true,true); 
+//		JDFNode spawnedNodeAll=spawnedDocAll.GetJDFRoot();
+//        WString spawnID=spawnedNodeAll.GetSpawnID();
+//        // merge and immediately respawn the same thing
+//		JDFMerge merge=JDFMerge(n);
+//		JDFDoc docMerge = merge.mergeJDF(spawnedNodeAll, WString::emptyStr, JDFNode::CleanUpMerge_RemoveAll, JDFResource::AmountMerge_UpdateLink);
+//		n=docMerge.GetJDFRoot().GetJobPart(jobPartIdN);
+//		CPPUNIT_ASSERT( nRoot.ToString().indexOf(spawnID)<0 ); // spawnID gone
+//		jobPartID = n.GetJobPartID();
+//		spawn=JDFSpawn(n);
+//
+//		JDFDoc spawnedDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true); 
+//		JDFNode spawnedNode=spawnedDoc.GetJDFRoot().GetJobPart(jobPartID);
+//        spawnID=spawnedNode.GetSpawnID(false);
+//		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // has AncestorPool
+//
+//        // merge and immediately respawn the same thing
+//		jobPartIdN = n.GetJobPartID();
+//		merge=JDFMerge(n);
+//		docMerge=merge.mergeJDF(spawnedNode, WString::emptyStr, JDFNode::CleanUpMerge_RemoveAll, JDFResource::AmountMerge_UpdateLink);
+//		n=docMerge.GetJDFRoot().GetJobPart(jobPartIdN);
+//// fine up to here
+//
+//		CPPUNIT_ASSERT( nRoot.ToString().indexOf(spawnID)<0 ); // spawnID gone
+//        spawn=JDFSpawn(n);
+//WString nStr = n.ToString(); // TODO remove after debugging
+//		jobPartIdN = n.GetJobPartID();
+//		spawnedDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true);
+//		spawnedNode=spawnedDoc.GetJDFRoot().GetJobPart(jobPartIdN);
+//// SpawnedRO statt RW? 
+//		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool present after merge
+//
+//        map.put("SheetName","S1");
+//        spawn=JDFSpawn(spawnedNode);
+//		//WString jobPartIdSpawnedNode=spawnedNode.GetJobPartID();
+//		JDFDoc respawnedDoc=spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
+//		JDFNode respawnedNode=respawnedDoc.GetJDFRoot().GetJobPart(jobPartID);
+//// ExposedMedia fehlt in respawnedNode
+//
+//		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool present after respawn
+//		xm=(JDFExposedMedia) respawnedNode.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput);
+//		JDFComponent comp=(JDFComponent) respawnedNode.GetMatchingResource(JDFNode::elm_Component,JDFNode::ProcessUsage_AnyOutput);
+//        vWString vSpID=xm.GetSpawnIDs(false);
+//// assertion
+//		WString strNode = xm.ToString(); // TODO remove after debugging
+//		CPPUNIT_ASSERT( !vSpID.empty() ); // spawnIDs present
+//		xm=(JDFExposedMedia) xm.GetPartition(map);
+//		CPPUNIT_ASSERT( xm.GetLocked() ); // xm rw
+//		comp=(JDFComponent) comp.GetPartition(map);
+//		CPPUNIT_ASSERT( !comp.GetLocked() ); // comp rw
+//
+//        map.put("SheetName","S2");
+//        spawn=JDFSpawn(spawnedNode);
+//		JDFDoc respawnedDoc2=spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
+//		JDFNode respawnedNode2=respawnedDoc2.GetJDFRoot();
+//		xm=(JDFExposedMedia) respawnedNode2.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput);
+//		comp=(JDFComponent) respawnedNode2.GetMatchingResource(JDFNode::elm_Component,JDFNode::ProcessUsage_AnyOutput);
+//        vSpID=xm.GetSpawnIDs(false);
+//		CPPUNIT_ASSERT( !vSpID.empty() ); // spawnIDs present
+//		xm=(JDFExposedMedia) xm.GetPartition(map);       
+//
+//		CPPUNIT_ASSERT( xm.GetLocked() ); // xm rw
+//		comp=(JDFComponent) comp.GetPartition(map);
+//		CPPUNIT_ASSERT( !comp.GetLocked() ); // comp rw
+//        WString spawnID1=spawnedNode.GetSpawnID(false);
+//		JDFMerge merge2 = JDFMerge(spawnedNode);
+//		JDFDoc testSpawnedDoc = merge2.mergeJDF(respawnedNode2, WString::emptyStr, JDFNode::CleanUpMerge_None, JDFResource::AmountMerge_UpdateLink);
+//		JDFNode testSpawnedNode=testSpawnedDoc.GetJDFRoot();
+//		CPPUNIT_ASSERT( spawnedNode.HasChildElement(JDFNode::elm_AncestorPool) ); // AncestorPool after respawn merge
+//		CPPUNIT_ASSERT_EQUAL( spawnID1,testSpawnedNode.GetSpawnID() ); // SpawnID ok?
+//        spawn=JDFSpawn(spawnedNode);
+//		respawnedDoc2 = spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
+//		respawnedNode2 = respawnedDoc.GetJDFRoot();
+//
+//        //// now go backwards!
+//        //new JDFMerge(nRoot).mergeJDF(spawnedNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
+//        //new JDFMerge(nRoot).mergeJDF(respawnedNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
+//        //new JDFMerge(nRoot).mergeJDF(respawnedNode2, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
+//
+//
+//        //new JDFMerge(nRoot).mergeJDF(spawnedPSNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
+//        //assertTrue("spawnIDs gone",nRoot.toString().indexOf("SpawnIDs")<0);
+//	}
+//	catch (JDFException& e)
+//	{
+//		CPPUNIT_FAIL( e.what() );
+//	}
+//}

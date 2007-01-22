@@ -1461,6 +1461,7 @@ namespace JDF{
 	vElement KElement::GetChildrenByTagName(const WString& s, const WString & nameSpaceURI, const mAttribute & mAttrib, bool bDirect, bool bAnd, unsigned int maxSize)const{
 		if (bDirect)
 		{
+			// if JDFResource::GetChildElementVector() is called, partitions will not be returned
 			return GetChildElementVector(s,nameSpaceURI,mAttrib,bAnd,maxSize);
 		}
 

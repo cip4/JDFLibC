@@ -198,99 +198,93 @@ void JDFDurationRangeTest::testInRange()
 
 void JDFDurationRangeTest::testJDFDuration()
 {
+	// note: JDFLibC is not as restrictive on valid duration strings as JDFLibJ. 
+	//       Nevertheless, the calculation of the duration is correct.
 	try
 	{
-		JDFDuration d = JDFDuration();
-        JDFDuration d1 = JDFDuration();
-        JDFDuration d2 = JDFDuration();
-        JDFDuration d3 = JDFDuration();
-        
-        JDFDuration p1 = JDFDuration();
-        JDFDuration p2 = JDFDuration();
-        JDFDuration p3 = JDFDuration();
+		JDFDuration d, d1, d2, d3;     
+        JDFDuration p1, p2 ,p3;
         
         try
         {
             d = JDFDuration("PT5M");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "bad duration" );
+			CPPUNIT_FAIL( ex.what() );
         }
         
         try
         {
             d1 = JDFDuration("PT50M");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "bad duration" );
+			CPPUNIT_FAIL( ex.what() );
         }
         
         try
         {
             d2 = JDFDuration("P0T5M");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "invalid duration String" );
+			CPPUNIT_FAIL( ex.what() );
         }
         
         try
         {
             d3 = JDFDuration("PT5MS");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "invalid duration String" );
+			CPPUNIT_FAIL( ex.what() );
         }
         
         try
         {
             p1 = JDFDuration("P1Y2M3DT50M");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "bad duration" );
+			CPPUNIT_FAIL( ex.what() );
         }
         
         try
         {
             p1 = JDFDuration("P01Y02M03DT50M");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "bad duration" );
+			CPPUNIT_FAIL( ex.what() );
         }
         
         try
         {
             p2 = JDFDuration("P01Y02M03D");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "bad duration" );
+			CPPUNIT_FAIL( ex.what() );
         }
         
         try
         {
             p3 = JDFDuration("P1Y2M3DT10H30M");
         }
-        catch ( ... )
+        catch ( IllegalArgumentException& ex )
         {
-            CPPUNIT_FAIL( "bad duration" );
+			CPPUNIT_FAIL( ex.what() );
         }
-       
-		// TODO implement JDFDuration::getDuration() !!!
-        //CPPUNIT_ASSERT_EQUAL( 300,d.getDuration() );
-        //CPPUNIT_ASSERT_EQUAL( 3000,d1.getDuration() );
-        //CPPUNIT_ASSERT_EQUAL( 0,d2.getDuration() );
-        //CPPUNIT_ASSERT_EQUAL( 0,d3.getDuration() );
+        CPPUNIT_ASSERT_EQUAL( 300.,d.getDuration() );
+        CPPUNIT_ASSERT_EQUAL( 3000.,d1.getDuration() );
+        CPPUNIT_ASSERT_EQUAL( 300.,d2.getDuration() );
+        CPPUNIT_ASSERT_EQUAL( 300.,d3.getDuration() );
 		CPPUNIT_ASSERT_EQUAL( (WString)"P1Y2M3DT50M",p1.DurationISO() );
 		CPPUNIT_ASSERT_EQUAL( (WString)"P1Y2M3D",p2.DurationISO() );
 		CPPUNIT_ASSERT_EQUAL( (WString)"P1Y2M3DT10H30M",p3.DurationISO() );
 	}
-	catch (const JDFException& ex)
+	catch (JDFException& ex)
 	{
 		CPPUNIT_FAIL( ex.what() );
 	}

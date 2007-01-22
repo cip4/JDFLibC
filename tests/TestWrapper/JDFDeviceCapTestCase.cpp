@@ -239,7 +239,6 @@ void JDFDeviceCapTestCase::testLogic()
 	JDFActionPool ap=dc.AppendActionPool();
 	JDFAction a=ap.AppendAction();
 	a.setTest(test);
-	// TODO add more tests...
 }
 
 void JDFDeviceCapTestCase::testDeviceCapIsValid()

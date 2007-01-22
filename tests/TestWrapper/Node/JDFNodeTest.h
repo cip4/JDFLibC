@@ -93,7 +93,6 @@
 class JDFNodeTest : public CppUnit::TestCase
 {
 	CPPUNIT_TEST_SUITE( JDFNodeTest );
-		CPPUNIT_TEST( testBookintent );
 		CPPUNIT_TEST( testSetType );
 		CPPUNIT_TEST( testLinkResourceNS );
 		CPPUNIT_TEST( testInsertTypeInTypes );
@@ -139,7 +138,6 @@ class JDFNodeTest : public CppUnit::TestCase
 
 	public:
 		void setUp();
-		void testBookintent();
 		void testSetType();
 		void testLinkResourceNS();
 		void testInsertTypeInTypes();

@@ -135,9 +135,62 @@ void JDFXYPairTest::testSetString()
 		n.SetAttribute("test2",xy);
 		CPPUNIT_ASSERT_EQUAL( (WString)"1.1 2.2",n.GetAttribute("test2") );
         
-		CPPUNIT_ASSERT_THROW( JDFXYPair("1 2 3"), JDFException );;
+		CPPUNIT_ASSERT_THROW( JDFXYPair("1 2 3"), JDFException );
 	}
 	catch (const JDFException& ex)
+	{
+		CPPUNIT_FAIL( ex.what() );
+	}
+}
+
+void JDFXYPairTest::testEquals()
+{
+	try
+	{
+		JDFXYPair xy1 = JDFXYPair("3 5");
+		JDFXYPair xy2 = JDFXYPair("3 6");
+		CPPUNIT_ASSERT( xy1!=xy2 );
+		CPPUNIT_ASSERT( !(xy1==xy2) );
+
+		xy2 = JDFXYPair("3 5");
+		CPPUNIT_ASSERT( !(xy1!=xy2) );
+		CPPUNIT_ASSERT( xy1==xy2 );
+	}
+	catch (JDFException& ex)
+	{
+		CPPUNIT_FAIL( ex.what() );
+	}
+}
+
+void JDFXYPairTest::testIsLessOrEqual()
+{
+	try
+	{
+		JDFXYPair xy1 = JDFXYPair("3 5");
+		JDFXYPair xy2 = JDFXYPair("3 6");
+		CPPUNIT_ASSERT( xy1<=xy2 );
+
+		xy1 = JDFXYPair("3 5");
+		xy2 = JDFXYPair("4 8");
+		CPPUNIT_ASSERT( xy1<=xy2 );
+
+		xy1 = JDFXYPair("3 5");
+		xy2 = JDFXYPair("3 5");
+		CPPUNIT_ASSERT( xy1<=xy2 );
+
+		xy1 = JDFXYPair("5 5");
+		xy2 = JDFXYPair("4 8");
+		CPPUNIT_ASSERT( !(xy1<=xy2) );
+
+		xy1 = JDFXYPair("3 5");
+		xy2 = JDFXYPair("3 4");
+		CPPUNIT_ASSERT( !(xy1<=xy2) );
+
+		JDFXYPair xy1 = JDFXYPair("-3 5");
+		JDFXYPair xy2 = JDFXYPair("3 5");
+		CPPUNIT_ASSERT( xy1<=xy2 );
+	}
+	catch (JDFException& ex)
 	{
 		CPPUNIT_FAIL( ex.what() );
 	}

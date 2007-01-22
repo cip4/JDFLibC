@@ -100,7 +100,9 @@
 // 2004-02-02 ES added SetDurationFromString, SetDateTimeFromString
 //
 // 2004-11-10 ES MyDate was split into JDFDate and JDFDuration
-// 5006-10-30 NB fixed SetDurationString()
+// 2006-10-30 NB fixed SetDurationString()
+// 2007-01-17 NB moved implementation of SetDuration() to JDFDuration.cpp
+// 2007-01-17 NB added getDuration()
 //
 // JDFDuration.h: interface for the JDFDuration class.
 //
@@ -191,16 +193,20 @@ public:
 	* duration in ISO 8601 format: PyYmMdDThHmMsS
 	* @return WString: duration in ISO 8601 format
 	*/
-	WString  DurationISO()  const;
+	WString DurationISO()  const;
 
 	/**
 	* set duration 
 	* @param double iSec - seconds of duration
 	*/
-	void SetDuration(double iSec)
-	{
-		duration=iSec;
-	};
+	void SetDuration(double iSec);
+
+
+	/**
+	* get duration 
+	* @return double - duration in seconds
+	*/
+	double getDuration();
 	
 	/**
 	* equality operator
