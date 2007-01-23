@@ -130,26 +130,22 @@ void StringUtilTest::testSetUTF8Bytes()
 	{
 		WString testString = "ABCDEFGHIJKLMNOPQESTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÖÄÜöäü€";
 		const char* utfBytes = testString.GetUTF8Bytes();
+		int utfBytes_siz = strlen(utfBytes);
 		WString temp;
-		temp.SetUTF8Bytes(utfBytes);
+		temp.SetUTF8Bytes(utfBytes,utfBytes_siz);
 		CPPUNIT_ASSERT_EQUAL( testString,temp );
 
+		// round trip
 		testString.SetUTF8Bytes(utfBytes);
 		const char* utfBytes2 = testString.GetUTF8Bytes();
 		CPPUNIT_ASSERT_EQUAL( utfBytes,utfBytes2 );
 
-		WString buffer = "0123456789ÖÄÜöäü€ABCDEFGHIJKLMNOPQESTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		testString.SetUTF8String(utfBytes2);
-		WString newString = testString.GetUTF8String();  // TODO throws xercesc_2_7::UTFDataFormatException
+		WString newString = testString.GetUTF8String(); // TODO: check WString::GetUTF8String() - Bug oder Feature?
 		CPPUNIT_ASSERT_EQUAL( testString,newString );
 	}
 	catch (JDFException& e)
 	{
 		CPPUNIT_FAIL( e.what() );
-	}
-	catch ( ... )
-	{
-		CPPUNIT_FAIL( "caught non-JDF exception" );
 	}
 }
 
@@ -187,7 +183,7 @@ void StringUtilTest::testEscape()
 		temp = "%_ä";
 		CPPUNIT_ASSERT_EQUAL( (WString)"%25_%E4",temp.Escape(":&?%","%",16,2,0x21,127) );
 
-		WString buf = "€";;
+		WString buf = "€";
 		actual = temp.Escape(buf,"%",16,2,0x21,127);
 		CPPUNIT_ASSERT_EQUAL( (WString)"%e2%82%ac",temp.Escape(":&?%","%",16,2,0x21,127) ); // escape
 

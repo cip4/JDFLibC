@@ -186,8 +186,8 @@ void JDFXYPairTest::testIsLessOrEqual()
 		xy2 = JDFXYPair("3 4");
 		CPPUNIT_ASSERT( !(xy1<=xy2) );
 
-		JDFXYPair xy1 = JDFXYPair("-3 5");
-		JDFXYPair xy2 = JDFXYPair("3 5");
+		xy1 = JDFXYPair("-3 5");
+		xy2 = JDFXYPair("3 5");
 		CPPUNIT_ASSERT( xy1<=xy2 );
 	}
 	catch (JDFException& ex)

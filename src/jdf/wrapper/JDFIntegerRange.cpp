@@ -86,7 +86,7 @@
 #pragma warning( disable : 4786 ) // long debug names from stl
 #pragma warning( disable : 4804 ) // bool checking
 #include "JDFIntegerRange.h"
-#include "jdf\wrappercore\StringUtil.h"
+#include "jdf/wrappercore/StringUtil.h"
 
 using namespace std;
 namespace JDF{

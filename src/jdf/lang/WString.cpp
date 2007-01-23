@@ -2430,6 +2430,7 @@ namespace JDF
 	WString WString::GetUTF8String(){	
 		const char* pUtf8=GetUTF8Bytes();
 		WString s=pUtf8;
+		// s.SetUTF8Bytes(pUtf8); // TODO _niels_ Bug oder Feature?
 		return s;
 	}
 	////////////////////////////////////////////////////////////////////////

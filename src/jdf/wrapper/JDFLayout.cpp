@@ -307,7 +307,7 @@ namespace JDF{
 
 	///////////////////////////////////////////////////////////////////////////////
 
-	void JDFLayout::moveElementsTo(JDF::JDFLayout &target)
+	void JDFLayout::moveElementsTo(JDFLayout &target)
 	{
 		vElement vPO=getPlacedObjectVector();
 		if(!vPO.empty())
