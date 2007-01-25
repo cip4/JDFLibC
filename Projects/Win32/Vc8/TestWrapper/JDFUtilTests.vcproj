@@ -396,6 +396,10 @@
 			Filter=".cpp,.c"
 			>
 			<File
+				RelativePath="..\..\..\..\tests\TestWrapper\util\fileUtilTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\..\tests\TestWrapper\util\JDFDateTest.cpp"
 				>
 			</File>
@@ -420,6 +424,10 @@
 			Name="include"
 			Filter=".hpp,.h"
 			>
+			<File
+				RelativePath="..\..\..\..\tests\TestWrapper\util\fileUtilTest.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\..\tests\TestWrapper\util\JDFDateTest.h"
 				>

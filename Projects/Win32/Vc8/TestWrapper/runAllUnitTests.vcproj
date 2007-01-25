@@ -574,6 +574,10 @@
 				Name="util"
 				>
 				<File
+					RelativePath="..\..\..\..\tests\TestWrapper\util\fileUtilTest.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\..\tests\TestWrapper\util\JDFDateTest.cpp"
 					>
 				</File>
@@ -846,6 +850,10 @@
 			<Filter
 				Name="util"
 				>
+				<File
+					RelativePath="..\..\..\..\tests\TestWrapper\util\fileUtilTest.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\..\tests\TestWrapper\util\JDFDateTest.h"
 					>

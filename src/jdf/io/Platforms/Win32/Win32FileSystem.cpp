@@ -404,6 +404,7 @@ namespace JDF
 	{
 		bool bExists=false;
 		WString pathName(file.getAbsolutePath());
+		pathName = canonicalize(pathName);
 #ifdef UNICODE
 		if (gOnNT)
 		{

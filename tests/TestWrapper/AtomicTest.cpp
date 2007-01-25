@@ -90,6 +90,8 @@
 
 #include "jdf/wrapper/JDFSpawn.h"
 #include "jdf/wrapper/JDFMerge.h"
+#include "jdf/io/File.h"
+#include "jdf/io/Platforms/Win32/Win32FileSystem.h"
 
 using namespace std;
 using namespace JDF;
@@ -184,22 +186,73 @@ static JDFDoc creatXMDoc()
 	return doc;
 }
 
-// JDFXYPairTest::testIsLessOrEqual()
+
+
+// JDFUtilTest::fileUtilTest::testFileExists()
 void AtomicTest::testAtomic()
 {
+	// note: the existence of files is checked via JDFParser in order to 
+	//       simplify this test across different file systems
+	
 	try
 	{
-		JDFXYPair xy1 = JDFXYPair("-3 5");
-		JDFXYPair xy2 = JDFXYPair("3 5");
-		CPPUNIT_ASSERT( xy1<=xy2 );
+		JDFParser p;
+		
+		// the plain file
+		CPPUNIT_ASSERT( p.Parse("data/emptyAuthorAttribute.jdf",false) );
 
+		// relative to the current dir
+		CPPUNIT_ASSERT( p.Parse("./data/emptyAuthorAttribute.jdf",false) );
 
+		// moving between different sub directories
+		CPPUNIT_ASSERT( p.Parse("../TestFiles/data/emptyAuthorAttribute.jdf",false) );
+
+		// different subdirs relative to the current dir
+		CPPUNIT_ASSERT( p.Parse("./../TestFiles/data/emptyAuthorAttribute.jdf",false) );
 	}
-	catch (JDFException& ex)
+	catch (const JDFException& ex)
 	{
 		CPPUNIT_FAIL( ex.what() );
 	}
 }
+
+
+//// StringUtilTest::testEscape()
+//void AtomicTest::testAtomic()
+//{
+//	try
+//	{
+//		//// round trip
+//		//WString iri="file://myHost/a/c%20äöü%25&?.txtß€";
+//		//WString escaped = iri.Escape(iri,"%",16);
+//		//WString unEscaped = escaped.UnEscape('%',16,2);
+//		//CPPUNIT_ASSERT_EQUAL( iri,unEscaped );
+//
+//        //assertEquals("escape round trip",iri,StringUtil.unEscape(StringUtil.escape(iri,":&?%","%",16,2,0x21,127),"%",16,2));
+//        //assertEquals("escape ","%25_%e4",StringUtil.escape("%_ä",":&?%","%",16,2,0x21,127));
+//        //assertEquals("escape ","%e2%82%ac",StringUtil.escape(new String(StringUtil.setUTF8String("€")),":&?%","%",16,2,0x21,127));
+//
+//
+//		WString temp = "€";
+//		char* t = temp.getBytes();
+//		WString escaped = temp.Escape("€","%",16,2,0x21,-1);
+//		WString unEscaped = escaped.UnEscape('%',16,2);
+//
+//		CPPUNIT_ASSERT( true );
+//
+//
+//
+//        //assertEquals("ß",StringUtil.escape("ß",null,"%",16,2,0x21,-1));
+//        //assertEquals("€",StringUtil.escape("€",null,"%",16,2,0x21,-1));
+//        //assertEquals("a_a",StringUtil.escape("aäa",null,"_",-1,0,0x21,127));
+//        //assertEquals("a__a",StringUtil.escape("aä_a",null,"_",-1,0,0x21,127));
+//        //assertEquals("a_äa",StringUtil.escape("aäa",null,"_",0,0,0x21,127));
+//	}
+//	catch (JDFException& ex)
+//	{
+//		CPPUNIT_FAIL( ex.what() );
+//	}
+//}
 
 
 

@@ -281,7 +281,7 @@ namespace JDF{
 		
 		if (HasAttribute(atr_ValueDurationList))
 		{
-			JDFDuration duration=(range.GetRight().GetSecondsSince1970())-(range.GetLeft().GetSecondsSince1970());
+			JDFDuration duration=((double) range.GetRight().GetSecondsSince1970())-((double) range.GetLeft().GetSecondsSince1970());
 			return GetValueDurationList().IsPartOfRange(duration);
 		}
 		return true;

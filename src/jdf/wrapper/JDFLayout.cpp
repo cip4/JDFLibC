@@ -155,7 +155,7 @@ namespace JDF{
 			JDFSignature signature = AppendElement(elm_Signature);
 			signature.SetName("Sig_00");
 			vSig.push_back(signature);
-			moveElementsTo((JDFLayout)signature);
+			moveElementsTo((JDFLayout&)signature);
 		}else{
 			JDFSignature sig;
 			for(int i=0;i<vLO.size();i++){
@@ -187,7 +187,7 @@ namespace JDF{
 				JDFSheet sheet = sig.AppendElement(elm_Sheet);
 				sheet.SetName("Sheet_" + WString::valueOf(nSheet));
 				vSheet.push_back(sheet);
-				((JDFLayout)sig).moveElementsTo((JDFLayout)sheet);
+				((JDFLayout)sig).moveElementsTo((JDFLayout&)sheet);
 			}else{
 				JDFSheet sheet;
 				for(int i=0;i<vLO.size();i++){
@@ -219,7 +219,7 @@ namespace JDF{
 				if(vLO.empty()){
 					JDFSurface surf=sheet.AppendElement(elm_Surface);
 					surf.SetSide(JDFPart::Side_Front);
-					((JDFLayout)sheet).moveElementsTo((JDFLayout)surf);
+					((JDFLayout)sheet).moveElementsTo((JDFLayout&)surf);
 				}else{
 					for(int i=0;i<vLO.size();i++){
 						JDFSurface surface=(JDFSurface)vLO[i];

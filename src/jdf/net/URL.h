@@ -832,9 +832,10 @@ private:
 	void parse(WString url);
 	bool conglomerateWithBase(const URL& baseURL);
 
-	//#####################################################################
-	// new test version "makeRelativeToBase", RN 31.10.2006
-	//#####################################################################
+	/**
+	 * make the this URL relative to the given baseURL
+	 * @param baseURL the URL to make this relative to
+	 */
 	bool makeRelativeToBase(const URL& baseURL);
 
 	/**

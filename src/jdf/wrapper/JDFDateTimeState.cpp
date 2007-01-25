@@ -331,7 +331,7 @@ namespace JDF{
 		{
 			JDFDateTimeRange range = rangelist.at(i);
 
-			JDFDuration duration=(range.GetRight().GetSecondsSince1970())-(range.GetLeft().GetSecondsSince1970());
+			JDFDuration duration=((double) range.GetRight().GetSecondsSince1970())-((double) range.GetLeft().GetSecondsSince1970());
 			if (list.IsPartOfRange(duration)==false)
 				return false;
 		}
