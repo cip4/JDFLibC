@@ -1,0 +1,5 @@
+Label:		JDFPARSER_2.1.3BLD088
+Version:	JDFOpenSrc 2.1.3 Build 88 implementation
+ExeName:	Not yet available
+ExePath:	Currently only in this VOB
+Comment:	Library to modify JDF files

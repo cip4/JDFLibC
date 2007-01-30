@@ -1,0 +1,38 @@
+lang/WString.cpp
+	_atoi64() geändert in atol()
+	WString s=tok ? tok : emptyStr; geändert in WString s=tok ? (WString) tok : emptyStr;
+
+	WStringBase.h
+		length() geändert in this->length()
+		empty() geändert in WString::empy()
+		
+lang.Janitor.cpp ???
+	alles auskommentiert, schon im .h file implementiert
+
+io/Platform/MacOS/MacOSFileSystem.cpp
+	#include <jdf/io/Exception.h> --> #include <jdf/lang/Exception.h>
+	
+util/Platforms/MacOS/MacOSPlatformUtils.cpp	
+	#include <jdf/io/Exception.h> --> #include <jdf/lang/Exception.h>
+	cast auf WString zugefügt : FILE* f = fopen(((WString) fileName).peekBytes(), "w+");
+	
+
+Cache.h
+		typename std::list<CacheMap::value_type>::iterator it2;
+
+../../../src/jdf/util/Cache.h:333: error: type/value mismatch at argument 1 in template parameter list for 'template<class _Tp, class _Alloc> class std::list'
+../../../src/jdf/util/Cache.h:333: error:   expected a type, got 'JDF::hmap<K,T*,hashfun>::value_type'
+../../../src/jdf/util/Cache.h:333: error: template argument 2 is invalid
+../../../src/jdf/util/Cache.h:333: error: expected initializer before 'itlist'
+
+    fix :
+		typename std::list<typename CacheMap::value_type>::iterator it2;
+
+
+
+	mDict.insert(CacheMap::value_type(key,value));
+
+../../../src/jdf/util/Cache.h:383: error: dependent-name 'JDF::hmap<K,T*,hashfun>::value_type' is parsed as a non-type, but instantiation yields a type
+
+    fix: 
+	mDict.insert(typename CacheMap::value_type(key,value));

@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 38;
+	objects = {
+		014CEA460018CE2711CA2923 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				OPTIMIZATION_CFLAGS = "-O0";
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		014CEA470018CE2711CA2923 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+//010
+//011
+//012
+//013
+//014
+//020
+//021
+//022
+//023
+//024
+		0249A660FF388D4511CA2CEA = {
+			isa = PBXExecutableFileReference;
+			path = CheckJDF;
+			refType = 3;
+		};
+		0249A662FF388D9811CA2CEA = {
+			children = (
+				F8944C4B02D46CE90133C9A5,
+				F8944C4D02D46D020133C9A5,
+				F8944C4902D46CCE0133C9A5,
+				F8944C5A02D46EBB0133C9A5,
+				F8944C4F02D46D180133C9A5,
+				F8944D2202D491D40133C9A5,
+				F8944D2402D4957A0133C9A5,
+			);
+			isa = PBXGroup;
+			name = "External Frameworks and Libraries";
+			refType = 4;
+		};
+//020
+//021
+//022
+//023
+//024
+//080
+//081
+//082
+//083
+//084
+		08FB7793FE84155DC02AAC07 = {
+			buildStyles = (
+				014CEA460018CE2711CA2923,
+				014CEA470018CE2711CA2923,
+			);
+			isa = PBXProject;
+			mainGroup = 08FB7794FE84155DC02AAC07;
+			projectDirPath = "";
+			targets = (
+				08FB779FFE84155DC02AAC07,
+			);
+		};
+		08FB7794FE84155DC02AAC07 = {
+			children = (
+				08FB7795FE84155DC02AAC07,
+				0249A662FF388D9811CA2CEA,
+				1AB674ADFE9D54B511CA2CBB,
+			);
+			isa = PBXGroup;
+			name = CheckJDF;
+			refType = 4;
+		};
+		08FB7795FE84155DC02AAC07 = {
+			children = (
+				F8944C5402D46D710133C9A5,
+				F8944C5602D46D870133C9A5,
+				F8944C5802D46DA10133C9A5,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+		};
+		08FB779FFE84155DC02AAC07 = {
+			buildPhases = (
+				08FB77A0FE84155DC02AAC07,
+				08FB77A1FE84155DC02AAC07,
+				08FB77A3FE84155DC02AAC07,
+				08FB77A5FE84155DC02AAC07,
+			);
+			buildSettings = {
+				DEBUGGING_SYMBOLS = NO;
+				FRAMEWORK_SEARCH_PATHS = /Users/testic/Library/Frameworks;
+				HEADER_SEARCH_PATHS = "/Volumes/HD/develop/JDFOpenSrc/external/stlport/stlport /Volumes/HD/develop/JDFOpenSrc/src/jdf/wrappercore /Volumes/HD/develop/JDFOpenSrc/src/jdf/wrapper/AutoJDF /Volumes/HD/develop/JDFOpenSrc/src/jdf/wrapper /Volumes/HD/develop/JDFOpenSrc/external/xerces/src/xercesc /Volumes/HD/develop/JDFOpenSrc/external/xerces/src /Volumes/HD/develop/JDFOpenSrc/src";
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = "/Volumes/HD/develop/JDFOpenSrc/Build/MACOS/JDFToolsLib /Volumes/HD/develop/JDFOpenSrc/Build/MACOS/JDFWrapperCoreLib /Volumes/HD/develop/JDFOpenSrc/Build/MACOS/JDFWrapperLib /Volumes/HD/develop/JDFOpenSrc/external/stlport/lib /Volumes/HD/develop/JDFOpenSrc/Projects/MACOS/JDFWrapper/JDFWrapperLib/build/JDFWrapperLib.build/JDFWrapperLib.build/Objects-normal /Volumes/HD/develop/JDFOpenSrc/Projects/MACOS/JDFWrapperCore/build /Volumes/HD/develop/JDFOpenSrc/Projects/MACOS/JDFToolsLib/build /Volumes/HD/develop/JDFOpenSrc/Build/MacOS/JDFToolsLib /Volumes/HD/develop/JDFOpenSrc/Build/MacOS/JDFWrapperLib /Volumes/HD/develop/JDFOpenSrc/Build/MacOS/JDFWrapperCoreLib /Volumes/HD/develop/JDFOpenSrc/external/stlport/lib /usr/lib/gcc/darwin/2.95.2";
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "-DPROJ_JDFTOOLSLIB -fno-coalesce";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = CheckJDF;
+				REZ_EXECUTABLE = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+			);
+			isa = PBXToolTarget;
+			name = CheckJDF;
+			productInstallPath = "$(HOME)/bin";
+			productName = CheckJDF;
+			productReference = 0249A660FF388D4511CA2CEA;
+			shouldUseHeadermap = 1;
+		};
+		08FB77A0FE84155DC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F8944C5502D46D710133C9A5,
+			);
+			isa = PBXHeadersBuildPhase;
+		};
+		08FB77A1FE84155DC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F8944C5702D46D870133C9A5,
+				F8944C5902D46DA10133C9A5,
+			);
+			isa = PBXSourcesBuildPhase;
+		};
+		08FB77A3FE84155DC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F8944C4A02D46CCE0133C9A5,
+				F8944C4C02D46CE90133C9A5,
+				F8944C4E02D46D020133C9A5,
+				F8944C5002D46D180133C9A5,
+				F8944C5C02D46EBB0133C9A5,
+				F8944D2302D491D40133C9A5,
+			);
+			isa = PBXFrameworksBuildPhase;
+		};
+		08FB77A5FE84155DC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+		};
+//080
+//081
+//082
+//083
+//084
+//1A0
+//1A1
+//1A2
+//1A3
+//1A4
+		1AB674ADFE9D54B511CA2CBB = {
+			children = (
+				0249A660FF388D4511CA2CEA,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+		};
+//1A0
+//1A1
+//1A2
+//1A3
+//1A4
+//F80
+//F81
+//F82
+//F83
+//F84
+		F8944C4902D46CCE0133C9A5 = {
+			isa = PBXFileReference;
+			name = libJDFToolsLib.a;
+			path = /Volumes/HD/develop/JDFOpenSrc/Build/MacOS/JDFToolsLib/libJDFToolsLib.a;
+			refType = 0;
+		};
+		F8944C4A02D46CCE0133C9A5 = {
+			fileRef = F8944C4902D46CCE0133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944C4B02D46CE90133C9A5 = {
+			isa = PBXFileReference;
+			name = libJDFWrapperLib.a;
+			path = /Volumes/HD/develop/JDFOpenSrc/Build/MacOS/JDFWrapperLib/libJDFWrapperLib.a;
+			refType = 0;
+		};
+		F8944C4C02D46CE90133C9A5 = {
+			fileRef = F8944C4B02D46CE90133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944C4D02D46D020133C9A5 = {
+			isa = PBXFileReference;
+			name = libJDFWrapperCoreLib.a;
+			path = /Volumes/HD/develop/JDFOpenSrc/Build/MacOS/JDFWrapperCoreLib/libJDFWrapperCoreLib.a;
+			refType = 0;
+		};
+		F8944C4E02D46D020133C9A5 = {
+			fileRef = F8944C4D02D46D020133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944C4F02D46D180133C9A5 = {
+			isa = PBXFileReference;
+			name = libstlport_gcc.a;
+			path = /Volumes/HD/develop/JDFOpenSrc/external/stlport/lib/libstlport_gcc.a;
+			refType = 0;
+		};
+		F8944C5002D46D180133C9A5 = {
+			fileRef = F8944C4F02D46D180133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944C5402D46D710133C9A5 = {
+			isa = PBXFileReference;
+			name = MyTime.h;
+			path = /Volumes/HD/develop/JDFOpenSrc/tests/TestWrapper/MyTime.h;
+			refType = 0;
+		};
+		F8944C5502D46D710133C9A5 = {
+			fileRef = F8944C5402D46D710133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944C5602D46D870133C9A5 = {
+			isa = PBXFileReference;
+			name = CheckJDF.cpp;
+			path = /Volumes/HD/develop/JDFOpenSrc/tests/TestWrapper/CheckJDF.cpp;
+			refType = 0;
+		};
+		F8944C5702D46D870133C9A5 = {
+			fileRef = F8944C5602D46D870133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944C5802D46DA10133C9A5 = {
+			isa = PBXFileReference;
+			name = MyTime.cpp;
+			path = /Volumes/HD/develop/JDFOpenSrc/tests/TestWrapper/MyTime.cpp;
+			refType = 0;
+		};
+		F8944C5902D46DA10133C9A5 = {
+			fileRef = F8944C5802D46DA10133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944C5A02D46EBB0133C9A5 = {
+			isa = PBXFrameworkReference;
+			name = Xerces.framework;
+			path = /Users/testic/Library/Frameworks/Xerces.framework;
+			refType = 0;
+		};
+		F8944C5C02D46EBB0133C9A5 = {
+			fileRef = F8944C5A02D46EBB0133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944D2202D491D40133C9A5 = {
+			isa = PBXFileReference;
+			name = "libstdc++.a";
+			path = "../../../../../../../../usr/lib/gcc/darwin/2.95.2/libstdc++.a";
+			refType = 2;
+		};
+		F8944D2302D491D40133C9A5 = {
+			fileRef = F8944D2202D491D40133C9A5;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F8944D2402D4957A0133C9A5 = {
+			isa = PBXFileReference;
+			name = patch;
+			path = /Volumes/HD/develop/JDFOpenSrc/external/stlport/patch;
+			refType = 0;
+		};
+	};
+	rootObject = 08FB7793FE84155DC02AAC07;
+}

@@ -1,0 +1,277 @@
+# Microsoft Developer Studio Project File - Name="demo" - Package Owner=<4>
+# Microsoft Developer Studio Generated Build File, Format Version 6.00
+# ** DO NOT EDIT **
+
+# TARGTYPE "Win32 (x86) Application" 0x0101
+
+CFG=demo - Win32 Release
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
+!MESSAGE 
+!MESSAGE NMAKE /f "TestPng.mak".
+!MESSAGE 
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE 
+!MESSAGE NMAKE /f "TestPng.mak" CFG="demo - Win32 Release"
+!MESSAGE 
+!MESSAGE Possible choices for configuration are:
+!MESSAGE 
+!MESSAGE "demo - Win32 Release" (based on "Win32 (x86) Application")
+!MESSAGE "demo - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE 
+
+# Begin Project
+# PROP AllowPerConfigDependencies 0
+# PROP Scc_ProjName "demo"
+# PROP Scc_LocalPath "."
+CPP=cl.exe
+MTL=midl.exe
+RSC=rc.exe
+
+!IF  "$(CFG)" == "demo - Win32 Release"
+
+# PROP BASE Use_MFC 6
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir ".\Release"
+# PROP BASE Intermediate_Dir ".\Release"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 6
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "..\..\..\..\Build\Win32\VC6\Release"
+# PROP Intermediate_Dir "..\..\..\..\Build\Win32\VC6\Release\Test\obj"
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "..\..\..\..\external\stlport\stlport" /I "..\..\..\..\external\xerces\src" /I "..\..\..\..\external\xerces\src\xercesc" /I "..\..\..\..\src" /I "..\..\..\..\tests\testpng" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FD /c
+# SUBTRACT CPP /YX /Yc /Yu
+# ADD BASE MTL /nologo /D "NDEBUG" /win32
+# ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
+# ADD BASE RSC /l 0x809 /d "NDEBUG" /d "_AFXDLL"
+# ADD RSC /l 0x809 /d "NDEBUG" /d "_AFXDLL"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 /nologo /subsystem:windows /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib winmm.lib xerces-c_1.lib jdftools.lib /nologo /subsystem:windows /machine:I386 /libpath:"..\..\..\..\external\xerces\Build\Win32\VC6\Release" /libpath:"..\..\..\..\Build\Win32\Vc6\Release"
+
+!ELSEIF  "$(CFG)" == "demo - Win32 Debug"
+
+# PROP BASE Use_MFC 6
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir ".\Debug"
+# PROP BASE Intermediate_Dir ".\Debug"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 6
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "..\..\..\..\Build\Win32\VC6\Debug"
+# PROP Intermediate_Dir "..\..\..\..\Build\Win32\VC6\Debug\Test\obj"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\..\external\stlport\stlport" /I "..\..\..\..\external\xerces\src" /I "..\..\..\..\external\xerces\src\xercesc" /I "..\..\..\..\src" /I "..\..\..\..\tests\testpng" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /FD /c
+# SUBTRACT CPP /YX /Yc /Yu
+# ADD BASE MTL /nologo /D "_DEBUG" /win32
+# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
+# ADD BASE RSC /l 0x809 /d "_DEBUG" /d "_AFXDLL"
+# ADD RSC /l 0x809 /d "_DEBUG" /d "_AFXDLL"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 /nologo /subsystem:windows /debug /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib winmm.lib xerces-c_1D.lib jdftools_D.lib /nologo /subsystem:windows /debug /machine:I386 /libpath:"..\..\..\..\external\xerces\Build\Win32\VC6\Debug" /libpath:"..\..\..\..\Build\Win32\Vc6\Debug"
+
+!ENDIF 
+
+# Begin Target
+
+# Name "demo - Win32 Release"
+# Name "demo - Win32 Debug"
+# Begin Group "Source Files"
+
+# PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;hpj;bat;for;f90"
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\ChildFrm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\ChildFrm.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\cimage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\cimage.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\cimageb.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\cimageb.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\cmap.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\cmap.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\demo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\demo.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\demo.rc
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\demoDoc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\demoDoc.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\demoView.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\demoView.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Dibutils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Dibutils.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Imabmp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Imabmp.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Imafile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Imaiter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Imapng.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\Imapng.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\MainFrm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\ReadMe.txt
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\StdAfx.cpp
+
+!IF  "$(CFG)" == "demo - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "demo - Win32 Debug"
+
+# SUBTRACT CPP /YX /Yc /Yu
+
+!ENDIF 
+
+# End Source File
+# End Group
+# Begin Group "Header Files"
+
+# PROP Default_Filter "h;hpp;hxx;hm;inl;fi;fd"
+# Begin Source File
+
+SOURCE=.\ChildFrm.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\demo.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\demoDoc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\demoView.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MainFrm.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\StdAfx.h
+# End Source File
+# End Group
+# Begin Group "Resource Files"
+
+# PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=.\res\demo.ico
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\res\demo.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\res\demo.rc2
+# End Source File
+# Begin Source File
+
+SOURCE=.\res\demoDoc.ico
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\res\demoDoc.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\res\testbmp.bmp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\res\testbmp.bmp
+# End Source File
+# Begin Source File
+
+SOURCE=.\res\Toolbar.bmp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\tests\TestPNG\res\Toolbar.bmp
+# End Source File
+# End Group
+# End Target
+# End Project

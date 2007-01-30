@@ -1,0 +1,221 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "AddJDF"=.\TestWrapper\AddJDF.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "BookJDF"=.\TestWrapper\BookJDF.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "CheckJDF"=.\TestWrapper\CheckJDF.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    CheckJDF
+    .\TestWrapper
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "EatJDF"=.\TestWrapper\EatJDF.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "JDFExample"=.\TestWrapper\JDFExample.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "JDFMessenger"=.\TestWrapper\JDFMessenger.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "JDFSchema"=.\TestWrapper\JDFSchema.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    JDFSchema
+    .\TestWrapper
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "MergeJDF"=.\TestWrapper\MergeJDF.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "SpawnJDF"=.\TestWrapper\SpawnJDF.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "SpecJDF"=.\TestWrapper\SpecJDF.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "TestJDFState"=.\TestWrapper\TestJDFState.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    TestJDFState
+    .\TestWrapper
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "TestThreads"=.\TestWrapper\TestThreads.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "TestThreadsCore"=.\TestWrapper\TestThreadsCore.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "TestWrapper"=.\TestWrapper\TestWrapper.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    TestWrapper
+    .\TestWrapper
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "TestWrapperCore"=.\TestWrapper\TestWrapperCore.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    TestWrapperCore
+    .\TestWrapper
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+    begin source code control
+    TestWrapper
+    .
+    end source code control
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+
