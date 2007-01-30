@@ -133,7 +133,6 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFSpanBase::FixVersion(EnumVersion version){
-		bool bRet=true;
 		if(version>=Version_1_2){
 			if(HasAttribute(atr_Priority)){
 				EnumPriority prio=GetPriority();
@@ -254,7 +253,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFIntegerSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Integer);
 		return true;
 	}
@@ -388,7 +387,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFNumberSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Number);
 		return true;
 	}
@@ -525,7 +524,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFOptionSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Option);
 		return true;
 	}
@@ -643,7 +642,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFNameSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Name);
 		return true;
 	}
@@ -749,7 +748,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFEnumerationSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Enumeration);
 		return true;
 	}
@@ -880,7 +879,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFStringSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_String);
 		return true;
 	}
@@ -1004,7 +1003,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFTimeSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Time);
 		return true;
 	}
@@ -1096,7 +1095,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFDurationSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Duration);
 		return true;
 	}
@@ -1189,7 +1188,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFXYPairSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_XYPair);
 		return true;
 	}
@@ -1348,7 +1347,7 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFShapeSpan::init(){
-		bool b=JDFSpanBase::init();
+		JDFSpanBase::init();
 		SetDataType(DataType_Shape);
 		return true;
 	}

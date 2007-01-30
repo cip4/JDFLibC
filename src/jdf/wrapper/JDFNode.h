@@ -169,6 +169,7 @@
 // 080906 | NB | fixed IsValid()
 // 250906 | NB | fixed GetparentIDs()
 // 281106 | NB | fuxed IsExecutable()
+// 250107 | NB | removed unreferenced variables
 //
 // JDFNode.h: interface for the JDFNode class.
 // This class wraps all JDF nodes

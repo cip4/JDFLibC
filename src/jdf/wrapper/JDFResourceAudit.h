@@ -1,3 +1,6 @@
+#if !defined _JDFResourceAudit_H_
+#define _JDFResourceAudit_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -81,11 +84,10 @@
 * Revision history:
 * created 2001-07-02
 // 211102 RP UpdateLink() added
+// 250107 NB removed unreferenced variables
 *
 */
 
-#if !defined _JDFResourceAudit_H_
-#define _JDFResourceAudit_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000

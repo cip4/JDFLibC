@@ -1721,7 +1721,6 @@ namespace JDF{
 		vWString vAtts=GetAttributeVector();
 		vWString vMissing;
 
-		int siz=vReqKeys.size();
 		WString prefix=GetPrefix();
 		bool prefixEmpty=prefix.empty();
 		if(!prefixEmpty)
@@ -2701,7 +2700,6 @@ namespace JDF{
 			if(e.isNull())
 				return e;
 
-			int i=0;
 			const JDFCh* pcNodeName=nodeName.c_str();
 			const JDFCh* pcNameSpaceURI=nameSpaceURI.c_str();
 
@@ -3947,10 +3945,24 @@ namespace JDF{
 	void KElement::fillHashSet(const WString& attName,const WString& attNS, SetWString* preFill)const
 	{
 		WString attVal=GetAttribute(attName,attNS);
-		if(!attVal.empty())
+		if(!attVal.empty()) 
+		{
+			if (preFill->contains(attVal))
+				return; // been here already: break
 			preFill->add(attVal);
-		vElement v=GetChildElementVector();
+		}
+
+		// get all subnodes, INCLUDING partition leaves
+		vElement v=KElement::GetChildElementVector();
 		int siz=v.size();
+		for(int i=0;i<siz;i++)
+		{
+			v.at(i).fillHashSet(attName,attNS,preFill);
+		}
+
+		// also get all lower level parent partition refs
+		v=GetChildElementVector();
+		siz=v.size();
 		for(int i=0;i<siz;i++)
 		{
 			v.at(i).fillHashSet(attName,attNS,preFill);

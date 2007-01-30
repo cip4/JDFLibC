@@ -1,3 +1,6 @@
+#ifndef _XMLDoc_H__
+#define _XMLDoc_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -97,6 +100,7 @@
 // 090903 RP mem leak of userData fixed
 // 150904 RP Write2String now uses setUTF8Bytes()
 // 150904 RP StringParse now uses getUTF8Bytes()
+// 250107 NB removed unreferenced variables
 //
 // XMLDoc.h: interface for the XMLDoc class.
 // 
@@ -104,8 +108,6 @@
 //
 //
 **********************************************************************/
-#ifndef _XMLDoc_H__
-#define _XMLDoc_H__
 
 #include <jdf/lang/WString.h>
 

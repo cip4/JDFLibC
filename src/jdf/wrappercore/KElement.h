@@ -140,6 +140,7 @@
 // 281106 NB fixed GetChildWithAttribute(), GetDOMElement(), GetDOMAttr()
 // 011206 NB added SetXSIType(), GetXSIType()
 // 211206 NB moved EnumAttributeType from JDFElement to KElement (allows StringUtil to move to WrapperCore)
+// 250107 NB removed unreferenced variables
 //
 // KElement.h: interface for the KElement class.
 // KElement wraps DOMElement and has some stl WString conversion utilities

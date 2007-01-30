@@ -104,7 +104,6 @@ namespace JDF{
 	typesafe validator
 	*/
 	vWString JDFResourceAudit::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
-		int nElem=0;
 		int i=0;
 		vWString vElem=JDFAutoResourceAudit::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();

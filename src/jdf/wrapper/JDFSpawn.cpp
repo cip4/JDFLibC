@@ -241,7 +241,7 @@ namespace JDF{
 		node.GetAllRefs(&vs,true);
 		while(vs.hasNext())
 		{
-			JDFElement liRoot=(XERCES_CPP_NAMESPACE_QUALIFIER DOMElement*)vs.next();
+			JDFElement liRoot=KElement((XERCES_CPP_NAMESPACE_QUALIFIER DOMElement*)vs.next());
 			JDFResource r;
 
 			bool bResRW=false;
@@ -437,7 +437,7 @@ namespace JDF{
 			vRootLinks.resetIterator();
 			while (vRootLinks.hasNext())
 			{
-				JDFElement liRoot = (XERCES_CPP_NAMESPACE_QUALIFIER DOMElement*)vRootLinks.next();
+				JDFElement liRoot = KElement((XERCES_CPP_NAMESPACE_QUALIFIER DOMElement*)vRootLinks.next());
 				// test for direct children of resourcepool - these will be added later
 				if(!liRoot.GetDeepParent(JDFNode::elm_ResourcePool,0).isNull())
 					continue;
@@ -546,7 +546,7 @@ namespace JDF{
 						{
 							r.GetResourceRoot().CreatePartitions(vSpawnParts, rootPartIDKeys);
 						}
-						catch (const JDFException& e)
+						catch (const JDFException&)
 						{
 							fixSpawnPartitions(r, rootPartIDKeys);
 						}

@@ -148,6 +148,7 @@
 // 080906 NB added isJDFJMF(), isJDFNodeInfo(), isJDFCustomerInfo()
 // 121206 NB GetChildWithMatchingAttribute() fixed, now uses elements instead of refs
 // 211206 NB moved EnumAttributeType from JDFElement to KElement (allows StringUtil to move to WrapperCore)
+// 250107 NB removed unreferenced variables
 //
 // JDFElement.h: interface for the JDFElement class.
 // JDFElement contains generic JDF element functionality

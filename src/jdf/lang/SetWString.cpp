@@ -144,7 +144,7 @@ namespace JDF
 
 	WString SetWString::next()
 	{
-		WString& p=*nextIterator;
+		WString p=*nextIterator;
 		nextIterator++;
 		return p;
 

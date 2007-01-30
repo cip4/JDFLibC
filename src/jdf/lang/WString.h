@@ -1111,9 +1111,8 @@ namespace JDF
 		void SetUTF8Bytes(const char* buffer, int len=-1);
 
 		/**
-		* set this to the  bytes specified in buffer,and transcode the buffer from UTF8
+		* set this to the string specified in buffer,and transcode the buffer from UTF8
 		* @param WString buffer the unicode representation of the UTF-8 encoded buffer to assign to this
-		* @param int len the length of the buffer. if<0, call strlen
 		* @throws IllegalArgumentException
 		*/
 		void SetUTF8String(const WString& buffer);

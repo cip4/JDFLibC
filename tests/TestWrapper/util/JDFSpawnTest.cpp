@@ -775,7 +775,7 @@ void JDFSpawnTest::testBigSpawn()
 {
 	try
 	{
-		cout << " *warning: this test is slow* (~350s) ";
+		cout << " *warning: this test is slow (~350secs)* ";
 
 		WString strJDFName = sm_dirTestData + "000023_Test_PR3.0.jdf";
 		JDFParser parser;
@@ -830,7 +830,7 @@ void JDFSpawnTest::testBigMerge()
 {
 	try
 	{
-		cout << " *warning: this test is slow (~130 secs)*";
+		cout << " *warning: this test is slow (~130secs)*";
 
 		/* testBigSpawn() is needed for creating the input files for this test only. 
 		** These files have been moved to a permanent folder. */
@@ -876,7 +876,7 @@ void JDFSpawnTest::testCheckSpawnedResources()
 {
 	try
 	{
-		cout << " *warning: this test is slow* (~75s) ";
+		cout << " *warning: this test is slow (~75s)* ";
 		WString strJDFName = "000023_Test_PR3.0.jdf";
 		WString strJDFPath = sm_dirTestData + strJDFName;
 		JDFParser parser;

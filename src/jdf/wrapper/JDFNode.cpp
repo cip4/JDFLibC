@@ -300,7 +300,6 @@ namespace JDF{
 			vWString v=GenericLinkInfo().Tokenize(WString::comma);
 			vWString vNames=GenericLinkNames().Tokenize(WString::comma);
 			vWString vTypes;
-			int startPos=0; // Types contains some entries at the beginning that must be skipped
 			vTypes=GetTypes();
 			int i;
 			for(i=0;i<vTypes.size();i++){
@@ -3594,7 +3593,6 @@ namespace JDF{
 	*/
 	vWString JDFNode::GetMissingLinkVector(int nMax) const{
 		vWString names=LinkNames().Tokenize(WString::comma);
-		int nams = names.size();
 		vWString vMissing;
 		if(GetEnumType()==Type_ProcessGroup){
 			return vMissing;
@@ -4193,7 +4191,6 @@ namespace JDF{
 
 		if(throwNull()) return KElement();
 		vElement v=e.GetChildElementVector(); 
-		int j=0;
 		for(int i=0;i<v.size();i++){ 
 			KElement m=v[i];
 			WString name=m.GetNodeName();

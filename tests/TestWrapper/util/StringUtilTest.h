@@ -94,9 +94,9 @@ class StringUtilTest : public CppUnit::TestCase
 {
 	CPPUNIT_TEST_SUITE( StringUtilTest );
 		CPPUNIT_TEST( testSetHexBinaryBytes );
-		//CPPUNIT_TEST( testSetUTF8Bytes );                       // Fehler: xercesc_2_7::UTFDataFormatException
+		CPPUNIT_TEST( testSetUTF8Bytes );
 		CPPUNIT_TEST( testSetVWString );
-		//CPPUNIT_TEST( testEscape );                             // Fehler
+		CPPUNIT_TEST( testEscape );
 		//CPPUNIT_TEST( testMatches );                            // Fehler in Xerces::RegExp ?
 		CPPUNIT_TEST( testZappTokenWS );
 		CPPUNIT_TEST( testHasToken );

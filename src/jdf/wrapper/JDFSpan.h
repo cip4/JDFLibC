@@ -89,6 +89,7 @@
 // 271004 ES modified implementation of all Spans to fit JDFSpecification Release 1.2. 
 //		  Attribute Range of all Spans has type defined in JDFSpec and not JDFNameRangeList
 //		  JDFEnumerationSpan::GetEnumerationsVString() added to convert vint to vWString
+// 250107 NB removed unreferenced variables
 //
 // JDFSpan.h: interface for the JDFSpan class.
 // defines the generic Span sub-elements

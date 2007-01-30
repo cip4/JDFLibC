@@ -93,6 +93,7 @@
 // 210203 RP AppendResource() now moves the resource to a valid resourcepool, if it is not yet there
 // 120803 RP ResourceVector now correctly follows <Part> elements
 // 291106 NB GetLinkedResources() now processes "...Link" resTypes correctly
+// 250107 NB removed unreferenced variables
 //
 // JDFResourceLinkPool.h: interface for the JDFResourceLinkPool class.
 //

@@ -129,6 +129,7 @@ class KElementTest : public CppUnit::TestCase
 		CPPUNIT_TEST ( testAppendElement );
 		CPPUNIT_TEST ( testSetGetXSIType );
 		CPPUNIT_TEST ( testSetGetAttribute );
+		CPPUNIT_TEST ( testSetAttribute_LongAttValue );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -169,6 +170,7 @@ class KElementTest : public CppUnit::TestCase
 		void testAppendElement();
 		void testSetGetXSIType();
 		void testSetGetAttribute();
+		void testSetAttribute_LongAttValue();
 };
 
 #endif

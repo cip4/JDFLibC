@@ -128,6 +128,7 @@ void StringUtilTest::testSetUTF8Bytes()
 {
 	try
 	{
+		// round trip 1
 		WString testString = "ABCDEFGHIJKLMNOPQESTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÖÄÜöäü€";
 		const char* utfBytes = testString.GetUTF8Bytes();
 		int utfBytes_siz = strlen(utfBytes);
@@ -135,13 +136,10 @@ void StringUtilTest::testSetUTF8Bytes()
 		temp.SetUTF8Bytes(utfBytes,utfBytes_siz);
 		CPPUNIT_ASSERT_EQUAL( testString,temp );
 
-		// round trip
+		// round trip 2
 		testString.SetUTF8Bytes(utfBytes);
 		const char* utfBytes2 = testString.GetUTF8Bytes();
 		CPPUNIT_ASSERT_EQUAL( utfBytes,utfBytes2 );
-
-		WString newString = testString.GetUTF8String(); // TODO: check WString::GetUTF8String() - Bug oder Feature?
-		CPPUNIT_ASSERT_EQUAL( testString,newString );
 	}
 	catch (JDFException& e)
 	{
@@ -181,21 +179,24 @@ void StringUtilTest::testEscape()
 		CPPUNIT_ASSERT_EQUAL( temp,actual );
 
 		temp = "%_ä";
-		CPPUNIT_ASSERT_EQUAL( (WString)"%25_%E4",temp.Escape(":&?%","%",16,2,0x21,127) );
+		CPPUNIT_ASSERT_EQUAL( (WString)"%25_%E4",temp.Escape("%","%",16,2,0x21,0x7F) );
 
-		WString buf = "€";
-		actual = temp.Escape(buf,"%",16,2,0x21,127);
-		CPPUNIT_ASSERT_EQUAL( (WString)"%e2%82%ac",temp.Escape(":&?%","%",16,2,0x21,127) ); // escape
-
+		temp = "€";
+		const char* bb = temp.GetUTF8Bytes();
+		temp.SetRawBytes(bb);
+		CPPUNIT_ASSERT_EQUAL( (WString)"%E2%82%AC",temp.Escape(WString::emptyStr,"%",16,2,0x21,0x7F) );
+		
 		temp = "ß";
-		CPPUNIT_ASSERT_EQUAL( (WString)"ß",temp.Escape("ß","%",16,2,0x21,-1) );
+		CPPUNIT_ASSERT_EQUAL( (WString)"ß",temp.Escape(WString::emptyStr,"%",16,2) ); 
 
 		temp =  "aäa";
-		CPPUNIT_ASSERT_EQUAL( (WString)"a_a",temp.Escape("aäa","_",-1,0,0x21,127) );
+		CPPUNIT_ASSERT_EQUAL( (WString)"a_a",temp.Escape(WString::emptyStr,"_",-1,0,0x21,127) );
+
 		temp = "aä_a";
-		CPPUNIT_ASSERT_EQUAL( (WString)"a__a",temp.Escape("aäa","_",-1,0,0x21,127) );
+		CPPUNIT_ASSERT_EQUAL( (WString)"a__a",temp.Escape(WString::emptyStr,"_",-1,0,0x21,127) );
+
 		temp =  "aäa";
-		CPPUNIT_ASSERT_EQUAL( (WString)"a_äa",temp.Escape("aäa","_",0,0,0x21,127));
+		CPPUNIT_ASSERT_EQUAL( (WString)"a_äa",temp.Escape(WString::emptyStr,"_",0,0,0x21,127) );
 	}
 	catch (JDFException& e)
 	{

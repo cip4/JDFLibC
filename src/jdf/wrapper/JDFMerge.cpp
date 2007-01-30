@@ -285,7 +285,7 @@ namespace JDF{
 
 			for (int rl = 0; rl < toMergeLinks.size(); rl++)
 			{
-				JDFResourceLink overWriteLink = NULL;
+				JDFResourceLink overWriteLink = JDFResourceLink();
 				JDFResourceLink toMergeLink = (JDFResourceLink)toMergeLinks.elementAt(rl);
 				WString rRef = toMergeLink.GetAttribute(JDFNode::atr_rRef);
 				for (int k = 0; k < overWriteLinks.size(); k++)
@@ -475,7 +475,7 @@ namespace JDF{
 				// merge the resource from the spawned node into the lower level resourcepool
 				oldRes.MergePartition(newRes, spawnID, amountPolicy, false);
 			}
-			catch (const Exception& e)
+			catch (const Exception&)
 			{
 				throw new JDFException("JDFNode:mergeJDF, error in mergePartition: ID="+oldRes.GetID()+" SpawnID="+spawnID);
 			}
@@ -825,7 +825,7 @@ namespace JDF{
 				vElement v = overWriteNode.GetvJDFNode(WString::emptyStr, JDFNode::Activation_Unknown, false);
 				for(int i = v.size(); i >= 0; i--)
 				{
-					cleanUpMerge((JDFNode)v.elementAt(i),cleanPolicy, spawnID, false);
+					cleanUpMerge((JDFNode&)v.elementAt(i),cleanPolicy, spawnID, false);
 				}
 
 			}

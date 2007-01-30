@@ -219,7 +219,7 @@ namespace JDF{
 				try {
 					doc = Report(jdfRoot,testlists, level);
 				}
-				catch (JDFException& jdfe) {
+				catch (JDFException&) {
 					bException = true; // if Report throws exception - 'jdfRoot' is non-executable Node 
 				}
 				if (doc.isNull() && !bException)
@@ -252,7 +252,7 @@ namespace JDF{
 				try {
 					nOutput = Report(n,testlists,level);
 				}
-				catch (JDFException& jdfe) {
+				catch (JDFException&) {
 					bException = true; // if Report throws exception - 'n' is non-executable Node 
 				}
 				if (nOutput.isNull() && !bException)
@@ -269,7 +269,7 @@ namespace JDF{
 							try {
 								parentOutput = Report(parent, testlists, level);
 							}
-							catch (JDFException& jdfe) {
+							catch (JDFException&) {
 								bCaughtException = true; // 'n' is executable, 'parent' is not - append 'n' to execNodes 
 							}
 							if (parentOutput.isNull() && !bCaughtException){

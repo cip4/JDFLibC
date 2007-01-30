@@ -2084,13 +2084,13 @@ namespace JDF
 
 	WString WString::Escape(const WString& toEscape,const WString& escapeChar, int radix, int escapeLen, int escapeBelow, int escapeAbove)const{
 		WString escapedString;
-// 		bool size1=escapeChar.size()==1;
 		JDFCh escapeCh=escapeChar[0];
 
 		int l=size();
 		const wchar_t* pc=c_str();
 		for(int i=0;i<l;i++){
-			if ((*pc>escapeAbove)||(*pc<escapeBelow)||(toEscape.find(*pc)!=toEscape.npos)||((*pc==escapeCh)&&(radix>0))){ // the character must be escaped
+			JDFCh cToEscape = this->operator [](i);
+			if ((cToEscape>escapeAbove)||(cToEscape<escapeBelow)||(toEscape.find(cToEscape)!=toEscape.npos)){ //||((*pc==escapeCh)&&(radix>0))){ // the character must be escaped
 				escapedString+=escapeChar;
 				if(radix>0){ // radix is a flag to convert to octal, hex etc.
 					wchar_t buf[16];
@@ -2129,12 +2129,9 @@ namespace JDF
 					escapedString+=buf;
 				}else if(radix<0){
 					// nop
-				}else{ // radix=0; just insert thge escape character in front of the actual char
+				}else{ // radix=0; just insert the escape character in front of the actual char
 					escapedString+=*pc;
 				}
-			}else if(*pc==escapeCh){ //double any occurrence of the escape char
-				escapedString+=escapeChar;
-				escapedString+=*pc;
 			}else{ // no escape necessary --> just copy it
 				escapedString+=*pc;
 			}
@@ -2430,7 +2427,6 @@ namespace JDF
 	WString WString::GetUTF8String(){	
 		const char* pUtf8=GetUTF8Bytes();
 		WString s=pUtf8;
-		// s.SetUTF8Bytes(pUtf8); // TODO _niels_ Bug oder Feature?
 		return s;
 	}
 	////////////////////////////////////////////////////////////////////////

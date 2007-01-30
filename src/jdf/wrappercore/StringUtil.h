@@ -80,6 +80,7 @@
 // 070906 NB created, added matchesAttribute
 // 071206 NB added formatInteger, formatDouble
 // 211206 NB moved to WrapperCore
+// 250107 NB removed unreferenced variables
 //
 // StringUtil.h: interface for the StringUtil class. Contains various methods
 //               for string manipulation and comparison.

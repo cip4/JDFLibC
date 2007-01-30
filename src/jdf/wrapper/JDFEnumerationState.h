@@ -1,3 +1,6 @@
+#if !defined(_JDFEnumerationState_H__)
+#define _JDFEnumerationState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFEnumerationState_H__)
-#define _JDFEnumerationState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -103,7 +103,16 @@ namespace JDF{
 	/**
 	State of enumerated values
 	*/
-	typedef JDFState<WString> _JDFEnumerationState;
+	//typedef JDFState<WString> _JDFEnumerationState;
+
+	class _JDFEnumerationState : public JDFState<WString>
+	{
+	public:
+		inline _JDFEnumerationState() : JDFState<WString>()
+		{
+		}
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFEnumerationState: public _JDFEnumerationState{
 	public:
 	/** *****************************
@@ -263,6 +272,8 @@ namespace JDF{
 		*/
 		JDFValueLoc	AppendValueLoc();
 		//@}
+
+		inline void SetDefaultValue(WString n){SetAttribute(atr_DefaultValue,n);}
 
 private:
 		

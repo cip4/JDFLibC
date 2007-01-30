@@ -181,7 +181,7 @@ namespace JDF
 			try{
 				XMLPlatformUtils::Initialize();
 				mustDeInitXML=true;
-			}catch(const XMLException& toCatch){
+			}catch(const XMLException&){
 				throw;
 			}
 		}

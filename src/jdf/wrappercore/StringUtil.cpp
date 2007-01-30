@@ -120,7 +120,7 @@ namespace JDF{
 					return true;
 				}
 			}
-			catch(std::exception& e)
+			catch(std::exception&)
 			{
 				//do nothing
 			}
@@ -136,7 +136,7 @@ namespace JDF{
 					return true;
 				}
 			}
-			catch(std::exception& e)
+			catch(std::exception&)
 			{
 				//do nothing
 			}
@@ -147,13 +147,12 @@ namespace JDF{
 			try
 			{
 				JDFIntegerList rBig(bigAtt);
-				int i= int(smallAtt);
 				if (rBig.GetString().HasToken(smallAtt))
 				{
 					return true;
 				}
 			}
-			catch(std::exception& e)
+			catch(std::exception&)
 			{
 				//do nothing
 			}
@@ -170,7 +169,7 @@ namespace JDF{
 					return true;
 				}
 			}
-			catch(std::exception& e)
+			catch(std::exception&)
 			{
 				//do nothing
 			}
@@ -187,7 +186,7 @@ namespace JDF{
 					return true;
 				}
 			}
-			catch(std::exception& e)
+			catch(std::exception&)
 			{
 				//do nothing
 			}
@@ -204,7 +203,7 @@ namespace JDF{
 					return true; 
 				} 
 			}
-			catch(std::exception& e)
+			catch(std::exception&)
 			{
 				//do nothing
 			}
@@ -221,7 +220,7 @@ namespace JDF{
 					return true; 
 				} 
 			}
-			catch(std::exception& e)
+			catch(std::exception&)
 			{
 				//do nothing
 			}

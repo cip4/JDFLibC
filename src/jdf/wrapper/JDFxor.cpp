@@ -227,7 +227,6 @@ namespace JDF{
 		vWString vAttr;
 		vElement v = GetChildElementVector();
 		int siz = v.size();
-		int count=0;
 		for (int i=0; i<siz; i++)
 		{
 			JDFElement e=v[i];

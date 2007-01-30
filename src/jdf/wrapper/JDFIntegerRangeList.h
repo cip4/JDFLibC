@@ -90,6 +90,7 @@
 // 300304 ES added begin(), end(), erase()
 // 301006 NB fixed JDFIntegerRangeList::setDef()
 // 071206 NB fixed GetString(), the shortcut PBASE->GetString() failed for INF
+// 250107 NB removed unreferenced variables
 //
 // JDFIntegerRangeList.h: interface for the JDFIntegerRangeList class.
 //

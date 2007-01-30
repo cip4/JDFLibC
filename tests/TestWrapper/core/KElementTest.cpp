@@ -604,9 +604,7 @@ void KElementTest::testSetAttribute()
 	JDFNode root  = (JDFNode) jdfDoc.GetRoot();
 
 	WString nodeName = "Created";
-	cout << endl;
 	KElement kElem  = root.GetXPathElement("AuditPool/" + nodeName);
-	cout << " (disregard this warning)";
 	if ( !kElem.isNull() )
 	{
 		CPPUNIT_ASSERT_EQUAL( nodeName, kElem.GetNodeName() );
@@ -1117,5 +1115,30 @@ void KElementTest::testSetGetAttribute()
 	catch (JDFException& e)
 	{
 		CPPUNIT_FAIL( e.what() );
+	}
+}
+
+void KElementTest::testSetAttribute_LongAttValue()
+{
+	try
+	{
+		JDFDoc jdfDoc = JDFDoc(0);
+		JDFNode root  = (JDFNode) jdfDoc.GetRoot();
+        WString longString;
+        for(int i=0;i<13;i++)
+            longString+=longString+"0 123456789abcdefghijklmnopqrstuvwxyz";
+		root.SetAttribute("long", longString);
+		CPPUNIT_ASSERT_EQUAL( longString,root.GetAttribute("long") );
+
+		jdfDoc.Write2File(sm_dirTestTemp+"longAtt.jdf");
+		JDFParser p;
+		p.Parse(sm_dirTestTemp+"longAtt.jdf",false);
+		jdfDoc=p.GetDocument();
+        root=jdfDoc.GetJDFRoot();
+        CPPUNIT_ASSERT_EQUAL( longString,root.GetAttribute("long") );
+	}
+	catch (const JDFException& ex)
+	{
+		CPPUNIT_FAIL( ex.what() );
 	}
 }

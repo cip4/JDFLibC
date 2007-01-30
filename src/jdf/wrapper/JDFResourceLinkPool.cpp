@@ -342,7 +342,6 @@ namespace JDF{
 			delete[](vvValues);
 		}else{
 			vElement links=GetPoolChildren();
-			int lSize=links.size();
 			for(int l=0;l<links.size();l++){
 				JDFResourceLink link=links[l];
 				vmAttribute tempMap=link.GetPartMapVector();

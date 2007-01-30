@@ -182,7 +182,7 @@ void JDFIntegerRangeListTest::testDef()
 
 void JDFIntegerRangeListTest::testGetIntegerList()
 {
-	cout << " warning: this test is *slow* (~350s) ";
+	cout << " *warning: this test is slow (~20s)* ";
 	try
 	{
 		JDFIntegerRangeList rangeList = JDFIntegerRangeList("0 1~2 3~6 8 ~ 7");

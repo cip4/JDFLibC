@@ -195,7 +195,6 @@ namespace JDF{
 			return Element(n+i);
 		}
 		int sz=PBASE->size();
-		int n=0;
 		for(int j=0;j<sz;j++){
 			JDFIntegerRange r=PBASE->at(j);
 			r.SetDef(xDef);

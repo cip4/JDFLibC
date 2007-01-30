@@ -884,7 +884,6 @@ namespace JDF{
 			return (l>=2)&&(l<=6)&&val.isNMTOKEN();
 									}
 		case AttributeType_languages:{
-			int l=val.length();
 			// languages are of format de, us, en-gb
 			return val.isNMTOKENS();
 							   }
@@ -2027,8 +2026,8 @@ namespace JDF{
 					if ((int)vs[i] == (int)attVal)
 						return true;
 				}
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException& ){
 			}
 		}
 
@@ -2041,8 +2040,8 @@ namespace JDF{
 					if ((double)vs[i] == (double)attVal)
 						return true;
 				}
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException&){
 			}
 		}
 
@@ -2051,8 +2050,8 @@ namespace JDF{
 				JDFRange<double> r(thisVal);
 				if(r.InRange(attVal)) 
 					return true;
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException&){
 			}
 		}
 
@@ -2061,8 +2060,8 @@ namespace JDF{
 				JDFNumberRangeList r(thisVal);
 				if(r.InRange(attVal)) 
 					return true;
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException&){
 			}
 		}
 
@@ -2071,8 +2070,8 @@ namespace JDF{
 				JDFIntegerRange r(thisVal,999999);
 				if(r.InRange(attVal)) 
 					return true;
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException&){
 			}
 		}
 
@@ -2081,8 +2080,8 @@ namespace JDF{
 				JDFIntegerRangeList r(thisVal,999999);
 				if(r.InRange(attVal)) 
 					return true;
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException&){
 			}
 		}
 
@@ -2091,8 +2090,8 @@ namespace JDF{
 				JDFRange<JDFXYPair> r(thisVal);
 				if(r.InRange(attVal)) 
 					return true;
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException&){
 			}
 		}
 
@@ -2101,8 +2100,8 @@ namespace JDF{
 				JDFXYPairRangeList r(thisVal);
 				if(r.InRange(attVal)) 
 					return true;
-			}catch (JDFException& x){
-			}catch (IllegalArgumentException& x1){
+			}catch (JDFException&){
+			}catch (IllegalArgumentException&){
 			}
 		}
 

@@ -87,6 +87,7 @@
 // 250104 ES Modified for JDF 1.2 
 // 270104 ES removed all typesafe classes, but their template is still here
 // 081206 NB added FixVersion(), needed for handling "unbounded"
+// 250107 NB removed unreferenced variables
 // 
 //
 // JDFState.h: interface for the JDFState class.
@@ -727,7 +728,6 @@ namespace JDF{
 			try{
 				if(!HasAttribute(atr_DefaultValue)) 
 					return true;
-				RangeType nr=GetAttribute(atr_DefaultValue);
 			}catch (IllegalArgumentException e){
 				return false;
 			}catch (JDFException e){
@@ -766,7 +766,6 @@ namespace JDF{
 			try{
 				if(!HasAttribute(atr_CurrentValue)) 
 					return true;
-				RangeType nr=GetAttribute(atr_CurrentValue);
 			}catch (IllegalArgumentException e){
 				return false;
 			}catch (JDFException e){
