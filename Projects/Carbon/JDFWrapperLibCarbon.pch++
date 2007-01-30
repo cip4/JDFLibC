@@ -1,5 +1,0 @@
-#pragma precompile_target "JDFWrapperLibCarbon.mch"
-
-#define MWERKS_PCH
-#include "JDFWrapperLibCarbon.h"
-#undef MWERKS_PCH

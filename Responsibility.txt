@@ -1,7 +1,0 @@
-Responsibility.txt
-------------------
-VOB:            cmpINFRA_CommonParsers
-Component:      JDFOpenSrc
-created by:     01-Mar-2001 ProsiR (Rainer Prosi)
-
-responsible:    01-Mar-2001 ProsiR (Rainer Prosi)
