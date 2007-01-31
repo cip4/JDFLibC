@@ -1800,6 +1800,14 @@ namespace JDF{
 		KElement::SetAttribute(key,value.GetString(),nameSpaceURI);
 	}
 	//////////////////////////////////////////////////////////////////////
+	void JDFElement::SetAttribute(const WString & key, const JDFDate& value, const WString & nameSpaceURI){
+		KElement::SetAttribute(key,value.DateTimeISO(),nameSpaceURI);
+	}
+	//////////////////////////////////////////////////////////////////////
+	void JDFElement::SetAttribute(const WString & key, const JDFDuration& value, const WString & nameSpaceURI){
+		KElement::SetAttribute(key,value.DurationISO(),nameSpaceURI);
+	}
+	//////////////////////////////////////////////////////////////////////
 	void JDFElement::SetAttribute(const WString & key, const JDFNumberRangeList& value, const WString & nameSpaceURI){
 		KElement::SetAttribute(key,value.GetString(),nameSpaceURI);
 	}

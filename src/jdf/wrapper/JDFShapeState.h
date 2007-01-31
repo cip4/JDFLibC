@@ -1,3 +1,6 @@
+#if !defined(_JDFShapeState_H__)
+#define _JDFShapeState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFShapeState_H__)
-#define _JDFShapeState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -99,9 +99,20 @@
 
 namespace JDF{
 
-	
+	class _JDFShapeState : public JDFState<JDFShape>
+	{
+	public:
+		inline _JDFShapeState() : JDFState<JDFShape>() { }
 
-	typedef JDFState<JDFShape> _JDFShapeState;
+		inline JDFShape GetDefaultValue() { return JDFState<JDFShape>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(JDFShape n){ JDFState<JDFShape>::SetDefaultValue(n); }
+
+		inline JDFShape GetCurrentValue() { return JDFState<JDFShape>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(JDFShape n) { return JDFState<JDFShape>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFShapeState: public _JDFShapeState{
 	public:
 	/** *****************************

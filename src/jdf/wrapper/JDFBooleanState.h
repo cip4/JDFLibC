@@ -1,3 +1,6 @@
+#if !defined(_JDFBooleanState_H__)
+#define _JDFBooleanState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFBooleanState_H__)
-#define _JDFBooleanState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -102,7 +102,20 @@ namespace JDF{
 	/**
 	* State type for boolean options
 	*/
-	typedef JDFState<bool> _JDFBooleanState;
+	class _JDFBooleanState : public JDFState<bool>
+	{
+	public:
+		inline _JDFBooleanState() : JDFState<bool>() { }
+
+		inline bool GetDefaultValue() { return JDFState<bool>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(bool n){ JDFState<bool>::SetDefaultValue(n); }
+
+		inline bool GetCurrentValue() { return JDFState<bool>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(bool n) { return JDFState<bool>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFBooleanState: public _JDFBooleanState{
 	public:
 	/** *****************************

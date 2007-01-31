@@ -102,7 +102,20 @@ namespace JDF{
 	/**
 	* State of strings. These may include whitespace
 	*/
-	typedef JDFState<WString> _JDFStringState;
+	class _JDFStringState : public JDFState<WString>
+	{
+	public:
+		inline _JDFStringState() : JDFState<WString>() { }
+
+		inline WString GetDefaultValue() { return JDFState<WString>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(WString n){ JDFState<WString>::SetDefaultValue(n); }
+
+		inline WString GetCurrentValue() { return JDFState<WString>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(WString n) { return JDFState<WString>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFStringState: public _JDFStringState{
 	public:
 	/** *****************************

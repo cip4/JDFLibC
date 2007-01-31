@@ -1,3 +1,6 @@
+#ifndef _JDFDuration_H_
+#define _JDFDuration_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -107,9 +110,6 @@
 // JDFDuration.h: interface for the JDFDuration class.
 //
 //////////////////////////////////////////////////////////////////////
-
-#ifndef _JDFDuration_H_
-#define _JDFDuration_H_
 
 #if !defined(__MACH__)
 #include "wchar.h"

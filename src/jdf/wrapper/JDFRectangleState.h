@@ -1,3 +1,6 @@
+#if !defined(_JDFRectangleState_H__)
+#define _JDFRectangleState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFRectangleState_H__)
-#define _JDFRectangleState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -100,8 +100,20 @@
 
 namespace JDF{
 
+	class _JDFRectangleState : public JDFState<JDFRectangle>
+	{
+	public:
+		inline _JDFRectangleState() : JDFState<JDFRectangle>() { }
 
-	typedef JDFState<JDFRectangle> _JDFRectangleState;
+		inline JDFRectangle GetDefaultValue() { return JDFState<JDFRectangle>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(JDFRectangle n){ JDFState<JDFRectangle>::SetDefaultValue(n); }
+
+		inline JDFRectangle GetCurrentValue() { return JDFState<JDFRectangle>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(JDFRectangle n) { return JDFState<JDFRectangle>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFRectangleState: public _JDFRectangleState{
 	public:
 	/** *****************************

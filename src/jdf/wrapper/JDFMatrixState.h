@@ -1,3 +1,6 @@
+#if !defined(_JDFMatrixState_H__)
+#define _JDFMatrixState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFMatrixState_H__)
-#define _JDFMatrixState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -98,8 +98,20 @@
 
 namespace JDF{
 
-	
-	typedef JDFState<JDFMatrix> _JDFMatrixState;
+	class _JDFMatrixState : public JDFState<JDFMatrix>
+	{
+	public:
+		inline _JDFMatrixState() : JDFState<JDFMatrix>() { }
+
+		inline JDFMatrix GetDefaultValue() { return JDFState<JDFMatrix>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(JDFMatrix n){ JDFState<JDFMatrix>::SetDefaultValue(n); }
+
+		inline JDFMatrix GetCurrentValue() { return JDFState<JDFMatrix>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(JDFMatrix n) { return JDFState<JDFMatrix>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFMatrixState: public _JDFMatrixState{
 	public:
 	/** *****************************

@@ -103,14 +103,18 @@ namespace JDF{
 	/**
 	State of enumerated values
 	*/
-	//typedef JDFState<WString> _JDFEnumerationState;
-
 	class _JDFEnumerationState : public JDFState<WString>
 	{
 	public:
-		inline _JDFEnumerationState() : JDFState<WString>()
-		{
-		}
+		inline _JDFEnumerationState() : JDFState<WString>() { }
+
+		inline WString GetDefaultValue() { return JDFState<WString>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(WString n){ JDFState<WString>::SetDefaultValue(n); }
+
+		inline WString GetCurrentValue() { return JDFState<WString>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(WString n) { return JDFState<WString>::SetCurrentValue(n); }
 	};
 
 	class JDF_WRAPPERCORE_EXPORT JDFEnumerationState: public _JDFEnumerationState{
@@ -272,8 +276,6 @@ namespace JDF{
 		*/
 		JDFValueLoc	AppendValueLoc();
 		//@}
-
-		inline void SetDefaultValue(WString n){SetAttribute(atr_DefaultValue,n);}
 
 private:
 		

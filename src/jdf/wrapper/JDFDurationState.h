@@ -1,3 +1,6 @@
+#if !defined(_JDFDurationState_H__)
+#define _JDFDurationState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFDurationState_H__)
-#define _JDFDurationState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -100,7 +100,20 @@
 namespace JDF{
 
 	
-	typedef JDFState<JDFDuration> _JDFDurationState;
+	class _JDFDurationState : public JDFState<JDFDuration>
+	{
+	public:
+		inline _JDFDurationState() : JDFState<JDFDuration>() { }
+
+		inline JDFDuration GetDefaultValue() { return JDFState<JDFDuration>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(JDFDuration n){ JDFState<JDFDuration>::SetDefaultValue(n); }
+
+		inline JDFDuration GetCurrentValue() { return JDFState<JDFDuration>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(JDFDuration n) { return JDFState<JDFDuration>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFDurationState: public _JDFDurationState{
 	public:
 	/** *****************************

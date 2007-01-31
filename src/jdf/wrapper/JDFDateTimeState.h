@@ -1,3 +1,6 @@
+#if !defined(_JDFDateTimeState_H__)
+#define _JDFDateTimeState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFDateTimeState_H__)
-#define _JDFDateTimeState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -101,7 +101,20 @@
 namespace JDF{
 
 	
-	typedef JDFState<JDFDate> _JDFDateTimeState;
+	class _JDFDateTimeState : public JDFState<JDFDate>
+	{
+	public:
+		inline _JDFDateTimeState() : JDFState<JDFDate>() { }
+
+		inline JDFDate GetDefaultValue() { return JDFState<JDFDate>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(JDFDate n){ JDFState<JDFDate>::SetDefaultValue(n); }
+
+		inline JDFDate GetCurrentValue() { return JDFState<JDFDate>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(JDFDate n) { return JDFState<JDFDate>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFDateTimeState: public _JDFDateTimeState{
 	public:
 	/** *****************************

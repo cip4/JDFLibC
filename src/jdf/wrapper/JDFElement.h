@@ -149,6 +149,7 @@
 // 121206 NB GetChildWithMatchingAttribute() fixed, now uses elements instead of refs
 // 211206 NB moved EnumAttributeType from JDFElement to KElement (allows StringUtil to move to WrapperCore)
 // 250107 NB removed unreferenced variables
+// 310107 NB added SetValue() methods for JDFDate and JDFDuration
 //
 // JDFElement.h: interface for the JDFElement class.
 // JDFElement contains generic JDF element functionality
@@ -170,6 +171,8 @@
 #include "jdf/wrapper/JDFXYPairRangeList.h" 
 #include "jdf/wrapper/JDFStrings.h" 
 #include "jdf/wrapper/JDFNumTypeList.h" // this will link in all range types
+#include "jdf/wrapper/JDFDate.h"
+#include "jdf/wrapper/JDFDuration.h"
 
 #include "jdf/wrappercore/vElement.h"
 
@@ -978,6 +981,28 @@ namespace JDF{
 		* @deprecated use SetAttribute(key,value.GetString(),nameSpaceURI)
 		*/
 		void SetAttribute(const WString & key, const NameRange& value, const WString & nameSpaceURI=WString::emptyStr);
+
+		/**
+		* Sets an element attribute
+		*
+		* @param WString& key: the name of the attribute to set
+		* @param JDFDate& value: the value for the attribute
+		* @param WString& nameSpaceURI: the namespace the element is in
+		*
+		* @deprecated use SetAttribute(key,value.GetString(),nameSpaceURI)
+		*/
+		void SetAttribute(const WString & key, const JDFDate& value, const WString & nameSpaceURI=WString::emptyStr);
+
+		/**
+		* Sets an element attribute
+		*
+		* @param WString& key: the name of the attribute to set
+		* @param JDFDuration& value: the value for the attribute
+		* @param WString& nameSpaceURI: the namespace the element is in
+		*
+		* @deprecated use SetAttribute(key,value.GetString(),nameSpaceURI)
+		*/
+		void SetAttribute(const WString & key, const JDFDuration& value, const WString & nameSpaceURI=WString::emptyStr);
 
 		/**
 		* Sets an element attribute

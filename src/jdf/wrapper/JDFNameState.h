@@ -1,3 +1,6 @@
+#if !defined(_JDFNameState_H__)
+#define _JDFNameState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFNameState_H__)
-#define _JDFNameState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -101,7 +101,20 @@ namespace JDF{
 	/**
 	* State type for names without whitespace (NMTOKENS)
 	*/
-	typedef JDFState<WString> _JDFNameState;
+	class _JDFNameState : public JDFState<WString>
+	{
+	public:
+		inline _JDFNameState() : JDFState<WString>() { }
+
+		inline WString GetDefaultValue() { return JDFState<WString>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(WString n){ JDFState<WString>::SetDefaultValue(n); }
+
+		inline WString GetCurrentValue() { return JDFState<WString>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(WString n) { return JDFState<WString>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFNameState: public _JDFNameState{
 	public:
 	/** *****************************

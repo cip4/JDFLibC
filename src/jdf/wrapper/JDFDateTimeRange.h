@@ -1,3 +1,6 @@
+#if !defined(_JDFDateTimeRange_H__)
+#define _JDFDateTimeRange_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -87,8 +90,6 @@
 // used to describe ranges of time points in resources
 //
 */
-#if !defined(_JDFDateTimeRange_H__)
-#define _JDFDateTimeRange_H__
 
 #include <jdf/lang/vWString.h>
 #include <jdf/wrappercore/JDFException.h>

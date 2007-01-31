@@ -91,7 +91,6 @@
 using namespace std;
 namespace JDF{
 	
-	
 	//////////////////////////////////////////////////////////////////////
 	
 	JDFEnumerationState& JDFEnumerationState::operator =(const KElement& other){

@@ -1,3 +1,6 @@
+#if !defined(_JDFPDFPathState_H__)
+#define _JDFPDFPathState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFPDFPathState_H__)
-#define _JDFPDFPathState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -100,7 +100,21 @@
 namespace JDF{
 
 	
-	typedef JDFState<WString> _JDFPDFPathState;
+	//typedef JDFState<WString> _JDFPDFPathState;
+	class _JDFPDFPathState : public JDFState<WString>
+	{
+	public:
+		inline _JDFPDFPathState() : JDFState<WString>() { }
+
+		inline WString GetDefaultValue() { return JDFState<WString>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(WString n){ JDFState<WString>::SetDefaultValue(n); }
+
+		inline WString GetCurrentValue() { return JDFState<WString>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(WString n) { return JDFState<WString>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFPDFPathState: public _JDFPDFPathState{
 	public:
 	/** *****************************

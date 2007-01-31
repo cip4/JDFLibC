@@ -185,21 +185,18 @@ static JDFDoc creatXMDoc()
 }
 
 
-
-
-// KElementTest::testSetAttribute_LongAttValue()
 void AtomicTest::testAtomic()
 {
 	try
 	{
 		JDFDoc d = JDFDoc(0);
 		JDFNode n = d.GetJDFRoot();
-		JDFEnumerationState enumState = JDFEnumerationState();
-		enumState = (JDFEnumerationState)n.AppendElement(JDFResource::elm_EnumerationState); 
+		JDFBooleanState enumState = JDFBooleanState();
+		enumState = (JDFBooleanState)n.AppendElement(JDFResource::elm_BooleanState); 
 		enumState.SetName("foo"); 
 		enumState.SetHasDefault(true); 
-		enumState.SetDefaultValue("bar");
-		//enumState.GetDefaultValue();
+		enumState.SetDefaultValue(false);
+		enumState.GetDefaultValue();
 		WString strN = n.ToString();
 	}
 	catch (const JDFException& ex)

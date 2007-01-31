@@ -1,3 +1,6 @@
+#if !defined(_JDFNumberState_H__)
+#define _JDFNumberState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFNumberState_H__)
-#define _JDFNumberState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -102,7 +102,20 @@ namespace JDF{
 	/**
 	* State type for numbers
 	*/
-	typedef JDFState<double> _JDFNumberState;
+	class _JDFNumberState : public JDFState<double>
+	{
+	public:
+		inline _JDFNumberState() : JDFState<double>() { }
+
+		inline double GetDefaultValue() { return JDFState<double>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(double n){ JDFState<double>::SetDefaultValue(n); }
+
+		inline double GetCurrentValue() { return JDFState<double>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(double n) { return JDFState<double>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFNumberState: public _JDFNumberState{
 	public:
 	/** *****************************

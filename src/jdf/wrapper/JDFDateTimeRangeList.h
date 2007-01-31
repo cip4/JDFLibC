@@ -1,3 +1,6 @@
+#if !defined(_JDFDateTimeRangeList_H__)
+#define _JDFDateTimeRangeList_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -86,9 +89,6 @@
 // list of DateTime range values
 //
 */
-
-#if !defined(_JDFDateTimeRangeList_H__)
-#define _JDFDateTimeRangeList_H__
 
 #if _MSC_VER >= 1000
 #pragma once

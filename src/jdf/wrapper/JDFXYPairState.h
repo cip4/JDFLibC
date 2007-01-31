@@ -1,3 +1,6 @@
+#if !defined(_JDFXYPairState_H__)
+#define _JDFXYPairState_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -84,9 +87,6 @@
 //
 // ////////////////////////////////////////////////////////////////////
 
-#if !defined(_JDFXYPairState_H__)
-#define _JDFXYPairState_H__
-
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -97,8 +97,20 @@
 
 namespace JDF{
 
-	
-	typedef JDFState<JDFXYPair> _JDFXYPairState;
+	class _JDFXYPairState : public JDFState<JDFXYPair>
+	{
+	public:
+		inline _JDFXYPairState() : JDFState<JDFXYPair>() { }
+
+		inline JDFXYPair GetDefaultValue() { return JDFState<JDFXYPair>::GetDefaultValue(); }
+
+		inline void SetDefaultValue(JDFXYPair n){ JDFState<JDFXYPair>::SetDefaultValue(n); }
+
+		inline JDFXYPair GetCurrentValue() { return JDFState<JDFXYPair>::GetCurrentValue(); }
+
+		inline void SetCurrentValue(JDFXYPair n) { return JDFState<JDFXYPair>::SetCurrentValue(n); }
+	};
+
 	class JDF_WRAPPERCORE_EXPORT JDFXYPairState: public _JDFXYPairState{
 	public:
 	/** *****************************

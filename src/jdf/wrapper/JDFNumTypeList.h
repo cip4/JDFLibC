@@ -1,3 +1,6 @@
+#if !defined(_JDFNumTypeList_H__)
+#define _JDFNumTypeList_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -89,8 +92,6 @@
 // RangeType may be int, double or string
 //
 */
-#if !defined(_JDFNumTypeList_H__)
-#define _JDFNumTypeList_H__
 
 #pragma warning( disable : 4786 ) // long debug names from stl
 
