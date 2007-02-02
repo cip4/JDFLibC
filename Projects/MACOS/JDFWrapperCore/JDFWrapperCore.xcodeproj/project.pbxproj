@@ -1,0 +1,325 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		210B72CA0A763C67003F70A6 /* JDFIntegerRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AA0A763C67003F70A6 /* JDFIntegerRange.h */; };
+		210B72CB0A763C67003F70A6 /* JDFIntegerRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AB0A763C67003F70A6 /* JDFIntegerRangeList.h */; };
+		210B72CC0A763C67003F70A6 /* JDFNameRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AC0A763C67003F70A6 /* JDFNameRangeList.h */; };
+		210B72CD0A763C67003F70A6 /* JDFNumberRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AD0A763C67003F70A6 /* JDFNumberRangeList.h */; };
+		210B72CE0A763C67003F70A6 /* JDFNumTypeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AE0A763C67003F70A6 /* JDFNumTypeList.h */; };
+		210B72CF0A763C67003F70A6 /* JDFRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72AF0A763C67003F70A6 /* JDFRange.cpp */; };
+		210B72D00A763C67003F70A6 /* JDFRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72B00A763C67003F70A6 /* JDFRange.h */; };
+		210B72D10A763C67003F70A6 /* JDFRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72B10A763C67003F70A6 /* JDFRangeList.h */; };
+		210B72D20A763C67003F70A6 /* JDFXYPairRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72B20A763C67003F70A6 /* JDFXYPairRangeList.h */; };
+		210B72D30A763C67003F70A6 /* JDFRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B30A763C67003F70A6 /* JDFRangeList.cpp */; };
+		210B72D40A763C67003F70A6 /* JDFXYPairRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B40A763C67003F70A6 /* JDFXYPairRangeList.cpp */; };
+		210B72D50A763C67003F70A6 /* JDFIntegerRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B50A763C67003F70A6 /* JDFIntegerRange.cpp */; };
+		210B72D60A763C67003F70A6 /* JDFIntegerRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B60A763C67003F70A6 /* JDFIntegerRangeList.cpp */; };
+		210B72D70A763C67003F70A6 /* JDFNameRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B70A763C67003F70A6 /* JDFNameRangeList.cpp */; };
+		210B72D80A763C67003F70A6 /* JDFNumberRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B80A763C67003F70A6 /* JDFNumberRangeList.cpp */; };
+		210B72D90A763C67003F70A6 /* JDFNumTypeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B90A763C67003F70A6 /* JDFNumTypeList.cpp */; };
+		210B72DA0A763C67003F70A6 /* KElementStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72BB0A763C67003F70A6 /* KElementStrings.cpp */; };
+		210B72DB0A763C67003F70A6 /* KElementStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72BC0A763C67003F70A6 /* KElementStrings.h */; };
+		210B72DC0A763C67003F70A6 /* JDFParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72BD0A763C67003F70A6 /* JDFParser.cpp */; };
+		210B72DD0A763C67003F70A6 /* JDFParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72BE0A763C67003F70A6 /* JDFParser.h */; };
+		210B72DE0A763C67003F70A6 /* vElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72BF0A763C67003F70A6 /* vElement.cpp */; };
+		210B72DF0A763C67003F70A6 /* vElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72C00A763C67003F70A6 /* vElement.h */; };
+		210B72E00A763C67003F70A6 /* JDFException.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72C10A763C67003F70A6 /* JDFException.h */; };
+		210B72E10A763C67003F70A6 /* KElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72C20A763C67003F70A6 /* KElement.cpp */; };
+		210B72E20A763C67003F70A6 /* KElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72C30A763C67003F70A6 /* KElement.h */; };
+		210B72E30A763C67003F70A6 /* MyDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72C40A763C67003F70A6 /* MyDate.cpp */; };
+		210B72E40A763C67003F70A6 /* MyDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72C50A763C67003F70A6 /* MyDate.h */; };
+		210B72E50A763C67003F70A6 /* XMLDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72C60A763C67003F70A6 /* XMLDoc.cpp */; };
+		210B72E60A763C67003F70A6 /* XMLDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72C70A763C67003F70A6 /* XMLDoc.h */; };
+		210B72E70A763C67003F70A6 /* XMLDocUserData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72C80A763C67003F70A6 /* XMLDocUserData.cpp */; };
+		210B72E80A763C67003F70A6 /* XMLDocUserData.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72C90A763C67003F70A6 /* XMLDocUserData.h */; };
+		3E575F770B6E47600004FB95 /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E575F750B6E47600004FB95 /* StringUtil.cpp */; };
+		3E575F780B6E47600004FB95 /* StringUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E575F760B6E47600004FB95 /* StringUtil.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		210B72AA0A763C67003F70A6 /* JDFIntegerRange.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFIntegerRange.h; path = ../../../src/jdf/wrapper/JDFIntegerRange.h; sourceTree = "<group>"; };
+		210B72AB0A763C67003F70A6 /* JDFIntegerRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFIntegerRangeList.h; path = ../../../src/jdf/wrapper/JDFIntegerRangeList.h; sourceTree = "<group>"; };
+		210B72AC0A763C67003F70A6 /* JDFNameRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFNameRangeList.h; path = ../../../src/jdf/wrapper/JDFNameRangeList.h; sourceTree = "<group>"; };
+		210B72AD0A763C67003F70A6 /* JDFNumberRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFNumberRangeList.h; path = ../../../src/jdf/wrapper/JDFNumberRangeList.h; sourceTree = "<group>"; };
+		210B72AE0A763C67003F70A6 /* JDFNumTypeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFNumTypeList.h; path = ../../../src/jdf/wrapper/JDFNumTypeList.h; sourceTree = "<group>"; };
+		210B72AF0A763C67003F70A6 /* JDFRange.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFRange.cpp; path = ../../../src/jdf/wrapper/JDFRange.cpp; sourceTree = "<group>"; };
+		210B72B00A763C67003F70A6 /* JDFRange.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFRange.h; path = ../../../src/jdf/wrapper/JDFRange.h; sourceTree = "<group>"; };
+		210B72B10A763C67003F70A6 /* JDFRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFRangeList.h; path = ../../../src/jdf/wrapper/JDFRangeList.h; sourceTree = "<group>"; };
+		210B72B20A763C67003F70A6 /* JDFXYPairRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFXYPairRangeList.h; path = ../../../src/jdf/wrapper/JDFXYPairRangeList.h; sourceTree = "<group>"; };
+		210B72B30A763C67003F70A6 /* JDFRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFRangeList.cpp; path = ../../../src/jdf/wrapper/JDFRangeList.cpp; sourceTree = "<group>"; };
+		210B72B40A763C67003F70A6 /* JDFXYPairRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFXYPairRangeList.cpp; path = ../../../src/jdf/wrapper/JDFXYPairRangeList.cpp; sourceTree = "<group>"; };
+		210B72B50A763C67003F70A6 /* JDFIntegerRange.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFIntegerRange.cpp; path = ../../../src/jdf/wrapper/JDFIntegerRange.cpp; sourceTree = "<group>"; };
+		210B72B60A763C67003F70A6 /* JDFIntegerRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFIntegerRangeList.cpp; path = ../../../src/jdf/wrapper/JDFIntegerRangeList.cpp; sourceTree = "<group>"; };
+		210B72B70A763C67003F70A6 /* JDFNameRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFNameRangeList.cpp; path = ../../../src/jdf/wrapper/JDFNameRangeList.cpp; sourceTree = "<group>"; };
+		210B72B80A763C67003F70A6 /* JDFNumberRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFNumberRangeList.cpp; path = ../../../src/jdf/wrapper/JDFNumberRangeList.cpp; sourceTree = "<group>"; };
+		210B72B90A763C67003F70A6 /* JDFNumTypeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFNumTypeList.cpp; path = ../../../src/jdf/wrapper/JDFNumTypeList.cpp; sourceTree = "<group>"; };
+		210B72BB0A763C67003F70A6 /* KElementStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KElementStrings.cpp; sourceTree = "<group>"; };
+		210B72BC0A763C67003F70A6 /* KElementStrings.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KElementStrings.h; sourceTree = "<group>"; };
+		210B72BD0A763C67003F70A6 /* JDFParser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFParser.cpp; sourceTree = "<group>"; };
+		210B72BE0A763C67003F70A6 /* JDFParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFParser.h; sourceTree = "<group>"; };
+		210B72BF0A763C67003F70A6 /* vElement.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vElement.cpp; sourceTree = "<group>"; };
+		210B72C00A763C67003F70A6 /* vElement.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vElement.h; sourceTree = "<group>"; };
+		210B72C10A763C67003F70A6 /* JDFException.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFException.h; sourceTree = "<group>"; };
+		210B72C20A763C67003F70A6 /* KElement.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KElement.cpp; sourceTree = "<group>"; };
+		210B72C30A763C67003F70A6 /* KElement.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KElement.h; sourceTree = "<group>"; };
+		210B72C40A763C67003F70A6 /* MyDate.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MyDate.cpp; sourceTree = "<group>"; };
+		210B72C50A763C67003F70A6 /* MyDate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MyDate.h; sourceTree = "<group>"; };
+		210B72C60A763C67003F70A6 /* XMLDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = XMLDoc.cpp; sourceTree = "<group>"; };
+		210B72C70A763C67003F70A6 /* XMLDoc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = XMLDoc.h; sourceTree = "<group>"; };
+		210B72C80A763C67003F70A6 /* XMLDocUserData.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = XMLDocUserData.cpp; sourceTree = "<group>"; };
+		210B72C90A763C67003F70A6 /* XMLDocUserData.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = XMLDocUserData.h; sourceTree = "<group>"; };
+		3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent.xcconfig; sourceTree = "<group>"; };
+		3E575F750B6E47600004FB95 /* StringUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtil.cpp; sourceTree = "<group>"; };
+		3E575F760B6E47600004FB95 /* StringUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringUtil.h; sourceTree = "<group>"; };
+		D2AAC046055464E500DB518D /* libJDFWrapperCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJDFWrapperCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D289987405E68DCB004EDB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* JDFWrapperCore */ = {
+			isa = PBXGroup;
+			children = (
+				3E574E610B6E3A830004FB95 /* Configurations */,
+				210B72BA0A763C67003F70A6 /* wrappercore */,
+				210B72A90A763C67003F70A6 /* wrapper */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = JDFWrapperCore;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC046055464E500DB518D /* libJDFWrapperCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		210B72A90A763C67003F70A6 /* wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				210B72AA0A763C67003F70A6 /* JDFIntegerRange.h */,
+				210B72AB0A763C67003F70A6 /* JDFIntegerRangeList.h */,
+				210B72AC0A763C67003F70A6 /* JDFNameRangeList.h */,
+				210B72AD0A763C67003F70A6 /* JDFNumberRangeList.h */,
+				210B72AE0A763C67003F70A6 /* JDFNumTypeList.h */,
+				210B72AF0A763C67003F70A6 /* JDFRange.cpp */,
+				210B72B00A763C67003F70A6 /* JDFRange.h */,
+				210B72B10A763C67003F70A6 /* JDFRangeList.h */,
+				210B72B20A763C67003F70A6 /* JDFXYPairRangeList.h */,
+				210B72B30A763C67003F70A6 /* JDFRangeList.cpp */,
+				210B72B40A763C67003F70A6 /* JDFXYPairRangeList.cpp */,
+				210B72B50A763C67003F70A6 /* JDFIntegerRange.cpp */,
+				210B72B60A763C67003F70A6 /* JDFIntegerRangeList.cpp */,
+				210B72B70A763C67003F70A6 /* JDFNameRangeList.cpp */,
+				210B72B80A763C67003F70A6 /* JDFNumberRangeList.cpp */,
+				210B72B90A763C67003F70A6 /* JDFNumTypeList.cpp */,
+			);
+			name = wrapper;
+			sourceTree = "<group>";
+		};
+		210B72BA0A763C67003F70A6 /* wrappercore */ = {
+			isa = PBXGroup;
+			children = (
+				3E575F750B6E47600004FB95 /* StringUtil.cpp */,
+				3E575F760B6E47600004FB95 /* StringUtil.h */,
+				210B72BB0A763C67003F70A6 /* KElementStrings.cpp */,
+				210B72BC0A763C67003F70A6 /* KElementStrings.h */,
+				210B72BD0A763C67003F70A6 /* JDFParser.cpp */,
+				210B72BE0A763C67003F70A6 /* JDFParser.h */,
+				210B72BF0A763C67003F70A6 /* vElement.cpp */,
+				210B72C00A763C67003F70A6 /* vElement.h */,
+				210B72C10A763C67003F70A6 /* JDFException.h */,
+				210B72C20A763C67003F70A6 /* KElement.cpp */,
+				210B72C30A763C67003F70A6 /* KElement.h */,
+				210B72C40A763C67003F70A6 /* MyDate.cpp */,
+				210B72C50A763C67003F70A6 /* MyDate.h */,
+				210B72C60A763C67003F70A6 /* XMLDoc.cpp */,
+				210B72C70A763C67003F70A6 /* XMLDoc.h */,
+				210B72C80A763C67003F70A6 /* XMLDocUserData.cpp */,
+				210B72C90A763C67003F70A6 /* XMLDocUserData.h */,
+			);
+			name = wrappercore;
+			path = ../../../src/jdf/wrappercore;
+			sourceTree = "<group>";
+		};
+		3E574E610B6E3A830004FB95 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */,
+			);
+			name = Configurations;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC043055464E500DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210B72CA0A763C67003F70A6 /* JDFIntegerRange.h in Headers */,
+				210B72CB0A763C67003F70A6 /* JDFIntegerRangeList.h in Headers */,
+				210B72CC0A763C67003F70A6 /* JDFNameRangeList.h in Headers */,
+				210B72CD0A763C67003F70A6 /* JDFNumberRangeList.h in Headers */,
+				210B72CE0A763C67003F70A6 /* JDFNumTypeList.h in Headers */,
+				210B72D00A763C67003F70A6 /* JDFRange.h in Headers */,
+				210B72D10A763C67003F70A6 /* JDFRangeList.h in Headers */,
+				210B72D20A763C67003F70A6 /* JDFXYPairRangeList.h in Headers */,
+				210B72DB0A763C67003F70A6 /* KElementStrings.h in Headers */,
+				210B72DD0A763C67003F70A6 /* JDFParser.h in Headers */,
+				210B72DF0A763C67003F70A6 /* vElement.h in Headers */,
+				210B72E00A763C67003F70A6 /* JDFException.h in Headers */,
+				210B72E20A763C67003F70A6 /* KElement.h in Headers */,
+				210B72E40A763C67003F70A6 /* MyDate.h in Headers */,
+				210B72E60A763C67003F70A6 /* XMLDoc.h in Headers */,
+				210B72E80A763C67003F70A6 /* XMLDocUserData.h in Headers */,
+				3E575F780B6E47600004FB95 /* StringUtil.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC045055464E500DB518D /* JDFWrapperCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "JDFWrapperCore" */;
+			buildPhases = (
+				D2AAC043055464E500DB518D /* Headers */,
+				D2AAC044055464E500DB518D /* Sources */,
+				D289987405E68DCB004EDB86 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JDFWrapperCore;
+			productName = JDFWrapperCore;
+			productReference = D2AAC046055464E500DB518D /* libJDFWrapperCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "JDFWrapperCore" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* JDFWrapperCore */;
+			projectDirPath = "";
+			targets = (
+				D2AAC045055464E500DB518D /* JDFWrapperCore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC044055464E500DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210B72CF0A763C67003F70A6 /* JDFRange.cpp in Sources */,
+				210B72D30A763C67003F70A6 /* JDFRangeList.cpp in Sources */,
+				210B72D40A763C67003F70A6 /* JDFXYPairRangeList.cpp in Sources */,
+				210B72D50A763C67003F70A6 /* JDFIntegerRange.cpp in Sources */,
+				210B72D60A763C67003F70A6 /* JDFIntegerRangeList.cpp in Sources */,
+				210B72D70A763C67003F70A6 /* JDFNameRangeList.cpp in Sources */,
+				210B72D80A763C67003F70A6 /* JDFNumberRangeList.cpp in Sources */,
+				210B72D90A763C67003F70A6 /* JDFNumTypeList.cpp in Sources */,
+				210B72DA0A763C67003F70A6 /* KElementStrings.cpp in Sources */,
+				210B72DC0A763C67003F70A6 /* JDFParser.cpp in Sources */,
+				210B72DE0A763C67003F70A6 /* vElement.cpp in Sources */,
+				210B72E10A763C67003F70A6 /* KElement.cpp in Sources */,
+				210B72E30A763C67003F70A6 /* MyDate.cpp in Sources */,
+				210B72E50A763C67003F70A6 /* XMLDoc.cpp in Sources */,
+				210B72E70A763C67003F70A6 /* XMLDocUserData.cpp in Sources */,
+				3E575F770B6E47600004FB95 /* StringUtil.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91EC08733DB70010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		1DEB91ED08733DB70010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = JDFWrapperCore;
+			};
+			name = Release;
+		};
+		1DEB91F008733DB70010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		1DEB91F108733DB70010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"../../../src/**",
+					"../../../external/xerces/**",
+				);
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "JDFWrapperCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91EC08733DB70010E9CD /* Debug */,
+				1DEB91ED08733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "JDFWrapperCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91F008733DB70010E9CD /* Debug */,
+				1DEB91F108733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
