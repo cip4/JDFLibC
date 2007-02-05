@@ -208,30 +208,30 @@ void StringUtilTest::testMatches()
 {
 	try
 	{
-		WString s = "abc";
-		bool res = s.matches(WString::star);
-		CPPUNIT_ASSERT( s.matches(WString::star) ); // TODO throws xercesc_2_7::ParseException
-		CPPUNIT_ASSERT( s.matches(WString::emptyStr) );
-		s = "äbc";
-		CPPUNIT_ASSERT( s.matches("...") );
-		s = "ä";
-		CPPUNIT_ASSERT( s.matches("ä?") );
-		s = WString::emptyStr;
-		CPPUNIT_ASSERT( s.matches("ä?") );
-		s = "12de";
-		CPPUNIT_ASSERT( s.matches("([0-9a-fA-F]{2})+") );
-		s = "12d";
-		CPPUNIT_ASSERT( !s.matches("([0-9a-fA-F]{2})+") ); // TODO Fehler
-		s = "12dk";
-		CPPUNIT_ASSERT( !s.matches("([0-9a-fA-F]{2})+") );
-		s = "ö";
-		CPPUNIT_ASSERT( !s.matches("ä?") );
-		s = "abc";
-		CPPUNIT_ASSERT( !s.matches("..") );
-		s = WString::emptyStr;
-		CPPUNIT_ASSERT( !s.matches(WString::emptyStr) );
-		s = "abc";
-		CPPUNIT_ASSERT( !s.matches("?") );
+		CPPUNIT_ASSERT( WString("a bb c").matches("(.+ )*(bb)( .+)*") );
+		CPPUNIT_ASSERT( WString("b bb c").matches("(.* )*(bb)( .+)*") );
+		CPPUNIT_ASSERT( WString("a bb").matches("(.+ )*(bb)( .+)*") );
+		CPPUNIT_ASSERT( WString("bb").matches("(.+ )*(bb)( .+)*") );
+		CPPUNIT_ASSERT( !WString(" bb").matches("(.+ )*(bb)( .+)*") ); // Fehler in Java?
+		CPPUNIT_ASSERT( !WString("bb ").matches("(.+ )*(bb)( .+)*") ); // Fehler in Java?
+		CPPUNIT_ASSERT( !WString("a").matches("(.+ )*(bb)( .+)*") );
+		CPPUNIT_ASSERT( !WString("a c").matches("(.+ )*(bb)( .+)*") );
+		CPPUNIT_ASSERT( !WString("a b c").matches("(.+ )*(bb)( .+)*") );
+		CPPUNIT_ASSERT( WString("abc").matches("*") ); // unzulässig, Fehler abfangen?
+		CPPUNIT_ASSERT( WString("abc").matches(".*") );
+		CPPUNIT_ASSERT( WString("abc").matches(".+") );
+		CPPUNIT_ASSERT( WString("abc").matches("") );
+		CPPUNIT_ASSERT( WString("äbc").matches("...") );
+		CPPUNIT_ASSERT( WString("äbc").matches(WString::emptyStr) );
+		CPPUNIT_ASSERT( WString("ä").matches("ä?") );
+		CPPUNIT_ASSERT( WString("").matches("ä?") );
+		CPPUNIT_ASSERT( WString("12de").matches(WString::regExp_hexbinary) );
+		CPPUNIT_ASSERT( !WString("12d").matches(WString::regExp_hexbinary) ); // zulässing?
+		CPPUNIT_ASSERT( !WString("12dk").matches(WString::regExp_hexbinary) ); // Fehler in Java?
+		CPPUNIT_ASSERT( WString("ö").matches("ä?") ); // Fehler in Java? --> ? = "0 or 1 from the previous exp"
+		CPPUNIT_ASSERT( !WString("abc").matches("..") ); // Fehler in Xerces-C?
+		CPPUNIT_ASSERT( !WString(WString::emptyStr,WString::emptyStr) ); // unzulässig, Fehler abfangen?
+		CPPUNIT_ASSERT( !WString("abc").matches("?") ); // unzulässig, Fehler abfangen?
 	}
 	catch (JDFException& e)
 	{

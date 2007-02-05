@@ -759,3 +759,25 @@ void JDFElementTest::testNameSpaceElement()
 		CPPUNIT_FAIL( e.what() );
 	}
 }
+
+void JDFElementTest::testIsOfType()
+{
+	try
+	{
+		JDFDoc d(0);
+		JDFNode n = d.GetJDFRoot();
+		JDFNodeInfo ni = n.AppendNodeInfo();
+		CPPUNIT_ASSERT( ni.isJDFNodeInfo() );
+		JDFCustomerInfo ci = n.AppendCustomerInfo();
+		CPPUNIT_ASSERT( ci.isJDFCustomerInfo() );
+		
+		JDFDoc d2(1);
+		JDFJMF jj = d2.GetJMFRoot();
+		WString jjStr = jj.ToString();
+		CPPUNIT_ASSERT( jj.isJDFJMF() );
+	}
+	catch (const JDFException& e)
+	{
+		CPPUNIT_FAIL( e.what() );
+	}
+}

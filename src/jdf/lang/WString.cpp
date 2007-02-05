@@ -250,6 +250,7 @@ namespace JDF
 	const WString WString::slash=L"/";
 	const WString WString::regExp_duration = L"[P](((\\d)*)[Y])?((\\d)*[M])?((\\d)*[D])?([T]((\\d)*[H])?((\\d)*[M])?((\\d)*([.](\\d)*)?[S])?)?";
 	const WString WString::regExp_datetime = L"(19|20)\\d\\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])[:]([0-5][0-9])[:]([0-5][0-9])([.](\\d)*)?(([+-](0[0-9]|1[0-9]|2[0123]|)[:](00))|[a-zA-Z])";
+	const WString WString::regExp_hexbinary = L"([0-9a-fA-F]{2})+";
 
 	/******************************************************************************
 	*	class WStringBaseJDF
@@ -2434,10 +2435,24 @@ namespace JDF
 
 	bool WString::matches(const WString& regExp)const
 	{
-		vWString g;
-		this->c_str();
-		RegularExpression exp(regExp.c_str());
-		return exp.matches(c_str());
+		WString _regExp = WString(regExp);
+		// the null expression is assumed to match everything
+		if (_regExp.empty())
+			return true;
+		// this is a really common mistake
+		if (_regExp == WString::star)
+			_regExp = WString::dot;
+		bool b;
+		try
+		{
+			RegularExpression exp(_regExp.c_str());
+			b = exp.matches(c_str());
+		}
+		catch (...)
+		{
+			b = false;
+		}
+		return b;
 	}
 
 

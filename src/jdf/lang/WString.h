@@ -103,6 +103,8 @@
 * 211003 RP fixed toUpperCase and toLowerCase not to overwrite reference counted strings
 * 211003 RP removed some of WStringBase and moved it here
 * 301006 NB fixed Wstring::ZappTokenWS(), WString::regExp_datetime
+* 020207 NB added regExp_hexbinary
+* 020207 NB fixed WString::matches()
 *
 *
 ******************************************************************************/
@@ -221,6 +223,11 @@ namespace JDF
 		* regular expression for ISO formatted JDFDateTime strings
 		*/
 		static const WString regExp_datetime;
+
+		/**
+		* regular expression for hex strings
+		*/
+		static const WString regExp_hexbinary;
 		//@}
 
 	public:

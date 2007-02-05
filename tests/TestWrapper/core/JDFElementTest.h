@@ -1,3 +1,6 @@
+#ifndef JDFELEMENTTEST_H
+#define JDFELEMENTTEST_H
+
 /*
  * The CIP4 Software License, Version 0.1
  *
@@ -82,9 +85,6 @@
 //
 ///////////////////////////////////////////////////////////////////////
 
-#ifndef JDFELEMENTTEST_H
-#define JDFELEMENTTEST_H
-
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -111,6 +111,7 @@ class JDFElementTest : public CppUnit::TestCase
 		CPPUNIT_TEST ( testIsResourceLinkStatic );
 		CPPUNIT_TEST ( testIsResourceStatic );
 		CPPUNIT_TEST ( testNameSpaceElement );
+		CPPUNIT_TEST ( testIsOfType );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -133,6 +134,7 @@ class JDFElementTest : public CppUnit::TestCase
 		void testIsResourceLinkStatic();
 		void testIsResourceStatic();
 		void testNameSpaceElement();
+		void testIsOfType();
 
 	private:
 		void initializeTest();

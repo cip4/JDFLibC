@@ -97,7 +97,7 @@ class StringUtilTest : public CppUnit::TestCase
 		CPPUNIT_TEST( testSetUTF8Bytes );
 		CPPUNIT_TEST( testSetVWString );
 		CPPUNIT_TEST( testEscape );
-		//CPPUNIT_TEST( testMatches );                            // Fehler in Xerces::RegExp ?
+		//CPPUNIT_TEST( testMatches );                            // Fehler in Xerces::RegExp / Java
 		CPPUNIT_TEST( testZappTokenWS );
 		CPPUNIT_TEST( testHasToken );
 		CPPUNIT_TEST( testToken );
