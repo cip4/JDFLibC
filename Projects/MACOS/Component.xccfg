@@ -1,0 +1,157 @@
+// -- General Tab --
+BUILD_DIR               = ../../../../obj                     // Place Build Products In: Custom Location
+PROJECT_TEMP_DIR        = $(BUILD_DIR)                     // Place Intermediate Build Files In: Build products location
+
+// -- Build Tab --
+// Deployment location
+SDKROOT                 = /Developer/SDKs/MacOSX10.4u.sdk  // SDK Path
+SYMROOT                 = $(BUILD_DIR)                     // Build Products Path
+OBJROOT                 = $(BUILD_DIR)/$(CONFIGURATION)    // Intermediate Build Files Path
+CONFIGURATION_BUILD_DIR = $(OBJROOT)                       // Per-configuration Build Products Path
+SHARED_PRECOMPS_DIR     = $(OBJROOT)                       // Precompiled Headers Cache Path
+
+
+
+
+//
+// GENERAL - Linking
+//
+
+PREBINDING = NO
+
+// Exported symbols file is located in the project folder
+EXPORTED_SYMBOLS_FILE = Symbols.exp
+
+// Always dead code strip
+DEAD_CODE_STRIPPING = YES
+
+// Allow for multiple definitions
+BASE_OTHER_LDFLAGS = OTHER_LDFLAGS = $(OTHER_LDFLAGS) $(BASE_OTHER_LDFLAGS)
+
+
+//
+// GENERAL - Packaging
+//
+
+// Default the product name to the project name
+PRODUCT_NAME = $(PROJECT_NAME)
+
+// Plug-ins have the .acroplugin extension
+// WRAPPER_EXTENSION = acroplugin
+WRAPPER_EXTENSION =
+
+// Info.plist file always has the same name and is in the component/include folder
+INFOPLIST_FILE = ../../include/Info.plist
+
+
+
+//
+// GENERAL - Deployment
+//
+
+// 10.4 minimum configuration
+MACOSX_DEPLOYMENT_TARGET = 10.4
+
+// Place the built biinary in the location specified by DSTROOT
+DEPLOYMENT_LOCATION = YES
+
+// The location where to place the built binary
+DSTROOT = ../../../lib/$(CONFIGURATION)
+
+// Installation path
+INSTALL_PATH = /
+
+// Don't strip at copy
+COPY_PHASE_STRIP = NO
+
+
+
+//
+// GNU C/C++ -  Code Generation
+//
+
+// Only show debug symbols for items used
+GCC_DEBUGGING_SYMBOLS = used
+
+// Tune for G5
+GCC_MODEL_TUNING = G5
+
+// Enums are INT
+GCC_SHORT_ENUMS = NO
+
+//
+// GNU C/C++ - Warnings
+//
+
+// So void* can be cast to short, etc. w/o errors
+GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES
+
+// Warn about mismatched return types
+GCC_WARN_ABOUT_RETURN_TYPE = YES
+GCC_WARN_UNUSED_VARIABLE = YES
+PREBINDING = NO
+
+//
+// GNU PREPROCESSING
+//
+
+//Define SDK preprocessor Macros
+GCC_PREPROCESSOR_DEFINITIONS = PDMETADATA_HFT=1 PLUGIN=1
+
+
+
+//
+// GENERAL - Architecture
+//
+
+ARCHS = $(NATIVE_ARCH)
+
+//
+// GENERAL - Linking
+//
+
+// Turn ZeroLink on
+ZERO_LINK = NO
+
+//
+// GNU C/C++ - Language
+//
+
+//Enable Fix & Continue
+GCC_ENABLE_FIX_AND_CONTINUE = YES
+
+//
+// GNU C/C++ - Code Generation
+//
+
+GCC_OPTIMIZATION_LEVEL = 0
+
+//
+// GNU C/C++ - Preprocessing
+//
+
+BASE_GCC_PREPROCESSOR_DEFINITIONS = AS_DEBUG=1 DEBUG=1 _DEBUG=1 DISABLECPLUSPLUSDURING=0 EXCEPTIONS_ALWAYS_CPLUSPLUS=1
+GCC_PREPROCESSOR_DEFINITIONS = $(GCC_PREPROCESSOR_DEFINITIONS) $(BASE_GCC_PREPROCESSOR_DEFINITIONS)
+
+
+//
+// Component specific settings
+//
+
+//
+// Common search paths
+//
+
+JDFOPENSRC_HDR_PATH = "../../../src"
+XERCESC_HDR_PATH    = "../../../external/xerces/include/**"
+LIBPNG_HDR_PATH    = "../../../external/libpng"
+
+COMPONENT_HDR_PATH  = $(JDFOPENSRC_HDR_PATH) $(XERCESC_HDR_PATH) $(LIBPNG_HDR_PATH)
+
+//COMPONENT_LIB_PATH = $(DEBUGTRACE_LIB_PATH)
+
+//Another environment variable used to tell the release target build script where
+//the Acrobat plug-ins directory is located. Currently set to the Acrobat Professional's 
+//default install location in Applications
+
+ACROBAT_PLUGINS_FOLDER = /Applications/Adobe Acrobat 8 Professional/Adobe Acrobat Professional.app/Contents/Plug-ins
