@@ -111,7 +111,7 @@ namespace JDF{
 	XMLDocUserData::~XMLDocUserData(){
 		ClearDirtyIDs();
 		ClearTargets();
-		delete mapTarget;
+		delete (targetMap*)mapTarget;
 	}
 
 	//////////////////////////////////////////////////////////////////////
