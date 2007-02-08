@@ -1,3 +1,6 @@
+#ifndef _XMLDocUserData_H__
+#define _XMLDocUserData_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -85,9 +88,6 @@
 //
 //
 **********************************************************************/
-
-#ifndef _XMLDocUserData_H__
-#define _XMLDocUserData_H__
 
 #include <jdf/lang/vWString.h>
 

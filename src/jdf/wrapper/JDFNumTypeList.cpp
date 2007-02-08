@@ -1064,7 +1064,7 @@ namespace JDF{
 	* @return bool true if this >= xy
 	*/
 	bool JDFXYPair::operator >=(const JDFXYPair&xy)const{
-		return at(0)>=xy.GetX()&&at(1)>=xy.GetY();
+		return ( (*this == xy) || (at(0)>=xy.GetX()&&at(1)>=xy.GetY()) );
 	}		
 	/**
 	* equality operator
@@ -1072,7 +1072,7 @@ namespace JDF{
 	* @return bool true if this <= xy
 	*/
 	bool JDFXYPair::operator <=(const JDFXYPair&xy)const{
-		return at(0)<=xy.GetX()&&at(1)<=xy.GetY();
+		return ( (*this == xy) || (at(0)<=xy.GetX()&&at(1)<=xy.GetY()) );
 	}		
 	/**
 	* equality operator
