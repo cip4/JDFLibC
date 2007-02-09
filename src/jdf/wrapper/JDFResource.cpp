@@ -1277,7 +1277,8 @@ namespace JDF{
 			}
 
 			e=e.GetParentNode();
-			while(e!=*this){
+			do
+			{
 				int i;
 				for(i=siz-1;i>0;i--){ // e is always an ancestor of vElm[i]; go backwards since the chance of mismatch is greater at the end of the list
 					if(!e.IsAncestor(vElm[i])){ // found a misMatch
@@ -1290,10 +1291,16 @@ namespace JDF{
 					break;
 				}
 			}
+			while(e!=*this);
+
 			if(e.IsResourceRoot()||(e==*this)){
 				return e; // the root or the starting point is always ok - no further checks downward
 			}
 		}
+
+		if (returnRes.isNull())
+			return JDFResource();
+
 		// now loop down towards the root (or this) to check if any element that is closer to the root may be equivalent in terms of matching pairs
 		int retSize=-1;		
 		JDFResource loopRes=returnRes;

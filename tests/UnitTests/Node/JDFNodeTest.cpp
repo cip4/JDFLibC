@@ -94,8 +94,8 @@ using namespace JDF;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (JDFNodeTest);
 
-const WString sm_dirTestData = L"data\\";
-const WString sm_dirTestTemp = L"temp\\";
+const WString sm_dirTestData = L"data/";
+const WString sm_dirTestTemp = L"temp/";
 
 void JDFNodeTest::setUp()
 {
@@ -197,7 +197,7 @@ static WString spawn(WString strXMLFile, WString strSpawnedFile, WString strElem
 		// prepare the spawn process
 		JDFNode rootIn = (JDFNode) jdfDocIn.GetRoot();
 
-		JDFNode spawnNode = NULL;
+		JDFNode spawnNode = JDFNode();
 		if (strElementID.equals(WString::emptyStr))
 		{
 			spawnNode = rootIn;

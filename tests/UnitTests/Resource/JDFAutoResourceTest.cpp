@@ -92,7 +92,7 @@ using namespace JDF;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (JDFAutoResourceTest);
 
-const WString sm_dirTestData = L"data\\";
+const WString sm_dirTestData = L"data/";
 
 void JDFAutoResourceTest::setUp()
 {

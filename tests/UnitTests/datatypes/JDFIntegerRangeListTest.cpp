@@ -203,7 +203,6 @@ void JDFIntegerRangeListTest::testGetIntegerList()
 		}
 
 		list = rangeList.ToVInt(6010); // default capacity for a vint is 1000, here we need more
-		int siz = (int)list.size();
 		int m=0;
 		for(int i=0;i<(int)list.size();i++){
 			int j=(int)list[i];

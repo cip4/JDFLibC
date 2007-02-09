@@ -8375,6 +8375,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -8396,12 +8398,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 			};
 			name = Debug;
 		};
 		1DEB91F108733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (

@@ -1,0 +1,884 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		430C55BC0B7BB45100FE0C8E /* libJDFWrapperCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55B90B7BB45100FE0C8E /* libJDFWrapperCore.a */; };
+		430C55BD0B7BB45200FE0C8E /* libJDFWrapperLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55BA0B7BB45100FE0C8E /* libJDFWrapperLib.a */; };
+		430C55BE0B7BB45200FE0C8E /* libJDFToolsLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55BB0B7BB45100FE0C8E /* libJDFToolsLib.a */; };
+		430C55F20B7BB71000FE0C8E /* Xerces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55F10B7BB71000FE0C8E /* Xerces.framework */; };
+		430C55FC0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55FB0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib */; };
+		430C56770B7BB9C800FE0C8E /* CommentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56110B7BB9C800FE0C8E /* CommentTest.cpp */; };
+		430C56780B7BB9C800FE0C8E /* CommentTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56120B7BB9C800FE0C8E /* CommentTest.h */; };
+		430C56790B7BB9C800FE0C8E /* ContentCreationTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56130B7BB9C800FE0C8E /* ContentCreationTestCase.cpp */; };
+		430C567A0B7BB9C800FE0C8E /* ContentCreationTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56140B7BB9C800FE0C8E /* ContentCreationTestCase.h */; };
+		430C567B0B7BB9C800FE0C8E /* DocumentJDFImplTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56150B7BB9C800FE0C8E /* DocumentJDFImplTestCase.cpp */; };
+		430C567C0B7BB9C800FE0C8E /* DocumentJDFImplTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56160B7BB9C800FE0C8E /* DocumentJDFImplTestCase.h */; };
+		430C567D0B7BB9C800FE0C8E /* FactoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56170B7BB9C800FE0C8E /* FactoryTest.cpp */; };
+		430C567E0B7BB9C800FE0C8E /* FactoryTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56180B7BB9C800FE0C8E /* FactoryTest.h */; };
+		430C567F0B7BB9C800FE0C8E /* FixVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56190B7BB9C800FE0C8E /* FixVersionTest.cpp */; };
+		430C56800B7BB9C800FE0C8E /* FixVersionTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C561A0B7BB9C800FE0C8E /* FixVersionTest.h */; };
+		430C56810B7BB9C800FE0C8E /* IterationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C561B0B7BB9C800FE0C8E /* IterationTest.cpp */; };
+		430C56820B7BB9C800FE0C8E /* IterationTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C561C0B7BB9C800FE0C8E /* IterationTest.h */; };
+		430C56830B7BB9C800FE0C8E /* JDFAuditTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C561D0B7BB9C800FE0C8E /* JDFAuditTestCase.cpp */; };
+		430C56840B7BB9C800FE0C8E /* JDFAuditTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C561E0B7BB9C800FE0C8E /* JDFAuditTestCase.h */; };
+		430C56850B7BB9C800FE0C8E /* JDFCustomerInfoTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C561F0B7BB9C800FE0C8E /* JDFCustomerInfoTest.cpp */; };
+		430C56860B7BB9C800FE0C8E /* JDFCustomerInfoTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56200B7BB9C800FE0C8E /* JDFCustomerInfoTest.h */; };
+		430C56870B7BB9C800FE0C8E /* JDFDocTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56210B7BB9C800FE0C8E /* JDFDocTest.cpp */; };
+		430C56880B7BB9C800FE0C8E /* JDFDocTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56220B7BB9C800FE0C8E /* JDFDocTest.h */; };
+		430C56890B7BB9C800FE0C8E /* JDFElementTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56230B7BB9C800FE0C8E /* JDFElementTest.cpp */; };
+		430C568A0B7BB9C800FE0C8E /* JDFElementTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56240B7BB9C800FE0C8E /* JDFElementTest.h */; };
+		430C568B0B7BB9C800FE0C8E /* JDFRefElementTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56250B7BB9C800FE0C8E /* JDFRefElementTest.cpp */; };
+		430C568C0B7BB9C800FE0C8E /* JDFRefElementTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56260B7BB9C800FE0C8E /* JDFRefElementTest.h */; };
+		430C568D0B7BB9C800FE0C8E /* JDFResourceLinkTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56270B7BB9C800FE0C8E /* JDFResourceLinkTest.cpp */; };
+		430C568E0B7BB9C800FE0C8E /* JDFResourceLinkTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56280B7BB9C800FE0C8E /* JDFResourceLinkTest.h */; };
+		430C568F0B7BB9C800FE0C8E /* KElementTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56290B7BB9C800FE0C8E /* KElementTest.cpp */; };
+		430C56900B7BB9C800FE0C8E /* KElementTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C562A0B7BB9C800FE0C8E /* KElementTest.h */; };
+		430C56910B7BB9C800FE0C8E /* MISFinTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C562B0B7BB9C800FE0C8E /* MISFinTest.cpp */; };
+		430C56920B7BB9C800FE0C8E /* MISFinTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C562C0B7BB9C800FE0C8E /* MISFinTest.h */; };
+		430C56930B7BB9C800FE0C8E /* vElementTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C562D0B7BB9C800FE0C8E /* vElementTest.cpp */; };
+		430C56940B7BB9C800FE0C8E /* vElementTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C562E0B7BB9C800FE0C8E /* vElementTest.h */; };
+		430C56950B7BB9C800FE0C8E /* vStringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C562F0B7BB9C800FE0C8E /* vStringTest.cpp */; };
+		430C56960B7BB9C800FE0C8E /* vStringTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56300B7BB9C800FE0C8E /* vStringTest.h */; };
+		430C56970B7BB9C800FE0C8E /* WebTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56310B7BB9C800FE0C8E /* WebTest.cpp */; };
+		430C56980B7BB9C800FE0C8E /* WebTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56320B7BB9C800FE0C8E /* WebTest.h */; };
+		430C56990B7BB9C800FE0C8E /* XMLDocTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56330B7BB9C800FE0C8E /* XMLDocTest.cpp */; };
+		430C569A0B7BB9C800FE0C8E /* XMLDocTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56340B7BB9C800FE0C8E /* XMLDocTest.h */; };
+		430C569B0B7BB9C800FE0C8E /* JDFAttributeMapTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56360B7BB9C800FE0C8E /* JDFAttributeMapTest.cpp */; };
+		430C569C0B7BB9C800FE0C8E /* JDFAttributeMapTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56370B7BB9C800FE0C8E /* JDFAttributeMapTest.h */; };
+		430C569D0B7BB9C800FE0C8E /* JDFDateTimeRangeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56380B7BB9C800FE0C8E /* JDFDateTimeRangeTest.cpp */; };
+		430C569E0B7BB9C800FE0C8E /* JDFDateTimeRangeTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56390B7BB9C800FE0C8E /* JDFDateTimeRangeTest.h */; };
+		430C569F0B7BB9C800FE0C8E /* JDFDurationRangeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C563A0B7BB9C800FE0C8E /* JDFDurationRangeTest.cpp */; };
+		430C56A00B7BB9C800FE0C8E /* JDFDurationRangeTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C563B0B7BB9C800FE0C8E /* JDFDurationRangeTest.h */; };
+		430C56A10B7BB9C800FE0C8E /* JDFIntegerRangeListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C563C0B7BB9C800FE0C8E /* JDFIntegerRangeListTest.cpp */; };
+		430C56A20B7BB9C800FE0C8E /* JDFIntegerRangeListTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C563D0B7BB9C800FE0C8E /* JDFIntegerRangeListTest.h */; };
+		430C56A30B7BB9C800FE0C8E /* JDFIntegerRangeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C563E0B7BB9C800FE0C8E /* JDFIntegerRangeTest.cpp */; };
+		430C56A40B7BB9C800FE0C8E /* JDFIntegerRangeTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C563F0B7BB9C800FE0C8E /* JDFIntegerRangeTest.h */; };
+		430C56A50B7BB9C800FE0C8E /* JDFNumberRangeListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56400B7BB9C800FE0C8E /* JDFNumberRangeListTest.cpp */; };
+		430C56A60B7BB9C800FE0C8E /* JDFNumberRangeListTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56410B7BB9C800FE0C8E /* JDFNumberRangeListTest.h */; };
+		430C56A70B7BB9C800FE0C8E /* JDFNumListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56420B7BB9C800FE0C8E /* JDFNumListTest.cpp */; };
+		430C56A80B7BB9C800FE0C8E /* JDFNumListTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56430B7BB9C800FE0C8E /* JDFNumListTest.h */; };
+		430C56A90B7BB9C800FE0C8E /* JDFRectangleRangeListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56440B7BB9C800FE0C8E /* JDFRectangleRangeListTest.cpp */; };
+		430C56AA0B7BB9C800FE0C8E /* JDFRectangleRangeListTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56450B7BB9C800FE0C8E /* JDFRectangleRangeListTest.h */; };
+		430C56AB0B7BB9C800FE0C8E /* JDFRectangleRangeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56460B7BB9C800FE0C8E /* JDFRectangleRangeTest.cpp */; };
+		430C56AC0B7BB9C800FE0C8E /* JDFRectangleRangeTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56470B7BB9C800FE0C8E /* JDFRectangleRangeTest.h */; };
+		430C56AD0B7BB9C800FE0C8E /* JDFShapeRangeListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56480B7BB9C800FE0C8E /* JDFShapeRangeListTest.cpp */; };
+		430C56AE0B7BB9C800FE0C8E /* JDFShapeRangeListTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56490B7BB9C800FE0C8E /* JDFShapeRangeListTest.h */; };
+		430C56AF0B7BB9C800FE0C8E /* JDFURLTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C564A0B7BB9C800FE0C8E /* JDFURLTest.cpp */; };
+		430C56B00B7BB9C800FE0C8E /* JDFURLTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C564B0B7BB9C800FE0C8E /* JDFURLTest.h */; };
+		430C56B10B7BB9C800FE0C8E /* JDFXYPairRangeListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C564C0B7BB9C800FE0C8E /* JDFXYPairRangeListTest.cpp */; };
+		430C56B20B7BB9C800FE0C8E /* JDFXYPairRangeListTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C564D0B7BB9C800FE0C8E /* JDFXYPairRangeListTest.h */; };
+		430C56B30B7BB9C800FE0C8E /* JDFXYPairTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C564E0B7BB9C800FE0C8E /* JDFXYPairTest.cpp */; };
+		430C56B40B7BB9C800FE0C8E /* JDFXYPairTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C564F0B7BB9C800FE0C8E /* JDFXYPairTest.h */; };
+		430C56B50B7BB9C800FE0C8E /* VJDFAttributeMapTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56500B7BB9C800FE0C8E /* VJDFAttributeMapTest.cpp */; };
+		430C56B60B7BB9C800FE0C8E /* VJDFAttributeMapTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56510B7BB9C800FE0C8E /* VJDFAttributeMapTest.h */; };
+		430C56B70B7BB9C800FE0C8E /* JDFMessageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56530B7BB9C800FE0C8E /* JDFMessageTest.cpp */; };
+		430C56B80B7BB9C800FE0C8E /* JDFMessageTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56540B7BB9C800FE0C8E /* JDFMessageTest.h */; };
+		430C56B90B7BB9C800FE0C8E /* JMFTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56550B7BB9C800FE0C8E /* JMFTest.cpp */; };
+		430C56BA0B7BB9C800FE0C8E /* JMFTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56560B7BB9C800FE0C8E /* JMFTest.h */; };
+		430C56BB0B7BB9C800FE0C8E /* QueueTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56570B7BB9C800FE0C8E /* QueueTest.cpp */; };
+		430C56BC0B7BB9C800FE0C8E /* QueueTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56580B7BB9C800FE0C8E /* QueueTest.h */; };
+		430C56BD0B7BB9C800FE0C8E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56590B7BB9C800FE0C8E /* main.cpp */; };
+		430C56BE0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C565B0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.cpp */; };
+		430C56BF0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C565C0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.h */; };
+		430C56C00B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C565D0B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.cpp */; };
+		430C56C10B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C565E0B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.h */; };
+		430C56C20B7BB9C800FE0C8E /* JDFDevCapTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C565F0B7BB9C800FE0C8E /* JDFDevCapTestCase.cpp */; };
+		430C56C30B7BB9C800FE0C8E /* JDFDevCapTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56600B7BB9C800FE0C8E /* JDFDevCapTestCase.h */; };
+		430C56C40B7BB9C800FE0C8E /* JDFDeviceCapTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56610B7BB9C800FE0C8E /* JDFDeviceCapTestCase.cpp */; };
+		430C56C50B7BB9C800FE0C8E /* JDFDeviceCapTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56620B7BB9C800FE0C8E /* JDFDeviceCapTestCase.h */; };
+		430C56C60B7BB9C800FE0C8E /* JDFEvaluationTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56630B7BB9C800FE0C8E /* JDFEvaluationTestCase.cpp */; };
+		430C56C70B7BB9C800FE0C8E /* JDFEvaluationTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56640B7BB9C800FE0C8E /* JDFEvaluationTestCase.h */; };
+		430C56C80B7BB9C800FE0C8E /* JDFStateBaseTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56650B7BB9C800FE0C8E /* JDFStateBaseTestCase.cpp */; };
+		430C56C90B7BB9C800FE0C8E /* JDFStateBaseTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56660B7BB9C800FE0C8E /* JDFStateBaseTestCase.h */; };
+		430C56CA0B7BB9C800FE0C8E /* JDFTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56670B7BB9C800FE0C8E /* JDFTestCase.cpp */; };
+		430C56CB0B7BB9C800FE0C8E /* JDFTestCase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56680B7BB9C800FE0C8E /* JDFTestCase.h */; };
+		430C56CC0B7BB9C800FE0C8E /* JDFNodeProductTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C566A0B7BB9C800FE0C8E /* JDFNodeProductTest.cpp */; };
+		430C56CD0B7BB9C800FE0C8E /* JDFNodeProductTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C566B0B7BB9C800FE0C8E /* JDFNodeProductTest.h */; };
+		430C56CE0B7BB9C800FE0C8E /* JDFNodeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C566C0B7BB9C800FE0C8E /* JDFNodeTest.cpp */; };
+		430C56CF0B7BB9C800FE0C8E /* JDFNodeTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C566D0B7BB9C800FE0C8E /* JDFNodeTest.h */; };
+		430C56D00B7BB9C800FE0C8E /* JDFAmountPoolTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C566F0B7BB9C800FE0C8E /* JDFAmountPoolTest.cpp */; };
+		430C56D10B7BB9C800FE0C8E /* JDFAmountPoolTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56700B7BB9C800FE0C8E /* JDFAmountPoolTest.h */; };
+		430C56D20B7BB9C800FE0C8E /* JDFAuditPoolTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56710B7BB9C800FE0C8E /* JDFAuditPoolTest.cpp */; };
+		430C56D30B7BB9C800FE0C8E /* JDFAuditPoolTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56720B7BB9C800FE0C8E /* JDFAuditPoolTest.h */; };
+		430C56D40B7BB9C800FE0C8E /* JDFColorPoolTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56730B7BB9C800FE0C8E /* JDFColorPoolTest.cpp */; };
+		430C56D50B7BB9C800FE0C8E /* JDFColorPoolTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56740B7BB9C800FE0C8E /* JDFColorPoolTest.h */; };
+		430C56D60B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56750B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.cpp */; };
+		430C56D70B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56760B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.h */; };
+		430C56FE0B7BB9DA00FE0C8E /* JDFAssemblySectionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56D90B7BB9DA00FE0C8E /* JDFAssemblySectionTest.cpp */; };
+		430C56FF0B7BB9DA00FE0C8E /* JDFAssemblySectionTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56DA0B7BB9DA00FE0C8E /* JDFAssemblySectionTest.h */; };
+		430C57000B7BB9DA00FE0C8E /* JDFAutoResourceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56DB0B7BB9DA00FE0C8E /* JDFAutoResourceTest.cpp */; };
+		430C57010B7BB9DA00FE0C8E /* JDFAutoResourceTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56DC0B7BB9DA00FE0C8E /* JDFAutoResourceTest.h */; };
+		430C57020B7BB9DA00FE0C8E /* JDFFileSpecTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56DD0B7BB9DA00FE0C8E /* JDFFileSpecTest.cpp */; };
+		430C57030B7BB9DA00FE0C8E /* JDFFileSpecTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56DE0B7BB9DA00FE0C8E /* JDFFileSpecTest.h */; };
+		430C57040B7BB9DA00FE0C8E /* JDFLayoutTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56DF0B7BB9DA00FE0C8E /* JDFLayoutTest.cpp */; };
+		430C57050B7BB9DA00FE0C8E /* JDFLayoutTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56E00B7BB9DA00FE0C8E /* JDFLayoutTest.h */; };
+		430C57060B7BB9DA00FE0C8E /* JDFMediaColorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56E10B7BB9DA00FE0C8E /* JDFMediaColorTest.cpp */; };
+		430C57070B7BB9DA00FE0C8E /* JDFMediaColorTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56E20B7BB9DA00FE0C8E /* JDFMediaColorTest.h */; };
+		430C57080B7BB9DA00FE0C8E /* JDFResourceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56E30B7BB9DA00FE0C8E /* JDFResourceTest.cpp */; };
+		430C57090B7BB9DA00FE0C8E /* JDFResourceTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56E40B7BB9DA00FE0C8E /* JDFResourceTest.h */; };
+		430C570A0B7BB9DA00FE0C8E /* JDFColorantControlTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56E60B7BB9DA00FE0C8E /* JDFColorantControlTest.cpp */; };
+		430C570B0B7BB9DA00FE0C8E /* JDFColorantControlTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56E70B7BB9DA00FE0C8E /* JDFColorantControlTest.h */; };
+		430C570C0B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56E80B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.cpp */; };
+		430C570D0B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56E90B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.h */; };
+		430C570E0B7BB9DA00FE0C8E /* JDFMediaTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56EA0B7BB9DA00FE0C8E /* JDFMediaTest.cpp */; };
+		430C570F0B7BB9DA00FE0C8E /* JDFMediaTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56EB0B7BB9DA00FE0C8E /* JDFMediaTest.h */; };
+		430C57100B7BB9DA00FE0C8E /* JDFRunListTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56EC0B7BB9DA00FE0C8E /* JDFRunListTest.cpp */; };
+		430C57110B7BB9DA00FE0C8E /* JDFRunListTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56ED0B7BB9DA00FE0C8E /* JDFRunListTest.h */; };
+		430C57120B7BB9DA00FE0C8E /* JDFTileTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56EE0B7BB9DA00FE0C8E /* JDFTileTest.cpp */; };
+		430C57130B7BB9DA00FE0C8E /* JDFTileTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56EF0B7BB9DA00FE0C8E /* JDFTileTest.h */; };
+		430C57140B7BB9DA00FE0C8E /* SpanTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56F10B7BB9DA00FE0C8E /* SpanTest.cpp */; };
+		430C57150B7BB9DA00FE0C8E /* SpanTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56F20B7BB9DA00FE0C8E /* SpanTest.h */; };
+		430C57160B7BB9DA00FE0C8E /* fileUtilTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56F40B7BB9DA00FE0C8E /* fileUtilTest.cpp */; };
+		430C57170B7BB9DA00FE0C8E /* fileUtilTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56F50B7BB9DA00FE0C8E /* fileUtilTest.h */; };
+		430C57180B7BB9DA00FE0C8E /* JDFDateTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56F60B7BB9DA00FE0C8E /* JDFDateTest.cpp */; };
+		430C57190B7BB9DA00FE0C8E /* JDFDateTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56F70B7BB9DA00FE0C8E /* JDFDateTest.h */; };
+		430C571A0B7BB9DA00FE0C8E /* JDFSpawnTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56F80B7BB9DA00FE0C8E /* JDFSpawnTest.cpp */; };
+		430C571B0B7BB9DA00FE0C8E /* JDFSpawnTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56F90B7BB9DA00FE0C8E /* JDFSpawnTest.h */; };
+		430C571C0B7BB9DA00FE0C8E /* StringUtilTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56FA0B7BB9DA00FE0C8E /* StringUtilTest.cpp */; };
+		430C571D0B7BB9DA00FE0C8E /* StringUtilTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56FB0B7BB9DA00FE0C8E /* StringUtilTest.h */; };
+		430C571E0B7BB9DA00FE0C8E /* URLUtilTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56FC0B7BB9DA00FE0C8E /* URLUtilTest.cpp */; };
+		430C571F0B7BB9DA00FE0C8E /* URLUtilTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56FD0B7BB9DA00FE0C8E /* URLUtilTest.h */; };
+		8DD76F6A0486A84900D96B5E /* runAllTests.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* runAllTests.1 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				8DD76F6A0486A84900D96B5E /* runAllTests.1 in CopyFiles */,
+				430C56780B7BB9C800FE0C8E /* CommentTest.h in CopyFiles */,
+				430C567A0B7BB9C800FE0C8E /* ContentCreationTestCase.h in CopyFiles */,
+				430C567C0B7BB9C800FE0C8E /* DocumentJDFImplTestCase.h in CopyFiles */,
+				430C567E0B7BB9C800FE0C8E /* FactoryTest.h in CopyFiles */,
+				430C56800B7BB9C800FE0C8E /* FixVersionTest.h in CopyFiles */,
+				430C56820B7BB9C800FE0C8E /* IterationTest.h in CopyFiles */,
+				430C56840B7BB9C800FE0C8E /* JDFAuditTestCase.h in CopyFiles */,
+				430C56860B7BB9C800FE0C8E /* JDFCustomerInfoTest.h in CopyFiles */,
+				430C56880B7BB9C800FE0C8E /* JDFDocTest.h in CopyFiles */,
+				430C568A0B7BB9C800FE0C8E /* JDFElementTest.h in CopyFiles */,
+				430C568C0B7BB9C800FE0C8E /* JDFRefElementTest.h in CopyFiles */,
+				430C568E0B7BB9C800FE0C8E /* JDFResourceLinkTest.h in CopyFiles */,
+				430C56900B7BB9C800FE0C8E /* KElementTest.h in CopyFiles */,
+				430C56920B7BB9C800FE0C8E /* MISFinTest.h in CopyFiles */,
+				430C56940B7BB9C800FE0C8E /* vElementTest.h in CopyFiles */,
+				430C56960B7BB9C800FE0C8E /* vStringTest.h in CopyFiles */,
+				430C56980B7BB9C800FE0C8E /* WebTest.h in CopyFiles */,
+				430C569A0B7BB9C800FE0C8E /* XMLDocTest.h in CopyFiles */,
+				430C569C0B7BB9C800FE0C8E /* JDFAttributeMapTest.h in CopyFiles */,
+				430C569E0B7BB9C800FE0C8E /* JDFDateTimeRangeTest.h in CopyFiles */,
+				430C56A00B7BB9C800FE0C8E /* JDFDurationRangeTest.h in CopyFiles */,
+				430C56A20B7BB9C800FE0C8E /* JDFIntegerRangeListTest.h in CopyFiles */,
+				430C56A40B7BB9C800FE0C8E /* JDFIntegerRangeTest.h in CopyFiles */,
+				430C56A60B7BB9C800FE0C8E /* JDFNumberRangeListTest.h in CopyFiles */,
+				430C56A80B7BB9C800FE0C8E /* JDFNumListTest.h in CopyFiles */,
+				430C56AA0B7BB9C800FE0C8E /* JDFRectangleRangeListTest.h in CopyFiles */,
+				430C56AC0B7BB9C800FE0C8E /* JDFRectangleRangeTest.h in CopyFiles */,
+				430C56AE0B7BB9C800FE0C8E /* JDFShapeRangeListTest.h in CopyFiles */,
+				430C56B00B7BB9C800FE0C8E /* JDFURLTest.h in CopyFiles */,
+				430C56B20B7BB9C800FE0C8E /* JDFXYPairRangeListTest.h in CopyFiles */,
+				430C56B40B7BB9C800FE0C8E /* JDFXYPairTest.h in CopyFiles */,
+				430C56B60B7BB9C800FE0C8E /* VJDFAttributeMapTest.h in CopyFiles */,
+				430C56B80B7BB9C800FE0C8E /* JDFMessageTest.h in CopyFiles */,
+				430C56BA0B7BB9C800FE0C8E /* JMFTest.h in CopyFiles */,
+				430C56BC0B7BB9C800FE0C8E /* QueueTest.h in CopyFiles */,
+				430C56BF0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.h in CopyFiles */,
+				430C56C10B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.h in CopyFiles */,
+				430C56C30B7BB9C800FE0C8E /* JDFDevCapTestCase.h in CopyFiles */,
+				430C56C50B7BB9C800FE0C8E /* JDFDeviceCapTestCase.h in CopyFiles */,
+				430C56C70B7BB9C800FE0C8E /* JDFEvaluationTestCase.h in CopyFiles */,
+				430C56C90B7BB9C800FE0C8E /* JDFStateBaseTestCase.h in CopyFiles */,
+				430C56CB0B7BB9C800FE0C8E /* JDFTestCase.h in CopyFiles */,
+				430C56CD0B7BB9C800FE0C8E /* JDFNodeProductTest.h in CopyFiles */,
+				430C56CF0B7BB9C800FE0C8E /* JDFNodeTest.h in CopyFiles */,
+				430C56D10B7BB9C800FE0C8E /* JDFAmountPoolTest.h in CopyFiles */,
+				430C56D30B7BB9C800FE0C8E /* JDFAuditPoolTest.h in CopyFiles */,
+				430C56D50B7BB9C800FE0C8E /* JDFColorPoolTest.h in CopyFiles */,
+				430C56D70B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.h in CopyFiles */,
+				430C56FF0B7BB9DA00FE0C8E /* JDFAssemblySectionTest.h in CopyFiles */,
+				430C57010B7BB9DA00FE0C8E /* JDFAutoResourceTest.h in CopyFiles */,
+				430C57030B7BB9DA00FE0C8E /* JDFFileSpecTest.h in CopyFiles */,
+				430C57050B7BB9DA00FE0C8E /* JDFLayoutTest.h in CopyFiles */,
+				430C57070B7BB9DA00FE0C8E /* JDFMediaColorTest.h in CopyFiles */,
+				430C57090B7BB9DA00FE0C8E /* JDFResourceTest.h in CopyFiles */,
+				430C570B0B7BB9DA00FE0C8E /* JDFColorantControlTest.h in CopyFiles */,
+				430C570D0B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.h in CopyFiles */,
+				430C570F0B7BB9DA00FE0C8E /* JDFMediaTest.h in CopyFiles */,
+				430C57110B7BB9DA00FE0C8E /* JDFRunListTest.h in CopyFiles */,
+				430C57130B7BB9DA00FE0C8E /* JDFTileTest.h in CopyFiles */,
+				430C57150B7BB9DA00FE0C8E /* SpanTest.h in CopyFiles */,
+				430C57170B7BB9DA00FE0C8E /* fileUtilTest.h in CopyFiles */,
+				430C57190B7BB9DA00FE0C8E /* JDFDateTest.h in CopyFiles */,
+				430C571B0B7BB9DA00FE0C8E /* JDFSpawnTest.h in CopyFiles */,
+				430C571D0B7BB9DA00FE0C8E /* StringUtilTest.h in CopyFiles */,
+				430C571F0B7BB9DA00FE0C8E /* URLUtilTest.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		430C55B90B7BB45100FE0C8E /* libJDFWrapperCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperCore.a; path = ../../../../lib/Debug/libJDFWrapperCore.a; sourceTree = SOURCE_ROOT; };
+		430C55BA0B7BB45100FE0C8E /* libJDFWrapperLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperLib.a; path = ../../../../lib/Debug/libJDFWrapperLib.a; sourceTree = SOURCE_ROOT; };
+		430C55BB0B7BB45100FE0C8E /* libJDFToolsLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFToolsLib.a; path = ../../../../lib/Debug/libJDFToolsLib.a; sourceTree = SOURCE_ROOT; };
+		430C55F10B7BB71000FE0C8E /* Xerces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Xerces.framework; path = ../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default/Xerces.framework; sourceTree = SOURCE_ROOT; };
+		430C55FB0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libcppunit-1.12.0.0.0.dylib"; path = "../../../../external/cppunit/src/cppunit/.libs/libcppunit-1.12.0.0.0.dylib"; sourceTree = SOURCE_ROOT; };
+		430C56110B7BB9C800FE0C8E /* CommentTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CommentTest.cpp; sourceTree = "<group>"; };
+		430C56120B7BB9C800FE0C8E /* CommentTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CommentTest.h; sourceTree = "<group>"; };
+		430C56130B7BB9C800FE0C8E /* ContentCreationTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ContentCreationTestCase.cpp; sourceTree = "<group>"; };
+		430C56140B7BB9C800FE0C8E /* ContentCreationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ContentCreationTestCase.h; sourceTree = "<group>"; };
+		430C56150B7BB9C800FE0C8E /* DocumentJDFImplTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DocumentJDFImplTestCase.cpp; sourceTree = "<group>"; };
+		430C56160B7BB9C800FE0C8E /* DocumentJDFImplTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DocumentJDFImplTestCase.h; sourceTree = "<group>"; };
+		430C56170B7BB9C800FE0C8E /* FactoryTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FactoryTest.cpp; sourceTree = "<group>"; };
+		430C56180B7BB9C800FE0C8E /* FactoryTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FactoryTest.h; sourceTree = "<group>"; };
+		430C56190B7BB9C800FE0C8E /* FixVersionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FixVersionTest.cpp; sourceTree = "<group>"; };
+		430C561A0B7BB9C800FE0C8E /* FixVersionTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FixVersionTest.h; sourceTree = "<group>"; };
+		430C561B0B7BB9C800FE0C8E /* IterationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IterationTest.cpp; sourceTree = "<group>"; };
+		430C561C0B7BB9C800FE0C8E /* IterationTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = IterationTest.h; sourceTree = "<group>"; };
+		430C561D0B7BB9C800FE0C8E /* JDFAuditTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAuditTestCase.cpp; sourceTree = "<group>"; };
+		430C561E0B7BB9C800FE0C8E /* JDFAuditTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAuditTestCase.h; sourceTree = "<group>"; };
+		430C561F0B7BB9C800FE0C8E /* JDFCustomerInfoTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFCustomerInfoTest.cpp; sourceTree = "<group>"; };
+		430C56200B7BB9C800FE0C8E /* JDFCustomerInfoTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFCustomerInfoTest.h; sourceTree = "<group>"; };
+		430C56210B7BB9C800FE0C8E /* JDFDocTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFDocTest.cpp; sourceTree = "<group>"; };
+		430C56220B7BB9C800FE0C8E /* JDFDocTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFDocTest.h; sourceTree = "<group>"; };
+		430C56230B7BB9C800FE0C8E /* JDFElementTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFElementTest.cpp; sourceTree = "<group>"; };
+		430C56240B7BB9C800FE0C8E /* JDFElementTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFElementTest.h; sourceTree = "<group>"; };
+		430C56250B7BB9C800FE0C8E /* JDFRefElementTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFRefElementTest.cpp; sourceTree = "<group>"; };
+		430C56260B7BB9C800FE0C8E /* JDFRefElementTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFRefElementTest.h; sourceTree = "<group>"; };
+		430C56270B7BB9C800FE0C8E /* JDFResourceLinkTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFResourceLinkTest.cpp; sourceTree = "<group>"; };
+		430C56280B7BB9C800FE0C8E /* JDFResourceLinkTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFResourceLinkTest.h; sourceTree = "<group>"; };
+		430C56290B7BB9C800FE0C8E /* KElementTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KElementTest.cpp; sourceTree = "<group>"; };
+		430C562A0B7BB9C800FE0C8E /* KElementTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KElementTest.h; sourceTree = "<group>"; };
+		430C562B0B7BB9C800FE0C8E /* MISFinTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MISFinTest.cpp; sourceTree = "<group>"; };
+		430C562C0B7BB9C800FE0C8E /* MISFinTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MISFinTest.h; sourceTree = "<group>"; };
+		430C562D0B7BB9C800FE0C8E /* vElementTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vElementTest.cpp; sourceTree = "<group>"; };
+		430C562E0B7BB9C800FE0C8E /* vElementTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vElementTest.h; sourceTree = "<group>"; };
+		430C562F0B7BB9C800FE0C8E /* vStringTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vStringTest.cpp; sourceTree = "<group>"; };
+		430C56300B7BB9C800FE0C8E /* vStringTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vStringTest.h; sourceTree = "<group>"; };
+		430C56310B7BB9C800FE0C8E /* WebTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WebTest.cpp; sourceTree = "<group>"; };
+		430C56320B7BB9C800FE0C8E /* WebTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WebTest.h; sourceTree = "<group>"; };
+		430C56330B7BB9C800FE0C8E /* XMLDocTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = XMLDocTest.cpp; sourceTree = "<group>"; };
+		430C56340B7BB9C800FE0C8E /* XMLDocTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = XMLDocTest.h; sourceTree = "<group>"; };
+		430C56360B7BB9C800FE0C8E /* JDFAttributeMapTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAttributeMapTest.cpp; sourceTree = "<group>"; };
+		430C56370B7BB9C800FE0C8E /* JDFAttributeMapTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAttributeMapTest.h; sourceTree = "<group>"; };
+		430C56380B7BB9C800FE0C8E /* JDFDateTimeRangeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFDateTimeRangeTest.cpp; sourceTree = "<group>"; };
+		430C56390B7BB9C800FE0C8E /* JDFDateTimeRangeTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFDateTimeRangeTest.h; sourceTree = "<group>"; };
+		430C563A0B7BB9C800FE0C8E /* JDFDurationRangeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFDurationRangeTest.cpp; sourceTree = "<group>"; };
+		430C563B0B7BB9C800FE0C8E /* JDFDurationRangeTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFDurationRangeTest.h; sourceTree = "<group>"; };
+		430C563C0B7BB9C800FE0C8E /* JDFIntegerRangeListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFIntegerRangeListTest.cpp; sourceTree = "<group>"; };
+		430C563D0B7BB9C800FE0C8E /* JDFIntegerRangeListTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFIntegerRangeListTest.h; sourceTree = "<group>"; };
+		430C563E0B7BB9C800FE0C8E /* JDFIntegerRangeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFIntegerRangeTest.cpp; sourceTree = "<group>"; };
+		430C563F0B7BB9C800FE0C8E /* JDFIntegerRangeTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFIntegerRangeTest.h; sourceTree = "<group>"; };
+		430C56400B7BB9C800FE0C8E /* JDFNumberRangeListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFNumberRangeListTest.cpp; sourceTree = "<group>"; };
+		430C56410B7BB9C800FE0C8E /* JDFNumberRangeListTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFNumberRangeListTest.h; sourceTree = "<group>"; };
+		430C56420B7BB9C800FE0C8E /* JDFNumListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFNumListTest.cpp; sourceTree = "<group>"; };
+		430C56430B7BB9C800FE0C8E /* JDFNumListTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFNumListTest.h; sourceTree = "<group>"; };
+		430C56440B7BB9C800FE0C8E /* JDFRectangleRangeListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFRectangleRangeListTest.cpp; sourceTree = "<group>"; };
+		430C56450B7BB9C800FE0C8E /* JDFRectangleRangeListTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFRectangleRangeListTest.h; sourceTree = "<group>"; };
+		430C56460B7BB9C800FE0C8E /* JDFRectangleRangeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFRectangleRangeTest.cpp; sourceTree = "<group>"; };
+		430C56470B7BB9C800FE0C8E /* JDFRectangleRangeTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFRectangleRangeTest.h; sourceTree = "<group>"; };
+		430C56480B7BB9C800FE0C8E /* JDFShapeRangeListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFShapeRangeListTest.cpp; sourceTree = "<group>"; };
+		430C56490B7BB9C800FE0C8E /* JDFShapeRangeListTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFShapeRangeListTest.h; sourceTree = "<group>"; };
+		430C564A0B7BB9C800FE0C8E /* JDFURLTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFURLTest.cpp; sourceTree = "<group>"; };
+		430C564B0B7BB9C800FE0C8E /* JDFURLTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFURLTest.h; sourceTree = "<group>"; };
+		430C564C0B7BB9C800FE0C8E /* JDFXYPairRangeListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFXYPairRangeListTest.cpp; sourceTree = "<group>"; };
+		430C564D0B7BB9C800FE0C8E /* JDFXYPairRangeListTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFXYPairRangeListTest.h; sourceTree = "<group>"; };
+		430C564E0B7BB9C800FE0C8E /* JDFXYPairTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFXYPairTest.cpp; sourceTree = "<group>"; };
+		430C564F0B7BB9C800FE0C8E /* JDFXYPairTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFXYPairTest.h; sourceTree = "<group>"; };
+		430C56500B7BB9C800FE0C8E /* VJDFAttributeMapTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = VJDFAttributeMapTest.cpp; sourceTree = "<group>"; };
+		430C56510B7BB9C800FE0C8E /* VJDFAttributeMapTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = VJDFAttributeMapTest.h; sourceTree = "<group>"; };
+		430C56530B7BB9C800FE0C8E /* JDFMessageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFMessageTest.cpp; sourceTree = "<group>"; };
+		430C56540B7BB9C800FE0C8E /* JDFMessageTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFMessageTest.h; sourceTree = "<group>"; };
+		430C56550B7BB9C800FE0C8E /* JMFTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JMFTest.cpp; sourceTree = "<group>"; };
+		430C56560B7BB9C800FE0C8E /* JMFTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JMFTest.h; sourceTree = "<group>"; };
+		430C56570B7BB9C800FE0C8E /* QueueTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = QueueTest.cpp; sourceTree = "<group>"; };
+		430C56580B7BB9C800FE0C8E /* QueueTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QueueTest.h; sourceTree = "<group>"; };
+		430C56590B7BB9C800FE0C8E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../../tests/UnitTests/main.cpp; sourceTree = SOURCE_ROOT; };
+		430C565B0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAttributeMapTestCase.cpp; sourceTree = "<group>"; };
+		430C565C0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAttributeMapTestCase.h; sourceTree = "<group>"; };
+		430C565D0B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFDateTimeRangeTestCase.cpp; sourceTree = "<group>"; };
+		430C565E0B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFDateTimeRangeTestCase.h; sourceTree = "<group>"; };
+		430C565F0B7BB9C800FE0C8E /* JDFDevCapTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFDevCapTestCase.cpp; sourceTree = "<group>"; };
+		430C56600B7BB9C800FE0C8E /* JDFDevCapTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFDevCapTestCase.h; sourceTree = "<group>"; };
+		430C56610B7BB9C800FE0C8E /* JDFDeviceCapTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFDeviceCapTestCase.cpp; sourceTree = "<group>"; };
+		430C56620B7BB9C800FE0C8E /* JDFDeviceCapTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFDeviceCapTestCase.h; sourceTree = "<group>"; };
+		430C56630B7BB9C800FE0C8E /* JDFEvaluationTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFEvaluationTestCase.cpp; sourceTree = "<group>"; };
+		430C56640B7BB9C800FE0C8E /* JDFEvaluationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFEvaluationTestCase.h; sourceTree = "<group>"; };
+		430C56650B7BB9C800FE0C8E /* JDFStateBaseTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFStateBaseTestCase.cpp; sourceTree = "<group>"; };
+		430C56660B7BB9C800FE0C8E /* JDFStateBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFStateBaseTestCase.h; sourceTree = "<group>"; };
+		430C56670B7BB9C800FE0C8E /* JDFTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFTestCase.cpp; sourceTree = "<group>"; };
+		430C56680B7BB9C800FE0C8E /* JDFTestCase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFTestCase.h; sourceTree = "<group>"; };
+		430C566A0B7BB9C800FE0C8E /* JDFNodeProductTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFNodeProductTest.cpp; sourceTree = "<group>"; };
+		430C566B0B7BB9C800FE0C8E /* JDFNodeProductTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFNodeProductTest.h; sourceTree = "<group>"; };
+		430C566C0B7BB9C800FE0C8E /* JDFNodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFNodeTest.cpp; sourceTree = "<group>"; };
+		430C566D0B7BB9C800FE0C8E /* JDFNodeTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFNodeTest.h; sourceTree = "<group>"; };
+		430C566F0B7BB9C800FE0C8E /* JDFAmountPoolTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAmountPoolTest.cpp; sourceTree = "<group>"; };
+		430C56700B7BB9C800FE0C8E /* JDFAmountPoolTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAmountPoolTest.h; sourceTree = "<group>"; };
+		430C56710B7BB9C800FE0C8E /* JDFAuditPoolTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAuditPoolTest.cpp; sourceTree = "<group>"; };
+		430C56720B7BB9C800FE0C8E /* JDFAuditPoolTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAuditPoolTest.h; sourceTree = "<group>"; };
+		430C56730B7BB9C800FE0C8E /* JDFColorPoolTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFColorPoolTest.cpp; sourceTree = "<group>"; };
+		430C56740B7BB9C800FE0C8E /* JDFColorPoolTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFColorPoolTest.h; sourceTree = "<group>"; };
+		430C56750B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFResourceLinkPoolTest.cpp; sourceTree = "<group>"; };
+		430C56760B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFResourceLinkPoolTest.h; sourceTree = "<group>"; };
+		430C56D90B7BB9DA00FE0C8E /* JDFAssemblySectionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAssemblySectionTest.cpp; sourceTree = "<group>"; };
+		430C56DA0B7BB9DA00FE0C8E /* JDFAssemblySectionTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAssemblySectionTest.h; sourceTree = "<group>"; };
+		430C56DB0B7BB9DA00FE0C8E /* JDFAutoResourceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutoResourceTest.cpp; sourceTree = "<group>"; };
+		430C56DC0B7BB9DA00FE0C8E /* JDFAutoResourceTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAutoResourceTest.h; sourceTree = "<group>"; };
+		430C56DD0B7BB9DA00FE0C8E /* JDFFileSpecTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFFileSpecTest.cpp; sourceTree = "<group>"; };
+		430C56DE0B7BB9DA00FE0C8E /* JDFFileSpecTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFFileSpecTest.h; sourceTree = "<group>"; };
+		430C56DF0B7BB9DA00FE0C8E /* JDFLayoutTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFLayoutTest.cpp; sourceTree = "<group>"; };
+		430C56E00B7BB9DA00FE0C8E /* JDFLayoutTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFLayoutTest.h; sourceTree = "<group>"; };
+		430C56E10B7BB9DA00FE0C8E /* JDFMediaColorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFMediaColorTest.cpp; sourceTree = "<group>"; };
+		430C56E20B7BB9DA00FE0C8E /* JDFMediaColorTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFMediaColorTest.h; sourceTree = "<group>"; };
+		430C56E30B7BB9DA00FE0C8E /* JDFResourceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFResourceTest.cpp; sourceTree = "<group>"; };
+		430C56E40B7BB9DA00FE0C8E /* JDFResourceTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFResourceTest.h; sourceTree = "<group>"; };
+		430C56E60B7BB9DA00FE0C8E /* JDFColorantControlTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFColorantControlTest.cpp; sourceTree = "<group>"; };
+		430C56E70B7BB9DA00FE0C8E /* JDFColorantControlTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFColorantControlTest.h; sourceTree = "<group>"; };
+		430C56E80B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFColorConversionParamsTest.cpp; sourceTree = "<group>"; };
+		430C56E90B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFColorConversionParamsTest.h; sourceTree = "<group>"; };
+		430C56EA0B7BB9DA00FE0C8E /* JDFMediaTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFMediaTest.cpp; sourceTree = "<group>"; };
+		430C56EB0B7BB9DA00FE0C8E /* JDFMediaTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFMediaTest.h; sourceTree = "<group>"; };
+		430C56EC0B7BB9DA00FE0C8E /* JDFRunListTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFRunListTest.cpp; sourceTree = "<group>"; };
+		430C56ED0B7BB9DA00FE0C8E /* JDFRunListTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFRunListTest.h; sourceTree = "<group>"; };
+		430C56EE0B7BB9DA00FE0C8E /* JDFTileTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFTileTest.cpp; sourceTree = "<group>"; };
+		430C56EF0B7BB9DA00FE0C8E /* JDFTileTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFTileTest.h; sourceTree = "<group>"; };
+		430C56F10B7BB9DA00FE0C8E /* SpanTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SpanTest.cpp; sourceTree = "<group>"; };
+		430C56F20B7BB9DA00FE0C8E /* SpanTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SpanTest.h; sourceTree = "<group>"; };
+		430C56F40B7BB9DA00FE0C8E /* fileUtilTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = fileUtilTest.cpp; sourceTree = "<group>"; };
+		430C56F50B7BB9DA00FE0C8E /* fileUtilTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = fileUtilTest.h; sourceTree = "<group>"; };
+		430C56F60B7BB9DA00FE0C8E /* JDFDateTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFDateTest.cpp; sourceTree = "<group>"; };
+		430C56F70B7BB9DA00FE0C8E /* JDFDateTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFDateTest.h; sourceTree = "<group>"; };
+		430C56F80B7BB9DA00FE0C8E /* JDFSpawnTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFSpawnTest.cpp; sourceTree = "<group>"; };
+		430C56F90B7BB9DA00FE0C8E /* JDFSpawnTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFSpawnTest.h; sourceTree = "<group>"; };
+		430C56FA0B7BB9DA00FE0C8E /* StringUtilTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtilTest.cpp; sourceTree = "<group>"; };
+		430C56FB0B7BB9DA00FE0C8E /* StringUtilTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringUtilTest.h; sourceTree = "<group>"; };
+		430C56FC0B7BB9DA00FE0C8E /* URLUtilTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URLUtilTest.cpp; sourceTree = "<group>"; };
+		430C56FD0B7BB9DA00FE0C8E /* URLUtilTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URLUtilTest.h; sourceTree = "<group>"; };
+		8DD76F6C0486A84900D96B5E /* runAllTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = runAllTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6859E8B029090EE04C91782 /* runAllTests.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = runAllTests.1; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				430C55BC0B7BB45100FE0C8E /* libJDFWrapperCore.a in Frameworks */,
+				430C55BD0B7BB45200FE0C8E /* libJDFWrapperLib.a in Frameworks */,
+				430C55BE0B7BB45200FE0C8E /* libJDFToolsLib.a in Frameworks */,
+				430C55F20B7BB71000FE0C8E /* Xerces.framework in Frameworks */,
+				430C55FC0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* runAllTests */ = {
+			isa = PBXGroup;
+			children = (
+				430C559A0B7BB13D00FE0C8E /* Libaries */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6859E8C029090F304C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = runAllTests;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				430C56D80B7BB9DA00FE0C8E /* Resource */,
+				430C56E50B7BB9DA00FE0C8E /* ResourceProcess */,
+				430C56F00B7BB9DA00FE0C8E /* span */,
+				430C56F30B7BB9DA00FE0C8E /* util */,
+				430C56100B7BB9C800FE0C8E /* core */,
+				430C56350B7BB9C800FE0C8E /* datatypes */,
+				430C56520B7BB9C800FE0C8E /* jmf */,
+				430C56590B7BB9C800FE0C8E /* main.cpp */,
+				430C565A0B7BB9C800FE0C8E /* misc */,
+				430C56690B7BB9C800FE0C8E /* Node */,
+				430C566E0B7BB9C800FE0C8E /* pool */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* runAllTests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		430C559A0B7BB13D00FE0C8E /* Libaries */ = {
+			isa = PBXGroup;
+			children = (
+				430C55FB0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib */,
+				430C55F10B7BB71000FE0C8E /* Xerces.framework */,
+				430C55B90B7BB45100FE0C8E /* libJDFWrapperCore.a */,
+				430C55BA0B7BB45100FE0C8E /* libJDFWrapperLib.a */,
+				430C55BB0B7BB45100FE0C8E /* libJDFToolsLib.a */,
+			);
+			name = Libaries;
+			sourceTree = "<group>";
+		};
+		430C56100B7BB9C800FE0C8E /* core */ = {
+			isa = PBXGroup;
+			children = (
+				430C56110B7BB9C800FE0C8E /* CommentTest.cpp */,
+				430C56120B7BB9C800FE0C8E /* CommentTest.h */,
+				430C56130B7BB9C800FE0C8E /* ContentCreationTestCase.cpp */,
+				430C56140B7BB9C800FE0C8E /* ContentCreationTestCase.h */,
+				430C56150B7BB9C800FE0C8E /* DocumentJDFImplTestCase.cpp */,
+				430C56160B7BB9C800FE0C8E /* DocumentJDFImplTestCase.h */,
+				430C56170B7BB9C800FE0C8E /* FactoryTest.cpp */,
+				430C56180B7BB9C800FE0C8E /* FactoryTest.h */,
+				430C56190B7BB9C800FE0C8E /* FixVersionTest.cpp */,
+				430C561A0B7BB9C800FE0C8E /* FixVersionTest.h */,
+				430C561B0B7BB9C800FE0C8E /* IterationTest.cpp */,
+				430C561C0B7BB9C800FE0C8E /* IterationTest.h */,
+				430C561D0B7BB9C800FE0C8E /* JDFAuditTestCase.cpp */,
+				430C561E0B7BB9C800FE0C8E /* JDFAuditTestCase.h */,
+				430C561F0B7BB9C800FE0C8E /* JDFCustomerInfoTest.cpp */,
+				430C56200B7BB9C800FE0C8E /* JDFCustomerInfoTest.h */,
+				430C56210B7BB9C800FE0C8E /* JDFDocTest.cpp */,
+				430C56220B7BB9C800FE0C8E /* JDFDocTest.h */,
+				430C56230B7BB9C800FE0C8E /* JDFElementTest.cpp */,
+				430C56240B7BB9C800FE0C8E /* JDFElementTest.h */,
+				430C56250B7BB9C800FE0C8E /* JDFRefElementTest.cpp */,
+				430C56260B7BB9C800FE0C8E /* JDFRefElementTest.h */,
+				430C56270B7BB9C800FE0C8E /* JDFResourceLinkTest.cpp */,
+				430C56280B7BB9C800FE0C8E /* JDFResourceLinkTest.h */,
+				430C56290B7BB9C800FE0C8E /* KElementTest.cpp */,
+				430C562A0B7BB9C800FE0C8E /* KElementTest.h */,
+				430C562B0B7BB9C800FE0C8E /* MISFinTest.cpp */,
+				430C562C0B7BB9C800FE0C8E /* MISFinTest.h */,
+				430C562D0B7BB9C800FE0C8E /* vElementTest.cpp */,
+				430C562E0B7BB9C800FE0C8E /* vElementTest.h */,
+				430C562F0B7BB9C800FE0C8E /* vStringTest.cpp */,
+				430C56300B7BB9C800FE0C8E /* vStringTest.h */,
+				430C56310B7BB9C800FE0C8E /* WebTest.cpp */,
+				430C56320B7BB9C800FE0C8E /* WebTest.h */,
+				430C56330B7BB9C800FE0C8E /* XMLDocTest.cpp */,
+				430C56340B7BB9C800FE0C8E /* XMLDocTest.h */,
+			);
+			name = core;
+			path = ../../../../tests/UnitTests/core;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C56350B7BB9C800FE0C8E /* datatypes */ = {
+			isa = PBXGroup;
+			children = (
+				430C56360B7BB9C800FE0C8E /* JDFAttributeMapTest.cpp */,
+				430C56370B7BB9C800FE0C8E /* JDFAttributeMapTest.h */,
+				430C56380B7BB9C800FE0C8E /* JDFDateTimeRangeTest.cpp */,
+				430C56390B7BB9C800FE0C8E /* JDFDateTimeRangeTest.h */,
+				430C563A0B7BB9C800FE0C8E /* JDFDurationRangeTest.cpp */,
+				430C563B0B7BB9C800FE0C8E /* JDFDurationRangeTest.h */,
+				430C563C0B7BB9C800FE0C8E /* JDFIntegerRangeListTest.cpp */,
+				430C563D0B7BB9C800FE0C8E /* JDFIntegerRangeListTest.h */,
+				430C563E0B7BB9C800FE0C8E /* JDFIntegerRangeTest.cpp */,
+				430C563F0B7BB9C800FE0C8E /* JDFIntegerRangeTest.h */,
+				430C56400B7BB9C800FE0C8E /* JDFNumberRangeListTest.cpp */,
+				430C56410B7BB9C800FE0C8E /* JDFNumberRangeListTest.h */,
+				430C56420B7BB9C800FE0C8E /* JDFNumListTest.cpp */,
+				430C56430B7BB9C800FE0C8E /* JDFNumListTest.h */,
+				430C56440B7BB9C800FE0C8E /* JDFRectangleRangeListTest.cpp */,
+				430C56450B7BB9C800FE0C8E /* JDFRectangleRangeListTest.h */,
+				430C56460B7BB9C800FE0C8E /* JDFRectangleRangeTest.cpp */,
+				430C56470B7BB9C800FE0C8E /* JDFRectangleRangeTest.h */,
+				430C56480B7BB9C800FE0C8E /* JDFShapeRangeListTest.cpp */,
+				430C56490B7BB9C800FE0C8E /* JDFShapeRangeListTest.h */,
+				430C564A0B7BB9C800FE0C8E /* JDFURLTest.cpp */,
+				430C564B0B7BB9C800FE0C8E /* JDFURLTest.h */,
+				430C564C0B7BB9C800FE0C8E /* JDFXYPairRangeListTest.cpp */,
+				430C564D0B7BB9C800FE0C8E /* JDFXYPairRangeListTest.h */,
+				430C564E0B7BB9C800FE0C8E /* JDFXYPairTest.cpp */,
+				430C564F0B7BB9C800FE0C8E /* JDFXYPairTest.h */,
+				430C56500B7BB9C800FE0C8E /* VJDFAttributeMapTest.cpp */,
+				430C56510B7BB9C800FE0C8E /* VJDFAttributeMapTest.h */,
+			);
+			name = datatypes;
+			path = ../../../../tests/UnitTests/datatypes;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C56520B7BB9C800FE0C8E /* jmf */ = {
+			isa = PBXGroup;
+			children = (
+				430C56530B7BB9C800FE0C8E /* JDFMessageTest.cpp */,
+				430C56540B7BB9C800FE0C8E /* JDFMessageTest.h */,
+				430C56550B7BB9C800FE0C8E /* JMFTest.cpp */,
+				430C56560B7BB9C800FE0C8E /* JMFTest.h */,
+				430C56570B7BB9C800FE0C8E /* QueueTest.cpp */,
+				430C56580B7BB9C800FE0C8E /* QueueTest.h */,
+			);
+			name = jmf;
+			path = ../../../../tests/UnitTests/jmf;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C565A0B7BB9C800FE0C8E /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				430C565B0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.cpp */,
+				430C565C0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.h */,
+				430C565D0B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.cpp */,
+				430C565E0B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.h */,
+				430C565F0B7BB9C800FE0C8E /* JDFDevCapTestCase.cpp */,
+				430C56600B7BB9C800FE0C8E /* JDFDevCapTestCase.h */,
+				430C56610B7BB9C800FE0C8E /* JDFDeviceCapTestCase.cpp */,
+				430C56620B7BB9C800FE0C8E /* JDFDeviceCapTestCase.h */,
+				430C56630B7BB9C800FE0C8E /* JDFEvaluationTestCase.cpp */,
+				430C56640B7BB9C800FE0C8E /* JDFEvaluationTestCase.h */,
+				430C56650B7BB9C800FE0C8E /* JDFStateBaseTestCase.cpp */,
+				430C56660B7BB9C800FE0C8E /* JDFStateBaseTestCase.h */,
+				430C56670B7BB9C800FE0C8E /* JDFTestCase.cpp */,
+				430C56680B7BB9C800FE0C8E /* JDFTestCase.h */,
+			);
+			name = misc;
+			path = ../../../../tests/UnitTests/misc;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C56690B7BB9C800FE0C8E /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				430C566A0B7BB9C800FE0C8E /* JDFNodeProductTest.cpp */,
+				430C566B0B7BB9C800FE0C8E /* JDFNodeProductTest.h */,
+				430C566C0B7BB9C800FE0C8E /* JDFNodeTest.cpp */,
+				430C566D0B7BB9C800FE0C8E /* JDFNodeTest.h */,
+			);
+			name = Node;
+			path = ../../../../tests/UnitTests/Node;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C566E0B7BB9C800FE0C8E /* pool */ = {
+			isa = PBXGroup;
+			children = (
+				430C566F0B7BB9C800FE0C8E /* JDFAmountPoolTest.cpp */,
+				430C56700B7BB9C800FE0C8E /* JDFAmountPoolTest.h */,
+				430C56710B7BB9C800FE0C8E /* JDFAuditPoolTest.cpp */,
+				430C56720B7BB9C800FE0C8E /* JDFAuditPoolTest.h */,
+				430C56730B7BB9C800FE0C8E /* JDFColorPoolTest.cpp */,
+				430C56740B7BB9C800FE0C8E /* JDFColorPoolTest.h */,
+				430C56750B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.cpp */,
+				430C56760B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.h */,
+			);
+			name = pool;
+			path = ../../../../tests/UnitTests/pool;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C56D80B7BB9DA00FE0C8E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				430C56D90B7BB9DA00FE0C8E /* JDFAssemblySectionTest.cpp */,
+				430C56DA0B7BB9DA00FE0C8E /* JDFAssemblySectionTest.h */,
+				430C56DB0B7BB9DA00FE0C8E /* JDFAutoResourceTest.cpp */,
+				430C56DC0B7BB9DA00FE0C8E /* JDFAutoResourceTest.h */,
+				430C56DD0B7BB9DA00FE0C8E /* JDFFileSpecTest.cpp */,
+				430C56DE0B7BB9DA00FE0C8E /* JDFFileSpecTest.h */,
+				430C56DF0B7BB9DA00FE0C8E /* JDFLayoutTest.cpp */,
+				430C56E00B7BB9DA00FE0C8E /* JDFLayoutTest.h */,
+				430C56E10B7BB9DA00FE0C8E /* JDFMediaColorTest.cpp */,
+				430C56E20B7BB9DA00FE0C8E /* JDFMediaColorTest.h */,
+				430C56E30B7BB9DA00FE0C8E /* JDFResourceTest.cpp */,
+				430C56E40B7BB9DA00FE0C8E /* JDFResourceTest.h */,
+			);
+			name = Resource;
+			path = ../../../../tests/UnitTests/Resource;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C56E50B7BB9DA00FE0C8E /* ResourceProcess */ = {
+			isa = PBXGroup;
+			children = (
+				430C56E60B7BB9DA00FE0C8E /* JDFColorantControlTest.cpp */,
+				430C56E70B7BB9DA00FE0C8E /* JDFColorantControlTest.h */,
+				430C56E80B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.cpp */,
+				430C56E90B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.h */,
+				430C56EA0B7BB9DA00FE0C8E /* JDFMediaTest.cpp */,
+				430C56EB0B7BB9DA00FE0C8E /* JDFMediaTest.h */,
+				430C56EC0B7BB9DA00FE0C8E /* JDFRunListTest.cpp */,
+				430C56ED0B7BB9DA00FE0C8E /* JDFRunListTest.h */,
+				430C56EE0B7BB9DA00FE0C8E /* JDFTileTest.cpp */,
+				430C56EF0B7BB9DA00FE0C8E /* JDFTileTest.h */,
+			);
+			name = ResourceProcess;
+			path = ../../../../tests/UnitTests/ResourceProcess;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C56F00B7BB9DA00FE0C8E /* span */ = {
+			isa = PBXGroup;
+			children = (
+				430C56F10B7BB9DA00FE0C8E /* SpanTest.cpp */,
+				430C56F20B7BB9DA00FE0C8E /* SpanTest.h */,
+			);
+			name = span;
+			path = ../../../../tests/UnitTests/span;
+			sourceTree = SOURCE_ROOT;
+		};
+		430C56F30B7BB9DA00FE0C8E /* util */ = {
+			isa = PBXGroup;
+			children = (
+				430C56F40B7BB9DA00FE0C8E /* fileUtilTest.cpp */,
+				430C56F50B7BB9DA00FE0C8E /* fileUtilTest.h */,
+				430C56F60B7BB9DA00FE0C8E /* JDFDateTest.cpp */,
+				430C56F70B7BB9DA00FE0C8E /* JDFDateTest.h */,
+				430C56F80B7BB9DA00FE0C8E /* JDFSpawnTest.cpp */,
+				430C56F90B7BB9DA00FE0C8E /* JDFSpawnTest.h */,
+				430C56FA0B7BB9DA00FE0C8E /* StringUtilTest.cpp */,
+				430C56FB0B7BB9DA00FE0C8E /* StringUtilTest.h */,
+				430C56FC0B7BB9DA00FE0C8E /* URLUtilTest.cpp */,
+				430C56FD0B7BB9DA00FE0C8E /* URLUtilTest.h */,
+			);
+			name = util;
+			path = ../../../../tests/UnitTests/util;
+			sourceTree = SOURCE_ROOT;
+		};
+		C6859E8C029090F304C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6859E8B029090EE04C91782 /* runAllTests.1 */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* runAllTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "runAllTests" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = runAllTests;
+			productInstallPath = "$(HOME)/bin";
+			productName = runAllTests;
+			productReference = 8DD76F6C0486A84900D96B5E /* runAllTests */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "runAllTests" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* runAllTests */;
+			projectDirPath = "";
+			targets = (
+				8DD76F620486A84900D96B5E /* runAllTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F640486A84900D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				430C56770B7BB9C800FE0C8E /* CommentTest.cpp in Sources */,
+				430C56790B7BB9C800FE0C8E /* ContentCreationTestCase.cpp in Sources */,
+				430C567B0B7BB9C800FE0C8E /* DocumentJDFImplTestCase.cpp in Sources */,
+				430C567D0B7BB9C800FE0C8E /* FactoryTest.cpp in Sources */,
+				430C567F0B7BB9C800FE0C8E /* FixVersionTest.cpp in Sources */,
+				430C56810B7BB9C800FE0C8E /* IterationTest.cpp in Sources */,
+				430C56830B7BB9C800FE0C8E /* JDFAuditTestCase.cpp in Sources */,
+				430C56850B7BB9C800FE0C8E /* JDFCustomerInfoTest.cpp in Sources */,
+				430C56870B7BB9C800FE0C8E /* JDFDocTest.cpp in Sources */,
+				430C56890B7BB9C800FE0C8E /* JDFElementTest.cpp in Sources */,
+				430C568B0B7BB9C800FE0C8E /* JDFRefElementTest.cpp in Sources */,
+				430C568D0B7BB9C800FE0C8E /* JDFResourceLinkTest.cpp in Sources */,
+				430C568F0B7BB9C800FE0C8E /* KElementTest.cpp in Sources */,
+				430C56910B7BB9C800FE0C8E /* MISFinTest.cpp in Sources */,
+				430C56930B7BB9C800FE0C8E /* vElementTest.cpp in Sources */,
+				430C56950B7BB9C800FE0C8E /* vStringTest.cpp in Sources */,
+				430C56970B7BB9C800FE0C8E /* WebTest.cpp in Sources */,
+				430C56990B7BB9C800FE0C8E /* XMLDocTest.cpp in Sources */,
+				430C569B0B7BB9C800FE0C8E /* JDFAttributeMapTest.cpp in Sources */,
+				430C569D0B7BB9C800FE0C8E /* JDFDateTimeRangeTest.cpp in Sources */,
+				430C569F0B7BB9C800FE0C8E /* JDFDurationRangeTest.cpp in Sources */,
+				430C56A10B7BB9C800FE0C8E /* JDFIntegerRangeListTest.cpp in Sources */,
+				430C56A30B7BB9C800FE0C8E /* JDFIntegerRangeTest.cpp in Sources */,
+				430C56A50B7BB9C800FE0C8E /* JDFNumberRangeListTest.cpp in Sources */,
+				430C56A70B7BB9C800FE0C8E /* JDFNumListTest.cpp in Sources */,
+				430C56A90B7BB9C800FE0C8E /* JDFRectangleRangeListTest.cpp in Sources */,
+				430C56AB0B7BB9C800FE0C8E /* JDFRectangleRangeTest.cpp in Sources */,
+				430C56AD0B7BB9C800FE0C8E /* JDFShapeRangeListTest.cpp in Sources */,
+				430C56AF0B7BB9C800FE0C8E /* JDFURLTest.cpp in Sources */,
+				430C56B10B7BB9C800FE0C8E /* JDFXYPairRangeListTest.cpp in Sources */,
+				430C56B30B7BB9C800FE0C8E /* JDFXYPairTest.cpp in Sources */,
+				430C56B50B7BB9C800FE0C8E /* VJDFAttributeMapTest.cpp in Sources */,
+				430C56B70B7BB9C800FE0C8E /* JDFMessageTest.cpp in Sources */,
+				430C56B90B7BB9C800FE0C8E /* JMFTest.cpp in Sources */,
+				430C56BB0B7BB9C800FE0C8E /* QueueTest.cpp in Sources */,
+				430C56BD0B7BB9C800FE0C8E /* main.cpp in Sources */,
+				430C56BE0B7BB9C800FE0C8E /* JDFAttributeMapTestCase.cpp in Sources */,
+				430C56C00B7BB9C800FE0C8E /* JDFDateTimeRangeTestCase.cpp in Sources */,
+				430C56C20B7BB9C800FE0C8E /* JDFDevCapTestCase.cpp in Sources */,
+				430C56C40B7BB9C800FE0C8E /* JDFDeviceCapTestCase.cpp in Sources */,
+				430C56C60B7BB9C800FE0C8E /* JDFEvaluationTestCase.cpp in Sources */,
+				430C56C80B7BB9C800FE0C8E /* JDFStateBaseTestCase.cpp in Sources */,
+				430C56CA0B7BB9C800FE0C8E /* JDFTestCase.cpp in Sources */,
+				430C56CC0B7BB9C800FE0C8E /* JDFNodeProductTest.cpp in Sources */,
+				430C56CE0B7BB9C800FE0C8E /* JDFNodeTest.cpp in Sources */,
+				430C56D00B7BB9C800FE0C8E /* JDFAmountPoolTest.cpp in Sources */,
+				430C56D20B7BB9C800FE0C8E /* JDFAuditPoolTest.cpp in Sources */,
+				430C56D40B7BB9C800FE0C8E /* JDFColorPoolTest.cpp in Sources */,
+				430C56D60B7BB9C800FE0C8E /* JDFResourceLinkPoolTest.cpp in Sources */,
+				430C56FE0B7BB9DA00FE0C8E /* JDFAssemblySectionTest.cpp in Sources */,
+				430C57000B7BB9DA00FE0C8E /* JDFAutoResourceTest.cpp in Sources */,
+				430C57020B7BB9DA00FE0C8E /* JDFFileSpecTest.cpp in Sources */,
+				430C57040B7BB9DA00FE0C8E /* JDFLayoutTest.cpp in Sources */,
+				430C57060B7BB9DA00FE0C8E /* JDFMediaColorTest.cpp in Sources */,
+				430C57080B7BB9DA00FE0C8E /* JDFResourceTest.cpp in Sources */,
+				430C570A0B7BB9DA00FE0C8E /* JDFColorantControlTest.cpp in Sources */,
+				430C570C0B7BB9DA00FE0C8E /* JDFColorConversionParamsTest.cpp in Sources */,
+				430C570E0B7BB9DA00FE0C8E /* JDFMediaTest.cpp in Sources */,
+				430C57100B7BB9DA00FE0C8E /* JDFRunListTest.cpp in Sources */,
+				430C57120B7BB9DA00FE0C8E /* JDFTileTest.cpp in Sources */,
+				430C57140B7BB9DA00FE0C8E /* SpanTest.cpp in Sources */,
+				430C57160B7BB9DA00FE0C8E /* fileUtilTest.cpp in Sources */,
+				430C57180B7BB9DA00FE0C8E /* JDFDateTest.cpp in Sources */,
+				430C571A0B7BB9DA00FE0C8E /* JDFSpawnTest.cpp in Sources */,
+				430C571C0B7BB9DA00FE0C8E /* StringUtilTest.cpp in Sources */,
+				430C571E0B7BB9DA00FE0C8E /* URLUtilTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../lib/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/cppunit/src/cppunit/.libs\"";
+				PRODUCT_NAME = runAllTests;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default\"";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../lib/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/cppunit/src/cppunit/.libs\"";
+				PRODUCT_NAME = runAllTests;
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_2)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_3)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_4)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_5)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_6)",
+				);
+				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../src\"";
+				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/xerces/include\"";
+				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../external/cppunit/include\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../JDFToolsLib\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_5 = "\"$(SRCROOT)/../../JDFWrapperCore\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_6 = "\"$(SRCROOT)/../../JDFWrapper\"/**";
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../../external/xerces/include",
+					"$(HEADER_SEARCH_PATHS_QUOTED_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_2)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_3)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_4)",
+				);
+				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../JDFToolsLib\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../JDFWrapperCore\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../JDFWrapper\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../../../external/cppunit/include\"/**";
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "runAllTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "runAllTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

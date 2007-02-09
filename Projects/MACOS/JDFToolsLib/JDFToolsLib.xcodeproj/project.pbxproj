@@ -1197,6 +1197,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -1218,10 +1220,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = i386;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 			};
 			name = Debug;
 		};

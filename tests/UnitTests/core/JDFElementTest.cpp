@@ -94,9 +94,9 @@ using namespace JDF;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (JDFElementTest);
 
-const WString sm_dirTestData = L"data\\";
-const WString sm_dirTestTemp = L"temp\\";
-const WString sm_dirTestSchema = L"schema\\";
+const WString sm_dirTestData = L"data/";
+const WString sm_dirTestTemp = L"temp/";
+const WString sm_dirTestSchema = L"schema/";
 
 void JDFElementTest::setUp()
 {

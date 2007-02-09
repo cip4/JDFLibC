@@ -116,23 +116,23 @@ void JDFTestCase::testBooleanState()
 	values.add(0);
 	bs.SetAllowedValueList(values);
 	// TODO compare list type location Java<->C++ (EnumFitsType, ListType)
-	CPPUNIT_ASSERT(bs.FitsValue("true", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(bs.FitsValue("false", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!bs.FitsValue("fnarf", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(bs.FitsValue("true", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(bs.FitsValue("false", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!bs.FitsValue("fnarf", JDFElement::FitsValue_Allowed));
 
 	values.clear();
 	values.add(1);
 	bs.SetAllowedValueList(values);
-	CPPUNIT_ASSERT(!bs.FitsValue("true", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(bs.FitsValue("false", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!bs.FitsValue("fnarf", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!bs.FitsValue("true", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(bs.FitsValue("false", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!bs.FitsValue("fnarf", JDFElement::FitsValue_Allowed));
 
 	values.clear();
 	values.add(2);
 	bs.SetAllowedValueList(values);
-	CPPUNIT_ASSERT(bs.FitsValue("true", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!bs.FitsValue("false", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!bs.FitsValue("fnarf", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(bs.FitsValue("true", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!bs.FitsValue("false", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!bs.FitsValue("fnarf", JDFElement::FitsValue_Allowed));
 }
 
 void JDFTestCase::testIntegerState()
@@ -142,14 +142,14 @@ void JDFTestCase::testIntegerState()
 	
 	JDFIntegerRangeList irl = JDFIntegerRangeList("12~15");
 	is.SetAllowedValueList(irl);
-	is.SetListType(JDFStateBase::EnumListType::ListType_RangeList);
-	CPPUNIT_ASSERT(is.FitsValue("12~15", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!is.FitsValue("19~33", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	is.SetListType(JDFStateBase::ListType_RangeList);
+	CPPUNIT_ASSERT(is.FitsValue("12~15", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!is.FitsValue("19~33", JDFElement::FitsValue_Allowed));
 
 	irl = JDFIntegerRangeList("12~15 19~33");
 	is.SetAllowedValueList(irl);
-	CPPUNIT_ASSERT(is.FitsValue("12~15", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(is.FitsValue("19~33", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(is.FitsValue("12~15", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(is.FitsValue("19~33", JDFElement::FitsValue_Allowed));
 }
 
 void JDFTestCase::testNumberState()
@@ -159,14 +159,14 @@ void JDFTestCase::testNumberState()
 	
 	JDFNumberRangeList nrl = JDFNumberRangeList("12.45~15.88");
 	ns.SetAllowedValueList(nrl);
-	ns.SetListType(JDFStateBase::EnumListType::ListType_RangeList);
-	CPPUNIT_ASSERT(ns.FitsValue("12.45~15.88", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!ns.FitsValue("19.0~33.234", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	ns.SetListType(JDFStateBase::ListType_RangeList);
+	CPPUNIT_ASSERT(ns.FitsValue("12.45~15.88", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!ns.FitsValue("19.0~33.234", JDFElement::FitsValue_Allowed));
 
 	nrl = JDFNumberRangeList("12.45~15.88 19.0~33.234");
 	ns.SetAllowedValueList(nrl);
-	CPPUNIT_ASSERT(ns.FitsValue("12.45~15.88", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(ns.FitsValue("19.0~33.234", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(ns.FitsValue("12.45~15.88", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(ns.FitsValue("19.0~33.234", JDFElement::FitsValue_Allowed));
 }
 
 void JDFTestCase::testEnumerationState()
@@ -178,23 +178,23 @@ void JDFTestCase::testEnumerationState()
 	values.add("bar");
 
 	es.SetAllowedValueList(values);
-	CPPUNIT_ASSERT(es.FitsValue("foo", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(es.FitsValue("bar", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!es.FitsValue("fnarf", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(es.FitsValue("foo", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(es.FitsValue("bar", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!es.FitsValue("fnarf", JDFElement::FitsValue_Allowed));
 	
-	es.SetListType(JDF::JDFStateBase::EnumListType::ListType_List);
-	CPPUNIT_ASSERT(es.FitsValue("foo", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(es.FitsValue("foo bar", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(es.FitsValue("bar foo", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(es.FitsValue("foo bar foo", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!es.FitsValue("foo bar fnarf", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	es.SetListType(JDF::JDFStateBase::ListType_List);
+	CPPUNIT_ASSERT(es.FitsValue("foo", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(es.FitsValue("foo bar", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(es.FitsValue("bar foo", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(es.FitsValue("foo bar foo", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!es.FitsValue("foo bar fnarf", JDFElement::FitsValue_Allowed));
 
-	es.SetListType(JDF::JDFStateBase::EnumListType::ListType_CompleteList);
-	CPPUNIT_ASSERT(!es.FitsValue("foo", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(es.FitsValue("foo bar", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(es.FitsValue("bar foo", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!es.FitsValue("foo bar foo", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!es.FitsValue("foo bar fnarf", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	es.SetListType(JDF::JDFStateBase::ListType_CompleteList);
+	CPPUNIT_ASSERT(!es.FitsValue("foo", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(es.FitsValue("foo bar", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(es.FitsValue("bar foo", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!es.FitsValue("foo bar foo", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!es.FitsValue("foo bar fnarf", JDFElement::FitsValue_Allowed));
 }
 void JDFTestCase::testNameState()
 {
@@ -204,13 +204,13 @@ void JDFTestCase::testNameState()
 
 	values.add("anna~berta");
 	ns.SetAllowedValueList(values);
-	CPPUNIT_ASSERT(ns.FitsValue("anna~berta", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(!ns.FitsValue("hans~otto", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(ns.FitsValue("anna~berta", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(!ns.FitsValue("hans~otto", JDFElement::FitsValue_Allowed));
 
 	values.add("anna~berta hans~otto");
 	ns.SetAllowedValueList(values);
-	CPPUNIT_ASSERT(ns.FitsValue("anna~berta", JDFElement::EnumFitsValue::FitsValue_Allowed));
-	CPPUNIT_ASSERT(ns.FitsValue("hans~otto", JDFElement::EnumFitsValue::FitsValue_Allowed));
+	CPPUNIT_ASSERT(ns.FitsValue("anna~berta", JDFElement::FitsValue_Allowed));
+	CPPUNIT_ASSERT(ns.FitsValue("hans~otto", JDFElement::FitsValue_Allowed));
 }
 
 /*** test getXxxState *******************************************************/

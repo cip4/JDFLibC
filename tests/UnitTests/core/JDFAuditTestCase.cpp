@@ -82,8 +82,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#pragma once
-
 #include <jdf/util/PlatformUtils.h>
 #include "jdf/wrapper/JDF.h"
 #include "JDFAuditTestCase.h"

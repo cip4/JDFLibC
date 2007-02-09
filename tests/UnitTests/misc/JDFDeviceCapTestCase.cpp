@@ -98,7 +98,7 @@ using namespace JDF;
 CPPUNIT_TEST_SUITE_REGISTRATION (JDFDeviceCapTestCase);
 
 const WString sm_dirTestTemp = L".\\temp\\";
-const WString sm_dirTestData = L"data\\";
+const WString sm_dirTestData = L"data/";
 
 
 void JDFDeviceCapTestCase::setUp()

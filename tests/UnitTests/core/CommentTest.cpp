@@ -81,7 +81,6 @@
 // CommentTest.cpp: implements CppUnit tests for JDF comments
 //
 //////////////////////////////////////////////////////////////////////
-#pragma once
 
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"
@@ -94,7 +93,7 @@ using namespace JDF;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (CommentTest);
 
-const WString sm_dirTestTemp = L"temp\\";
+const WString sm_dirTestTemp = L"temp/";
 
 void CommentTest::setUp()
 {

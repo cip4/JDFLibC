@@ -81,7 +81,6 @@
 // IterationTest.cpp: implements CppUnit tests for JDFNode::FixVersion
 //
 //////////////////////////////////////////////////////////////////////
-#pragma once
 
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"

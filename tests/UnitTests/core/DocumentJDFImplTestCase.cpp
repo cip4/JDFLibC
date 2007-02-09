@@ -81,7 +81,6 @@
 // DocumentJDFImplTestCase.cpp: implements CppUnit tests for JDF element names
 //
 //////////////////////////////////////////////////////////////////////
-#pragma once
 
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"

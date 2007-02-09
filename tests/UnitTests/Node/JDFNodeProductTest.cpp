@@ -93,8 +93,8 @@ using namespace JDF;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (JDFNodeProductTest);
 
-const WString sm_dirTestData = L"data\\";
-const WString sm_dirTestTemp = L"temp\\";
+const WString sm_dirTestData = L"data/";
+const WString sm_dirTestTemp = L"temp/";
 
 void JDFNodeProductTest::setUp()
 {

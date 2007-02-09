@@ -81,7 +81,6 @@
 // FactoryTest.cpp: implements CppUnit tests for JDF factory
 //
 //////////////////////////////////////////////////////////////////////
-#pragma once
 
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"
@@ -94,7 +93,7 @@ using namespace JDF;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (FactoryTest);
 
-const WString sm_dirTestData = L"data\\";
+const WString sm_dirTestData = L"data/";
 
 void FactoryTest::setUp()
 {

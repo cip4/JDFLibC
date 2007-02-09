@@ -82,8 +82,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#pragma once
-
 #include <jdf/util/PlatformUtils.h>
 #include "jdf/wrapper/JDF.h"
 #include "jdf/wrapper/JDFSpawn.h"
@@ -96,8 +94,8 @@ using namespace JDF;
 
 CPPUNIT_TEST_SUITE_REGISTRATION (XMLDocTest);
 
-const WString sm_dirTestData = L"data\\";
-const WString sm_dirTestTemp = L"temp\\";
+const WString sm_dirTestData = L"data/";
+const WString sm_dirTestTemp = L"temp/";
 
 void XMLDocTest::setUp()
 {
