@@ -1,3 +1,6 @@
+#if !defined _JDFSignature_H_
+#define _JDFSignature_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -70,12 +73,14 @@
 
 //EndCopyRight
 
+// Revision history:
+//
+// 120207 NB added getLayoutLeaves()
+// 120207 NB added "Layout" to ValidNodeNames()
+
 
 ///////////////////////////////////////////////////////////////////
 
-
-#if !defined _JDFSignature_H_
-#define _JDFSignature_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -152,6 +157,12 @@ namespace JDF{
 		* @return JDFSheet The element
 		*/
 		JDFSheet GetCreateSheet(int iSkip=0);
+
+		/**
+		* get the leaves of a layout, either pre 1.2 or post 1.3
+		* @return VElement the layout leaves, i.e. partition leaves(1.3+) or explicit surfaces(1.2-)
+		*/
+		vElement getLayoutLeaves(bool bAll);
 
 	protected:
 		/**

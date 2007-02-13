@@ -97,12 +97,11 @@ class StringUtilTest : public CppUnit::TestCase
 		CPPUNIT_TEST( testSetUTF8Bytes );
 		CPPUNIT_TEST( testSetVWString );
 		CPPUNIT_TEST( testEscape );
-		//CPPUNIT_TEST( testMatches );                            // Fehler in Xerces::RegExp / Java
+		//CPPUNIT_TEST( testMatches );                            // error in Xerces::RegExp (see JIRA: JDFC-43)
 		CPPUNIT_TEST( testZappTokenWS );
 		CPPUNIT_TEST( testHasToken );
 		CPPUNIT_TEST( testToken );
 		CPPUNIT_TEST( testTokenize );
-		CPPUNIT_TEST( testEndsWithIgnoreCase );
 		CPPUNIT_TEST( testEndsWithIgnoreCase );
 		CPPUNIT_TEST( testToUpperCase );
 		CPPUNIT_TEST( testToLowerCase );

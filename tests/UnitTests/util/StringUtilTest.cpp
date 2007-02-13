@@ -207,8 +207,9 @@ void StringUtilTest::testEscape()
 
 void StringUtilTest::testMatches()
 {
-	// Note: WString::matches() relies on Xerces. This test runs on Xerces 2.7, 
-	//       which has known issues concerning its regex handling.
+	// Note: WString::matches() relies on Xerces. This test has been run with 
+	//       Xerces 2.7, which has known issues concerning its regex handling.
+	//       See Jira for further info: http://www.cip4.org/jira/browse/JDFC-43
 	try
 	{
 		CPPUNIT_ASSERT( WString("a bb c").matches("(.+ )*(bb)( .+)*") );

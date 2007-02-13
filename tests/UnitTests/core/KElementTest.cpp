@@ -593,7 +593,8 @@ void KElementTest::testInfinity()
 		CPPUNIT_FAIL( e.what() );
 	}
 #else
-	CPPUNIT_FAIL ( "this test includes Microsoft specific constants" );
+	cout << "test not run, because it tests handling Microsoft specific constants only";
+	CPPUNIT_ASSERT( true ); // make sure this test is run anyway
 #endif
 
 }

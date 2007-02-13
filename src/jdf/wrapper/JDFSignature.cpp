@@ -178,8 +178,18 @@ namespace JDF{
 	* @return WString& comma separated list of valid node names
 	*/
 	WString JDFSignature::ValidNodeNames()const{
-		return L"*:,Signature";
+		return L"*:,Signature,Layout";
 	};
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	vElement JDFSignature::getLayoutLeaves(bool bAll)
+    {
+		if(JDFLayout::isNewLayout(*this))
+			return GetLeaves(bAll);
+		return GetChildrenByTagName(JDFElement::elm_Surface, WString::emptyStr, mAttribute::emptyMap, false, true, -1);
+    }
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 

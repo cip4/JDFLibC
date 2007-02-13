@@ -1,3 +1,6 @@
+#if !defined _JDFSheet_H_
+#define _JDFSheet_H_
+
 /*
 * The CIP4 Software License, Version 1.0
 *
@@ -81,10 +84,9 @@
 * Revision history:
 * created 2001-07-08
 *
+* 120207 NB added "Layout" to ValidNodeNames()
 */
 
-#if !defined _JDFSheet_H_
-#define _JDFSheet_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
