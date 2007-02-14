@@ -245,65 +245,71 @@ void JDFLayoutTest::testBuildOldLayout()
 {
 	try
 	{
-		JDFDoc doc = JDFDoc(0);
-		JDFNode n=doc.GetJDFRoot();
+		JDFDoc doc=JDFDoc(0);
+        JDFNode n=doc.GetJDFRoot();
 		n.SetType("Imposition");
-		JDFRunList rl= n.AppendMatchingResource(JDFNode::elm_RunList,JDFNode::ProcessUsage_AnyInput);
-
-
+		JDFRunList rl=(JDFRunList) n.AppendMatchingResource(JDFNode::elm_RunList,JDFNode::ProcessUsage_AnyInput);
 		n.SetVersion(JDFNode::VersionString(JDFNode::Version_1_2));
 		JDFLayout lo=(JDFLayout) n.AppendMatchingResource(JDFNode::elm_Layout,JDFNode::ProcessUsage_AnyInput);
-		CPPUNIT_ASSERT( !JDFLayout::isNewLayout(lo) ); // lo 1.3
-		JDFSignature si=lo.AppendSignature();
-		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Signature,si.GetLocalName() ); // signature name
+		CPPUNIT_ASSERT( !JDFLayout::isNewLayout(lo) );
+        JDFSignature si=lo.AppendSignature();
+        si.SetName("Sig1");
+		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Signature,si.GetLocalName() );
 		CPPUNIT_ASSERT( !si.HasAttribute(JDFNode::atr_Class) );
-		si=lo.AppendSignature();
-		CPPUNIT_ASSERT_EQUAL( 2,lo.numSignatures() ); // num sigs
-		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Signature,si.GetLocalName() ); // signature name
-
-		JDFSheet sh=si.AppendSheet();
-		sh.MakeRootResource(); // see what happens with refelements
-		sh=si.AppendSheet();
-		CPPUNIT_ASSERT_EQUAL( 2,si.numSheets() ); // num sheets
+        si=lo.AppendSignature();
+        si.SetName("Sig2");
+        CPPUNIT_ASSERT_EQUAL( 2,lo.numSignatures() );
+		CPPUNIT_ASSERT_EQUAL( si.GetLocalName(),JDFNode::elm_Signature );
+        
+        JDFSheet sh=si.AppendSheet();
+        sh.SetName("Sheet2_1");
+        sh.MakeRootResource(); // see what happens with refelements
+        sh=si.AppendSheet();
+        sh.SetName("Sheet2_2");
+        CPPUNIT_ASSERT_EQUAL( 2,si.numSheets() ); // num sheets
 		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Sheet,sh.GetLocalName() ); // sheet name
-		sh=si.GetCreateSheet(4);
-		CPPUNIT_ASSERT_EQUAL( 3,si.numSheets()); // num sheets
-		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Sheet,sh.GetLocalName() ); // sheet name
+        sh=si.GetCreateSheet(4);
+        CPPUNIT_ASSERT_EQUAL( 3,si.numSheets() );        // num sheets
+        CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Sheet,sh.GetLocalName() ); // sheet name
 		sh=si.GetSheet(2);
-		CPPUNIT_ASSERT_EQUAL( 3,si.numSheets()); // num sheets
-		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Sheet,sh.GetLocalName() ); // sheet name
+        CPPUNIT_ASSERT_EQUAL( 3,si.numSheets() );        // num sheets
+        CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Sheet,sh.GetLocalName() ); // sheet name
 
-		JDFSurface su=sh.AppendFrontSurface();
-		CPPUNIT_ASSERT_EQUAL( 1,sh.numSurfaces()); // num surfaces
+        JDFSurface su=sh.AppendFrontSurface();
+        CPPUNIT_ASSERT_EQUAL( 1,sh.numSurfaces() ); // num surfaces
 		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Surface,su.GetLocalName() ); // sheet name
-		CPPUNIT_ASSERT( sh.HasFrontSurface() ); // num surfaces
-		su.AppendContentObject();
-		su.AppendMarkObject();
-		su.AppendContentObject();
-		su.AppendContentObject();
-
-		su=sh.AppendBackSurface();
-		su.MakeRootResource();
-		su.AppendContentObject();
-		su.AppendMarkObject();
-		su.AppendContentObject();
-		su.AppendContentObject();
-		su.AppendMarkObject();
-		CPPUNIT_ASSERT_EQUAL( 2,sh.numSurfaces() ); // num surfaces
+        CPPUNIT_ASSERT( sh.HasFrontSurface() );  // has front surface
+        su.AppendContentObject();
+        su.AppendMarkObject();
+        su.AppendContentObject();
+        su.AppendContentObject();
+        
+        su=sh.AppendBackSurface();
+        su.MakeRootResource();
+        su.AppendContentObject();
+        su.AppendMarkObject();
+        su.AppendContentObject();
+        su.AppendContentObject();
+        su.AppendMarkObject();
+        CPPUNIT_ASSERT_EQUAL( 2,sh.numSurfaces() ); // num surfaces
 		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Surface,su.GetLocalName() ); // sheet name
-		CPPUNIT_ASSERT( sh.HasBackSurface() ); // has BackSurface
-
-		sh.AppendBackSurface();
-		CPPUNIT_ASSERT_EQUAL( 2,sh.numSurfaces() ); // didn't append a third surface
-
-		si=lo.GetCreateSignature(4);
-		CPPUNIT_ASSERT_EQUAL( 3,lo.numSignatures() ); // num sigs
+        CPPUNIT_ASSERT( sh.HasBackSurface() ); // has back surface
+ 
+        try{
+            sh.AppendBackSurface();  
+            CPPUNIT_FAIL( "appended second surface - this should not happen" );
+        }
+        catch (JDFException&)
+        {/* nop */}
+        
+        si=lo.GetCreateSignature(4);
+        CPPUNIT_ASSERT_EQUAL( 3,lo.numSignatures() ); // nums sigs
 		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Signature,si.GetLocalName() ); // signature name
 		si=lo.GetSignature(2);
-		CPPUNIT_ASSERT_EQUAL( 3,lo.numSignatures() ); // num sigs
-		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Signature,si.GetLocalName() ); // signature name
+        CPPUNIT_ASSERT_EQUAL( 3,lo.numSignatures() ); // nums sigs
+        CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Signature,si.GetLocalName() ); // signature name
 		si=lo.GetSignature(5);
-		CPPUNIT_ASSERT( si.isNull() ); // si null
+		CPPUNIT_ASSERT( si.isNull() ); // si is null
 	}
 	catch (const JDFException& e)
 	{
@@ -319,7 +325,6 @@ void JDFLayoutTest::testBuildNewLayout()
 		JDFNode n=doc.GetJDFRoot();
 		n.SetType("Imposition");
 		JDFRunList rl= n.AppendMatchingResource(JDFNode::elm_RunList,JDFNode::ProcessUsage_AnyInput);
-
 
 		JDFLayout lo=n.AppendMatchingResource(JDFNode::elm_Layout,JDFNode::ProcessUsage_AnyInput);
 		CPPUNIT_ASSERT( JDFLayout::isNewLayout(lo) ); // lo 1.3
@@ -350,8 +355,12 @@ void JDFLayoutTest::testBuildNewLayout()
         CPPUNIT_ASSERT_EQUAL( 2,sh.numSurfaces() );  // num surfaces
 		CPPUNIT_ASSERT_EQUAL( JDFNode::elm_Layout,su.GetLocalName() ); // sheet name
         
-        sh.AppendBackSurface();       
-		CPPUNIT_ASSERT_EQUAL( 2,sh.numSurfaces() ); // did not add another surface
+         try{
+            sh.AppendBackSurface();   
+            CPPUNIT_FAIL( "no two back surfaces" );
+        }
+        catch (JDFException&)
+        {/* nop */}
         
         si=lo.GetCreateSignature(4);
         CPPUNIT_ASSERT_EQUAL( 3,lo.numSignatures() ); // num sigs
@@ -364,6 +373,66 @@ void JDFLayoutTest::testBuildNewLayout()
 		CPPUNIT_ASSERT( lo.IsValid(JDFResource::ValidationLevel_Complete) ); // layout valid
 	}
 	catch (const JDF::JDFException& e)
+	{
+		CPPUNIT_FAIL( e.what() );
+	}
+}
+
+void JDFLayoutTest::testGetSignatureName_Old()
+{
+	try
+	{
+		WString layoutFile = sm_dirTestData+"oldLayout.jdf";
+		JDFParser p;
+		p.Parse(layoutFile,false);
+		JDFDoc doc = p.GetDocument();
+		JDFNode n = doc.GetJDFRoot();
+
+		JDFLayout lo=(JDFLayout) n.GetMatchingResource(JDFNode::elm_Layout,JDFNode::ProcessUsage_AnyInput);
+		JDFSignature sig=lo.GetSignature(0);
+		CPPUNIT_ASSERT_EQUAL( sig.GetName(),sig.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig1",sig.GetSignatureName() );
+		JDFSignature sig2=lo.GetSignature(1);
+		CPPUNIT_ASSERT_EQUAL( sig2.GetName(),sig2.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig2",sig2.GetSignatureName() );
+		JDFSheet s1=sig2.GetSheet(1); // don't try 0 it will fail because it is referenced...
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig2",s1.GetSignatureName() );
+		WString s1Str = s1.ToString();
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sheet2_2",s1.GetSheetName() );
+		JDFSurface su=s1.GetCreateBackSurface();
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig2",su.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sheet2_2",su.GetSheetName() );
+		
+	}
+	catch (JDFException& e)
+	{
+		CPPUNIT_FAIL( e.what() );
+	}
+}
+
+void JDFLayoutTest::testGetSignatureName_New()
+{
+	try
+	{
+		WString layoutFile = sm_dirTestData + "newLayout.jdf";
+		JDFParser p;
+		p.Parse(layoutFile, false);
+		JDFDoc doc = p.GetDocument();
+		JDFNode n = doc.GetJDFRoot();
+
+		JDFLayout lo=(JDFLayout) n.GetMatchingResource(JDFElement::elm_Layout,JDFNode::ProcessUsage_AnyInput);
+		JDFSignature sig=lo.GetSignature(0);
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName1",sig.GetSignatureName() );
+		JDFSignature sig2=lo.GetSignature(1);
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName2",sig2.GetSignatureName() );
+		JDFSheet s1=sig2.GetSheet(1); // don't try 0, it will fail because it is referenced...
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName2",s1.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"SheetName2",s1.GetSheetName() );
+		JDFSurface su=s1.GetCreateBackSurface();
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName2",su.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"SheetName2",su.GetSheetName() );
+	}
+	catch (JDFException& e)
 	{
 		CPPUNIT_FAIL( e.what() );
 	}

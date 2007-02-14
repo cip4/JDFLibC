@@ -85,6 +85,8 @@
 * created 2001-07-08
 *
 * 120207 NB added "Layout" to ValidNodeNames()
+* 130207 NB AppendBackSurface() now throws JDFException, if you try to add a second back surface
+* 130207 NB added GetSheetName()
 */
 
 #if _MSC_VER >= 1000
@@ -216,6 +218,13 @@ namespace JDF{
 		* const get surface with the correct partition key
 		*/
 		JDFSurface GetSurfaceBySide(JDFPart::EnumSide side) const;
+
+		/**
+		* if this is a new layout, return the partition key signaturename
+		* else return Signature/@Name of this or its appropriate parent
+		* @return the name of the signature
+		*/
+		WString GetSheetName() const;
 
 	protected:
 		/**

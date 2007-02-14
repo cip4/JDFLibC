@@ -689,10 +689,6 @@ namespace JDF{
 					continue;
 				}
 
-				bool bOldLock=r.GetLocked();
-				r.SetLocked(true);
-				r.RemoveAttributeFromLeaves(JDFNode::atr_Locked);
-
 				vmAttribute vPartMap=vLocalSpawnParts;
 
 				// 160802 RP leave implied resource link parts if PartUsage=implicit
@@ -710,7 +706,7 @@ namespace JDF{
 					}
 				}
 
-				if(!vPartMap.empty()&&!bOldLock)
+				if(!vPartMap.empty())
 				{
 					vmAttribute vLinkMap=link.GetPartMapVector();
 					vmAttribute vNewMap;
@@ -731,9 +727,13 @@ namespace JDF{
 					link.SetPartMapVector(vNewMap);
 					vElement vRes=link.GetTargetVector();
 					for(int t=0;t<vRes.size();t++){
-						JDFResource r=vRes[t];
-						r.AppendSpawnIDs(spawnID);
-						r.SetLocked(false);
+						JDFResource res=vRes[t];
+						// only fix those local resources that haven't been fixed along the way...
+						if (!res.IncludesMatchingAttribute(JDFResource::atr_SpawnIDs,spawnID,KElement::AttributeType_NMTOKENS))
+						{
+							res.AppendSpawnIDs(spawnID);
+							res.SetLocked(false);
+						}
 					}
 				}
 			}

@@ -69,7 +69,9 @@
 // 
 // Revision history:
 // created before 31.Aug.2006
-// 310806 | NB | ported JDFSpawn from JDFLib-J
+// 310806 NB ported JDFSpawn from JDFLib-J
+// 140207 NB fixed finalizeSpawn(): removed bool oldLocked, fix only local partitions that
+//           haven't already been fixed
 
 #if _MSC_VER >= 1000
 #pragma once

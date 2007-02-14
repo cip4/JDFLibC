@@ -77,6 +77,7 @@
 //
 // 120207 NB added getLayoutLeaves()
 // 120207 NB added "Layout" to ValidNodeNames()
+// 130207 NB added GetSignatureName()
 
 
 ///////////////////////////////////////////////////////////////////
@@ -163,6 +164,13 @@ namespace JDF{
 		* @return VElement the layout leaves, i.e. partition leaves(1.3+) or explicit surfaces(1.2-)
 		*/
 		vElement getLayoutLeaves(bool bAll);
+
+		/**
+		* if this is a new layout, return the partition key signaturename
+		* else return Signature/@Name of this or its appropriate parent
+		* @return the name of the signature
+		*/
+		WString GetSignatureName() const;
 
 	protected:
 		/**

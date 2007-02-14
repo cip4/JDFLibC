@@ -95,7 +95,7 @@ class JDFSpawnTest : public CppUnit::TestCase
 	CPPUNIT_TEST_SUITE( JDFSpawnTest );
 		//CPPUNIT_TEST( testCorruptPartitionedSpawn );            // Fehler: assertion / adding inconsistent partition - must be a leaf
 		CPPUNIT_TEST( testSubsetPartitionedSpawn );
-		//CPPUNIT_TEST( testSpawnPartMulti );                     // Fehler: assertion <<-----
+		CPPUNIT_TEST( testSpawnPartMulti );
 		CPPUNIT_TEST( testSpawnPart );
 		CPPUNIT_TEST( testSpawn2 );
 		CPPUNIT_TEST( testSpawn3 );

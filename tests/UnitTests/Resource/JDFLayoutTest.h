@@ -1,3 +1,6 @@
+#ifndef JDFLAYOUTTEST_H
+#define JDFLAYOUTTEST_H
+
 /*
  * The CIP4 Software License, Version 0.1
  *
@@ -82,9 +85,6 @@
 //
 ///////////////////////////////////////////////////////////////////////
 
-#ifndef JDFLAYOUTTEST_H
-#define JDFLAYOUTTEST_H
-
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -99,7 +99,9 @@ class JDFLayoutTest : public CppUnit::TestCase
 		CPPUNIT_TEST( testFixFromSurfaceNewLayout );
 		CPPUNIT_TEST( testFixVersionProblem );
 		CPPUNIT_TEST( testBuildOldLayout );
-		CPPUNIT_TEST( testBuildNewLayout );                     // Output korrekt, JDFLayout::IsValid() fehlerhaft
+		CPPUNIT_TEST( testBuildNewLayout );
+		CPPUNIT_TEST( testGetSignatureName_Old );
+		CPPUNIT_TEST( testGetSignatureName_New );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -111,6 +113,8 @@ class JDFLayoutTest : public CppUnit::TestCase
 		void testFixVersionProblem();
 		void testBuildOldLayout();
 		void testBuildNewLayout();
+		void testGetSignatureName_Old();
+		void testGetSignatureName_New();
 
 }; // class JDFLayoutTest
 

@@ -190,6 +190,32 @@ namespace JDF{
 		return GetChildrenByTagName(JDFElement::elm_Surface, WString::emptyStr, mAttribute::emptyMap, false, true, -1);
     }
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	WString JDFSignature::GetSignatureName() const
+	{
+		if(GetLocalName() == JDFElement::elm_Signature)
+            return GetName();
+		if(GetLocalName() == JDFElement::elm_Sheet)
+        {
+			KElement parentNode = KElement::GetParentNode();
+			if(parentNode.GetLocalName() == JDFElement::elm_Signature)
+            {
+                JDFSignature sig=(JDFSignature)parentNode;
+                return sig.GetSignatureName();
+            }
+        }
+		else if(GetLocalName() == JDFElement::elm_Surface)
+        {
+			KElement parentNode = KElement::GetParentNode().KElement::GetParentNode();
+			if(parentNode.GetLocalName() == JDFElement::elm_Signature)
+            {
+                JDFSignature sig=(JDFSignature)parentNode;
+                return sig.GetSignatureName();
+            }
+        }
+		return   JDFResource::GetSignatureName();
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 

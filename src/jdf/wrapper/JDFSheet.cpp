@@ -189,6 +189,10 @@ namespace JDF{
 			e=appendSurface();
 			e.SetSide(JDFPart::Side_Back);
 		}
+		else
+		{
+			throw JDFException("AppendBackSurface: BackSurface already exists");
+		}
 		
 		return e;
 	};
@@ -223,11 +227,11 @@ namespace JDF{
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	JDFSurface JDFSheet::GetSurface(int iSkip)const{
 		return getLayoutElement(*this,elm_Surface,atr_Side,iSkip);
-	};
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	WString JDFSheet::ValidNodeNames()const{
 		return L"*:,Sheet,Layout";
-	};
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	JDFSurface JDFSheet::GetSurfaceBySide(JDFPart::EnumSide side) const
 	{
@@ -240,6 +244,20 @@ namespace JDF{
 		if (s.GetSide()==side)
 			return s;
 		return JDFSurface();
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	WString JDFSheet::GetSheetName() const
+	{
+		if(GetLocalName() == JDFElement::elm_Sheet)
+        {
+            return GetName();
+        }
+		if(GetLocalName() == JDFElement::elm_Surface)
+        {
+			JDFSheet sh=(JDFSheet)KElement::GetParentNode();
+            return sh.GetSheetName();
+        }
+		return JDFResource::GetSheetName();
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
