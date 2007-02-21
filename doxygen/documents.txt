@@ -6,4 +6,4 @@ wrapper + wrappercore:
 doxygen jdfwrapper.dox
 
 jdftools
-doxygen jdf.cfg
+doxygen jdf.dox

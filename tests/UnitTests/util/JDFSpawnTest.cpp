@@ -469,15 +469,6 @@ void JDFSpawnTest::testSpawnPartMulti()
         spawn=JDFSpawn(spawnedNode);
 		respawnedDoc2 = spawn.spawn("reUrl","renewURL",v,vMap,false,true,true,true);
 		respawnedNode2 = respawnedDoc.GetJDFRoot();
-
-        //// now go backwards!
-        //new JDFMerge(nRoot).mergeJDF(spawnedNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
-        //new JDFMerge(nRoot).mergeJDF(respawnedNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
-        //new JDFMerge(nRoot).mergeJDF(respawnedNode2, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
-
-
-        //new JDFMerge(nRoot).mergeJDF(spawnedPSNode, null, EnumCleanUpMerge.None, EnumAmountMerge.UpdateLink);
-        //assertTrue("spawnIDs gone",nRoot.toString().indexOf("SpawnIDs")<0);
 	}
 	catch (JDFException& e)
 	{

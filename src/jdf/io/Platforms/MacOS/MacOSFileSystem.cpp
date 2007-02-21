@@ -145,7 +145,7 @@ FileSystem* FileSystem::getFileSystem()
 }
 
 MacOSFileSystem::MacOSFileSystem() :
-	slash(chBackSlash),
+	slash(chForwardSlash),
 	altSlash(chForwardSlash),
 	semicolon(chSemiColon)
 {
@@ -329,35 +329,9 @@ JDFUInt32 MacOSFileSystem::getBooleanAttributes(const File& file)
 			attribs |= BA_DIRECTORY;
 		else
 			attribs |= BA_REGULAR;
-
-//		if (info.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
-//			attribs |= BA_HIDDEN;
-//
-//		if (!(info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-//			attribs |= BA_REGULAR;
 	}
 
-
-
 	delete[] tmpName;
-
-
-
-///	BY_HANDLE_FILE_INFORMATION info;
-//
-//	WString path(file.getAbsolutePath());
-//	if (getFileInformation(path, &info) == TRUE)
-//	{
-//		attribs |= BA_EXISTS;
-//		if (info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-//			attribs |= BA_DIRECTORY;
-//
-//		if (info.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
-//			attribs |= BA_HIDDEN;
-//
-//		if (!(info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-//			attribs |= BA_REGULAR;
-//	}
 	return attribs;
 }
 
@@ -583,25 +557,6 @@ std::list<File> MacOSFileSystem::listRoots()
 WString	MacOSFileSystem::normalize(const WString& s)
 {
 	return s; //SF250202
-    int i = s.length();
-    JDFCh c = slash;
-    JDFCh c1 = altSlash;
-    int j = 0;
-    for(int k = 0; k < i; k++)
-    {
-        JDFCh c2 = s.at(k);
-        if(c2 == c1)
-            return normalize(s, i, j != c ? k : k - 1);
-        if(c2 == c && j == c && k > 1)
-            return normalize(s, i, k - 1);
-        if(c2 == chColon && k > 1)
-            return normalize(s, i, 0);
-        j = c2;
-    }
-    if(j == c)
-        return normalize(s, i, i - 1);
-    else
-        return s;
 }
 
 WString MacOSFileSystem::normalize(const WString& s, int i, int j)
@@ -1072,32 +1027,27 @@ bool MacOSFileSystem::makeWritable(const File& file)
 
 File MacOSFileSystem::tempFilePath()
 {
-	WString path = getUserPath()+WString("\\temp");
-	createDirectory(path);
-//	unsigned int retSize;
-//
-//	if (gOnNT)
-//	{
-//		unsigned short *tempPath;
-//
-//		retSize = ::GetTempPathW(0,NULL);
-//		tempPath = new unsigned short[retSize];
-//		ArrayJanitor<unsigned short> tempPathJanitor(tempPath);
-//		::GetTempPathW(retSize,tempPath);
-//		return File(tempPath);
-//	}
-//	else
-//	{
-//		char *tempPath;
-//
-//		retSize = ::GetTempPath(0,NULL);
-//		tempPath = new char[retSize];
-//		ArrayJanitor<char> tempPathJanitor(tempPath);
-//		::GetTempPath(retSize,tempPath);
-//		return File(WString(tempPath));
-//	}
-	return File(path);
+	WString tmpDirName(L"/private/var/tmp"); // default
+	FSRef tmpDirRef;
+	OSErr err = FSFindFolder(kOnAppropriateDisk, kTemporaryFolderType, kDontCreateFolder,  &tmpDirRef);
+
+	if (err == noErr)
+	{
+		CFURLRef    tmpDirURL    = CFURLCreateFromFSRef   (kCFAllocatorSystemDefault, &tmpDirRef);
+		CFStringRef tempDirPath  = CFURLCopyFileSystemPath(tmpDirURL, kCFURLPOSIXPathStyle);
+		const char* pTempDirName = CFStringGetCStringPtr  (tempDirPath, CFStringGetSystemEncoding());
+
+		if (pTempDirName != NULL)
+			tmpDirName = pTempDirName;
+		if (tempDirPath)
+			CFRelease(tempDirPath);    
+		if (tmpDirURL)
+			CFRelease(tmpDirURL);    
+	}
+
+	return File(tmpDirName);
 }
+
 
 void addUNCPrefetch(WString& s)
 {
