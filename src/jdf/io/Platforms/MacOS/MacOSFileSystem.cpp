@@ -95,6 +95,7 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <utime.h>
+#include <CoreServices/CoreServices.h>
 
 #ifndef MAX_PATH
 #define MAX_PATH 65535
