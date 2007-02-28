@@ -127,14 +127,14 @@ bool JDFAutoUsageCounter::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoUsageCounter::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",CounterID,Scope";
+		return JDFResource::RequiredAttributes()+L",Scope";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoUsageCounter::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",CounterTypes");
+		return JDFResource::OptionalAttributes()+WString(L",CounterID,CounterTypes");
 };
 
 /**
@@ -179,7 +179,7 @@ bool JDFAutoUsageCounter::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoUsageCounter::ValidCounterID(EnumValidationLevel level) const {
-		return ValidAttribute(atr_CounterID,AttributeType_string,RequiredLevel(level));
+		return ValidAttribute(atr_CounterID,AttributeType_string,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

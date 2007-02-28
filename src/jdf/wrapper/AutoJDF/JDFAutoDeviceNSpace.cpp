@@ -221,11 +221,6 @@ JDFSeparationSpec JDFAutoDeviceNSpace::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoDeviceNSpace::RefSeparationSpec(JDFSeparationSpec& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

@@ -269,11 +269,6 @@ JDFColorSpaceConversionOp JDFAutoColorSpaceConversionParams::AppendColorSpaceCon
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoColorSpaceConversionParams::RefColorSpaceConversionOp(JDFColorSpaceConversionOp& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

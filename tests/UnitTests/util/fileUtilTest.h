@@ -95,11 +95,13 @@ class fileUtilTest : public CppUnit::TestCase
 {
 	CPPUNIT_TEST_SUITE( fileUtilTest );
 		CPPUNIT_TEST( testFileExists );
+		CPPUNIT_TEST( testGetTempFilePath );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
 		void setUp();
 		void testFileExists();
+		void testGetTempFilePath();
 }; // class fileUtilTest
 
 #endif // define FILEUTILTEST_H

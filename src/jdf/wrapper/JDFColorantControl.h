@@ -128,11 +128,16 @@ class JDFColorantControl : public JDFAutoColorantControl
 		virtual vint GetImplicitPartitions() const;
 
 		/**
-		* Gets a vector of separations (colorant names) of this resource
-		*
-		* @return vWString: vector of colorant names
+		* get the list of separations that this colorantcontrol describes
+		* adds the separations that are implied by ProcessColorModel
+		* 
+		* @return vWString the complete list of process and spot colors
 		*/
 		virtual vWString GetSeparations() const;
+
+		virtual vWString getDeviceColorantControlOrderSeparations();
+
+		virtual vWString getColorantOrderSeparations();
 
 
 	}; // endJDFColorantControl

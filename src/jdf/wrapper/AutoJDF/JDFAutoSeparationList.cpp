@@ -150,11 +150,6 @@ JDFSeparationSpec JDFAutoSeparationList::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoSeparationList::RefSeparationSpec(JDFSeparationSpec& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

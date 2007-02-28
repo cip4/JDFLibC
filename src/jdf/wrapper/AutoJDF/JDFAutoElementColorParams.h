@@ -82,7 +82,7 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
-class JDFAutomatedOverprintParams;
+class JDFAutomatedOverPrintParams;
 class JDFColorantAlias;
 class JDFColorSpaceConversionOp;
 class JDFFileSpec;
@@ -240,28 +240,28 @@ virtual bool init();
 **************************************************************** */
 
 
-/** Get Element AutomatedOverprintParams
+/** Get Element AutomatedOverPrintParams
 * 
-* @return JDFAutomatedOverprintParams The element
+* @return JDFAutomatedOverPrintParams The element
 */
-	JDFAutomatedOverprintParams GetCreateAutomatedOverprintParams();
+	JDFAutomatedOverPrintParams GetCreateAutomatedOverPrintParams();
 
 /**
-* const get element AutomatedOverprintParams
-*@return  JDFAutomatedOverprintParams The element
+* const get element AutomatedOverPrintParams
+*@return  JDFAutomatedOverPrintParams The element
 */
-	JDFAutomatedOverprintParams GetAutomatedOverprintParams()const;
+	JDFAutomatedOverPrintParams GetAutomatedOverPrintParams()const;
 /**
-* Append element AutomatedOverprintParams
+* Append element AutomatedOverPrintParams
  * 
 */
-	JDFAutomatedOverprintParams AppendAutomatedOverprintParams();
+	JDFAutomatedOverPrintParams AppendAutomatedOverPrintParams();
 /**
 * create inter-resource link to refTarget
-* @param JDFAutomatedOverprintParams& refTarget the element that is referenced
+* @param JDFAutomatedOverPrintParams& refTarget the element that is referenced
 *@return JDFRefElement the referenced element
 */
-	JDFRefElement RefAutomatedOverprintParams(JDFAutomatedOverprintParams& refTarget);
+	JDFRefElement RefAutomatedOverPrintParams(JDFAutomatedOverPrintParams& refTarget);
 
 /** Get Element ColorantAlias
 * 
@@ -303,12 +303,6 @@ virtual bool init();
  * 
 */
 	JDFColorSpaceConversionOp AppendColorSpaceConversionOp();
-/**
-* create inter-resource link to refTarget
-* @param JDFColorSpaceConversionOp& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefColorSpaceConversionOp(JDFColorSpaceConversionOp& refTarget);
 
 /** Get Element FileSpec
 * 

@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		430C57800B7BC6A200FE0C8E /* libcppunit-1.12.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C577B0B7BC6A200FE0C8E /* libcppunit-1.12.0.0.0.dylib */; };
-		430C57810B7BC6A200FE0C8E /* Xerces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C577C0B7BC6A200FE0C8E /* Xerces.framework */; };
-		430C57820B7BC6A200FE0C8E /* libJDFWrapperCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C577D0B7BC6A200FE0C8E /* libJDFWrapperCore.a */; };
-		430C57830B7BC6A200FE0C8E /* libJDFWrapperLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C577E0B7BC6A200FE0C8E /* libJDFWrapperLib.a */; };
-		430C57840B7BC6A200FE0C8E /* libJDFToolsLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C577F0B7BC6A200FE0C8E /* libJDFToolsLib.a */; };
 		430C57860B7BC6BB00FE0C8E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C57850B7BC6BB00FE0C8E /* main.cpp */; };
 		430C57890B7BC6CF00FE0C8E /* AtomicTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C57870B7BC6CF00FE0C8E /* AtomicTest.cpp */; };
 		430C578A0B7BC6CF00FE0C8E /* AtomicTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C57880B7BC6CF00FE0C8E /* AtomicTest.h */; };
 		430C578C0B7BC6D600FE0C8E /* Readme_Atomic.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C578B0B7BC6D600FE0C8E /* Readme_Atomic.txt */; };
-		8DD76F6A0486A84900D96B5E /* AtomicTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* AtomicTest.1 */; };
+		43C9C0930B84A7C900D2AAFC /* Xerces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C9C0920B84A7C900D2AAFC /* Xerces.framework */; };
+		43FE5B870B8EDFD700CCB2FD /* libJDFToolsLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE5B840B8EDFD700CCB2FD /* libJDFToolsLib.a */; };
+		43FE5B880B8EDFD700CCB2FD /* libJDFWrapperCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE5B850B8EDFD700CCB2FD /* libJDFWrapperCore.a */; };
+		43FE5B890B8EDFD700CCB2FD /* libJDFWrapperLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE5B860B8EDFD700CCB2FD /* libJDFWrapperLib.a */; };
+		43FE62130B8EE9BB00CCB2FD /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE62120B8EE9BB00CCB2FD /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +26,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				8DD76F6A0486A84900D96B5E /* AtomicTest.1 in CopyFiles */,
 				430C578A0B7BC6CF00FE0C8E /* AtomicTest.h in CopyFiles */,
 				430C578C0B7BC6D600FE0C8E /* Readme_Atomic.txt in CopyFiles */,
 			);
@@ -36,16 +35,16 @@
 
 /* Begin PBXFileReference section */
 		430C577B0B7BC6A200FE0C8E /* libcppunit-1.12.0.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libcppunit-1.12.0.0.0.dylib"; path = "../../../../external/cppunit/src/cppunit/.libs/libcppunit-1.12.0.0.0.dylib"; sourceTree = SOURCE_ROOT; };
-		430C577C0B7BC6A200FE0C8E /* Xerces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Xerces.framework; path = ../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default/Xerces.framework; sourceTree = SOURCE_ROOT; };
-		430C577D0B7BC6A200FE0C8E /* libJDFWrapperCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperCore.a; path = ../../../../lib/Debug/libJDFWrapperCore.a; sourceTree = SOURCE_ROOT; };
-		430C577E0B7BC6A200FE0C8E /* libJDFWrapperLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperLib.a; path = ../../../../lib/Debug/libJDFWrapperLib.a; sourceTree = SOURCE_ROOT; };
-		430C577F0B7BC6A200FE0C8E /* libJDFToolsLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFToolsLib.a; path = ../../../../lib/Debug/libJDFToolsLib.a; sourceTree = SOURCE_ROOT; };
 		430C57850B7BC6BB00FE0C8E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../../tests/UnitTests/main.cpp; sourceTree = SOURCE_ROOT; };
-		430C57870B7BC6CF00FE0C8E /* AtomicTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = AtomicTest.cpp; path = ../../../../tests/UnitTests/AtomicTest.cpp; sourceTree = SOURCE_ROOT; };
+		430C57870B7BC6CF00FE0C8E /* AtomicTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AtomicTest.cpp; path = ../../../../tests/UnitTests/AtomicTest.cpp; sourceTree = SOURCE_ROOT; };
 		430C57880B7BC6CF00FE0C8E /* AtomicTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AtomicTest.h; path = ../../../../tests/UnitTests/AtomicTest.h; sourceTree = SOURCE_ROOT; };
 		430C578B0B7BC6D600FE0C8E /* Readme_Atomic.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Readme_Atomic.txt; path = ../../../../tests/UnitTests/Readme_Atomic.txt; sourceTree = SOURCE_ROOT; };
+		43C9C0920B84A7C900D2AAFC /* Xerces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Xerces.framework; path = ../../../../external/xerces/Projects/MacOS/Xcode/XercesLib/build/Development/Xerces.framework; sourceTree = SOURCE_ROOT; };
+		43FE5B840B8EDFD700CCB2FD /* libJDFToolsLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFToolsLib.a; path = ../../../../Build/XCode/lib/Debug/libJDFToolsLib.a; sourceTree = SOURCE_ROOT; };
+		43FE5B850B8EDFD700CCB2FD /* libJDFWrapperCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperCore.a; path = ../../../../Build/XCode/lib/Debug/libJDFWrapperCore.a; sourceTree = SOURCE_ROOT; };
+		43FE5B860B8EDFD700CCB2FD /* libJDFWrapperLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperLib.a; path = ../../../../Build/XCode/lib/Debug/libJDFWrapperLib.a; sourceTree = SOURCE_ROOT; };
+		43FE62120B8EE9BB00CCB2FD /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		8DD76F6C0486A84900D96B5E /* AtomicTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AtomicTest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6859E8B029090EE04C91782 /* AtomicTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = AtomicTest.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,10 +53,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				430C57800B7BC6A200FE0C8E /* libcppunit-1.12.0.0.0.dylib in Frameworks */,
-				430C57810B7BC6A200FE0C8E /* Xerces.framework in Frameworks */,
-				430C57820B7BC6A200FE0C8E /* libJDFWrapperCore.a in Frameworks */,
-				430C57830B7BC6A200FE0C8E /* libJDFWrapperLib.a in Frameworks */,
-				430C57840B7BC6A200FE0C8E /* libJDFToolsLib.a in Frameworks */,
+				43C9C0930B84A7C900D2AAFC /* Xerces.framework in Frameworks */,
+				43FE5B870B8EDFD700CCB2FD /* libJDFToolsLib.a in Frameworks */,
+				43FE5B880B8EDFD700CCB2FD /* libJDFWrapperCore.a in Frameworks */,
+				43FE5B890B8EDFD700CCB2FD /* libJDFWrapperLib.a in Frameworks */,
+				43FE62130B8EE9BB00CCB2FD /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,11 +97,12 @@
 		430C577A0B7BC6A200FE0C8E /* Libaries */ = {
 			isa = PBXGroup;
 			children = (
+				43FE62120B8EE9BB00CCB2FD /* CoreServices.framework */,
+				43FE5B840B8EDFD700CCB2FD /* libJDFToolsLib.a */,
+				43FE5B850B8EDFD700CCB2FD /* libJDFWrapperCore.a */,
+				43FE5B860B8EDFD700CCB2FD /* libJDFWrapperLib.a */,
+				43C9C0920B84A7C900D2AAFC /* Xerces.framework */,
 				430C577B0B7BC6A200FE0C8E /* libcppunit-1.12.0.0.0.dylib */,
-				430C577C0B7BC6A200FE0C8E /* Xerces.framework */,
-				430C577D0B7BC6A200FE0C8E /* libJDFWrapperCore.a */,
-				430C577E0B7BC6A200FE0C8E /* libJDFWrapperLib.a */,
-				430C577F0B7BC6A200FE0C8E /* libJDFToolsLib.a */,
 			);
 			name = Libaries;
 			sourceTree = "<group>";
@@ -109,7 +110,6 @@
 		C6859E8C029090F304C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				C6859E8B029090EE04C91782 /* AtomicTest.1 */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
@@ -167,11 +167,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/Xcode/XercesLib/build/Development\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -181,11 +177,13 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/cppunit/src/cppunit/.libs\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../lib/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../Build/XCode/lib/Debug\"";
 				PRODUCT_NAME = AtomicTest;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
@@ -193,14 +191,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
-					ppc,
 					i386,
+					ppc,
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/Xcode/XercesLib/build/Development\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -208,9 +207,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/cppunit/src/cppunit/.libs\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../lib/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../Build/XCode/lib/Debug\"";
 				PRODUCT_NAME = AtomicTest;
 			};
 			name = Release;
@@ -218,30 +219,49 @@
 		1DEB923608733DC60010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PROFILING_CODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../../../external/xerces/include/**",
-					"$(SRCROOT)/../../../../external/cppunit/include",
-					"$(SRCROOT)/../../../../src",
+					"$(HEADER_SEARCH_PATHS_QUOTED_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_2)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_3)",
 				);
+				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/src/**\"";
+				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/CppUnit/include\"";
+				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../src\"";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
 		1DEB923708733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../../../external/xerces/include/**",
-					"$(SRCROOT)/../../../../external/cppunit/include",
-					"$(SRCROOT)/../../../../src",
+					"$(HEADER_SEARCH_PATHS_QUOTED_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_2)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_3)",
 				);
+				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/src/**\"";
+				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/CppUnit/include\"";
+				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../src\"";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};

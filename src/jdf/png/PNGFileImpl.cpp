@@ -331,8 +331,6 @@ bool PNGFileImpl::readRow(void *&data)
 
 	if (m_rowsReady > pngInfo.m_imageHeight) return false;
 
-	unsigned char* deb = (unsigned char*) data;
-
 	png_read_row(png_ptr, (unsigned char*) data, NULL);
 	
 
@@ -425,8 +423,6 @@ bool PNGFileImpl::writeRow(void *data)
 
 	if (m_rowsReady > pngInfo.m_imageHeight) return false;
 
-	unsigned char* deb = (unsigned char*) data;
-	
 	png_write_row(png_ptr, (unsigned char*) data);
 	
 	m_rowsReady++;
@@ -519,7 +515,7 @@ void PNGFileImpl::my_write_data(png_structp png_ptr,
 
 void PNGFileImpl::my_flush_data(png_structp png_ptr)
 {
-	int debug=true;
+	//int debug=true;
 }
 
 } // namespace JDF

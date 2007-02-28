@@ -563,11 +563,6 @@ JDFDisjointing JDFAutoDigitalPrintingParams::AppendDisjointing(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoDigitalPrintingParams::RefDisjointing(JDFDisjointing& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFInk JDFAutoDigitalPrintingParams::GetInk()const{
 	JDFInk e=GetElement(elm_Ink);

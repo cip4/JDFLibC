@@ -1048,7 +1048,7 @@ namespace JDF{
 					tmp.add(vPartIDKeys[j]);
 				}
 			}
-			v.push_back(GetCreatePartition(map,vPartIDKeys));
+			v.push_back(GetCreatePartition(map,tmp));
 		}
 
 		return v;

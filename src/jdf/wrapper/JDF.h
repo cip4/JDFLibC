@@ -484,7 +484,7 @@
 #include "jdf/wrapper/JDFAdvancedParams.h"
 #include "jdf/wrapper/JDFApprovalParams.h"
 #include "jdf/wrapper/JDFAssetListCreationParams.h"
-#include "jdf/wrapper/JDFAutomatedOverprintParams.h"
+#include "jdf/wrapper/JDFAutomatedOverPrintParams.h"
 
 #include "jdf/wrapper/JDFBindingQualityParams.h"
 #include "jdf/wrapper/JDFBlockPreparationParams.h"

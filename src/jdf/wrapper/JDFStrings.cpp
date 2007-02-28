@@ -118,11 +118,10 @@ namespace JDF{
 	const WString JDFStrings::elm_ArtHandling=L"ArtHandling";
 	const WString JDFStrings::elm_Assembly=L"Assembly";
 	const WString JDFStrings::elm_AssemblySection=L"AssemblySection";
-	const WString JDFStrings::elm_AssmeblySection=L"AssemblySection";  // delete after Auto fix
 	const WString JDFStrings::elm_AssetListCreationParams=L"AssetListCreationParams";
 	const WString JDFStrings::elm_Audit=L"Audit";
 	const WString JDFStrings::elm_AuditPool=L"AuditPool";
-	const WString JDFStrings::elm_AutomatedOverprintParams=L"AutomatedOverprintParams";
+	const WString JDFStrings::elm_AutomatedOverPrintParams=L"AutomatedOverPrintParams";
 
 	// BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB//
 
@@ -2042,6 +2041,7 @@ namespace JDF{
 	const WString JDFStrings::atr_PrevQueueEntryID=L"PrevQueueEntryID";
 	const WString JDFStrings::atr_Price=L"Price";
 	const WString JDFStrings::atr_PrintableArea=L"PrintableArea";
+	const WString JDFStrings::atr_PrintTrapAnnotations=L"PrintTrapAnnotations";
 	const WString JDFStrings::atr_PrintConditionName=L"PrintConditionName";
 	const WString JDFStrings::atr_PrinterFontsSubFolder=L"PrinterFontsSubFolder";
 	const WString JDFStrings::atr_PrintingType=L"PrintingType";

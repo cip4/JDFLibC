@@ -161,11 +161,6 @@ JDFDisjointing JDFAutoGatheringParams::AppendDisjointing(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoGatheringParams::RefDisjointing(JDFDisjointing& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

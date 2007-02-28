@@ -238,11 +238,6 @@ JDFCostCenter JDFAutoEmployee::AppendCostCenter(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoEmployee::RefCostCenter(JDFCostCenter& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFPerson JDFAutoEmployee::GetPerson()const{
 	JDFPerson e=GetElement(elm_Person);

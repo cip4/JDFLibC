@@ -389,11 +389,6 @@ JDFSeparationSpec JDFAutoProofItem::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoProofItem::RefSeparationSpec(JDFSeparationSpec& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFApprovalParams JDFAutoProofItem::GetApprovalParams()const{
 	JDFApprovalParams e=GetElement(elm_ApprovalParams);

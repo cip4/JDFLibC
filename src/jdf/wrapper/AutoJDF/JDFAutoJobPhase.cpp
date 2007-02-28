@@ -567,11 +567,6 @@ JDFCostCenter JDFAutoJobPhase::AppendCostCenter(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoJobPhase::RefCostCenter(JDFCostCenter& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFNode JDFAutoJobPhase::GetNode()const{
 	JDFNode e=GetElement(elm_JDF);
@@ -610,11 +605,6 @@ JDFMISDetails JDFAutoJobPhase::AppendMISDetails(){
 	JDFMISDetails e=AppendElementN(elm_MISDetails,1);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoJobPhase::RefMISDetails(JDFMISDetails& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

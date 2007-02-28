@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoTestPool.h"
+#include "jdf/wrapper/JDFTest.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -123,8 +125,60 @@ JDFAutoTestPool& JDFAutoTestPool::operator=(const KElement& other){
 		return vAtts;
 	};
 
+
 /* ******************************************************
 // Element Getter / Setter
-******************************************************** */
-	
+**************************************************************** */
+
+
+JDFTest JDFAutoTestPool::GetTest(int iSkip)const{
+	JDFTest e=GetElement(elm_Test,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTest JDFAutoTestPool::GetCreateTest(int iSkip){
+	JDFTest e=GetCreateElement(elm_Test,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTest JDFAutoTestPool::AppendTest(){
+	JDFTest e=AppendElement(elm_Test);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoTestPool::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFPool::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_Test);
+
+		for(i=0;i<nElem;i++){
+			if (!GetTest(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Test);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoTestPool::OptionalElements()const{
+		return JDFPool::OptionalElements()+L",Test";
+	};
 }; // end namespace JDF

@@ -295,12 +295,6 @@ virtual bool init();
 * Append element ColorSpaceConversionOp
  */
 	JDFColorSpaceConversionOp AppendColorSpaceConversionOp();
-/**
-* create inter-resource link to refTarget
-* @param JDFColorSpaceConversionOp& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefColorSpaceConversionOp(JDFColorSpaceConversionOp& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

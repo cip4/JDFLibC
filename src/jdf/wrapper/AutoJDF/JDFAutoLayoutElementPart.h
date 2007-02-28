@@ -82,7 +82,7 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
-class JDFBarcode;
+class JDFBarcodeProductionParams;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -172,20 +172,20 @@ public:
 /** Get Element BarcodeProductionParams
 * 
 * @param int iSkip number of elements to skip
-* @return JDFBarcode The element
+* @return JDFBarcodeProductionParams The element
 */
-	JDFBarcode GetCreateBarcodeProductionParams(int iSkip=0);
+	JDFBarcodeProductionParams GetCreateBarcodeProductionParams(int iSkip=0);
 
 /**
 * const get element BarcodeProductionParams
 * @param int iSkip number of elements to skip
-* @return JDFBarcode The element
+* @return JDFBarcodeProductionParams The element
 */
-	JDFBarcode GetBarcodeProductionParams(int iSkip=0)const;
+	JDFBarcodeProductionParams GetBarcodeProductionParams(int iSkip=0)const;
 /**
 * Append element BarcodeProductionParams
  */
-	JDFBarcode AppendBarcodeProductionParams();
+	JDFBarcodeProductionParams AppendBarcodeProductionParams();
 
 /**
  definition of optional elements in the JDF namespace

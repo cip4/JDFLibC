@@ -124,17 +124,10 @@ bool JDFAutoTool::init(){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoTool::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",ToolID";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoTool::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ToolAmount,ToolType");
+		return JDFResource::OptionalAttributes()+WString(L",ToolID,ToolAmount,ToolType");
 };
 
 /**
@@ -179,7 +172,7 @@ bool JDFAutoTool::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoTool::ValidToolID(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ToolID,AttributeType_shortString,RequiredLevel(level));
+		return ValidAttribute(atr_ToolID,AttributeType_shortString,false);
 	};
 /**
 * Set attribute ToolAmount

@@ -645,11 +645,6 @@ JDFSeparationSpec JDFAutoLayoutElement::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoLayoutElement::RefSeparationSpec(JDFSeparationSpec& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

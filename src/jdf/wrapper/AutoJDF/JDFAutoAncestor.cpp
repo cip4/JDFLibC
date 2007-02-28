@@ -126,7 +126,7 @@ JDFAutoAncestor& JDFAutoAncestor::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoAncestor::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Activation,FileName,ICSVersions,JobID,JobPartID,MaxVersion,ProjectID,RelatedJobID,RelatedJobPartID,SpawnID,Status,StatusDetails,Type,Types,Version");
+		return JDFElement::OptionalAttributes()+WString(L",Activation,FileName,ICSVersions,JobID,JobPartID,MaxVersion,ProjectID,RelatedJobID,RelatedJobPartID,SpawnID,Status,StatusDetails,Template,TemplateID,TemplateVersion,Type,Types,Version");
 };
 
 /**
@@ -199,6 +199,21 @@ JDFAutoAncestor& JDFAutoAncestor::operator=(const KElement& other){
 		};
 		if(!ValidStatusDetails(level)) {
 			vAtts.push_back(atr_StatusDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTemplate(level)) {
+			vAtts.push_back(atr_Template);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTemplateID(level)) {
+			vAtts.push_back(atr_TemplateID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTemplateVersion(level)) {
+			vAtts.push_back(atr_TemplateVersion);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -456,6 +471,59 @@ JDFAutoAncestor& JDFAutoAncestor::operator=(const KElement& other){
 		return ValidAttribute(atr_StatusDetails,AttributeType_shortString,false);
 	};
 /**
+* Set attribute Template
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoAncestor::SetTemplate(bool value){
+	SetAttribute(atr_Template,WString::valueOf(value));
+};
+/**
+* Get bool attribute Template
+* @return bool the vaue of the attribute ; defaults to false
+*/
+	 bool JDFAutoAncestor::GetTemplate() const {return GetBoolAttribute(atr_Template,WString::emptyStr,false);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoAncestor::ValidTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Template,AttributeType_boolean,false);
+	};
+/**
+* Set attribute TemplateID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoAncestor::SetTemplateID(const WString& value){
+	SetAttribute(atr_TemplateID,value);
+};
+/**
+* Get string attribute TemplateID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoAncestor::GetTemplateID() const {
+	return GetAttribute(atr_TemplateID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoAncestor::ValidTemplateID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TemplateID,AttributeType_shortString,false);
+	};
+/**
+* Set attribute TemplateVersion
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoAncestor::SetTemplateVersion(const WString& value){
+	SetAttribute(atr_TemplateVersion,value);
+};
+/**
+* Get string attribute TemplateVersion
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoAncestor::GetTemplateVersion() const {
+	return GetAttribute(atr_TemplateVersion,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoAncestor::ValidTemplateVersion(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TemplateVersion,AttributeType_string,false);
+	};
+/**
 * Set attribute Type
 *@param WString value: the value to set the attribute to
 */
@@ -515,41 +583,41 @@ JDFAutoAncestor& JDFAutoAncestor::operator=(const KElement& other){
 **************************************************************** */
 
 
-JDFCustomerInfo JDFAutoAncestor::GetCustomerInfo()const{
-	JDFCustomerInfo e=GetElement(elm_CustomerInfo);
+JDFCustomerInfo JDFAutoAncestor::GetCustomerInfo(int iSkip)const{
+	JDFCustomerInfo e=GetElement(elm_CustomerInfo,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFCustomerInfo JDFAutoAncestor::GetCreateCustomerInfo(){
-	JDFCustomerInfo e=GetCreateElement(elm_CustomerInfo);
+JDFCustomerInfo JDFAutoAncestor::GetCreateCustomerInfo(int iSkip){
+	JDFCustomerInfo e=GetCreateElement(elm_CustomerInfo,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFCustomerInfo JDFAutoAncestor::AppendCustomerInfo(){
-	JDFCustomerInfo e=AppendElementN(elm_CustomerInfo,1);
+	JDFCustomerInfo e=AppendElement(elm_CustomerInfo);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFNodeInfo JDFAutoAncestor::GetNodeInfo()const{
-	JDFNodeInfo e=GetElement(elm_NodeInfo);
+JDFNodeInfo JDFAutoAncestor::GetNodeInfo(int iSkip)const{
+	JDFNodeInfo e=GetElement(elm_NodeInfo,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFNodeInfo JDFAutoAncestor::GetCreateNodeInfo(){
-	JDFNodeInfo e=GetCreateElement(elm_NodeInfo);
+JDFNodeInfo JDFAutoAncestor::GetCreateNodeInfo(int iSkip){
+	JDFNodeInfo e=GetCreateElement(elm_NodeInfo,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFNodeInfo JDFAutoAncestor::AppendNodeInfo(){
-	JDFNodeInfo e=AppendElementN(elm_NodeInfo,1);
+	JDFNodeInfo e=AppendElement(elm_NodeInfo);
 	e.init();
 	return e;
 };
@@ -571,39 +639,28 @@ JDFRefElement JDFAutoAncestor::RefNodeInfo(JDFNodeInfo& refTarget){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_CustomerInfo);
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_CustomerInfo);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetCustomerInfo().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetCustomerInfo(i).IsValid(level)) {
 				vElem.AppendUnique(elm_CustomerInfo);
 				if (++n>=nMax)
 					return vElem;
+				break;
 			}
 		}
 		nElem=NumChildElements(elm_NodeInfo);
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_NodeInfo);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetNodeInfo().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetNodeInfo(i).IsValid(level)) {
 				vElem.AppendUnique(elm_NodeInfo);
 				if (++n>=nMax)
 					return vElem;
+				break;
 			}
 		}
 		return vElem;
 	};
 
-
-/**
- definition of required elements in the JDF namespace
-*/
-	WString JDFAutoAncestor::UniqueElements()const{
-		return JDFElement::UniqueElements()+L",CustomerInfo,NodeInfo";
-	};
 
 /**
  definition of optional elements in the JDF namespace

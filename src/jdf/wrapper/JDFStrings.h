@@ -135,11 +135,10 @@ namespace JDF{
 		static const WString elm_ArtHandling;
 		static const WString elm_Assembly;
 		static const WString elm_AssemblySection;
-		static const WString elm_AssmeblySection; // delete after Auto fix
 		static const WString elm_AssetListCreationParams;
 		static const WString elm_Audit;
 		static const WString elm_AuditPool;
-		static const WString elm_AutomatedOverprintParams;
+		static const WString elm_AutomatedOverPrintParams;
 
 		// BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB //
 		
@@ -2055,6 +2054,7 @@ namespace JDF{
 		static const WString atr_PrevQueueEntryID;
 		static const WString atr_Price;
 		static const WString atr_PrintableArea;
+		static const WString atr_PrintTrapAnnotations;
 		static const WString atr_PrintConditionName;
 		static const WString atr_PrinterFontsSubFolder;
 		static const WString atr_PrintingType;

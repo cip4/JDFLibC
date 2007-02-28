@@ -592,12 +592,6 @@ virtual bool init();
 * Append element SeparationSpec
  */
 	JDFSeparationSpec AppendSeparationSpec();
-/**
-* create inter-resource link to refTarget
-* @param JDFSeparationSpec& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefSeparationSpec(JDFSeparationSpec& refTarget);
 
 /**
  definition of unique elements in the JDF namespace

@@ -701,11 +701,6 @@ JDFCostCenter JDFAutoDevice::AppendCostCenter(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoDevice::RefCostCenter(JDFCostCenter& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFDeviceCap JDFAutoDevice::GetDeviceCap(int iSkip)const{
 	JDFDeviceCap e=GetElement(elm_DeviceCap,WString::emptyStr,iSkip);
@@ -724,11 +719,6 @@ JDFDeviceCap JDFAutoDevice::AppendDeviceCap(){
 	JDFDeviceCap e=AppendElement(elm_DeviceCap);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoDevice::RefDeviceCap(JDFDeviceCap& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

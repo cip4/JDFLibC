@@ -185,7 +185,7 @@ public:
 	virtual void SetAccepted(bool value);
 /**
 * Get bool attribute Accepted
-* @return bool the vaue of the attribute ; defaults to false
+* @return bool the vaue of the attribute 
 */
 	virtual bool GetAccepted() const;
 /**
@@ -201,7 +201,7 @@ public:
 	virtual void SetAdditionalAmount(int value);
 /**
 * Get integer attribute AdditionalAmount
-* @return int the vaue of the attribute ; defaults to 1
+* @return int the vaue of the attribute 
 */
 	virtual int GetAdditionalAmount() const;
 /**

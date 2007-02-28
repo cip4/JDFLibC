@@ -244,11 +244,6 @@ JDFSeparationSpec JDFAutoScavengerArea::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoScavengerArea::RefSeparationSpec(JDFSeparationSpec& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

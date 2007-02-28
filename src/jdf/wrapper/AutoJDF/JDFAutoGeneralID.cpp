@@ -78,7 +78,7 @@
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoGeneralID : public JDFResource
+class JDFAutoGeneralID : public JDFElement
 
 *********************************************************************
 */
@@ -106,17 +106,6 @@ JDFAutoGeneralID& JDFAutoGeneralID::operator=(const KElement& other){
 	return L"*:,GeneralID";
 };
 
-bool JDFAutoGeneralID::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoGeneralID::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -127,14 +116,14 @@ bool JDFAutoGeneralID::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoGeneralID::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",IDUsage,IDValue";
+		return JDFElement::RequiredAttributes()+L",IDUsage,IDValue";
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoGeneralID::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;

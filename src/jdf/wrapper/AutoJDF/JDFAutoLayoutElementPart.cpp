@@ -75,7 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLayoutElementPart.h"
-#include "jdf/wrapper/JDFBarcode.h"
+#include "jdf/wrapper/JDFBarcodeProductionParams.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -131,21 +131,21 @@ JDFAutoLayoutElementPart& JDFAutoLayoutElementPart::operator=(const KElement& ot
 **************************************************************** */
 
 
-JDFBarcode JDFAutoLayoutElementPart::GetBarcodeProductionParams(int iSkip)const{
-	JDFBarcode e=GetElement(elm_BarcodeProductionParams,WString::emptyStr,iSkip);
+JDFBarcodeProductionParams JDFAutoLayoutElementPart::GetBarcodeProductionParams(int iSkip)const{
+	JDFBarcodeProductionParams e=GetElement(elm_BarcodeProductionParams,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFBarcode JDFAutoLayoutElementPart::GetCreateBarcodeProductionParams(int iSkip){
-	JDFBarcode e=GetCreateElement(elm_BarcodeProductionParams,WString::emptyStr,iSkip);
+JDFBarcodeProductionParams JDFAutoLayoutElementPart::GetCreateBarcodeProductionParams(int iSkip){
+	JDFBarcodeProductionParams e=GetCreateElement(elm_BarcodeProductionParams,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFBarcode JDFAutoLayoutElementPart::AppendBarcodeProductionParams(){
-	JDFBarcode e=AppendElement(elm_BarcodeProductionParams);
+JDFBarcodeProductionParams JDFAutoLayoutElementPart::AppendBarcodeProductionParams(){
+	JDFBarcodeProductionParams e=AppendElement(elm_BarcodeProductionParams);
 	e.init();
 	return e;
 };

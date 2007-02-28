@@ -764,11 +764,6 @@ JDFDisposition JDFAutoFileSpec::AppendDispositionElem(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoFileSpec::RefDispositionElem(JDFDisposition& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFFileAlias JDFAutoFileSpec::GetFileAlias(int iSkip)const{
 	JDFFileAlias e=GetElement(elm_FileAlias,WString::emptyStr,iSkip);

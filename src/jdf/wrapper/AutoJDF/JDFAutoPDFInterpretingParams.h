@@ -382,6 +382,22 @@ public:
 */
 	virtual bool ValidPrintPDFAnnotations(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute PrintTrapAnnotations
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetPrintTrapAnnotations(bool value);
+/**
+* Get bool attribute PrintTrapAnnotations
+* @return bool the vaue of the attribute ; defaults to false
+*/
+	virtual bool GetPrintTrapAnnotations() const;
+/**
+* Typesafe attribute validation of PrintTrapAnnotations
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPrintTrapAnnotations(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute TransparencyRenderingQuality
 *@param double value: the value to set the attribute to
 */

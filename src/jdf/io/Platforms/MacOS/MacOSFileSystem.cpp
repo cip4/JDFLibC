@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 0.1
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2007 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights
  * reserved.
  *
@@ -58,8 +58,8 @@
  * individuals on behalf of the The International Cooperation for the Integration
  * of Processes in Prepress, Press and Postpress and was
  * originally based on software
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG
- * copyright (c) 1999-2001, Agfa-Gevaert N.V.
+ * copyright (c) 1999-2007, Heidelberger Druckmaschinen AG
+ * copyright (c) 1999-2007, Agfa-Gevaert N.V.
  *
  * For more information on The International Cooperation for the
  * Integration of Processes in  Prepress, Press and Postpress , please see
@@ -67,6 +67,7 @@
  *
  *
  */
+
 /******************************************************************************
  *                     Copyright 1998 Agfa-Gevaert N.V.                       *
  *                           All rights reserved                              *
@@ -80,7 +81,10 @@
  *	Includes
  ******************************************************************************/
 
+#include <CoreServices/CoreServices.h>
+
 #include "MacOSFileSystem.h"
+
 #include <jdf/io/File.h>
 
 #include <jdf/lang/Exception.h>
@@ -95,13 +99,14 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <utime.h>
-#include <CoreServices/CoreServices.h>
 
 #ifndef MAX_PATH
-#define MAX_PATH 65535
+#   define MAX_PATH 65535
 #endif
 
+
 XERCES_CPP_NAMESPACE_USE
+
 
 namespace JDF
 {
@@ -111,8 +116,8 @@ namespace JDF
  ******************************************************************************/
 
 // helper functions
-void addUNCPrefetch(WString& s);
-void replaceYenWonSigns(WString& s);
+static void addUNCPrefetch    (WString& s);
+static void replaceYenWonSigns(WString& s);
 
 
 /******************************************************************************
@@ -138,370 +143,276 @@ void replaceYenWonSigns(WString& s);
  *	Implementation
  ******************************************************************************/
 
-// static bool gOnNT = true;
 
 FileSystem* FileSystem::getFileSystem()
 {
 	return new MacOSFileSystem();
 }
 
-MacOSFileSystem::MacOSFileSystem() :
-	slash(chForwardSlash),
-	altSlash(chForwardSlash),
-	semicolon(chSemiColon)
+
+MacOSFileSystem::MacOSFileSystem()
+    : slash    (chForwardSlash),
+	  altSlash (chForwardSlash),
+	  semicolon(chSemiColon)
 {
-    // TBD: to be implemented when necessary, otherwise trash
-    //OSVERSIONINFO   OSVer;
-    //OSVer.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    //::GetVersionEx(&OSVer);
-    //gOnNT = (OSVer.dwPlatformId == VER_PLATFORM_WIN32_NT);
 }
+
 
 bool MacOSFileSystem::checkAccess(const File& file, bool flag)
 {
-	//BY_HANDLE_FILE_INFORMATION info;
-	bool retVal= false;
-	char *tmpName = file.getAbsolutePath().getBytes();
-	if (access(tmpName,R_OK) == 0)
+	bool bRes = false;
+
+	WString absolutePath(file.getAbsolutePath());
+
+	if (access(absolutePath.peekBytes(), R_OK) == 0)
 	{
 		if (flag)
-			retVal = !(access(tmpName,W_OK));
+			bRes = !(access(absolutePath.peekBytes(), W_OK));
 		else
-			retVal = true;
+			bRes = true;
 	}
-	delete[] tmpName;
-	return retVal;
+
+	return bRes;
 }
+
 
 int MacOSFileSystem::compare(const File& f1, const File& f2)
 {
 	return (f1.getPath().toUpperCase() == f2.getPath().toUpperCase());
 }
 
+
 void replaceYenWonSigns(WString& s)
 {
 	for (unsigned int i = 0; i < s.length(); i++)
 	{
-		if (s[i] == chYenSign || s[i] == chWonSign)
+		if ((s[i] == chYenSign) || (s[i] == chWonSign))
 			s[i] = chForwardSlash;
 	}
 }
 
+
 bool MacOSFileSystem::createDirectory(const File& file)
 {
-	// handle paths longer than 255 characters;
 	WString absolutePath = file.getAbsolutePath();
 
-	int retVal;
-	int errVal;
-	char* tmpName = absolutePath.getBytes();
-	retVal = mkdir(tmpName,S_IRUSR|S_IWUSR);
-	errVal = errno;
-	delete[] tmpName;
-
-	if (retVal != 0){
-		if (errVal == EEXIST){
-			return true;
-		}
-		return false;
-	}
+	if (mkdir(absolutePath.peekBytes(), (S_IRUSR | S_IWUSR | S_IXUSR)) != 0)
+	    return (errno == EEXIST);
 
 	return true;
-
 }
+
 
 bool MacOSFileSystem::createFileExclusively(WString pathname)
 {
-	bool retVal = false;
-	char* tmpName = pathname.getBytes();
+    bool bRes = false;
 
-	FILE* fd = fopen(tmpName,"r");  // try frist to open the named file, if it's possible abort and return false
-	if ( fd ) {
-		fclose(fd);
-		delete[] tmpName;
-		return false;
+	FILE* fd = fopen(pathname.peekBytes(), "r");  // try first to open the named file, if it's possible abort and return false
+
+	if (!fd)
+    {
+    	if ((fd = fopen(pathname.peekBytes(), "w")))
+    	    bRes = true;
 	}
 
-	fd = fopen(tmpName,"w");  // try frist to open the named file, if it's possible abort and return false
-	if ( fd ) {
-		fclose(fd);
-		retVal = true;
-	}
-	delete[] tmpName;
-	return retVal;
+    if (fd)	fclose(fd);
 
+	return bRes;
 }
+
 
 bool MacOSFileSystem::deleteFile(const File& file)
 {
-	char* pathname = file.getAbsolutePath().getBytes();
-	bool bRet = false;
-	int errVal;
+	WString absolutePath = file.getAbsolutePath();
 
-	if (remove(pathname)){
-		errVal = errno;
-		bRet = true;
-	}
+	if (remove(absolutePath.peekBytes()) != 0)
+	    return false;
 
-	delete[] pathname;
-	return bRet;
+	return true;
 }
+
 
 bool MacOSFileSystem::deleteDirectory(const File& file)
 {
+	WString absolutePath = file.getAbsolutePath();
 
-	char* pathname = file.getAbsolutePath().getBytes();
-	bool bRet = false;
-	int errVal;
+	if (remove(absolutePath.peekBytes()) != 0)
+	    return false;
 
-	if (remove(pathname)){
-		errVal = errno;
-		bRet = true;
-	}
-
-	delete[] pathname;
-	return bRet;
+	return true;
 }
+
 
 File MacOSFileSystem::createAliasFile(const File& path, const File& file)
 {
 
-	WString aliasFileName = file.getName() + ".lnk";
-	File aliasFile= File(path,aliasFileName);
+	WString aliasFileName = file.getName() + L".lnk";
 
-	char * src = file.getAbsolutePath().getBytes();
-	char * dst = aliasFile.getAbsolutePath().getBytes();
+	File aliasFile(path, aliasFileName);
 
-	int iVal =symlink(src,dst);
-	delete[] src;
-	delete[] dst;
-	if (iVal != 0){
+    WString srcFile = file.getAbsolutePath();
+	WString dstPath = aliasFile.getAbsolutePath();
+
+	int iVal = symlink(srcFile.peekBytes(), dstPath.peekBytes());
+	
+	if (iVal != 0)
 		throw IOException("Failed to create alias");
-	}
 
 	return aliasFile;
 
 }
 
+
 File MacOSFileSystem::resolveAliasFile(const File& file)
 {
-	char buffer[MAX_PATH+1];
-	char* tmpName = file.getName().getBytes();
-	int iVal = readlink(tmpName,buffer,MAX_PATH);
+	WString absolutePath = file.getAbsolutePath();
 
-	delete[] tmpName;
+	char buf[MAX_PATH + 1];
 
+	int iVal = readlink(absolutePath.peekBytes(), buf, MAX_PATH);
 
-	if ( iVal < 0 ){
+	if (iVal < 0)
 		throw IOException("Failed to create alias");
-	}
-	return File(buffer);
+
+	return File(buf);
 }
+
 
 bool MacOSFileSystem::checkAliasFile(const File& file)
 {
-	char buffer[MAX_PATH+1];
-	char* tmpName = file.getName().getBytes();
-	int iVal = readlink(tmpName,buffer,MAX_PATH);
+	WString absolutePath = file.getAbsolutePath();
 
-	delete[] tmpName;
+	char buf[MAX_PATH + 1];
 
-	if ( iVal < 0 ){
+	int iVal = readlink(absolutePath.peekBytes(), buf, MAX_PATH);
+
+	if (iVal < 0)
 		return false;
-	}
+
 	return true;
 }
 
+
 JDFUInt32 MacOSFileSystem::getBooleanAttributes(const File& file)
 {
-
-
-
-//	// TBD:
 	JDFUInt32 attribs = 0;
-	struct stat buf;
-	mode_t myMode;
-	char *tmpName = file.getName().getBytes();
 
-	if (stat (tmpName,&buf)==0){
-  		myMode = buf.st_mode;
+	WString     absolutePath(file.getAbsolutePath());
+	struct stat buf;
+	const char * pb = absolutePath.peekBytes();
+	int ex = stat(pb,&buf);
+
+	if (stat(absolutePath.peekBytes(),&buf) == 0)
+	{
 		attribs |= BA_EXISTS;
-		if (myMode & S_IFDIR)
+
+		if (buf.st_mode & S_IFDIR)
 			attribs |= BA_DIRECTORY;
 		else
 			attribs |= BA_REGULAR;
 	}
 
-	delete[] tmpName;
 	return attribs;
 }
 
+
 WString MacOSFileSystem::getDefaultParent()
 {
-	return WString(1,slash);
+	return WString(1, slash);
 }
+
 
 JDFUInt64 MacOSFileSystem::getLastModifiedTime(const File& file)
 {
+	time_t lmtime = (time_t) 0;
+
+	WString     absolutePath = file.getAbsolutePath();
 	struct stat buf;
-	time_t lmtime;
-	char *tmpName = file.getName().getBytes();
 
-	stat (tmpName,&buf);
-	lmtime = buf.st_mtime;
+	if (stat(absolutePath.peekBytes(), &buf) == 0)
+    	lmtime = buf.st_mtime;
 
-	delete[] tmpName;
-	return (JDFUInt64)lmtime;
+	return (JDFUInt64) lmtime;
 }
+
 
 JDFUInt64 MacOSFileSystem::getCreationTime(const File& file)
 {
+	time_t lctime = 0;
+
+	WString     absolutePath = file.getAbsolutePath();
 	struct stat buf;
-	time_t lctime;
-	char *tmpName = file.getName().getBytes();
 
-	stat (tmpName,&buf);
-	lctime = buf.st_ctime;
+	if (stat(absolutePath.peekBytes(), &buf) == 0)
+    	lctime = buf.st_ctime;
 
-	delete[] tmpName;
-	return (JDFUInt64)lctime;
+	return (JDFUInt64) lctime;
 }
+
 
 JDFUInt64 MacOSFileSystem::getLength(const File& file)
 {
+	off_t fileSize = 0;
+
+	WString     absolutePath = file.getAbsolutePath();
 	struct stat buf;
-	off_t fileSize;
-	char *tmpName = file.getName().getBytes();
 
-	stat (tmpName,&buf);
-	fileSize = buf.st_size;
+	if (stat(absolutePath.peekBytes(), &buf) == 0)
+    	fileSize = buf.st_size;
 
-	delete[] tmpName;
-	return (JDFUInt64)fileSize;
+	return (JDFUInt64) fileSize;
 }
+
 
 JDFCh MacOSFileSystem::getPathSeparator()
 {
 	return semicolon;
 }
 
+
 JDFCh MacOSFileSystem::getSeparator()
 {
     return slash;
 }
 
+
 bool MacOSFileSystem::isAbsolute(const File& file)
 {
      int i = getPrefixLength(file);
-     return (i == 2 && file.getPath().at(0) == slash) || (i == 3);
+
+     return ((i == 2) && (file.getPath().at(0) == slash) || (i == 3));
 }
+
 
 std::list<WString> MacOSFileSystem::list(const File& file)
 {
+	std::list<WString> fileList;
 
-	File searchDir(file,"*");
-	std::list<WString>  fileList;
+	File    searchDir   (file, "*");
+	WString absolutePath(file.getAbsolutePath());
 
-	char* absolutePath = searchDir.getAbsolutePath().getBytes();
+	dirent* pDirEntry = NULL;
 
-	DIR* myDir;
-	dirent *myDirEntry = (dirent*)NULL;
+	DIR* pDir = opendir(absolutePath.peekBytes());
 
-	myDir = opendir(absolutePath);
-	if (!myDir){
-		delete[] absolutePath;
+	if (!pDir)
 		throw IOException("Cannot open directory.");
+
+	rewinddir(pDir);
+
+   	while ((pDirEntry = readdir(pDir)) != NULL)
+   	{
+    	if ((strcmp(pDirEntry->d_name, ".") == 0) || (strcmp(pDirEntry->d_name, "..") == 0))
+        		continue;
+
+		fileList.push_back(WString(pDirEntry->d_name));
 	}
 
-	rewinddir(myDir);
+    closedir(pDir);
 
-   	while ((myDirEntry = readdir(myDir)) != NULL){
-        	if (strcmp(myDirEntry->d_name,".") == 0 || strcmp(myDirEntry->d_name,"..")== 0)
-            		continue;
-
-		fileList.push_back(WString(myDirEntry->d_name));
-	}
-
-
-/*
-    int Result1 = 0;
-    int ret_cd2 = 0;
-    DIR *dp = (DIR *) NULL;
-    Dirent *dirp = (Dirent *) NULL;
-    char buff[BUFSIZ];
-
-    if ((dp = opendir(path)) == (DIR *) NULL){
-        fprintf(stderr,"Unable to open %s - %s\n",path,strerror(errno));
-        return(1);
-    }
-
-    while ((dirp = readdir(dp)) != NULL){
-        if (strcmp(dirp->d_name,".") == 0 || strcmp(dirp->d_name,"..")== 0)
-            continue;
-
-        if (strcmp(path,"/") == 0)
-            sprintf(buff,"/%s",dirp->d_name);
-        else
-            sprintf(buff,"%s/%s",path,dirp->d_name);
-
-        Result1 = isdir(buff);
-        if (Result1 == 0){
-            fprintf(stdout,"%s\n",buff);
-            fflush(stdout);
-        }
-        else if (Result1 == 1){
-            ret_cd2 = process_dir(buff);
-            if (ret_cd2 != 0){
-                fprintf(stderr,
-                        "dir: ERROR: Cannot read dir %s: Permission "
-                        "denied\n",
-                        buff);
-            }
-            else{
-                fprintf(stdout,"%s\n",buff);
-                fflush(stdout);
-            }
-        }
-        else;
-    }
-    Result1 = 0;
-    ret_cd2 = 0;
-    closedir(dp);
-    return(0);
-
-*/
-
-	delete[] absolutePath;
-	closedir(myDir); // release the structure DIR* myDir too
-
-
-//
-//	else
-//	{
-//		HANDLE hSearch;
-//		WIN32_FIND_DATA findData;
-//		char* tmp = absolutePath.getBytes();
-//
-//		hSearch = ::FindFirstFile(tmp, &findData);
-//		if (hSearch == INVALID_HANDLE_VALUE)
-//			return fileList;
-//
-//		std::string fileFound(findData.cFileName);
-//
-//		if (fileFound != "." && fileFound != "..")
-//			fileList.push_back(WString(fileFound));
-//
-//		while (::FindNextFile(hSearch,&findData))
-//		{
-//			fileFound = findData.cFileName;
-//			if (fileFound != "." && fileFound != "..")
-//				fileList.push_back(WString(fileFound));
-//		}
-//		::FindClose(hSearch);
-//		delete[] tmp;
-//	}
-	return fileList;
+    return fileList;
 }
+
 
 std::list<File> MacOSFileSystem::listRoots()
 {
@@ -552,13 +463,16 @@ std::list<File> MacOSFileSystem::listRoots()
 //		pos = next+1;
 //	next = deviceStrings.find(chNull,pos);
 //	}
+
 	return rootList;
 }
+
 
 WString	MacOSFileSystem::normalize(const WString& s)
 {
 	return s; //SF250202
 }
+
 
 WString MacOSFileSystem::normalize(const WString& s, int i, int j)
 {
@@ -612,6 +526,7 @@ WString MacOSFileSystem::normalize(const WString& s, int i, int j)
 	return stringbuffer;
 }
 
+
 int MacOSFileSystem::normalizePrefix(const WString& s, int i, WString& stringbuffer)
 {
     int j;
@@ -635,6 +550,7 @@ int MacOSFileSystem::normalizePrefix(const WString& s, int i, WString& stringbuf
     return j;
 }
 
+
 int MacOSFileSystem::prefixLength(const WString& s)
 {
     JDFCh c = slash;
@@ -651,167 +567,134 @@ int MacOSFileSystem::prefixLength(const WString& s)
         return 0;
 }
 
+
 bool MacOSFileSystem::isSlash(JDFCh c)
 {
-	return c == chBackSlash || c == chForwardSlash;
+	return ((c == chBackSlash) || (c == chForwardSlash));
 }
+
 
 bool MacOSFileSystem::isLetter(JDFCh c)
 {
-    return c >= chLatin_a && c <= chLatin_z || c >= chLatin_A || c <= chLatin_Z;
+    return ((c >= chLatin_a) && (c <= chLatin_z) || (c >= chLatin_A) || (c <= chLatin_Z));
 }
+
 
 WString MacOSFileSystem::slashify(const WString& s)
 {
-	if(s.length() > 0 && s.at(0) != slash)
-        return slash + s;
-    else
-        return s;
+	if((s.length() > 0) && (s.at(0) != slash))
+        return (slash + s);
+
+    return s;
 }
+
 
 WString MacOSFileSystem::getDrive(const WString& s)
 {
     int i = prefixLength(s);
-    return i != 3 ? "" : s.substr(0, 2);
+
+    return ((i != 3) ? L"" : s.substr(0, 2));
 }
 
-bool MacOSFileSystem::rename(File& src, File& target)
+
+bool MacOSFileSystem::rename(File& src, File& dst)
 {
-	File targetParentFile = target.getParentFile();
+	File dstParentFile = dst.getParentFile();
 
-	if (targetParentFile.getPath().length() == 0)
+	if (dstParentFile.getPath().length() == 0)
 	{
-		char* srcPath = src.getAbsolutePath().getBytes();
-		char* destPath = File(src.getParentFile(),target.getName()).getAbsolutePath().getBytes();
-		bool ret = !((bool)::rename(srcPath,destPath));
-		delete[] srcPath;
-		delete[] destPath;
-		return ret;
+		WString srcPath  = src.getAbsolutePath();
+		WString destPath = File(src.getParentFile(), dst.getName()).getAbsolutePath();
+
+        int iRes = ::rename(srcPath.peekBytes(), destPath.peekBytes());
+
+		return (iRes == 0);
 	}
 
-	if (src.getParentFile() == target.getParentFile())
+
+	if (src.getParentFile() == dst.getParentFile())
 	{
-		char* srcPath = src.getAbsolutePath().getBytes();
-		char* destPath = target.getAbsolutePath().getBytes();
-		bool ret = !((bool)::rename(srcPath,destPath));
-		delete[] srcPath;
-		delete[] destPath;
-		return ret;
+		WString srcPath  = src.getAbsolutePath();
+		WString destPath = dst.getAbsolutePath();
+
+        int iRes = ::rename(srcPath.peekBytes(), destPath.peekBytes());
+
+		return (iRes == 0);
 	}
-	else
-		return false;
+
+    return false;
 }
+
 
 bool MacOSFileSystem::moveTo(const File& src, const File& dst)
 {
-	File targetParentFile = dst.getParentFile();
-	if (targetParentFile.getPath().length() == 0)
+	File dstParentFile = dst.getParentFile();
+
+	if (dstParentFile.getPath().length() == 0)
 	{
-		char* srcPath = src.getAbsolutePath().getBytes();
-		char* destPath = File(src.getParentFile(),dst.getName()).getAbsolutePath().getBytes();
-		bool ret = !((bool)::rename(srcPath,destPath));
-		delete[] srcPath;
-		delete[] destPath;
-		return ret;
+		WString srcPath  = src.getAbsolutePath();
+		WString destPath = File(src.getParentFile(), dst.getName()).getAbsolutePath();
+
+        int iRes = ::rename(srcPath.peekBytes(), destPath.peekBytes());
+
+		return (iRes == 0);
 	}
 
 	if (src.getParentFile() == dst.getParentFile())
 	{
-		char* srcPath = src.getAbsolutePath().getBytes();
-		char* destPath = dst.getAbsolutePath().getBytes();
-		bool ret = !((bool)::rename(srcPath,destPath));
-		delete[] srcPath;
-		delete[] destPath;
-		return ret;
-	}
-	else
-		return false;
+		WString srcPath  = src.getAbsolutePath();
+		WString destPath = dst.getAbsolutePath();
 
+        int iRes = ::rename(srcPath.peekBytes(), destPath.peekBytes());
+
+		return (iRes == 0);
+	}
+
+    return false;
 }
+
 
 WString MacOSFileSystem::getUserPath()
 {
-	char* temp = new char[MAX_PATH+1];
-//	if (gOnNT)
-//	{
-//		JDFCh cwd[ MAX_PATH ];
-//		GetCurrentDirectoryW(MAX_PATH, cwd);
-//		return WString(cwd);
-//	}
-//	else
-//	{
-//	    char cwd[ MAX_PATH ];
-//		GetCurrentDirectory(MAX_PATH, cwd);
-//		return WString(cwd);
-//	}
+	char temp[MAX_PATH + 1] = "";
+
 	return WString(getwd(temp));
 }
+
 
 WString MacOSFileSystem::getDriveDirectory(JDFCh c)
 {
 	return WString(JDFStrL(""));
 }
 
+
 WString MacOSFileSystem::resolve(const File& file)
 {
-	WString s = file.getPath();
-	return s; // SF250202
-    int i = getPrefixLength(file);
+	WString ret = WString::emptyStr;
+	
+	WString relPath = file.getPath();
+	WString workingDir = getwd(NULL);
+	
+	if (!relPath.startsWith(WString::slash))
+		workingDir.append(WString::slash);	
 
-    if(i == 2 && s.at(0) == slash)
-        return s;
+	ret = workingDir + relPath;
 
-    if(i == 3)
-        return s;
-
-    if(i == 0)
-        return getUserPath() + slashify(s);
-
-    if(i == 1)
-    {
-		WString s1 = getUserPath();
-		WString s3 = getDrive(s1);
-        if(s3 != JDFStrL(""))
-            return s3 + s;
-        else
-            return s1 + s;
-    }
-    if(i == 2)
-    {
-        WString s2 = getUserPath();
-        WString s4 = getDrive(s2);
-        if(s4 != "" && (s.substr(0,2) == s4))
-            return s2 + slashify(s.substr(2));
-
-        JDFCh c = s.at(0);
-        WString  s5 = getDriveDirectory(c);
-        if(s5 != "")
-        {
-			WString s6(1,c);
-			s6+= ":" + s5 + slashify(s.substr(2));
-            return s6;
-        }
-        else
-        {
-            return WString(1,c) + ":" + slashify(s.substr(2));
-        }
-    }
-    else
-    {
-//        throw new InternalError("Unresolvable path: " + s);
-		return WString(JDFStrL(""));
-    }
+	return ret;
+	
 }
+
 
 WString MacOSFileSystem::resolve(const WString& s, const WString& s1)
 {
 	JDFCh c = slash;
-	int i  = s.length();
+	int   i = s.length();
 
-	if(i == 0)
+	if (i == 0)
 		return s1;
 
 	int j = s1.length();
+
 	if(j == 0)
 		return s;
 
@@ -824,10 +707,13 @@ WString MacOSFileSystem::resolve(const WString& s, const WString& s1)
 			s2 = s2.substr(1);
 
 	WString s3 = s;
+
 	if(s3.at(i - 1) == c)
 		s3 = s3.substr(0, i - 1);
-	return s3 + slashify(s2);
+
+	return (s3 + slashify(s2));
 }
+
 
 WString MacOSFileSystem::fromURIPath(const WString& host,const WString& path)
 {
@@ -846,94 +732,37 @@ WString MacOSFileSystem::fromURIPath(const WString& host,const WString& path)
 	return s;
 }
 
+
 bool MacOSFileSystem::setLastModifiedTime(const File& file, JDFUInt64 time)
 {
-	char* tmpName = file.getAbsolutePath().getBytes();
-	struct utimbuf myUtimbuf;
+	WString        absolutePath(file.getAbsolutePath());
+	struct utimbuf buf;
 
-	myUtimbuf.modtime = time;
+	buf.modtime = time;
 
-	bool bRet = (bool) !utime(tmpName,&myUtimbuf);
+	if (utime(absolutePath.peekBytes(), &buf) != 0)
+        return false;
 
-
-	delete[] tmpName;
-	return bRet;
-
-//	HANDLE hFile;
-//
-//	WString absolutePath = file.getAbsolutePath();
-//
-//	if (gOnNT)
-//	{
-//		addUNCPrefetch(absolutePath);
-//		replaceYenWonSigns(absolutePath);
-//		hFile = ::CreateFileW((LPCWSTR)absolutePath.c_str(),
-//						GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE,
-//						NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
-//	}
-//	else
-//	{
-//		char* tmp = absolutePath.getBytes();
-//		hFile = ::CreateFile(tmp,
-//						GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE,
-//						NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
-//		delete[] tmp;
-//	}
-//
-//	// invalid path
-//
-//	if (hFile == INVALID_HANDLE_VALUE)
-//		return false;
-//
-//	FILETIME modificationTime = BiasTimeNative(time);
-//	BOOL res = ::SetFileTime(hFile, NULL, NULL, &modificationTime);
-//	::CloseHandle(hFile);
-//	return (res == TRUE);
 	return true;
 }
+
 
 bool MacOSFileSystem::setReadOnly(const File& file)
 {
-	struct stat fprop;
-	char* tmpName = file.getName().getBytes();
-	mode_t protection;
+	WString     absolutePath(file.getAbsolutePath());
+	struct stat buf;
 
-	if (!stat (tmpName, &fprop)){
-		delete(tmpName);
+	if (stat(absolutePath.peekBytes(),&buf) != 0)
+        return false;
+
+	mode_t pmode = (buf.st_mode & (0xFFFFFFFF & S_IWUSR));
+
+	if (chmod(absolutePath.peekBytes(), pmode) != 0)
 		return false;
-	}
 
-	protection = fprop.st_mode & (0xFFFFFFFF & S_IWUSR);
-
-	if (!chmod(tmpName,protection)){
-		delete[] tmpName;
-		return false;
-	}
-
-	delete(tmpName);
-	return true;
-//	WString absolutePath = file.getAbsolutePath();
-//
-//	// keep old attributes
-//
-//	// solve MAX_PATH limit
-//	if (gOnNT)
-//	{
-//		addUNCPrefetch(absolutePath);
-//		replaceYenWonSigns(absolutePath);
-//		DWORD fileAttributes = ::GetFileAttributesW((LPCWSTR)absolutePath.c_str());
-//		return (::SetFileAttributesW((LPCWSTR)absolutePath.c_str(), fileAttributes | FILE_ATTRIBUTE_READONLY) != 0);
-//	}
-//	else
-//	{
-//		char* tmp = absolutePath.getBytes();
-//		DWORD fileAttributes = ::GetFileAttributes(tmp);
-//		BOOL ret = ::SetFileAttributes(tmp, fileAttributes | FILE_ATTRIBUTE_READONLY);
-//		delete[] tmp;
-//		return (ret == TRUE);
-//	}
 	return true;
 }
+
 
 WString MacOSFileSystem::canonicalize(const WString& s) // throw IOException
 {
@@ -965,71 +794,80 @@ WString MacOSFileSystem::canonicalize(const WString& s) // throw IOException
 
 JDFUInt64 MacOSFileSystem::getLastAccessedTime(const File& file)
 {
+	time_t lctime = 0;
+
+	WString     absolutePath(file.getAbsolutePath());
 	struct stat buf;
-	time_t lctime;
-	char *tmpName = file.getName().getBytes();
 
-	stat (tmpName,&buf);
-	lctime = buf.st_atime;
+	if (stat(absolutePath.peekBytes(),&buf) == 0)
+    	lctime = buf.st_atime;
 
-	delete[] tmpName;
 	return (JDFUInt64)lctime;
 }
 
+
 bool MacOSFileSystem::copyTo(const File& src, const File& dst)
 {
-	// check if destination is readonly
+	// TODO: check if destination is readonly
+	
+	WString dstFile = dst.getAbsolutePath();
+	WString srcFile = src.getAbsolutePath();
 
-	char* srcFile = src.getAbsolutePath().getBytes();
-	char* dstFile = dst.getAbsolutePath().getBytes();
+	FILE* fin = fopen(srcFile.peekBytes(), "r");
 
-	int c;
-	FILE *in, *out;
-
-	in  =  fopen(srcFile, "r");
-	if (!in){
+	if (!fin)
 		return false;
-	}
-	out  =  fopen(dstFile, "w");
-	if (!out){
-		fclose(in);
-		return false;
-	}
 
-	while((c = fgetc(in)) != EOF) fputc(c,out);
-	fclose(in);
-	fclose(out);
-	delete[] srcFile;
-	delete[] dstFile;
-	return true;
+	FILE* fout = fopen(dstFile.peekBytes(), "w");
+
+	if (!fout)
+	{
+	    fclose(fout);
+	    return false;
+	}
+	
+    bool bRes = true;
+
+    int c = 0;
+    
+	while ((c = fgetc(fin)) != EOF)
+    {
+	    if (fputc(c, fout) == EOF)
+	    {
+	        bRes = false;
+	        break;
+	    }
+	}
+	    
+	fclose(fin);
+	fclose(fout);
+
+	return bRes;
 }
+
 
 bool MacOSFileSystem::makeWritable(const File& file)
 {
-	struct stat fprop;
-	char* tmpName = file.getName().getBytes();
-	mode_t protection;
+	WString     absolutePath(file.getAbsolutePath());
+	struct stat buf;
 
-	if (!stat (tmpName, &fprop)){
-		delete(tmpName);
+	if (stat(absolutePath.peekBytes(),&buf) != 0)
+        return false;
+
+	mode_t pmode = buf.st_mode | S_IWUSR;
+
+	if (chmod(absolutePath.peekBytes(), pmode) != 0)
 		return false;
-	}
 
-	protection = fprop.st_mode | S_IWUSR;
-
-	if (!chmod(tmpName,protection)){
-		delete[] tmpName;
-		return false;
-	}
-
-	delete(tmpName);
 	return true;
 }
+
 
 File MacOSFileSystem::tempFilePath()
 {
 	WString tmpDirName(L"/private/var/tmp"); // default
-	FSRef tmpDirRef;
+	FSRef   tmpDirRef;
+	
 	OSErr err = FSFindFolder(kOnAppropriateDisk, kTemporaryFolderType, kDontCreateFolder,  &tmpDirRef);
 
 	if (err == noErr)
@@ -1066,9 +904,8 @@ void addUNCPrefetch(WString& s)
  
 bool MacOSFileSystem::isRoot(const File& file)
 {
-	return (getPrefixLength(file) && getPrefixLength(file) == static_cast<int>(file.getPath().length()) && !isSlash(file.getPath()[0]) );
+	return (getPrefixLength(file) && (getPrefixLength(file) == static_cast<int>(file.getPath().length())) && !isSlash(file.getPath()[0]));
 }
-
 
 
 } // namespace JDF

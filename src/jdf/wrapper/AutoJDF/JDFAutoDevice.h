@@ -575,12 +575,6 @@ virtual bool init();
 * Append element CostCenter
  */
 	JDFCostCenter AppendCostCenter();
-/**
-* create inter-resource link to refTarget
-* @param JDFCostCenter& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefCostCenter(JDFCostCenter& refTarget);
 
 /** Get Element DeviceCap
 * 
@@ -599,12 +593,6 @@ virtual bool init();
 * Append element DeviceCap
  */
 	JDFDeviceCap AppendDeviceCap();
-/**
-* create inter-resource link to refTarget
-* @param JDFDeviceCap& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefDeviceCap(JDFDeviceCap& refTarget);
 
 /** Get Element IconList
 * 

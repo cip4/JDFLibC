@@ -75,10 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoSeparationSpec.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoSeparationSpec : public JDFResource
+class JDFAutoSeparationSpec : public JDFElement
 
 *********************************************************************
 */
@@ -106,17 +108,6 @@ JDFAutoSeparationSpec& JDFAutoSeparationSpec::operator=(const KElement& other){
 	return L"*:,SeparationSpec";
 };
 
-bool JDFAutoSeparationSpec::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoSeparationSpec::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -127,14 +118,14 @@ bool JDFAutoSeparationSpec::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoSeparationSpec::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",Name";
+		return JDFElement::RequiredAttributes()+L",Name";
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoSeparationSpec::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -163,5 +154,66 @@ bool JDFAutoSeparationSpec::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSeparationSpec::ValidName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Name,AttributeType_string,RequiredLevel(level));
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoSeparationSpec::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoSeparationSpec::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoSeparationSpec::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoSeparationSpec::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoSeparationSpec::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoSeparationSpec::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

@@ -122,7 +122,7 @@ void JDFStateBaseTestCase::testGetNamePath()
 		WString strNode =
 		                  "<DevCaps Name=\"RenderingParams\" LinkUsage=\"Input\">";
 		strNode.append(   "<DevCap>");
-		strNode.append(      "<DevCap Name=\"AutomatedOverprintParams\">");
+		strNode.append(      "<DevCap Name=\"AutomatedOverPrintParams\">");
 		   strNode.append(         "<BooleanState Name=\"OverPrintBlackText\" DefaultValue=\"true\" AllowedValueList=\"true false\"/>");
 		strNode.append(         "<BooleanState Name=\"OverPrintBlackLineArt\" DefaultValue=\"true\" AllowedValueList=\"true false\"/>");
 		strNode.append(      "</DevCap>");
@@ -134,12 +134,11 @@ void JDFStateBaseTestCase::testGetNamePath()
 		JDFDevCaps devCaps=(JDFDevCaps)jdfDoc.GetRoot();
 		JDFBooleanState state=(JDFBooleanState)devCaps.GetChildByTagName(JDFStrings::elm_BooleanState, WString::emptyStr, 0, 
 			mAttribute::emptyMap, false, true);
-		CPPUNIT_ASSERT_EQUAL( WString("RenderingParams/AutomatedOverprintParams/@OverPrintBlackText"), WString(state.GetNamePath(true)) );
+		CPPUNIT_ASSERT_EQUAL( WString("RenderingParams/AutomatedOverPrintParams/@OverPrintBlackText"), WString(state.GetNamePath(true)) );
 	}
-	catch (std::exception e)
+	catch (const JDFException& e)
 	{
-		cout  << endl << e.what();
-		CPPUNIT_FAIL("error in testGetNamePath()");
+		CPPUNIT_FAIL( e.what() );
 	}
 }
 

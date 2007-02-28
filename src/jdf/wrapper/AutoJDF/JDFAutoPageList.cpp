@@ -614,11 +614,6 @@ JDFSeparationSpec JDFAutoPageList::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoPageList::RefSeparationSpec(JDFSeparationSpec& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFElementColorParams JDFAutoPageList::GetElementColorParams(int iSkip)const{
 	JDFElementColorParams e=GetElement(elm_ElementColorParams,WString::emptyStr,iSkip);

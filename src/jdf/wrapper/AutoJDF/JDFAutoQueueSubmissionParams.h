@@ -390,12 +390,6 @@ public:
  * 
 */
 	JDFDisposition AppendDispositionElem();
-/**
-* create inter-resource link to refTarget
-* @param JDFDisposition& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefDispositionElem(JDFDisposition& refTarget);
 
 /**
  definition of unique elements in the JDF namespace

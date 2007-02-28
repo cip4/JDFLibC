@@ -83,7 +83,9 @@
 //////////////////////////////////////////////////////////////////////
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"
+#include "jdf/io/FileSystem.h"
 #include "jdf/io/File.h"
+
 #include "fileUtilTest.h"
 #include <iostream>
 
@@ -106,24 +108,41 @@ void fileUtilTest::setUp()
 
 void fileUtilTest::testFileExists()
 {
-	// note: the existence of files is checked via JDFParser in order to 
-	//       simplify this test across different file systems
-	
 	try
 	{
-		JDFParser p;
-		
 		// the plain file
-		CPPUNIT_ASSERT( p.Parse("data/emptyAuthorAttribute.jdf",false) );
+		File f = File("data/emptyAuthorAttribute.jdf");
+		CPPUNIT_ASSERT( f.exists() );
 
 		// relative to the current dir
-		CPPUNIT_ASSERT( p.Parse("./data/emptyAuthorAttribute.jdf",false) );
+		f = File("./data/emptyAuthorAttribute.jdf");
+		CPPUNIT_ASSERT( f.exists() );
 
 		// moving between different sub directories
-		CPPUNIT_ASSERT( p.Parse("../TestFiles/data/emptyAuthorAttribute.jdf",false) );
+		f = File("../TestFiles/data/emptyAuthorAttribute.jdf");
+		CPPUNIT_ASSERT( f.exists() );
 
-		// different subdirs relative to the current dir
-		CPPUNIT_ASSERT( p.Parse("./../TestFiles/data/emptyAuthorAttribute.jdf",false) );
+		// different subdirs explicitly relative to the current dir
+		f = File("./../TestFiles/data/emptyAuthorAttribute.jdf");
+		CPPUNIT_ASSERT( f.exists() );
+		
+		// this file does _NOT_ exist
+		f = File("thisFileDoesReally_NOT_Exist12345.jdf");
+		CPPUNIT_ASSERT( !f.exists() );
+	}
+	catch (const JDFException& ex)
+	{
+		CPPUNIT_FAIL( ex.what() );
+	}
+}
+
+void fileUtilTest::testGetTempFilePath()
+{
+	try
+	{
+		FileSystem* fs = FileSystem::getFileSystem();
+		WString path = fs->tempFilePath().getAbsolutePath();
+		CPPUNIT_ASSERT ( !path.empty() );
 	}
 	catch (const JDFException& ex)
 	{

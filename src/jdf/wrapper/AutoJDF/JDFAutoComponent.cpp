@@ -667,11 +667,6 @@ JDFDisjointing JDFAutoComponent::AppendDisjointing(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoComponent::RefDisjointing(JDFDisjointing& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFSheet JDFAutoComponent::GetSheet()const{
 	JDFSheet e=GetElement(elm_Sheet);

@@ -172,19 +172,20 @@ public:
 
 /** Get Element PDLResourceAlias
 * 
+* @param int iSkip number of elements to skip
 * @return JDFPDLResourceAlias The element
 */
-	JDFPDLResourceAlias GetCreatePDLResourceAlias();
+	JDFPDLResourceAlias GetCreatePDLResourceAlias(int iSkip=0);
 
 /**
 * const get element PDLResourceAlias
-*@return  JDFPDLResourceAlias The element
+* @param int iSkip number of elements to skip
+* @return JDFPDLResourceAlias The element
 */
-	JDFPDLResourceAlias GetPDLResourceAlias()const;
+	JDFPDLResourceAlias GetPDLResourceAlias(int iSkip=0)const;
 /**
 * Append element PDLResourceAlias
- * 
-*/
+ */
 	JDFPDLResourceAlias AppendPDLResourceAlias();
 /**
 * create inter-resource link to refTarget
@@ -210,22 +211,11 @@ public:
 * Append element SeparationSpec
  */
 	JDFSeparationSpec AppendSeparationSpec();
-/**
-* create inter-resource link to refTarget
-* @param JDFSeparationSpec& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefSeparationSpec(JDFSeparationSpec& refTarget);
 
 /**
- definition of unique elements in the JDF namespace
+ definition of optional elements in the JDF namespace
 */
-	virtual WString UniqueElements()const;
-
-/**
- definition of required elements in the JDF namespace
-*/
-	virtual WString RequiredElements()const;
+	virtual WString OptionalElements()const;
 }; // endJDFAutoColorSpaceSubstitute
 
 // ******************************************************

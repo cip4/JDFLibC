@@ -259,7 +259,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = (
+					i386,
+					ppc,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 			};
@@ -283,9 +286,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = (
+					i386,
+					ppc,
+				);
+				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GENERATE_PROFILING_CODE = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
 			name = Debug;
 		};
@@ -296,6 +305,7 @@
 					ppc,
 					i386,
 				);
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -303,6 +313,7 @@
 					"../../../src/**",
 					"../../../external/xerces/**",
 				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};

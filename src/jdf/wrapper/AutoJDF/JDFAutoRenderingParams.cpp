@@ -75,7 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoRenderingParams.h"
-#include "jdf/wrapper/JDFAutomatedOverprintParams.h"
+#include "jdf/wrapper/JDFAutomatedOverPrintParams.h"
 #include "jdf/wrapper/JDFObjectResolution.h"
 #include "jdf/wrapper/JDFMedia.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -272,27 +272,27 @@ bool JDFAutoRenderingParams::init(){
 **************************************************************** */
 
 
-JDFAutomatedOverprintParams JDFAutoRenderingParams::GetAutomatedOverprintParams()const{
-	JDFAutomatedOverprintParams e=GetElement(elm_AutomatedOverprintParams);
+JDFAutomatedOverPrintParams JDFAutoRenderingParams::GetAutomatedOverPrintParams()const{
+	JDFAutomatedOverPrintParams e=GetElement(elm_AutomatedOverPrintParams);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAutomatedOverprintParams JDFAutoRenderingParams::GetCreateAutomatedOverprintParams(){
-	JDFAutomatedOverprintParams e=GetCreateElement(elm_AutomatedOverprintParams);
+JDFAutomatedOverPrintParams JDFAutoRenderingParams::GetCreateAutomatedOverPrintParams(){
+	JDFAutomatedOverPrintParams e=GetCreateElement(elm_AutomatedOverPrintParams);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAutomatedOverprintParams JDFAutoRenderingParams::AppendAutomatedOverprintParams(){
-	JDFAutomatedOverprintParams e=AppendElementN(elm_AutomatedOverprintParams,1);
+JDFAutomatedOverPrintParams JDFAutoRenderingParams::AppendAutomatedOverPrintParams(){
+	JDFAutomatedOverPrintParams e=AppendElementN(elm_AutomatedOverPrintParams,1);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoRenderingParams::RefAutomatedOverprintParams(JDFAutomatedOverprintParams& refTarget){
+JDFRefElement JDFAutoRenderingParams::RefAutomatedOverPrintParams(JDFAutomatedOverPrintParams& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -357,14 +357,14 @@ JDFRefElement JDFAutoRenderingParams::RefMedia(JDFMedia& refTarget){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
-		nElem=NumChildElements(elm_AutomatedOverprintParams);
+		nElem=NumChildElements(elm_AutomatedOverPrintParams);
 		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_AutomatedOverprintParams);
+			vElem.AppendUnique(elm_AutomatedOverPrintParams);
 			if (++n>=nMax)
 				return vElem;
 		}else if(nElem==1){
-			if(!GetAutomatedOverprintParams().IsValid(level)) {
-				vElem.AppendUnique(elm_AutomatedOverprintParams);
+			if(!GetAutomatedOverPrintParams().IsValid(level)) {
+				vElem.AppendUnique(elm_AutomatedOverPrintParams);
 				if (++n>=nMax)
 					return vElem;
 			}
@@ -399,13 +399,13 @@ JDFRefElement JDFAutoRenderingParams::RefMedia(JDFMedia& refTarget){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoRenderingParams::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",AutomatedOverprintParams,Media";
+		return JDFResource::UniqueElements()+L",AutomatedOverPrintParams,Media";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoRenderingParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",AutomatedOverprintParams,ObjectResolution,Media";
+		return JDFResource::OptionalElements()+L",AutomatedOverPrintParams,ObjectResolution,Media";
 	};
 }; // end namespace JDF

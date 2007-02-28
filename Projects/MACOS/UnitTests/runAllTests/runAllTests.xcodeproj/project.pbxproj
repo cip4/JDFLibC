@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		430C55BC0B7BB45100FE0C8E /* libJDFWrapperCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55B90B7BB45100FE0C8E /* libJDFWrapperCore.a */; };
-		430C55BD0B7BB45200FE0C8E /* libJDFWrapperLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55BA0B7BB45100FE0C8E /* libJDFWrapperLib.a */; };
-		430C55BE0B7BB45200FE0C8E /* libJDFToolsLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55BB0B7BB45100FE0C8E /* libJDFToolsLib.a */; };
-		430C55F20B7BB71000FE0C8E /* Xerces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55F10B7BB71000FE0C8E /* Xerces.framework */; };
 		430C55FC0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 430C55FB0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib */; };
 		430C56770B7BB9C800FE0C8E /* CommentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56110B7BB9C800FE0C8E /* CommentTest.cpp */; };
 		430C56780B7BB9C800FE0C8E /* CommentTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56120B7BB9C800FE0C8E /* CommentTest.h */; };
@@ -143,7 +139,11 @@
 		430C571D0B7BB9DA00FE0C8E /* StringUtilTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56FB0B7BB9DA00FE0C8E /* StringUtilTest.h */; };
 		430C571E0B7BB9DA00FE0C8E /* URLUtilTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 430C56FC0B7BB9DA00FE0C8E /* URLUtilTest.cpp */; };
 		430C571F0B7BB9DA00FE0C8E /* URLUtilTest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430C56FD0B7BB9DA00FE0C8E /* URLUtilTest.h */; };
-		8DD76F6A0486A84900D96B5E /* runAllTests.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* runAllTests.1 */; };
+		439796D30B8DEC63000A6E05 /* Xerces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439796D20B8DEC63000A6E05 /* Xerces.framework */; };
+		43FE5BA10B8EE00D00CCB2FD /* libJDFToolsLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE5B9E0B8EE00D00CCB2FD /* libJDFToolsLib.a */; };
+		43FE5BA20B8EE00D00CCB2FD /* libJDFWrapperCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE5B9F0B8EE00D00CCB2FD /* libJDFWrapperCore.a */; };
+		43FE5BA30B8EE00D00CCB2FD /* libJDFWrapperLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE5BA00B8EE00D00CCB2FD /* libJDFWrapperLib.a */; };
+		43FE61FD0B8EE92500CCB2FD /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43FE61FC0B8EE92500CCB2FD /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -153,7 +153,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				8DD76F6A0486A84900D96B5E /* runAllTests.1 in CopyFiles */,
 				430C56780B7BB9C800FE0C8E /* CommentTest.h in CopyFiles */,
 				430C567A0B7BB9C800FE0C8E /* ContentCreationTestCase.h in CopyFiles */,
 				430C567C0B7BB9C800FE0C8E /* DocumentJDFImplTestCase.h in CopyFiles */,
@@ -225,10 +224,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		430C55B90B7BB45100FE0C8E /* libJDFWrapperCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperCore.a; path = ../../../../lib/Debug/libJDFWrapperCore.a; sourceTree = SOURCE_ROOT; };
-		430C55BA0B7BB45100FE0C8E /* libJDFWrapperLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperLib.a; path = ../../../../lib/Debug/libJDFWrapperLib.a; sourceTree = SOURCE_ROOT; };
-		430C55BB0B7BB45100FE0C8E /* libJDFToolsLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFToolsLib.a; path = ../../../../lib/Debug/libJDFToolsLib.a; sourceTree = SOURCE_ROOT; };
-		430C55F10B7BB71000FE0C8E /* Xerces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Xerces.framework; path = ../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default/Xerces.framework; sourceTree = SOURCE_ROOT; };
 		430C55FB0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libcppunit-1.12.0.0.0.dylib"; path = "../../../../external/cppunit/src/cppunit/.libs/libcppunit-1.12.0.0.0.dylib"; sourceTree = SOURCE_ROOT; };
 		430C56110B7BB9C800FE0C8E /* CommentTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CommentTest.cpp; sourceTree = "<group>"; };
 		430C56120B7BB9C800FE0C8E /* CommentTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CommentTest.h; sourceTree = "<group>"; };
@@ -361,8 +356,12 @@
 		430C56FB0B7BB9DA00FE0C8E /* StringUtilTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringUtilTest.h; sourceTree = "<group>"; };
 		430C56FC0B7BB9DA00FE0C8E /* URLUtilTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URLUtilTest.cpp; sourceTree = "<group>"; };
 		430C56FD0B7BB9DA00FE0C8E /* URLUtilTest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URLUtilTest.h; sourceTree = "<group>"; };
+		439796D20B8DEC63000A6E05 /* Xerces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Xerces.framework; path = ../../../../external/xerces/Projects/MacOS/Xcode/XercesLib/build/Development/Xerces.framework; sourceTree = SOURCE_ROOT; };
+		43FE5B9E0B8EE00D00CCB2FD /* libJDFToolsLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFToolsLib.a; path = ../../../../Build/XCode/lib/Debug/libJDFToolsLib.a; sourceTree = SOURCE_ROOT; };
+		43FE5B9F0B8EE00D00CCB2FD /* libJDFWrapperCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperCore.a; path = ../../../../Build/XCode/lib/Debug/libJDFWrapperCore.a; sourceTree = SOURCE_ROOT; };
+		43FE5BA00B8EE00D00CCB2FD /* libJDFWrapperLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJDFWrapperLib.a; path = ../../../../Build/XCode/lib/Debug/libJDFWrapperLib.a; sourceTree = SOURCE_ROOT; };
+		43FE61FC0B8EE92500CCB2FD /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		8DD76F6C0486A84900D96B5E /* runAllTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = runAllTests; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6859E8B029090EE04C91782 /* runAllTests.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = runAllTests.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,11 +369,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				430C55BC0B7BB45100FE0C8E /* libJDFWrapperCore.a in Frameworks */,
-				430C55BD0B7BB45200FE0C8E /* libJDFWrapperLib.a in Frameworks */,
-				430C55BE0B7BB45200FE0C8E /* libJDFToolsLib.a in Frameworks */,
-				430C55F20B7BB71000FE0C8E /* Xerces.framework in Frameworks */,
 				430C55FC0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib in Frameworks */,
+				439796D30B8DEC63000A6E05 /* Xerces.framework in Frameworks */,
+				43FE5BA10B8EE00D00CCB2FD /* libJDFToolsLib.a in Frameworks */,
+				43FE5BA20B8EE00D00CCB2FD /* libJDFWrapperCore.a in Frameworks */,
+				43FE5BA30B8EE00D00CCB2FD /* libJDFWrapperLib.a in Frameworks */,
+				43FE61FD0B8EE92500CCB2FD /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,11 +421,12 @@
 		430C559A0B7BB13D00FE0C8E /* Libaries */ = {
 			isa = PBXGroup;
 			children = (
+				439796D20B8DEC63000A6E05 /* Xerces.framework */,
 				430C55FB0B7BB8BA00FE0C8E /* libcppunit-1.12.0.0.0.dylib */,
-				430C55F10B7BB71000FE0C8E /* Xerces.framework */,
-				430C55B90B7BB45100FE0C8E /* libJDFWrapperCore.a */,
-				430C55BA0B7BB45100FE0C8E /* libJDFWrapperLib.a */,
-				430C55BB0B7BB45100FE0C8E /* libJDFToolsLib.a */,
+				43FE61FC0B8EE92500CCB2FD /* CoreServices.framework */,
+				43FE5B9E0B8EE00D00CCB2FD /* libJDFToolsLib.a */,
+				43FE5B9F0B8EE00D00CCB2FD /* libJDFWrapperCore.a */,
+				43FE5BA00B8EE00D00CCB2FD /* libJDFWrapperLib.a */,
 			);
 			name = Libaries;
 			sourceTree = "<group>";
@@ -643,7 +644,6 @@
 		C6859E8C029090F304C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				C6859E8B029090EE04C91782 /* runAllTests.1 */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
@@ -676,6 +676,31 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "runAllTests" */;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				da,
+				Dutch,
+				fi,
+				Italian,
+				ko,
+				no,
+				ru,
+				Spanish,
+				sv,
+				zh_CN,
+				zh_TW,
+				pt,
+				de,
+				en,
+				es,
+				fr,
+				it,
+				ja,
+				nl,
+			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* runAllTests */;
 			projectDirPath = "";
 			targets = (
@@ -768,8 +793,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/Xcode/XercesLib/build/Development\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -779,9 +806,19 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_7)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../lib/Debug\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/cppunit/src/cppunit/.libs\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../JDFWrapperCore/build/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../JDFWrapper/build/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_5 = "\"$(SRCROOT)/../../JDFToolsLib/build/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_6 = "\"$(SYSTEM_LIBRARY_DIR)/CoreServices/Encodings\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_7 = "\"$(SRCROOT)/../../../../Build/XCode/lib/Debug\"";
 				PRODUCT_NAME = runAllTests;
 				ZERO_LINK = NO;
 			};
@@ -790,12 +827,17 @@
 		1DEB923308733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = (
+					i386,
+					ppc,
+				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/XCode/XercesLib/build/Default\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/xerces/Projects/MacOS/Xcode/XercesLib/build/Development\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -803,9 +845,28 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_7)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_10)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_11)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../lib/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../JDFWrapperCore/build/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_10 = "\"$(SRCROOT)/../../../../lib/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_11 = "\"$(SRCROOT)/../../../../Build/XCode/lib/Debug\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/cppunit/src/cppunit/.libs\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../JDFWrapper/build/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../JDFToolsLib/build/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_5 = "\"$(SYSTEM_LIBRARY_DIR)/CoreServices/Encodings\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_6 = "\"$(SRCROOT)/../../../../obj/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_7 = "\"$(SRCROOT)/../../../../obj/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_8 = "\"$(SRCROOT)/../../../../lib/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_9 = "\"$(SRCROOT)/../../../../external/cppunit/src/cppunit/.libs\"";
 				PRODUCT_NAME = runAllTests;
 			};
 			name = Release;
@@ -813,45 +874,48 @@
 		1DEB923608733DC60010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PROFILING_CODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(HEADER_SEARCH_PATHS_QUOTED_1)",
 					"$(HEADER_SEARCH_PATHS_QUOTED_2)",
 					"$(HEADER_SEARCH_PATHS_QUOTED_3)",
-					"$(HEADER_SEARCH_PATHS_QUOTED_4)",
-					"$(HEADER_SEARCH_PATHS_QUOTED_5)",
-					"$(HEADER_SEARCH_PATHS_QUOTED_6)",
 				);
-				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../src\"";
-				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/xerces/include\"";
-				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../external/cppunit/include\"/**";
-				HEADER_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../JDFToolsLib\"/**";
-				HEADER_SEARCH_PATHS_QUOTED_5 = "\"$(SRCROOT)/../../JDFWrapperCore\"/**";
-				HEADER_SEARCH_PATHS_QUOTED_6 = "\"$(SRCROOT)/../../JDFWrapper\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/src/**\"";
+				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/CppUnit/include\"";
+				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../src\"";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
 		1DEB923708733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../../../external/xerces/include",
 					"$(HEADER_SEARCH_PATHS_QUOTED_1)",
 					"$(HEADER_SEARCH_PATHS_QUOTED_2)",
 					"$(HEADER_SEARCH_PATHS_QUOTED_3)",
-					"$(HEADER_SEARCH_PATHS_QUOTED_4)",
 				);
-				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../JDFToolsLib\"/**";
-				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../JDFWrapperCore\"/**";
-				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../JDFWrapper\"/**";
-				HEADER_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../../../external/cppunit/include\"/**";
+				HEADER_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../../external/xerces/include/**\"";
+				HEADER_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../../external/CppUnit/include\"";
+				HEADER_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../../../src\"";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};

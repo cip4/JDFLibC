@@ -75,10 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoDisposition.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoDisposition : public JDFResource
+class JDFAutoDisposition : public JDFElement
 
 *********************************************************************
 */
@@ -106,17 +108,6 @@ JDFAutoDisposition& JDFAutoDisposition::operator=(const KElement& other){
 	return L"*:,Disposition";
 };
 
-bool JDFAutoDisposition::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoDisposition::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -127,14 +118,14 @@ bool JDFAutoDisposition::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDisposition::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",DispositionAction,Priority,DispositionUsage,ExtraDuration,MinDuration,Until");
+		return JDFElement::OptionalAttributes()+WString(L",DispositionAction,Priority,DispositionUsage,ExtraDuration,MinDuration,Until");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoDisposition::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -292,5 +283,66 @@ bool JDFAutoDisposition::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDisposition::ValidUntil(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Until,AttributeType_dateTime,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoDisposition::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoDisposition::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoDisposition::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoDisposition::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoDisposition::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoDisposition::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

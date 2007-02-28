@@ -74,15 +74,15 @@
 ///////////////////////////////////////////////////////////////////
 
  
-#include "JDFAutomatedOverprintParams.h"
+#include "JDFAutomatedOverPrintParams.h"
 namespace JDF{
 /**
 * copy equivalance operator
 */
-	JDFAutomatedOverprintParams& JDFAutomatedOverprintParams::operator=(const KElement& other){
+	JDFAutomatedOverPrintParams& JDFAutomatedOverPrintParams::operator=(const KElement& other){
 		KElement::operator=(other);
 		if(!IsValid(ValidationLevel_Construct))
-		throw JDFException(L"Invalid constructor for JDFAutomatedOverprintParams: "+other.GetNodeName());
+		throw JDFException(L"Invalid constructor for JDFAutomatedOverPrintParams: "+other.GetNodeName());
 	return *this;
 };
 

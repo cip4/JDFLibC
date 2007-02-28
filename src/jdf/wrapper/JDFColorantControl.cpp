@@ -126,7 +126,27 @@ namespace JDF{
 		}
 
 		vName.AppendUnique(GetColorantParams().GetSeparations());
+
+		vName.Unify();
 		return vName;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	vWString JDFColorantControl::getDeviceColorantControlOrderSeparations()
+	{
+		if(HasChildElement(elm_DeviceColorantOrder))
+			return JDFAutoColorantControl::GetDeviceColorantOrder().GetSeparations();
+        return getColorantOrderSeparations();
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	vWString JDFColorantControl::getColorantOrderSeparations()
+	{
+		if(HasChildElement(elm_ColorantOrder))
+			return JDFAutoColorantControl::GetColorantOrder().GetSeparations();
+        return GetSeparations();
 	}
 
 }; // namespace JDF

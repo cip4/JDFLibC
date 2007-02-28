@@ -471,11 +471,6 @@ JDFDisposition JDFAutoResourcePullParams::AppendDispositionElem(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoResourcePullParams::RefDispositionElem(JDFDisposition& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFMISDetails JDFAutoResourcePullParams::GetMISDetails()const{
 	JDFMISDetails e=GetElement(elm_MISDetails);
@@ -494,11 +489,6 @@ JDFMISDetails JDFAutoResourcePullParams::AppendMISDetails(){
 	JDFMISDetails e=AppendElementN(elm_MISDetails,1);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoResourcePullParams::RefMISDetails(JDFMISDetails& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

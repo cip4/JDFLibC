@@ -570,12 +570,6 @@ virtual bool init();
  * 
 */
 	JDFDisjointing AppendDisjointing();
-/**
-* create inter-resource link to refTarget
-* @param JDFDisjointing& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefDisjointing(JDFDisjointing& refTarget);
 
 /** Get Element Ink
 * 

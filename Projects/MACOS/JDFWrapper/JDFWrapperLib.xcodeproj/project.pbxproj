@@ -51,8 +51,6 @@
 		3E57575D0B6E43D10004FB95 /* JDFAutoAssemblySection.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E574F4D0B6E43C70004FB95 /* JDFAutoAssemblySection.h */; };
 		3E57575E0B6E43D10004FB95 /* JDFAutoAssetListCreationParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E574F4E0B6E43C70004FB95 /* JDFAutoAssetListCreationParams.cpp */; };
 		3E57575F0B6E43D10004FB95 /* JDFAutoAssetListCreationParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E574F4F0B6E43C70004FB95 /* JDFAutoAssetListCreationParams.h */; };
-		3E5757600B6E43D10004FB95 /* JDFAutoAutomatedOverprintParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E574F500B6E43C70004FB95 /* JDFAutoAutomatedOverprintParams.cpp */; };
-		3E5757610B6E43D10004FB95 /* JDFAutoAutomatedOverprintParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E574F510B6E43C70004FB95 /* JDFAutoAutomatedOverprintParams.h */; };
 		3E5757620B6E43D10004FB95 /* JDFAutoBand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E574F520B6E43C70004FB95 /* JDFAutoBand.cpp */; };
 		3E5757630B6E43D10004FB95 /* JDFAutoBand.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E574F530B6E43C70004FB95 /* JDFAutoBand.h */; };
 		3E5757640B6E43D10004FB95 /* JDFAutoBarcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E574F540B6E43C70004FB95 /* JDFAutoBarcode.cpp */; };
@@ -1036,8 +1034,7 @@
 		3E575B360B6E43D10004FB95 /* JDFAudit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E5753260B6E43CC0004FB95 /* JDFAudit.h */; };
 		3E575B370B6E43D10004FB95 /* JDFAuditPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E5753270B6E43CC0004FB95 /* JDFAuditPool.cpp */; };
 		3E575B380B6E43D10004FB95 /* JDFAuditPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E5753280B6E43CC0004FB95 /* JDFAuditPool.h */; };
-		3E575B390B6E43D10004FB95 /* JDFAutomatedOverprintParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E5753290B6E43CC0004FB95 /* JDFAutomatedOverprintParams.cpp */; };
-		3E575B3A0B6E43D10004FB95 /* JDFAutomatedOverprintParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E57532A0B6E43CC0004FB95 /* JDFAutomatedOverprintParams.h */; };
+		3E575B3A0B6E43D10004FB95 /* JDFAutomatedOverPrintParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E57532A0B6E43CC0004FB95 /* JDFAutomatedOverPrintParams.h */; };
 		3E575B3B0B6E43D10004FB95 /* JDFBand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E57532B0B6E43CC0004FB95 /* JDFBand.cpp */; };
 		3E575B3C0B6E43D10004FB95 /* JDFBand.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E57532C0B6E43CC0004FB95 /* JDFBand.h */; };
 		3E575B3D0B6E43D10004FB95 /* JDFBarcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E57532D0B6E43CC0004FB95 /* JDFBarcode.cpp */; };
@@ -2066,6 +2063,9 @@
 		3E575F3C0B6E43D30004FB95 /* JDFXYPairRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E5757310B6E43D10004FB95 /* JDFXYPairRangeList.h */; };
 		3E575F3D0B6E43D30004FB95 /* JDFXYPairState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E5757320B6E43D10004FB95 /* JDFXYPairState.cpp */; };
 		3E575F3E0B6E43D30004FB95 /* JDFXYPairState.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E5757330B6E43D10004FB95 /* JDFXYPairState.h */; };
+		432AD13B0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 432AD1390B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.cpp */; };
+		432AD13C0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 432AD13A0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.h */; };
+		4352EF350B8E06FE0073FE29 /* JDFAutomatedOverPrintParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 436ACCB90B87885D00CCDB54 /* JDFAutomatedOverPrintParams.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2114,8 +2114,6 @@
 		3E574F4D0B6E43C70004FB95 /* JDFAutoAssemblySection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAutoAssemblySection.h; sourceTree = "<group>"; };
 		3E574F4E0B6E43C70004FB95 /* JDFAutoAssetListCreationParams.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutoAssetListCreationParams.cpp; sourceTree = "<group>"; };
 		3E574F4F0B6E43C70004FB95 /* JDFAutoAssetListCreationParams.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAutoAssetListCreationParams.h; sourceTree = "<group>"; };
-		3E574F500B6E43C70004FB95 /* JDFAutoAutomatedOverprintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutoAutomatedOverprintParams.cpp; sourceTree = "<group>"; };
-		3E574F510B6E43C70004FB95 /* JDFAutoAutomatedOverprintParams.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAutoAutomatedOverprintParams.h; sourceTree = "<group>"; };
 		3E574F520B6E43C70004FB95 /* JDFAutoBand.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutoBand.cpp; sourceTree = "<group>"; };
 		3E574F530B6E43C70004FB95 /* JDFAutoBand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAutoBand.h; sourceTree = "<group>"; };
 		3E574F540B6E43C70004FB95 /* JDFAutoBarcode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutoBarcode.cpp; sourceTree = "<group>"; };
@@ -3099,8 +3097,7 @@
 		3E5753260B6E43CC0004FB95 /* JDFAudit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAudit.h; sourceTree = "<group>"; };
 		3E5753270B6E43CC0004FB95 /* JDFAuditPool.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAuditPool.cpp; sourceTree = "<group>"; };
 		3E5753280B6E43CC0004FB95 /* JDFAuditPool.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAuditPool.h; sourceTree = "<group>"; };
-		3E5753290B6E43CC0004FB95 /* JDFAutomatedOverprintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutomatedOverprintParams.cpp; sourceTree = "<group>"; };
-		3E57532A0B6E43CC0004FB95 /* JDFAutomatedOverprintParams.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAutomatedOverprintParams.h; sourceTree = "<group>"; };
+		3E57532A0B6E43CC0004FB95 /* JDFAutomatedOverPrintParams.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFAutomatedOverPrintParams.h; sourceTree = "<group>"; };
 		3E57532B0B6E43CC0004FB95 /* JDFBand.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFBand.cpp; sourceTree = "<group>"; };
 		3E57532C0B6E43CC0004FB95 /* JDFBand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFBand.h; sourceTree = "<group>"; };
 		3E57532D0B6E43CC0004FB95 /* JDFBarcode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFBarcode.cpp; sourceTree = "<group>"; };
@@ -4135,6 +4132,9 @@
 		3E5757320B6E43D10004FB95 /* JDFXYPairState.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFXYPairState.cpp; sourceTree = "<group>"; };
 		3E5757330B6E43D10004FB95 /* JDFXYPairState.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFXYPairState.h; sourceTree = "<group>"; };
 		3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent.xcconfig; sourceTree = "<group>"; };
+		432AD1390B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutoAutomatedOverPrintParams.cpp; sourceTree = "<group>"; };
+		432AD13A0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFAutoAutomatedOverPrintParams.h; sourceTree = "<group>"; };
+		436ACCB90B87885D00CCDB54 /* JDFAutomatedOverPrintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutomatedOverPrintParams.cpp; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libJDFWrapperLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJDFWrapperLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -4220,8 +4220,8 @@
 				3E5753260B6E43CC0004FB95 /* JDFAudit.h */,
 				3E5753270B6E43CC0004FB95 /* JDFAuditPool.cpp */,
 				3E5753280B6E43CC0004FB95 /* JDFAuditPool.h */,
-				3E5753290B6E43CC0004FB95 /* JDFAutomatedOverprintParams.cpp */,
-				3E57532A0B6E43CC0004FB95 /* JDFAutomatedOverprintParams.h */,
+				436ACCB90B87885D00CCDB54 /* JDFAutomatedOverPrintParams.cpp */,
+				3E57532A0B6E43CC0004FB95 /* JDFAutomatedOverPrintParams.h */,
 				3E57532B0B6E43CC0004FB95 /* JDFBand.cpp */,
 				3E57532C0B6E43CC0004FB95 /* JDFBand.h */,
 				3E57532D0B6E43CC0004FB95 /* JDFBarcode.cpp */,
@@ -5263,6 +5263,8 @@
 		3E574F230B6E43C70004FB95 /* AutoJDF */ = {
 			isa = PBXGroup;
 			children = (
+				432AD1390B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.cpp */,
+				432AD13A0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.h */,
 				3E574F240B6E43C70004FB95 /* JDFAutoAcknowledge.cpp */,
 				3E574F250B6E43C70004FB95 /* JDFAutoAcknowledge.h */,
 				3E574F260B6E43C70004FB95 /* JDFAutoAction.cpp */,
@@ -5307,8 +5309,6 @@
 				3E574F4D0B6E43C70004FB95 /* JDFAutoAssemblySection.h */,
 				3E574F4E0B6E43C70004FB95 /* JDFAutoAssetListCreationParams.cpp */,
 				3E574F4F0B6E43C70004FB95 /* JDFAutoAssetListCreationParams.h */,
-				3E574F500B6E43C70004FB95 /* JDFAutoAutomatedOverprintParams.cpp */,
-				3E574F510B6E43C70004FB95 /* JDFAutoAutomatedOverprintParams.h */,
 				3E574F520B6E43C70004FB95 /* JDFAutoBand.cpp */,
 				3E574F530B6E43C70004FB95 /* JDFAutoBand.h */,
 				3E574F540B6E43C70004FB95 /* JDFAutoBarcode.cpp */,
@@ -6285,7 +6285,6 @@
 				3E57575B0B6E43D10004FB95 /* JDFAutoAssembly.h in Headers */,
 				3E57575D0B6E43D10004FB95 /* JDFAutoAssemblySection.h in Headers */,
 				3E57575F0B6E43D10004FB95 /* JDFAutoAssetListCreationParams.h in Headers */,
-				3E5757610B6E43D10004FB95 /* JDFAutoAutomatedOverprintParams.h in Headers */,
 				3E5757630B6E43D10004FB95 /* JDFAutoBand.h in Headers */,
 				3E5757650B6E43D10004FB95 /* JDFAutoBarcode.h in Headers */,
 				3E5757670B6E43D10004FB95 /* JDFAutoBarcodeCompParams.h in Headers */,
@@ -6778,7 +6777,7 @@
 				3E575B340B6E43D10004FB95 /* JDFAssetListCreationParams.h in Headers */,
 				3E575B360B6E43D10004FB95 /* JDFAudit.h in Headers */,
 				3E575B380B6E43D10004FB95 /* JDFAuditPool.h in Headers */,
-				3E575B3A0B6E43D10004FB95 /* JDFAutomatedOverprintParams.h in Headers */,
+				3E575B3A0B6E43D10004FB95 /* JDFAutomatedOverPrintParams.h in Headers */,
 				3E575B3C0B6E43D10004FB95 /* JDFBand.h in Headers */,
 				3E575B3E0B6E43D10004FB95 /* JDFBarcode.h in Headers */,
 				3E575B400B6E43D10004FB95 /* JDFBarcodeCompParams.h in Headers */,
@@ -7292,6 +7291,7 @@
 				3E575F3A0B6E43D30004FB95 /* JDFXYPairEvaluation.h in Headers */,
 				3E575F3C0B6E43D30004FB95 /* JDFXYPairRangeList.h in Headers */,
 				3E575F3E0B6E43D30004FB95 /* JDFXYPairState.h in Headers */,
+				432AD13C0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7357,7 +7357,6 @@
 				3E57575A0B6E43D10004FB95 /* JDFAutoAssembly.cpp in Sources */,
 				3E57575C0B6E43D10004FB95 /* JDFAutoAssemblySection.cpp in Sources */,
 				3E57575E0B6E43D10004FB95 /* JDFAutoAssetListCreationParams.cpp in Sources */,
-				3E5757600B6E43D10004FB95 /* JDFAutoAutomatedOverprintParams.cpp in Sources */,
 				3E5757620B6E43D10004FB95 /* JDFAutoBand.cpp in Sources */,
 				3E5757640B6E43D10004FB95 /* JDFAutoBarcode.cpp in Sources */,
 				3E5757660B6E43D10004FB95 /* JDFAutoBarcodeCompParams.cpp in Sources */,
@@ -7849,7 +7848,6 @@
 				3E575B330B6E43D10004FB95 /* JDFAssetListCreationParams.cpp in Sources */,
 				3E575B350B6E43D10004FB95 /* JDFAudit.cpp in Sources */,
 				3E575B370B6E43D10004FB95 /* JDFAuditPool.cpp in Sources */,
-				3E575B390B6E43D10004FB95 /* JDFAutomatedOverprintParams.cpp in Sources */,
 				3E575B3B0B6E43D10004FB95 /* JDFBand.cpp in Sources */,
 				3E575B3D0B6E43D10004FB95 /* JDFBarcode.cpp in Sources */,
 				3E575B3F0B6E43D10004FB95 /* JDFBarcodeCompParams.cpp in Sources */,
@@ -8365,6 +8363,8 @@
 				3E575F390B6E43D30004FB95 /* JDFXYPairEvaluation.cpp in Sources */,
 				3E575F3B0B6E43D30004FB95 /* JDFXYPairRangeList.cpp in Sources */,
 				3E575F3D0B6E43D30004FB95 /* JDFXYPairState.cpp in Sources */,
+				432AD13B0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.cpp in Sources */,
+				4352EF350B8E06FE0073FE29 /* JDFAutomatedOverPrintParams.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8375,6 +8375,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				EXPORTED_SYMBOLS_FILE = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 			};
@@ -8398,18 +8403,28 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				EXPORTED_SYMBOLS_FILE = "";
+				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GENERATE_PROFILING_CODE = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
 			name = Debug;
 		};
 		1DEB91F108733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
 					i386,
 				);
+				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -8417,6 +8432,7 @@
 					"../../../src/**",
 					"../../../external/xerces/**",
 				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};

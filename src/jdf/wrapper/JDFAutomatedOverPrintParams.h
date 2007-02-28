@@ -80,20 +80,20 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "AutoJDF/JDFAutoAutomatedOverprintParams.h"
+#include "AutoJDF/JDFAutoAutomatedOverPrintParams.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutomatedOverprintParams : public JDFAutoAutomatedOverprintParams
+class JDFAutomatedOverPrintParams : public JDFAutoAutomatedOverPrintParams
 
 *********************************************************************
 */
 /**
-* Typesafe resource wrapper class JDFAutomatedOverprintParams 
+* Typesafe resource wrapper class JDFAutomatedOverPrintParams 
 *
 * This file is hand edited and will not be regenerated
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutomatedOverprintParams : public JDFAutoAutomatedOverprintParams{
+class JDF_WRAPPERCORE_EXPORT JDFAutomatedOverPrintParams : public JDFAutoAutomatedOverPrintParams{
 public:
 
 
@@ -103,21 +103,21 @@ public:
 /**
 * null ctor
 */
-	inline JDFAutomatedOverprintParams():JDFAutoAutomatedOverprintParams(){};
+	inline JDFAutomatedOverPrintParams():JDFAutoAutomatedOverPrintParams(){};
 /**
 * copy ctor
 */
-	inline JDFAutomatedOverprintParams(const KElement & other):JDFAutoAutomatedOverprintParams(){
+	inline JDFAutomatedOverPrintParams(const KElement & other):JDFAutoAutomatedOverPrintParams(){
 	*this=other;
 };
 /**
 * copy equivalance operator
 */
-	JDFAutomatedOverprintParams &operator =(const KElement& other);
+	JDFAutomatedOverPrintParams &operator =(const KElement& other);
 /**
 * dtor
 */
-	virtual ~JDFAutomatedOverprintParams(){};
+	virtual ~JDFAutomatedOverPrintParams(){};
 }; // endJDFAutomatedOverprintParams
 
 // ******************************************************

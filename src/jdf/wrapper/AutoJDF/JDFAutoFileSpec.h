@@ -660,12 +660,6 @@ virtual bool init();
  * 
 */
 	JDFDisposition AppendDispositionElem();
-/**
-* create inter-resource link to refTarget
-* @param JDFDisposition& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefDispositionElem(JDFDisposition& refTarget);
 
 /** Get Element FileAlias
 * 

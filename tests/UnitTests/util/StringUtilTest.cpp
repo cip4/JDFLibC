@@ -362,3 +362,18 @@ void StringUtilTest::testToLowerCase()
 		CPPUNIT_FAIL( e.what() );
 	}
 }
+
+void StringUtilTest::testGetBytes()
+{
+	try
+	{
+		WString inStr = "test�1芑";
+		char* target = "test�1芑";
+		CPPUNIT_ASSERT_EQUAL( target,inStr.getBytes() );
+	}
+	catch (const JDFException& ex)
+	{
+		CPPUNIT_FAIL( ex.what() );
+	}
+}
+

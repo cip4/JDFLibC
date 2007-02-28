@@ -229,11 +229,6 @@ virtual bool init();
 	virtual WString UniqueElements()const;
 
 /**
- definition of required elements in the JDF namespace
-*/
-	virtual WString RequiredElements()const;
-
-/**
  definition of optional elements in the JDF namespace
 */
 	virtual WString OptionalElements()const;

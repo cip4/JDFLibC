@@ -1765,7 +1765,7 @@
 							>
 						</File>
 						<File
-							RelativePath="..\..\..\src\jdf\wrapper\JDFAutomatedOverprintParams.cpp"
+							RelativePath="..\..\..\src\jdf\wrapper\JDFAutomatedOverPrintParams.cpp"
 							>
 						</File>
 						<File
@@ -2510,7 +2510,7 @@
 							>
 						</File>
 						<File
-							RelativePath="..\..\..\src\jdf\wrapper\JDFAutomatedOverprintParams.h"
+							RelativePath="..\..\..\src\jdf\wrapper\JDFAutomatedOverPrintParams.h"
 							>
 						</File>
 						<File

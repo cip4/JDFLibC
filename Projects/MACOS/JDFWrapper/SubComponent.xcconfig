@@ -16,4 +16,4 @@ GCC_PRECOMPILE_PREFIX_HEADER = YES
 
 
 // Deployment location
-PRODUCT_DEPLOYMENT_LOCATION = ../../../lib
+PRODUCT_DEPLOYMENT_LOCATION = ../../../Build/XCode/lib

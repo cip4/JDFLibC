@@ -74,7 +74,7 @@
 #include "JDFAdvancedParams.h"
 #include "JDFApprovalParams.h"
 #include "JDFAssetListCreationParams.h"
-#include "JDFAutomatedOverprintParams.h"
+#include "JDFAutomatedOverPrintParams.h"
 
 #include "JDFBarcodeCompParams.h"
 #include "JDFBarcodeProductionParams.h"
@@ -338,8 +338,8 @@ namespace JDF{
 			if(!wcscmp(pcResName,JDFElement::elm_AssetListCreationParams.c_str())){
 				return new JDFAssetListCreationParams(part);
 			};
-			if(!wcscmp(pcResName,JDFElement::elm_AutomatedOverprintParams.c_str())){
-				return new JDFAutomatedOverprintParams(part);
+			if(!wcscmp(pcResName,JDFElement::elm_AutomatedOverPrintParams.c_str())){
+				return new JDFAutomatedOverPrintParams(part);
 			};
 			return 0;
 		}

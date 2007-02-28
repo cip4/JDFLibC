@@ -172,6 +172,11 @@ public:
 */
 
 	enum EnumLevel{Level_Unknown,Level_Empty,Level_Low,Level_OK};
+/**
+* Enumeration for attribute Usage
+*/
+
+	enum EnumUsage{Usage_Unknown,Usage_Input,Usage_Output};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -288,21 +293,21 @@ public:
 */
 	virtual bool ValidModuleID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute ResourceName
-*@param WString value: the value to set the attribute to
+* Set attribute ModuleIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
 */
-	virtual void SetResourceName(const WString& value);
+	virtual void SetModuleIndex(const JDFIntegerRangeList& value);
 /**
-* Get string attribute ResourceName
-* @return WString the vaue of the attribute 
+* Get range attribute ModuleIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
 */
-	virtual WString GetResourceName() const;
+	virtual JDFIntegerRangeList GetModuleIndex() const;
 /**
-* Typesafe attribute validation of ResourceName
+* Typesafe attribute validation of ModuleIndex
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidResourceName(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidModuleIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ProcessUsage
 *@param WString value: the value to set the attribute to
@@ -335,6 +340,38 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidProductID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ResourceID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetResourceID(const WString& value);
+/**
+* Get string attribute ResourceID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetResourceID() const;
+/**
+* Typesafe attribute validation of ResourceID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidResourceID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ResourceName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetResourceName(const WString& value);
+/**
+* Get string attribute ResourceName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetResourceName() const;
+/**
+* Typesafe attribute validation of ResourceName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidResourceName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Status
 * @param JDFResource::EnumStatus value the value to set the attribute to
@@ -369,6 +406,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidUnit(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for Usage
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& UsageString();
+/**
+* Enumeration string for enum value
+* @param EnumUsage value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString UsageString(EnumUsage value);
+/**
+* Set attribute Usage
+* @param EnumUsage value the value to set the attribute to
+*/
+	virtual void SetUsage( EnumUsage value);
+
+/**
+* Typesafe enumerated attribute Usage
+* @return EnumUsagethe enumeration value of the attribute
+*/
+	virtual EnumUsage GetUsage() const;
+
+/**
+* Typesafe attribute validation of Usage
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidUsage(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -377,20 +443,19 @@ public:
 
 /** Get Element AmountPool
 * 
-* @param int iSkip number of elements to skip
 * @return JDFAmountPool The element
 */
-	JDFAmountPool GetCreateAmountPool(int iSkip=0);
+	JDFAmountPool GetCreateAmountPool();
 
 /**
 * const get element AmountPool
-* @param int iSkip number of elements to skip
-* @return JDFAmountPool The element
+*@return  JDFAmountPool The element
 */
-	JDFAmountPool GetAmountPool(int iSkip=0)const;
+	JDFAmountPool GetAmountPool()const;
 /**
 * Append element AmountPool
- */
+ * 
+*/
 	JDFAmountPool AppendAmountPool();
 
 /** Get Element CostCenter
@@ -409,12 +474,6 @@ public:
  * 
 */
 	JDFCostCenter AppendCostCenter();
-/**
-* create inter-resource link to refTarget
-* @param JDFCostCenter& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefCostCenter(JDFCostCenter& refTarget);
 
 /** Get Element MISDetails
 * 
@@ -432,12 +491,6 @@ public:
  * 
 */
 	JDFMISDetails AppendMISDetails();
-/**
-* create inter-resource link to refTarget
-* @param JDFMISDetails& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefMISDetails(JDFMISDetails& refTarget);
 
 /** Get Element Part
 * 

@@ -510,12 +510,6 @@ public:
  * 
 */
 	JDFCostCenter AppendCostCenter();
-/**
-* create inter-resource link to refTarget
-* @param JDFCostCenter& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefCostCenter(JDFCostCenter& refTarget);
 
 /** Get Element JDF
 * 
@@ -550,12 +544,6 @@ public:
  * 
 */
 	JDFMISDetails AppendMISDetails();
-/**
-* create inter-resource link to refTarget
-* @param JDFMISDetails& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefMISDetails(JDFMISDetails& refTarget);
 
 /** Get Element ModuleStatus
 * 

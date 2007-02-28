@@ -423,11 +423,6 @@ JDFDisposition JDFAutoQueueSubmissionParams::AppendDispositionElem(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoQueueSubmissionParams::RefDispositionElem(JDFDisposition& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

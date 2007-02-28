@@ -304,11 +304,6 @@ JDFMISDetails JDFAutoPhaseTime::AppendMISDetails(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoPhaseTime::RefMISDetails(JDFMISDetails& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFModulePhase JDFAutoPhaseTime::GetModulePhase(int iSkip)const{
 	JDFModulePhase e=GetElement(elm_ModulePhase,WString::emptyStr,iSkip);

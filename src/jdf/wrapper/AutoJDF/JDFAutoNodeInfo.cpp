@@ -634,11 +634,6 @@ JDFMISDetails JDFAutoNodeInfo::AppendMISDetails(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoNodeInfo::RefMISDetails(JDFMISDetails& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFNotificationFilter JDFAutoNodeInfo::GetNotificationFilter(int iSkip)const{
 	JDFNotificationFilter e=GetElement(elm_NotificationFilter,WString::emptyStr,iSkip);

@@ -420,7 +420,7 @@ namespace JDF
 				unsigned int neededLen = gTranscoder->calcRequiredSize(pInBuf);
 				pBuf  = new JDFCh[neededLen+2];
 				// pBuf= new JDFCh[count+1];
-				// memset in case the transcoded amount is less than count, e.g. grün
+				// memset in case the transcoded amount is less than count, e.g. gr,n
 				memset(pBuf,0,(neededLen+2)*sizeof(JDFCh));
 
 				if (!gTranscoder->transcode(pInBuf, pBuf, count))
@@ -2085,8 +2085,6 @@ namespace JDF
 
 	WString WString::Escape(const WString& toEscape,const WString& escapeChar, int radix, int escapeLen, int escapeBelow, int escapeAbove)const{
 		WString escapedString;
-		JDFCh escapeCh=escapeChar[0];
-
 		int l=size();
 		const wchar_t* pc=c_str();
 		for(int i=0;i<l;i++){

@@ -75,7 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoElementColorParams.h"
-#include "jdf/wrapper/JDFAutomatedOverprintParams.h"
+#include "jdf/wrapper/JDFAutomatedOverPrintParams.h"
 #include "jdf/wrapper/JDFColorantAlias.h"
 #include "jdf/wrapper/JDFColorSpaceConversionOp.h"
 #include "jdf/wrapper/JDFFileSpec.h"
@@ -205,27 +205,27 @@ bool JDFAutoElementColorParams::init(){
 **************************************************************** */
 
 
-JDFAutomatedOverprintParams JDFAutoElementColorParams::GetAutomatedOverprintParams()const{
-	JDFAutomatedOverprintParams e=GetElement(elm_AutomatedOverprintParams);
+JDFAutomatedOverPrintParams JDFAutoElementColorParams::GetAutomatedOverPrintParams()const{
+	JDFAutomatedOverPrintParams e=GetElement(elm_AutomatedOverPrintParams);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAutomatedOverprintParams JDFAutoElementColorParams::GetCreateAutomatedOverprintParams(){
-	JDFAutomatedOverprintParams e=GetCreateElement(elm_AutomatedOverprintParams);
+JDFAutomatedOverPrintParams JDFAutoElementColorParams::GetCreateAutomatedOverPrintParams(){
+	JDFAutomatedOverPrintParams e=GetCreateElement(elm_AutomatedOverPrintParams);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAutomatedOverprintParams JDFAutoElementColorParams::AppendAutomatedOverprintParams(){
-	JDFAutomatedOverprintParams e=AppendElementN(elm_AutomatedOverprintParams,1);
+JDFAutomatedOverPrintParams JDFAutoElementColorParams::AppendAutomatedOverPrintParams(){
+	JDFAutomatedOverPrintParams e=AppendElementN(elm_AutomatedOverPrintParams,1);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoElementColorParams::RefAutomatedOverprintParams(JDFAutomatedOverprintParams& refTarget){
+JDFRefElement JDFAutoElementColorParams::RefAutomatedOverPrintParams(JDFAutomatedOverPrintParams& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -274,11 +274,6 @@ JDFColorSpaceConversionOp JDFAutoElementColorParams::AppendColorSpaceConversionO
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoElementColorParams::RefColorSpaceConversionOp(JDFColorSpaceConversionOp& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFFileSpec JDFAutoElementColorParams::GetFileSpec(int iSkip)const{
 	JDFFileSpec e=GetElement(elm_FileSpec,WString::emptyStr,iSkip);
@@ -315,14 +310,14 @@ JDFRefElement JDFAutoElementColorParams::RefFileSpec(JDFFileSpec& refTarget){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
-		nElem=NumChildElements(elm_AutomatedOverprintParams);
+		nElem=NumChildElements(elm_AutomatedOverPrintParams);
 		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_AutomatedOverprintParams);
+			vElem.AppendUnique(elm_AutomatedOverPrintParams);
 			if (++n>=nMax)
 				return vElem;
 		}else if(nElem==1){
-			if(!GetAutomatedOverprintParams().IsValid(level)) {
-				vElem.AppendUnique(elm_AutomatedOverprintParams);
+			if(!GetAutomatedOverPrintParams().IsValid(level)) {
+				vElem.AppendUnique(elm_AutomatedOverPrintParams);
 				if (++n>=nMax)
 					return vElem;
 			}
@@ -367,13 +362,13 @@ JDFRefElement JDFAutoElementColorParams::RefFileSpec(JDFFileSpec& refTarget){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoElementColorParams::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",AutomatedOverprintParams,ColorSpaceConversionOp";
+		return JDFResource::UniqueElements()+L",AutomatedOverPrintParams,ColorSpaceConversionOp";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoElementColorParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",AutomatedOverprintParams,ColorantAlias,ColorSpaceConversionOp,FileSpec";
+		return JDFResource::OptionalElements()+L",AutomatedOverPrintParams,ColorantAlias,ColorSpaceConversionOp,FileSpec";
 	};
 }; // end namespace JDF

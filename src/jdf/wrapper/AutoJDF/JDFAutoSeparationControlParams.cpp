@@ -75,7 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoSeparationControlParams.h"
-#include "jdf/wrapper/JDFAutomatedOverprintParams.h"
+#include "jdf/wrapper/JDFAutomatedOverPrintParams.h"
 #include "jdf/wrapper/JDFTransferFunctionControl.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -143,27 +143,27 @@ bool JDFAutoSeparationControlParams::init(){
 **************************************************************** */
 
 
-JDFAutomatedOverprintParams JDFAutoSeparationControlParams::GetAutomatedOverprintParams()const{
-	JDFAutomatedOverprintParams e=GetElement(elm_AutomatedOverprintParams);
+JDFAutomatedOverPrintParams JDFAutoSeparationControlParams::GetAutomatedOverPrintParams()const{
+	JDFAutomatedOverPrintParams e=GetElement(elm_AutomatedOverPrintParams);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAutomatedOverprintParams JDFAutoSeparationControlParams::GetCreateAutomatedOverprintParams(){
-	JDFAutomatedOverprintParams e=GetCreateElement(elm_AutomatedOverprintParams);
+JDFAutomatedOverPrintParams JDFAutoSeparationControlParams::GetCreateAutomatedOverPrintParams(){
+	JDFAutomatedOverPrintParams e=GetCreateElement(elm_AutomatedOverPrintParams);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAutomatedOverprintParams JDFAutoSeparationControlParams::AppendAutomatedOverprintParams(){
-	JDFAutomatedOverprintParams e=AppendElementN(elm_AutomatedOverprintParams,1);
+JDFAutomatedOverPrintParams JDFAutoSeparationControlParams::AppendAutomatedOverPrintParams(){
+	JDFAutomatedOverPrintParams e=AppendElementN(elm_AutomatedOverPrintParams,1);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoSeparationControlParams::RefAutomatedOverprintParams(JDFAutomatedOverprintParams& refTarget){
+JDFRefElement JDFAutoSeparationControlParams::RefAutomatedOverPrintParams(JDFAutomatedOverPrintParams& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -203,14 +203,14 @@ JDFRefElement JDFAutoSeparationControlParams::RefTransferFunctionControl(JDFTran
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
-		nElem=NumChildElements(elm_AutomatedOverprintParams);
+		nElem=NumChildElements(elm_AutomatedOverPrintParams);
 		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_AutomatedOverprintParams);
+			vElem.AppendUnique(elm_AutomatedOverPrintParams);
 			if (++n>=nMax)
 				return vElem;
 		}else if(nElem==1){
-			if(!GetAutomatedOverprintParams().IsValid(level)) {
-				vElem.AppendUnique(elm_AutomatedOverprintParams);
+			if(!GetAutomatedOverPrintParams().IsValid(level)) {
+				vElem.AppendUnique(elm_AutomatedOverPrintParams);
 				if (++n>=nMax)
 					return vElem;
 			}
@@ -235,13 +235,13 @@ JDFRefElement JDFAutoSeparationControlParams::RefTransferFunctionControl(JDFTran
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoSeparationControlParams::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",AutomatedOverprintParams,TransferFunctionControl";
+		return JDFResource::UniqueElements()+L",AutomatedOverPrintParams,TransferFunctionControl";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoSeparationControlParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",AutomatedOverprintParams,TransferFunctionControl";
+		return JDFResource::OptionalElements()+L",AutomatedOverPrintParams,TransferFunctionControl";
 	};
 }; // end namespace JDF

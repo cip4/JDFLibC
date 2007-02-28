@@ -81,8 +81,9 @@
 #endif // _MSC_VER >= 1000
 
 #include "jdf/wrapper/JDFPool.h"
-#include "jdf/wrapper/JDFTest.h"
 namespace JDF{
+class JDFTest;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoTestPool : public JDFPool
@@ -132,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -157,9 +167,30 @@ public:
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
-	
 
 
+/** Get Element Test
+* 
+* @param int iSkip number of elements to skip
+* @return JDFTest The element
+*/
+	JDFTest GetCreateTest(int iSkip=0);
+
+/**
+* const get element Test
+* @param int iSkip number of elements to skip
+* @return JDFTest The element
+*/
+	JDFTest GetTest(int iSkip=0)const;
+/**
+* Append element Test
+ */
+	JDFTest AppendTest();
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoTestPool
 
 // ******************************************************

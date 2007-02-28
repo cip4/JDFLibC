@@ -199,11 +199,6 @@ JDFStation JDFAutoDieLayout::AppendStation(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_FileSpec);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_FileSpec);
-			if (++n>=nMax)
-			return vElem;
-		}
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_FileSpec);
 			if (++n>=nMax)
@@ -237,16 +232,9 @@ JDFStation JDFAutoDieLayout::AppendStation(){
 	};
 
 /**
- definition of required elements in the JDF namespace
-*/
-	WString JDFAutoDieLayout::RequiredElements()const{
-		return JDFResource::RequiredElements()+L",FileSpec";
-	};
-
-/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoDieLayout::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Station";
+		return JDFResource::OptionalElements()+L",FileSpec,Station";
 	};
 }; // end namespace JDF

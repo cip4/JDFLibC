@@ -78,11 +78,12 @@
 #include "jdf/wrapper/JDFDeviceNSpace.h"
 #include "jdf/wrapper/JDFFileSpec.h"
 #include "jdf/wrapper/JDFSeparationSpec.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoColorSpaceConversionOp : public JDFResource
+class JDFAutoColorSpaceConversionOp : public JDFElement
 
 *********************************************************************
 */
@@ -110,17 +111,6 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 	return L"*:,ColorSpaceConversionOp";
 };
 
-bool JDFAutoColorSpaceConversionOp::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoColorSpaceConversionOp::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -131,14 +121,14 @@ bool JDFAutoColorSpaceConversionOp::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColorSpaceConversionOp::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",IgnoreEmbeddedICC,PreserveBlack,RenderingIntent,RGBGray2Black,RGBGray2BlackThreshold,SourceObjects,Operation,SourceCS,SourceRenderingIntent");
+		return JDFElement::OptionalAttributes()+WString(L",IgnoreEmbeddedICC,PreserveBlack,RenderingIntent,RGBGray2Black,RGBGray2BlackThreshold,SourceObjects,Operation,SourceCS,SourceRenderingIntent");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoColorSpaceConversionOp::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -477,8 +467,28 @@ JDFSeparationSpec JDFAutoColorSpaceConversionOp::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoColorSpaceConversionOp::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoColorSpaceConversionOp::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoColorSpaceConversionOp::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoColorSpaceConversionOp::RefSeparationSpec(JDFSeparationSpec& refTarget){
+JDFRefElement JDFAutoColorSpaceConversionOp::RefQualityControlResult(JDFQualityControlResult& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -489,7 +499,7 @@ JDFRefElement JDFAutoColorSpaceConversionOp::RefSeparationSpec(JDFSeparationSpec
 	vWString JDFAutoColorSpaceConversionOp::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
@@ -523,6 +533,16 @@ JDFRefElement JDFAutoColorSpaceConversionOp::RefSeparationSpec(JDFSeparationSpec
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -531,6 +551,6 @@ JDFRefElement JDFAutoColorSpaceConversionOp::RefSeparationSpec(JDFSeparationSpec
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoColorSpaceConversionOp::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",DeviceNSpace,FileSpec,SeparationSpec";
+		return JDFElement::OptionalElements()+L",DeviceNSpace,FileSpec,SeparationSpec,QualityControlResult";
 	};
 }; // end namespace JDF

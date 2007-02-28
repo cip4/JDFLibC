@@ -350,11 +350,6 @@ JDFDisjointing JDFAutoStackingParams::AppendDisjointing(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoStackingParams::RefDisjointing(JDFDisjointing& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

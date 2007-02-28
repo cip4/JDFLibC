@@ -74,8 +74,8 @@
 ///////////////////////////////////////////////////////////////////
 
  
-#if !defined _JDFAutoAutomatedOverprintParams_H_
-#define _JDFAutoAutomatedOverprintParams_H_
+#if !defined _JDFAutoAutomatedOverPrintParams_H_
+#define _JDFAutoAutomatedOverPrintParams_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
@@ -84,17 +84,17 @@
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoAutomatedOverprintParams : public JDFResource
+class JDFAutoAutomatedOverPrintParams : public JDFResource
 
 *********************************************************************
 */
 /**
-* automatically generated header for JDFAutoAutomatedOverprintParams class
+* automatically generated header for JDFAutoAutomatedOverPrintParams class
 * 
 * Warning! Do not edit! This file may be regenerated
-* The child Class: @see JDFAutomatedOverprintParams should be edited instead
+* The child Class: @see JDFAutomatedOverPrintParams should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoAutomatedOverprintParams : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoAutomatedOverPrintParams : public JDFResource{
 public:
 
 
@@ -105,21 +105,21 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoAutomatedOverprintParams():JDFResource(){};
+	inline JDFAutoAutomatedOverPrintParams():JDFResource(){};
 /**
 * copy ctor
 */
-	inline JDFAutoAutomatedOverprintParams(const KElement & other):JDFResource(){
+	inline JDFAutoAutomatedOverPrintParams(const KElement & other):JDFResource(){
 	*this=other;
 };
 /**
 * copy equivalance operator
 */
-	JDFAutoAutomatedOverprintParams &operator =(const KElement& other);
+	JDFAutoAutomatedOverPrintParams &operator =(const KElement& other);
 /**
 * dtor
 */
-	virtual ~JDFAutoAutomatedOverprintParams(){};
+	virtual ~JDFAutoAutomatedOverPrintParams(){};
 public:
 
 /**
@@ -271,8 +271,8 @@ virtual bool init();
 // Element Getter / Setter
 **************************************************************** */
 
-}; // endJDFAutoAutomatedOverprintParams
+}; // endJDFAutoAutomatedOverPrintParams
 
 // ******************************************************
 }; // end namespace JDF
-#endif //_JDFAutoAutomatedOverprintParams_H_
+#endif //_JDFAutoAutomatedOverPrintParams_H_

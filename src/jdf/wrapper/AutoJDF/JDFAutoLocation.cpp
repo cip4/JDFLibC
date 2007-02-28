@@ -76,11 +76,12 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLocation.h"
 #include "jdf/wrapper/JDFAddress.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoLocation : public JDFResource
+class JDFAutoLocation : public JDFElement
 
 *********************************************************************
 */
@@ -108,17 +109,6 @@ JDFAutoLocation& JDFAutoLocation::operator=(const KElement& other){
 	return L"*:,Location";
 };
 
-bool JDFAutoLocation::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoLocation::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -129,14 +119,14 @@ bool JDFAutoLocation::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoLocation::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",LocationName,LocID");
+		return JDFElement::OptionalAttributes()+WString(L",LocationName,LocID");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoLocation::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -220,13 +210,38 @@ JDFRefElement JDFAutoLocation::RefAddress(JDFAddress& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFQualityControlResult JDFAutoLocation::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoLocation::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoLocation::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLocation::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
 	vWString JDFAutoLocation::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
@@ -240,6 +255,16 @@ JDFRefElement JDFAutoLocation::RefAddress(JDFAddress& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -248,6 +273,6 @@ JDFRefElement JDFAutoLocation::RefAddress(JDFAddress& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLocation::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Address";
+		return JDFElement::OptionalElements()+L",Address,QualityControlResult";
 	};
 }; // end namespace JDF

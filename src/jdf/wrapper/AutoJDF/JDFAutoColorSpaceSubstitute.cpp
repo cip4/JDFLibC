@@ -132,21 +132,21 @@ JDFAutoColorSpaceSubstitute& JDFAutoColorSpaceSubstitute::operator=(const KEleme
 **************************************************************** */
 
 
-JDFPDLResourceAlias JDFAutoColorSpaceSubstitute::GetPDLResourceAlias()const{
-	JDFPDLResourceAlias e=GetElement(elm_PDLResourceAlias);
+JDFPDLResourceAlias JDFAutoColorSpaceSubstitute::GetPDLResourceAlias(int iSkip)const{
+	JDFPDLResourceAlias e=GetElement(elm_PDLResourceAlias,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFPDLResourceAlias JDFAutoColorSpaceSubstitute::GetCreatePDLResourceAlias(){
-	JDFPDLResourceAlias e=GetCreateElement(elm_PDLResourceAlias);
+JDFPDLResourceAlias JDFAutoColorSpaceSubstitute::GetCreatePDLResourceAlias(int iSkip){
+	JDFPDLResourceAlias e=GetCreateElement(elm_PDLResourceAlias,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFPDLResourceAlias JDFAutoColorSpaceSubstitute::AppendPDLResourceAlias(){
-	JDFPDLResourceAlias e=AppendElementN(elm_PDLResourceAlias,1);
+	JDFPDLResourceAlias e=AppendElement(elm_PDLResourceAlias);
 	e.init();
 	return e;
 };
@@ -176,11 +176,6 @@ JDFSeparationSpec JDFAutoColorSpaceSubstitute::AppendSeparationSpec(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoColorSpaceSubstitute::RefSeparationSpec(JDFSeparationSpec& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator
@@ -193,28 +188,16 @@ JDFRefElement JDFAutoColorSpaceSubstitute::RefSeparationSpec(JDFSeparationSpec& 
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_PDLResourceAlias);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_PDLResourceAlias);
-			if (++n>=nMax)
-			return vElem;
-		}
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_PDLResourceAlias);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetPDLResourceAlias().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetPDLResourceAlias(i).IsValid(level)) {
 				vElem.AppendUnique(elm_PDLResourceAlias);
 				if (++n>=nMax)
 					return vElem;
+				break;
 			}
 		}
 		nElem=NumChildElements(elm_SeparationSpec);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_SeparationSpec);
-			if (++n>=nMax)
-			return vElem;
-		}
 
 		for(i=0;i<nElem;i++){
 			if (!GetSeparationSpec(i).IsValid(level)) {
@@ -229,16 +212,9 @@ JDFRefElement JDFAutoColorSpaceSubstitute::RefSeparationSpec(JDFSeparationSpec& 
 
 
 /**
- definition of required elements in the JDF namespace
+ definition of optional elements in the JDF namespace
 */
-	WString JDFAutoColorSpaceSubstitute::UniqueElements()const{
-		return JDFElement::UniqueElements()+L",PDLResourceAlias";
-	};
-
-/**
- definition of required elements in the JDF namespace
-*/
-	WString JDFAutoColorSpaceSubstitute::RequiredElements()const{
-		return JDFElement::RequiredElements()+L",PDLResourceAlias,SeparationSpec";
+	WString JDFAutoColorSpaceSubstitute::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",PDLResourceAlias,SeparationSpec";
 	};
 }; // end namespace JDF

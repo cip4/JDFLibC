@@ -105,6 +105,7 @@ class StringUtilTest : public CppUnit::TestCase
 		CPPUNIT_TEST( testEndsWithIgnoreCase );
 		CPPUNIT_TEST( testToUpperCase );
 		CPPUNIT_TEST( testToLowerCase );
+		CPPUNIT_TEST( testGetBytes );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -121,6 +122,7 @@ class StringUtilTest : public CppUnit::TestCase
 		void testEndsWithIgnoreCase();
 		void testToUpperCase();
 		void testToLowerCase();
+		void testGetBytes();
 
 }; // class StringUtilTest
 

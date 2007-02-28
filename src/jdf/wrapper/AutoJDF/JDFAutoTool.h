@@ -166,11 +166,6 @@ virtual bool init();
 
 
 /**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
-
-/**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;

@@ -404,6 +404,54 @@ public:
 */
 	virtual bool ValidStatusDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute Template
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetTemplate(bool value);
+/**
+* Get bool attribute Template
+* @return bool the vaue of the attribute ; defaults to false
+*/
+	virtual bool GetTemplate() const;
+/**
+* Typesafe attribute validation of Template
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TemplateID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetTemplateID(const WString& value);
+/**
+* Get string attribute TemplateID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetTemplateID() const;
+/**
+* Typesafe attribute validation of TemplateID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTemplateID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TemplateVersion
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetTemplateVersion(const WString& value);
+/**
+* Get string attribute TemplateVersion
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetTemplateVersion() const;
+/**
+* Typesafe attribute validation of TemplateVersion
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTemplateVersion(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute Type
 *@param WString value: the value to set the attribute to
 */
@@ -459,36 +507,38 @@ public:
 
 /** Get Element CustomerInfo
 * 
+* @param int iSkip number of elements to skip
 * @return JDFCustomerInfo The element
 */
-	JDFCustomerInfo GetCreateCustomerInfo();
+	JDFCustomerInfo GetCreateCustomerInfo(int iSkip=0);
 
 /**
 * const get element CustomerInfo
-*@return  JDFCustomerInfo The element
+* @param int iSkip number of elements to skip
+* @return JDFCustomerInfo The element
 */
-	JDFCustomerInfo GetCustomerInfo()const;
+	JDFCustomerInfo GetCustomerInfo(int iSkip=0)const;
 /**
 * Append element CustomerInfo
- * 
-*/
+ */
 	JDFCustomerInfo AppendCustomerInfo();
 
 /** Get Element NodeInfo
 * 
+* @param int iSkip number of elements to skip
 * @return JDFNodeInfo The element
 */
-	JDFNodeInfo GetCreateNodeInfo();
+	JDFNodeInfo GetCreateNodeInfo(int iSkip=0);
 
 /**
 * const get element NodeInfo
-*@return  JDFNodeInfo The element
+* @param int iSkip number of elements to skip
+* @return JDFNodeInfo The element
 */
-	JDFNodeInfo GetNodeInfo()const;
+	JDFNodeInfo GetNodeInfo(int iSkip=0)const;
 /**
 * Append element NodeInfo
- * 
-*/
+ */
 	JDFNodeInfo AppendNodeInfo();
 /**
 * create inter-resource link to refTarget
@@ -496,11 +546,6 @@ public:
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefNodeInfo(JDFNodeInfo& refTarget);
-
-/**
- definition of unique elements in the JDF namespace
-*/
-	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

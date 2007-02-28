@@ -556,12 +556,6 @@ virtual bool init();
  * 
 */
 	JDFMISDetails AppendMISDetails();
-/**
-* create inter-resource link to refTarget
-* @param JDFMISDetails& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefMISDetails(JDFMISDetails& refTarget);
 
 /** Get Element NotificationFilter
 * 

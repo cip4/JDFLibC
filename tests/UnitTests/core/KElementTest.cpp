@@ -871,7 +871,7 @@ void KElementTest::testTextMethods()
 
 void KElementTest::testEraseEmptyNodes()
 {
-	cout << " *warning: this test is slow (~145 secs)* ";
+	cout << " *warning: this test is slow (~15 secs)* ";
 	try
 	{
 		JDFParser p;

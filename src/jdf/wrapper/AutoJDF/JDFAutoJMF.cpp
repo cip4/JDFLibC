@@ -404,7 +404,6 @@ JDFQuery JDFAutoJMF::AppendQuery(){
 };
 /////////////////////////////////////////////////////////////////////
 
-
 JDFRegistration JDFAutoJMF::GetRegistration(int iSkip)const{
 	JDFRegistration e=GetElement(elm_Registration,WString::emptyStr,iSkip);
 	return e;

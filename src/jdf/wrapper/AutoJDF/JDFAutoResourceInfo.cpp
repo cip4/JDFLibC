@@ -121,7 +121,7 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoResourceInfo::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",ActualAmount,Amount,AvailableAmount,Level,Location,ModuleID,ResourceName,ProcessUsage,ProductID,Status,Unit");
+		return JDFElement::OptionalAttributes()+WString(L",ActualAmount,Amount,AvailableAmount,Level,Location,ModuleID,ModuleIndex,ProcessUsage,ProductID,ResourceID,ResourceName,Status,Unit,Usage");
 };
 
 /**
@@ -162,8 +162,8 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidResourceName(level)) {
-			vAtts.push_back(atr_ResourceName);
+		if(!ValidModuleIndex(level)) {
+			vAtts.push_back(atr_ModuleIndex);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -177,6 +177,16 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidResourceID(level)) {
+			vAtts.push_back(atr_ResourceID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidResourceName(level)) {
+			vAtts.push_back(atr_ResourceName);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidStatus(level)) {
 			vAtts.push_back(atr_Status);
 			if(++n>=nMax)
@@ -184,6 +194,11 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 		};
 		if(!ValidUnit(level)) {
 			vAtts.push_back(atr_Unit);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidUsage(level)) {
+			vAtts.push_back(atr_Usage);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -306,22 +321,22 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 		return ValidAttribute(atr_ModuleID,AttributeType_string,false);
 	};
 /**
-* Set attribute ResourceName
-*@param WString value: the value to set the attribute to
+* Set attribute ModuleIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
 */
-	 void JDFAutoResourceInfo::SetResourceName(const WString& value){
-	SetAttribute(atr_ResourceName,value);
+	 void JDFAutoResourceInfo::SetModuleIndex(const JDFIntegerRangeList& value){
+	SetAttribute(atr_ModuleIndex,value.GetString());
 };
 /**
-* Get string attribute ResourceName
-* @return WString the vaue of the attribute 
+* Get range attribute ModuleIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
 */
-	 WString JDFAutoResourceInfo::GetResourceName() const {
-	return GetAttribute(atr_ResourceName,WString::emptyStr);
+	 JDFIntegerRangeList JDFAutoResourceInfo::GetModuleIndex() const {
+	return GetAttribute(atr_ModuleIndex,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoResourceInfo::ValidResourceName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ResourceName,AttributeType_NMTOKEN,false);
+	bool JDFAutoResourceInfo::ValidModuleIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ModuleIndex,AttributeType_IntegerRangeList,false);
 	};
 /**
 * Set attribute ProcessUsage
@@ -359,6 +374,42 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 	bool JDFAutoResourceInfo::ValidProductID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ProductID,AttributeType_shortString,false);
 	};
+/**
+* Set attribute ResourceID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoResourceInfo::SetResourceID(const WString& value){
+	SetAttribute(atr_ResourceID,value);
+};
+/**
+* Get string attribute ResourceID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoResourceInfo::GetResourceID() const {
+	return GetAttribute(atr_ResourceID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceInfo::ValidResourceID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ResourceID,AttributeType_NMTOKEN,false);
+	};
+/**
+* Set attribute ResourceName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoResourceInfo::SetResourceName(const WString& value){
+	SetAttribute(atr_ResourceName,value);
+};
+/**
+* Get string attribute ResourceName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoResourceInfo::GetResourceName() const {
+	return GetAttribute(atr_ResourceName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceInfo::ValidResourceName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ResourceName,AttributeType_NMTOKEN,false);
+	};
 /////////////////////////////////////////////////////////////////////////
 	void JDFAutoResourceInfo::SetStatus( JDFResource::EnumStatus value){
 	SetEnumAttribute(atr_Status,value,JDFResource::StatusString());
@@ -389,27 +440,52 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 	bool JDFAutoResourceInfo::ValidUnit(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Unit,AttributeType_string,false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoResourceInfo::UsageString(){
+		static const WString enums=WString(L"Unknown,Input,Output");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoResourceInfo::UsageString(EnumUsage value){
+		return UsageString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoResourceInfo::SetUsage( EnumUsage value){
+	SetEnumAttribute(atr_Usage,value,UsageString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoResourceInfo::EnumUsage JDFAutoResourceInfo:: GetUsage() const {
+	return (EnumUsage) GetEnumAttribute(atr_Usage,UsageString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceInfo::ValidUsage(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Usage,UsageString(),false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
 
-JDFAmountPool JDFAutoResourceInfo::GetAmountPool(int iSkip)const{
-	JDFAmountPool e=GetElement(elm_AmountPool,WString::emptyStr,iSkip);
+JDFAmountPool JDFAutoResourceInfo::GetAmountPool()const{
+	JDFAmountPool e=GetElement(elm_AmountPool);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAmountPool JDFAutoResourceInfo::GetCreateAmountPool(int iSkip){
-	JDFAmountPool e=GetCreateElement(elm_AmountPool,WString::emptyStr,iSkip);
+JDFAmountPool JDFAutoResourceInfo::GetCreateAmountPool(){
+	JDFAmountPool e=GetCreateElement(elm_AmountPool);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFAmountPool JDFAutoResourceInfo::AppendAmountPool(){
-	JDFAmountPool e=AppendElement(elm_AmountPool);
+	JDFAmountPool e=AppendElementN(elm_AmountPool,1);
 	e.init();
 	return e;
 };
@@ -434,11 +510,6 @@ JDFCostCenter JDFAutoResourceInfo::AppendCostCenter(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoResourceInfo::RefCostCenter(JDFCostCenter& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFMISDetails JDFAutoResourceInfo::GetMISDetails()const{
 	JDFMISDetails e=GetElement(elm_MISDetails);
@@ -457,11 +528,6 @@ JDFMISDetails JDFAutoResourceInfo::AppendMISDetails(){
 	JDFMISDetails e=AppendElementN(elm_MISDetails,1);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoResourceInfo::RefMISDetails(JDFMISDetails& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -522,13 +588,15 @@ JDFPart JDFAutoResourceInfo::AppendPart(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_AmountPool);
-
-		for(i=0;i<nElem;i++){
-			if (!GetAmountPool(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_AmountPool);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetAmountPool().IsValid(level)) {
 				vElem.AppendUnique(elm_AmountPool);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_CostCenter);
@@ -563,7 +631,7 @@ JDFPart JDFAutoResourceInfo::AppendPart(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoResourceInfo::UniqueElements()const{
-		return JDFElement::UniqueElements()+L",CostCenter,MISDetails";
+		return JDFElement::UniqueElements()+L",AmountPool,CostCenter,MISDetails";
 	};
 
 /**

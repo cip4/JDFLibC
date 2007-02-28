@@ -80,11 +80,13 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFQualityControlResult;
+class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoCostCenter : public JDFResource
+class JDFAutoCostCenter : public JDFElement
 
 *********************************************************************
 */
@@ -94,7 +96,7 @@ class JDFAutoCostCenter : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFCostCenter should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoCostCenter : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoCostCenter : public JDFElement{
 public:
 
 
@@ -105,11 +107,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoCostCenter():JDFResource(){};
+	inline JDFAutoCostCenter():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoCostCenter(const KElement & other):JDFResource(){
+	inline JDFAutoCostCenter(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -131,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -151,18 +162,6 @@ public:
 /* ******************************************************
 // Attribute Getter / Setter
 ****************************************************** */
-
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
 
 
 /**
@@ -212,6 +211,35 @@ virtual bool init();
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoCostCenter
 
 // ******************************************************

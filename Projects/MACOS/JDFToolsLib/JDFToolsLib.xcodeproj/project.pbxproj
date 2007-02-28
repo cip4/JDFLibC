@@ -521,14 +521,14 @@
 		08FB7794FE84155DC02AAC07 /* JDFToolsLib */ = {
 			isa = PBXGroup;
 			children = (
-				3E574F040B6E3ED90004FB95 /* Configurations */,
+				210B71260A762D9C003F70A6 /* mime */,
+				210B713B0A762D9C003F70A6 /* io */,
 				210B71700A762D9C003F70A6 /* lang */,
 				210B709F0A762D9B003F70A6 /* util */,
 				210B70BA0A762D9B003F70A6 /* png */,
 				210B70C10A762D9B003F70A6 /* net */,
+				3E574F040B6E3ED90004FB95 /* Configurations */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
-				210B71260A762D9C003F70A6 /* mime */,
-				210B713B0A762D9C003F70A6 /* io */,
 			);
 			name = JDFToolsLib;
 			sourceTree = "<group>";
@@ -583,7 +583,7 @@
 		210B70A70A762D9B003F70A6 /* MacOS */ = {
 			isa = PBXGroup;
 			children = (
-				210B70A80A762D9B003F70A6 /* MacOSPlatformUtils.cpp */,
+				43C9BF7C0B84809100D2AAFC /* New Group */,
 				210B70A90A762D9B003F70A6 /* MacOSPlatformUtils.h */,
 				210B70AA0A762D9B003F70A6 /* JDFMacFile.h */,
 				210B70AB0A762D9B003F70A6 /* JDFMacFile.cpp */,
@@ -891,6 +891,14 @@
 			name = Configurations;
 			sourceTree = "<group>";
 		};
+		43C9BF7C0B84809100D2AAFC /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				210B70A80A762D9B003F70A6 /* MacOSPlatformUtils.cpp */,
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1060,6 +1068,31 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "JDFToolsLib" */;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				da,
+				Dutch,
+				fi,
+				Italian,
+				ko,
+				no,
+				ru,
+				Spanish,
+				sv,
+				zh_CN,
+				zh_TW,
+				pt,
+				de,
+				en,
+				es,
+				fr,
+				it,
+				ja,
+				nl,
+			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* JDFToolsLib */;
 			projectDirPath = "";
 			targets = (
@@ -1197,8 +1230,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				EXPORTED_SYMBOLS_FILE = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/CoreServices/Encodings\"";
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
@@ -1212,6 +1256,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/CoreServices/Encodings\"";
 				PRODUCT_NAME = JDFToolsLib;
 			};
 			name = Release;
@@ -1220,14 +1269,21 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = (
+					i386,
+					ppc,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GENERATE_PROFILING_CODE = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
 			name = Debug;
 		};
 		1DEB91F108733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
@@ -1241,6 +1297,7 @@
 					"../../../external/xerces/**",
 					../../../external/libpng,
 				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};

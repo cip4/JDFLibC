@@ -118,7 +118,7 @@ JDFAutoPDFInterpretingParams& JDFAutoPDFInterpretingParams::operator=(const KEle
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPDFInterpretingParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",EmitPDFBG,EmitPDFHalftones,EmitPDFTransfers,EmitPDFUCR,HonorPDFOverprint,ICCColorAsDeviceColor,OCGDefault,OCGIntent,OCGProcess,OCGZoom,PrintPDFAnnotations,TransparencyRenderingQuality");
+		return JDFElement::OptionalAttributes()+WString(L",EmitPDFBG,EmitPDFHalftones,EmitPDFTransfers,EmitPDFUCR,HonorPDFOverprint,ICCColorAsDeviceColor,OCGDefault,OCGIntent,OCGProcess,OCGZoom,PrintPDFAnnotations,PrintTrapAnnotations,TransparencyRenderingQuality");
 };
 
 /**
@@ -181,6 +181,11 @@ JDFAutoPDFInterpretingParams& JDFAutoPDFInterpretingParams::operator=(const KEle
 		};
 		if(!ValidPrintPDFAnnotations(level)) {
 			vAtts.push_back(atr_PrintPDFAnnotations);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPrintTrapAnnotations(level)) {
+			vAtts.push_back(atr_PrintTrapAnnotations);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -396,6 +401,23 @@ JDFAutoPDFInterpretingParams& JDFAutoPDFInterpretingParams::operator=(const KEle
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPDFInterpretingParams::ValidPrintPDFAnnotations(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PrintPDFAnnotations,AttributeType_boolean,false);
+	};
+/**
+* Set attribute PrintTrapAnnotations
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoPDFInterpretingParams::SetPrintTrapAnnotations(bool value){
+	SetAttribute(atr_PrintTrapAnnotations,WString::valueOf(value));
+};
+/**
+* Get bool attribute PrintTrapAnnotations
+* @return bool the vaue of the attribute ; defaults to false
+*/
+	 bool JDFAutoPDFInterpretingParams::GetPrintTrapAnnotations() const {return GetBoolAttribute(atr_PrintTrapAnnotations,WString::emptyStr,false);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPDFInterpretingParams::ValidPrintTrapAnnotations(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PrintTrapAnnotations,AttributeType_boolean,false);
 	};
 /**
 * Set attribute TransparencyRenderingQuality

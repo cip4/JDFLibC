@@ -826,11 +826,6 @@ JDFDisposition JDFAutoRunList::AppendDispositionElem(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoRunList::RefDispositionElem(JDFDisposition& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFPageList JDFAutoRunList::GetPageList()const{
 	JDFPageList e=GetElement(elm_PageList);

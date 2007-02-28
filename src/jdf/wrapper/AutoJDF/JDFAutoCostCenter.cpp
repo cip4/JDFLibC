@@ -75,10 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoCostCenter.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoCostCenter : public JDFResource
+class JDFAutoCostCenter : public JDFElement
 
 *********************************************************************
 */
@@ -106,17 +108,6 @@ JDFAutoCostCenter& JDFAutoCostCenter::operator=(const KElement& other){
 	return L"*:,CostCenter";
 };
 
-bool JDFAutoCostCenter::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoCostCenter::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -127,21 +118,21 @@ bool JDFAutoCostCenter::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoCostCenter::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",CostCenterID";
+		return JDFElement::RequiredAttributes()+L",CostCenterID";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCostCenter::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Name");
+		return JDFElement::OptionalAttributes()+WString(L",Name");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoCostCenter::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -193,5 +184,66 @@ bool JDFAutoCostCenter::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoCostCenter::ValidName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Name,AttributeType_string,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoCostCenter::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCostCenter::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCostCenter::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoCostCenter::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoCostCenter::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoCostCenter::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

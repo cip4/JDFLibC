@@ -80,11 +80,11 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoGeneralID : public JDFResource
+class JDFAutoGeneralID : public JDFElement
 
 *********************************************************************
 */
@@ -94,7 +94,7 @@ class JDFAutoGeneralID : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFGeneralID should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoGeneralID : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoGeneralID : public JDFElement{
 public:
 
 
@@ -105,11 +105,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoGeneralID():JDFResource(){};
+	inline JDFAutoGeneralID():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoGeneralID(const KElement & other):JDFResource(){
+	inline JDFAutoGeneralID(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -151,18 +151,6 @@ public:
 /* ******************************************************
 // Attribute Getter / Setter
 ****************************************************** */
-
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
 
 
 /**

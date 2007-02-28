@@ -272,11 +272,6 @@ JDFCostCenter JDFAutoNotification::AppendCostCenter(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoNotification::RefCostCenter(JDFCostCenter& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFEmployee JDFAutoNotification::GetEmployee(int iSkip)const{
 	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);

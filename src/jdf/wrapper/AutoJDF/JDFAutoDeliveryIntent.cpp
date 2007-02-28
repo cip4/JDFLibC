@@ -169,9 +169,9 @@ JDFAutoDeliveryIntent& JDFAutoDeliveryIntent::operator=(const KElement& other){
 };
 /**
 * Get bool attribute Accepted
-* @return bool the vaue of the attribute ; defaults to false
+* @return bool the vaue of the attribute 
 */
-	 bool JDFAutoDeliveryIntent::GetAccepted() const {return GetBoolAttribute(atr_Accepted,WString::emptyStr,false);
+	 bool JDFAutoDeliveryIntent::GetAccepted() const {return GetBoolAttribute(atr_Accepted,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDeliveryIntent::ValidAccepted(EnumValidationLevel level) const {
@@ -186,10 +186,10 @@ JDFAutoDeliveryIntent& JDFAutoDeliveryIntent::operator=(const KElement& other){
 };
 /**
 * Get integer attribute AdditionalAmount
-* @return int the vaue of the attribute ; defaults to 1
+* @return int the vaue of the attribute 
 */
 	 int JDFAutoDeliveryIntent::GetAdditionalAmount() const {
-	return GetIntAttribute(atr_AdditionalAmount,WString::emptyStr,1);
+	return GetIntAttribute(atr_AdditionalAmount,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDeliveryIntent::ValidAdditionalAmount(EnumValidationLevel level) const {

@@ -74,26 +74,26 @@
 ///////////////////////////////////////////////////////////////////
 
  
-#include "jdf/wrapper/AutoJDF/JDFAutoAutomatedOverprintParams.h"
+#include "jdf/wrapper/AutoJDF/JDFAutoAutomatedOverPrintParams.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoAutomatedOverprintParams : public JDFResource
+class JDFAutoAutomatedOverPrintParams : public JDFResource
 
 *********************************************************************
 */
 /**
 * copy equivalance operator
 */
-JDFAutoAutomatedOverprintParams& JDFAutoAutomatedOverprintParams::operator=(const KElement& other){
+JDFAutoAutomatedOverPrintParams& JDFAutoAutomatedOverPrintParams::operator=(const KElement& other){
 	KElement::operator=(other);
 	if(!IsValid(ValidationLevel_Construct))
-		throw JDFException(L"Invalid constructor for JDFAutoAutomatedOverprintParams: "+other.GetNodeName());
+		throw JDFException(L"Invalid constructor for JDFAutoAutomatedOverPrintParams: "+other.GetNodeName());
 	return *this;
 };
 
 /////////////////////////////////////////////////////
-	bool JDFAutoAutomatedOverprintParams::IsAbstract()const{
+	bool JDFAutoAutomatedOverPrintParams::IsAbstract()const{
 		return false;
 	}
 
@@ -102,17 +102,17 @@ JDFAutoAutomatedOverprintParams& JDFAutoAutomatedOverprintParams::operator=(cons
  * @return WString& comma separated list of valid node names
  */
 
-	WString JDFAutoAutomatedOverprintParams::ValidNodeNames()const{
-	return L"*:,AutomatedOverprintParams";
+	WString JDFAutoAutomatedOverPrintParams::ValidNodeNames()const{
+	return L"*:,AutomatedOverPrintParams";
 };
 
-bool JDFAutoAutomatedOverprintParams::ValidClass(EnumValidationLevel level) const {
+bool JDFAutoAutomatedOverPrintParams::ValidClass(EnumValidationLevel level) const {
 	if(!HasAttribute(atr_Class))
 		return !RequiredLevel(level);
 	return GetClass()==Class_Parameter;
 };
 
-bool JDFAutoAutomatedOverprintParams::init(){
+bool JDFAutoAutomatedOverPrintParams::init(){
 	bool bRet=JDFResource::init();
 	SetClass(Class_Parameter);
 	return bRet;
@@ -126,14 +126,14 @@ bool JDFAutoAutomatedOverprintParams::init(){
 /**
  definition of optional attributes in the JDF namespace
 */
-	WString JDFAutoAutomatedOverprintParams::OptionalAttributes()const{
+	WString JDFAutoAutomatedOverPrintParams::OptionalAttributes()const{
 		return JDFResource::OptionalAttributes()+WString(L",KnockOutCMYKWhite,OverPrintBlackText,OverPrintBlackLineArt,TextBlackLevel,LineArtBlackLevel,TextSizeThreshold");
 };
 
 /**
  typesafe validator
 */
-	vWString JDFAutoAutomatedOverprintParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
+	vWString JDFAutoAutomatedOverPrintParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
 		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
@@ -175,105 +175,105 @@ bool JDFAutoAutomatedOverprintParams::init(){
 * Set attribute KnockOutCMYKWhite
 *@param bool value: the value to set the attribute to
 */
-	 void JDFAutoAutomatedOverprintParams::SetKnockOutCMYKWhite(bool value){
+	 void JDFAutoAutomatedOverPrintParams::SetKnockOutCMYKWhite(bool value){
 	SetAttribute(atr_KnockOutCMYKWhite,WString::valueOf(value));
 };
 /**
 * Get bool attribute KnockOutCMYKWhite
 * @return bool the vaue of the attribute ; defaults to false
 */
-	 bool JDFAutoAutomatedOverprintParams::GetKnockOutCMYKWhite() const {return GetBoolAttribute(atr_KnockOutCMYKWhite,WString::emptyStr,false);
+	 bool JDFAutoAutomatedOverPrintParams::GetKnockOutCMYKWhite() const {return GetBoolAttribute(atr_KnockOutCMYKWhite,WString::emptyStr,false);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoAutomatedOverprintParams::ValidKnockOutCMYKWhite(EnumValidationLevel level) const {
+	bool JDFAutoAutomatedOverPrintParams::ValidKnockOutCMYKWhite(EnumValidationLevel level) const {
 		return ValidAttribute(atr_KnockOutCMYKWhite,AttributeType_boolean,false);
 	};
 /**
 * Set attribute OverPrintBlackText
 *@param bool value: the value to set the attribute to
 */
-	 void JDFAutoAutomatedOverprintParams::SetOverPrintBlackText(bool value){
+	 void JDFAutoAutomatedOverPrintParams::SetOverPrintBlackText(bool value){
 	SetAttribute(atr_OverPrintBlackText,WString::valueOf(value));
 };
 /**
 * Get bool attribute OverPrintBlackText
 * @return bool the vaue of the attribute ; defaults to false
 */
-	 bool JDFAutoAutomatedOverprintParams::GetOverPrintBlackText() const {return GetBoolAttribute(atr_OverPrintBlackText,WString::emptyStr,false);
+	 bool JDFAutoAutomatedOverPrintParams::GetOverPrintBlackText() const {return GetBoolAttribute(atr_OverPrintBlackText,WString::emptyStr,false);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoAutomatedOverprintParams::ValidOverPrintBlackText(EnumValidationLevel level) const {
+	bool JDFAutoAutomatedOverPrintParams::ValidOverPrintBlackText(EnumValidationLevel level) const {
 		return ValidAttribute(atr_OverPrintBlackText,AttributeType_boolean,false);
 	};
 /**
 * Set attribute OverPrintBlackLineArt
 *@param bool value: the value to set the attribute to
 */
-	 void JDFAutoAutomatedOverprintParams::SetOverPrintBlackLineArt(bool value){
+	 void JDFAutoAutomatedOverPrintParams::SetOverPrintBlackLineArt(bool value){
 	SetAttribute(atr_OverPrintBlackLineArt,WString::valueOf(value));
 };
 /**
 * Get bool attribute OverPrintBlackLineArt
 * @return bool the vaue of the attribute ; defaults to false
 */
-	 bool JDFAutoAutomatedOverprintParams::GetOverPrintBlackLineArt() const {return GetBoolAttribute(atr_OverPrintBlackLineArt,WString::emptyStr,false);
+	 bool JDFAutoAutomatedOverPrintParams::GetOverPrintBlackLineArt() const {return GetBoolAttribute(atr_OverPrintBlackLineArt,WString::emptyStr,false);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoAutomatedOverprintParams::ValidOverPrintBlackLineArt(EnumValidationLevel level) const {
+	bool JDFAutoAutomatedOverPrintParams::ValidOverPrintBlackLineArt(EnumValidationLevel level) const {
 		return ValidAttribute(atr_OverPrintBlackLineArt,AttributeType_boolean,false);
 	};
 /**
 * Set attribute TextBlackLevel
 *@param double value: the value to set the attribute to
 */
-	 void JDFAutoAutomatedOverprintParams::SetTextBlackLevel(double value){
+	 void JDFAutoAutomatedOverPrintParams::SetTextBlackLevel(double value){
 	SetAttribute(atr_TextBlackLevel,WString::valueOf(value));
 };
 /**
 * Get double attribute TextBlackLevel
 * @return double the vaue of the attribute ; defaults to 1
 */
-	 double JDFAutoAutomatedOverprintParams::GetTextBlackLevel() const {
+	 double JDFAutoAutomatedOverPrintParams::GetTextBlackLevel() const {
 	return GetRealAttribute(atr_TextBlackLevel,WString::emptyStr,1);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoAutomatedOverprintParams::ValidTextBlackLevel(EnumValidationLevel level) const {
+	bool JDFAutoAutomatedOverPrintParams::ValidTextBlackLevel(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TextBlackLevel,AttributeType_double,false);
 	};
 /**
 * Set attribute LineArtBlackLevel
 *@param double value: the value to set the attribute to
 */
-	 void JDFAutoAutomatedOverprintParams::SetLineArtBlackLevel(double value){
+	 void JDFAutoAutomatedOverPrintParams::SetLineArtBlackLevel(double value){
 	SetAttribute(atr_LineArtBlackLevel,WString::valueOf(value));
 };
 /**
 * Get double attribute LineArtBlackLevel
 * @return double the vaue of the attribute 
 */
-	 double JDFAutoAutomatedOverprintParams::GetLineArtBlackLevel() const {
+	 double JDFAutoAutomatedOverPrintParams::GetLineArtBlackLevel() const {
 	return GetRealAttribute(atr_LineArtBlackLevel,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoAutomatedOverprintParams::ValidLineArtBlackLevel(EnumValidationLevel level) const {
+	bool JDFAutoAutomatedOverPrintParams::ValidLineArtBlackLevel(EnumValidationLevel level) const {
 		return ValidAttribute(atr_LineArtBlackLevel,AttributeType_double,false);
 	};
 /**
 * Set attribute TextSizeThreshold
 *@param int value: the value to set the attribute to
 */
-	 void JDFAutoAutomatedOverprintParams::SetTextSizeThreshold(int value){
+	 void JDFAutoAutomatedOverPrintParams::SetTextSizeThreshold(int value){
 	SetAttribute(atr_TextSizeThreshold,WString::valueOf(value));
 };
 /**
 * Get integer attribute TextSizeThreshold
 * @return int the vaue of the attribute 
 */
-	 int JDFAutoAutomatedOverprintParams::GetTextSizeThreshold() const {
+	 int JDFAutoAutomatedOverPrintParams::GetTextSizeThreshold() const {
 	return GetIntAttribute(atr_TextSizeThreshold,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoAutomatedOverprintParams::ValidTextSizeThreshold(EnumValidationLevel level) const {
+	bool JDFAutoAutomatedOverPrintParams::ValidTextSizeThreshold(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TextSizeThreshold,AttributeType_integer,false);
 	};
 }; // end namespace JDF
