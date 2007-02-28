@@ -1,11 +1,9 @@
-Q:
-cd \cmpINFRA_CommonParsers
-del /S/Q/F *.1 *.2 *.3 *.4 *.5 *.keep *.contrib
+P:
+cd \
 C:
 CD \snapshots
-rmdir /s/q JDFOpensrc
-mkdir JDFOpensrc
-mkdir JDFOpensrc\docs
-Q:
-xcopy /H/E/Y /EXCLUDE:JDFOpensrc\exclude.txt .\JDFOpensrc C:\Snapshots\JDFOpensrc
-cd snapshots
+rmdir /s/q JDFLibC
+mkdir JDFLibC
+mkdir JDFLibC\docs
+P:
+xcopy /H/E/Y /EXCLUDE:JDFLibC\exclude.txt .\JDFLibC C:\Snapshots\JDFLibC
