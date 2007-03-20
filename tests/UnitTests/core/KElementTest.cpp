@@ -88,6 +88,7 @@
 #include "jdf/wrappercore/xmldocuserdata.h"
 #include "KElementTest.h"
 #include <iostream>
+#include <limits>
 
 using namespace std;
 using namespace JDF;

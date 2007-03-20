@@ -4271,7 +4271,6 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 
 	void JDFResource::cleanResourceAttributes()
 	{
-		
 		// clean up resource specific attributes
 		RemoveAttribute(atr_ID);
 		RemoveAttribute(atr_Class);
@@ -4279,9 +4278,9 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 		RemoveAttribute(atr_PartUsage);
 		RemoveAttribute(atr_NoOp);
 		vWString v=GetPartIDKeys();
-		if(!v.empty())
-			for(int i=0;i<v.size();i++)
-				RemoveAttribute(v[i]);
+		for(int i=0;i<v.size();i++)
+			RemoveAttribute(v[i]);
+
 		RemoveAttribute(atr_Locked);
 		RemoveAttribute(atr_PartIDKeys);
 		RemoveAttribute(atr_rRefs); 
@@ -4338,7 +4337,7 @@ JDFSourceResource JDFResource::AppendSourceResource(){
     {
         JDFGeneralID gid;
 
-        VElement v = GetChildElementVector(elm_GeneralID, WString::emptyStr,JDFAttributeMap(atr_IDUsage, idUsage), true, 0, true);
+		VElement v = KElement::GetChildElementVector(elm_GeneralID, WString::emptyStr,JDFAttributeMap(atr_IDUsage, idUsage), true, 0, true);
         if (v.size() == 0)
         {
             gid = AppendElement(elm_GeneralID);

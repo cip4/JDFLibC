@@ -2261,6 +2261,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightConstraintsPool.cpp"
+							>
+						</File>
+						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightInventory.cpp"
 							>
 						</File>
@@ -2278,6 +2282,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightReportRulePool.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightResultsPool.cpp"
 							>
 						</File>
 						<File
@@ -3006,6 +3014,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightConstraintsPool.h"
+							>
+						</File>
+						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightInventory.h"
 							>
 						</File>
@@ -3023,6 +3035,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightReportRulePool.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightResultsPool.h"
 							>
 						</File>
 						<File
@@ -4592,6 +4608,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGeneralID.h"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFPool.h"
 						>
 					</File>
@@ -4638,6 +4658,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFGeneralID.cpp"
 						>
 					</File>
 					<File
@@ -8725,22 +8749,6 @@
 			<Filter
 				Name="New"
 				>
-				<File
-					RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightConstraintsPool.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightConstraintsPool.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightResultsPool.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\jdf\wrapper\JDFPreflightResultsPool.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
