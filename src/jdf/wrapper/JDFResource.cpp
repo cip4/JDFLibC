@@ -97,6 +97,7 @@
 #include "JDFRefElement.h"
 #include "JDFQualityControlResult.h"
 #include "JDFIdentificationField.h"
+#include "JDFGeneralID.h"
 #include <xercesc/dom/DOMAttr.hpp>
 #include <xercesc/dom/DOMElement.hpp>
 
@@ -4290,6 +4291,99 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 
 
  	//////////////////////////////////////////////////////////////////////////////////
+
+   /**
+     * append an empty GeneralID 
+     * 
+     * @return the newly created GeneralID
+     */
+    JDFGeneralID JDFResource::appendGeneralID()
+    {
+        return (JDFGeneralID) AppendElement(elm_GeneralID);
+    }
+    
+    /**
+     * append a GeneralID with idValue, duplicate entries are retained
+     * 
+     * @param idUsage the IDUsage attribute of the generalID
+     * @param idValue the IDValue attribute of the generalID
+     * @return the newly created GeneralID
+     */
+    JDFGeneralID JDFResource::appendGeneralID(const WString& idUsage, const WString& idValue)
+    {
+        JDFGeneralID gid = AppendElement(elm_GeneralID);
+        gid.SetIDValue(idValue);
+        gid.SetIDUsage(idUsage);
+        return gid;
+    }
+
+    /**
+     * gets attribute GeneralID
+     * @param i get the i'th element that fits
+     * @return the attribute value
+     */
+    JDFGeneralID JDFResource::getGeneralID(int i)const
+    {
+		return GetElement(elm_GeneralID,WString::emptyStr,i);
+    }
+    
+    /**
+     * Creates or Updates a GeneralID with the IDUsage idUsage and IDValue=idValue
+     * all entries with a duplicate idUsage are removed
+     * 
+     * @param idUsage usage to set the attribute to
+     * @param idValue   value to set the attribute to
+     */
+    void JDFResource::setGeneralID(const WString& idUsage, const WString& idValue)
+    {
+        JDFGeneralID gid;
+
+        VElement v = GetChildElementVector(elm_GeneralID, WString::emptyStr,JDFAttributeMap(atr_IDUsage, idUsage), true, 0, true);
+        if (v.size() == 0)
+        {
+            gid = AppendElement(elm_GeneralID);
+        }
+        else if (v.size() >= 1)
+        {
+            gid = v.elementAt(0);
+
+            for (int i = 1; i < v.size(); i++)
+                // remove any duplicates
+                v.elementAt(i).DeleteNode();
+        }
+
+        if (!gid.isNull())
+        {
+            gid.SetIDValue(idValue);
+            gid.SetIDUsage(idUsage);
+        }
+    }
+    /**
+     * removes GeneralID with the IDUsage idUsage
+     * 
+     * @param idUsage value to set the attribute to
+     */
+    void JDFResource::removeGeneralID(const WString& idUsage)
+    {
+		VElement v=GetChildElementVector(elm_GeneralID,WString::emptyStr,JDFAttributeMap(atr_IDUsage,idUsage),true,0,true);
+        for(int i=0;i<v.size();i++)
+            v.elementAt(i).DeleteNode();
+    }
+    
+    /**
+     * Gets IDValue of the GeneralID with IDUsage=idUsage
+     *
+     * @return double the attribute value
+     */
+    WString JDFResource::getGeneralID(const WString& idUsage)const
+    {
+        VElement v=GetChildElementVector(elm_GeneralID,WString::emptyStr,JDFAttributeMap(atr_IDUsage,idUsage),true,0,true);
+        if(v.size()==0)
+            return WString::emptyStr;
+        JDFGeneralID gid=(JDFGeneralID)v.elementAt(0);
+        return gid.GetIDValue();
+    }
+
 	//////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////

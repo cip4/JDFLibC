@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -352,6 +352,15 @@ namespace JDF{
 	JDFSignature JDFLayout::GetSignature(int iSkip) const
 	{
 		return getLayoutElement(*this,elm_Signature,atr_SignatureName,iSkip);
+	}
+
+		/**
+	* get the vector of sheets in this signature
+	* @return {@link VElement} the vector of signatures in this
+	*/
+	VElement JDFLayout::getSignatureVector()const
+	{
+		return getLayoutElementVector(*this,elm_Signature,atr_SignatureName);
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////

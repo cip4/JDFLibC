@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -139,6 +139,12 @@ namespace JDF{
 		JDFSheet GetSheet(int iSkip=0)const;
 
 		/**
+		* get the vector of sheets in this signature
+		* @return {@link VElement} the vector of signatures in this
+		*/
+		VElement getSheetVector()const;
+
+		/**
 		* Append element Sheet
 		*/
 		JDFSheet AppendSheet();
@@ -199,6 +205,14 @@ namespace JDF{
 		*/
 		static JDFLayout getLayoutElement(const JDFResource&  layout, const WString& elementName, const WString& partitionKeyName, int iSkip);
 
+		/**
+		* get a vector of specific layout elements
+		* @param layout
+		* @param elementName
+		* @param partitionKeyName
+		* @return VElement: the vector of elements
+		*/
+		static VElement getLayoutElementVector(const JDF::JDFResource & layout, const JDF::WString & elementName, const JDF::WString &partitionKeyName);
 		/**
 		* typesafe validator utility - list of valid node names for this class 
 		* @return WString& comma separated list of valid node names

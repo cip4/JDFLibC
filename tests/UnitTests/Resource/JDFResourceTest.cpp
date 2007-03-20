@@ -83,6 +83,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"
+#include "jdf/wrapper/JDFGeneralID.h"
 #include "jdf/wrapper/JDFDoc.h"
 #include "JDFResourceTest.h"
 #include <iostream>
@@ -273,6 +274,39 @@ void JDFResourceTest::testGetResourceRoot()
 		CPPUNIT_FAIL( e.what() );
 	}
 }
+
+
+
+    void JDFResourceTest::testGeneralID()
+    {
+        JDFDoc doc=creatXMDoc();
+        JDFNode n=doc.GetJDFRoot();
+		JDFExposedMedia xm=(JDFExposedMedia)n.GetMatchingResource("ExposedMedia",JDFNode::ProcessUsage_AnyInput);
+		JDFExposedMedia xm2=(JDFExposedMedia) xm.GetPartition(JDFAttributeMap("SignatureName","Sig1"),JDFResource::PartUsage_Explicit);  
+        xm.setGeneralID("foo","bar");
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar"));
+        CPPUNIT_ASSERT_EQUAL(xm2.getGeneralID("foo"),WString("bar"));
+		CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);
+        xm.setGeneralID("foo","bar2");
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar2"));
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);
+        CPPUNIT_ASSERT_EQUAL(xm2.NumChildElements(JDFStrings::elm_GeneralID),1);
+        xm2.setGeneralID("foo","bar4");
+        xm.setGeneralID("foo2","bar3");
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar2"));
+        CPPUNIT_ASSERT_EQUAL(xm2.getGeneralID("foo"),WString("bar4"));
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo2"),WString("bar3"));
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),2);
+        xm.removeGeneralID("foo");
+		CPPUNIT_ASSERT_EQUAL(WString::emptyStr,xm.getGeneralID("foo"));
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo2"),WString("bar3"));
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);  
+        xm.setGeneralID("foo3","bar33");
+        JDFGeneralID gi=xm.getGeneralID(0);
+        CPPUNIT_ASSERT_EQUAL(gi.GetIDUsage(),WString("foo2"));
+        xm.removeGeneralID(L"");
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),0);  
+    }
 
 void JDFResourceTest::testGetPartMap()
 {

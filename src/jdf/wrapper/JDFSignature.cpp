@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -93,17 +93,8 @@ namespace JDF{
 
 	int JDFSignature::numLayoutElements(const JDFResource &layout, const WString &elementName, const JDF::WString &partitionKeyName)
 	{
-		int n = 0;
-		if (JDFLayout::isNewLayout(layout))
-		{
-			n = ((KElement)layout).GetChildElementVector(elm_Layout, WString::emptyStr, mAttribute(partitionKeyName,WString::emptyStr)).size();
-		}
-		else 
-		{
-			n = layout.NumChildElements(elementName);
-		}
-		return n;
-	}
+        return getLayoutElementVector(layout, elementName, partitionKeyName).size();
+ 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -146,8 +137,36 @@ namespace JDF{
 		}
 		return s;
 	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   /**
+     * get a specific layout element
+     * @param layout
+     * @param elementName
+     * @param partitionKeyName
+     * @return JDFLayout: the element
+     */
+	VElement JDFSignature::getLayoutElementVector(const JDF::JDFResource & layout, const JDF::WString & elementName, const JDF::WString &partitionKeyName)
+    {
+		if(JDFLayout::isNewLayout(layout))
+        {
+			return ((KElement)layout).GetChildElementVector(elm_Layout,WString::emptyStr,JDFAttributeMap(partitionKeyName,WString::emptyStr),true,0,true);
+        }
+		return layout.GetChildElementVector(elementName,WString::emptyStr,JDFAttributeMap::emptyMap,true,0,true);            
+    }    
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * get the vector of sheets in this signature
+     * @return {@link VElement} the vector of signatures in this
+     */
+	VElement JDFSignature::getSheetVector()const
+    {
+        return getLayoutElementVector(*this,elm_Sheet,atr_SheetName);
+    }
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	JDFSheet JDFSignature::AppendSheet(){
 		return appendLayoutElement(*this,elm_Sheet,atr_SheetName);

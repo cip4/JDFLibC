@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -89,16 +89,16 @@
 
 namespace JDF{
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	JDFSheet &JDFSheet::operator =(const KElement& other){
 		KElement::operator=(other);
 		if(!IsValid(ValidationLevel_Construct)) 
 			throw JDFException(L"Invalid constructor for JDFSheet: "+other.GetNodeName()); 
 		return *this;
 	};
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	vWString JDFSheet::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
@@ -147,14 +147,14 @@ namespace JDF{
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
-	
+
 	JDFSurface JDFSheet::AppendFrontSurface(){
 		JDFSurface e=GetFrontSurface();
 		if(e.isNull()){
 			e=appendSurface();
 			e.SetSide(JDFPart::Side_Front);
 		}
-		
+
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
@@ -182,7 +182,7 @@ namespace JDF{
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
-	
+
 	JDFSurface JDFSheet::AppendBackSurface(){
 		JDFSurface e=GetBackSurface();
 		if(e.isNull()){
@@ -193,7 +193,7 @@ namespace JDF{
 		{
 			throw JDFException("AppendBackSurface: BackSurface already exists");
 		}
-		
+
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
@@ -216,7 +216,7 @@ namespace JDF{
 	{
 		if (numSurfaces() > 1)
 			throw JDFException("appendSurfaces: sheet already has two surfaces");
-	
+
 		return appendLayoutElement(*this,elm_Surface,atr_Side);;
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,17 +249,26 @@ namespace JDF{
 	WString JDFSheet::GetSheetName() const
 	{
 		if(GetLocalName() == JDFElement::elm_Sheet)
-        {
-            return GetName();
-        }
+		{
+			return GetName();
+		}
 		if(GetLocalName() == JDFElement::elm_Surface)
-        {
+		{
 			JDFSheet sh=(JDFSheet)KElement::GetParentNode();
-            return sh.GetSheetName();
-        }
+			return sh.GetSheetName();
+		}
 		return JDFResource::GetSheetName();
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	* get the vector of sheets in this signature
+	* @return {@link VElement} the vector of signatures in this
+	*/
+	VElement JDFSheet::getSurfaceVector()const
+	{
+		return getLayoutElementVector(*this,elm_Surface,atr_Side);
+	}
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 }; // namespace JDF

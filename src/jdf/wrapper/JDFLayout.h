@@ -198,11 +198,19 @@ namespace JDF{
 		JDFSignature GetSignature(int iSkip=0)const;
 
 		/**
+		* get the vector of signatures in this sheet
+		* @return {@link VElement} the vector of surfaces in this
+		*/
+		VElement getSignatureVector()const;
+
+
+		/**
 		* definition of required attributes in the JDF namespace
 		*
 		* @return WString: list of required attributes
 		*/
 		WString RequiredAttributes()const;
+
 
 	protected:
 		/**

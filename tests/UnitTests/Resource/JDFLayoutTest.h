@@ -102,6 +102,8 @@ class JDFLayoutTest : public CppUnit::TestCase
 		CPPUNIT_TEST( testBuildNewLayout );
 		CPPUNIT_TEST( testGetSignatureName_Old );
 		CPPUNIT_TEST( testGetSignatureName_New );
+		CPPUNIT_TEST( testGetSignatureVector_Old );
+		CPPUNIT_TEST( testGetSignatureVector_New );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -115,6 +117,8 @@ class JDFLayoutTest : public CppUnit::TestCase
 		void testBuildNewLayout();
 		void testGetSignatureName_Old();
 		void testGetSignatureName_New();
+		void testGetSignatureVector_Old();
+		void testGetSignatureVector_New();
 
 }; // class JDFLayoutTest
 

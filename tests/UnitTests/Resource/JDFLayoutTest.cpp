@@ -437,3 +437,67 @@ void JDFLayoutTest::testGetSignatureName_New()
 		CPPUNIT_FAIL( e.what() );
 	}
 }
+
+void JDFLayoutTest::testGetSignatureVector_Old()
+{
+	try
+	{
+		WString layoutFile = sm_dirTestData+"oldLayout.jdf";
+		JDFParser p;
+		p.Parse(layoutFile,false);
+		JDFDoc doc = p.GetDocument();
+		JDFNode n = doc.GetJDFRoot();
+
+		JDFLayout lo=(JDFLayout) n.GetMatchingResource(JDFNode::elm_Layout,JDFNode::ProcessUsage_AnyInput);
+		VElement v=lo.getSignatureVector();
+        JDFSignature sig=(JDFSignature) v.elementAt(0);
+ 		CPPUNIT_ASSERT_EQUAL( sig.GetName(),sig.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig1",sig.GetSignatureName() );
+		JDFSignature sig2=lo.GetSignature(1);
+		CPPUNIT_ASSERT_EQUAL( sig2.GetName(),sig2.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig2",sig2.GetSignatureName() );
+        VElement vSheet=sig2.getSheetVector();
+        JDFSheet s1=(JDFSheet) vSheet.elementAt(1); // don't try 0 it will fail because it is referenced...
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig2",s1.GetSignatureName() );
+		WString s1Str = s1.ToString();
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sheet2_2",s1.GetSheetName() );
+		JDFSurface su=s1.GetCreateBackSurface();
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sig2",su.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"Sheet2_2",su.GetSheetName() );
+		
+	}
+	catch (JDFException& e)
+	{
+		CPPUNIT_FAIL( e.what() );
+	}
+}
+
+void JDFLayoutTest::testGetSignatureVector_New()
+{
+	try
+	{
+		WString layoutFile = sm_dirTestData + "newLayout.jdf";
+		JDFParser p;
+		p.Parse(layoutFile, false);
+		JDFDoc doc = p.GetDocument();
+		JDFNode n = doc.GetJDFRoot();
+
+		JDFLayout lo=(JDFLayout) n.GetMatchingResource(JDFElement::elm_Layout,JDFNode::ProcessUsage_AnyInput);
+		VElement v=lo.getSignatureVector();
+        JDFSignature sig=(JDFSignature) v.elementAt(0);
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName1",sig.GetSignatureName() );
+		JDFSignature sig2=lo.GetSignature(1);
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName2",sig2.GetSignatureName() );
+        VElement vSheet=sig2.getSheetVector();
+        JDFSheet s1=(JDFSheet) vSheet.elementAt(1); // don't try 0 it will fail because it is referenced...
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName2",s1.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"SheetName2",s1.GetSheetName() );
+		JDFSurface su=s1.GetCreateBackSurface();
+		CPPUNIT_ASSERT_EQUAL( (WString)"SignatureName2",su.GetSignatureName() );
+		CPPUNIT_ASSERT_EQUAL( (WString)"SheetName2",su.GetSheetName() );
+	}
+	catch (JDFException& e)
+	{
+		CPPUNIT_FAIL( e.what() );
+	}
+}

@@ -224,7 +224,13 @@ namespace JDF{
 		* else return Signature/@Name of this or its appropriate parent
 		* @return the name of the signature
 		*/
+
 		WString GetSheetName() const;
+		/**
+		* get the vector of surfaces in this sheet
+		* @return {@link VElement} the vector of surfaces in this
+		*/
+		VElement getSurfaceVector()const;
 
 	protected:
 		/**

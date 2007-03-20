@@ -120,6 +120,7 @@ class JDFResourceTest : public CppUnit::TestCase
 		CPPUNIT_TEST ( testGetLinks );
 		CPPUNIT_TEST ( testGetCreatePartition2 );
 		CPPUNIT_TEST ( testAgentNameAgentVersion );
+		CPPUNIT_TEST ( testGeneralID );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -153,6 +154,8 @@ class JDFResourceTest : public CppUnit::TestCase
 		void testGetLinks();
 		void testGetCreatePartition2();
 		void testAgentNameAgentVersion();
+		void testGeneralID();
+
 };
 
 #endif
