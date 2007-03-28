@@ -331,7 +331,7 @@ int main(int argC, char* argV[]){
 	   root.SetEnumVersion(JDFElement::Version_1_2);
        root.SetPartStatus(pm, JDFElement::Status_Completed);
 	   cout<<root<<endl;
-	}else if(1){
+	}else if(0){
 		JDFDoc dc;
 		dc.Parse("mimetest1.xml",false);
 		cout<<dc<<endl;
@@ -340,7 +340,7 @@ int main(int argC, char* argV[]){
         n.SetType("fnarf");
 		cout<<n<<endl;
 
-	}else if(1){
+	}else if(0){
 		JDFDoc doc;
 		doc.Parse(inFile,false);
 		JDFNode n=doc.GetJDFRoot();
@@ -355,7 +355,7 @@ int main(int argC, char* argV[]){
 		cout<<rl<<endl;
 
 		doc.Write2File(outFile);
-	}else if(1){
+	}else if(0){
 					cout <<endl<<JDFResource::PartIDKeyString(JDFResource::PartIDKey_WebProduct)<<endl;
 
 		JDFDoc doc(0);
@@ -464,8 +464,8 @@ int main(int argC, char* argV[]){
 		cout<<n<<endl;
 		
 
-	}else if(0){
-		
+	}else if(1){
+		cout<<"boo"<<endl;
 		JDFDoc doc(0);
 		//			doc.StringParse(inString,false);
 		JDFNode root=doc.GetJDFRoot();
@@ -485,10 +485,15 @@ int main(int argC, char* argV[]){
 		cout<<MyJDF.StatusString(MyJDF.GetPartStatus(ma))<<endl<<MyJDF<<endl;
 		
 		JDFLayoutPreparationParams lp=n.AddParameter(JDFElement::elm_LayoutPreparationParams);
+		JDFColorantControl cc=n.AddParameter(JDFElement::elm_ColorantControl);
+		JDFSeparationList sl=cc.AppendColorantOrder();
+		sl.setSeparations(vWString("a b c"));
+
 		JDFRunList rul=n.AddParameter(JDFElement::elm_RunList);
 		rul.AddPartition(rul.PartIDKey_Separation,"cyan");
 		rul.AddPartition(rul.PartIDKey_Separation,"magenta");
-		rul.AddPartition(rul.PartIDKey_Separation,"yellow");
+		JDFRunList rul2=rul.AddPartition(rul.PartIDKey_Separation,"yellow");
+		rul2.AppendLayoutElement().AppendSeparationSpec().SetName("foo");
 		vElement vvv=rul.GetLeaves();
 		cout<<rul;
 

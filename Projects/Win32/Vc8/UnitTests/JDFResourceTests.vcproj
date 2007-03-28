@@ -448,19 +448,7 @@
 			Filter=".lib"
 			>
 			<File
-				RelativePath="..\..\..\..\external\CppUnit\src\cppunit\Release\cppunit.lib"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\..\external\CppUnit\lib\cppunitd.lib"
+				RelativePath="..\..\..\..\external\CppUnit\bin\Win32\VC8\release\CppUnit.lib"
 				>
 			</File>
 			<File
@@ -688,7 +676,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\..\external\CppUnit\lib\testrunnerd.lib"
+				RelativePath="..\..\..\..\external\CppUnit\bin\Win32\VC8\release\TestRunner.lib"
 				>
 			</File>
 		</Filter>

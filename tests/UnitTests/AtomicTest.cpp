@@ -84,6 +84,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"
+#include "jdf/wrapper/JDFGeneralID.h"
 #include "AtomicTest.h"
 #include "time.h"
 #include <iostream>
@@ -119,12 +120,102 @@ void AtomicTest::testAtomic()
 {
 	try
 	{
-		WString inStr = "testä1ö2€3";
-		char* target = "testä1ö2€3";
-		CPPUNIT_ASSERT_EQUAL( target,inStr.getBytes() );
+	JDFElement::setDefaultJDFVersion(JDFElement::Version_1_3);
+	JDFDoc doc(0);
+	JDFNode n=doc.GetJDFRoot();
+	n.SetJobPartID("P1");
+	n.SetJobID("J1");
+	n.SetType("ConventionalPrinting");
+	n.AppendElement("NS:Foobar","www.foobar.com");
+
+	JDFComponent comp=(JDFComponent)n.AppendMatchingResource("Component",JDFNode::ProcessUsage_AnyOutput,JDFNode::DefJDFNode);
+	JDFExposedMedia xm=(JDFExposedMedia)n.AppendMatchingResource("ExposedMedia",JDFNode::ProcessUsage_Plate,JDFNode::DefJDFNode);
+	JDFNodeInfo ni=n.AppendNodeInfo();
+	JDFMedia m=xm.AppendMedia();
+	m.AppendElement("NS:FoobarMedia","www.foobar.com");
+
+	CPPUNIT_ASSERT_EQUAL( JDFResource::Class_Consumable,m.GetClass() );
+
+	vWString vs;
+	vs.add("SignatureName");
+	vs.add("SheetName");
+	vs.add("Side");
+
+	JDFAttributeMap mPart1("SignatureName","Sig1");
+	mPart1.put("SheetName","S1");
+	mPart1.put("Side","Front");  
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);
+
+	mPart1.put("Side","Back");
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);
+
+	mPart1.put("SheetName","S2");
+	mPart1.put("Side","Front");
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);
+
+	mPart1.put("Side","Back");
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);
+
+	mPart1.put("SignatureName","Sig2");
+	mPart1.put("SheetName","S1");
+	mPart1.put("Side","Front");       
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);
+	comp.AppendElement("foo:bar","www.foobar.com");
+
+
+	mPart1.put("Side","Back");
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);
+
+	mPart1.put("SheetName","S2");
+	mPart1.put("Side","Front");
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);
+
+	mPart1.put("Side","Back");
+	xm.GetCreatePartition(mPart1,vs);
+	ni.GetCreatePartition(mPart1,vs);
+	comp.GetCreatePartition(mPart1,vs);	
+		 xm=(JDFExposedMedia)n.GetMatchingResource("ExposedMedia",JDFNode::ProcessUsage_AnyInput);
+		JDFExposedMedia xm2=(JDFExposedMedia) xm.GetPartition(JDFAttributeMap("SignatureName","Sig1"),JDFResource::PartUsage_Explicit);  
+        xm.setGeneralID("foo","bar");
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar"));
+        CPPUNIT_ASSERT_EQUAL(xm2.getGeneralID("foo"),WString("bar"));
+		CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);
+        xm.setGeneralID("foo","bar2");
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar2"));
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);
+        CPPUNIT_ASSERT_EQUAL(xm2.NumChildElements(JDFStrings::elm_GeneralID),1);
+        xm2.setGeneralID("foo","bar4");
+        xm.setGeneralID("foo2","bar3");
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar2"));
+        CPPUNIT_ASSERT_EQUAL(xm2.getGeneralID("foo"),WString("bar4"));
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo2"),WString("bar3"));
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),2);
+        xm.removeGeneralID("foo");
+		CPPUNIT_ASSERT_EQUAL(WString::emptyStr,xm.getGeneralID("foo"));
+        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo2"),WString("bar3"));
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);  
+        xm.setGeneralID("foo3","bar33");
+        JDFGeneralID gi=xm.getGeneralID(0);
+        CPPUNIT_ASSERT_EQUAL(gi.GetIDUsage(),WString("foo2"));
+        xm.removeGeneralID(L"");
+        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),0);  		
 	}
-	catch (const JDFException& ex)
+	catch (JDFException& e)
 	{
-		CPPUNIT_FAIL( ex.what() );
+		CPPUNIT_FAIL( e.what() );
 	}
 }

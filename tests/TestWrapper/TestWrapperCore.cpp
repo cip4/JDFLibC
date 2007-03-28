@@ -38,9 +38,36 @@ int main(int argc, char* argv[]){
 		cout<<"oops"<<endl;
 		return 1;
 	}
+
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
-	if(0){
+	if(0)
+	{
+		if(argc<3)
+		{
+			cout << "usage: formatJDF <in> <out>\n";
+			return 1;
+		}
+		cout<<argv[0]<<endl;
+		cout<<argv[1]<<endl;
+		cout<<argv[2]<<endl;
+		if(_access(argv[1],0))
+		{
+			cout << "no such file: "<<argv[1]<<endl;
+			cout << "usage: formatJDF <in> <out>\n";
+		}
+		if(strcmp(argv[1],argv[2]) && !_access(argv[2],0))
+		{
+			cout << "file exists: "<<argv[2]<<endl;
+			cout << "usage: formatJDF <in> <out>\n";
+		}
+
+		XMLDoc d;
+		d.Parse(argv[1],false,true,false);
+		d.GetRoot().EraseEmptyNodes();
+		d.Write2File(argv[2]);
+	}
+	else if(0){
 WString sss111(L"abc");
 JDFDate dt = JDFDate( "1975-01-01T20:00:10+00:00" ); 
 		WString str0 = dt.DateTimeISO(); 
@@ -111,35 +138,11 @@ JDFDate dt = JDFDate( "1975-01-01T20:00:10+00:00" );
 	{
 		XMLDoc d1("x1");
 		KElement e=d1.GetRoot();
-		XMLDoc d2("x2");
-		KElement e2=d2.GetRoot();
-		KElement foo=e2.AppendElement("foo:bar");
-		cout<<foo.getPrefixLength()<<endl;
-		foo.SetAttribute("foo:at","42");
-		cout<<foo.GetAttribute("at")<<" | "<<foo.GetAttribute("foo:at")<<endl;
-
-		foo.ReplaceElement(e);
-		e.SetAttribute("foo:at","42");
-		cout<<e.GetAttribute("at")<<" | "<<e.GetAttribute("foo:at")<<endl;
-
-		cout<<d2<<endl;
-		cout<<e2<<endl;
-		cout<<foo<<endl;
-		VoidSet vs;
-		vs.add((void*)4);
-		cout<<4<<vs.contains((void*)4)<<5<<vs.contains((void*)5)<<endl;
-		vs.resetIterator();
-		while (vs.hasNext())
-			cout<<vs.next()<<endl;
-		SetWString ss;
-		ss.add("a");
-		ss.add("b");
-		ss.add("a");
-		ss.resetIterator();
-		cout<<"a"<<ss.contains("a")<<"d"<<ss.contains("d")<<endl;
-		while (ss.hasNext())
-			cout<<ss.next()<<endl;
-
+		e.SetXPathAttribute("a/b[2]/@c","d2");
+		e.SetXPathAttribute("a/b[@c=\"d2\"]/@blub","fnarf");
+		cout<<d1;
+		cout<<e.GetXPathAttribute("a/b[@c=\"d2\"]/@blub","bad")<<endl;
+		cout<<e.GetXPathAttribute("a/b[@c=\"d3\"]/@blub","bad")<<endl;
 
 	}
 	else if(0)

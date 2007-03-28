@@ -135,7 +135,33 @@ namespace JDF{
 		* @param d the double to format
 		* @return the formatted string that represents d
 		*/
-		static WString formatDouble(double d);
+		static WString formatDouble(double d);    
+
+		/**
+		* replace a string in a given String
+		* <p>
+		* default: replaceChar(strWork, c, s)
+		* 
+		* @param strWork String to work on
+		* @param toReplace       String to replace
+		* @param replaceBy       String to insert for toReplace
+		* @return the String with replaced characters
+		*/
+		static WString StringUtil::replaceString(const WString& strWork, const WString& toReplace, const WString& replaceBy);
+
+		/**
+		* get a single token from a String
+		* <p>
+		* default: Token(strWork, index," \t\n")
+		* 
+		* @param strWork the String to work on
+		* @param index   index of the token to return<br>
+		*                if<0 return from end (e.g. -1 is the last token)
+		* @param delim   the delimiter
+		* @return the single token (<code>null</code> if no token found)
+		*/
+		static WString StringUtil::token(const WString& strWork, int index, const WString &delim);
+
 
 	}; // class StringUtil
 

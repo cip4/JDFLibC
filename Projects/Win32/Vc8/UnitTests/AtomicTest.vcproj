@@ -171,7 +171,7 @@
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
-				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\..\..\..\Build\Win32\Vc8\Debug/AtomicTest.pdb"
 				SubSystem="1"
@@ -419,36 +419,8 @@
 			Filter=".lib"
 			>
 			<File
-				RelativePath="..\..\..\..\external\CppUnit\lib\cppunit.lib"
+				RelativePath="..\..\..\..\external\CppUnit\bin\Win32\VC8\release\CppUnit.lib"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug DLL|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\..\external\CppUnit\lib\cppunitd.lib"
-				>
-				<FileConfiguration
-					Name="Release DLL|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\..\Build\Win32\Vc8\ReleaseDLL\JDFToolsDLL.lib"
@@ -535,31 +507,8 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\..\Build\Win32\Vc8\Debug\jdftoolslib_D.lib"
+				RelativePath="..\..\..\..\build\win32\vc8\debug\jdftoolslib_D.lib"
 				>
-				<FileConfiguration
-					Name="Release DLL|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug DLL|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\..\Build\Win32\Vc8\ReleaseDLL\JDFWrapperDLL.lib"
@@ -674,7 +623,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\..\external\CppUnit\lib\testrunnerd.lib"
+				RelativePath="..\..\..\..\external\CppUnit\bin\Win32\VC8\release\TestRunner.lib"
 				>
 			</File>
 		</Filter>

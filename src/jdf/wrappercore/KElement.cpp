@@ -89,6 +89,7 @@
 
 #include "vElement.h"
 #include "XMLDoc.h"
+#include "StringUtil.h"
 #include "XMLDocUserData.h"
 #include "jdf/lang/Mutex.h"
 #include "jdf/lang/SetWString.h"
@@ -3024,11 +3025,14 @@ namespace JDF{
 	return DefKElement;
 	}
 	*/
-	KElement KElement::GetXPathElement(const WString & path)const{
+	KElement KElement::GetXPathElement(const WString & pathIn)const{
 		if(throwNull()) 
 			return DefKElement;
-		if(path.empty()) 
+		if(pathIn.empty()) 
 			return *this;
+
+		WString path=StringUtil::replaceString(pathIn, "[@", "|||");
+
 		if(path[0]==L'/'){ 
 			KElement r=GetDocRoot();
 			int nextPos=path.find(L"/",2);
@@ -3043,10 +3047,18 @@ namespace JDF{
 			return GetXPathElement(path.substring(2));
 		if(path.leftStr(3)==L"../") 
 			return GetParentNode().GetXPathElement(path.substring(3));
+		if(path.equals(L"..")) 
+			return GetParentNode();
+		if(path.equals(L".")) 
+			return *this;
+
 		int posB0=path.find(L"[");
+        int posBAt=path.indexOf(L"|||");
 		int pos=path.find(L"/");
 		int iSkip=0;
 		WString newPath=path;
+
+		JDFAttributeMap map;
 		if(posB0!=path.npos && (posB0<pos || pos==WString::npos)){
 			int posB1=path.find(L"]");
 			iSkip=path.substring(posB0+1,posB1);
@@ -3054,14 +3066,21 @@ namespace JDF{
 			newPath=path.leftStr(posB0)+path.substring(posB1+1,path.npos);
 			pos=newPath.find(L"/");
 		}
+		else  if (posBAt != -1 && (posBAt<pos || pos==-1))
+		{
+			int posB1 = path.indexOf(L"]");
+			WString attEqVal = path.substring(posBAt + 3, posB1);
+			WString attName=StringUtil::token(attEqVal, 0, L"=");
+			WString attVal=attEqVal.substring(attName.length()+2,attEqVal.length()-1);
+			map=JDFAttributeMap(attName,attVal);
+			newPath = path.substring(0, posBAt) + path.substring(posB1 + 1);
+			pos = newPath.indexOf(WString::slash);                   
+		}
 		if(pos!=newPath.npos){ 
-			KElement e=GetElement(newPath.leftStr(pos),WString::emptyStr,iSkip);
+			KElement e=GetChildByTagName(newPath.substring(0, pos), WString::emptyStr, iSkip, map, true, true); 
 			return e.GetXPathElement(newPath.substring(pos+1));
 		}
-		int posA=newPath.find(L"@");
-		if(posA!=newPath.npos) 
-			return GetElement(newPath.leftstring(posA),WString::emptyStr,iSkip);
-		return GetElement(newPath,WString::emptyStr,iSkip);
+		return GetChildByTagName(newPath.substring(0, pos), WString::emptyStr, iSkip, map, true, true); 
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -3164,13 +3183,6 @@ namespace JDF{
 			KElement e=GetCreateElement(newPath.leftStr(pos),WString::emptyStr,iSkip);
 			return e.GetCreateXPathElement(newPath.substring(pos+1));
 		}
-		int posA=newPath.find(L"@");
-		if(posA!=newPath.npos){ 
-			int n=NumChildElements(newPath.leftStr(posA));
-			for(int i=n;i<iSkip;i++)
-				AppendElement(newPath.leftstring(posA),WString::emptyStr);
-			return GetCreateElement(newPath.leftstring(posA),WString::emptyStr,iSkip);
-		}
 		int n=NumChildElements(newPath);
 		for(int i=n;i<iSkip;i++)
 			AppendElement(newPath,WString::emptyStr);
@@ -3189,11 +3201,14 @@ namespace JDF{
 	*/
 
 	void KElement::SetXPathAttribute(const WString & path, const WString & value){
-		int pos=path.find(L"@");
+		int pos=path.find_last_of(L"@");
 		if(pos==path.npos) 
 			throw JDFException(L"SetXPathAttribute - bad attribute path: "+path);
 		WString att=path.substr(pos+1);
-		GetCreateXPathElement(path.leftStr(pos)).SetAttribute(att,value);
+		KElement e=GetXPathElement(path.leftStr(pos));
+		if(e.isNull())
+			e=GetCreateXPathElement(path.leftStr(pos));
+		e.SetAttribute(att,value);
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -3209,7 +3224,7 @@ namespace JDF{
 	*/
 
 	WString KElement::GetXPathAttribute(const WString & path, const WString & def)const{
-		int pos=path.find(L"@");
+		int pos=path.find_last_of(L"@");
 		if(pos==path.npos) 
 			throw JDFException(L"GetXPathAttribute - bad attribute path: "+path);
 		WString att=path.substr(pos+1);
@@ -3218,7 +3233,7 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 	void KElement::RemoveXPathAttribute(const WString & path){
-		int pos=path.find(L"@");
+		int pos=path.find_last_of(L"@");
 		if(pos==path.npos) 
 			throw JDFException(L"GetXPathAttribute - bad attribute path: "+path);
 		WString att=path.substr(pos+1);

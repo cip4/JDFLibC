@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -282,5 +282,53 @@ namespace JDF{
         }
         return s;
 	}
+
+   /**
+     * replace a character in a given String
+     * <p>
+     * default: replaceChar(strWork, c, s, 0)
+     * 
+     * @param strIn String to work on
+     * @param toReplace       character to replace
+     * @param replaceBy       String to insert for c
+      * @return the String with replaced characters
+     */
+    WString StringUtil::replaceString(const WString& strIn, const WString& toReplace, const WString& replaceBy)
+    {
+         int indexOf = strIn.indexOf(toReplace);
+         if( indexOf<0)
+             return strIn;
+
+		 WString strWork=strIn;
+         int len = toReplace.length();
+         WString r;
+         do
+         {
+             r+=strWork.substring(0,indexOf);
+             r+=replaceBy;
+             strWork=strWork.substring(indexOf+len);
+             indexOf = strWork.indexOf(toReplace);
+         }
+         while(indexOf>=0);
+         r+=strWork;
+         
+         return r;
+    }
+
+	   /**
+     * get a single token from a String
+     * <p>
+     * default: Token(strWork, index," \t\n")
+     * 
+     * @param strWork the String to work on
+     * @param index   index of the token to return<br>
+     *                if<0 return from end (e.g. -1 is the last token)
+     * @param delim   the delimiter
+     * @return the single token (<code>null</code> if no token found)
+     */
+     WString StringUtil::token(const WString& strWork, int index, const WString &delim)
+	 {
+		 return strWork.Token(index,delim);
+	 }
 
 }; // namespace JDF
