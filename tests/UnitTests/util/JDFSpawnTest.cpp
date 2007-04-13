@@ -520,6 +520,17 @@ void JDFSpawnTest::testSpawnPart()
 		CPPUNIT_ASSERT_EQUAL( 40.,xmRLspawn.GetAmount(map) ); // amount ok
 		CPPUNIT_ASSERT_EQUAL( 42.,xmRLspawn.GetActualAmount(map) ); // act amount ok
 
+		// check that the spawnIDs attribute is correctly placed in main and sub
+		WString spawnID=spawnedNode.GetSpawnID(false);
+		JDFExposedMedia xmSpawn= xmRLspawn.GetTarget();
+		CPPUNIT_ASSERT(!xmSpawn.isNull());
+		CPPUNIT_ASSERT_EQUAL(spawnID, xmSpawn.GetAttribute("SpawnIDs"));
+		JDFAttributeMap mapXMSpawn=xmSpawn.GetPartMap();
+		JDFExposedMedia xmMain= n.GetMatchingResource("ExposedMedia", JDFNode::ProcessUsage_AnyOutput);
+		xmMain=xmMain.GetPartition(mapXMSpawn, false);
+		CPPUNIT_ASSERT(!xmMain.isNull());
+		CPPUNIT_ASSERT_EQUAL(spawnID, xmMain.GetAttribute("SpawnIDs"));
+
 		// n is fine up to here, then amount is misplaced
 		JDFMerge merge=JDFMerge(n);
 		JDFDoc docMerge=merge.mergeJDF(spawnedNode, "merged", JDFNode::CleanUpMerge_None, JDFResource::AmountMerge_UpdateLink);

@@ -85,6 +85,8 @@
 #include "jdf/util/PlatformUtils.h"
 #include "jdf/wrapper/JDF.h"
 #include "jdf/wrapper/JDFGeneralID.h"
+#include "jdf/wrapper/JDFMerge.h"
+#include "jdf/wrapper/JDFSpawn.h"
 #include "AtomicTest.h"
 #include "time.h"
 #include <iostream>
@@ -100,26 +102,8 @@ const WString sm_dirTestTemp = L"temp/";
 
 CPPUNIT_TEST_SUITE_REGISTRATION (AtomicTest);
 
-
-void AtomicTest::setUp()
+static JDFDoc creatXMDoc()
 {
-	try	
-	{
-		JDF::PlatformUtils::Initialize();
-	}
-	catch (const JDF::Exception& e)	
-	{
-		e.getMessage();
-	}
-}
-
-
-// StringUtilTest::testGetBytes()
-//FileUtilTest::testExists()
-void AtomicTest::testAtomic()
-{
-	try
-	{
 	JDFElement::setDefaultJDFVersion(JDFElement::Version_1_3);
 	JDFDoc doc(0);
 	JDFNode n=doc.GetJDFRoot();
@@ -143,7 +127,7 @@ void AtomicTest::testAtomic()
 
 	JDFAttributeMap mPart1("SignatureName","Sig1");
 	mPart1.put("SheetName","S1");
-	mPart1.put("Side","Front");  
+	mPart1.put("Side","Front");       
 	xm.GetCreatePartition(mPart1,vs);
 	ni.GetCreatePartition(mPart1,vs);
 	comp.GetCreatePartition(mPart1,vs);
@@ -188,31 +172,101 @@ void AtomicTest::testAtomic()
 	xm.GetCreatePartition(mPart1,vs);
 	ni.GetCreatePartition(mPart1,vs);
 	comp.GetCreatePartition(mPart1,vs);	
-		 xm=(JDFExposedMedia)n.GetMatchingResource("ExposedMedia",JDFNode::ProcessUsage_AnyInput);
-		JDFExposedMedia xm2=(JDFExposedMedia) xm.GetPartition(JDFAttributeMap("SignatureName","Sig1"),JDFResource::PartUsage_Explicit);  
-        xm.setGeneralID("foo","bar");
-        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar"));
-        CPPUNIT_ASSERT_EQUAL(xm2.getGeneralID("foo"),WString("bar"));
-		CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);
-        xm.setGeneralID("foo","bar2");
-        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar2"));
-        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);
-        CPPUNIT_ASSERT_EQUAL(xm2.NumChildElements(JDFStrings::elm_GeneralID),1);
-        xm2.setGeneralID("foo","bar4");
-        xm.setGeneralID("foo2","bar3");
-        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo"),WString("bar2"));
-        CPPUNIT_ASSERT_EQUAL(xm2.getGeneralID("foo"),WString("bar4"));
-        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo2"),WString("bar3"));
-        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),2);
-        xm.removeGeneralID("foo");
-		CPPUNIT_ASSERT_EQUAL(WString::emptyStr,xm.getGeneralID("foo"));
-        CPPUNIT_ASSERT_EQUAL(xm.getGeneralID("foo2"),WString("bar3"));
-        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),1);  
-        xm.setGeneralID("foo3","bar33");
-        JDFGeneralID gi=xm.getGeneralID(0);
-        CPPUNIT_ASSERT_EQUAL(gi.GetIDUsage(),WString("foo2"));
-        xm.removeGeneralID(L"");
-        CPPUNIT_ASSERT_EQUAL(xm.NumChildElements(JDFStrings::elm_GeneralID),0);  		
+	return doc;
+}
+void AtomicTest::setUp()
+{
+	try	
+	{
+		JDF::PlatformUtils::Initialize();
+	}
+	catch (const JDF::Exception& e)	
+	{
+		e.getMessage();
+	}
+}
+
+
+// StringUtilTest::testGetBytes()
+//FileUtilTest::testExists()
+void AtomicTest::testAtomic()
+{
+	try
+	{
+		JDFDoc d=creatXMDoc();
+		JDFNode n=d.GetJDFRoot();
+		n.RemoveNodeInfos();
+		JDFNodeInfo ni=n.GetCreateNodeInfo();
+		CPPUNIT_ASSERT( !ni.isNull() );
+		JDFComment comment=n.AppendComment();
+		comment.SetText("Comment 1");
+		JDFResourceLink l=n.GetMatchingLink(JDFNode::elm_NodeInfo,JDFNode::ProcessUsage_AnyInput);
+		l.SetPartition(JDFResource::PartIDKey_SignatureName,"Sig1");
+		vWString v;
+		v.add(JDFNode::elm_ExposedMedia);
+		vmAttribute vMap;
+		JDFAttributeMap map;
+		map.put("SignatureName","Sig1");
+		map.put("SheetName","S1");
+		vMap.push_back(map);
+		JDFResourceLink xmRL=n.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput,0);
+		xmRL.SetAmount(40,map);
+		xmRL.SetUsage(JDFResourceLink::Usage_Output);
+		xmRL.SetAttribute("foo:bar","a","www.foobar.com");
+		JDFSpawn spawn=JDFSpawn(n); // fudge to test output counting
+		JDFDoc spawnDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true);
+		JDFNode spawnedNode=spawnDoc.GetJDFRoot();
+		CPPUNIT_ASSERT( spawnedNode.ToString().indexOf(JDFNode::atr_SpawnStatus)<0 ); // no spawnstatus
+		JDFResourceLink rl = spawnedNode.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_Any);
+		JDFResourceAudit ra=spawnedNode.CloneResourceToModify(rl);
+		WString clonedResID=ra.GetOldLink().GetrRef();
+
+		n=d.GetJDFRoot();
+		JDFComment comment2=n.AppendComment();
+		comment2.SetText("Comment 2 after");
+		JDFComment comment3=spawnedNode.AppendComment();
+		comment3.SetText("Comment 3 spawned");
+
+		JDFResourceLink xmRLspawn=spawnedNode.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyOutput);
+		xmRLspawn.SetActualAmount(42,map);
+		CPPUNIT_ASSERT_EQUAL( (WString)"a",xmRLspawn.GetAttribute("bar","www.foobar.com") );
+		CPPUNIT_ASSERT_EQUAL( 40.,xmRLspawn.GetAmount(map) ); // amount ok
+		CPPUNIT_ASSERT_EQUAL( 42.,xmRLspawn.GetActualAmount(map) ); // act amount ok
+		WString spawnID=spawnedNode.GetSpawnID(false);
+
+		JDFExposedMedia xmSpawn= xmRLspawn.GetTarget();
+		CPPUNIT_ASSERT(!xmSpawn.isNull());
+		CPPUNIT_ASSERT_EQUAL(spawnID, xmSpawn.GetAttribute("SpawnIDs"));
+		JDFAttributeMap mapXMSpawn=xmSpawn.GetPartMap();
+		JDFExposedMedia xmMain= n.GetMatchingResource("ExposedMedia", JDFNode::ProcessUsage_AnyOutput);
+		xmMain=xmMain.GetPartition(mapXMSpawn, false);
+		CPPUNIT_ASSERT(!xmMain.isNull());
+		CPPUNIT_ASSERT_EQUAL(spawnID, xmMain.GetAttribute("SpawnIDs"));
+
+		// n is fine up to here, then amount is misplaced
+		JDFMerge merge=JDFMerge(n);
+		JDFDoc docMerge=merge.mergeJDF(spawnedNode, "merged", JDFNode::CleanUpMerge_None, JDFResource::AmountMerge_UpdateLink);
+		JDFNode mergedNode=docMerge.GetJDFRoot();
+		xmRL=mergedNode.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyOutput);
+		CPPUNIT_ASSERT_EQUAL( 1,(int)mergedNode.GetResourceLinkPool().GetPoolChildren("NodeInfoLink").size() ); // no spurious ni added
+		CPPUNIT_ASSERT_EQUAL( 3,(int)mergedNode.GetChildElementVector(JDFNode::elm_Comment,WString::emptyStr, mAttribute::emptyMap,true,99).size() ); // Comment size
+		CPPUNIT_ASSERT_EQUAL( 40.,xmRL.GetAmount(map) ); // merged amount ok
+		CPPUNIT_ASSERT_EQUAL( 42.,xmRL.GetActualAmount(map) ); // merged act amount
+		CPPUNIT_ASSERT_EQUAL( (WString)"a",xmRL.GetAttribute("bar","www.foobar.com") ); // did not overwrite rl attribute
+
+		JDFExposedMedia xm=(JDFExposedMedia) n.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyOutput);
+		xm=(JDFExposedMedia) xm.GetPartition(map);
+		CPPUNIT_ASSERT_EQUAL( 42.,xm.GetAmount() ); // merged res amount ok
+		CPPUNIT_ASSERT_EQUAL( 42.,xm.GetAmountProduced() ); // merged res amountproduced ok
+
+		// test whether anything modified and tracked in a resource audit got correctly merged
+		JDFResourceAudit raMerge=(JDFResourceAudit) n.GetAuditPool().GetAudit(0, JDFAudit::AuditType_ResourceAudit);
+		CPPUNIT_ASSERT( !raMerge.isNull() ); // res audit merged
+		JDFResource rOld=raMerge.GetOldLink().GetTarget();
+		CPPUNIT_ASSERT( !rOld.isNull() ); // old res  merged
+		CPPUNIT_ASSERT_EQUAL( clonedResID,rOld.GetID() ); // old res ID
+		JDFResource rNew=raMerge.GetNewLink().GetTarget();
+		CPPUNIT_ASSERT( !rNew.isNull() ); // new res  merged
 	}
 	catch (JDFException& e)
 	{
