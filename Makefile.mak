@@ -15,6 +15,7 @@
 # =============================================================================
 #  date       | version |  author           |  description
 # ------------+---------+-------------------+----------------------------------
+#  04-Dec-2006             D.Hermsen/C.Behr    Fixed LIB/DLL Link Libraries for debuglineonly
 #  20-Apr-2004             Mike Matthiesen     
 #  22-Aug-2003    1.0      Mike Matthiesen     initial version.
 #
@@ -201,14 +202,20 @@ SOURCE_SUBDIRS =  ;.\..\src\jdf\wrapper \
 MSC_VERSION = VC6
 !ENDIF
 
+!IFDEF XERCES-C_DISTVER
+JDFOPENSRC_EXT_STRING = X$(XERCES-C_DISTVER)_$(MSC_VERSION)
+!ELSE
+JDFOPENSRC_EXT_STRING = X$(XERCES-C_VER)
+!ENDIF
+
 !IF ("$(STL_TYPE)" == "STLPORT")
-JDFOPENSRC_VER_STRING = $(JDFOPENSRC_VER_STRING)_PX$(XERCES-C_VER)
+JDFOPENSRC_VER_STRING = $(JDFOPENSRC_VER_STRING)_P$(JDFOPENSRC_EXT_STRING)
 !ENDIF
 !IF ("$(STL_TYPE)" == "MICROSOFT")
-JDFOPENSRC_VER_STRING = $(JDFOPENSRC_VER_STRING)_MX$(XERCES-C_VER)
+JDFOPENSRC_VER_STRING = $(JDFOPENSRC_VER_STRING)_M$(JDFOPENSRC_EXT_STRING)
 !ENDIF
 !IF ("$(STL_TYPE)" == "DINKUMWARE")
-JDFOPENSRC_VER_STRING = $(JDFOPENSRC_VER_STRING)_DX$(XERCES-C_VER)
+JDFOPENSRC_VER_STRING = $(JDFOPENSRC_VER_STRING)_D$(JDFOPENSRC_EXT_STRING)
 !ENDIF
 
 ###-------------------------------------------------------------------###
@@ -293,7 +300,7 @@ USER_COMPILER_INCLUDE  =  \
 !ELSE                                       # ***** DO NOT CHANGE THIS LINE
 USER_LINKER_SWITCHES   = /nologo /dll /profile                   # OPT additional linker switches
 !ENDIF                                      # ***** DO NOT CHANGE THIS LINE
-USER_LINKER_LIBPATHS   =  /LIBPATH:"$(DIRROOT)$(DIRSEP)cmpINFRA_CommonParsers$(VOB_STRUCTURE_LIB)$(CMPVOB_STRUCTURE_BUILDTYPE)" \
+USER_LINKER_LIBPATHS   = /LIBPATH:"$(DIRROOT)$(DIRSEP)cmpINFRA_CommonParsers$(VOB_STRUCTURE_LIB)$(CMPVOB_STRUCTURE_BUILDTYPE:$(CFG)=)"
                   # OPT additional library pathes (e.g. /LIBPATH:"$(DIRROOT)$(DIRSEP)cmpXXXX_AnotherVOB$(VOB_STRUCTURE_LIB)$(CMPVOB_STRUCTURE_BUILDTYPE)"
 
 # Set some additional idl compiler settings
@@ -491,16 +498,39 @@ USER_DLL_OBJS = $(USER_OBJS)
 #MFC_LIBRARIES = mfc.lib        # OPT create macros and name third party libraries. Use the macro in USER_XXX_LINK_LIBS
 !ENDIF                          # ***** DO NOT CHANGE THIS LINE
 
-!IF ("$(CFG)"=="JDFToolsLib")
+# =====================================================
+# LIB Link Libs
+# =====================================================
+
+# -----------------------------------------------------
+# JDFToolsLib (LIB)
+# -----------------------------------------------------
+!IF (("$(CFG)"=="JDFToolsLib") || ("$(CFG)"=="debuglineonlyJDFToolsLib"))
 USER_LIB_LINK_LIBS = \
                      $(XERCES-C_LIBNAME) \
+!IF ("$(MSC_VERSION)" == "VC8")
+                     rpcrt4.lib \
+!ENDIF
                      WS2_32.lib
 !ENDIF
-!IF ("$(CFG)"=="JDFWrapperLib")
+# -----------------------------------------------------
+# JDFWrapperLib (LIB)
+# -----------------------------------------------------
+!IF (("$(CFG)"=="JDFWrapperLib") || ("$(CFG)"=="debuglineonlyJDFWrapperLib"))
 !ENDIF
-!IF ("$(CFG)"=="JDFWrapperCoreLib")
+# -----------------------------------------------------
+# JDFWrapperCoreLib (LIB)
+# -----------------------------------------------------
+!IF (("$(CFG)"=="JDFWrapperCoreLib") || ("$(CFG)"=="debuglineonlyJDFWrapperCoreLib"))
 !ENDIF
 
+# =====================================================
+# DLL Link Libs
+# =====================================================
+
+# -----------------------------------------------------
+# JDFToolsDll (DLL)
+# -----------------------------------------------------
 !IF ("$(CFG)"=="JDFToolsDll")
 USER_DLL_LINK_LIBS = \
                      $(XERCES-C_LIBNAME) \
@@ -508,10 +538,13 @@ USER_DLL_LINK_LIBS = \
 !IF ("$(MSC_VERSION)" != "VC8")
                      WS2_32.lib largeint.lib ole32.lib
 !ELSE
-                     WS2_32.lib ole32.lib
+                     rpcrt4.lib WS2_32.lib ole32.lib
 !ENDIF
 !ENDIF
 
+# -----------------------------------------------------
+# JDFWrapperDll (DLL)
+# -----------------------------------------------------
 !IF ("$(CFG)"=="JDFWrapperDll")
 USER_DLL_LINK_LIBS = \
                      JDFToolsDll$(BUILD_EXTENSION).lib \
@@ -523,6 +556,9 @@ USER_DLL_LINK_LIBS = \
 !ENDIF
 !ENDIF
 
+# -----------------------------------------------------
+# JDFWrapperCoreDll (DLL)
+# -----------------------------------------------------
 !IF ("$(CFG)"=="JDFWrapperCoreDll")
 USER_DLL_LINK_LIBS = \
                      kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib \

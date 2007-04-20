@@ -118,8 +118,6 @@ namespace JDF{
 		* dtor
 		*/
 		virtual ~JDFIconList(){};
-
-
 	}; // endJDFIconList
 
 	// ******************************************************

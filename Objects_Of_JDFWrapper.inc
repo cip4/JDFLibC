@@ -689,6 +689,7 @@ USER_OBJS      = \
                      $(CMPO_OBJ_DIR)$(DIRSEP)JDFGangInfo.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)JDFGangQuFilter.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)JDFGatheringParams.obj \
+                     $(CMPO_OBJ_DIR)$(DIRSEP)JDFGeneralID.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)JDFGlue.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)JDFGlueApplication.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)JDFGlueLine.obj \
