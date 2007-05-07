@@ -204,6 +204,7 @@ namespace JDF
 		* @return const_reference: a reference to the element of the controlled sequence at position pos
 		*/
 		const_reference at(size_type pos) const;
+		const_reference elementAt(size_type pos) const;
 
 		/**
 		* Returns a reference to the element of the controlled sequence at position pos
@@ -212,6 +213,7 @@ namespace JDF
 		* @return reference: a reference to the element of the controlled sequence at position pos
 		*/
 		reference at(size_type pos);
+		reference elementAt(size_type pos);
 
 		/**
 		* Removes the elements of the controlled sequence in the range [first, last]

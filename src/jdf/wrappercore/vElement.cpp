@@ -146,12 +146,18 @@ namespace JDF{
 	vElement::const_reference vElement::elementAt(size_type pos) const{
 		return PBASE->at(pos);
 	}
+	vElement::const_reference vElement::item(size_type pos) const{
+		return PBASE->at(pos);
+	}
 	////////////////////////////////////////////////////////////////////////
 	
 	vElement::reference vElement::at(size_type pos){
 		return PBASE->at(pos);
 	}
 	vElement::reference vElement::elementAt(size_type pos){
+		return PBASE->at(pos);
+	}
+	vElement::reference vElement::item(size_type pos){
 		return PBASE->at(pos);
 	}
 	////////////////////////////////////////////////////////////////////////
@@ -185,7 +191,13 @@ namespace JDF{
 	}
 
 	////////////////////////////////////////////////////////////////////////
-	bool vElement::empty()const{
+	bool vElement::empty()const
+	{
+		return PBASE->empty();
+	}
+	////////////////////////////////////////////////////////////////////////
+	bool vElement::isEmpty()const
+	{
 		return PBASE->empty();
 	}
 	////////////////////////////////////////////////////////////////////////

@@ -552,8 +552,8 @@ namespace JDF{
 						}
 					}
 
-					rRoot.SpawnPart(spawnID,copyStatus,vSpawnParts,true);						
-					r.SpawnPart(spawnID,copyStatus,vSpawnParts,false);						
+					SpawnPart(rRoot,spawnID,copyStatus,vSpawnParts,true);						
+					SpawnPart(r,spawnID,copyStatus,vSpawnParts,false);						
 
 					if(vSpawnParts.size()&&(bResRW||bSpawnROPartsOnly)){
 						// reduce partitions of all RW resources and of RO resources if requested
@@ -872,4 +872,61 @@ namespace JDF{
 		spawnAudit.DeleteNode();
 		return node;
 	}
+
+		//////////////////////////////////////////////////////////////////////////////////
+
+	void JDFSpawn::SpawnPart(JDFResource& r, const WString & spawnID, JDFResource::EnumSpawnStatus copyStatus, const vmAttribute& vParts, bool bStayinMain)
+	{
+        if (vParts.size() > 0)
+        {
+            int size = vParts.size();
+            // loop over all part maps to get best matching resource
+            for (int j = 0; j < size; j++)
+            {
+                VElement vSubParts=r.GetPartitionVector(vParts.elementAt(j));
+                for(int k=0;k<vSubParts.size();k++)
+                {
+                    JDFResource pLeaf = (JDFResource) vSubParts.item(k);
+					if (!pLeaf.isNull())
+                    {
+                        // set the lock of the leaf to true if it is RO, else unlock it
+                        if (bStayinMain)
+                        {
+							if( (copyStatus==JDFResource::SpawnStatus_SpawnedRW)
+								|| (pLeaf.GetSpawnStatus()!=JDFResource::SpawnStatus_SpawnedRW))
+                            {
+                                pLeaf.SetSpawnStatus(copyStatus);
+								pLeaf.SetLocked(copyStatus == JDFResource::SpawnStatus_SpawnedRW);
+                            }
+                        }
+                        else
+                        {
+							pLeaf.SetLocked(copyStatus != JDFResource::SpawnStatus_SpawnedRW);
+                        }
+
+                        pLeaf.AppendSpawnIDs(spawnID);
+                    }
+                }
+            }
+        }
+        else // no partitions
+        {
+            if (bStayinMain)
+            {
+                if( (copyStatus==JDFResource::SpawnStatus_SpawnedRW)
+                        || (r.GetSpawnStatus()!=JDFResource::SpawnStatus_SpawnedRW))
+                {
+                    r.SetSpawnStatus(copyStatus);
+                    r.SetLocked(copyStatus == JDFResource::SpawnStatus_SpawnedRW);
+                }
+            }
+            else
+            {
+                r.SetLocked(copyStatus != JDFResource::SpawnStatus_SpawnedRW);
+            }
+
+            r.AppendSpawnIDs(spawnID);
+        }
+    }
+
 } // namespace JDF

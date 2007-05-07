@@ -294,6 +294,7 @@ namespace JDF{
 
 		void finalizeSpawn(const vmAttribute& vLocalSpawnParts, const vElement& outLinks, JDFSpawned& spawnAudit);
 
+		void SpawnPart(JDFResource& r, const WString & spawnID, JDFResource::EnumSpawnStatus spawnStatus, const vmAttribute& vParts, bool bStayInMain);
 		/**
 		* unSpawnNode - undo a spawn of a node
 		* hier muss noch nachportiert werden - es gibt jetzt in JDFRoot eine Methode

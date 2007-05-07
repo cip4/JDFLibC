@@ -327,7 +327,11 @@ namespace JDF{
 		if(r.GetPartUsage()==JDFResource::PartUsage_Explicit||bForce){
 			apParts=GetPartMapVector();
 			for(int i=0;i<apParts.size();i++)
-				r.GetCreatePartition(apParts[i]);
+			{
+				VElement vExist=r.GetPartitionVector(apParts.elementAt(i));
+				if(vExist.isEmpty())
+					r.GetCreatePartition(apParts[i]);
+			}
 		}
 
 	}
