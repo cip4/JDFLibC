@@ -136,13 +136,15 @@ JDFDate dt = JDFDate( "1975-01-01T20:00:10+00:00" );
 	}
 	else if(1)
 	{
-		XMLDoc d1("x1");
+		XMLDoc d1;
+		d1.Parse("ue.jdf");
 		KElement e=d1.GetRoot();
 		e.SetXPathAttribute("a/b[2]/@c","d2");
 		e.SetXPathAttribute("a/b[@c=\"d2\"]/@blub","fnarf");
 		cout<<d1;
 		cout<<e.GetXPathAttribute("a/b[@c=\"d2\"]/@blub","bad")<<endl;
 		cout<<e.GetXPathAttribute("a/b[@c=\"d3\"]/@blub","bad")<<endl;
+		d1.Write2File("ue_out.jfd");
 
 	}
 	else if(0)
