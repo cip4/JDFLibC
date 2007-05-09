@@ -34,8 +34,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FixJDF", "TestWrapper\FixJD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{917840A5-E756-4808-9AC3-53321D135F93}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpanTest", "TestWrapper\SpanTest.vcproj", "{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug DLL|Win32 = Debug DLL|Win32
@@ -172,14 +170,6 @@ Global
 		{402D30A1-70A5-4601-8604-3D4C2AE1F756}.Release DLL|Win32.Build.0 = Release DLL|Win32
 		{402D30A1-70A5-4601-8604-3D4C2AE1F756}.Release|Win32.ActiveCfg = Release|Win32
 		{402D30A1-70A5-4601-8604-3D4C2AE1F756}.Release|Win32.Build.0 = Release|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Debug DLL|Win32.ActiveCfg = Debug DLL|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Debug DLL|Win32.Build.0 = Debug DLL|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Debug|Win32.Build.0 = Debug|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Release DLL|Win32.ActiveCfg = Release DLL|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Release DLL|Win32.Build.0 = Release DLL|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Release|Win32.ActiveCfg = Release|Win32
-		{33A5FA0B-FF73-4312-B536-AB5362A9DD4F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

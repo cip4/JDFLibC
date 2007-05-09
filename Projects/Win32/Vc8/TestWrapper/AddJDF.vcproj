@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\..\external\xerces\include,..\..\..\..\src"
-				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,UNICODE,_REENTRANT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;UNICODE;_REENTRANT"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="jdf.h"
@@ -409,11 +409,18 @@
 			Name="lib"
 			>
 			<File
-				RelativePath="..\..\..\..\build\win32\vc7\releasedll\JDFToolsDLL.lib"
+				RelativePath="..\..\..\..\Build\Win32\VC8\ReleaseDLL\JDFToolsDLL.lib"
 				>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
 					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release DLL|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -437,8 +444,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\..\Build\Win32\Vc8\DebugDLL\JDFToolsDLLd.lib"
+				RelativePath="..\..\..\..\Build\Win32\VC8\DebugDLL\JDFToolsDLLd.lib"
 				>
+				<FileConfiguration
+					Name="Debug DLL|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Release DLL|Win32"
 					ExcludedFromBuild="true"
@@ -521,11 +535,18 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\..\build\win32\vc7\releasedll\JDFWrapperDLL.lib"
+				RelativePath="..\..\..\..\Build\Win32\VC8\ReleaseDLL\JDFWrapperDLL.lib"
 				>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
 					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release DLL|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
