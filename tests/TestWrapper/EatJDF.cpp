@@ -12,15 +12,6 @@ using namespace JDF;
 //////////////////////////////////////////////////////////////////
 
 int main(int argc, char* argv[]){
-    // Initialize the XML4C2 system 
-    try{
-        XMLPlatformUtils::Initialize();
-    }catch(const XMLException& toCatch){
-        cerr << "Error during XML4C2 Initialization.\n"
-			"  Exception message is \"%s\"\n"
-			<< toCatch.getMessage() << endl;
-        return 1;
-    }
 	// Initialize the JDFTools system
 	try	{
 		JDF::PlatformUtils::Initialize();

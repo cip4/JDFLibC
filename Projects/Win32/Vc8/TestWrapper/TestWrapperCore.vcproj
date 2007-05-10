@@ -579,7 +579,6 @@
 				>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -765,6 +764,13 @@
 			<File
 				RelativePath="..\..\..\..\external\xerces\lib\xerces-c_2D.lib"
 				>
+				<FileConfiguration
+					Name="Debug DLL|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Release DLL|Win32"
 					ExcludedFromBuild="true"

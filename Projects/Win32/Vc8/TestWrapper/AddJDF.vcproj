@@ -42,8 +42,9 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="..\..\..\..\external\xerces\include,..\..\..\..\src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;UNICODE;_REENTRANT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="jdf.h"

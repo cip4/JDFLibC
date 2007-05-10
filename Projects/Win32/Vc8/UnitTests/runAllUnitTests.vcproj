@@ -173,7 +173,7 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
 				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib"
+				IgnoreDefaultLibraryNames="libc.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\..\..\..\Build\Win32\VC8\Debug/JDFCoreTests.pdb"
 				SubSystem="1"

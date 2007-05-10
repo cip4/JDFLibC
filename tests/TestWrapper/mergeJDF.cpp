@@ -22,15 +22,6 @@ using namespace JDF;
 XERCES_CPP_NAMESPACE_USE
 
 int main(int argc, char* argv[]){
-    // Initialize the XML4C2 system
-    try{
-        XMLPlatformUtils::Initialize();
-    }catch(const XMLException& toCatch){
-        cerr << "Error during XML4C2 Initialization.\n"
-			"  Exception message is \"%s\"\n"
-			<< toCatch.getMessage() << std::endl;
-        return 1;
-    }
 	// Initialize the JDFTools system
 	try	{
 		JDF::PlatformUtils::Initialize();

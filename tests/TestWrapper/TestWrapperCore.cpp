@@ -31,7 +31,6 @@ XERCES_CPP_NAMESPACE_USE
 
 
 int main(int argc, char* argv[]){
-		
 	try	{
 		JDF::PlatformUtils::Initialize();
 	} catch (const JDF::Exception&)	{
