@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -138,12 +138,6 @@ namespace JDF{
 		*/
 		vElement GetResourceLinks(const WString & name=WString::emptyStr, const mAttribute&mAttrib=mAttribute::emptyMap,const WString & nameSpaceURI=L"")const;
 
-		/**
-		* Gets the ResourceLink from the PipeParams element
-		* @return ResorceLink: the resource link
-		*/
-		JDFResourceLink getResourceLink()const;
-
 		/** 
 		* 
 		* @param WString resName, name of the resource to get/create
@@ -156,7 +150,7 @@ namespace JDF{
 		* @param WString resName, name of the resource to get/create
 		* @return JDFResource The element
 		*/
-		JDFResource GetResource(const WString &resName=WString::emptyStr)const;
+		JDFResource GetResource(const WString &resName)const;
 
 		/**
 		* Append  Resource
@@ -164,14 +158,6 @@ namespace JDF{
 		*/
 
 		JDFResource AppendResource(const WString &resName);
-		/**
-		* append  ResourceLink
-		* @param linkName name of the ResourceLink to append a link for
-		* @param bInput if true, the link is an input link
-		* @return JDFResourceLink: the appended element 
-		*/
-		JDFResource AppendResourceLink(const WString &resName, bool bInput);
-
 		/**
 		* return a vector of unknown element nodenames
 		*/
