@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -109,6 +109,18 @@ namespace JDF{
 		}
 		return v;
 	}
+	JDFResourceLink JDFPipeParams::getResourceLink()const
+	{
+		vElement v=GetChildElementVector();
+		for(int i=0;i<v.size();i++)
+		{
+			JDFElement e=v[i];
+			if(e.IsResourceLink()){
+				return e;
+			}
+		}
+		return DefKElement;
+	}
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,12 +129,30 @@ namespace JDF{
 		return GetUnknownPoolElements(PoolType_PipeParams,bIgnorePrivate,nMax);
 	};
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	JDFResource JDFPipeParams::GetResource(const WString &resName)const{
+	JDFResource JDFPipeParams::GetResource(const WString &resName)const
+	{
+		if(resName.empty())
+		{
+			JDFResourceLink rl=getResourceLink();
+			if(!rl.isNull())
+				return rl.GetTarget();
+			VElement v=GetChildElementVector();
+
+			for(int i=0;i<v.size(); i++)
+			{
+				JDFElement e =  v.item(i);
+				if(e.IsResource()){
+					return  e;
+				}
+			}
+			return DefKElement;
+
+		}
 		JDFResource e=GetElement(resName,WString::emptyStr);
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
-	
+
 	JDFResource JDFPipeParams::GetCreateResource(const WString &resName){
 		JDFResource e=GetCreateElement(resName,WString::emptyStr);
 		e.init();
@@ -133,6 +163,14 @@ namespace JDF{
 	JDFResource JDFPipeParams::AppendResource(const WString &resName){
 		JDFResource e=AppendElement(resName);
 		e.init();
+		return e;
+	};
+	/////////////////////////////////////////////////////////////////////
+	JDFResource JDFPipeParams::AppendResourceLink(const WString &resName, bool bInput){
+
+		JDFResourceLink e=resName.endsWith(L"Link") ? AppendElement(resName) : AppendElement(resName+L"Link");
+		e.init();
+		e.SetUsage(bInput?JDFResourceLink::Usage_Input:JDFResourceLink::Usage_Output);
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////

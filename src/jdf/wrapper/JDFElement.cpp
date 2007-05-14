@@ -1469,6 +1469,10 @@ namespace JDF{
 
 		// move the resource to the closest common ancestor if it is not already an ancestor of this
 		while(!root.GetParentJDF().IsAncestor(newRef)){
+			KElement parent=root.GetParentJDF();
+            if(parent.isNull())
+                break;
+
 			root=root.GetParentJDF().GetParentJDF().GetCreateResourcePool().MoveElement(root);
 		}
 
