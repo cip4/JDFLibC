@@ -1484,26 +1484,6 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\..\external\libpng\projects\visualc71\Win32_LIB_Debug\libpngd.lib"
-			>
-			<FileConfiguration
-				Name="Release|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release DLL|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
 			RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2.lib"
 			>
 			<FileConfiguration
@@ -1516,26 +1496,6 @@
 			</FileConfiguration>
 			<FileConfiguration
 				Name="Debug DLL|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\..\external\xerces\lib\VC8\xerces-c_2D.lib"
-			>
-			<FileConfiguration
-				Name="Release|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release DLL|Win32"
 				ExcludedFromBuild="true"
 				>
 				<Tool
