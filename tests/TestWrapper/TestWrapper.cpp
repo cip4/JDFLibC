@@ -13,7 +13,10 @@
 #include <iostream>
 
 XERCES_CPP_NAMESPACE_USE
+int nnnn=0;
 #define assertEquals(a,b)if(a!=b)cout<<"bad\n"<<a<<endl<<b;
+#define assertTrue(a)if(!a)cout<<"bad\n"<<a<<endl;
+#define CPPUNIT_ASSERT(a)if(!a)cout<<"bad\n"<<nnnn++<<endl;else{nnnn++;}
 using namespace std;
 using namespace JDF;
 
@@ -28,6 +31,7 @@ using namespace JDF;
 * -a: actions to perform - DoAll calls all test programs
 * -i input JDF file
 * -o output JDF File 
+
 * 
 */
 
@@ -63,22 +67,19 @@ int main(int argC, char* argV[]){
 	// clean up
 
 	if(1){
-
-		JDFDoc doc(1);
-		JDFJMF jmf=doc.GetJMFRoot();
-		JDFCommand c=jmf.AppendCommand(JDFMessage::Type_PipePull);        
-		JDFPipeParams pp=c.AppendPipeParams();
-		JDFExposedMedia xm=(JDFExposedMedia) pp.AppendResource(JDFElement::elm_ExposedMedia);
-		JDFMedia m=(JDFMedia) pp.AppendResource(JDFElement::elm_Media);
-		JDFRefElement rm=xm.RefElement(m);
-		assertEquals(rm.GetTarget(),m);
-		assertEquals(pp.GetResource(JDFElement::elm_ExposedMedia),xm);
-		assertEquals(pp.GetResource(),xm);
-		assertEquals(pp.GetResource(JDFElement::elm_Media),m);
-		JDFResourceLink rl=pp.AppendResourceLink(JDFElement::elm_ExposedMedia, true);
-		rl.SetrRef(xm.GetID());
-		assertEquals(xm,pp.GetResource());       
-		assertEquals(rl.GetTarget(),pp.GetResource());       
+		{
+		JDFDoc doc(0);
+        JDFNode root = doc.GetJDFRoot();
+        root.SetType("ConventionalPrinting");
+        int id=root.GetMinID();
+        assertTrue((id<5));
+        for(int i=0;i<10000;i++)
+            root.GetAuditPool().AddModified();
+        assertEquals(id+10000,root.GetMinID());
+        root.SetID("ida123456");
+        assertEquals(123456,root.GetMinID());
+		}
+		cout<<"ffoooo"<<endl;
 
 	}else if(0){
 		for(int iii=0;iii<10;iii++)

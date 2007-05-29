@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -126,7 +126,7 @@ Ordered list of IntegerRanges
 		* @param WString s the string to convert
 		* @param int xdef the value that -1 defaults to in this JDFIntegerRangeList
 		*/
-		JDFIntegerRangeList(const WString& s=WString::emptyStr, int xdef=0);
+		JDFIntegerRangeList(const WString& s=WString::emptyStr, int xdef=JDFIntegerRange::getDefaultDef());
 		
 		/** 
 		* constructor that tokenizes a string

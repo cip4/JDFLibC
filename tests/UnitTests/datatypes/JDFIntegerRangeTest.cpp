@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -180,6 +180,28 @@ void JDFIntegerRangeTest::testCopyConstructor()
         CPPUNIT_ASSERT( !range.InRange(3) );
         CPPUNIT_ASSERT( range2.InRange(7) );
         CPPUNIT_ASSERT( !range2.InRange(8) );
+	}
+	catch (const JDFException& ex)
+	{
+		CPPUNIT_FAIL( ex.what() );
+	}
+}
+
+void JDFIntegerRangeTest::testDefaultDef()
+{
+	try
+	{
+		JDFIntegerRange::setDefaultDef(8);
+        JDFIntegerRange range = JDFIntegerRange(4,-1);
+        CPPUNIT_ASSERT( range.InRange(4) );
+        CPPUNIT_ASSERT( !range.InRange(3));
+        CPPUNIT_ASSERT( range.InRange(7));
+        CPPUNIT_ASSERT( !range.InRange(8));
+		JDFIntegerRange::setDefaultDef(0);
+        CPPUNIT_ASSERT( range.InRange(4) );
+        CPPUNIT_ASSERT( range.InRange(3));
+        CPPUNIT_ASSERT( !range.InRange(7));
+        CPPUNIT_ASSERT( !range.InRange(8));
 	}
 	catch (const JDFException& ex)
 	{

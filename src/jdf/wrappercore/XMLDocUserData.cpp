@@ -90,12 +90,13 @@
 
 #include <map>
 
+XERCES_CPP_NAMESPACE_USE
 
 namespace JDF{
 
-	typedef std::map<WString,KElement> targetMap;
+	typedef std::map<WString,DOMElement*> targetMap;
 
-	bool useIDCache=true;
+	static bool useIDCache=true;
 	
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
@@ -103,7 +104,7 @@ namespace JDF{
 	
 	XMLDocUserData::XMLDocUserData(){
 		ClearDirtyIDs();
-		mapTarget=new targetMap;
+		mapTarget=new targetMap();
 		dirtyPolicy=DirtyPolicy_None;
 		useIDCache=true;
 	}
@@ -212,15 +213,19 @@ namespace JDF{
 			return;
 
 		targetMap*pt=(targetMap*)mapTarget;
-		pt->insert(targetMap::value_type(id,target));
+		pt->insert(targetMap::value_type(id,target.GetDOMElement()));
 	}
 	
 	//////////////////////////////////////////////////////////////////////
 	
-	void XMLDocUserData::RemoveTarget(const KElement& target){
+	void XMLDocUserData::RemoveTarget(const KElement& target)
+	{		
+		if(!useIDCache)
+			return;
+
 		if(!this)
 			throw JDFException(L"XMLDocUserData::RemoveTarget used on null object");
-		const WString id=target.GetAttribute(L"ID");
+		const WString id=target.GetAttribute(KElement::atr_ID);
 		if(id.empty())
 			return;
 
@@ -234,20 +239,27 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	KElement XMLDocUserData::GetTarget(const WString& id)const{
+		if(!useIDCache)
+			return KElement::DefKElement;
 		if(!this)
 			throw JDFException(L"XMLDocUserData::GetTarget used on null object");
 		targetMap*pt=(targetMap*)mapTarget;
 		targetMap::const_iterator it=pt->find(id);
-		if(it!=pt->end()){
+		if(it!=pt->end())
+		{
 			KElement e=it->second;
-			if(e.GetAttribute(L"ID")==id)
+			if(e.GetAttribute(KElement::atr_ID)==id)
 				return e;
 		}
-		return KElement();
+		return KElement::DefKElement;
 	}
 	
 	//////////////////////////////////////////////////////////////////////
-	void XMLDocUserData::ClearTargets(){
+	
+	void XMLDocUserData::ClearTargets()
+	{
+		if(!useIDCache)
+			return;
 		if(!this)
 			throw JDFException(L"XMLDocUserData::ClearTargets used on null object");
 		targetMap*pt=(targetMap*)mapTarget;

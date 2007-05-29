@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -98,23 +98,24 @@
 #include "JDFRange.h"
 
 namespace JDF{
-	
-/**
-* Implements JDF ranges "x~y" for integers
-* added functionality for 0~-1 type ranges i.e 0 to last
-* Ranges include the end-points
+
+	/**
+	* Implements JDF ranges "x~y" for integers
+	* added functionality for 0~-1 type ranges i.e 0 to last
+	* Ranges include the end-points
 	*/
-	class JDF_WRAPPERCORE_EXPORT JDFIntegerRange:public IntegerRange{
+	class JDF_WRAPPERCORE_EXPORT JDFIntegerRange:public IntegerRange
+	{
 	public:
-	/** 
-	* ctor
-	* @param WString s the string that represents the IntegerRange 
-	* @param xdef the default length of the InteggerRange i.e. the value that -1 represents
+		/** 
+		* ctor
+		* @param WString s the string that represents the IntegerRange 
+		* @param xdef the default length of the InteggerRange i.e. the value that -1 represents
 		*/
-		JDFIntegerRange(const WString& s,int xdef=0):JDFRange<int>(s){
+		JDFIntegerRange(const WString& s,int xdef=getDefaultDef()):JDFRange<int>(s){
 			SetDef(xdef);
 		};
-		
+
 		/**
 		* ctor for one int element
 		* @note that is impossible to set xdef in this constructor due zo overloading ambiguity with
@@ -122,25 +123,25 @@ namespace JDF{
 		* @param int x the value of the range
 		*/
 		JDFIntegerRange(int x=0):JDFRange<int>(x){};
-		
+
 		/**
 		* standard range ctor
 		* @param int xMin the left value of the range
 		* @param int xMax the rightt value of the range
 		* @param xdef the default length of the InteggerRange i.e. the value that -1 represents
 		*/
-		JDFIntegerRange(const int xmin,const int xmax, const int xdef=0);
-		
+		JDFIntegerRange(const int xmin,const int xmax, const int xdef=getDefaultDef());
+
 		/**
 		* copy ctor
 		*/
 		JDFIntegerRange(const IntegerRange&r);
-		
+
 		/**
 		* another copy ctor
 		*/
 		JDFIntegerRange(const JDFIntegerRange&r);
-		
+
 		/**
 		* copy ctor
 		*/
@@ -160,19 +161,19 @@ namespace JDF{
 		* yactor
 		*/
 		virtual JDFIntegerRange& operator =(const WString& s);
-		
+
 		/**
 		* destructor
 		*/
 		virtual ~JDFIntegerRange(){};
-		
+
 		/**
 		* Is x within this range
 		* @param const int x the value to test
 		* @return bool true if x is within this range, else false
 		*/
 		virtual bool InRange(const int& x) const;
-		
+
 		/**
 		* Is range 'x' within this range
 		* @param JDFIntegerRange x: the range to test
@@ -187,20 +188,20 @@ namespace JDF{
 		* i.e. the value that -0, were it possible to specify, would represent
 		*/
 		void SetDef(const int xdef);
-		
+
 		/**
 		* Get the default value which is used for negative numbers
 		* @return int: one above the value that -1 will represent in this range
 		* i.e. the value that -0, were it possible to specify, would represent
 		*/
 		virtual int GetDef();
-		
+
 		/**
 		* number of elements that this range represents
 		* @return int the number of elements represented by this
 		*/
 		virtual int NElements()const;
-		
+
 		/** 
 		* value of the ith element in the range
 		* Element(2) of 1~4 is 3
@@ -211,21 +212,21 @@ namespace JDF{
 		*
 		*/
 		virtual int Element(const int i)const;
-		
+
 		/**
 		* the value of the left range element
 		* this is always the left value, i.e. no chek for min or max is done
 		* @return int the left value
 		*/
 		virtual int GetLeft() const;
-		
+
 		/** 
 		* the value of the right range element
 		* this is always the right value, i.e. no chek for min or max is done
 		* @return int the right value
 		*/
 		virtual int GetRight() const;
-		
+
 		/**
 		* attempts to append a value to this range, returns true if possible
 		*
@@ -263,12 +264,31 @@ namespace JDF{
 		*/
 		WString GetString() const;
 
+		/**
+		* setDefaultDef - sets the preset for xDef, which will be used when constructing an IntegerRange<br>
+		* the value represents the index that is one past the end of the list<br>
+		* if xdef==0 (the default), the neg numbers themselves are used
+		*
+		* @param xdef - (int)1 above the value that -1 will represent in this range
+		* i.e. the value that -0, were it possible to specify, would represent
+		*/
+		static void setDefaultDef(int xdef);
 
+		/**
+		* getDefaultDef - gets the preset for xDef, which will be used when constructing an IntegerRange<br>
+		* the value represents the index that is one past the end of the list<br>
+		* if xdef==0 (the default), the neg numbers themselves are used
+		*
+		* @return int - (int)1 above the value that -1 will represent in this range
+		* i.e. the value that -0, were it possible to specify, would represent
+		*/
+		static int getDefaultDef();
 
 	protected:
 
 		/// standard initialization
-		virtual void init(int x, int y, int xdef=0);
+		virtual void init(int x, int y, int xdef=getDefaultDef());
+
 	};
 }
 

@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2007 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -97,6 +97,7 @@ class JDFIntegerRangeTest : public CppUnit::TestCase
 		CPPUNIT_TEST( testJDFIntegerRangeString );
 		CPPUNIT_TEST( testAppend );
 		CPPUNIT_TEST( testCopyConstructor );
+		CPPUNIT_TEST( testDefaultDef );
 	CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -104,6 +105,8 @@ class JDFIntegerRangeTest : public CppUnit::TestCase
 		void testJDFIntegerRangeString();
 		void testAppend();
 		void testCopyConstructor();
+		void testDefaultDef();
+		
 
 }; // class JDFIntegerRangeTest
 

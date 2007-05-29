@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -89,6 +89,8 @@
 #include "jdf/wrappercore/StringUtil.h"
 
 using namespace std;
+static int m_defaultXDef=0;
+
 namespace JDF{
 	
 	
@@ -262,4 +264,30 @@ namespace JDF{
         }
 		return StringUtil::formatInteger(GetLeft()) + " ~ " + StringUtil::formatInteger(GetRight());
 	}
+	   /**
+     * setDefaultDef - sets the preset for xDef, which will be used when constructing an IntegerRange<br>
+     * the value represents the index that is one past the end of the list<br>
+     * if xdef==0 (the default), the neg numbers themselves are used
+     *
+     * @param xdef - (int)1 above the value that -1 will represent in this range
+     * i.e. the value that -0, were it possible to specify, would represent
+     */
+	void JDFIntegerRange::setDefaultDef(int xdef)
+    {
+        m_defaultXDef = xdef;
+    }
+    
+    /**
+     * getDefaultDef - gets the preset for xDef, which will be used when constructing an IntegerRange<br>
+     * the value represents the index that is one past the end of the list<br>
+     * if xdef==0 (the default), the neg numbers themselves are used
+     *
+     * @return int - (int)1 above the value that -1 will represent in this range
+     * i.e. the value that -0, were it possible to specify, would represent
+     */
+	int JDFIntegerRange::getDefaultDef()
+	{
+        return m_defaultXDef;
+    }
+
 }

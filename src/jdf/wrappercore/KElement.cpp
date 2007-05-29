@@ -944,7 +944,7 @@ namespace JDF{
 	/**
 	* Gets the iSkip-th child, whose localname matches a string defined in nodeNames 
 	*
-	* @param vWString & nodeNames: list of node names that fit
+	* @param vWString & nodeNames: list of node names that fit, both local and qualified names are used for matching
 	* @param int iSkip: number of matching child nodes to skip
 	* @return KElement: the found child element
 	*/
@@ -955,7 +955,7 @@ namespace JDF{
 		int i=0;
 		KElement e=GetFirstChildElement();
 		while(!e.isNull()){			
-			if(nodeNames.hasString(e.GetLocalName())){
+			if(nodeNames.hasString(e.GetLocalName()) || nodeNames.hasString(e.GetNodeName())){
 				if(i++==iSkip) 
 					return e; // this guy is the one
 			}

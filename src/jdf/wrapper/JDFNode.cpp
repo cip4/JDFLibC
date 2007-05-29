@@ -4944,39 +4944,79 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
-	int JDFNode::GetMinID(){
+	int JDFNode::GetMinID()
+	{
+		VElement v = GetChildrenByTagName(WString::star,WString::emptyStr, mAttribute::emptyMap,false);
+        v.add(*this);
 
-		int iMax=-1;
-		WString s=GetSpawnID();
-		if(!s.empty()) {
-			int pos=s.find_last_not_of(L"0123456789");
-			if(pos!=s.npos) {
-				s=s.substr(pos+1);
-				s.trim();
-				if(!s.empty()) {
+        int iMax = 0;
+        VString vIDNames("ID SpawnID MergeID NewSpawnID"," ");
+        int idSize = vIDNames.size();
 
+        int size = v.size();
+        for (int i = 0; i < size; i++)
+        {
+            KElement jdfElem = v.item(i);
 
-					int iPos=0;
-					while(s[iPos]==(wchar_t)'0'){
-						iPos++;
-						if(iPos==s.length())
-							break;
-					}
-					if(iPos!=0)
-						s=s.rightStr(-iPos);
-					if(!s.empty()) {
-						iMax=(int)s%10000;
-					}
-				}
-			}
-		}
-		// found nothing
-		if(iMax==-1)
-			iMax=rand()%10000;
+            for (int j = 0; j < idSize; j++)
+            {   
+                // 4 = size of the atr vector
+                // get the rightmost last 4 numerical characters as seed for UniqueID()
 
-		UniqueID(iMax);
-		return iMax;
-	}
+                WString strID = jdfElem.GetAttribute(vIDNames.stringAt(j));
+				if (!strID.empty())
+                {
+                    if (strID.length() > 7)
+                    {
+                        strID = strID.substring(strID.length()-7);  // only use the last 5 chars
+                    }
+
+                    int pos = strID.find_last_not_of("0123456789");
+
+                    if (pos == -1)
+                    {
+                        continue;
+                    }
+
+                    strID = strID.substring(pos + 1);
+                    strID = strID.trim();
+					int len= strID.length();
+
+					if (strID.empty())
+                    {
+                        continue;
+                    }
+
+                    int iPos = 0;
+                    while (iPos<len && strID[iPos] == L'0')
+                    {
+                        iPos++;
+                    }
+
+                    if (iPos > 0)
+                    {
+                        strID = strID.substring(iPos); 
+                    }
+
+					if (strID.empty())
+                    {
+                        continue;
+                    }
+
+                    int iS = (int)strID;
+                    if (iS > 1000000) // not in the simple ordering
+                    {
+                        iS = iS % 1000000;
+                    }
+
+                    iMax = (iS > iMax) ? iS : iMax;
+                }
+            }
+        }
+
+        UniqueID(iMax);
+
+        return iMax;	}
 
 	//////////////////////////////////////////////////////////////////////
 	int JDFNode::GetMaxJobPartId(const WString& idPrefix){

@@ -185,13 +185,13 @@ namespace JDF{
 		* switch on or off the caching method for ids
 		* @param bCache if true, the ids will be cached
 		*/
-		void setIDCache(bool bCache);
+		static void setIDCache(bool bCache);
 
 		/**
 	    * get the status of the caching method for ids
 		* @return if true, the ids will be cached
 		*/
-		bool getIDCache();
+		static bool getIDCache();
 		
 	protected:
 		

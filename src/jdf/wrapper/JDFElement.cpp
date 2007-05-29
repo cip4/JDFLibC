@@ -996,9 +996,9 @@ namespace JDF{
 			id=ID; // reset dynamically!
 		}
 
-		id=id%10000;
+		id=id%1000000;
 		char buf[8];
-		sprintf(buf,"_%.4i",id++);
+		sprintf(buf,"_%.6i",id++);
 		
 		if(XMLDoc::getGenerateUID())
 		{
