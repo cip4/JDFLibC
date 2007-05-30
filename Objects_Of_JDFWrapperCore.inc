@@ -18,6 +18,7 @@ USER_OBJS      = \
                      $(CMPO_OBJ_DIR)$(DIRSEP)KElement.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)KElementStrings.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)MyDate.obj \
+                     $(CMPO_OBJ_DIR)$(DIRSEP)StringUtil.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)vElement.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)XMLDoc.obj \
                      $(CMPO_OBJ_DIR)$(DIRSEP)XMLDocUserData.obj
