@@ -39,6 +39,7 @@ using namespace JDF;
 int main(int argC, char* argV[]){
 	// Initialize the JDFTools system
 	try	{
+
 		JDF::PlatformUtils::Initialize();
 	} catch (const JDF::Exception&)	{
 		return 1;
@@ -68,16 +69,34 @@ int main(int argC, char* argV[]){
 
 	if(1){
 		{
-		JDFDoc doc(0);
-        JDFNode root = doc.GetJDFRoot();
-        root.SetType("ConventionalPrinting");
-        int id=root.GetMinID();
-        assertTrue((id<5));
-        for(int i=0;i<10000;i++)
-            root.GetAuditPool().AddModified();
-        assertEquals(id+10000,root.GetMinID());
-        root.SetID("ida123456");
-        assertEquals(123456,root.GetMinID());
+			JDFDoc doc(0);
+			JDFDoc doc2(0);
+			doc.GetCreateXMLDocUserData();
+
+			JDFNode root = doc.GetJDFRoot();
+			JDFNode root2 = doc2.GetJDFRoot();
+			root.SetType("ConventionalPrinting");
+			int id=root.GetMinID();
+			assertTrue((id<5));
+			for(int i=0;i<100;i++)
+				root.GetAuditPool().AddModified();
+			assertEquals(id+100,root.GetMinID());
+			root.SetID("ida123456");
+			assertEquals(123456,root.GetMinID());
+			JDFExposedMedia xm=root.AddResource("ExposedMedia",JDFResource::Class_Handling,true);
+			JDFMedia m=xm.AppendMedia();
+			JDFRefElement mRef=m.MakeRootResource();
+			assertEquals(mRef.GetTarget(),m);
+			root2.CopyElement(root.GetResourceLinkPool());
+			root2.CopyElement(root.GetResourcePool());
+			JDFExposedMedia xm2=root2.GetXPathElement("ResourcePool/ExposedMedia");
+			JDFMedia m2=xm2.GetMedia();
+			cout<<xm2<<endl<<m2<<endl;
+			JDFComment c=root2.AppendComment();
+			c.AppendText("foo");
+			c.AppendText("bar");
+			cout<<root2;
+
 		}
 		cout<<"ffoooo"<<endl;
 

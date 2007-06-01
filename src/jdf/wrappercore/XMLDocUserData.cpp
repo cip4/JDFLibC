@@ -106,7 +106,6 @@ namespace JDF{
 		ClearDirtyIDs();
 		mapTarget=new targetMap();
 		dirtyPolicy=DirtyPolicy_None;
-		useIDCache=true;
 	}
 	//////////////////////////////////////////////////////////////////////
 	XMLDocUserData::~XMLDocUserData(){
@@ -207,6 +206,8 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	void XMLDocUserData::SetTarget(const KElement& target, const WString& id){
+		if(!useIDCache)
+			return;
 		if(!this)
 			throw JDFException(L"XMLDocUserData::SetTarget used on null object");
 		if(id.empty())
