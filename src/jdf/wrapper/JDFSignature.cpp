@@ -174,7 +174,7 @@ namespace JDF{
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	int JDFSignature::numSheets()
+	int JDFSignature::numSheets()const
 	{
 		return JDFSignature::numLayoutElements(*this,elm_Sheet,atr_SheetName);
 	}

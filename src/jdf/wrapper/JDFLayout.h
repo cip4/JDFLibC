@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -167,7 +167,7 @@ namespace JDF{
 		* 
 		* @return the vector of placedobjects, null if none were found
 		*/
-		vElement getPlacedObjectVector();
+		vElement getPlacedObjectVector()const;
 
 		/**
 		* counts the number of signatures in both old and new Layouts
@@ -175,7 +175,7 @@ namespace JDF{
 		* if new: the number of SignatureName partition leaves
 		* @return the number of signatures
 		*/
-		int numSignatures();
+		int numSignatures()const;
 
 		
 		/**

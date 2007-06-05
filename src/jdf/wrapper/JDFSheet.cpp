@@ -220,7 +220,7 @@ namespace JDF{
 		return appendLayoutElement(*this,elm_Surface,atr_Side);;
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	int JDFSheet::numSurfaces()
+	int JDFSheet::numSurfaces()const
 	{
 		return numLayoutElements(*this,elm_Surface,atr_Side);
 	}

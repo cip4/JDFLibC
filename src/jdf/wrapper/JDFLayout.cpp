@@ -282,7 +282,7 @@ namespace JDF{
      * 
      * @return the vector of placedobjects, null if none were found
      */
-    vElement JDFLayout::getPlacedObjectVector()
+    vElement JDFLayout::getPlacedObjectVector() const
     {
         vElement v;
         KElement n=GetFirstChildElement();
@@ -325,7 +325,7 @@ namespace JDF{
 
 	///////////////////////////////////////////////////////////////////////////////
 
-	int JDFLayout::numSignatures()
+	int JDFLayout::numSignatures()const
 	{
 		return JDFSignature::numLayoutElements(*this, elm_Signature, atr_SignatureName);
 	}

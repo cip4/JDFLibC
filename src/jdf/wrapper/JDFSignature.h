@@ -155,7 +155,7 @@ namespace JDF{
 		* <li>if new: a <code>SheetName</code> partition leaf
 		* @return the number of Sheets
 		*/
-		int numSheets();
+		int numSheets()const;
 
 		/** 
 		* Get element Sheet, create if it doesn't exist
