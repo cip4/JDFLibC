@@ -158,6 +158,12 @@ namespace JDF{
 		iterator find(const KElement & s);
 
 		/**
+		* java compat
+		* true if exactly s (not an equivalent element) is in this
+		* @param e the element to search
+		*/
+		bool contains(const KElement &e)const;
+		/**
 		* same as set::find
 		* @param KElement &s the element to look for
 		* @return const_iterator pointing to s or end() if not found
@@ -426,12 +432,6 @@ namespace JDF{
 		*/
 		KElement GetCommonAncestor()const;
 
-		/**
-		* get the node names of this vector in the same order
-		* @param bLocal if true use getLocalName() else getNodeName() o each item
-		* @return VString vector of node names
-		*/
-		VString getNodeNames(bool bLocal) const;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**

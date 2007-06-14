@@ -3309,7 +3309,7 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 		
 		// recurse into parents
 		VElement v2=r.GetChildElementVector(element,nameSpaceURI,mAttrib,bAnd,maxSize,bResolveTarget);
-		VString nodeNames=v.getNodeNames(false);
+		VString nodeNames=v.GetElementNameVector(false);
 		for(int i=v2.size()-1;i>=0;i--)
 		{
 			if(nodeNames.contains(v2.item(i).GetLocalName()))

@@ -128,12 +128,9 @@ namespace JDF{
 	vWString vElement::GetElementNameVector(bool bLocal)const{
 		vWString v;
 		int s=size();
-		for(int i=0;i<s;i++) {
-			if(bLocal){
-				v.push_back(at(i).GetLocalName());				
-			}else{
-				v.push_back(at(i).GetNodeName());
-			}
+		for(int i=0;i<s;i++) 
+		{
+			v.push_back(bLocal ? at(i).GetLocalName(): at(i).GetNodeName());
 		}
 		return v;
 	}
@@ -369,6 +366,15 @@ namespace JDF{
 	bool vElement::hasElement(const KElement &s)const{
 		return index(s)>=0;
 	}
+	////////////////////////////////////////////////
+	bool vElement::contains(const KElement &s)const
+	{
+		for(int i=size()-1;i>=0;i--)
+			if(s.GetDOMElement()==item(i).GetDOMElement())
+				return true;
+		return false;
+
+	}
 	////////////////////////////////////////////////////////////////////////
 
 	JDF_WRAPPERCORE_EXPORT std::ostream& operator<<(std::ostream&s,const vElement&t){
@@ -421,20 +427,7 @@ namespace JDF{
 		PBASE->erase(PBASE->begin()+i);
 	}
 
-	/**
-	* get the node names of this vector in the same order
-	* @param bLocal if true use getLocalName() else getNodeName() o each item
-	* @return VString vector of node names
-	*/
-	VString vElement::getNodeNames(bool bLocal) const
-	{
-		VString v;
-		int siz = size();
 
-		for(int i=0;i<siz;i++)
-			v.add(bLocal ? item(i).GetLocalName() : item(i).GetNodeName());
-		return v;
-	}
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 
