@@ -3306,8 +3306,16 @@ JDFSourceResource JDFResource::AppendSourceResource(){
 			return v; // res root
 
 		JDFResource r=n;
+		
 		// recurse into parents
-		v.AppendUniqueByName(r.GetChildElementVector(element,nameSpaceURI,mAttrib,bAnd,maxSize,bResolveTarget));
+		VElement v2=r.GetChildElementVector(element,nameSpaceURI,mAttrib,bAnd,maxSize,bResolveTarget);
+		VString nodeNames=v.getNodeNames(false);
+		for(int i=v2.size()-1;i>=0;i--)
+		{
+			if(nodeNames.contains(v2.item(i).GetLocalName()))
+				v2.remove(i);
+		}
+		v.addAll(v2);
 		return v;
 	}
 

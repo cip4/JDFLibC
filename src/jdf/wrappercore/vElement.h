@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -90,6 +90,7 @@
 #define _vElement_H_
 
 #include <jdf/lang/WString.h>
+#include <jdf/lang/VWString.h>
 
 namespace JDF{
 
@@ -101,7 +102,7 @@ namespace JDF{
 	utility wrapper around stl vector<KElement>
 	*/
 	class JDF_WRAPPERCORE_EXPORT vElement{
-	
+
 	public:
 		typedef  unsigned int size_type;
 		typedef vElementIterator iterator;
@@ -425,8 +426,20 @@ namespace JDF{
 		*/
 		KElement GetCommonAncestor()const;
 
+		/**
+		* get the node names of this vector in the same order
+		* @param bLocal if true use getLocalName() else getNodeName() o each item
+		* @return VString vector of node names
+		*/
+		VString getNodeNames(bool bLocal) const;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/**
+		* add all elements specified in other - java compatibility
+		* @param vWString& other vector of strings to add
+		* 
+		*/
+		void addAll(const vElement &other);
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 

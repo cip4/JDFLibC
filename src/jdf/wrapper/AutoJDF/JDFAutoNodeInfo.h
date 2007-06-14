@@ -191,6 +191,22 @@ virtual bool init();
 	virtual WString OptionalAttributes()const;
 
 /**
+* Set attribute JobPriority
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetJobPriority(int value);
+/**
+* Get integer attribute JobPriority
+* @return int the vaue of the attribute ; defaults to 50
+*/
+	virtual int GetJobPriority() const;
+/**
+* Typesafe attribute validation of JobPriority
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidJobPriority(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute CleanupDuration
 *@param JDFDuration value: the value to set the attribute to
 */
@@ -300,22 +316,6 @@ virtual bool init();
 */
 	virtual bool ValidIPPVersion(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute JobPriority
-*@param int value: the value to set the attribute to
-*/
-	virtual void SetJobPriority(int value);
-/**
-* Get integer attribute JobPriority
-* @return int the vaue of the attribute ; defaults to 50
-*/
-	virtual int GetJobPriority() const;
-/**
-* Typesafe attribute validation of JobPriority
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidJobPriority(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute LastEnd
 *@param JDFDate value: the value to set the attribute to
 */
@@ -364,6 +364,40 @@ virtual bool init();
 */
 	virtual bool ValidNaturalLang(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute NodeStatus
+* @param JDFElement::EnumStatus value the value to set the attribute to
+*/
+	virtual void SetNodeStatus( JDFElement::EnumStatus value);
+
+/**
+* Typesafe enumerated attribute NodeStatus
+* @return EnumNodeStatusthe enumeration value of the attribute
+*/
+	virtual JDFElement::EnumStatus GetNodeStatus() const;
+
+/**
+* Typesafe attribute validation of NodeStatus
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidNodeStatus(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute NodeStatusDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetNodeStatusDetails(const WString& value);
+/**
+* Get string attribute NodeStatusDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetNodeStatusDetails() const;
+/**
+* Typesafe attribute validation of NodeStatusDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidNodeStatusDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute MergeTarget
 *@param bool value: the value to set the attribute to
 */
@@ -395,22 +429,6 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidRoute(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute rRefs
-*@param vWString value: the value to set the attribute to
-*/
-	virtual void SetrRefs(const vWString& value);
-/**
-* Get string attribute rRefs
-* @return vWString the vaue of the attribute 
-*/
-	virtual vWString GetrRefs() const;
-/**
-* Typesafe attribute validation of rRefs
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidrRefs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SetupDuration
 *@param JDFDuration value: the value to set the attribute to

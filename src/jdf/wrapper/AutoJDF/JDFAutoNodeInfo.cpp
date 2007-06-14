@@ -133,7 +133,7 @@ bool JDFAutoNodeInfo::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoNodeInfo::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",CleanupDuration,DueLevel,End,FirstEnd,FirstStart,IPPVersion,JobPriority,LastEnd,LastStart,NaturalLang,MergeTarget,Route,rRefs,SetupDuration,Start,TargetRoute,TotalDuration");
+		return JDFResource::OptionalAttributes()+WString(L",JobPriority,CleanupDuration,DueLevel,End,FirstEnd,FirstStart,IPPVersion,LastEnd,LastStart,NaturalLang,NodeStatus,NodeStatusDetails,MergeTarget,Route,SetupDuration,Start,TargetRoute,TotalDuration");
 };
 
 /**
@@ -144,6 +144,11 @@ bool JDFAutoNodeInfo::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidJobPriority(level)) {
+			vAtts.push_back(atr_JobPriority);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidCleanupDuration(level)) {
 			vAtts.push_back(atr_CleanupDuration);
 			if(++n>=nMax)
@@ -174,11 +179,6 @@ bool JDFAutoNodeInfo::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidJobPriority(level)) {
-			vAtts.push_back(atr_JobPriority);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidLastEnd(level)) {
 			vAtts.push_back(atr_LastEnd);
 			if(++n>=nMax)
@@ -194,6 +194,16 @@ bool JDFAutoNodeInfo::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidNodeStatus(level)) {
+			vAtts.push_back(atr_NodeStatus);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidNodeStatusDetails(level)) {
+			vAtts.push_back(atr_NodeStatusDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidMergeTarget(level)) {
 			vAtts.push_back(atr_MergeTarget);
 			if(++n>=nMax)
@@ -201,11 +211,6 @@ bool JDFAutoNodeInfo::init(){
 		};
 		if(!ValidRoute(level)) {
 			vAtts.push_back(atr_Route);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidrRefs(level)) {
-			vAtts.push_back(atr_rRefs);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -232,6 +237,24 @@ bool JDFAutoNodeInfo::init(){
 		return vAtts;
 	};
 
+/**
+* Set attribute JobPriority
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoNodeInfo::SetJobPriority(int value){
+	SetAttribute(atr_JobPriority,WString::valueOf(value));
+};
+/**
+* Get integer attribute JobPriority
+* @return int the vaue of the attribute ; defaults to 50
+*/
+	 int JDFAutoNodeInfo::GetJobPriority() const {
+	return GetIntAttribute(atr_JobPriority,WString::emptyStr,50);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNodeInfo::ValidJobPriority(EnumValidationLevel level) const {
+		return ValidAttribute(atr_JobPriority,AttributeType_integer,false);
+	};
 /**
 * Set attribute CleanupDuration
 *@param JDFDuration value: the value to set the attribute to
@@ -348,24 +371,6 @@ bool JDFAutoNodeInfo::init(){
 		return ValidAttribute(atr_IPPVersion,AttributeType_XYPair,false);
 	};
 /**
-* Set attribute JobPriority
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoNodeInfo::SetJobPriority(int value){
-	SetAttribute(atr_JobPriority,WString::valueOf(value));
-};
-/**
-* Get integer attribute JobPriority
-* @return int the vaue of the attribute ; defaults to 50
-*/
-	 int JDFAutoNodeInfo::GetJobPriority() const {
-	return GetIntAttribute(atr_JobPriority,WString::emptyStr,50);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoNodeInfo::ValidJobPriority(EnumValidationLevel level) const {
-		return ValidAttribute(atr_JobPriority,AttributeType_integer,false);
-	};
-/**
 * Set attribute LastEnd
 *@param JDFDate value: the value to set the attribute to
 */
@@ -419,6 +424,36 @@ bool JDFAutoNodeInfo::init(){
 	bool JDFAutoNodeInfo::ValidNaturalLang(EnumValidationLevel level) const {
 		return ValidAttribute(atr_NaturalLang,AttributeType_language,false);
 	};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoNodeInfo::SetNodeStatus( JDFElement::EnumStatus value){
+	SetEnumAttribute(atr_NodeStatus,value,JDFElement::StatusString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFElement::EnumStatus JDFAutoNodeInfo::GetNodeStatus() const {
+	return (JDFElement::EnumStatus) GetEnumAttribute(atr_NodeStatus,JDFElement::StatusString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNodeInfo::ValidNodeStatus(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_NodeStatus,JDFElement::StatusString(),false);
+	};
+/**
+* Set attribute NodeStatusDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoNodeInfo::SetNodeStatusDetails(const WString& value){
+	SetAttribute(atr_NodeStatusDetails,value);
+};
+/**
+* Get string attribute NodeStatusDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoNodeInfo::GetNodeStatusDetails() const {
+	return GetAttribute(atr_NodeStatusDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNodeInfo::ValidNodeStatusDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_NodeStatusDetails,AttributeType_string,false);
+	};
 /**
 * Set attribute MergeTarget
 *@param bool value: the value to set the attribute to
@@ -453,24 +488,6 @@ bool JDFAutoNodeInfo::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoNodeInfo::ValidRoute(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Route,AttributeType_URL,false);
-	};
-/**
-* Set attribute rRefs
-*@param vWString value: the value to set the attribute to
-*/
-	 void JDFAutoNodeInfo::SetrRefs(const vWString& value){
-	SetAttribute(atr_rRefs,value);
-};
-/**
-* Get string attribute rRefs
-* @return vWString the vaue of the attribute 
-*/
-	 vWString JDFAutoNodeInfo::GetrRefs() const {
-	return GetAttribute(atr_rRefs,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoNodeInfo::ValidrRefs(EnumValidationLevel level) const {
-		return ValidAttribute(atr_rRefs,AttributeType_IDREFS,false);
 	};
 /**
 * Set attribute SetupDuration

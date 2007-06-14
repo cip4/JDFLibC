@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1048,8 +1048,14 @@ namespace JDF{
 			return GetID();
 
 		WString n=name;
-		if(name.empty()){
-			n = GetIDPrefix() + UniqueID();
+		if(name.empty())
+		{
+			JDFNode nod=GetJDFRoot();
+			WString w=nod.GetSpawnID().rightStr(6);
+			if(!w.empty())
+				w=WString::dot+w+WString::dot;
+			
+			n = GetIDPrefix() + w +UniqueID();
 		}
 
 		SetAttribute(atr_ID,n);
@@ -1059,7 +1065,8 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 
-	JDFNode JDFElement::GetParentJDF()const{
+	JDFNode JDFElement::GetParentJDF()const
+	{
 		if(IsJDFNode()){
 			JDFElement par=GetParentNode();
 			if(par.IsJDFNode()){

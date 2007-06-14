@@ -5015,8 +5015,8 @@ namespace JDF{
         }
 
         UniqueID(iMax);
-
-        return iMax;	}
+        return iMax;	
+	}
 
 	//////////////////////////////////////////////////////////////////////
 	int JDFNode::GetMaxJobPartId(const WString& idPrefix){

@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -98,10 +98,10 @@
 #define IteratorIPosS(iter) (((vElementBase*)iter.vElementVector)->begin()+iter.iPos)
 
 namespace JDF{
-	
+
 	typedef std::vector<KElement> vElementBase;
 	const vElement vElement::emptyVector=vElement();
-	
+
 	//////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
@@ -109,11 +109,11 @@ namespace JDF{
 		pBase=new vElementBase();
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vElement::vElement(const vElement&m){
 		pBase=new vElementBase(BASES(m));
 	};
-	
+
 	////////////////////////////////////////////////////////////////////////
 	vElement &vElement::operator =(const vElement& other){
 		*PBASE=BASES(other);
@@ -150,7 +150,7 @@ namespace JDF{
 		return PBASE->at(pos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vElement::reference vElement::at(size_type pos){
 		return PBASE->at(pos);
 	}
@@ -161,19 +161,19 @@ namespace JDF{
 		return PBASE->at(pos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vElement::iterator vElement::erase(iterator first, iterator last){
-        PBASE->erase(IteratorIPos(first),IteratorIPos(last));
+		PBASE->erase(IteratorIPos(first),IteratorIPos(last));
 		return vElementIterator(pBase,first.iPos);
 	};
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vElement::iterator vElement::erase(iterator it){
 		PBASE->erase(IteratorIPos(it));
 		return vElementIterator(pBase,it.iPos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vElement::iterator vElement::begin(){
 		return vElementIterator(pBase,0);
 	}
@@ -243,21 +243,21 @@ namespace JDF{
 	void vElement::assign(size_type n, const KElement& x){
 		PBASE->assign(n,x);
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////
 	//@vigo
 	vElement::iterator vElement::insert(iterator it) {
 		PBASE->insert( IteratorIPos(it), KElement());
 		return vElementIterator(pBase,it.iPos);
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////
 	vElement::iterator vElement::insert(iterator it, const KElement& x ){
 		PBASE->insert( IteratorIPos(it), x);
 		return vElementIterator(pBase,it.iPos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	void vElement::insert(iterator it, size_type n, const KElement& x){
 		PBASE->insert(IteratorIPos(it), n, x);
 	}
@@ -267,7 +267,7 @@ namespace JDF{
 	}
 	////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
-		
+
 	void vElement::SetAttributes(const WString & key, const WString & value,const WString & nameSpaceURI){
 		for(int i=0;i<size();i++){
 			at(i).SetAttribute(key,value,nameSpaceURI);
@@ -300,7 +300,7 @@ namespace JDF{
 		}
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	int vElement::index(const KElement& s)const{ 
 		for (int i=0; i<size(); i++){
 			if (s.IsEqual(at(i))) 
@@ -308,7 +308,7 @@ namespace JDF{
 		}
 		return -1;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	vElement::iterator vElement::find(const KElement & s){
 		for (int i=0; i<size(); i++) {
@@ -318,22 +318,22 @@ namespace JDF{
 		return end();
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vElement::const_iterator vElement::find(const KElement & s)const{
 		for (int i=0; i<size(); i++) {
 			if (s.IsEqual(at(i))) 
 				return vElementIterator(pBase,i); 
 		}
-		
+
 		return end();
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void vElement::AppendUnique(const KElement& e){ 
 		if(!hasElement(e)) 
 			push_back(e);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 
 	void vElement::AppendUniqueByName(const KElement& e){ 
@@ -345,7 +345,7 @@ namespace JDF{
 		}
 		push_back(e);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	void vElement::AppendUnique(const vElement& v){
 		int sumsiz=PBASE->size()+v.size();
@@ -363,7 +363,7 @@ namespace JDF{
 		for(int i=0; i<v.size(); i++) 
 			AppendUniqueByName(v.at(i)); 
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 
 	bool vElement::hasElement(const KElement &s)const{
@@ -408,21 +408,47 @@ namespace JDF{
 	}
 
 	////////////////////////////////////////////////////////////////////////
-   void vElement::RemoveAttribute(const WString &  attrib, const WString & nameSpaceURI)
-    {
+	void vElement::RemoveAttribute(const WString &  attrib, const WString & nameSpaceURI)
+	{
 		int siz=size();
-    	for(int i=0;i<siz;i++){
+		for(int i=0;i<siz;i++){
 			at(i).RemoveAttribute(attrib,nameSpaceURI);
-    	}
-    }
+		}
+	}
 
 	////////////////////////////////////////////////////////////////////////
 	void vElement::remove(int i){
 		PBASE->erase(PBASE->begin()+i);
 	}
 
+	/**
+	* get the node names of this vector in the same order
+	* @param bLocal if true use getLocalName() else getNodeName() o each item
+	* @return VString vector of node names
+	*/
+	VString vElement::getNodeNames(bool bLocal) const
+	{
+		VString v;
+		int siz = size();
 
+		for(int i=0;i<siz;i++)
+			v.add(bLocal ? item(i).GetLocalName() : item(i).GetNodeName());
+		return v;
+	}
 	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+
+	void vElement::addAll(const vElement &v)
+	{
+		int sumsiz=PBASE->size()+v.size();
+		if(PBASE->capacity()<sumsiz)
+			reserve(sumsiz);
+
+		for(unsigned int i=0; i<v.size(); i++)
+			push_back(v.at(i));
+
+	}
+
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
@@ -431,7 +457,7 @@ namespace JDF{
 		vElementVector=0;
 		iPos=0;
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////
 	vElementIterator::vElementIterator(const vElementIterator&other){
 		iPos=other.iPos;
@@ -487,22 +513,22 @@ namespace JDF{
 		return *this;
 	}
 	////////////////////////////////////////////////////////////////////////
-		
+
 	const vElementIterator* vElementIterator::operator->() const{
 		return (&*this); 
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vElementIterator::operator!=(const vElementIterator & other) const{
 		return (vElementVector!=other.vElementVector)||(iPos!=other.iPos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vElementIterator::operator==(const vElementIterator & other) const{
 		return (vElementVector==other.vElementVector)&&(iPos==other.iPos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vElementIterator::operator>(const vElementIterator & other) const{
 		bool result = (vElementVector==other.vElementVector);
 		if (result)
@@ -510,7 +536,7 @@ namespace JDF{
 		return result;
 	}
 	////////////////////////////////////////////////////////////////////////	
-	
+
 	bool vElementIterator::operator<(const vElementIterator & other) const{
 		bool result = (vElementVector==other.vElementVector);
 		if (result)
@@ -518,7 +544,7 @@ namespace JDF{
 		return result;
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vElementIterator::operator>=(const vElementIterator & other) const{
 		bool result = (vElementVector==other.vElementVector);
 		if (result)
@@ -526,7 +552,7 @@ namespace JDF{
 		return result;
 	}
 	////////////////////////////////////////////////////////////////////////	
-	
+
 	bool vElementIterator::operator<=(const vElementIterator & other) const{
 		bool result = (vElementVector==other.vElementVector);
 		if (result)

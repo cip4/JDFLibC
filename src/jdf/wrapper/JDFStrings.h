@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -139,6 +139,7 @@ namespace JDF{
 		static const WString elm_Audit;
 		static const WString elm_AuditPool;
 		static const WString elm_AutomatedOverPrintParams;
+		static const WString elm_AutomatedOverprintParams; // legacy for typo
 
 		// BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB //
 		

@@ -952,7 +952,7 @@ public:
 		WString name=GetCTName();
 		if(cType=="enum"){
 			// Status is in too many places -> code by hand
-			if((name=="Status"&&!bDoStatus)||(name=="EndStatus")||(name=="UpdatedStatus")||(name=="Orientation"&&!bDoOrientation)) 
+			if((name=="Status"&&!bDoStatus)||(name=="EndStatus")||(name=="UpdatedStatus")||(name=="NodeStatus")||(name=="Orientation"&&!bDoOrientation)) 
 				return "";
 			if(name=="ModuleDrying") 
 				return"";
@@ -1390,8 +1390,8 @@ public:
 		
 		if(cType=="enum"){
 			WString eType=name;
-			if(name=="EndStatus") 
-				eType="Status";
+			if(name=="EndStatus" || name=="NodeStatus") 
+				eType="JDFElement::Status";
 			if((name=="Status")&&(cName=="JDFAutoResourceInfo")) 
 				eType="JDFResource::Status";
 			if(name=="UpdatedStatus") 
@@ -1421,7 +1421,7 @@ public:
 				if(vEnums.size()>1){
 					WString enums=EnumString(vEnums);
 					
-					if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
+					if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="NodeStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
 						s+="/**\n* Enumeration strings for "+name+"\n* @return const WString& comma separated list of enumerated string values \n*/\n";
 						s+="\tstatic const WString& "+name+"String();\n";
 						s+="/**\n* Enumeration string for enum value\n* @param Enum"+name+" value the enumeration to translate\n* @return WString the string representation of the enumeration\n*/\n";
@@ -1446,7 +1446,7 @@ public:
 				if(vEnums.size()>1){
 					WString enums=EnumString(vEnums);
 					
-					if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
+					if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="NodeStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
 						s+="///////////////////////////////////////////////////////////////////////\n\n";
 						s+="\tconst WString& "+cName+"::"+name+"String(){\n\t\tstatic const WString enums=WString(L\""+enums+"\");\n\t\treturn enums;\n\t};\n\n";
 						s+="///////////////////////////////////////////////////////////////////////\n\n";
@@ -1466,10 +1466,12 @@ public:
 				s+="\tbool "+cName+"::Valid"+rName+"(EnumValidationLevel level) const {\n\t\treturn ValidEnumAttribute(atr_"+name+","+eType+"String(),"+reqString+unknownString+");\n\t};\n";
 				
 			}
-		}else if(cType.leftStr(5)=="enums"){
+		}
+		else if(cType.leftStr(5)=="enums")
+		{
 			WString eType=name;
-			if(name=="EndStatus") 
-				eType="Status";
+			if(name=="EndStatus" || name=="NodeStatus") 
+				eType="JDFElement::Status";
 			if(name=="ModuleDrying") 
 				eType="Drying";
 			if(!def.empty()) {
@@ -1487,7 +1489,7 @@ public:
 			if(iLoop==1){
 				vWString vs=WString(cType.rightStr(-6)).Tokenize();
 				WString enums=EnumString(vs);
-				if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
+				if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="NodeStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
 					s+="/**\n* Enumeration strings for "+name+"\n* @return const WString& comma separated list of enumerated string values \n*/\n";
 					s+="\tstatic const WString& "+name+"String();\n";
 					s+="/**\n* Enumeration string for enum value\n* @param Enum"+name+" value the enumeration to translate\n* @return WString the string representation of the enumeration\n*/\n";
@@ -1509,7 +1511,7 @@ public:
 				WString cType2=GetCType(true,"","",false);
 				vWString vs=WString(cType2.rightStr(-6)).Tokenize();
 				WString enums=EnumString(vs);
-				if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
+				if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="NodeStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
 					s+="///////////////////////////////////////////////////////////////////////\n\n";
 					s+="\tconst WString& "+cName+"::"+name+"String(){\n\t\tstatic const WString enums=WString(L\""+enums+"\");\n\t\treturn enums;\n\t};\n\n";
 					s+="///////////////////////////////////////////////////////////////////////\n\n";
@@ -3450,7 +3452,6 @@ int SchemaDoc::MakeC(const WString& classString){
 		if(name=="Shape") 
 			name="ShapeElement";
 		
-		
 		if(name.find(classString)==name.npos) 
 			continue;
 		if(name=="NotificationDetails")
@@ -3472,8 +3473,11 @@ int SchemaDoc::MakeC(const WString& classString){
 			/*
 			if(_type.find(L"Preflight")!=_type.npos)
 			continue;
-		*/
+			*/
 		WString nameNoStrip=se.GetCTName("",false);
+		if(nameNoStrip=="NodeInfo_" || nameNoStrip=="CustomerInfo_")
+			continue; // take resources, not the deprecated sub elements
+
 		if(nameNoStrip.rightStr(3)=="_ru") 
 			continue;
 		if(nameNoStrip.rightStr(4)=="_rue") 
