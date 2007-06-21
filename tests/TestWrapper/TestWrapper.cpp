@@ -15,8 +15,9 @@
 XERCES_CPP_NAMESPACE_USE
 int nnnn=0;
 #define assertEquals(a,b)if(a!=b)cout<<"bad\n"<<a<<endl<<b;
-#define assertTrue(a)if(!a)cout<<"bad\n"<<a<<endl;
-#define CPPUNIT_ASSERT(a)if(!a)cout<<"bad\n"<<nnnn++<<endl;else{nnnn++;}
+#define assertTrue(a)if(!a)cout<<"bad True\n"<<a<<endl;
+#define assertFalse(a)if(a)cout<<"bad False\n"<<a<<endl;
+#define CPPUNIT_ASSERT(a)if(!a)cout<<"bad Equals\n"<<nnnn++<<endl;else{nnnn++;}
 using namespace std;
 using namespace JDF;
 
@@ -69,33 +70,51 @@ int main(int argC, char* argV[]){
 
 	if(1){
 		{
-			JDFDoc doc(0);
-			JDFDoc doc2(0);
-			doc.GetCreateXMLDocUserData();
+        JDFDoc doc;
+        JDFNode root = doc.GetJDFRoot();
 
-			JDFNode root = doc.GetJDFRoot();
-			JDFNode root2 = doc2.GetJDFRoot();
-			root.SetType("ConventionalPrinting");
-			int id=root.GetMinID();
-			assertTrue((id<5));
-			for(int i=0;i<100;i++)
-				root.GetAuditPool().AddModified();
-			assertEquals(id+100,root.GetMinID());
-			root.SetID("ida123456");
-			assertEquals(123456,root.GetMinID());
-			JDFExposedMedia xm=root.AddResource("ExposedMedia",JDFResource::Class_Handling,true);
-			JDFMedia m=xm.AppendMedia();
-			JDFRefElement mRef=m.MakeRootResource();
-			assertEquals(mRef.GetTarget(),m);
-			root2.CopyElement(root.GetResourceLinkPool());
-			root2.CopyElement(root.GetResourcePool());
-			JDFExposedMedia xm2=root2.GetXPathElement("ResourcePool/ExposedMedia");
-			JDFMedia m2=xm2.GetMedia();
-			cout<<xm2<<endl<<m2<<endl;
-			JDFComment c=root2.AppendComment();
-			c.AppendText("foo");
-			c.AppendText("bar");
-			cout<<root2;
+        JDFResourcePool resPool = root.AppendResourcePool();
+		JDFColorantControl colControl = resPool.AppendElement(JDFElement::elm_ColorantControl);          
+        colControl.SetProcessColorModel("DeviceCMY");
+		JDFColorantControl ccPart=(JDFColorantControl) colControl.AddPartition(JDFResource::PartIDKey_Condition, "Good");
+        KElement a1=colControl.AppendElement("a");
+//		a1.SetAttribute("a","a1");
+        KElement a2=colControl.AppendElement("a");
+//		a2.SetAttribute("a","a2");
+        VElement vChildren=colControl.GetChildElementVector("a");
+        assertEquals(vChildren.size(), 2);
+        assertTrue(vChildren.hasElement(a1));
+        assertTrue(vChildren.contains(a2));
+        
+        KElement b1=ccPart.AppendElement("b");
+        KElement b2=ccPart.AppendElement("b");
+        // now a leaf
+        vChildren=ccPart.GetChildElementVector("a");
+        assertEquals(vChildren.size(), 2);
+        assertTrue(vChildren.contains(a1));
+        assertTrue(vChildren.contains(a2));
+        
+        vChildren=ccPart.GetChildElementVector();
+        assertEquals(vChildren.size(), 4);
+        assertTrue(vChildren.contains(a1));
+        assertTrue(vChildren.contains(a2));
+        assertTrue(vChildren.contains(b1));
+        assertTrue(vChildren.contains(b2));
+        
+        KElement a3=ccPart.AppendElement("a");
+		//a3.SetAttribute("a","a3");
+        // now a leaf
+        vChildren=ccPart.GetChildElementVector("a");
+        assertEquals(vChildren.size(), 1);
+        assertTrue(vChildren.contains(a3));
+        assertFalse(vChildren.contains(a2));
+        
+        vChildren=ccPart.GetChildElementVector();
+        assertEquals(vChildren.size(), 3);
+        assertTrue(vChildren.contains(a3));
+        assertFalse(vChildren.contains(a2));
+        assertTrue(vChildren.contains(b1));
+        assertTrue(vChildren.contains(b2));
 
 		}
 		cout<<"ffoooo"<<endl;

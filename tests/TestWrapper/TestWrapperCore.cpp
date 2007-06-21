@@ -135,16 +135,48 @@ JDFDate dt = JDFDate( "1975-01-01T20:00:10+00:00" );
 	}
 	else if(1)
 	{
-		XMLDoc d1;
-		d1.Parse("ue.jdf");
-		KElement e=d1.GetRoot();
-		e.SetXPathAttribute("a/b[2]/@c","d2");
-		e.SetXPathAttribute("a/b[@c=\"d2\"]/@blub","fnarf");
-		cout<<d1;
-		cout<<e.GetXPathAttribute("a/b[@c=\"d2\"]/@blub","bad")<<endl;
-		cout<<e.GetXPathAttribute("a/b[@c=\"d3\"]/@blub","bad")<<endl;
-		d1.Write2File("ue_out.jfd");
+        JDFDoc doc = new JDFDoc();
+        JDFNode root = doc.GetJDFRoot();
 
+        JDFResourcePool resPool = root.AppendResourcePool();
+        JDFColorantControl colControl =  resPool.appendElement("ColorantCotrol");          
+        colControl.setProcessColorModel("DeviceCMY");
+        JDFColorantControl ccPart= colControl.addPartition(EnumPartIDKey.Condition, "Good");
+        KElement a1=colControl.appendElement("a");
+        KElement a2=colControl.appendElement("a");
+        VElement vChildren=colControl.getChildElementVector("a");
+        assertEquals(vChildren.size(), 2);
+        assertTrue(vChildren.contains(a1));
+        assertTrue(vChildren.contains(a2));
+        
+        KElement b1=ccPart.appendElement("b");
+        KElement b2=ccPart.appendElement("b");
+        // now a leaf
+        vChildren=ccPart.getChildElementVector("a");
+        assertEquals(vChildren.size(), 2);
+        assertTrue(vChildren.contains(a1));
+        assertTrue(vChildren.contains(a2));
+        
+        vChildren=ccPart.getChildElementVector();
+        assertEquals(vChildren.size(), 4);
+        assertTrue(vChildren.contains(a1));
+        assertTrue(vChildren.contains(a2));
+        assertTrue(vChildren.contains(b1));
+        assertTrue(vChildren.contains(b2));
+        
+        KElement a3=ccPart.appendElement("a");
+        // now a leaf
+        vChildren=ccPart.getChildElementVector("a");
+        assertEquals(vChildren.size(), 1);
+        assertTrue(vChildren.contains(a3));
+        assertFalse(vChildren.contains(a2));
+        
+        vChildren=ccPart.getChildElementVector();
+        assertEquals(vChildren.size(), 3);
+        assertTrue(vChildren.contains(a3));
+        assertFalse(vChildren.contains(a2));
+        assertTrue(vChildren.contains(b1));
+        assertTrue(vChildren.contains(b2));
 	}
 	else if(0)
 	{
