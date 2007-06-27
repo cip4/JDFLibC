@@ -72,51 +72,12 @@ int main(int argC, char* argV[]){
 		{
         JDFDoc doc;
         JDFNode root = doc.GetJDFRoot();
-
-        JDFResourcePool resPool = root.AppendResourcePool();
-		JDFColorantControl colControl = resPool.AppendElement(JDFElement::elm_ColorantControl);          
-        colControl.SetProcessColorModel("DeviceCMY");
-		JDFColorantControl ccPart=(JDFColorantControl) colControl.AddPartition(JDFResource::PartIDKey_Condition, "Good");
-        KElement a1=colControl.AppendElement("a");
-//		a1.SetAttribute("a","a1");
-        KElement a2=colControl.AppendElement("a");
-//		a2.SetAttribute("a","a2");
-        VElement vChildren=colControl.GetChildElementVector("a");
-        assertEquals(vChildren.size(), 2);
-        assertTrue(vChildren.hasElement(a1));
-        assertTrue(vChildren.contains(a2));
-        
-        KElement b1=ccPart.AppendElement("b");
-        KElement b2=ccPart.AppendElement("b");
-        // now a leaf
-        vChildren=ccPart.GetChildElementVector("a");
-        assertEquals(vChildren.size(), 2);
-        assertTrue(vChildren.contains(a1));
-        assertTrue(vChildren.contains(a2));
-        
-        vChildren=ccPart.GetChildElementVector();
-        assertEquals(vChildren.size(), 4);
-        assertTrue(vChildren.contains(a1));
-        assertTrue(vChildren.contains(a2));
-        assertTrue(vChildren.contains(b1));
-        assertTrue(vChildren.contains(b2));
-        
-        KElement a3=ccPart.AppendElement("a");
-		//a3.SetAttribute("a","a3");
-        // now a leaf
-        vChildren=ccPart.GetChildElementVector("a");
-        assertEquals(vChildren.size(), 1);
-        assertTrue(vChildren.contains(a3));
-        assertFalse(vChildren.contains(a2));
-        
-        vChildren=ccPart.GetChildElementVector();
-        assertEquals(vChildren.size(), 3);
-        assertTrue(vChildren.contains(a3));
-        assertFalse(vChildren.contains(a2));
-        assertTrue(vChildren.contains(b1));
-        assertTrue(vChildren.contains(b2));
-
-		}
+			JDFDuration d("-PT15M");
+			assertEquals(d.getDuration(),-900.);
+			assertEquals(d.DurationISO(),"-PT15M");
+			d.SetDuration(-0.5);
+			assertEquals(d.DurationISO(),"-PT0.5S");
+ 		}
 		cout<<"ffoooo"<<endl;
 
 	}else if(0){

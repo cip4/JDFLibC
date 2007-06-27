@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2004 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -183,10 +183,17 @@ namespace JDF{
 		
 		y = mo = d = h = mi = 0;
 		s =0.0;
+		int factor=1;
 				
 		WString  thePeriod, theDate, theTime, Years, Months, Days, Hours, Minutes, Seconds;
 		
 		int iPPos = a_aDuration.find_first_of(L"P");
+		if(iPPos>0) // check for negative duration
+		{
+			XMLCh c=a_aDuration[iPPos-1];
+			if(c=='-')
+				factor=-1;            
+		}
 		
 		thePeriod = a_aDuration.substr (++iPPos, a_aDuration.length()-iPPos);
 			
@@ -265,7 +272,7 @@ namespace JDF{
 				duration += s;
 			}
 		}
-
+		duration*=factor;
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -273,13 +280,14 @@ namespace JDF{
 WString  JDFDuration::DurationISO() const {
 	if(duration==0) 
 		return "PT00M";
-	WString  s="P";
+	WString  s=duration>0 ? L"P" : L"-P";
 	int i;
 	double sec;
 	double temp=duration;
-	if(i=(int)duration/(60*60*24*365)) {
+	double abs=fabs(duration);
+	if(i=(int)abs/(60*60*24*365)) {
 		s=s+i+L"Y"; // string with years
-		temp = duration - (i*60*60*24*365);
+		temp = abs - (i*60*60*24*365);
 	}
 	i=(int)temp;
 	if(i=i/(60*60*24*30)) {
@@ -292,16 +300,16 @@ WString  JDFDuration::DurationISO() const {
 	}
 	s+="T";
 	
-	i=(int)duration%(60*60*24);
+	i=(int)abs%(60*60*24);
 	if(i=i/(60*60)) {
 		s=s+i+L"H"; // string with hours
 	}
-	i=(int)duration%(60*60);
+	i=(int)abs%(60*60);
 	if(i=i/(60)) {
 		s=s+i+L"M"; // string with minutes
 	}
-	i=(int)duration%(60); 
-	sec=i+(duration-(int)duration);
+	i=(int)abs%(60); 
+	sec=i+(abs-(int)abs);
 	if(sec) {
 		char buf[8];
 		sprintf(buf,"%.1f",sec); // seconds in format 00.0
