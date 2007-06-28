@@ -123,30 +123,30 @@ XERCES_CPP_NAMESPACE_USE
 using namespace std;
 
 namespace JDF{
-	
-	
+
+
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDuration::JDFDuration(){
 		duration=0.0;
 	};
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDuration::JDFDuration(const JDFDuration & other){
 		*this=other;
 	}
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDuration::JDFDuration(const MyDate& other){
 		duration=other.duration;
 	};
 	///////////////////////////////////////////////////////////////////
-	
+
 	JDFDuration::JDFDuration(double s){
 		duration=s;
 	};
 	/////////////////////////////////////////////////////////////
-	
+
 	JDFDuration& JDFDuration::operator =(const JDFDuration& other){
 		duration=other.duration;
 		return *this;
@@ -174,19 +174,19 @@ namespace JDF{
 	}
 
 	///////////////////////////////////////////////////////////////////
-	
+
 	void JDFDuration::SetDurationString(const WString & a_aDuration){
 		duration=0.0;
-		
+
 		int y, mo, d, h, mi;
 		double s;
-		
+
 		y = mo = d = h = mi = 0;
 		s =0.0;
 		int factor=1;
-				
+
 		WString  thePeriod, theDate, theTime, Years, Months, Days, Hours, Minutes, Seconds;
-		
+
 		int iPPos = a_aDuration.find_first_of(L"P");
 		if(iPPos>0) // check for negative duration
 		{
@@ -194,9 +194,9 @@ namespace JDF{
 			if(c=='-')
 				factor=-1;            
 		}
-		
+
 		thePeriod = a_aDuration.substr (++iPPos, a_aDuration.length()-iPPos);
-			
+
 		// devide periodInstant into date and time part, which are separated by 'T'
 		int iTPos = thePeriod.find_first_of(L"T");
 
@@ -208,13 +208,13 @@ namespace JDF{
 			else { // e.g. if durationInstant looks like "P1Y2M3DT10H30M"
 				theDate = thePeriod.substr (0, iTPos);
 				theTime = thePeriod.substr (++iTPos, thePeriod.length()-iTPos);
-				
+
 			}
 		}
 		else { // e.g. if durationInstant looks like "P1Y2M3D" - without time part
 			theDate = thePeriod;
 		}
-		
+
 		if (theDate.length() > 0)
 		{
 			int iYPos = theDate.find_first_of(L"Y");
@@ -273,96 +273,96 @@ namespace JDF{
 			}
 		}
 		duration*=factor;
-}
-
-///////////////////////////////////////////////////////////////////
-
-WString  JDFDuration::DurationISO() const {
-	if(duration==0) 
-		return "PT00M";
-	WString  s=duration>0 ? L"P" : L"-P";
-	int i;
-	double sec;
-	double temp=duration;
-	double abs=fabs(duration);
-	if(i=(int)abs/(60*60*24*365)) {
-		s=s+i+L"Y"; // string with years
-		temp = abs - (i*60*60*24*365);
 	}
-	i=(int)temp;
-	if(i=i/(60*60*24*30)) {
-		s=s+i+L"M"; // string with months
-		temp = temp - (i*60*60*24*30);
+
+	///////////////////////////////////////////////////////////////////
+
+	WString  JDFDuration::DurationISO() const {
+		if(duration==0) 
+			return "PT00M";
+		WString  s=duration>0 ? L"P" : L"-P";
+		int i;
+		double sec;
+		double temp=duration;
+		double abs=fabs(duration);
+		if(i=(int)abs/(60*60*24*365)) {
+			s=s+i+L"Y"; // string with years
+			temp = abs - (i*60*60*24*365);
+		}
+		i=(int)temp;
+		if(i=i/(60*60*24*30)) {
+			s=s+i+L"M"; // string with months
+			temp = temp - (i*60*60*24*30);
+		}
+		i=(int)temp%(60*60*24*30);
+		if(i=i/(60*60*24)) {
+			s=s+i+L"D"; // string with days
+		}
+		s+="T";
+
+		i=(int)abs%(60*60*24);
+		if(i=i/(60*60)) {
+			s=s+i+L"H"; // string with hours
+		}
+		i=(int)abs%(60*60);
+		if(i=i/(60)) {
+			s=s+i+L"M"; // string with minutes
+		}
+		i=(int)abs%(60); 
+		sec=i+(abs-(int)abs);
+		if(sec) {
+			char buf[8];
+			sprintf(buf,"%.1f",sec); // seconds in format 00.0
+
+			s=s+buf+L"S"; // string with seconds
+		}
+
+		int lastIndex=s.size()-1;
+		if (s.find("T")==lastIndex)
+			return s.leftStr(-1);
+		return s;
+
 	}
-	i=(int)temp%(60*60*24*30);
-	if(i=i/(60*60*24)) {
-		s=s+i+L"D"; // string with days
+
+	///////////////////////////////////////////////////////////////////
+
+	void JDFDuration::SetDuration(double iSec)
+	{
+		duration=iSec;
 	}
-	s+="T";
-	
-	i=(int)abs%(60*60*24);
-	if(i=i/(60*60)) {
-		s=s+i+L"H"; // string with hours
+
+	///////////////////////////////////////////////////////////////////
+
+	double JDFDuration::getDuration()
+	{
+		return duration;
 	}
-	i=(int)abs%(60*60);
-	if(i=i/(60)) {
-		s=s+i+L"M"; // string with minutes
+
+	///////////////////////////////////////////////////////////////////
+
+	bool JDFDuration::operator ==(const JDFDuration & md)const{
+		return fabs(duration-md.duration)<0.000000001;
 	}
-	i=(int)abs%(60); 
-	sec=i+(abs-(int)abs);
-	if(sec) {
-		char buf[8];
-		sprintf(buf,"%.1f",sec); // seconds in format 00.0
-	
-		s=s+buf+L"S"; // string with seconds
+	///////////////////////////////////////////////////////////////////
+	bool JDFDuration::operator !=(const JDFDuration & md)const{
+		return fabs(duration-md.duration)>0.000000001;
 	}
-	
-	int lastIndex=s.size()-1;
-    if (s.find("T")==lastIndex)
-        return s.leftStr(-1);
-	return s;
-	
-}
-
-///////////////////////////////////////////////////////////////////
-
-void JDFDuration::SetDuration(double iSec)
-{
-	duration=iSec;
-}
-
-///////////////////////////////////////////////////////////////////
-
-double JDFDuration::getDuration()
-{
-	return duration;
-}
-
-///////////////////////////////////////////////////////////////////
-
-bool JDFDuration::operator ==(const JDFDuration & md)const{
-	return fabs(duration-md.duration)<0.000000001;
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDuration::operator !=(const JDFDuration & md)const{
-	return fabs(duration-md.duration)>0.000000001;
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDuration::operator >=(const JDFDuration & md)const{
-	return (duration-md.duration) > -0.000000001;
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDuration::operator <=(const JDFDuration & md)const{
-	return (duration-md.duration) < 0.000000001;
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDuration::operator >(const JDFDuration & md)const{
-	return duration > md.duration;
-}
-///////////////////////////////////////////////////////////////////
-bool JDFDuration::operator <(const JDFDuration & md)const{
-	return duration < md.duration;
-}
-///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
+	bool JDFDuration::operator >=(const JDFDuration & md)const{
+		return (duration-md.duration) > -0.000000001;
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDuration::operator <=(const JDFDuration & md)const{
+		return (duration-md.duration) < 0.000000001;
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDuration::operator >(const JDFDuration & md)const{
+		return duration > md.duration;
+	}
+	///////////////////////////////////////////////////////////////////
+	bool JDFDuration::operator <(const JDFDuration & md)const{
+		return duration < md.duration;
+	}
+	///////////////////////////////////////////////////////////////////
 
 } // namespace JDF
