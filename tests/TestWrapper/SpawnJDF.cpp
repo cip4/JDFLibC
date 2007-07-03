@@ -16,6 +16,8 @@
 #include <jdf/WrapperCore/XMLDocUserData.h>
 #include "MyArgs.h"
 #include "MyTime.h"
+#include "jdf/util/MyWalker.h"
+
 #ifdef WIN32
 // for _access
 #include "io.h"
@@ -27,6 +29,7 @@ using namespace std;
 using namespace JDF;
 
 int main(int argc, char* argv[]){
+	MyWalker walker; // memleak check
 	// Initialize the JDFTools system
 	try	{
 		JDF::PlatformUtils::Initialize();

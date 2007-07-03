@@ -5,6 +5,7 @@
 #include "jdf/net/URL.h"
 #include "jdf/net/URI.h"
 #include "jdf/io/File.h"
+#include "jdf/util/MyWalker.h"
 #include "JDFSimulator.h"
 #include <xercesc/util/PlatformUtils.hpp>
 
@@ -38,6 +39,7 @@ using namespace JDF;
 
 
 int main(int argC, char* argV[]){
+	MyWalker walker; // memleak check
 	// Initialize the JDFTools system
 	try	{
 
