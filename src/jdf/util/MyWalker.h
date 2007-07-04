@@ -21,7 +21,8 @@
 /**
 simple wrapper around stackwalker that is switched off in release mode
 */
-class MyWalker{
+class JDFTOOLS_EXPORT MyWalker
+{
 public:
 	MyWalker();
 	virtual ~MyWalker();
