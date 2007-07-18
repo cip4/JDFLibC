@@ -155,16 +155,6 @@ typedef __int64 JDFInt64;
 #define JDF_WRAPPERCORE_EXPORT PLATFORM_IMPORT
 #endif
 
-/*
-#if defined(PROJ_JDFTOOLS)
-#define JDFTOOLS_EXPORT PLATFORM_EXPORT
-#elif defined(PROJ_JDFTOOLSLIB)
-#define JDFTOOLS_EXPORT 
-#else 
-#define JDFTOOLS_EXPORT PLATFORM_IMPORT
-#endif
-*/
-
 
 #ifdef XML_WIN32
 #pragma warning( disable : 4786 ) // long debug names from stl

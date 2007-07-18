@@ -1,64 +1,64 @@
 /*
- * The CIP4 Software License, Version 1.0
- *
- *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights
- * reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
- *       "This product includes software developed by the
- *        The International Cooperation for the Integration of
- *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
- *    Alternately, this acknowledgment mrSubRefay appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
- *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of
- *    Processes in  Prepress, Press and Postpress" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written
- *    permission, please contact info@cip4.org.
- *
- * 5. Products derived from this software may not be called "CIP4",
- *    nor may "CIP4" appear in their name, without prior writtenrestartProcesses()
- *    permission of the CIP4 organization
- *
- * Usage of this software in commercial products is subject to restrictions. For
- * details please consult info@cip4.org.
- *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR
- * THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIrSubRefAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
- *
- * For more information on The International Cooperation for the
- * Integration of Processes in  Prepress, Press and Postpress , please see
- * <http://www.cip4.org/>.
- *
- */
+* The CIP4 Software License, Version 1.0
+*
+*
+* Copyright (c) 2001-2006 The International Cooperation for the Integration of
+* Processes in  Prepress, Press and Postpress (CIP4).  All rights
+* reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+*
+* 1. Redistributions of source code must retain the above copyright
+*    notice, this list of conditions and the following disclaimer.
+*
+* 2. Redistributions in binary form must reproduce the above copyright
+*    notice, this list of conditions and the following disclaimer in
+*    the documentation and/or other materials provided with the
+*    distribution.
+*
+* 3. The end-user documentation included with the redistribution,
+*    if any, must include the following acknowledgment:
+*       "This product includes software developed by the
+*        The International Cooperation for the Integration of
+*        Processes in  Prepress, Press and Postpress (www.cip4.org)"
+*    Alternately, this acknowledgment mrSubRefay appear in the software itself,
+*    if and wherever such third-party acknowledgments normally appear.
+*
+* 4. The names "CIP4" and "The International Cooperation for the Integration of
+*    Processes in  Prepress, Press and Postpress" must
+*    not be used to endorse or promote products derived from this
+*    software without prior written permission. For written
+*    permission, please contact info@cip4.org.
+*
+* 5. Products derived from this software may not be called "CIP4",
+*    nor may "CIP4" appear in their name, without prior writtenrestartProcesses()
+*    permission of the CIP4 organization
+*
+* Usage of this software in commercial products is subject to restrictions. For
+* details please consult info@cip4.org.
+*
+* THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+* OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED.  IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR
+* THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR
+* ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIrSubRefAL DAMAGES (INCLUDING, BUT NOT
+* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+* USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+* SUCH DAMAGE.
+* ====================================================================
+*
+* For more information on The International Cooperation for the
+* Integration of Processes in  Prepress, Press and Postpress , please see
+* <http://www.cip4.org/>.
+*
+*/
 
 #include "JDFMerge.h"
 #include "JDFDoc.h"
@@ -170,7 +170,7 @@ namespace JDF{
 				iFound = whereToLook;
 			}
 		}
-		
+
 		// if the spawn Audit is not found at the first attempt, something went badly wrong
 		// we will insert a error audit later but continue limping along!
 		bSnafu = iFound != 1;
@@ -216,24 +216,24 @@ namespace JDF{
 	WString JDFMerge::mergeCheckPrespawn(JDFNode& toMerge, const JDFSpawned& spawnAudit, vWString& vsRO, vWString& vsRW)
 	{
 		WString preSpawn = spawnAudit.GetSpawnID();
-        // check all recursive previous spawns
-        while (!preSpawn.empty())
-        {
+		// check all recursive previous spawns
+		while (!preSpawn.empty())
+		{
 			JDFMerged preMerge = (JDFMerged)node.GetTarget(preSpawn, JDFNode::atr_MergeID);
 			if (!preMerge.isNull())
-            {
+			{
 				JDFSpawned preSpawnAudit = (JDFSpawned)node.GetTarget(preSpawn, JDFNode::atr_NewSpawnID);
 				vsRO.AppendUnique(preSpawnAudit.GetrRefsROCopied());
 				vsRW.AppendUnique(preSpawnAudit.GetrRefsRWCopied());
 				preSpawn = preSpawnAudit.GetSpawnID();
-            }
-            else
-            {
-                toMerge.SetSpawnID(preSpawn);
-                break;                
-            }
-        }
-        return preSpawn;
+			}
+			else
+			{
+				toMerge.SetSpawnID(preSpawn);
+				break;                
+			}
+		}
+		return preSpawn;
 	}
 
 	///////////////////////////////////////////////////////////////////
@@ -528,68 +528,64 @@ namespace JDF{
 			}
 
 			//retain all other elements of the original (non spawned) JDF Node if the spawn is partitioned¬
-			JDFAncestorPool ancestorPool = toMerge.GetAncestorPool();
-			if (!ancestorPool.isNull() && ancestorPool.IsPartitioned())
+			vElement localChildren = overwriteLocalNode.GetChildElementVector(WString::star, WString::emptyStr, mAttribute::emptyMap, true, 0, false);
+
+			int siz = localChildren.size();
+			for (int i = 0; i < siz; i++)
 			{
-				vElement localChildren = overwriteLocalNode.GetChildElementVector(WString::star, WString::emptyStr, mAttribute::emptyMap, true, 0, false);
-
-				int siz = localChildren.size();
-				for (int i = 0; i < siz; i++)
+				KElement e = (KElement) localChildren.elementAt(i);
+				// skip all pools
+				WString nodeName = e.GetLocalName();
+				if (nodeName.endsWith("Pool"))
 				{
-					KElement e = (KElement) localChildren.elementAt(i);
-					// skip all pools
-					WString nodeName = e.GetLocalName();
-                    if (nodeName.endsWith("Pool"))
-                    {
-						if (nodeName == JDFNode::elm_ResourceLinkPool)
-                        {
-                            continue;
-                        }
-						if (nodeName == JDFNode::elm_ResourcePool)
-                        {
-                            continue;
-                        }
-						if (nodeName == JDFNode::elm_AuditPool)
-                        {
-                            mergeAuditPool(overwriteLocalNode,toMergeLocalNode);
-                            continue;
-                        }
-						if (nodeName == JDFNode::elm_StatusPool)
-                        {
-                            mergeStatusPool(overwriteLocalNode,toMergeLocalNode,parts);
-                            continue;
-                        }
-						if (nodeName == JDFNode::elm_AncestorPool)
-                        {
-                            continue;
-                        }
-                    }
-
-					// 131204 RP also skip all sub-JDF nodes!!!
-					if(nodeName == JDFNode::elm_JDF)
+					if (nodeName == JDFNode::elm_ResourceLinkPool)
 					{
 						continue;
 					}
-					//050708 RP special handling for comments
-					if(nodeName == JDFNode::elm_Comment){
-						mergeComments(overwriteLocalNode,toMergeLocalNode);
+					if (nodeName == JDFNode::elm_ResourcePool)
+					{
 						continue;
 					}
-
-					toMergeLocalNode.RemoveChildren(nodeName, WString::emptyStr);
-					toMergeLocalNode.MoveElement(e, KElement::DefKElement);
-
-					// repeat in case of multiple identical elements (e.g. comments)
-					for (int j = i + 1; j < siz; j++)
+					if (nodeName == JDFNode::elm_AuditPool)
 					{
-						JDFElement localChild = (JDFElement) localChildren.elementAt(j);
-						if ( !localChild.isNull() )
+						mergeAuditPool(overwriteLocalNode,toMergeLocalNode);
+						continue;
+					}
+					if (nodeName == JDFNode::elm_StatusPool)
+					{
+						mergeStatusPool(overwriteLocalNode,toMergeLocalNode,parts);
+						continue;
+					}
+					if (nodeName == JDFNode::elm_AncestorPool)
+					{
+						continue;
+					}
+				}
+
+				// 131204 RP also skip all sub-JDF nodes!!!
+				if(nodeName == JDFNode::elm_JDF)
+				{
+					continue;
+				}
+				//050708 RP special handling for comments
+				if(nodeName == JDFNode::elm_Comment){
+					mergeComments(overwriteLocalNode,toMergeLocalNode);
+					continue;
+				}
+
+				toMergeLocalNode.RemoveChildren(nodeName, WString::emptyStr);
+				toMergeLocalNode.MoveElement(e, KElement::DefKElement);
+
+				// repeat in case of multiple identical elements (e.g. comments)
+				for (int j = i + 1; j < siz; j++)
+				{
+					JDFElement localChild = (JDFElement) localChildren.elementAt(j);
+					if ( !localChild.isNull() )
+					{
+						if ( localChild.GetNodeName() == nodeName )
 						{
-							if ( localChild.GetNodeName() == nodeName )
-							{
-								toMergeLocalNode.MoveElement(localChild, KElement::DefKElement);
-								localChildren[j] = KElement::DefKElement;
-							}
+							toMergeLocalNode.MoveElement(localChild, KElement::DefKElement);
+							localChildren[j] = KElement::DefKElement;
 						}
 					}
 				}
