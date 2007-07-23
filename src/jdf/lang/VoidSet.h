@@ -104,7 +104,7 @@ namespace JDF
 	/**
 	* utility class to provide a simple but fast set for any void pointers
 	*/
-	typedef  std::set<void*> setvoid;
+	typedef std::set<void*> setvoid;
 	class JDFTOOLS_EXPORT VoidSet : private setvoid
 	{
 	public:

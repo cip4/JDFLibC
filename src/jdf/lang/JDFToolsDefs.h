@@ -130,9 +130,14 @@ typedef long long JDFInt64;
 #pragma warning( disable : 4996 ) // deprecated printf etc.
 typedef unsigned __int64 JDFUInt64;
 typedef __int64 JDFInt64;
+#pragma warning( disable : 4251 ) // dll crap - 
+#pragma warning( disable : 4275 ) // dll crap - exporting of private members
+#endif
+
+
+
 #ifndef _CRT_NON_CONFORMING_SWPRINTFS
 #define _CRT_NON_CONFORMING_SWPRINTFS
-#endif
 #endif
 
 
@@ -156,11 +161,6 @@ typedef __int64 JDFInt64;
 #endif
 
 
-#ifdef XML_WIN32
-#pragma warning( disable : 4786 ) // long debug names from stl
-#pragma warning( disable : 4251 ) // long debug names from stl
-#pragma warning( disable : 4275 ) // long debug names from stl
-#endif
 
 
 #if defined(XERCES_TMPLSINC)

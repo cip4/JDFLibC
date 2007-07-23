@@ -14,7 +14,7 @@
 
 #if !defined(AFX_MYWALKER__INCLUDED_)
 #define AFX_MYWALKER__INCLUDED_
-
+#include <jdf/lang/JDFToolsDefs.h>
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
