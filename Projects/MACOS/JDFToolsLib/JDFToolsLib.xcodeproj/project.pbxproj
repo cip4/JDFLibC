@@ -518,7 +518,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08FB7794FE84155DC02AAC07 /* JDFToolsLib */ = {
+		04EE2CF80C5A2F400075D004 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				210B71260A762D9C003F70A6 /* mime */,
@@ -527,6 +527,14 @@
 				210B709F0A762D9B003F70A6 /* util */,
 				210B70BA0A762D9B003F70A6 /* png */,
 				210B70C10A762D9B003F70A6 /* net */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		08FB7794FE84155DC02AAC07 /* JDFToolsLib */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2CF80C5A2F400075D004 /* Source */,
 				3E574F040B6E3ED90004FB95 /* Configurations */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
@@ -1234,7 +1242,7 @@
 					ppc,
 					i386,
 				);
-				EXPORTED_SYMBOLS_FILE = "";
+				EXPORTED_SYMBOLS_FILE = Symbols.exp;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				LIBRARY_SEARCH_PATHS = (
@@ -1248,6 +1256,7 @@
 		};
 		1DEB91ED08733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
@@ -1255,7 +1264,7 @@
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
@@ -1275,7 +1284,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(GCC_PREPROCESSOR_DEFINITIONS)",
+					"$(BASE_GCC_PREPROCESSOR_DEFINITIONS)",
+				);
 				GENERATE_PROFILING_CODE = YES;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
@@ -1291,12 +1303,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"../../../src/**",
-					"../../../external/xerces/**",
-					../../../external/libpng,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;

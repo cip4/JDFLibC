@@ -7,22 +7,265 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		210B72CA0A763C67003F70A6 /* JDFIntegerRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AA0A763C67003F70A6 /* JDFIntegerRange.h */; };
-		210B72CB0A763C67003F70A6 /* JDFIntegerRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AB0A763C67003F70A6 /* JDFIntegerRangeList.h */; };
-		210B72CC0A763C67003F70A6 /* JDFNameRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AC0A763C67003F70A6 /* JDFNameRangeList.h */; };
-		210B72CD0A763C67003F70A6 /* JDFNumberRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AD0A763C67003F70A6 /* JDFNumberRangeList.h */; };
-		210B72CE0A763C67003F70A6 /* JDFNumTypeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72AE0A763C67003F70A6 /* JDFNumTypeList.h */; };
-		210B72CF0A763C67003F70A6 /* JDFRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72AF0A763C67003F70A6 /* JDFRange.cpp */; };
-		210B72D00A763C67003F70A6 /* JDFRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72B00A763C67003F70A6 /* JDFRange.h */; };
-		210B72D10A763C67003F70A6 /* JDFRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72B10A763C67003F70A6 /* JDFRangeList.h */; };
-		210B72D20A763C67003F70A6 /* JDFXYPairRangeList.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72B20A763C67003F70A6 /* JDFXYPairRangeList.h */; };
-		210B72D30A763C67003F70A6 /* JDFRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B30A763C67003F70A6 /* JDFRangeList.cpp */; };
-		210B72D40A763C67003F70A6 /* JDFXYPairRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B40A763C67003F70A6 /* JDFXYPairRangeList.cpp */; };
-		210B72D50A763C67003F70A6 /* JDFIntegerRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B50A763C67003F70A6 /* JDFIntegerRange.cpp */; };
-		210B72D60A763C67003F70A6 /* JDFIntegerRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B60A763C67003F70A6 /* JDFIntegerRangeList.cpp */; };
-		210B72D70A763C67003F70A6 /* JDFNameRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B70A763C67003F70A6 /* JDFNameRangeList.cpp */; };
-		210B72D80A763C67003F70A6 /* JDFNumberRangeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B80A763C67003F70A6 /* JDFNumberRangeList.cpp */; };
-		210B72D90A763C67003F70A6 /* JDFNumTypeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72B90A763C67003F70A6 /* JDFNumTypeList.cpp */; };
+		04EE2E710C5A314C0075D004 /* BASE64Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D190C5A314C0075D004 /* BASE64Decoder.cpp */; };
+		04EE2E720C5A314C0075D004 /* BASE64Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D1A0C5A314C0075D004 /* BASE64Decoder.h */; };
+		04EE2E730C5A314C0075D004 /* BASE64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D1B0C5A314C0075D004 /* BASE64Encoder.cpp */; };
+		04EE2E740C5A314C0075D004 /* BASE64Encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D1C0C5A314C0075D004 /* BASE64Encoder.h */; };
+		04EE2E750C5A314C0075D004 /* BufferedInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D1D0C5A314C0075D004 /* BufferedInputStream.cpp */; };
+		04EE2E760C5A314C0075D004 /* BufferedInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D1E0C5A314C0075D004 /* BufferedInputStream.h */; };
+		04EE2E770C5A314C0075D004 /* BufferedOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D1F0C5A314C0075D004 /* BufferedOutputStream.cpp */; };
+		04EE2E780C5A314C0075D004 /* BufferedOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D200C5A314C0075D004 /* BufferedOutputStream.h */; };
+		04EE2E790C5A314C0075D004 /* ByteArrayInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D210C5A314C0075D004 /* ByteArrayInputStream.cpp */; };
+		04EE2E7A0C5A314C0075D004 /* ByteArrayInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D220C5A314C0075D004 /* ByteArrayInputStream.h */; };
+		04EE2E7B0C5A314C0075D004 /* ByteArrayOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D230C5A314C0075D004 /* ByteArrayOutputStream.cpp */; };
+		04EE2E7C0C5A314C0075D004 /* ByteArrayOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D240C5A314C0075D004 /* ByteArrayOutputStream.h */; };
+		04EE2E7D0C5A314C0075D004 /* CharacterDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D250C5A314C0075D004 /* CharacterDecoder.cpp */; };
+		04EE2E7E0C5A314C0075D004 /* CharacterDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D260C5A314C0075D004 /* CharacterDecoder.h */; };
+		04EE2E7F0C5A314C0075D004 /* CharacterEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D270C5A314C0075D004 /* CharacterEncoder.cpp */; };
+		04EE2E800C5A314C0075D004 /* CharacterEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D280C5A314C0075D004 /* CharacterEncoder.h */; };
+		04EE2E810C5A314C0075D004 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D290C5A314C0075D004 /* File.cpp */; };
+		04EE2E820C5A314C0075D004 /* File.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D2A0C5A314C0075D004 /* File.h */; };
+		04EE2E830C5A314C0075D004 /* FileFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D2B0C5A314C0075D004 /* FileFilter.h */; };
+		04EE2E840C5A314C0075D004 /* FileInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D2C0C5A314C0075D004 /* FileInputStream.cpp */; };
+		04EE2E850C5A314C0075D004 /* FileInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D2D0C5A314C0075D004 /* FileInputStream.h */; };
+		04EE2E860C5A314C0075D004 /* FileNameFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D2E0C5A314C0075D004 /* FileNameFilter.h */; };
+		04EE2E870C5A314C0075D004 /* FileOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D2F0C5A314C0075D004 /* FileOutputStream.cpp */; };
+		04EE2E880C5A314C0075D004 /* FileOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D300C5A314C0075D004 /* FileOutputStream.h */; };
+		04EE2E890C5A314C0075D004 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D310C5A314C0075D004 /* FileSystem.cpp */; };
+		04EE2E8A0C5A314C0075D004 /* FileSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D320C5A314C0075D004 /* FileSystem.h */; };
+		04EE2E8B0C5A314C0075D004 /* FilterInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D330C5A314C0075D004 /* FilterInputStream.cpp */; };
+		04EE2E8C0C5A314C0075D004 /* FilterInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D340C5A314C0075D004 /* FilterInputStream.h */; };
+		04EE2E8D0C5A314C0075D004 /* FilterOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D350C5A314C0075D004 /* FilterOutputStream.cpp */; };
+		04EE2E8E0C5A314C0075D004 /* FilterOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D360C5A314C0075D004 /* FilterOutputStream.h */; };
+		04EE2E8F0C5A314C0075D004 /* InputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D370C5A314C0075D004 /* InputStream.cpp */; };
+		04EE2E900C5A314C0075D004 /* InputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D380C5A314C0075D004 /* InputStream.h */; };
+		04EE2E910C5A314C0075D004 /* OutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D390C5A314C0075D004 /* OutputStream.cpp */; };
+		04EE2E920C5A314C0075D004 /* OutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D3A0C5A314C0075D004 /* OutputStream.h */; };
+		04EE2E970C5A314C0075D004 /* MacOSFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D430C5A314C0075D004 /* MacOSFileSystem.cpp */; };
+		04EE2E980C5A314C0075D004 /* MacOSFileSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D440C5A314C0075D004 /* MacOSFileSystem.h */; };
+		04EE2E9D0C5A314C0075D004 /* PrintStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D4A0C5A314C0075D004 /* PrintStream.cpp */; };
+		04EE2E9E0C5A314C0075D004 /* PrintStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D4B0C5A314C0075D004 /* PrintStream.h */; };
+		04EE2E9F0C5A314C0075D004 /* PushbackInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D4C0C5A314C0075D004 /* PushbackInputStream.cpp */; };
+		04EE2EA00C5A314C0075D004 /* PushbackInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D4D0C5A314C0075D004 /* PushbackInputStream.h */; };
+		04EE2EA10C5A314C0075D004 /* QPDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D4E0C5A314C0075D004 /* QPDecoder.cpp */; };
+		04EE2EA20C5A314C0075D004 /* QPDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D4F0C5A314C0075D004 /* QPDecoder.h */; };
+		04EE2EA30C5A314C0075D004 /* QPEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D500C5A314C0075D004 /* QPEncoder.cpp */; };
+		04EE2EA40C5A314C0075D004 /* QPEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D510C5A314C0075D004 /* QPEncoder.h */; };
+		04EE2EA50C5A314C0075D004 /* RandomAccessInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D520C5A314C0075D004 /* RandomAccessInputStream.cpp */; };
+		04EE2EA60C5A314C0075D004 /* RandomAccessInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D530C5A314C0075D004 /* RandomAccessInputStream.h */; };
+		04EE2EA70C5A314C0075D004 /* RandomAccessOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D540C5A314C0075D004 /* RandomAccessOutputStream.cpp */; };
+		04EE2EA80C5A314C0075D004 /* RandomAccessOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D550C5A314C0075D004 /* RandomAccessOutputStream.h */; };
+		04EE2EA90C5A314C0075D004 /* StreamBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D560C5A314C0075D004 /* StreamBuffer.cpp */; };
+		04EE2EAA0C5A314C0075D004 /* StreamBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D570C5A314C0075D004 /* StreamBuffer.h */; };
+		04EE2EAB0C5A314C0075D004 /* AutoPtr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D590C5A314C0075D004 /* AutoPtr.cpp */; };
+		04EE2EAC0C5A314C0075D004 /* AutoPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D5A0C5A314C0075D004 /* AutoPtr.h */; };
+		04EE2EAD0C5A314C0075D004 /* BoolJanitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D5B0C5A314C0075D004 /* BoolJanitor.cpp */; };
+		04EE2EAE0C5A314C0075D004 /* BoolJanitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D5C0C5A314C0075D004 /* BoolJanitor.h */; };
+		04EE2EAF0C5A314C0075D004 /* ByteBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D5D0C5A314C0075D004 /* ByteBuffer.cpp */; };
+		04EE2EB00C5A314C0075D004 /* ByteBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D5E0C5A314C0075D004 /* ByteBuffer.h */; };
+		04EE2EB10C5A314C0075D004 /* CharBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D5F0C5A314C0075D004 /* CharBuffer.cpp */; };
+		04EE2EB20C5A314C0075D004 /* CharBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D600C5A314C0075D004 /* CharBuffer.h */; };
+		04EE2EB30C5A314C0075D004 /* Exception.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D610C5A314C0075D004 /* Exception.h */; };
+		04EE2EB40C5A314C0075D004 /* Integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D620C5A314C0075D004 /* Integer.cpp */; };
+		04EE2EB50C5A314C0075D004 /* Integer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D630C5A314C0075D004 /* Integer.h */; };
+		04EE2EB60C5A314C0075D004 /* Integer64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D640C5A314C0075D004 /* Integer64.cpp */; };
+		04EE2EB70C5A314C0075D004 /* Integer64.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D650C5A314C0075D004 /* Integer64.h */; };
+		04EE2EB80C5A314C0075D004 /* Janitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D660C5A314C0075D004 /* Janitor.cpp */; };
+		04EE2EB90C5A314C0075D004 /* Janitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D670C5A314C0075D004 /* Janitor.h */; };
+		04EE2EBA0C5A314C0075D004 /* JDFToolsDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D680C5A314C0075D004 /* JDFToolsDefs.h */; };
+		04EE2EBB0C5A314C0075D004 /* KString.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D690C5A314C0075D004 /* KString.h */; };
+		04EE2EBC0C5A314C0075D004 /* mapWString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D6A0C5A314C0075D004 /* mapWString.cpp */; };
+		04EE2EBD0C5A314C0075D004 /* mapWString.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D6B0C5A314C0075D004 /* mapWString.h */; };
+		04EE2EBE0C5A314C0075D004 /* Mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D6C0C5A314C0075D004 /* Mutex.cpp */; };
+		04EE2EBF0C5A314C0075D004 /* Mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D6D0C5A314C0075D004 /* Mutex.h */; };
+		04EE2EC00C5A314C0075D004 /* SetWString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D6E0C5A314C0075D004 /* SetWString.cpp */; };
+		04EE2EC10C5A314C0075D004 /* SetWString.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D6F0C5A314C0075D004 /* SetWString.h */; };
+		04EE2EC20C5A314C0075D004 /* Synchronized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D700C5A314C0075D004 /* Synchronized.cpp */; };
+		04EE2EC30C5A314C0075D004 /* Synchronized.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D710C5A314C0075D004 /* Synchronized.h */; };
+		04EE2EC40C5A314C0075D004 /* Throwable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D720C5A314C0075D004 /* Throwable.cpp */; };
+		04EE2EC50C5A314C0075D004 /* Throwable.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D730C5A314C0075D004 /* Throwable.h */; };
+		04EE2EC60C5A314C0075D004 /* vdouble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D740C5A314C0075D004 /* vdouble.cpp */; };
+		04EE2EC70C5A314C0075D004 /* vdouble.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D750C5A314C0075D004 /* vdouble.h */; };
+		04EE2EC80C5A314C0075D004 /* vint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D760C5A314C0075D004 /* vint.cpp */; };
+		04EE2EC90C5A314C0075D004 /* vint.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D770C5A314C0075D004 /* vint.h */; };
+		04EE2ECA0C5A314C0075D004 /* vMapWString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D780C5A314C0075D004 /* vMapWString.cpp */; };
+		04EE2ECB0C5A314C0075D004 /* vMapWString.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D790C5A314C0075D004 /* vMapWString.h */; };
+		04EE2ECC0C5A314C0075D004 /* VoidSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D7A0C5A314C0075D004 /* VoidSet.cpp */; };
+		04EE2ECD0C5A314C0075D004 /* VoidSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D7B0C5A314C0075D004 /* VoidSet.h */; };
+		04EE2ECE0C5A314C0075D004 /* vWString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D7C0C5A314C0075D004 /* vWString.cpp */; };
+		04EE2ECF0C5A314C0075D004 /* vWString.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D7D0C5A314C0075D004 /* vWString.h */; };
+		04EE2ED00C5A314C0075D004 /* WString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D7E0C5A314C0075D004 /* WString.cpp */; };
+		04EE2ED10C5A314C0075D004 /* WString.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D7F0C5A314C0075D004 /* WString.h */; };
+		04EE2ED20C5A314C0075D004 /* WStringBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D800C5A314C0075D004 /* WStringBase.h */; };
+		04EE2ED30C5A314C0075D004 /* FileMIMEType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D820C5A314C0075D004 /* FileMIMEType.cpp */; };
+		04EE2ED40C5A314C0075D004 /* FileMIMEType.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D830C5A314C0075D004 /* FileMIMEType.h */; };
+		04EE2ED50C5A314C0075D004 /* FileNameMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D840C5A314C0075D004 /* FileNameMap.h */; };
+		04EE2ED60C5A314C0075D004 /* MIMEBasicPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D850C5A314C0075D004 /* MIMEBasicPart.cpp */; };
+		04EE2ED70C5A314C0075D004 /* MIMEBasicPart.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D860C5A314C0075D004 /* MIMEBasicPart.h */; };
+		04EE2ED80C5A314C0075D004 /* MIMEBodyPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D870C5A314C0075D004 /* MIMEBodyPart.cpp */; };
+		04EE2ED90C5A314C0075D004 /* MIMEBodyPart.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D880C5A314C0075D004 /* MIMEBodyPart.h */; };
+		04EE2EDA0C5A314C0075D004 /* MIMEComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D890C5A314C0075D004 /* MIMEComponent.h */; };
+		04EE2EDB0C5A314C0075D004 /* MIMEHeader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D8A0C5A314C0075D004 /* MIMEHeader.cpp */; };
+		04EE2EDC0C5A314C0075D004 /* MIMEHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D8B0C5A314C0075D004 /* MIMEHeader.h */; };
+		04EE2EDD0C5A314C0075D004 /* MIMELocalResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D8C0C5A314C0075D004 /* MIMELocalResource.cpp */; };
+		04EE2EDE0C5A314C0075D004 /* MIMELocalResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D8D0C5A314C0075D004 /* MIMELocalResource.h */; };
+		04EE2EDF0C5A314C0075D004 /* MIMELocalResourceFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D8E0C5A314C0075D004 /* MIMELocalResourceFactory.cpp */; };
+		04EE2EE00C5A314C0075D004 /* MIMELocalResourceFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D8F0C5A314C0075D004 /* MIMELocalResourceFactory.h */; };
+		04EE2EE10C5A314C0075D004 /* MIMEMemResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D900C5A314C0075D004 /* MIMEMemResource.cpp */; };
+		04EE2EE20C5A314C0075D004 /* MIMEMemResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D910C5A314C0075D004 /* MIMEMemResource.h */; };
+		04EE2EE30C5A314C0075D004 /* MIMEMemResourceFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D920C5A314C0075D004 /* MIMEMemResourceFactory.cpp */; };
+		04EE2EE40C5A314C0075D004 /* MIMEMemResourceFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D930C5A314C0075D004 /* MIMEMemResourceFactory.h */; };
+		04EE2EE50C5A314C0075D004 /* MIMEMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D940C5A314C0075D004 /* MIMEMessage.cpp */; };
+		04EE2EE60C5A314C0075D004 /* MIMEMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D950C5A314C0075D004 /* MIMEMessage.h */; };
+		04EE2EE70C5A314C0075D004 /* MIMEMessagePart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D960C5A314C0075D004 /* MIMEMessagePart.cpp */; };
+		04EE2EE80C5A314C0075D004 /* MIMEMessagePart.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D970C5A314C0075D004 /* MIMEMessagePart.h */; };
+		04EE2EE90C5A314C0075D004 /* MIMEMultiPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D980C5A314C0075D004 /* MIMEMultiPart.cpp */; };
+		04EE2EEA0C5A314C0075D004 /* MIMEMultiPart.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D990C5A314C0075D004 /* MIMEMultiPart.h */; };
+		04EE2EEB0C5A314C0075D004 /* MIMEParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D9A0C5A314C0075D004 /* MIMEParser.cpp */; };
+		04EE2EEC0C5A314C0075D004 /* MIMEParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D9B0C5A314C0075D004 /* MIMEParser.h */; };
+		04EE2EED0C5A314C0075D004 /* MIMEResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D9C0C5A314C0075D004 /* MIMEResource.h */; };
+		04EE2EEE0C5A314C0075D004 /* MIMEResourceFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D9D0C5A314C0075D004 /* MIMEResourceFactory.h */; };
+		04EE2EEF0C5A314C0075D004 /* MimeTableFileNameMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2D9E0C5A314C0075D004 /* MimeTableFileNameMap.cpp */; };
+		04EE2EF00C5A314C0075D004 /* MimeTableFileNameMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2D9F0C5A314C0075D004 /* MimeTableFileNameMap.h */; };
+		04EE2EF10C5A314C0075D004 /* AuthenticationInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DA10C5A314C0075D004 /* AuthenticationInfo.cpp */; };
+		04EE2EF20C5A314C0075D004 /* AuthenticationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DA20C5A314C0075D004 /* AuthenticationInfo.h */; };
+		04EE2EF30C5A314C0075D004 /* Authenticator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DA30C5A314C0075D004 /* Authenticator.cpp */; };
+		04EE2EF40C5A314C0075D004 /* Authenticator.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DA40C5A314C0075D004 /* Authenticator.h */; };
+		04EE2EF50C5A314C0075D004 /* BasicAuthentication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DA50C5A314C0075D004 /* BasicAuthentication.cpp */; };
+		04EE2EF60C5A314C0075D004 /* BasicAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DA60C5A314C0075D004 /* BasicAuthentication.h */; };
+		04EE2EF70C5A314C0075D004 /* ChunkedInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DA70C5A314C0075D004 /* ChunkedInputStream.cpp */; };
+		04EE2EF80C5A314C0075D004 /* ChunkedInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DA80C5A314C0075D004 /* ChunkedInputStream.h */; };
+		04EE2EF90C5A314C0075D004 /* CidURLStreamHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DA90C5A314C0075D004 /* CidURLStreamHandler.cpp */; };
+		04EE2EFA0C5A314C0075D004 /* CidURLStreamHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DAA0C5A314C0075D004 /* CidURLStreamHandler.h */; };
+		04EE2EFB0C5A314C0075D004 /* DigestAuthentication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DAB0C5A314C0075D004 /* DigestAuthentication.cpp */; };
+		04EE2EFC0C5A314C0075D004 /* DigestAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DAC0C5A314C0075D004 /* DigestAuthentication.h */; };
+		04EE2EFD0C5A314C0075D004 /* FileURLConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DAD0C5A314C0075D004 /* FileURLConnection.cpp */; };
+		04EE2EFE0C5A314C0075D004 /* FileURLConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DAE0C5A314C0075D004 /* FileURLConnection.h */; };
+		04EE2EFF0C5A314C0075D004 /* FileURLStreamHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DAF0C5A314C0075D004 /* FileURLStreamHandler.cpp */; };
+		04EE2F000C5A314C0075D004 /* FileURLStreamHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DB00C5A314C0075D004 /* FileURLStreamHandler.h */; };
+		04EE2F010C5A314C0075D004 /* HeaderParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DB10C5A314C0075D004 /* HeaderParser.cpp */; };
+		04EE2F020C5A314C0075D004 /* HeaderParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DB20C5A314C0075D004 /* HeaderParser.h */; };
+		04EE2F030C5A314C0075D004 /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DB30C5A314C0075D004 /* HttpClient.cpp */; };
+		04EE2F040C5A314C0075D004 /* HttpClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DB40C5A314C0075D004 /* HttpClient.h */; };
+		04EE2F050C5A314C0075D004 /* HttpsClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DB50C5A314C0075D004 /* HttpsClient.cpp */; };
+		04EE2F060C5A314C0075D004 /* HttpsClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DB60C5A314C0075D004 /* HttpsClient.h */; };
+		04EE2F070C5A314C0075D004 /* HttpsURLStreamHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DB70C5A314C0075D004 /* HttpsURLStreamHandler.cpp */; };
+		04EE2F080C5A314C0075D004 /* HttpsURLStreamHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DB80C5A314C0075D004 /* HttpsURLStreamHandler.h */; };
+		04EE2F090C5A314C0075D004 /* HttpURLConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DB90C5A314C0075D004 /* HttpURLConnection.cpp */; };
+		04EE2F0A0C5A314C0075D004 /* HttpURLConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DBA0C5A314C0075D004 /* HttpURLConnection.h */; };
+		04EE2F0B0C5A314C0075D004 /* HttpURLStreamHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DBB0C5A314C0075D004 /* HttpURLStreamHandler.cpp */; };
+		04EE2F0C0C5A314C0075D004 /* HttpURLStreamHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DBC0C5A314C0075D004 /* HttpURLStreamHandler.h */; };
+		04EE2F0D0C5A314C0075D004 /* InetAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DBD0C5A314C0075D004 /* InetAddress.cpp */; };
+		04EE2F0E0C5A314C0075D004 /* InetAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DBE0C5A314C0075D004 /* InetAddress.h */; };
+		04EE2F0F0C5A314C0075D004 /* InetAddressCachePolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DBF0C5A314C0075D004 /* InetAddressCachePolicy.cpp */; };
+		04EE2F100C5A314C0075D004 /* InetAddressCachePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DC00C5A314C0075D004 /* InetAddressCachePolicy.h */; };
+		04EE2F110C5A314C0075D004 /* InetAddressImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DC10C5A314C0075D004 /* InetAddressImpl.cpp */; };
+		04EE2F120C5A314C0075D004 /* InetAddressImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DC20C5A314C0075D004 /* InetAddressImpl.h */; };
+		04EE2F130C5A314C0075D004 /* KeepAliveCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DC30C5A314C0075D004 /* KeepAliveCache.cpp */; };
+		04EE2F140C5A314C0075D004 /* KeepAliveCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DC40C5A314C0075D004 /* KeepAliveCache.h */; };
+		04EE2F150C5A314C0075D004 /* KeepAliveInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DC50C5A314C0075D004 /* KeepAliveInputStream.cpp */; };
+		04EE2F160C5A314C0075D004 /* KeepAliveInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DC60C5A314C0075D004 /* KeepAliveInputStream.h */; };
+		04EE2F170C5A314C0075D004 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DC70C5A314C0075D004 /* md5.c */; };
+		04EE2F180C5A314C0075D004 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DC80C5A314C0075D004 /* md5.h */; };
+		04EE2F190C5A314C0075D004 /* MessageHeader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DC90C5A314C0075D004 /* MessageHeader.cpp */; };
+		04EE2F1A0C5A314C0075D004 /* MessageHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DCA0C5A314C0075D004 /* MessageHeader.h */; };
+		04EE2F1B0C5A314C0075D004 /* MeteredInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DCB0C5A314C0075D004 /* MeteredInputStream.cpp */; };
+		04EE2F1C0C5A314C0075D004 /* MeteredInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DCC0C5A314C0075D004 /* MeteredInputStream.h */; };
+		04EE2F1D0C5A314C0075D004 /* NetworkClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DCD0C5A314C0075D004 /* NetworkClient.cpp */; };
+		04EE2F1E0C5A314C0075D004 /* NetworkClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DCE0C5A314C0075D004 /* NetworkClient.h */; };
+		04EE2F1F0C5A314C0075D004 /* ParseUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DCF0C5A314C0075D004 /* ParseUtil.cpp */; };
+		04EE2F200C5A314C0075D004 /* ParseUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DD00C5A314C0075D004 /* ParseUtil.h */; };
+		04EE2F210C5A314C0075D004 /* PasswordAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DD10C5A314C0075D004 /* PasswordAuthentication.h */; };
+		04EE2F220C5A314C0075D004 /* PlainHttpOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DD20C5A314C0075D004 /* PlainHttpOutputStream.cpp */; };
+		04EE2F230C5A314C0075D004 /* PlainHttpOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DD30C5A314C0075D004 /* PlainHttpOutputStream.h */; };
+		04EE2F240C5A314C0075D004 /* PlainHttpsURLConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DD40C5A314C0075D004 /* PlainHttpsURLConnection.cpp */; };
+		04EE2F250C5A314C0075D004 /* PlainHttpsURLConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DD50C5A314C0075D004 /* PlainHttpsURLConnection.h */; };
+		04EE2F260C5A314C0075D004 /* PlainHttpURLConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DD60C5A314C0075D004 /* PlainHttpURLConnection.cpp */; };
+		04EE2F270C5A314C0075D004 /* PlainHttpURLConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DD70C5A314C0075D004 /* PlainHttpURLConnection.h */; };
+		04EE2F280C5A314C0075D004 /* PlainURLStreamHandlerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DD80C5A314C0075D004 /* PlainURLStreamHandlerFactory.cpp */; };
+		04EE2F290C5A314C0075D004 /* PlainURLStreamHandlerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DD90C5A314C0075D004 /* PlainURLStreamHandlerFactory.h */; };
+		04EE2F4A0C5A314C0075D004 /* MacOSInetAddressImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2DFE0C5A314C0075D004 /* MacOSInetAddressImpl.cpp */; };
+		04EE2F4B0C5A314C0075D004 /* MacOSInetAddressImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2DFF0C5A314C0075D004 /* MacOSInetAddressImpl.h */; };
+		04EE2F4C0C5A314C0075D004 /* MacOsSocketFactoryService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E000C5A314C0075D004 /* MacOsSocketFactoryService.cpp */; };
+		04EE2F4D0C5A314C0075D004 /* MacOSSocketFactoryService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E010C5A314C0075D004 /* MacOSSocketFactoryService.h */; };
+		04EE2F4E0C5A314C0075D004 /* MacOSSocketImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E020C5A314C0075D004 /* MacOSSocketImpl.cpp */; };
+		04EE2F4F0C5A314C0075D004 /* MacOSSocketImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E030C5A314C0075D004 /* MacOSSocketImpl.h */; };
+		04EE2F500C5A314C0075D004 /* MacOSSocketImplFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E040C5A314C0075D004 /* MacOSSocketImplFactory.cpp */; };
+		04EE2F510C5A314C0075D004 /* MacOSSocketImplFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E050C5A314C0075D004 /* MacOSSocketImplFactory.h */; };
+		04EE2F520C5A314C0075D004 /* MacOSSocketImplInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E060C5A314C0075D004 /* MacOSSocketImplInputStream.cpp */; };
+		04EE2F530C5A314C0075D004 /* MacOSSocketImplInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E070C5A314C0075D004 /* MacOSSocketImplInputStream.h */; };
+		04EE2F540C5A314C0075D004 /* MacOSSocketImplOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E080C5A314C0075D004 /* MacOSSocketImplOutputStream.cpp */; };
+		04EE2F550C5A314C0075D004 /* MacOSSocketImplOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E090C5A314C0075D004 /* MacOSSocketImplOutputStream.h */; };
+		04EE2F560C5A314C0075D004 /* MacOSSocketInit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E0A0C5A314C0075D004 /* MacOSSocketInit.cpp */; };
+		04EE2F570C5A314C0075D004 /* MacOSSocketInit.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E0B0C5A314C0075D004 /* MacOSSocketInit.h */; };
+		04EE2F580C5A314C0075D004 /* SocketProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E0C0C5A314C0075D004 /* SocketProxy.cpp */; };
+		04EE2F590C5A314C0075D004 /* SocketProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E0D0C5A314C0075D004 /* SocketProxy.h */; };
+		04EE2F680C5A314C0075D004 /* ProgressEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E1D0C5A314C0075D004 /* ProgressEntry.h */; };
+		04EE2F690C5A314C0075D004 /* ServerSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E1E0C5A314C0075D004 /* ServerSocket.cpp */; };
+		04EE2F6A0C5A314C0075D004 /* ServerSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E1F0C5A314C0075D004 /* ServerSocket.h */; };
+		04EE2F6B0C5A314C0075D004 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E200C5A314C0075D004 /* Socket.cpp */; };
+		04EE2F6C0C5A314C0075D004 /* Socket.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E210C5A314C0075D004 /* Socket.h */; };
+		04EE2F6D0C5A314C0075D004 /* SocketFactoryService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E220C5A314C0075D004 /* SocketFactoryService.h */; };
+		04EE2F6E0C5A314C0075D004 /* SocketImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E230C5A314C0075D004 /* SocketImpl.cpp */; };
+		04EE2F6F0C5A314C0075D004 /* SocketImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E240C5A314C0075D004 /* SocketImpl.h */; };
+		04EE2F700C5A314C0075D004 /* SocketImplFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E250C5A314C0075D004 /* SocketImplFactory.h */; };
+		04EE2F710C5A314C0075D004 /* SocketOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E260C5A314C0075D004 /* SocketOptions.cpp */; };
+		04EE2F720C5A314C0075D004 /* SocketOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E270C5A314C0075D004 /* SocketOptions.h */; };
+		04EE2F730C5A314C0075D004 /* SSLSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E280C5A314C0075D004 /* SSLSocket.cpp */; };
+		04EE2F740C5A314C0075D004 /* SSLSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E290C5A314C0075D004 /* SSLSocket.h */; };
+		04EE2F750C5A314C0075D004 /* SSLSocketInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E2A0C5A314C0075D004 /* SSLSocketInputStream.cpp */; };
+		04EE2F760C5A314C0075D004 /* SSLSocketInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E2B0C5A314C0075D004 /* SSLSocketInputStream.h */; };
+		04EE2F770C5A314C0075D004 /* SSLSocketOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E2C0C5A314C0075D004 /* SSLSocketOutputStream.cpp */; };
+		04EE2F780C5A314C0075D004 /* SSLSocketOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E2D0C5A314C0075D004 /* SSLSocketOutputStream.h */; };
+		04EE2F790C5A314C0075D004 /* URI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E2E0C5A314C0075D004 /* URI.cpp */; };
+		04EE2F7A0C5A314C0075D004 /* URI.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E2F0C5A314C0075D004 /* URI.h */; };
+		04EE2F7B0C5A314C0075D004 /* URL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E300C5A314C0075D004 /* URL.cpp */; };
+		04EE2F7C0C5A314C0075D004 /* URL.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E310C5A314C0075D004 /* URL.h */; };
+		04EE2F7D0C5A314C0075D004 /* URLConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E320C5A314C0075D004 /* URLConnection.cpp */; };
+		04EE2F7E0C5A314C0075D004 /* URLConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E330C5A314C0075D004 /* URLConnection.h */; };
+		04EE2F7F0C5A314C0075D004 /* URLDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E340C5A314C0075D004 /* URLDecoder.cpp */; };
+		04EE2F800C5A314C0075D004 /* URLDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E350C5A314C0075D004 /* URLDecoder.h */; };
+		04EE2F810C5A314C0075D004 /* URLEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E360C5A314C0075D004 /* URLEncoder.cpp */; };
+		04EE2F820C5A314C0075D004 /* URLEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E370C5A314C0075D004 /* URLEncoder.h */; };
+		04EE2F830C5A314C0075D004 /* URLStreamHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E380C5A314C0075D004 /* URLStreamHandler.cpp */; };
+		04EE2F840C5A314C0075D004 /* URLStreamHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E390C5A314C0075D004 /* URLStreamHandler.h */; };
+		04EE2F850C5A314C0075D004 /* URLStreamHandlerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E3A0C5A314C0075D004 /* URLStreamHandlerFactory.h */; };
+		04EE2F860C5A314C0075D004 /* WWWURLConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E3B0C5A314C0075D004 /* WWWURLConnection.cpp */; };
+		04EE2F870C5A314C0075D004 /* WWWURLConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E3C0C5A314C0075D004 /* WWWURLConnection.h */; };
+		04EE2F880C5A314C0075D004 /* PNGFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E3E0C5A314C0075D004 /* PNGFile.cpp */; };
+		04EE2F890C5A314C0075D004 /* PNGFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E3F0C5A314C0075D004 /* PNGFile.h */; };
+		04EE2F8A0C5A314C0075D004 /* PNGFileImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E400C5A314C0075D004 /* PNGFileImpl.cpp */; };
+		04EE2F8B0C5A314C0075D004 /* PNGFileImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E410C5A314C0075D004 /* PNGFileImpl.h */; };
+		04EE2F8C0C5A314C0075D004 /* PNGInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E420C5A314C0075D004 /* PNGInfo.cpp */; };
+		04EE2F8D0C5A314C0075D004 /* PNGInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E430C5A314C0075D004 /* PNGInfo.h */; };
+		04EE2F8E0C5A314C0075D004 /* Cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E450C5A314C0075D004 /* Cache.h */; };
+		04EE2F8F0C5A314C0075D004 /* dtoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E460C5A314C0075D004 /* dtoa.cpp */; };
+		04EE2F900C5A314C0075D004 /* dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E470C5A314C0075D004 /* dtoa.h */; };
+		04EE2F910C5A314C0075D004 /* hashfun.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E480C5A314C0075D004 /* hashfun.h */; };
+		04EE2F920C5A314C0075D004 /* hmap.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E490C5A314C0075D004 /* hmap.h */; };
+		04EE2F930C5A314C0075D004 /* JDFLibVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E4A0C5A314C0075D004 /* JDFLibVersion.h */; };
+		04EE2F940C5A314C0075D004 /* myuti.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E4B0C5A314C0075D004 /* myuti.cpp */; };
+		04EE2F950C5A314C0075D004 /* myuti.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E4C0C5A314C0075D004 /* myuti.h */; };
+		04EE2F960C5A314C0075D004 /* MyWalker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E4D0C5A314C0075D004 /* MyWalker.cpp */; };
+		04EE2F970C5A314C0075D004 /* MyWalker.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E4E0C5A314C0075D004 /* MyWalker.h */; };
+		04EE2F9C0C5A314C0075D004 /* JDFMacFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E560C5A314C0075D004 /* JDFMacFile.cpp */; };
+		04EE2F9D0C5A314C0075D004 /* JDFMacFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E570C5A314C0075D004 /* JDFMacFile.h */; };
+		04EE2F9E0C5A314C0075D004 /* MacOSPlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E580C5A314C0075D004 /* MacOSPlatformUtils.cpp */; };
+		04EE2F9F0C5A314C0075D004 /* MacOSPlatformUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E590C5A314C0075D004 /* MacOSPlatformUtils.h */; };
+		04EE2FA80C5A314C0075D004 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E630C5A314C0075D004 /* PlatformUtils.cpp */; };
+		04EE2FA90C5A314C0075D004 /* PlatformUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E640C5A314C0075D004 /* PlatformUtils.h */; };
+		04EE2FAA0C5A314C0075D004 /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E650C5A314C0075D004 /* Random.cpp */; };
+		04EE2FAB0C5A314C0075D004 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E660C5A314C0075D004 /* Random.h */; };
+		04EE2FAC0C5A314C0075D004 /* Regexp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E670C5A314C0075D004 /* Regexp.cpp */; };
+		04EE2FAD0C5A314C0075D004 /* RegExp.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E680C5A314C0075D004 /* RegExp.h */; };
+		04EE2FAE0C5A314C0075D004 /* RegexpPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E690C5A314C0075D004 /* RegexpPool.cpp */; };
+		04EE2FAF0C5A314C0075D004 /* RegexpPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E6A0C5A314C0075D004 /* RegexpPool.h */; };
+		04EE2FB00C5A314C0075D004 /* RegisterCleanup.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E6B0C5A314C0075D004 /* RegisterCleanup.h */; };
+		04EE2FB10C5A314C0075D004 /* slist.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E6C0C5A314C0075D004 /* slist.h */; };
+		04EE2FB20C5A314C0075D004 /* StringTokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E6D0C5A314C0075D004 /* StringTokenizer.cpp */; };
+		04EE2FB30C5A314C0075D004 /* StringTokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E6E0C5A314C0075D004 /* StringTokenizer.h */; };
+		04EE2FB40C5A314C0075D004 /* Unicode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EE2E6F0C5A314C0075D004 /* Unicode.cpp */; };
+		04EE2FB50C5A314C0075D004 /* Unicode.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE2E700C5A314C0075D004 /* Unicode.h */; };
 		210B72DA0A763C67003F70A6 /* KElementStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72BB0A763C67003F70A6 /* KElementStrings.cpp */; };
 		210B72DB0A763C67003F70A6 /* KElementStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = 210B72BC0A763C67003F70A6 /* KElementStrings.h */; };
 		210B72DC0A763C67003F70A6 /* JDFParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210B72BD0A763C67003F70A6 /* JDFParser.cpp */; };
@@ -43,22 +286,265 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		210B72AA0A763C67003F70A6 /* JDFIntegerRange.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFIntegerRange.h; path = ../../../src/jdf/wrapper/JDFIntegerRange.h; sourceTree = "<group>"; };
-		210B72AB0A763C67003F70A6 /* JDFIntegerRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFIntegerRangeList.h; path = ../../../src/jdf/wrapper/JDFIntegerRangeList.h; sourceTree = "<group>"; };
-		210B72AC0A763C67003F70A6 /* JDFNameRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFNameRangeList.h; path = ../../../src/jdf/wrapper/JDFNameRangeList.h; sourceTree = "<group>"; };
-		210B72AD0A763C67003F70A6 /* JDFNumberRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFNumberRangeList.h; path = ../../../src/jdf/wrapper/JDFNumberRangeList.h; sourceTree = "<group>"; };
-		210B72AE0A763C67003F70A6 /* JDFNumTypeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFNumTypeList.h; path = ../../../src/jdf/wrapper/JDFNumTypeList.h; sourceTree = "<group>"; };
-		210B72AF0A763C67003F70A6 /* JDFRange.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFRange.cpp; path = ../../../src/jdf/wrapper/JDFRange.cpp; sourceTree = "<group>"; };
-		210B72B00A763C67003F70A6 /* JDFRange.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFRange.h; path = ../../../src/jdf/wrapper/JDFRange.h; sourceTree = "<group>"; };
-		210B72B10A763C67003F70A6 /* JDFRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFRangeList.h; path = ../../../src/jdf/wrapper/JDFRangeList.h; sourceTree = "<group>"; };
-		210B72B20A763C67003F70A6 /* JDFXYPairRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = JDFXYPairRangeList.h; path = ../../../src/jdf/wrapper/JDFXYPairRangeList.h; sourceTree = "<group>"; };
-		210B72B30A763C67003F70A6 /* JDFRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFRangeList.cpp; path = ../../../src/jdf/wrapper/JDFRangeList.cpp; sourceTree = "<group>"; };
-		210B72B40A763C67003F70A6 /* JDFXYPairRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFXYPairRangeList.cpp; path = ../../../src/jdf/wrapper/JDFXYPairRangeList.cpp; sourceTree = "<group>"; };
-		210B72B50A763C67003F70A6 /* JDFIntegerRange.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFIntegerRange.cpp; path = ../../../src/jdf/wrapper/JDFIntegerRange.cpp; sourceTree = "<group>"; };
-		210B72B60A763C67003F70A6 /* JDFIntegerRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFIntegerRangeList.cpp; path = ../../../src/jdf/wrapper/JDFIntegerRangeList.cpp; sourceTree = "<group>"; };
-		210B72B70A763C67003F70A6 /* JDFNameRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFNameRangeList.cpp; path = ../../../src/jdf/wrapper/JDFNameRangeList.cpp; sourceTree = "<group>"; };
-		210B72B80A763C67003F70A6 /* JDFNumberRangeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFNumberRangeList.cpp; path = ../../../src/jdf/wrapper/JDFNumberRangeList.cpp; sourceTree = "<group>"; };
-		210B72B90A763C67003F70A6 /* JDFNumTypeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = JDFNumTypeList.cpp; path = ../../../src/jdf/wrapper/JDFNumTypeList.cpp; sourceTree = "<group>"; };
+		04EE2D190C5A314C0075D004 /* BASE64Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BASE64Decoder.cpp; sourceTree = "<group>"; };
+		04EE2D1A0C5A314C0075D004 /* BASE64Decoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BASE64Decoder.h; sourceTree = "<group>"; };
+		04EE2D1B0C5A314C0075D004 /* BASE64Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BASE64Encoder.cpp; sourceTree = "<group>"; };
+		04EE2D1C0C5A314C0075D004 /* BASE64Encoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BASE64Encoder.h; sourceTree = "<group>"; };
+		04EE2D1D0C5A314C0075D004 /* BufferedInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BufferedInputStream.cpp; sourceTree = "<group>"; };
+		04EE2D1E0C5A314C0075D004 /* BufferedInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BufferedInputStream.h; sourceTree = "<group>"; };
+		04EE2D1F0C5A314C0075D004 /* BufferedOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BufferedOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2D200C5A314C0075D004 /* BufferedOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BufferedOutputStream.h; sourceTree = "<group>"; };
+		04EE2D210C5A314C0075D004 /* ByteArrayInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ByteArrayInputStream.cpp; sourceTree = "<group>"; };
+		04EE2D220C5A314C0075D004 /* ByteArrayInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ByteArrayInputStream.h; sourceTree = "<group>"; };
+		04EE2D230C5A314C0075D004 /* ByteArrayOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ByteArrayOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2D240C5A314C0075D004 /* ByteArrayOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ByteArrayOutputStream.h; sourceTree = "<group>"; };
+		04EE2D250C5A314C0075D004 /* CharacterDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterDecoder.cpp; sourceTree = "<group>"; };
+		04EE2D260C5A314C0075D004 /* CharacterDecoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CharacterDecoder.h; sourceTree = "<group>"; };
+		04EE2D270C5A314C0075D004 /* CharacterEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterEncoder.cpp; sourceTree = "<group>"; };
+		04EE2D280C5A314C0075D004 /* CharacterEncoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CharacterEncoder.h; sourceTree = "<group>"; };
+		04EE2D290C5A314C0075D004 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
+		04EE2D2A0C5A314C0075D004 /* File.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
+		04EE2D2B0C5A314C0075D004 /* FileFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileFilter.h; sourceTree = "<group>"; };
+		04EE2D2C0C5A314C0075D004 /* FileInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileInputStream.cpp; sourceTree = "<group>"; };
+		04EE2D2D0C5A314C0075D004 /* FileInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileInputStream.h; sourceTree = "<group>"; };
+		04EE2D2E0C5A314C0075D004 /* FileNameFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileNameFilter.h; sourceTree = "<group>"; };
+		04EE2D2F0C5A314C0075D004 /* FileOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2D300C5A314C0075D004 /* FileOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileOutputStream.h; sourceTree = "<group>"; };
+		04EE2D310C5A314C0075D004 /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystem.cpp; sourceTree = "<group>"; };
+		04EE2D320C5A314C0075D004 /* FileSystem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileSystem.h; sourceTree = "<group>"; };
+		04EE2D330C5A314C0075D004 /* FilterInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FilterInputStream.cpp; sourceTree = "<group>"; };
+		04EE2D340C5A314C0075D004 /* FilterInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FilterInputStream.h; sourceTree = "<group>"; };
+		04EE2D350C5A314C0075D004 /* FilterOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FilterOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2D360C5A314C0075D004 /* FilterOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FilterOutputStream.h; sourceTree = "<group>"; };
+		04EE2D370C5A314C0075D004 /* InputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = InputStream.cpp; sourceTree = "<group>"; };
+		04EE2D380C5A314C0075D004 /* InputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InputStream.h; sourceTree = "<group>"; };
+		04EE2D390C5A314C0075D004 /* OutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OutputStream.cpp; sourceTree = "<group>"; };
+		04EE2D3A0C5A314C0075D004 /* OutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OutputStream.h; sourceTree = "<group>"; };
+		04EE2D430C5A314C0075D004 /* MacOSFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSFileSystem.cpp; sourceTree = "<group>"; };
+		04EE2D440C5A314C0075D004 /* MacOSFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSFileSystem.h; sourceTree = "<group>"; };
+		04EE2D4A0C5A314C0075D004 /* PrintStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PrintStream.cpp; sourceTree = "<group>"; };
+		04EE2D4B0C5A314C0075D004 /* PrintStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PrintStream.h; sourceTree = "<group>"; };
+		04EE2D4C0C5A314C0075D004 /* PushbackInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PushbackInputStream.cpp; sourceTree = "<group>"; };
+		04EE2D4D0C5A314C0075D004 /* PushbackInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PushbackInputStream.h; sourceTree = "<group>"; };
+		04EE2D4E0C5A314C0075D004 /* QPDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = QPDecoder.cpp; sourceTree = "<group>"; };
+		04EE2D4F0C5A314C0075D004 /* QPDecoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QPDecoder.h; sourceTree = "<group>"; };
+		04EE2D500C5A314C0075D004 /* QPEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = QPEncoder.cpp; sourceTree = "<group>"; };
+		04EE2D510C5A314C0075D004 /* QPEncoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QPEncoder.h; sourceTree = "<group>"; };
+		04EE2D520C5A314C0075D004 /* RandomAccessInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RandomAccessInputStream.cpp; sourceTree = "<group>"; };
+		04EE2D530C5A314C0075D004 /* RandomAccessInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RandomAccessInputStream.h; sourceTree = "<group>"; };
+		04EE2D540C5A314C0075D004 /* RandomAccessOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RandomAccessOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2D550C5A314C0075D004 /* RandomAccessOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RandomAccessOutputStream.h; sourceTree = "<group>"; };
+		04EE2D560C5A314C0075D004 /* StreamBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = StreamBuffer.cpp; sourceTree = "<group>"; };
+		04EE2D570C5A314C0075D004 /* StreamBuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StreamBuffer.h; sourceTree = "<group>"; };
+		04EE2D590C5A314C0075D004 /* AutoPtr.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AutoPtr.cpp; sourceTree = "<group>"; };
+		04EE2D5A0C5A314C0075D004 /* AutoPtr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AutoPtr.h; sourceTree = "<group>"; };
+		04EE2D5B0C5A314C0075D004 /* BoolJanitor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BoolJanitor.cpp; sourceTree = "<group>"; };
+		04EE2D5C0C5A314C0075D004 /* BoolJanitor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BoolJanitor.h; sourceTree = "<group>"; };
+		04EE2D5D0C5A314C0075D004 /* ByteBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ByteBuffer.cpp; sourceTree = "<group>"; };
+		04EE2D5E0C5A314C0075D004 /* ByteBuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ByteBuffer.h; sourceTree = "<group>"; };
+		04EE2D5F0C5A314C0075D004 /* CharBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CharBuffer.cpp; sourceTree = "<group>"; };
+		04EE2D600C5A314C0075D004 /* CharBuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CharBuffer.h; sourceTree = "<group>"; };
+		04EE2D610C5A314C0075D004 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		04EE2D620C5A314C0075D004 /* Integer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Integer.cpp; sourceTree = "<group>"; };
+		04EE2D630C5A314C0075D004 /* Integer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Integer.h; sourceTree = "<group>"; };
+		04EE2D640C5A314C0075D004 /* Integer64.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Integer64.cpp; sourceTree = "<group>"; };
+		04EE2D650C5A314C0075D004 /* Integer64.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Integer64.h; sourceTree = "<group>"; };
+		04EE2D660C5A314C0075D004 /* Janitor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Janitor.cpp; sourceTree = "<group>"; };
+		04EE2D670C5A314C0075D004 /* Janitor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Janitor.h; sourceTree = "<group>"; };
+		04EE2D680C5A314C0075D004 /* JDFToolsDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFToolsDefs.h; sourceTree = "<group>"; };
+		04EE2D690C5A314C0075D004 /* KString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KString.h; sourceTree = "<group>"; };
+		04EE2D6A0C5A314C0075D004 /* mapWString.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = mapWString.cpp; sourceTree = "<group>"; };
+		04EE2D6B0C5A314C0075D004 /* mapWString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = mapWString.h; sourceTree = "<group>"; };
+		04EE2D6C0C5A314C0075D004 /* Mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Mutex.cpp; sourceTree = "<group>"; };
+		04EE2D6D0C5A314C0075D004 /* Mutex.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mutex.h; sourceTree = "<group>"; };
+		04EE2D6E0C5A314C0075D004 /* SetWString.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SetWString.cpp; sourceTree = "<group>"; };
+		04EE2D6F0C5A314C0075D004 /* SetWString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SetWString.h; sourceTree = "<group>"; };
+		04EE2D700C5A314C0075D004 /* Synchronized.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Synchronized.cpp; sourceTree = "<group>"; };
+		04EE2D710C5A314C0075D004 /* Synchronized.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Synchronized.h; sourceTree = "<group>"; };
+		04EE2D720C5A314C0075D004 /* Throwable.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Throwable.cpp; sourceTree = "<group>"; };
+		04EE2D730C5A314C0075D004 /* Throwable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Throwable.h; sourceTree = "<group>"; };
+		04EE2D740C5A314C0075D004 /* vdouble.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vdouble.cpp; sourceTree = "<group>"; };
+		04EE2D750C5A314C0075D004 /* vdouble.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vdouble.h; sourceTree = "<group>"; };
+		04EE2D760C5A314C0075D004 /* vint.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vint.cpp; sourceTree = "<group>"; };
+		04EE2D770C5A314C0075D004 /* vint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vint.h; sourceTree = "<group>"; };
+		04EE2D780C5A314C0075D004 /* vMapWString.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vMapWString.cpp; sourceTree = "<group>"; };
+		04EE2D790C5A314C0075D004 /* vMapWString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vMapWString.h; sourceTree = "<group>"; };
+		04EE2D7A0C5A314C0075D004 /* VoidSet.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = VoidSet.cpp; sourceTree = "<group>"; };
+		04EE2D7B0C5A314C0075D004 /* VoidSet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = VoidSet.h; sourceTree = "<group>"; };
+		04EE2D7C0C5A314C0075D004 /* vWString.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vWString.cpp; sourceTree = "<group>"; };
+		04EE2D7D0C5A314C0075D004 /* vWString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vWString.h; sourceTree = "<group>"; };
+		04EE2D7E0C5A314C0075D004 /* WString.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WString.cpp; sourceTree = "<group>"; };
+		04EE2D7F0C5A314C0075D004 /* WString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WString.h; sourceTree = "<group>"; };
+		04EE2D800C5A314C0075D004 /* WStringBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WStringBase.h; sourceTree = "<group>"; };
+		04EE2D820C5A314C0075D004 /* FileMIMEType.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileMIMEType.cpp; sourceTree = "<group>"; };
+		04EE2D830C5A314C0075D004 /* FileMIMEType.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileMIMEType.h; sourceTree = "<group>"; };
+		04EE2D840C5A314C0075D004 /* FileNameMap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileNameMap.h; sourceTree = "<group>"; };
+		04EE2D850C5A314C0075D004 /* MIMEBasicPart.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEBasicPart.cpp; sourceTree = "<group>"; };
+		04EE2D860C5A314C0075D004 /* MIMEBasicPart.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEBasicPart.h; sourceTree = "<group>"; };
+		04EE2D870C5A314C0075D004 /* MIMEBodyPart.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEBodyPart.cpp; sourceTree = "<group>"; };
+		04EE2D880C5A314C0075D004 /* MIMEBodyPart.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEBodyPart.h; sourceTree = "<group>"; };
+		04EE2D890C5A314C0075D004 /* MIMEComponent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEComponent.h; sourceTree = "<group>"; };
+		04EE2D8A0C5A314C0075D004 /* MIMEHeader.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEHeader.cpp; sourceTree = "<group>"; };
+		04EE2D8B0C5A314C0075D004 /* MIMEHeader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEHeader.h; sourceTree = "<group>"; };
+		04EE2D8C0C5A314C0075D004 /* MIMELocalResource.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMELocalResource.cpp; sourceTree = "<group>"; };
+		04EE2D8D0C5A314C0075D004 /* MIMELocalResource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMELocalResource.h; sourceTree = "<group>"; };
+		04EE2D8E0C5A314C0075D004 /* MIMELocalResourceFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMELocalResourceFactory.cpp; sourceTree = "<group>"; };
+		04EE2D8F0C5A314C0075D004 /* MIMELocalResourceFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMELocalResourceFactory.h; sourceTree = "<group>"; };
+		04EE2D900C5A314C0075D004 /* MIMEMemResource.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEMemResource.cpp; sourceTree = "<group>"; };
+		04EE2D910C5A314C0075D004 /* MIMEMemResource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEMemResource.h; sourceTree = "<group>"; };
+		04EE2D920C5A314C0075D004 /* MIMEMemResourceFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEMemResourceFactory.cpp; sourceTree = "<group>"; };
+		04EE2D930C5A314C0075D004 /* MIMEMemResourceFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEMemResourceFactory.h; sourceTree = "<group>"; };
+		04EE2D940C5A314C0075D004 /* MIMEMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEMessage.cpp; sourceTree = "<group>"; };
+		04EE2D950C5A314C0075D004 /* MIMEMessage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEMessage.h; sourceTree = "<group>"; };
+		04EE2D960C5A314C0075D004 /* MIMEMessagePart.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEMessagePart.cpp; sourceTree = "<group>"; };
+		04EE2D970C5A314C0075D004 /* MIMEMessagePart.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEMessagePart.h; sourceTree = "<group>"; };
+		04EE2D980C5A314C0075D004 /* MIMEMultiPart.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEMultiPart.cpp; sourceTree = "<group>"; };
+		04EE2D990C5A314C0075D004 /* MIMEMultiPart.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEMultiPart.h; sourceTree = "<group>"; };
+		04EE2D9A0C5A314C0075D004 /* MIMEParser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MIMEParser.cpp; sourceTree = "<group>"; };
+		04EE2D9B0C5A314C0075D004 /* MIMEParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEParser.h; sourceTree = "<group>"; };
+		04EE2D9C0C5A314C0075D004 /* MIMEResource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEResource.h; sourceTree = "<group>"; };
+		04EE2D9D0C5A314C0075D004 /* MIMEResourceFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MIMEResourceFactory.h; sourceTree = "<group>"; };
+		04EE2D9E0C5A314C0075D004 /* MimeTableFileNameMap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MimeTableFileNameMap.cpp; sourceTree = "<group>"; };
+		04EE2D9F0C5A314C0075D004 /* MimeTableFileNameMap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MimeTableFileNameMap.h; sourceTree = "<group>"; };
+		04EE2DA10C5A314C0075D004 /* AuthenticationInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AuthenticationInfo.cpp; sourceTree = "<group>"; };
+		04EE2DA20C5A314C0075D004 /* AuthenticationInfo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AuthenticationInfo.h; sourceTree = "<group>"; };
+		04EE2DA30C5A314C0075D004 /* Authenticator.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Authenticator.cpp; sourceTree = "<group>"; };
+		04EE2DA40C5A314C0075D004 /* Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Authenticator.h; sourceTree = "<group>"; };
+		04EE2DA50C5A314C0075D004 /* BasicAuthentication.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BasicAuthentication.cpp; sourceTree = "<group>"; };
+		04EE2DA60C5A314C0075D004 /* BasicAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BasicAuthentication.h; sourceTree = "<group>"; };
+		04EE2DA70C5A314C0075D004 /* ChunkedInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ChunkedInputStream.cpp; sourceTree = "<group>"; };
+		04EE2DA80C5A314C0075D004 /* ChunkedInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ChunkedInputStream.h; sourceTree = "<group>"; };
+		04EE2DA90C5A314C0075D004 /* CidURLStreamHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CidURLStreamHandler.cpp; sourceTree = "<group>"; };
+		04EE2DAA0C5A314C0075D004 /* CidURLStreamHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CidURLStreamHandler.h; sourceTree = "<group>"; };
+		04EE2DAB0C5A314C0075D004 /* DigestAuthentication.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DigestAuthentication.cpp; sourceTree = "<group>"; };
+		04EE2DAC0C5A314C0075D004 /* DigestAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DigestAuthentication.h; sourceTree = "<group>"; };
+		04EE2DAD0C5A314C0075D004 /* FileURLConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileURLConnection.cpp; sourceTree = "<group>"; };
+		04EE2DAE0C5A314C0075D004 /* FileURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileURLConnection.h; sourceTree = "<group>"; };
+		04EE2DAF0C5A314C0075D004 /* FileURLStreamHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileURLStreamHandler.cpp; sourceTree = "<group>"; };
+		04EE2DB00C5A314C0075D004 /* FileURLStreamHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileURLStreamHandler.h; sourceTree = "<group>"; };
+		04EE2DB10C5A314C0075D004 /* HeaderParser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HeaderParser.cpp; sourceTree = "<group>"; };
+		04EE2DB20C5A314C0075D004 /* HeaderParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HeaderParser.h; sourceTree = "<group>"; };
+		04EE2DB30C5A314C0075D004 /* HttpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HttpClient.cpp; sourceTree = "<group>"; };
+		04EE2DB40C5A314C0075D004 /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
+		04EE2DB50C5A314C0075D004 /* HttpsClient.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HttpsClient.cpp; sourceTree = "<group>"; };
+		04EE2DB60C5A314C0075D004 /* HttpsClient.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HttpsClient.h; sourceTree = "<group>"; };
+		04EE2DB70C5A314C0075D004 /* HttpsURLStreamHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HttpsURLStreamHandler.cpp; sourceTree = "<group>"; };
+		04EE2DB80C5A314C0075D004 /* HttpsURLStreamHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HttpsURLStreamHandler.h; sourceTree = "<group>"; };
+		04EE2DB90C5A314C0075D004 /* HttpURLConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HttpURLConnection.cpp; sourceTree = "<group>"; };
+		04EE2DBA0C5A314C0075D004 /* HttpURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HttpURLConnection.h; sourceTree = "<group>"; };
+		04EE2DBB0C5A314C0075D004 /* HttpURLStreamHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HttpURLStreamHandler.cpp; sourceTree = "<group>"; };
+		04EE2DBC0C5A314C0075D004 /* HttpURLStreamHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HttpURLStreamHandler.h; sourceTree = "<group>"; };
+		04EE2DBD0C5A314C0075D004 /* InetAddress.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = InetAddress.cpp; sourceTree = "<group>"; };
+		04EE2DBE0C5A314C0075D004 /* InetAddress.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InetAddress.h; sourceTree = "<group>"; };
+		04EE2DBF0C5A314C0075D004 /* InetAddressCachePolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = InetAddressCachePolicy.cpp; sourceTree = "<group>"; };
+		04EE2DC00C5A314C0075D004 /* InetAddressCachePolicy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InetAddressCachePolicy.h; sourceTree = "<group>"; };
+		04EE2DC10C5A314C0075D004 /* InetAddressImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = InetAddressImpl.cpp; sourceTree = "<group>"; };
+		04EE2DC20C5A314C0075D004 /* InetAddressImpl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InetAddressImpl.h; sourceTree = "<group>"; };
+		04EE2DC30C5A314C0075D004 /* KeepAliveCache.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KeepAliveCache.cpp; sourceTree = "<group>"; };
+		04EE2DC40C5A314C0075D004 /* KeepAliveCache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeepAliveCache.h; sourceTree = "<group>"; };
+		04EE2DC50C5A314C0075D004 /* KeepAliveInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KeepAliveInputStream.cpp; sourceTree = "<group>"; };
+		04EE2DC60C5A314C0075D004 /* KeepAliveInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeepAliveInputStream.h; sourceTree = "<group>"; };
+		04EE2DC70C5A314C0075D004 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
+		04EE2DC80C5A314C0075D004 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		04EE2DC90C5A314C0075D004 /* MessageHeader.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MessageHeader.cpp; sourceTree = "<group>"; };
+		04EE2DCA0C5A314C0075D004 /* MessageHeader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MessageHeader.h; sourceTree = "<group>"; };
+		04EE2DCB0C5A314C0075D004 /* MeteredInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MeteredInputStream.cpp; sourceTree = "<group>"; };
+		04EE2DCC0C5A314C0075D004 /* MeteredInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MeteredInputStream.h; sourceTree = "<group>"; };
+		04EE2DCD0C5A314C0075D004 /* NetworkClient.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkClient.cpp; sourceTree = "<group>"; };
+		04EE2DCE0C5A314C0075D004 /* NetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
+		04EE2DCF0C5A314C0075D004 /* ParseUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ParseUtil.cpp; sourceTree = "<group>"; };
+		04EE2DD00C5A314C0075D004 /* ParseUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ParseUtil.h; sourceTree = "<group>"; };
+		04EE2DD10C5A314C0075D004 /* PasswordAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PasswordAuthentication.h; sourceTree = "<group>"; };
+		04EE2DD20C5A314C0075D004 /* PlainHttpOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PlainHttpOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2DD30C5A314C0075D004 /* PlainHttpOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlainHttpOutputStream.h; sourceTree = "<group>"; };
+		04EE2DD40C5A314C0075D004 /* PlainHttpsURLConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PlainHttpsURLConnection.cpp; sourceTree = "<group>"; };
+		04EE2DD50C5A314C0075D004 /* PlainHttpsURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlainHttpsURLConnection.h; sourceTree = "<group>"; };
+		04EE2DD60C5A314C0075D004 /* PlainHttpURLConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PlainHttpURLConnection.cpp; sourceTree = "<group>"; };
+		04EE2DD70C5A314C0075D004 /* PlainHttpURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlainHttpURLConnection.h; sourceTree = "<group>"; };
+		04EE2DD80C5A314C0075D004 /* PlainURLStreamHandlerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PlainURLStreamHandlerFactory.cpp; sourceTree = "<group>"; };
+		04EE2DD90C5A314C0075D004 /* PlainURLStreamHandlerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlainURLStreamHandlerFactory.h; sourceTree = "<group>"; };
+		04EE2DFE0C5A314C0075D004 /* MacOSInetAddressImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSInetAddressImpl.cpp; sourceTree = "<group>"; };
+		04EE2DFF0C5A314C0075D004 /* MacOSInetAddressImpl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSInetAddressImpl.h; sourceTree = "<group>"; };
+		04EE2E000C5A314C0075D004 /* MacOsSocketFactoryService.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOsSocketFactoryService.cpp; sourceTree = "<group>"; };
+		04EE2E010C5A314C0075D004 /* MacOSSocketFactoryService.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSSocketFactoryService.h; sourceTree = "<group>"; };
+		04EE2E020C5A314C0075D004 /* MacOSSocketImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSSocketImpl.cpp; sourceTree = "<group>"; };
+		04EE2E030C5A314C0075D004 /* MacOSSocketImpl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSSocketImpl.h; sourceTree = "<group>"; };
+		04EE2E040C5A314C0075D004 /* MacOSSocketImplFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSSocketImplFactory.cpp; sourceTree = "<group>"; };
+		04EE2E050C5A314C0075D004 /* MacOSSocketImplFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSSocketImplFactory.h; sourceTree = "<group>"; };
+		04EE2E060C5A314C0075D004 /* MacOSSocketImplInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSSocketImplInputStream.cpp; sourceTree = "<group>"; };
+		04EE2E070C5A314C0075D004 /* MacOSSocketImplInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSSocketImplInputStream.h; sourceTree = "<group>"; };
+		04EE2E080C5A314C0075D004 /* MacOSSocketImplOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSSocketImplOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2E090C5A314C0075D004 /* MacOSSocketImplOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSSocketImplOutputStream.h; sourceTree = "<group>"; };
+		04EE2E0A0C5A314C0075D004 /* MacOSSocketInit.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSSocketInit.cpp; sourceTree = "<group>"; };
+		04EE2E0B0C5A314C0075D004 /* MacOSSocketInit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSSocketInit.h; sourceTree = "<group>"; };
+		04EE2E0C0C5A314C0075D004 /* SocketProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SocketProxy.cpp; sourceTree = "<group>"; };
+		04EE2E0D0C5A314C0075D004 /* SocketProxy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SocketProxy.h; sourceTree = "<group>"; };
+		04EE2E1D0C5A314C0075D004 /* ProgressEntry.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ProgressEntry.h; sourceTree = "<group>"; };
+		04EE2E1E0C5A314C0075D004 /* ServerSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ServerSocket.cpp; sourceTree = "<group>"; };
+		04EE2E1F0C5A314C0075D004 /* ServerSocket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerSocket.h; sourceTree = "<group>"; };
+		04EE2E200C5A314C0075D004 /* Socket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
+		04EE2E210C5A314C0075D004 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
+		04EE2E220C5A314C0075D004 /* SocketFactoryService.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SocketFactoryService.h; sourceTree = "<group>"; };
+		04EE2E230C5A314C0075D004 /* SocketImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SocketImpl.cpp; sourceTree = "<group>"; };
+		04EE2E240C5A314C0075D004 /* SocketImpl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SocketImpl.h; sourceTree = "<group>"; };
+		04EE2E250C5A314C0075D004 /* SocketImplFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SocketImplFactory.h; sourceTree = "<group>"; };
+		04EE2E260C5A314C0075D004 /* SocketOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SocketOptions.cpp; sourceTree = "<group>"; };
+		04EE2E270C5A314C0075D004 /* SocketOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SocketOptions.h; sourceTree = "<group>"; };
+		04EE2E280C5A314C0075D004 /* SSLSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SSLSocket.cpp; sourceTree = "<group>"; };
+		04EE2E290C5A314C0075D004 /* SSLSocket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SSLSocket.h; sourceTree = "<group>"; };
+		04EE2E2A0C5A314C0075D004 /* SSLSocketInputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SSLSocketInputStream.cpp; sourceTree = "<group>"; };
+		04EE2E2B0C5A314C0075D004 /* SSLSocketInputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SSLSocketInputStream.h; sourceTree = "<group>"; };
+		04EE2E2C0C5A314C0075D004 /* SSLSocketOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SSLSocketOutputStream.cpp; sourceTree = "<group>"; };
+		04EE2E2D0C5A314C0075D004 /* SSLSocketOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SSLSocketOutputStream.h; sourceTree = "<group>"; };
+		04EE2E2E0C5A314C0075D004 /* URI.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URI.cpp; sourceTree = "<group>"; };
+		04EE2E2F0C5A314C0075D004 /* URI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URI.h; sourceTree = "<group>"; };
+		04EE2E300C5A314C0075D004 /* URL.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URL.cpp; sourceTree = "<group>"; };
+		04EE2E310C5A314C0075D004 /* URL.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URL.h; sourceTree = "<group>"; };
+		04EE2E320C5A314C0075D004 /* URLConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URLConnection.cpp; sourceTree = "<group>"; };
+		04EE2E330C5A314C0075D004 /* URLConnection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URLConnection.h; sourceTree = "<group>"; };
+		04EE2E340C5A314C0075D004 /* URLDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URLDecoder.cpp; sourceTree = "<group>"; };
+		04EE2E350C5A314C0075D004 /* URLDecoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URLDecoder.h; sourceTree = "<group>"; };
+		04EE2E360C5A314C0075D004 /* URLEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URLEncoder.cpp; sourceTree = "<group>"; };
+		04EE2E370C5A314C0075D004 /* URLEncoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URLEncoder.h; sourceTree = "<group>"; };
+		04EE2E380C5A314C0075D004 /* URLStreamHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = URLStreamHandler.cpp; sourceTree = "<group>"; };
+		04EE2E390C5A314C0075D004 /* URLStreamHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URLStreamHandler.h; sourceTree = "<group>"; };
+		04EE2E3A0C5A314C0075D004 /* URLStreamHandlerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = URLStreamHandlerFactory.h; sourceTree = "<group>"; };
+		04EE2E3B0C5A314C0075D004 /* WWWURLConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WWWURLConnection.cpp; sourceTree = "<group>"; };
+		04EE2E3C0C5A314C0075D004 /* WWWURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WWWURLConnection.h; sourceTree = "<group>"; };
+		04EE2E3E0C5A314C0075D004 /* PNGFile.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PNGFile.cpp; sourceTree = "<group>"; };
+		04EE2E3F0C5A314C0075D004 /* PNGFile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PNGFile.h; sourceTree = "<group>"; };
+		04EE2E400C5A314C0075D004 /* PNGFileImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PNGFileImpl.cpp; sourceTree = "<group>"; };
+		04EE2E410C5A314C0075D004 /* PNGFileImpl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PNGFileImpl.h; sourceTree = "<group>"; };
+		04EE2E420C5A314C0075D004 /* PNGInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PNGInfo.cpp; sourceTree = "<group>"; };
+		04EE2E430C5A314C0075D004 /* PNGInfo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PNGInfo.h; sourceTree = "<group>"; };
+		04EE2E450C5A314C0075D004 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
+		04EE2E460C5A314C0075D004 /* dtoa.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dtoa.cpp; sourceTree = "<group>"; };
+		04EE2E470C5A314C0075D004 /* dtoa.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dtoa.h; sourceTree = "<group>"; };
+		04EE2E480C5A314C0075D004 /* hashfun.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hashfun.h; sourceTree = "<group>"; };
+		04EE2E490C5A314C0075D004 /* hmap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hmap.h; sourceTree = "<group>"; };
+		04EE2E4A0C5A314C0075D004 /* JDFLibVersion.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFLibVersion.h; sourceTree = "<group>"; };
+		04EE2E4B0C5A314C0075D004 /* myuti.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = myuti.cpp; sourceTree = "<group>"; };
+		04EE2E4C0C5A314C0075D004 /* myuti.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = myuti.h; sourceTree = "<group>"; };
+		04EE2E4D0C5A314C0075D004 /* MyWalker.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MyWalker.cpp; sourceTree = "<group>"; };
+		04EE2E4E0C5A314C0075D004 /* MyWalker.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MyWalker.h; sourceTree = "<group>"; };
+		04EE2E560C5A314C0075D004 /* JDFMacFile.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFMacFile.cpp; sourceTree = "<group>"; };
+		04EE2E570C5A314C0075D004 /* JDFMacFile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFMacFile.h; sourceTree = "<group>"; };
+		04EE2E580C5A314C0075D004 /* MacOSPlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacOSPlatformUtils.cpp; sourceTree = "<group>"; };
+		04EE2E590C5A314C0075D004 /* MacOSPlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MacOSPlatformUtils.h; sourceTree = "<group>"; };
+		04EE2E630C5A314C0075D004 /* PlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PlatformUtils.cpp; sourceTree = "<group>"; };
+		04EE2E640C5A314C0075D004 /* PlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlatformUtils.h; sourceTree = "<group>"; };
+		04EE2E650C5A314C0075D004 /* Random.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Random.cpp; sourceTree = "<group>"; };
+		04EE2E660C5A314C0075D004 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Random.h; sourceTree = "<group>"; };
+		04EE2E670C5A314C0075D004 /* Regexp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Regexp.cpp; sourceTree = "<group>"; };
+		04EE2E680C5A314C0075D004 /* RegExp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RegExp.h; sourceTree = "<group>"; };
+		04EE2E690C5A314C0075D004 /* RegexpPool.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RegexpPool.cpp; sourceTree = "<group>"; };
+		04EE2E6A0C5A314C0075D004 /* RegexpPool.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RegexpPool.h; sourceTree = "<group>"; };
+		04EE2E6B0C5A314C0075D004 /* RegisterCleanup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RegisterCleanup.h; sourceTree = "<group>"; };
+		04EE2E6C0C5A314C0075D004 /* slist.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = slist.h; sourceTree = "<group>"; };
+		04EE2E6D0C5A314C0075D004 /* StringTokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = StringTokenizer.cpp; sourceTree = "<group>"; };
+		04EE2E6E0C5A314C0075D004 /* StringTokenizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringTokenizer.h; sourceTree = "<group>"; };
+		04EE2E6F0C5A314C0075D004 /* Unicode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Unicode.cpp; sourceTree = "<group>"; };
+		04EE2E700C5A314C0075D004 /* Unicode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Unicode.h; sourceTree = "<group>"; };
 		210B72BB0A763C67003F70A6 /* KElementStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KElementStrings.cpp; sourceTree = "<group>"; };
 		210B72BC0A763C67003F70A6 /* KElementStrings.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KElementStrings.h; sourceTree = "<group>"; };
 		210B72BD0A763C67003F70A6 /* JDFParser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFParser.cpp; sourceTree = "<group>"; };
@@ -91,12 +577,380 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04EE2D140C5A311B0075D004 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2D180C5A314C0075D004 /* io */,
+				04EE2D580C5A314C0075D004 /* lang */,
+				04EE2D810C5A314C0075D004 /* mime */,
+				04EE2DA00C5A314C0075D004 /* net */,
+				04EE2E3D0C5A314C0075D004 /* png */,
+				04EE2E440C5A314C0075D004 /* util */,
+				210B72BA0A763C67003F70A6 /* wrappercore */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		04EE2D180C5A314C0075D004 /* io */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2D190C5A314C0075D004 /* BASE64Decoder.cpp */,
+				04EE2D1A0C5A314C0075D004 /* BASE64Decoder.h */,
+				04EE2D1B0C5A314C0075D004 /* BASE64Encoder.cpp */,
+				04EE2D1C0C5A314C0075D004 /* BASE64Encoder.h */,
+				04EE2D1D0C5A314C0075D004 /* BufferedInputStream.cpp */,
+				04EE2D1E0C5A314C0075D004 /* BufferedInputStream.h */,
+				04EE2D1F0C5A314C0075D004 /* BufferedOutputStream.cpp */,
+				04EE2D200C5A314C0075D004 /* BufferedOutputStream.h */,
+				04EE2D210C5A314C0075D004 /* ByteArrayInputStream.cpp */,
+				04EE2D220C5A314C0075D004 /* ByteArrayInputStream.h */,
+				04EE2D230C5A314C0075D004 /* ByteArrayOutputStream.cpp */,
+				04EE2D240C5A314C0075D004 /* ByteArrayOutputStream.h */,
+				04EE2D250C5A314C0075D004 /* CharacterDecoder.cpp */,
+				04EE2D260C5A314C0075D004 /* CharacterDecoder.h */,
+				04EE2D270C5A314C0075D004 /* CharacterEncoder.cpp */,
+				04EE2D280C5A314C0075D004 /* CharacterEncoder.h */,
+				04EE2D290C5A314C0075D004 /* File.cpp */,
+				04EE2D2A0C5A314C0075D004 /* File.h */,
+				04EE2D2B0C5A314C0075D004 /* FileFilter.h */,
+				04EE2D2C0C5A314C0075D004 /* FileInputStream.cpp */,
+				04EE2D2D0C5A314C0075D004 /* FileInputStream.h */,
+				04EE2D2E0C5A314C0075D004 /* FileNameFilter.h */,
+				04EE2D2F0C5A314C0075D004 /* FileOutputStream.cpp */,
+				04EE2D300C5A314C0075D004 /* FileOutputStream.h */,
+				04EE2D310C5A314C0075D004 /* FileSystem.cpp */,
+				04EE2D320C5A314C0075D004 /* FileSystem.h */,
+				04EE2D330C5A314C0075D004 /* FilterInputStream.cpp */,
+				04EE2D340C5A314C0075D004 /* FilterInputStream.h */,
+				04EE2D350C5A314C0075D004 /* FilterOutputStream.cpp */,
+				04EE2D360C5A314C0075D004 /* FilterOutputStream.h */,
+				04EE2D370C5A314C0075D004 /* InputStream.cpp */,
+				04EE2D380C5A314C0075D004 /* InputStream.h */,
+				04EE2D390C5A314C0075D004 /* OutputStream.cpp */,
+				04EE2D3A0C5A314C0075D004 /* OutputStream.h */,
+				04EE2D3B0C5A314C0075D004 /* Platforms */,
+				04EE2D4A0C5A314C0075D004 /* PrintStream.cpp */,
+				04EE2D4B0C5A314C0075D004 /* PrintStream.h */,
+				04EE2D4C0C5A314C0075D004 /* PushbackInputStream.cpp */,
+				04EE2D4D0C5A314C0075D004 /* PushbackInputStream.h */,
+				04EE2D4E0C5A314C0075D004 /* QPDecoder.cpp */,
+				04EE2D4F0C5A314C0075D004 /* QPDecoder.h */,
+				04EE2D500C5A314C0075D004 /* QPEncoder.cpp */,
+				04EE2D510C5A314C0075D004 /* QPEncoder.h */,
+				04EE2D520C5A314C0075D004 /* RandomAccessInputStream.cpp */,
+				04EE2D530C5A314C0075D004 /* RandomAccessInputStream.h */,
+				04EE2D540C5A314C0075D004 /* RandomAccessOutputStream.cpp */,
+				04EE2D550C5A314C0075D004 /* RandomAccessOutputStream.h */,
+				04EE2D560C5A314C0075D004 /* StreamBuffer.cpp */,
+				04EE2D570C5A314C0075D004 /* StreamBuffer.h */,
+			);
+			name = io;
+			path = ../../../src/jdf/io;
+			sourceTree = SOURCE_ROOT;
+		};
+		04EE2D3B0C5A314C0075D004 /* Platforms */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2D420C5A314C0075D004 /* MacOS */,
+			);
+			path = Platforms;
+			sourceTree = "<group>";
+		};
+		04EE2D420C5A314C0075D004 /* MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2D430C5A314C0075D004 /* MacOSFileSystem.cpp */,
+				04EE2D440C5A314C0075D004 /* MacOSFileSystem.h */,
+			);
+			path = MacOS;
+			sourceTree = "<group>";
+		};
+		04EE2D580C5A314C0075D004 /* lang */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2D590C5A314C0075D004 /* AutoPtr.cpp */,
+				04EE2D5A0C5A314C0075D004 /* AutoPtr.h */,
+				04EE2D5B0C5A314C0075D004 /* BoolJanitor.cpp */,
+				04EE2D5C0C5A314C0075D004 /* BoolJanitor.h */,
+				04EE2D5D0C5A314C0075D004 /* ByteBuffer.cpp */,
+				04EE2D5E0C5A314C0075D004 /* ByteBuffer.h */,
+				04EE2D5F0C5A314C0075D004 /* CharBuffer.cpp */,
+				04EE2D600C5A314C0075D004 /* CharBuffer.h */,
+				04EE2D610C5A314C0075D004 /* Exception.h */,
+				04EE2D620C5A314C0075D004 /* Integer.cpp */,
+				04EE2D630C5A314C0075D004 /* Integer.h */,
+				04EE2D640C5A314C0075D004 /* Integer64.cpp */,
+				04EE2D650C5A314C0075D004 /* Integer64.h */,
+				04EE2D660C5A314C0075D004 /* Janitor.cpp */,
+				04EE2D670C5A314C0075D004 /* Janitor.h */,
+				04EE2D680C5A314C0075D004 /* JDFToolsDefs.h */,
+				04EE2D690C5A314C0075D004 /* KString.h */,
+				04EE2D6A0C5A314C0075D004 /* mapWString.cpp */,
+				04EE2D6B0C5A314C0075D004 /* mapWString.h */,
+				04EE2D6C0C5A314C0075D004 /* Mutex.cpp */,
+				04EE2D6D0C5A314C0075D004 /* Mutex.h */,
+				04EE2D6E0C5A314C0075D004 /* SetWString.cpp */,
+				04EE2D6F0C5A314C0075D004 /* SetWString.h */,
+				04EE2D700C5A314C0075D004 /* Synchronized.cpp */,
+				04EE2D710C5A314C0075D004 /* Synchronized.h */,
+				04EE2D720C5A314C0075D004 /* Throwable.cpp */,
+				04EE2D730C5A314C0075D004 /* Throwable.h */,
+				04EE2D740C5A314C0075D004 /* vdouble.cpp */,
+				04EE2D750C5A314C0075D004 /* vdouble.h */,
+				04EE2D760C5A314C0075D004 /* vint.cpp */,
+				04EE2D770C5A314C0075D004 /* vint.h */,
+				04EE2D780C5A314C0075D004 /* vMapWString.cpp */,
+				04EE2D790C5A314C0075D004 /* vMapWString.h */,
+				04EE2D7A0C5A314C0075D004 /* VoidSet.cpp */,
+				04EE2D7B0C5A314C0075D004 /* VoidSet.h */,
+				04EE2D7C0C5A314C0075D004 /* vWString.cpp */,
+				04EE2D7D0C5A314C0075D004 /* vWString.h */,
+				04EE2D7E0C5A314C0075D004 /* WString.cpp */,
+				04EE2D7F0C5A314C0075D004 /* WString.h */,
+				04EE2D800C5A314C0075D004 /* WStringBase.h */,
+			);
+			name = lang;
+			path = ../../../src/jdf/lang;
+			sourceTree = SOURCE_ROOT;
+		};
+		04EE2D810C5A314C0075D004 /* mime */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2D820C5A314C0075D004 /* FileMIMEType.cpp */,
+				04EE2D830C5A314C0075D004 /* FileMIMEType.h */,
+				04EE2D840C5A314C0075D004 /* FileNameMap.h */,
+				04EE2D850C5A314C0075D004 /* MIMEBasicPart.cpp */,
+				04EE2D860C5A314C0075D004 /* MIMEBasicPart.h */,
+				04EE2D870C5A314C0075D004 /* MIMEBodyPart.cpp */,
+				04EE2D880C5A314C0075D004 /* MIMEBodyPart.h */,
+				04EE2D890C5A314C0075D004 /* MIMEComponent.h */,
+				04EE2D8A0C5A314C0075D004 /* MIMEHeader.cpp */,
+				04EE2D8B0C5A314C0075D004 /* MIMEHeader.h */,
+				04EE2D8C0C5A314C0075D004 /* MIMELocalResource.cpp */,
+				04EE2D8D0C5A314C0075D004 /* MIMELocalResource.h */,
+				04EE2D8E0C5A314C0075D004 /* MIMELocalResourceFactory.cpp */,
+				04EE2D8F0C5A314C0075D004 /* MIMELocalResourceFactory.h */,
+				04EE2D900C5A314C0075D004 /* MIMEMemResource.cpp */,
+				04EE2D910C5A314C0075D004 /* MIMEMemResource.h */,
+				04EE2D920C5A314C0075D004 /* MIMEMemResourceFactory.cpp */,
+				04EE2D930C5A314C0075D004 /* MIMEMemResourceFactory.h */,
+				04EE2D940C5A314C0075D004 /* MIMEMessage.cpp */,
+				04EE2D950C5A314C0075D004 /* MIMEMessage.h */,
+				04EE2D960C5A314C0075D004 /* MIMEMessagePart.cpp */,
+				04EE2D970C5A314C0075D004 /* MIMEMessagePart.h */,
+				04EE2D980C5A314C0075D004 /* MIMEMultiPart.cpp */,
+				04EE2D990C5A314C0075D004 /* MIMEMultiPart.h */,
+				04EE2D9A0C5A314C0075D004 /* MIMEParser.cpp */,
+				04EE2D9B0C5A314C0075D004 /* MIMEParser.h */,
+				04EE2D9C0C5A314C0075D004 /* MIMEResource.h */,
+				04EE2D9D0C5A314C0075D004 /* MIMEResourceFactory.h */,
+				04EE2D9E0C5A314C0075D004 /* MimeTableFileNameMap.cpp */,
+				04EE2D9F0C5A314C0075D004 /* MimeTableFileNameMap.h */,
+			);
+			name = mime;
+			path = ../../../src/jdf/mime;
+			sourceTree = SOURCE_ROOT;
+		};
+		04EE2DA00C5A314C0075D004 /* net */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2DA10C5A314C0075D004 /* AuthenticationInfo.cpp */,
+				04EE2DA20C5A314C0075D004 /* AuthenticationInfo.h */,
+				04EE2DA30C5A314C0075D004 /* Authenticator.cpp */,
+				04EE2DA40C5A314C0075D004 /* Authenticator.h */,
+				04EE2DA50C5A314C0075D004 /* BasicAuthentication.cpp */,
+				04EE2DA60C5A314C0075D004 /* BasicAuthentication.h */,
+				04EE2DA70C5A314C0075D004 /* ChunkedInputStream.cpp */,
+				04EE2DA80C5A314C0075D004 /* ChunkedInputStream.h */,
+				04EE2DA90C5A314C0075D004 /* CidURLStreamHandler.cpp */,
+				04EE2DAA0C5A314C0075D004 /* CidURLStreamHandler.h */,
+				04EE2DAB0C5A314C0075D004 /* DigestAuthentication.cpp */,
+				04EE2DAC0C5A314C0075D004 /* DigestAuthentication.h */,
+				04EE2DAD0C5A314C0075D004 /* FileURLConnection.cpp */,
+				04EE2DAE0C5A314C0075D004 /* FileURLConnection.h */,
+				04EE2DAF0C5A314C0075D004 /* FileURLStreamHandler.cpp */,
+				04EE2DB00C5A314C0075D004 /* FileURLStreamHandler.h */,
+				04EE2DB10C5A314C0075D004 /* HeaderParser.cpp */,
+				04EE2DB20C5A314C0075D004 /* HeaderParser.h */,
+				04EE2DB30C5A314C0075D004 /* HttpClient.cpp */,
+				04EE2DB40C5A314C0075D004 /* HttpClient.h */,
+				04EE2DB50C5A314C0075D004 /* HttpsClient.cpp */,
+				04EE2DB60C5A314C0075D004 /* HttpsClient.h */,
+				04EE2DB70C5A314C0075D004 /* HttpsURLStreamHandler.cpp */,
+				04EE2DB80C5A314C0075D004 /* HttpsURLStreamHandler.h */,
+				04EE2DB90C5A314C0075D004 /* HttpURLConnection.cpp */,
+				04EE2DBA0C5A314C0075D004 /* HttpURLConnection.h */,
+				04EE2DBB0C5A314C0075D004 /* HttpURLStreamHandler.cpp */,
+				04EE2DBC0C5A314C0075D004 /* HttpURLStreamHandler.h */,
+				04EE2DBD0C5A314C0075D004 /* InetAddress.cpp */,
+				04EE2DBE0C5A314C0075D004 /* InetAddress.h */,
+				04EE2DBF0C5A314C0075D004 /* InetAddressCachePolicy.cpp */,
+				04EE2DC00C5A314C0075D004 /* InetAddressCachePolicy.h */,
+				04EE2DC10C5A314C0075D004 /* InetAddressImpl.cpp */,
+				04EE2DC20C5A314C0075D004 /* InetAddressImpl.h */,
+				04EE2DC30C5A314C0075D004 /* KeepAliveCache.cpp */,
+				04EE2DC40C5A314C0075D004 /* KeepAliveCache.h */,
+				04EE2DC50C5A314C0075D004 /* KeepAliveInputStream.cpp */,
+				04EE2DC60C5A314C0075D004 /* KeepAliveInputStream.h */,
+				04EE2DC70C5A314C0075D004 /* md5.c */,
+				04EE2DC80C5A314C0075D004 /* md5.h */,
+				04EE2DC90C5A314C0075D004 /* MessageHeader.cpp */,
+				04EE2DCA0C5A314C0075D004 /* MessageHeader.h */,
+				04EE2DCB0C5A314C0075D004 /* MeteredInputStream.cpp */,
+				04EE2DCC0C5A314C0075D004 /* MeteredInputStream.h */,
+				04EE2DCD0C5A314C0075D004 /* NetworkClient.cpp */,
+				04EE2DCE0C5A314C0075D004 /* NetworkClient.h */,
+				04EE2DCF0C5A314C0075D004 /* ParseUtil.cpp */,
+				04EE2DD00C5A314C0075D004 /* ParseUtil.h */,
+				04EE2DD10C5A314C0075D004 /* PasswordAuthentication.h */,
+				04EE2DD20C5A314C0075D004 /* PlainHttpOutputStream.cpp */,
+				04EE2DD30C5A314C0075D004 /* PlainHttpOutputStream.h */,
+				04EE2DD40C5A314C0075D004 /* PlainHttpsURLConnection.cpp */,
+				04EE2DD50C5A314C0075D004 /* PlainHttpsURLConnection.h */,
+				04EE2DD60C5A314C0075D004 /* PlainHttpURLConnection.cpp */,
+				04EE2DD70C5A314C0075D004 /* PlainHttpURLConnection.h */,
+				04EE2DD80C5A314C0075D004 /* PlainURLStreamHandlerFactory.cpp */,
+				04EE2DD90C5A314C0075D004 /* PlainURLStreamHandlerFactory.h */,
+				04EE2DDA0C5A314C0075D004 /* Platforms */,
+				04EE2E1D0C5A314C0075D004 /* ProgressEntry.h */,
+				04EE2E1E0C5A314C0075D004 /* ServerSocket.cpp */,
+				04EE2E1F0C5A314C0075D004 /* ServerSocket.h */,
+				04EE2E200C5A314C0075D004 /* Socket.cpp */,
+				04EE2E210C5A314C0075D004 /* Socket.h */,
+				04EE2E220C5A314C0075D004 /* SocketFactoryService.h */,
+				04EE2E230C5A314C0075D004 /* SocketImpl.cpp */,
+				04EE2E240C5A314C0075D004 /* SocketImpl.h */,
+				04EE2E250C5A314C0075D004 /* SocketImplFactory.h */,
+				04EE2E260C5A314C0075D004 /* SocketOptions.cpp */,
+				04EE2E270C5A314C0075D004 /* SocketOptions.h */,
+				04EE2E280C5A314C0075D004 /* SSLSocket.cpp */,
+				04EE2E290C5A314C0075D004 /* SSLSocket.h */,
+				04EE2E2A0C5A314C0075D004 /* SSLSocketInputStream.cpp */,
+				04EE2E2B0C5A314C0075D004 /* SSLSocketInputStream.h */,
+				04EE2E2C0C5A314C0075D004 /* SSLSocketOutputStream.cpp */,
+				04EE2E2D0C5A314C0075D004 /* SSLSocketOutputStream.h */,
+				04EE2E2E0C5A314C0075D004 /* URI.cpp */,
+				04EE2E2F0C5A314C0075D004 /* URI.h */,
+				04EE2E300C5A314C0075D004 /* URL.cpp */,
+				04EE2E310C5A314C0075D004 /* URL.h */,
+				04EE2E320C5A314C0075D004 /* URLConnection.cpp */,
+				04EE2E330C5A314C0075D004 /* URLConnection.h */,
+				04EE2E340C5A314C0075D004 /* URLDecoder.cpp */,
+				04EE2E350C5A314C0075D004 /* URLDecoder.h */,
+				04EE2E360C5A314C0075D004 /* URLEncoder.cpp */,
+				04EE2E370C5A314C0075D004 /* URLEncoder.h */,
+				04EE2E380C5A314C0075D004 /* URLStreamHandler.cpp */,
+				04EE2E390C5A314C0075D004 /* URLStreamHandler.h */,
+				04EE2E3A0C5A314C0075D004 /* URLStreamHandlerFactory.h */,
+				04EE2E3B0C5A314C0075D004 /* WWWURLConnection.cpp */,
+				04EE2E3C0C5A314C0075D004 /* WWWURLConnection.h */,
+			);
+			name = net;
+			path = ../../../src/jdf/net;
+			sourceTree = SOURCE_ROOT;
+		};
+		04EE2DDA0C5A314C0075D004 /* Platforms */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2DFD0C5A314C0075D004 /* MacOS */,
+			);
+			path = Platforms;
+			sourceTree = "<group>";
+		};
+		04EE2DFD0C5A314C0075D004 /* MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2DFE0C5A314C0075D004 /* MacOSInetAddressImpl.cpp */,
+				04EE2DFF0C5A314C0075D004 /* MacOSInetAddressImpl.h */,
+				04EE2E000C5A314C0075D004 /* MacOsSocketFactoryService.cpp */,
+				04EE2E010C5A314C0075D004 /* MacOSSocketFactoryService.h */,
+				04EE2E020C5A314C0075D004 /* MacOSSocketImpl.cpp */,
+				04EE2E030C5A314C0075D004 /* MacOSSocketImpl.h */,
+				04EE2E040C5A314C0075D004 /* MacOSSocketImplFactory.cpp */,
+				04EE2E050C5A314C0075D004 /* MacOSSocketImplFactory.h */,
+				04EE2E060C5A314C0075D004 /* MacOSSocketImplInputStream.cpp */,
+				04EE2E070C5A314C0075D004 /* MacOSSocketImplInputStream.h */,
+				04EE2E080C5A314C0075D004 /* MacOSSocketImplOutputStream.cpp */,
+				04EE2E090C5A314C0075D004 /* MacOSSocketImplOutputStream.h */,
+				04EE2E0A0C5A314C0075D004 /* MacOSSocketInit.cpp */,
+				04EE2E0B0C5A314C0075D004 /* MacOSSocketInit.h */,
+				04EE2E0C0C5A314C0075D004 /* SocketProxy.cpp */,
+				04EE2E0D0C5A314C0075D004 /* SocketProxy.h */,
+			);
+			path = MacOS;
+			sourceTree = "<group>";
+		};
+		04EE2E3D0C5A314C0075D004 /* png */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2E3E0C5A314C0075D004 /* PNGFile.cpp */,
+				04EE2E3F0C5A314C0075D004 /* PNGFile.h */,
+				04EE2E400C5A314C0075D004 /* PNGFileImpl.cpp */,
+				04EE2E410C5A314C0075D004 /* PNGFileImpl.h */,
+				04EE2E420C5A314C0075D004 /* PNGInfo.cpp */,
+				04EE2E430C5A314C0075D004 /* PNGInfo.h */,
+			);
+			name = png;
+			path = ../../../src/jdf/png;
+			sourceTree = SOURCE_ROOT;
+		};
+		04EE2E440C5A314C0075D004 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2E450C5A314C0075D004 /* Cache.h */,
+				04EE2E460C5A314C0075D004 /* dtoa.cpp */,
+				04EE2E470C5A314C0075D004 /* dtoa.h */,
+				04EE2E480C5A314C0075D004 /* hashfun.h */,
+				04EE2E490C5A314C0075D004 /* hmap.h */,
+				04EE2E4A0C5A314C0075D004 /* JDFLibVersion.h */,
+				04EE2E4B0C5A314C0075D004 /* myuti.cpp */,
+				04EE2E4C0C5A314C0075D004 /* myuti.h */,
+				04EE2E4D0C5A314C0075D004 /* MyWalker.cpp */,
+				04EE2E4E0C5A314C0075D004 /* MyWalker.h */,
+				04EE2E4F0C5A314C0075D004 /* Platforms */,
+				04EE2E630C5A314C0075D004 /* PlatformUtils.cpp */,
+				04EE2E640C5A314C0075D004 /* PlatformUtils.h */,
+				04EE2E650C5A314C0075D004 /* Random.cpp */,
+				04EE2E660C5A314C0075D004 /* Random.h */,
+				04EE2E670C5A314C0075D004 /* Regexp.cpp */,
+				04EE2E680C5A314C0075D004 /* RegExp.h */,
+				04EE2E690C5A314C0075D004 /* RegexpPool.cpp */,
+				04EE2E6A0C5A314C0075D004 /* RegexpPool.h */,
+				04EE2E6B0C5A314C0075D004 /* RegisterCleanup.h */,
+				04EE2E6C0C5A314C0075D004 /* slist.h */,
+				04EE2E6D0C5A314C0075D004 /* StringTokenizer.cpp */,
+				04EE2E6E0C5A314C0075D004 /* StringTokenizer.h */,
+				04EE2E6F0C5A314C0075D004 /* Unicode.cpp */,
+				04EE2E700C5A314C0075D004 /* Unicode.h */,
+			);
+			name = util;
+			path = ../../../src/jdf/util;
+			sourceTree = SOURCE_ROOT;
+		};
+		04EE2E4F0C5A314C0075D004 /* Platforms */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2E550C5A314C0075D004 /* MacOS */,
+			);
+			path = Platforms;
+			sourceTree = "<group>";
+		};
+		04EE2E550C5A314C0075D004 /* MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				04EE2E560C5A314C0075D004 /* JDFMacFile.cpp */,
+				04EE2E570C5A314C0075D004 /* JDFMacFile.h */,
+				04EE2E580C5A314C0075D004 /* MacOSPlatformUtils.cpp */,
+				04EE2E590C5A314C0075D004 /* MacOSPlatformUtils.h */,
+			);
+			path = MacOS;
+			sourceTree = "<group>";
+		};
 		08FB7794FE84155DC02AAC07 /* JDFWrapperCore */ = {
 			isa = PBXGroup;
 			children = (
+				04EE2D140C5A311B0075D004 /* Source */,
 				3E574E610B6E3A830004FB95 /* Configurations */,
-				210B72BA0A763C67003F70A6 /* wrappercore */,
-				210B72A90A763C67003F70A6 /* wrapper */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			name = JDFWrapperCore;
@@ -108,29 +962,6 @@
 				D2AAC046055464E500DB518D /* libJDFWrapperCore.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		210B72A90A763C67003F70A6 /* wrapper */ = {
-			isa = PBXGroup;
-			children = (
-				210B72AA0A763C67003F70A6 /* JDFIntegerRange.h */,
-				210B72AB0A763C67003F70A6 /* JDFIntegerRangeList.h */,
-				210B72AC0A763C67003F70A6 /* JDFNameRangeList.h */,
-				210B72AD0A763C67003F70A6 /* JDFNumberRangeList.h */,
-				210B72AE0A763C67003F70A6 /* JDFNumTypeList.h */,
-				210B72AF0A763C67003F70A6 /* JDFRange.cpp */,
-				210B72B00A763C67003F70A6 /* JDFRange.h */,
-				210B72B10A763C67003F70A6 /* JDFRangeList.h */,
-				210B72B20A763C67003F70A6 /* JDFXYPairRangeList.h */,
-				210B72B30A763C67003F70A6 /* JDFRangeList.cpp */,
-				210B72B40A763C67003F70A6 /* JDFXYPairRangeList.cpp */,
-				210B72B50A763C67003F70A6 /* JDFIntegerRange.cpp */,
-				210B72B60A763C67003F70A6 /* JDFIntegerRangeList.cpp */,
-				210B72B70A763C67003F70A6 /* JDFNameRangeList.cpp */,
-				210B72B80A763C67003F70A6 /* JDFNumberRangeList.cpp */,
-				210B72B90A763C67003F70A6 /* JDFNumTypeList.cpp */,
-			);
-			name = wrapper;
 			sourceTree = "<group>";
 		};
 		210B72BA0A763C67003F70A6 /* wrappercore */ = {
@@ -173,14 +1004,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				210B72CA0A763C67003F70A6 /* JDFIntegerRange.h in Headers */,
-				210B72CB0A763C67003F70A6 /* JDFIntegerRangeList.h in Headers */,
-				210B72CC0A763C67003F70A6 /* JDFNameRangeList.h in Headers */,
-				210B72CD0A763C67003F70A6 /* JDFNumberRangeList.h in Headers */,
-				210B72CE0A763C67003F70A6 /* JDFNumTypeList.h in Headers */,
-				210B72D00A763C67003F70A6 /* JDFRange.h in Headers */,
-				210B72D10A763C67003F70A6 /* JDFRangeList.h in Headers */,
-				210B72D20A763C67003F70A6 /* JDFXYPairRangeList.h in Headers */,
 				210B72DB0A763C67003F70A6 /* KElementStrings.h in Headers */,
 				210B72DD0A763C67003F70A6 /* JDFParser.h in Headers */,
 				210B72DF0A763C67003F70A6 /* vElement.h in Headers */,
@@ -190,6 +1013,146 @@
 				210B72E60A763C67003F70A6 /* XMLDoc.h in Headers */,
 				210B72E80A763C67003F70A6 /* XMLDocUserData.h in Headers */,
 				3E575F780B6E47600004FB95 /* StringUtil.h in Headers */,
+				04EE2E720C5A314C0075D004 /* BASE64Decoder.h in Headers */,
+				04EE2E740C5A314C0075D004 /* BASE64Encoder.h in Headers */,
+				04EE2E760C5A314C0075D004 /* BufferedInputStream.h in Headers */,
+				04EE2E780C5A314C0075D004 /* BufferedOutputStream.h in Headers */,
+				04EE2E7A0C5A314C0075D004 /* ByteArrayInputStream.h in Headers */,
+				04EE2E7C0C5A314C0075D004 /* ByteArrayOutputStream.h in Headers */,
+				04EE2E7E0C5A314C0075D004 /* CharacterDecoder.h in Headers */,
+				04EE2E800C5A314C0075D004 /* CharacterEncoder.h in Headers */,
+				04EE2E820C5A314C0075D004 /* File.h in Headers */,
+				04EE2E830C5A314C0075D004 /* FileFilter.h in Headers */,
+				04EE2E850C5A314C0075D004 /* FileInputStream.h in Headers */,
+				04EE2E860C5A314C0075D004 /* FileNameFilter.h in Headers */,
+				04EE2E880C5A314C0075D004 /* FileOutputStream.h in Headers */,
+				04EE2E8A0C5A314C0075D004 /* FileSystem.h in Headers */,
+				04EE2E8C0C5A314C0075D004 /* FilterInputStream.h in Headers */,
+				04EE2E8E0C5A314C0075D004 /* FilterOutputStream.h in Headers */,
+				04EE2E900C5A314C0075D004 /* InputStream.h in Headers */,
+				04EE2E920C5A314C0075D004 /* OutputStream.h in Headers */,
+				04EE2E980C5A314C0075D004 /* MacOSFileSystem.h in Headers */,
+				04EE2E9E0C5A314C0075D004 /* PrintStream.h in Headers */,
+				04EE2EA00C5A314C0075D004 /* PushbackInputStream.h in Headers */,
+				04EE2EA20C5A314C0075D004 /* QPDecoder.h in Headers */,
+				04EE2EA40C5A314C0075D004 /* QPEncoder.h in Headers */,
+				04EE2EA60C5A314C0075D004 /* RandomAccessInputStream.h in Headers */,
+				04EE2EA80C5A314C0075D004 /* RandomAccessOutputStream.h in Headers */,
+				04EE2EAA0C5A314C0075D004 /* StreamBuffer.h in Headers */,
+				04EE2EAC0C5A314C0075D004 /* AutoPtr.h in Headers */,
+				04EE2EAE0C5A314C0075D004 /* BoolJanitor.h in Headers */,
+				04EE2EB00C5A314C0075D004 /* ByteBuffer.h in Headers */,
+				04EE2EB20C5A314C0075D004 /* CharBuffer.h in Headers */,
+				04EE2EB30C5A314C0075D004 /* Exception.h in Headers */,
+				04EE2EB50C5A314C0075D004 /* Integer.h in Headers */,
+				04EE2EB70C5A314C0075D004 /* Integer64.h in Headers */,
+				04EE2EB90C5A314C0075D004 /* Janitor.h in Headers */,
+				04EE2EBA0C5A314C0075D004 /* JDFToolsDefs.h in Headers */,
+				04EE2EBB0C5A314C0075D004 /* KString.h in Headers */,
+				04EE2EBD0C5A314C0075D004 /* mapWString.h in Headers */,
+				04EE2EBF0C5A314C0075D004 /* Mutex.h in Headers */,
+				04EE2EC10C5A314C0075D004 /* SetWString.h in Headers */,
+				04EE2EC30C5A314C0075D004 /* Synchronized.h in Headers */,
+				04EE2EC50C5A314C0075D004 /* Throwable.h in Headers */,
+				04EE2EC70C5A314C0075D004 /* vdouble.h in Headers */,
+				04EE2EC90C5A314C0075D004 /* vint.h in Headers */,
+				04EE2ECB0C5A314C0075D004 /* vMapWString.h in Headers */,
+				04EE2ECD0C5A314C0075D004 /* VoidSet.h in Headers */,
+				04EE2ECF0C5A314C0075D004 /* vWString.h in Headers */,
+				04EE2ED10C5A314C0075D004 /* WString.h in Headers */,
+				04EE2ED20C5A314C0075D004 /* WStringBase.h in Headers */,
+				04EE2ED40C5A314C0075D004 /* FileMIMEType.h in Headers */,
+				04EE2ED50C5A314C0075D004 /* FileNameMap.h in Headers */,
+				04EE2ED70C5A314C0075D004 /* MIMEBasicPart.h in Headers */,
+				04EE2ED90C5A314C0075D004 /* MIMEBodyPart.h in Headers */,
+				04EE2EDA0C5A314C0075D004 /* MIMEComponent.h in Headers */,
+				04EE2EDC0C5A314C0075D004 /* MIMEHeader.h in Headers */,
+				04EE2EDE0C5A314C0075D004 /* MIMELocalResource.h in Headers */,
+				04EE2EE00C5A314C0075D004 /* MIMELocalResourceFactory.h in Headers */,
+				04EE2EE20C5A314C0075D004 /* MIMEMemResource.h in Headers */,
+				04EE2EE40C5A314C0075D004 /* MIMEMemResourceFactory.h in Headers */,
+				04EE2EE60C5A314C0075D004 /* MIMEMessage.h in Headers */,
+				04EE2EE80C5A314C0075D004 /* MIMEMessagePart.h in Headers */,
+				04EE2EEA0C5A314C0075D004 /* MIMEMultiPart.h in Headers */,
+				04EE2EEC0C5A314C0075D004 /* MIMEParser.h in Headers */,
+				04EE2EED0C5A314C0075D004 /* MIMEResource.h in Headers */,
+				04EE2EEE0C5A314C0075D004 /* MIMEResourceFactory.h in Headers */,
+				04EE2EF00C5A314C0075D004 /* MimeTableFileNameMap.h in Headers */,
+				04EE2EF20C5A314C0075D004 /* AuthenticationInfo.h in Headers */,
+				04EE2EF40C5A314C0075D004 /* Authenticator.h in Headers */,
+				04EE2EF60C5A314C0075D004 /* BasicAuthentication.h in Headers */,
+				04EE2EF80C5A314C0075D004 /* ChunkedInputStream.h in Headers */,
+				04EE2EFA0C5A314C0075D004 /* CidURLStreamHandler.h in Headers */,
+				04EE2EFC0C5A314C0075D004 /* DigestAuthentication.h in Headers */,
+				04EE2EFE0C5A314C0075D004 /* FileURLConnection.h in Headers */,
+				04EE2F000C5A314C0075D004 /* FileURLStreamHandler.h in Headers */,
+				04EE2F020C5A314C0075D004 /* HeaderParser.h in Headers */,
+				04EE2F040C5A314C0075D004 /* HttpClient.h in Headers */,
+				04EE2F060C5A314C0075D004 /* HttpsClient.h in Headers */,
+				04EE2F080C5A314C0075D004 /* HttpsURLStreamHandler.h in Headers */,
+				04EE2F0A0C5A314C0075D004 /* HttpURLConnection.h in Headers */,
+				04EE2F0C0C5A314C0075D004 /* HttpURLStreamHandler.h in Headers */,
+				04EE2F0E0C5A314C0075D004 /* InetAddress.h in Headers */,
+				04EE2F100C5A314C0075D004 /* InetAddressCachePolicy.h in Headers */,
+				04EE2F120C5A314C0075D004 /* InetAddressImpl.h in Headers */,
+				04EE2F140C5A314C0075D004 /* KeepAliveCache.h in Headers */,
+				04EE2F160C5A314C0075D004 /* KeepAliveInputStream.h in Headers */,
+				04EE2F180C5A314C0075D004 /* md5.h in Headers */,
+				04EE2F1A0C5A314C0075D004 /* MessageHeader.h in Headers */,
+				04EE2F1C0C5A314C0075D004 /* MeteredInputStream.h in Headers */,
+				04EE2F1E0C5A314C0075D004 /* NetworkClient.h in Headers */,
+				04EE2F200C5A314C0075D004 /* ParseUtil.h in Headers */,
+				04EE2F210C5A314C0075D004 /* PasswordAuthentication.h in Headers */,
+				04EE2F230C5A314C0075D004 /* PlainHttpOutputStream.h in Headers */,
+				04EE2F250C5A314C0075D004 /* PlainHttpsURLConnection.h in Headers */,
+				04EE2F270C5A314C0075D004 /* PlainHttpURLConnection.h in Headers */,
+				04EE2F290C5A314C0075D004 /* PlainURLStreamHandlerFactory.h in Headers */,
+				04EE2F4B0C5A314C0075D004 /* MacOSInetAddressImpl.h in Headers */,
+				04EE2F4D0C5A314C0075D004 /* MacOSSocketFactoryService.h in Headers */,
+				04EE2F4F0C5A314C0075D004 /* MacOSSocketImpl.h in Headers */,
+				04EE2F510C5A314C0075D004 /* MacOSSocketImplFactory.h in Headers */,
+				04EE2F530C5A314C0075D004 /* MacOSSocketImplInputStream.h in Headers */,
+				04EE2F550C5A314C0075D004 /* MacOSSocketImplOutputStream.h in Headers */,
+				04EE2F570C5A314C0075D004 /* MacOSSocketInit.h in Headers */,
+				04EE2F590C5A314C0075D004 /* SocketProxy.h in Headers */,
+				04EE2F680C5A314C0075D004 /* ProgressEntry.h in Headers */,
+				04EE2F6A0C5A314C0075D004 /* ServerSocket.h in Headers */,
+				04EE2F6C0C5A314C0075D004 /* Socket.h in Headers */,
+				04EE2F6D0C5A314C0075D004 /* SocketFactoryService.h in Headers */,
+				04EE2F6F0C5A314C0075D004 /* SocketImpl.h in Headers */,
+				04EE2F700C5A314C0075D004 /* SocketImplFactory.h in Headers */,
+				04EE2F720C5A314C0075D004 /* SocketOptions.h in Headers */,
+				04EE2F740C5A314C0075D004 /* SSLSocket.h in Headers */,
+				04EE2F760C5A314C0075D004 /* SSLSocketInputStream.h in Headers */,
+				04EE2F780C5A314C0075D004 /* SSLSocketOutputStream.h in Headers */,
+				04EE2F7A0C5A314C0075D004 /* URI.h in Headers */,
+				04EE2F7C0C5A314C0075D004 /* URL.h in Headers */,
+				04EE2F7E0C5A314C0075D004 /* URLConnection.h in Headers */,
+				04EE2F800C5A314C0075D004 /* URLDecoder.h in Headers */,
+				04EE2F820C5A314C0075D004 /* URLEncoder.h in Headers */,
+				04EE2F840C5A314C0075D004 /* URLStreamHandler.h in Headers */,
+				04EE2F850C5A314C0075D004 /* URLStreamHandlerFactory.h in Headers */,
+				04EE2F870C5A314C0075D004 /* WWWURLConnection.h in Headers */,
+				04EE2F890C5A314C0075D004 /* PNGFile.h in Headers */,
+				04EE2F8B0C5A314C0075D004 /* PNGFileImpl.h in Headers */,
+				04EE2F8D0C5A314C0075D004 /* PNGInfo.h in Headers */,
+				04EE2F8E0C5A314C0075D004 /* Cache.h in Headers */,
+				04EE2F900C5A314C0075D004 /* dtoa.h in Headers */,
+				04EE2F910C5A314C0075D004 /* hashfun.h in Headers */,
+				04EE2F920C5A314C0075D004 /* hmap.h in Headers */,
+				04EE2F930C5A314C0075D004 /* JDFLibVersion.h in Headers */,
+				04EE2F950C5A314C0075D004 /* myuti.h in Headers */,
+				04EE2F970C5A314C0075D004 /* MyWalker.h in Headers */,
+				04EE2F9D0C5A314C0075D004 /* JDFMacFile.h in Headers */,
+				04EE2F9F0C5A314C0075D004 /* MacOSPlatformUtils.h in Headers */,
+				04EE2FA90C5A314C0075D004 /* PlatformUtils.h in Headers */,
+				04EE2FAB0C5A314C0075D004 /* Random.h in Headers */,
+				04EE2FAD0C5A314C0075D004 /* RegExp.h in Headers */,
+				04EE2FAF0C5A314C0075D004 /* RegexpPool.h in Headers */,
+				04EE2FB00C5A314C0075D004 /* RegisterCleanup.h in Headers */,
+				04EE2FB10C5A314C0075D004 /* slist.h in Headers */,
+				04EE2FB30C5A314C0075D004 /* StringTokenizer.h in Headers */,
+				04EE2FB50C5A314C0075D004 /* Unicode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,14 +1196,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				210B72CF0A763C67003F70A6 /* JDFRange.cpp in Sources */,
-				210B72D30A763C67003F70A6 /* JDFRangeList.cpp in Sources */,
-				210B72D40A763C67003F70A6 /* JDFXYPairRangeList.cpp in Sources */,
-				210B72D50A763C67003F70A6 /* JDFIntegerRange.cpp in Sources */,
-				210B72D60A763C67003F70A6 /* JDFIntegerRangeList.cpp in Sources */,
-				210B72D70A763C67003F70A6 /* JDFNameRangeList.cpp in Sources */,
-				210B72D80A763C67003F70A6 /* JDFNumberRangeList.cpp in Sources */,
-				210B72D90A763C67003F70A6 /* JDFNumTypeList.cpp in Sources */,
 				210B72DA0A763C67003F70A6 /* KElementStrings.cpp in Sources */,
 				210B72DC0A763C67003F70A6 /* JDFParser.cpp in Sources */,
 				210B72DE0A763C67003F70A6 /* vElement.cpp in Sources */,
@@ -249,6 +1204,125 @@
 				210B72E50A763C67003F70A6 /* XMLDoc.cpp in Sources */,
 				210B72E70A763C67003F70A6 /* XMLDocUserData.cpp in Sources */,
 				3E575F770B6E47600004FB95 /* StringUtil.cpp in Sources */,
+				04EE2E710C5A314C0075D004 /* BASE64Decoder.cpp in Sources */,
+				04EE2E730C5A314C0075D004 /* BASE64Encoder.cpp in Sources */,
+				04EE2E750C5A314C0075D004 /* BufferedInputStream.cpp in Sources */,
+				04EE2E770C5A314C0075D004 /* BufferedOutputStream.cpp in Sources */,
+				04EE2E790C5A314C0075D004 /* ByteArrayInputStream.cpp in Sources */,
+				04EE2E7B0C5A314C0075D004 /* ByteArrayOutputStream.cpp in Sources */,
+				04EE2E7D0C5A314C0075D004 /* CharacterDecoder.cpp in Sources */,
+				04EE2E7F0C5A314C0075D004 /* CharacterEncoder.cpp in Sources */,
+				04EE2E810C5A314C0075D004 /* File.cpp in Sources */,
+				04EE2E840C5A314C0075D004 /* FileInputStream.cpp in Sources */,
+				04EE2E870C5A314C0075D004 /* FileOutputStream.cpp in Sources */,
+				04EE2E890C5A314C0075D004 /* FileSystem.cpp in Sources */,
+				04EE2E8B0C5A314C0075D004 /* FilterInputStream.cpp in Sources */,
+				04EE2E8D0C5A314C0075D004 /* FilterOutputStream.cpp in Sources */,
+				04EE2E8F0C5A314C0075D004 /* InputStream.cpp in Sources */,
+				04EE2E910C5A314C0075D004 /* OutputStream.cpp in Sources */,
+				04EE2E970C5A314C0075D004 /* MacOSFileSystem.cpp in Sources */,
+				04EE2E9D0C5A314C0075D004 /* PrintStream.cpp in Sources */,
+				04EE2E9F0C5A314C0075D004 /* PushbackInputStream.cpp in Sources */,
+				04EE2EA10C5A314C0075D004 /* QPDecoder.cpp in Sources */,
+				04EE2EA30C5A314C0075D004 /* QPEncoder.cpp in Sources */,
+				04EE2EA50C5A314C0075D004 /* RandomAccessInputStream.cpp in Sources */,
+				04EE2EA70C5A314C0075D004 /* RandomAccessOutputStream.cpp in Sources */,
+				04EE2EA90C5A314C0075D004 /* StreamBuffer.cpp in Sources */,
+				04EE2EAB0C5A314C0075D004 /* AutoPtr.cpp in Sources */,
+				04EE2EAD0C5A314C0075D004 /* BoolJanitor.cpp in Sources */,
+				04EE2EAF0C5A314C0075D004 /* ByteBuffer.cpp in Sources */,
+				04EE2EB10C5A314C0075D004 /* CharBuffer.cpp in Sources */,
+				04EE2EB40C5A314C0075D004 /* Integer.cpp in Sources */,
+				04EE2EB60C5A314C0075D004 /* Integer64.cpp in Sources */,
+				04EE2EB80C5A314C0075D004 /* Janitor.cpp in Sources */,
+				04EE2EBC0C5A314C0075D004 /* mapWString.cpp in Sources */,
+				04EE2EBE0C5A314C0075D004 /* Mutex.cpp in Sources */,
+				04EE2EC00C5A314C0075D004 /* SetWString.cpp in Sources */,
+				04EE2EC20C5A314C0075D004 /* Synchronized.cpp in Sources */,
+				04EE2EC40C5A314C0075D004 /* Throwable.cpp in Sources */,
+				04EE2EC60C5A314C0075D004 /* vdouble.cpp in Sources */,
+				04EE2EC80C5A314C0075D004 /* vint.cpp in Sources */,
+				04EE2ECA0C5A314C0075D004 /* vMapWString.cpp in Sources */,
+				04EE2ECC0C5A314C0075D004 /* VoidSet.cpp in Sources */,
+				04EE2ECE0C5A314C0075D004 /* vWString.cpp in Sources */,
+				04EE2ED00C5A314C0075D004 /* WString.cpp in Sources */,
+				04EE2ED30C5A314C0075D004 /* FileMIMEType.cpp in Sources */,
+				04EE2ED60C5A314C0075D004 /* MIMEBasicPart.cpp in Sources */,
+				04EE2ED80C5A314C0075D004 /* MIMEBodyPart.cpp in Sources */,
+				04EE2EDB0C5A314C0075D004 /* MIMEHeader.cpp in Sources */,
+				04EE2EDD0C5A314C0075D004 /* MIMELocalResource.cpp in Sources */,
+				04EE2EDF0C5A314C0075D004 /* MIMELocalResourceFactory.cpp in Sources */,
+				04EE2EE10C5A314C0075D004 /* MIMEMemResource.cpp in Sources */,
+				04EE2EE30C5A314C0075D004 /* MIMEMemResourceFactory.cpp in Sources */,
+				04EE2EE50C5A314C0075D004 /* MIMEMessage.cpp in Sources */,
+				04EE2EE70C5A314C0075D004 /* MIMEMessagePart.cpp in Sources */,
+				04EE2EE90C5A314C0075D004 /* MIMEMultiPart.cpp in Sources */,
+				04EE2EEB0C5A314C0075D004 /* MIMEParser.cpp in Sources */,
+				04EE2EEF0C5A314C0075D004 /* MimeTableFileNameMap.cpp in Sources */,
+				04EE2EF10C5A314C0075D004 /* AuthenticationInfo.cpp in Sources */,
+				04EE2EF30C5A314C0075D004 /* Authenticator.cpp in Sources */,
+				04EE2EF50C5A314C0075D004 /* BasicAuthentication.cpp in Sources */,
+				04EE2EF70C5A314C0075D004 /* ChunkedInputStream.cpp in Sources */,
+				04EE2EF90C5A314C0075D004 /* CidURLStreamHandler.cpp in Sources */,
+				04EE2EFB0C5A314C0075D004 /* DigestAuthentication.cpp in Sources */,
+				04EE2EFD0C5A314C0075D004 /* FileURLConnection.cpp in Sources */,
+				04EE2EFF0C5A314C0075D004 /* FileURLStreamHandler.cpp in Sources */,
+				04EE2F010C5A314C0075D004 /* HeaderParser.cpp in Sources */,
+				04EE2F030C5A314C0075D004 /* HttpClient.cpp in Sources */,
+				04EE2F050C5A314C0075D004 /* HttpsClient.cpp in Sources */,
+				04EE2F070C5A314C0075D004 /* HttpsURLStreamHandler.cpp in Sources */,
+				04EE2F090C5A314C0075D004 /* HttpURLConnection.cpp in Sources */,
+				04EE2F0B0C5A314C0075D004 /* HttpURLStreamHandler.cpp in Sources */,
+				04EE2F0D0C5A314C0075D004 /* InetAddress.cpp in Sources */,
+				04EE2F0F0C5A314C0075D004 /* InetAddressCachePolicy.cpp in Sources */,
+				04EE2F110C5A314C0075D004 /* InetAddressImpl.cpp in Sources */,
+				04EE2F130C5A314C0075D004 /* KeepAliveCache.cpp in Sources */,
+				04EE2F150C5A314C0075D004 /* KeepAliveInputStream.cpp in Sources */,
+				04EE2F170C5A314C0075D004 /* md5.c in Sources */,
+				04EE2F190C5A314C0075D004 /* MessageHeader.cpp in Sources */,
+				04EE2F1B0C5A314C0075D004 /* MeteredInputStream.cpp in Sources */,
+				04EE2F1D0C5A314C0075D004 /* NetworkClient.cpp in Sources */,
+				04EE2F1F0C5A314C0075D004 /* ParseUtil.cpp in Sources */,
+				04EE2F220C5A314C0075D004 /* PlainHttpOutputStream.cpp in Sources */,
+				04EE2F240C5A314C0075D004 /* PlainHttpsURLConnection.cpp in Sources */,
+				04EE2F260C5A314C0075D004 /* PlainHttpURLConnection.cpp in Sources */,
+				04EE2F280C5A314C0075D004 /* PlainURLStreamHandlerFactory.cpp in Sources */,
+				04EE2F4A0C5A314C0075D004 /* MacOSInetAddressImpl.cpp in Sources */,
+				04EE2F4C0C5A314C0075D004 /* MacOsSocketFactoryService.cpp in Sources */,
+				04EE2F4E0C5A314C0075D004 /* MacOSSocketImpl.cpp in Sources */,
+				04EE2F500C5A314C0075D004 /* MacOSSocketImplFactory.cpp in Sources */,
+				04EE2F520C5A314C0075D004 /* MacOSSocketImplInputStream.cpp in Sources */,
+				04EE2F540C5A314C0075D004 /* MacOSSocketImplOutputStream.cpp in Sources */,
+				04EE2F560C5A314C0075D004 /* MacOSSocketInit.cpp in Sources */,
+				04EE2F580C5A314C0075D004 /* SocketProxy.cpp in Sources */,
+				04EE2F690C5A314C0075D004 /* ServerSocket.cpp in Sources */,
+				04EE2F6B0C5A314C0075D004 /* Socket.cpp in Sources */,
+				04EE2F6E0C5A314C0075D004 /* SocketImpl.cpp in Sources */,
+				04EE2F710C5A314C0075D004 /* SocketOptions.cpp in Sources */,
+				04EE2F730C5A314C0075D004 /* SSLSocket.cpp in Sources */,
+				04EE2F750C5A314C0075D004 /* SSLSocketInputStream.cpp in Sources */,
+				04EE2F770C5A314C0075D004 /* SSLSocketOutputStream.cpp in Sources */,
+				04EE2F790C5A314C0075D004 /* URI.cpp in Sources */,
+				04EE2F7B0C5A314C0075D004 /* URL.cpp in Sources */,
+				04EE2F7D0C5A314C0075D004 /* URLConnection.cpp in Sources */,
+				04EE2F7F0C5A314C0075D004 /* URLDecoder.cpp in Sources */,
+				04EE2F810C5A314C0075D004 /* URLEncoder.cpp in Sources */,
+				04EE2F830C5A314C0075D004 /* URLStreamHandler.cpp in Sources */,
+				04EE2F860C5A314C0075D004 /* WWWURLConnection.cpp in Sources */,
+				04EE2F880C5A314C0075D004 /* PNGFile.cpp in Sources */,
+				04EE2F8A0C5A314C0075D004 /* PNGFileImpl.cpp in Sources */,
+				04EE2F8C0C5A314C0075D004 /* PNGInfo.cpp in Sources */,
+				04EE2F8F0C5A314C0075D004 /* dtoa.cpp in Sources */,
+				04EE2F940C5A314C0075D004 /* myuti.cpp in Sources */,
+				04EE2F960C5A314C0075D004 /* MyWalker.cpp in Sources */,
+				04EE2F9C0C5A314C0075D004 /* JDFMacFile.cpp in Sources */,
+				04EE2F9E0C5A314C0075D004 /* MacOSPlatformUtils.cpp in Sources */,
+				04EE2FA80C5A314C0075D004 /* PlatformUtils.cpp in Sources */,
+				04EE2FAA0C5A314C0075D004 /* Random.cpp in Sources */,
+				04EE2FAC0C5A314C0075D004 /* Regexp.cpp in Sources */,
+				04EE2FAE0C5A314C0075D004 /* RegexpPool.cpp in Sources */,
+				04EE2FB20C5A314C0075D004 /* StringTokenizer.cpp in Sources */,
+				04EE2FB40C5A314C0075D004 /* Unicode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +1344,7 @@
 		};
 		1DEB91ED08733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
@@ -277,7 +1352,7 @@
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = /;
 				PRODUCT_NAME = JDFWrapperCore;
 			};
 			name = Release;
@@ -300,19 +1375,16 @@
 		};
 		1DEB91F108733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E574E6B0B6E3BA10004FB95 /* SubComponent.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
 					i386,
 				);
-				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"../../../src/**",
-					"../../../external/xerces/**",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;

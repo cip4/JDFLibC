@@ -1,5 +1,5 @@
 // -- General Tab --
-BUILD_DIR               = ../../../Build/XCode/obj                    // Place Build Products In: Custom Location
+BUILD_DIR               = ../../../Build/Xcode/obj                    // Place Build Products In: Custom Location
 PROJECT_TEMP_DIR        = $(BUILD_DIR)                     // Place Intermediate Build Files In: Build products location
 
 // -- Build Tab --
@@ -20,7 +20,7 @@ SHARED_PRECOMPS_DIR     = $(OBJROOT)                       // Precompiled Header
 PREBINDING = NO
 
 // Exported symbols file is located in the project folder
-EXPORTED_SYMBOLS_FILE = Symbols.exp
+// EXPORTED_SYMBOLS_FILE = Symbols.exp
 
 // Always dead code strip
 DEAD_CODE_STRIPPING = YES
@@ -54,7 +54,7 @@ MACOSX_DEPLOYMENT_TARGET = 10.4
 DEPLOYMENT_LOCATION = YES
 
 // The location where to place the built binary
-DSTROOT = ../../../Build/XCode/lib/$(CONFIGURATION)
+DSTROOT = ../../../Build/Xcode/lib/$(CONFIGURATION)
 
 // Installation path
 INSTALL_PATH = /
@@ -114,6 +114,9 @@ ZERO_LINK = NO
 //
 // GNU C/C++ - Language
 //
+
+// Enable C++ Run Time Type Info
+GCC_ENABLE_CPP_RTTI = true
 
 //Enable Fix & Continue
 GCC_ENABLE_FIX_AND_CONTINUE = YES
