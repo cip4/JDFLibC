@@ -1,8 +1,11 @@
+#if !defined(__JDF_H__)
+#define __JDF_H__
+
 /*
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2004 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -83,6 +86,7 @@
 // 250601 RP zapped using namespace
 // 180602 RP rordered and made compatible with JDF 1.1
 //
+#if(
 #include "jdf/lang/KString.h"
 #include "jdf/util/JDFLibVersion.h"
 
@@ -615,3 +619,5 @@
 
 
 #include "jdf/wrapper/JDFElement.h"
+
+#endif // header gaurd
