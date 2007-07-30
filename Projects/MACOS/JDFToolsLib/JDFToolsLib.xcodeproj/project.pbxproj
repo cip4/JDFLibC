@@ -256,6 +256,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044EAB4D0C5E334E0043EDC6 /* SubComponent_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent_Debug.xcconfig; sourceTree = "<group>"; };
+		044EAB4E0C5E334E0043EDC6 /* SubComponent_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent_Release.xcconfig; sourceTree = "<group>"; };
+		044EAB4F0C5E334E0043EDC6 /* SubComponent.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent.xcconfig; sourceTree = "<group>"; };
 		210B70A00A762D9B003F70A6 /* JDFLibVersion.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFLibVersion.h; sourceTree = "<group>"; };
 		210B70A10A762D9B003F70A6 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
 		210B70A20A762D9B003F70A6 /* hashfun.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hashfun.h; sourceTree = "<group>"; };
@@ -893,6 +896,9 @@
 		3E574F040B6E3ED90004FB95 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				044EAB4D0C5E334E0043EDC6 /* SubComponent_Debug.xcconfig */,
+				044EAB4E0C5E334E0043EDC6 /* SubComponent_Release.xcconfig */,
+				044EAB4F0C5E334E0043EDC6 /* SubComponent.xcconfig */,
 				221EB84C0B722A44006FFF36 /* Component.xccfg */,
 				3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */,
 			);
@@ -1236,77 +1242,29 @@
 /* Begin XCBuildConfiguration section */
 		1DEB91EC08733DB70010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 044EAB4D0C5E334E0043EDC6 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				EXPORTED_SYMBOLS_FILE = Symbols.exp;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/CoreServices/Encodings\"";
-				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
 		1DEB91ED08733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 044EAB4E0C5E334E0043EDC6 /* SubComponent_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/CoreServices/Encodings\"";
-				PRODUCT_NAME = JDFToolsLib;
 			};
 			name = Release;
 		};
 		1DEB91F008733DB70010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 044EAB4D0C5E334E0043EDC6 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					ppc,
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(GCC_PREPROCESSOR_DEFINITIONS)",
-					"$(BASE_GCC_PREPROCESSOR_DEFINITIONS)",
-				);
-				GENERATE_PROFILING_CODE = YES;
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
 			name = Debug;
 		};
 		1DEB91F108733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E574F0C0B6E3F230004FB95 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 044EAB4E0C5E334E0043EDC6 /* SubComponent_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
 		};

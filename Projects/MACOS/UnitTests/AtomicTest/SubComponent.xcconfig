@@ -1,18 +1,12 @@
 
-#include "../../Component.xccfg"
+#include "../Component.xccfg"
 
-MACH_O_TYPE = mh_execute
+MACH_O_TYPE = staticlib
 
 // Common search paths
-SUBCOMPONENT_HDR_PATH =  "../../../source/include/**" $(COMPONENT_HDR_PATH)
+SUBCOMPONENT_HDR_PATH =  "../../source/include/**" $(COMPONENT_HDR_PATH)
 
 USER_HEADER_SEARCH_PATHS = $(SUBCOMPONENT_HDR_PATH)
 
 // Deployment location
-PRODUCT_DEPLOYMENT_LOCATION = ../../../../../Build/Xcode/test
-
-// Build Products path
-BUILD_DIR = ../../../../Build/Xcode/obj
-
-// Installation directory
-DSTROOT = ../../../../Build/Xcode/AtomicTest/$(CONFIGURATION)
+PRODUCT_DEPLOYMENT_LOCATION = ../../../Build/Xcode/lib

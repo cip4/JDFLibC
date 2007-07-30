@@ -2347,6 +2347,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0472BB720C5E132A0008CE94 /* SubComponent_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent_Debug.xcconfig; sourceTree = "<group>"; };
+		0472BB730C5E132A0008CE94 /* SubComponent_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent_Release.xcconfig; sourceTree = "<group>"; };
+		0472BBC50C5E17DA0008CE94 /* SubComponent.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent.xcconfig; sourceTree = "<group>"; };
 		04EE2FC80C5A32880075D004 /* BASE64Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BASE64Decoder.cpp; sourceTree = "<group>"; };
 		04EE2FC90C5A32880075D004 /* BASE64Decoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BASE64Decoder.h; sourceTree = "<group>"; };
 		04EE2FCA0C5A32880075D004 /* BASE64Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BASE64Encoder.cpp; sourceTree = "<group>"; };
@@ -4687,7 +4690,6 @@
 		3E5757310B6E43D10004FB95 /* JDFXYPairRangeList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFXYPairRangeList.h; sourceTree = "<group>"; };
 		3E5757320B6E43D10004FB95 /* JDFXYPairState.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFXYPairState.cpp; sourceTree = "<group>"; };
 		3E5757330B6E43D10004FB95 /* JDFXYPairState.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JDFXYPairState.h; sourceTree = "<group>"; };
-		3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = SubComponent.xcconfig; sourceTree = "<group>"; };
 		432AD1390B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutoAutomatedOverPrintParams.cpp; sourceTree = "<group>"; };
 		432AD13A0B8CDA10009AE26D /* JDFAutoAutomatedOverPrintParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFAutoAutomatedOverPrintParams.h; sourceTree = "<group>"; };
 		436ACCB90B87885D00CCDB54 /* JDFAutomatedOverPrintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JDFAutomatedOverPrintParams.cpp; sourceTree = "<group>"; };
@@ -7203,8 +7205,10 @@
 		3EF2D43C0B6E18FA002940C7 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				0472BBC50C5E17DA0008CE94 /* SubComponent.xcconfig */,
+				0472BB720C5E132A0008CE94 /* SubComponent_Debug.xcconfig */,
+				0472BB730C5E132A0008CE94 /* SubComponent_Release.xcconfig */,
 				221EB8450B7229E5006FFF36 /* Component.xccfg */,
-				3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */,
 			);
 			name = Configurations;
 			sourceTree = "<group>";
@@ -9604,71 +9608,29 @@
 /* Begin XCBuildConfiguration section */
 		1DEB91EC08733DB70010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 0472BB720C5E132A0008CE94 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				BASE_OTHER_LDFLAGS = "OTHER_LDFLAGS = $(OTHER_LDFLAGS) $(BASE_OTHER_LDFLAGS)";
-				EXPORTED_SYMBOLS_FILE = Symbols.exp;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
 			};
 			name = Debug;
 		};
 		1DEB91ED08733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 0472BB730C5E132A0008CE94 /* SubComponent_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				INSTALL_PATH = /;
-				PRODUCT_NAME = JDFWrapperLib;
 			};
 			name = Release;
 		};
 		1DEB91F008733DB70010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 0472BB720C5E132A0008CE94 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				DSTROOT = "../../../Build/Xcode/lib/$(CONFIGURATION)";
-				EXPORTED_SYMBOLS_FILE = Symbols.exp;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GENERATE_PROFILING_CODE = YES;
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 			};
 			name = Debug;
 		};
 		1DEB91F108733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EF2D4430B6E192D002940C7 /* SubComponent.xcconfig */;
+			baseConfigurationReference = 0472BB730C5E132A0008CE94 /* SubComponent_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
 		};

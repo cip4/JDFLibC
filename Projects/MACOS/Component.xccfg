@@ -11,12 +11,9 @@ CONFIGURATION_BUILD_DIR = $(OBJROOT)                       // Per-configuration 
 SHARED_PRECOMPS_DIR     = $(OBJROOT)                       // Precompiled Headers Cache Path
 
 
-
-
 //
 // GENERAL - Linking
 //
-
 PREBINDING = NO
 
 // Exported symbols file is located in the project folder
@@ -32,15 +29,8 @@ BASE_OTHER_LDFLAGS = OTHER_LDFLAGS = $(OTHER_LDFLAGS) $(BASE_OTHER_LDFLAGS)
 //
 // GENERAL - Packaging
 //
-
 // Default the product name to the project name
 PRODUCT_NAME = $(PROJECT_NAME)
-
-
-
-// Info.plist file always has the same name and is in the component/include folder
-INFOPLIST_FILE = ../../include/Info.plist
-
 
 
 //
@@ -104,6 +94,15 @@ GCC_PREPROCESSOR_DEFINITIONS = PDMETADATA_HFT=1 PLUGIN=1
 
 ARCHS = $(NATIVE_ARCH)
 
+
+
+//
+// GENERAL - Build Options
+//
+
+// Debug Information Format
+DEBUG_INFORMATION_FORMAT = dwarf
+
 //
 // GENERAL - Linking
 //
@@ -116,7 +115,7 @@ ZERO_LINK = NO
 //
 
 // Enable C++ Run Time Type Info
-GCC_ENABLE_CPP_RTTI = true
+GCC_ENABLE_CPP_RTTI = YES
 
 //Enable Fix & Continue
 GCC_ENABLE_FIX_AND_CONTINUE = YES

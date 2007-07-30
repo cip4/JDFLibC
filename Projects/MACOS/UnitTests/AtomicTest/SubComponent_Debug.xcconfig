@@ -1,0 +1,4 @@
+#include "SubComponent.xcconfig"
+
+GCC_GENERATE_DEBUGGING_SYMBOLS = YES
+GCC_DEBUGGING_SYMBOLS = full
