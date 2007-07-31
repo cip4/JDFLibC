@@ -86,7 +86,6 @@
 // 250601 RP zapped using namespace
 // 180602 RP rordered and made compatible with JDF 1.1
 //
-#if(
 #include "jdf/lang/KString.h"
 #include "jdf/util/JDFLibVersion.h"
 
