@@ -42,8 +42,7 @@ int main(int argc, char* argv[]){
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
 
-	MIMEMessage m;
-	m.setHeader("foo","bar");
+	
 
 	JDF::PlatformUtils::Terminate();
 
