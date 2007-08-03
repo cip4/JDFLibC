@@ -85,8 +85,6 @@ int main(int argC, char* argV[]){
 			File f("C:\\data\\canon\\test.mjm");
 			FileInputStream is(f);
 
-
-
 			URL url("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");
 
 			URLConnection* pURLConnection =url.openConnection();
@@ -104,7 +102,6 @@ int main(int argC, char* argV[]){
 				cout<<(char)r;
 				os.write(r);
 			}
-
 
 			InputStream& is2=pURLConnection->getInputStream();
 			while (42)
