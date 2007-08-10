@@ -537,7 +537,8 @@ namespace JDF{
 	
 	//////////////////////////////////////////////////////////////////////	
 	
-	bool JDFResourceLink::HasResourcePartMap(const mAttribute& partMap,bool bCheckResource)const{
+	bool JDFResourceLink::HasResourcePartMap(const mAttribute& partMap,bool bCheckResource)const
+	{
 		if(throwNull()) 
 			return false;
 		

@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2003 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -293,10 +293,12 @@ namespace JDF
 	
 	void vMapWString::ReduceKey(const vWString &vKey){
 		vMapWString v;
-		for(unsigned int i=0; i<size(); i++){
+		for(unsigned int i=0; i<size(); i++)
+		{
 			MapWString m=at(i);
+			bool bEmpty=m.empty();
 			m.ReduceKey(vKey);
-			if(!m.empty())
+			if(bEmpty || !m.empty())
 				v.AppendUnique(m);
 		}
 		assign(v.begin(),v.end());
