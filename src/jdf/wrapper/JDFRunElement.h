@@ -1,8 +1,7 @@
-/*
-* The CIP4 Software License, Version 0.1
+/* The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -89,6 +88,7 @@
 #define _JDFRunElement_H___
 
 #pragma warning( disable : 4786 ) // long debug names from stl
+#pragma warning( disable : 4251 ) // stl dll linking
 
 #if _MSC_VER >= 1000
 #pragma once

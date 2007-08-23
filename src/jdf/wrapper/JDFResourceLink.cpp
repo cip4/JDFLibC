@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -572,11 +572,12 @@ namespace JDF{
 			}
 		}else{ // explicit
             if ((siz == 0) && (!bCheckResource)){ // the link has no parts and we don't know the details of the resource --> assume that it fits
-                return true;
-            }
+				return true;
+			}
 			for(int i=0;i<siz;i++){
 				// RP 050120 swap of vPart[i] and partmap
-				if(partMap.SubMap(vPart[i])) 
+				// RP 070511 swap back of vPart[i] and partmap
+				if(vPart[i].SubMap(partMap)) 
 					return true;
 			}
 		}
