@@ -76,6 +76,12 @@ int main(int argC, char* argV[]){
 	// clean up
 
 	if(1){
+		JDFIntegerRange::setDefaultDef(66);
+		JDFIntegerRangeList rl=L"1 ~-2";
+		assertTrue(rl.InRange(64));
+		assertTrue(!rl.InRange(65));
+	}
+	else if(1){
 		for(int j=0;j<5;j++)
 		{
 			JDFDoc doc(1);
