@@ -75,7 +75,7 @@ int main(int argC, char* argV[]){
 	// use TestDoc as a container that holds the various example routines
 	// clean up
 
-	if(1){
+	if(0){
 		JDFIntegerRange::setDefaultDef(66);
 		JDFIntegerRangeList rl=L"1 ~-2";
 		assertTrue(rl.InRange(64));
