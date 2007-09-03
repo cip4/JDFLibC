@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2007 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -570,7 +570,7 @@ public:
 /**
 * enumeration type for GrainDirection
 */
-enum EnumSpanGrainDirection{SpanGrainDirection_Unknown,SpanGrainDirection_ShortEdge,SpanGrainDirection_LongEdge};
+enum EnumSpanGrainDirection{GrainDirection_Unknown,GrainDirection_LongEdge,GrainDirection_ShortEdge,GrainDirection_XDirection,GrainDirection_YDirection};
 
 public:
 /**

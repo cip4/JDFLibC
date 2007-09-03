@@ -122,7 +122,7 @@ namespace JDF{
 
 ///////////////////////////////////////////////////////////////
 	 WString JDFSpanGrainDirection::AllowedValues()const{
-		return WString(L"Unknown,ShortEdge,LongEdge");
+		return WString(L"Unknown,LongEdge,ShortEdge,XDirection,YDirection");
 	}
 
 
