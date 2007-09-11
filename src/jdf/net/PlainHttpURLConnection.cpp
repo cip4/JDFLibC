@@ -514,8 +514,10 @@ namespace JDF
 			requests.setIfNotSet(JDFStrL("Accept"), acceptString);
 
 			// TODO handle keep alive
-			if (!failedOnce && http->getHttpKeepAliveSet())
-				requests.setIfNotSet(JDFStrL("Proxy-Connection"),JDFStrL("keep-alive"));
+			// 070911 - remove next 2 code lines
+			// the following two lines seem to be in contradiction to the comment and code below
+			//if (!failedOnce && http->getHttpKeepAliveSet())
+			//	requests.setIfNotSet(JDFStrL("Proxy-Connection"),JDFStrL("keep-alive"));
 			//requests.set("Connection","close");
 
 			/* Here, we have to work around an egregious bug in the Netscape

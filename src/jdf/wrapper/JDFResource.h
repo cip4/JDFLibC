@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1044,6 +1044,15 @@ namespace JDF{
 		* @return EnumStatus: attribute enumeration value 
 		*/
 		EnumStatus GetStatus(bool bRecurseRefs=false)const;
+
+		/**
+		* Gets the minimum typesafe enumerated value of attribute Status from the value of all leaves 
+		*
+		* @param bAll if true, also evaluate intermediate partitions, else leaves only
+		* @return EnumResStatus - the minimum Status enumeration value
+		*
+		*/
+		EnumStatus getStatusFromLeaves(bool bAll) const;
 
 		/**
 		* Sets attribute Status

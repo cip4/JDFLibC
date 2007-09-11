@@ -179,7 +179,7 @@ namespace JDF
 
 	bool HttpClient::getHttpKeepAliveSet()
 	{
-		bool ret = true;
+		bool ret = false; // 070911 set default to false
 		PlatformUtils::value_pair keepAlive = PlatformUtils::getProperty("http.keepAlive");
 		if (keepAlive.first)
 		{
