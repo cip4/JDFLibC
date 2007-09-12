@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -96,7 +96,6 @@
 
 #include <jdf/util/RegexpPool.h>
 #include <jdf/net/KeepAliveCache.h>
-#include <jdf/net/KeepAliveInputStream.h>
 
 // History of changes
 // 200802 RP/NV closeServer() bug fix for broken connections
@@ -109,7 +108,7 @@ namespace JDF
 	******************************************************************************/ 
 	class InputStream;
 	class OutputStream;
-	class BufferedInputStream;
+	class MeteredInputStream;
 	
 	/******************************************************************************
 	*	Defines and constants
@@ -144,7 +143,7 @@ namespace JDF
 		
 		/**
 		* @return true iff http keep alive is set (i.e. enabled).  Defaults
-		*		to true if the system property http.keepAlive isn't set.
+		*		to false if the system property http.keepAlive isn't set.
 		*/
 		
 		bool getHttpKeepAliveSet();
@@ -341,10 +340,7 @@ namespace JDF
 		
 		WString instProxy;
 		int     instProxyPort;
-		
-		BufferedInputStream* bufferedIn;
-		KeepAliveInputStream* keepAliveIn;
-		
+				
 		/**
 		* Response code for CONTINUE
 		*/

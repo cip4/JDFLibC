@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -90,6 +90,8 @@
 #include "HeaderParser.h"
 #include "ChunkedInputStream.h"
 #include <jdf/lang/Exception.h>
+#include <jdf/net/KeepAliveInputStream.h>
+
 
 #include <jdf/net/HttpURLConnection.h>
 #include <jdf/io/PrintStream.h>
@@ -149,8 +151,6 @@ namespace JDF
 		instProxy            = "";
 		instProxyPort        = -1;
 		bufferedOut          = NULL;
-		bufferedIn			 = NULL;
-		keepAliveIn			 = NULL;
 	}
 
 	int HttpClient::getDefaultPort()
@@ -179,7 +179,7 @@ namespace JDF
 
 	bool HttpClient::getHttpKeepAliveSet()
 	{
-		bool ret = false; // 070911 set default to false
+		bool ret = false;
 		PlatformUtils::value_pair keepAlive = PlatformUtils::getProperty("http.keepAlive");
 		if (keepAlive.first)
 		{
@@ -466,10 +466,9 @@ namespace JDF
 		try
 		{
 			serverInput = &serverSocket->getInputStream();
-			bufferedIn = new BufferedInputStream(*serverInput);
+			serverInput = new BufferedInputStream(*serverInput);
 			// fix memory leak keep buffered input stream
 			// for deleting afterwards
-			serverInput = bufferedIn;
 			return parseHTTPHeader(responses);
 		}
 		catch (IOException& e)
@@ -668,10 +667,14 @@ namespace JDF
 			pe->update(0,cl);
 			if (isKeepingAlive())
 			{
-				keepAliveIn = new KeepAliveInputStream(serverInput,pe,this);
-				serverInput = keepAliveIn;
+				serverInput = new KeepAliveInputStream(serverInput,pe,this);
 				failedOnce = false;
+			}		
+			else // 070912 RP use a metered input for non-keepalive and all should be well!
+			{
+				serverInput = new MeteredInputStream(serverInput,pe);
 			}
+
 		}
 		// todo wrap meteredstream
 		return ret;
@@ -703,13 +706,10 @@ namespace JDF
 		{
 			keepingAlive= false;
 
-			if (keepAliveIn)
-				delete keepAliveIn;
-			else if (bufferedIn)
+			if (serverInput)
 			{
-				delete bufferedIn;
+				delete serverInput;
 			}
-
 
 			if (serverOutput)
 			{
@@ -731,9 +731,6 @@ namespace JDF
 			bufferedOut  = NULL;
 			serverSocket = NULL;
 
-			// 200802 RP with NV added cleanup for broken http connection
-			bufferedIn   = NULL;
-
 		} catch(Exception&)	{
 			// 080403 RP added cleanup for broken http connection
 			serverSocket = NULL;
@@ -741,7 +738,6 @@ namespace JDF
 			serverOutput = NULL;
 			bufferedOut  = NULL;
 			serverSocket = NULL;
-			bufferedIn   = NULL;
 		}
 	}
 
