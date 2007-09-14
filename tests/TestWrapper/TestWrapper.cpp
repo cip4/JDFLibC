@@ -64,6 +64,7 @@ int main(int argC, char* argV[]){
 		return 0;
 	}
 
+		JDF::PlatformUtils::setProperty("http.keepAlive","false");
 
 	// setup indentation for the output - 2 blanks/level
 	// read input, output and action settings from the command line
@@ -84,10 +85,13 @@ int main(int argC, char* argV[]){
 	else if(1){
 		for(int j=0;j<5;j++)
 		{
+			cout<<"---------"<<j<<"--------------"<<endl;
 			JDFDoc doc(1);
 			JDFJMF root = doc.GetJMFRoot();
 			JDFQuery q=root.AppendQuery(JDFMessage::Type_KnownMessages);
 			JDFKnownMsgQuParams qp=q.AppendKnownMsgQuParams();
+			JDFDoc docResp=doc.Write2URL("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");
+			cout<<docResp<<endl;
 			File f("C:\\data\\canon\\test.mjm");
 			FileInputStream is(f);
 
@@ -96,7 +100,7 @@ int main(int argC, char* argV[]){
 			URLConnection* pURLConnection =url.openConnection();
 
 			pURLConnection->setDoOutput(true);
-			pURLConnection->setRequestProperty(L"Connection",   L"close");
+			pURLConnection->setRequestProperty(L"Connection",   L"keep-alive");
 			pURLConnection->setRequestProperty(L"Content-Type", L"multipart/related");
 
 			OutputStream& os =pURLConnection->getOutputStream();
@@ -109,7 +113,9 @@ int main(int argC, char* argV[]){
 				os.write(r);
 			}
 
+			cout <<"\n-------------------\n end of submit write --------"<<endl;
 			InputStream& is2=pURLConnection->getInputStream();
+			cout <<"\n-------------------\n end of getInputStream --------"<<endl;
 			while (42)
 			{
 				int r=is2.read();
@@ -120,10 +126,25 @@ int main(int argC, char* argV[]){
 
 			cout <<" end of submit "<<endl;
 
-			JDFDoc doc2=doc.Write2URL("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");
+			for(int i=0;i<100;i++)
+				root.AppendComment().SetText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+			JDFDoc doc2=doc.Write2URL("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");//
+//			JDFDoc doc3=doc.Write2URL("http://localhost:8080/JDFUtility/dump");
 			cout<<doc<<endl<<"-------------------------------------------------"<<endl;
 			cout<<doc2<<endl;
 			//doc.
+			cout<<"\n---------------------- done ---------------------------"<<endl;
+			for(int i=120;i<200;i++)
+			{
+				JDFDoc dClean(1);
+				JDFJMF root = doc.GetJMFRoot();
+				JDFCommand c=root.AppendCommand(JDFMessage::Type_AbortQueueEntry);
+				c.AppendQueueEntryDef().SetQueueEntryID(WString(i));
+				JDFDoc docResp=doc.Write2URL("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");
+				cout<<docResp<<endl;
+
+			}
 
 		}
 			return 0; 
