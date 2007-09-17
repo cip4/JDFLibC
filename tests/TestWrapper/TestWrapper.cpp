@@ -76,11 +76,19 @@ int main(int argC, char* argV[]){
 	// use TestDoc as a container that holds the various example routines
 	// clean up
 
-	if(0){
-		JDFIntegerRange::setDefaultDef(66);
-		JDFIntegerRangeList rl=L"1 ~-2";
-		assertTrue(rl.InRange(64));
-		assertTrue(!rl.InRange(65));
+	if(1){
+			JDFDoc doc(0);
+			JDFNode root = doc.GetJDFRoot();
+			root.SetType("ProcessGroup");
+			root.SetDescriptiveName("abc");
+			JDFNode node=root.AddProcess("foobar");
+			assertTrue(node.HasAttribute("DescriptiveName","",true));
+			assertFalse(node.HasAttribute("DescriptiveName","",false));
+			JDFRunList rl=root.addResource("RunList",JDFResource::Class_Parameter,JDFResourceLink::Usage_Input);
+			JDFRunList rl2=rl.AddPartition(JDFResource::PartIDKey_CellIndex,"33");
+			assertTrue(rl2.HasAttribute("ID","",true));
+			assertFalse(((KElement)rl2).HasAttribute("ID","",false));
+
 	}
 	else if(1){
 		for(int j=0;j<5;j++)
