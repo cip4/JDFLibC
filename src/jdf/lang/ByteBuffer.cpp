@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2003 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -196,15 +196,14 @@ namespace JDF
 		int available = mBufferSize - mSize;
 		if (!available)
 			ensureCapacity(10);
-		mBuffer[mSize] = c;
-		mSize += 1;
+		mBuffer[mSize++] = c;
 	}
 	
 	void ByteBuffer::append(const char* buf, int length)
 	{
 		int available = mBufferSize - mSize;
 		if (length > available)
-			ensureCapacity(length-available);
+			ensureCapacity(length);
 		
 		memcpy(mBuffer+mSize, buf, length);
 		mSize += length;
@@ -219,7 +218,7 @@ namespace JDF
 	{
 		int available = mBufferSize - mSize;
 		if (static_cast<int>(s.length()) > available)
-			ensureCapacity(s.length()-available);
+			ensureCapacity(s.length());
 		
 		memcpy(mBuffer+mSize, s.data(), s.length());
 		mSize += s.length();
@@ -242,13 +241,17 @@ namespace JDF
 	
 	void ByteBuffer::ensureCapacity (int length)
 	{
-		unsigned long allocSize = std::max (mBufferSize << 1, mBufferSize + length + 1024);
-		
-		char* pTmp=mBuffer;
-		mBuffer = new char[(unsigned long)allocSize];
-		memcpy(mBuffer,pTmp,mBufferSize); // only copy the old data
-		mBufferSize = allocSize;
-		delete[]pTmp;
+		int available = mBufferSize - mSize;
+		if (length > available) // only add more if requested.
+		{
+			unsigned long allocSize = std::max (mBufferSize << 1, mBufferSize + length + 1024);
+
+			char* pTmp=mBuffer;
+			mBuffer = new char[(unsigned long)allocSize];
+			memcpy(mBuffer,pTmp,mSize); // only copy the old valid data
+			mBufferSize = allocSize;
+			delete[]pTmp;
+		}
 	}
 	
 } // namespace JDF

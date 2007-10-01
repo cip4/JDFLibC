@@ -296,7 +296,7 @@ protected:
 	void addPreamble(char* preamble);
 	
 	void setBoundary(const WString& boundary) { m_boundary = boundary;}
-	WString getBoundary() { return m_boundary;}
+	const WString& getBoundary()const { return m_boundary;}
 	
 private:
 	

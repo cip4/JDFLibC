@@ -2179,7 +2179,7 @@ int MIMEParser::setCurrentMessage( MIMEComponent* message, int nMessageType )
  
 int MIMEParser::boundaryCheck( char* s, int len )
 {
-	WString currentBoundary = getCurrentBoundary();
+	const WString& currentBoundary = getCurrentBoundary();
 	int boundaryLen = 0;
 	
 	if (s == NULL)
@@ -2531,7 +2531,7 @@ int MIMEParser::getCurrentParentType()
  */
 
 
-WString MIMEParser::getCurrentBoundary()
+const WString& MIMEParser::getCurrentBoundary()const
 {
 	if ( m_currentParent.size() > 0 )
 	{
@@ -2543,7 +2543,7 @@ WString MIMEParser::getCurrentBoundary()
 				return ( (MIMEMultiPart*) o )->getBoundary();
 		}
 	}
-	return "";
+	return WString::emptyStr;
 }
  
   

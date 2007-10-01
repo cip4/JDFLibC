@@ -461,7 +461,7 @@ private:
      * @return current boundary string
      * @exception none
      */
-	WString getCurrentBoundary();
+	const WString& getCurrentBoundary()const;
 
 	void unwindCurrentParent( char* s, int len, bool deleteIt);
 

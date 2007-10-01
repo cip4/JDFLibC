@@ -135,6 +135,7 @@ BufferedOutputStream::BufferedOutputStream(OutputStream& out, unsigned int size)
 
 BufferedOutputStream::~BufferedOutputStream()
 {
+	flush(); // 070928 RP might be a good idea to flush prior to zapping...
 	if (mBuf)
 	{
 		delete[] mBuf;

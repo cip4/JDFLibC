@@ -160,6 +160,7 @@ void BASE64Decoder::decodeAtom(InputStream& inStream, OutputStream& outStream, i
 {
 	int	i;
 	char	a = -1, b = -1, c = -1, d = -1;
+    char outBuf[4];
 
 	if (rem < 2) {
 	    throw CEFormatException("BASE64Decoder: Not enough bytes for an atom.");
@@ -204,13 +205,15 @@ void BASE64Decoder::decodeAtom(InputStream& inStream, OutputStream& outStream, i
 	    outStream.write( (char)(((a << 2) & 0xfc) | (((b>>4) + (2<<27)) & 3)) );
 	    break;
 	case 3:
-	    outStream.write( (char) (((a << 2) & 0xfc) | (((b>>4) + (2<<27)) & 3)) );
-	    outStream.write( (char) (((b << 4) & 0xf0) | (((c>>2) + (2<<29)) & 0xf)) );
+		outBuf[0]=(char) (((a << 2) & 0xfc) | (((b>>4) + (2<<27)) & 3)) ;
+	    outBuf[1]=(char) (((b << 4) & 0xf0) | (((c>>2) + (2<<29)) & 0xf));
+		outStream.write(outBuf,2);
 	    break;
 	case 4:
-	    outStream.write( (char) (((a << 2) & 0xfc) | (((b>>4) + (2<<27)) & 3)) );
-	    outStream.write( (char) (((b << 4) & 0xf0) | (((c>>2) + (2<<29)) & 0xf)) );
-	    outStream.write( (char) (((c << 6) & 0xc0) | (d  & 0x3f)) );
+		outBuf[0]=(char) (((a << 2) & 0xfc) | (((b>>4) + (2<<27)) & 3)) ;
+	    outBuf[1]=(char) (((b << 4) & 0xf0) | (((c>>2) + (2<<29)) & 0xf)) ;
+	    outBuf[2]= (char) (((c << 6) & 0xc0) | (d  & 0x3f)) ;
+		outStream.write(outBuf,3);
 	    break;
 	}
 	return;

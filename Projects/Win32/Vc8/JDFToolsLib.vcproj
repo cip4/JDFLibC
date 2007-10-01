@@ -1069,6 +1069,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\jdf\util\MyTime.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\util\MyTime.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\jdf\util\myuti.cpp"
 				>
 			</File>

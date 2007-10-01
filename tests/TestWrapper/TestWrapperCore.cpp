@@ -41,7 +41,9 @@ int main(int argc, char* argv[]){
 
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
+	{
 
+	}
 	
 
 	JDF::PlatformUtils::Terminate();

@@ -1,93 +1,95 @@
 /*
- * The CIP4 Software License, Version 0.1
- *
- *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
- * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
- * reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:  
- *       "This product includes software developed by the
- *        The International Cooperation for the Integration of 
- *        Processes in  Prepress, Press and Postpress (www.cip4.org)"
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
- *
- * 4. The names "CIP4" and "The International Cooperation for the Integration of 
- *    Processes in  Prepress, Press and Postpress" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written 
- *    permission, please contact info@cip4.org.
- *
- * 5. Products derived from this software may not be called "CIP4",
- *    nor may "CIP4" appear in their name, without prior written
- *    permission of the CIP4 organization
- *
- * Usage of this software in commercial products is subject to restrictions. For
- * details please consult info@cip4.org.
- *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR
- * THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the The International Cooperation for the Integration 
- * of Processes in Prepress, Press and Postpress and was
- * originally based on software 
- * copyright (c) 1999-2001, Heidelberger Druckmaschinen AG 
- * copyright (c) 1999-2001, Agfa-Gevaert N.V. 
- *  
- * For more information on The International Cooperation for the 
- * Integration of Processes in  Prepress, Press and Postpress , please see
- * <http://www.cip4.org/>.
- *  
- * 
- */
+* The CIP4 Software License, Version 1.0
+*
+*
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Processes in  Prepress, Press and Postpress (CIP4).  All rights 
+* reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+*
+* 1. Redistributions of source code must retain the above copyright
+*    notice, this list of conditions and the following disclaimer. 
+*
+* 2. Redistributions in binary form must reproduce the above copyright
+*    notice, this list of conditions and the following disclaimer in
+*    the documentation and/or other materials provided with the
+*    distribution.
+*
+* 3. The end-user documentation included with the redistribution,
+*    if any, must include the following acknowledgment:  
+*       "This product includes software developed by the
+*        The International Cooperation for the Integration of 
+*        Processes in  Prepress, Press and Postpress (www.cip4.org)"
+*    Alternately, this acknowledgment may appear in the software itself,
+*    if and wherever such third-party acknowledgments normally appear.
+*
+* 4. The names "CIP4" and "The International Cooperation for the Integration of 
+*    Processes in  Prepress, Press and Postpress" must
+*    not be used to endorse or promote products derived from this
+*    software without prior written permission. For written 
+*    permission, please contact info@cip4.org.
+*
+* 5. Products derived from this software may not be called "CIP4",
+*    nor may "CIP4" appear in their name, without prior written
+*    permission of the CIP4 organization
+*
+* Usage of this software in commercial products is subject to restrictions. For
+* details please consult info@cip4.org.
+*
+* THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+* OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED.  IN NO EVENT SHALL THE INTERNATIONAL COOPERATION FOR
+* THE INTEGRATION OF PROCESSES IN PREPRESS, PRESS AND POSTPRESS OR
+* ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+* USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+* SUCH DAMAGE.
+* ====================================================================
+*
+* This software consists of voluntary contributions made by many
+* individuals on behalf of the The International Cooperation for the Integration 
+* of Processes in Prepress, Press and Postpress and was
+* originally based on software 
+* copyright (c) 1999-2001, Heidelberger Druckmaschinen AG 
+* copyright (c) 1999-2001, Agfa-Gevaert N.V. 
+*  
+* For more information on The International Cooperation for the 
+* Integration of Processes in  Prepress, Press and Postpress , please see
+* <http://www.cip4.org/>.
+*  
+* 
+*/
 
 /******************************************************************************
- *                     Copyright 1998 Agfa-Gevaert N.V.                       *
- *                           All rights reserved                              *
- *                                                                            *
- * The material contained herein may not be reproduced in whole or in part,   *
- *        without the prior written consent of Agfa-Gevaert N.V.              *
- *                                                                            *
- ******************************************************************************/
+*                     Copyright 1998 Agfa-Gevaert N.V.                       *
+*                           All rights reserved                              *
+*                                                                            *
+* The material contained herein may not be reproduced in whole or in part,   *
+*        without the prior written consent of Agfa-Gevaert N.V.              *
+*                                                                            *
+******************************************************************************/
 
 
 /******************************************************************************
- *	Includes
- ******************************************************************************/ 
+*	Includes
+******************************************************************************/ 
 
 #include <util/PlatformUtils.hpp>
 #include <jdf/util/PlatformUtils.h>
+#include <jdf/util/MyTime.h>
 #include <jdf/io/File.h>
 #include <jdf/io/InputStream.h>
 #include <jdf/io/FileInputStream.h>
 #include <jdf/io/FileOutputStream.h>
+#include <jdf/io/BufferedOutputStream.h>
 #include <jdf/Wrapper/jdf.h>
 
 #include <jdf/lang/Exception.h>
@@ -100,32 +102,32 @@
 #include <iostream>
 
 /******************************************************************************
- *	Forward declarations
- ******************************************************************************/ 
+*	Forward declarations
+******************************************************************************/ 
 
 
 /******************************************************************************
- *	Defines and constants
- ******************************************************************************/ 
+*	Defines and constants
+******************************************************************************/ 
 
 
 /******************************************************************************
- *	Typedefs
- ******************************************************************************/ 
+*	Typedefs
+******************************************************************************/ 
 
 
 /******************************************************************************
- *	Classes
- ******************************************************************************/ 
+*	Classes
+******************************************************************************/ 
 
 /******************************************************************************
- *	Prototypes
- ******************************************************************************/ 
+*	Prototypes
+******************************************************************************/ 
 
 
 /******************************************************************************
- *	Implementation
- ******************************************************************************/ 
+*	Implementation
+******************************************************************************/ 
 
 void testGetParts(JDF::MIMEMessage* msg)
 {
@@ -134,28 +136,24 @@ void testGetParts(JDF::MIMEMessage* msg)
 		JDF::MIMEMultiPart* mmp  = (JDF::MIMEMultiPart*) msg->getBody(false);
 		for (int i=0;i<mmp->getBodyPartCount();i++)
 		{
-			if ( typeid( *(mmp->getBodyPart(i,false)) ) == typeid(JDF::MIMEBasicPart))
+			//			if ( typeid( *(mmp->getBodyPart(i,false)) ) == typeid(JDF::MIMEBasicPart))
 			{
 				JDF::MIMEBasicPart* part = (JDF::MIMEBasicPart*) mmp->getBodyPart(i,false);
 				JDF::InputStream& in = part->getBodyData();
-				JDF::JDFDoc doc;
-				doc.StreamParse(in);
-				std::cout<<doc<<std::endl;
-				/*
-				JDF::WString fname("c:\\tmp\\mimetest");
-				char buf2[20];
-				fname.append(itoa(i,buf2,10));
-				fname.append(".txt");
-				JDF::FileOutputStream out4(fname);
-				char buf[2048];
-				int nread;
-				while ((nread = in.read(buf,2048)) != -1)
-				{
-					out4.write(buf,nread);
-				}
-				*/
-
-
+				//				JDF::JDFDoc doc;
+				//				doc.StreamParse(in);
+				//				std::cout<<doc<<std::endl;
+				//JDF::WString fname("c:\\tmp\\mimetest");
+				//char buf2[20];
+				//fname.append(itoa(i,buf2,10));
+				//fname.append(".txt");
+				//JDF::FileOutputStream out4(fname);
+				//char buf[2048];
+				//int nread;
+				//while ((nread = in.read(buf,2048)) != -1)
+				//{
+				//	out4.write(buf,nread);
+				//}
 			}
 		}
 	}
@@ -163,8 +161,8 @@ void testGetParts(JDF::MIMEMessage* msg)
 
 int main(int argc, char* argv[])
 {
-	  // Initialize the XML4C2 system
- 	try
+	// Initialize the XML4C2 system
+	try
 	{
 		JDF::PlatformUtils::Initialize();
 	} catch (const JDF::Exception&)
@@ -184,17 +182,23 @@ int main(int argc, char* argv[])
 		// parse the entire file
 		JDF::MIMEParser parser;
 
+		MyTime t1("Read");
 		std::cout << "Reading MIME message..." << std::endl;
 		JDF::MIMEMessage* msg = parser.parseEntireMessage(fin);
+		t1.Stop();
 
 
 		if (msg)
 		{
+			MyTime t2("Write");
 			testGetParts(msg);
+			t2.Stop();
 			std::cout << "Writing MIME message..." << std::endl;
 			// write the parsed msg back to a file
+			MyTime t3("Write 2");
 			JDF::FileOutputStream fos (argv[2]);
-			msg->putByteStream(fos);
+			JDF::BufferedOutputStream bos(fos,10000);
+			msg->putByteStream(bos);
 			delete msg;
 		}
 		else
@@ -211,7 +215,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
- 
+
 	return 0;
 
 } // main()

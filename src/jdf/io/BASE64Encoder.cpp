@@ -147,37 +147,40 @@ int BASE64Encoder::bytesPerLine()
 void BASE64Encoder::encodeAtom(OutputStream& outStream, char* data, int datalen, int offset, int len) 
 {
 	char a, b, c;
+	char outBuf[4];
+	char* outChar=outBuf;
 
 	if (len == 1) 
 	{
 	    a = data[offset];
 	    b = 0;
 	    c = 0;
-	    outStream.write(pem_array[((a>>2) + (2<<29)) & 0x3F]);
-	    outStream.write(pem_array[((a << 4) & 0x30) + (((b>>4) + (2<<27)) & 0xf)]);
-	    outStream.write('=');
-	    outStream.write('=');
+	    *outChar++ = pem_array[((a>>2) + (2<<29)) & 0x3F];
+	    *outChar++ = pem_array[((a << 4) & 0x30) + (((b>>4) + (2<<27)) & 0xf)];
+	    *outChar++ = '=';
+	    *outChar = '=';
 	}
 	else if (len == 2) 
 	{
 	    a = data[offset];
 	    b = data[offset+1];
 	    c = 0;
-	    outStream.write(pem_array[((a>>2) + (2<<29)) & 0x3F]);
-	    outStream.write(pem_array[((a << 4) & 0x30) + (((b>>4) + (2<<27)) & 0xf)]);
-	    outStream.write(pem_array[((b << 2) & 0x3c) + (((c>>6) + (2<<25)) & 0x3)]);
-	    outStream.write('=');
+	    *outChar++ = pem_array[((a>>2) + (2<<29)) & 0x3F];
+	    *outChar++ = pem_array[((a << 4) & 0x30) + (((b>>4) + (2<<27)) & 0xf)];
+	    *outChar++ = pem_array[((b << 2) & 0x3c) + (((c>>6) + (2<<25)) & 0x3)];
+	    *outChar  = '=';
 	}
 	else 
 	{
 	    a = data[offset];
 	    b = data[offset+1];
 	    c = data[offset+2];
-	    outStream.write(pem_array[((a>>2) + (2<<29)) & 0x3F]);
-	    outStream.write(pem_array[((a << 4) & 0x30) + (((b>>4) + (2<<27)) & 0xf)]);
-	    outStream.write(pem_array[((b << 2) & 0x3c) + (((c>>6) + (2<<25)) & 0x3)]);
-	    outStream.write(pem_array[c & 0x3F]);
+	    *outChar++ = pem_array[((a>>2) + (2<<29)) & 0x3F];
+	    *outChar++ = pem_array[((a << 4) & 0x30) + (((b>>4) + (2<<27)) & 0xf)];
+	    *outChar++ = pem_array[((b << 2) & 0x3c) + (((c>>6) + (2<<25)) & 0x3)];
+	    *outChar  = pem_array[c & 0x3F];
 	}
+	outStream.write(outBuf,4);
 }
 
 } // namespace JDF

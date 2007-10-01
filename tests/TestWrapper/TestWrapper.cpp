@@ -7,6 +7,7 @@
 #include "jdf/net/URI.h"
 #include "jdf/io/File.h"
 #include "jdf/io/FileInputStream.h"
+#include "jdf/io/FileOutputStream.h"
 #include "jdf/io/OutputStream.h"
 #include "jdf/util/MyWalker.h"
 #include "JDFSimulator.h"
@@ -75,8 +76,7 @@ int main(int argC, char* argV[]){
 	// create a JDF Doc
 	// use TestDoc as a container that holds the various example routines
 	// clean up
-
-	if(1){
+	if(1)
 			JDFDoc doc(0);
 			JDFNode root = doc.GetJDFRoot();
 			root.SetType("ProcessGroup");
