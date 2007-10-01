@@ -247,8 +247,10 @@ private:
 	
     void grow();
 	
+#   pragma warning(disable: 4251)
 	std::vector<WString> mKeys;
 	std::vector<WString> mValues;
+#   pragma warning(default: 4251)
 };
 
 /******************************************************************************
