@@ -134,26 +134,32 @@ void testGetParts(JDF::MIMEMessage* msg)
 	{
 		assert( msg->getBodyType() == JDF::MIMEMessage::MULTIPART);
 		JDF::MIMEMultiPart* mmp  = (JDF::MIMEMultiPart*) msg->getBody(false);
-		for (int i=0;i<mmp->getBodyPartCount();i++)
+		int l=mmp->getBodyPartCount();
+		std::cout<<l<<std::endl;
+		for (int i=0;i<l;i++)
 		{
 			//			if ( typeid( *(mmp->getBodyPart(i,false)) ) == typeid(JDF::MIMEBasicPart))
 			{
 				JDF::MIMEBasicPart* part = (JDF::MIMEBasicPart*) mmp->getBodyPart(i,false);
 				JDF::InputStream& in = part->getBodyData();
-				//				JDF::JDFDoc doc;
-				//				doc.StreamParse(in);
-				//				std::cout<<doc<<std::endl;
-				//JDF::WString fname("c:\\tmp\\mimetest");
-				//char buf2[20];
-				//fname.append(itoa(i,buf2,10));
-				//fname.append(".txt");
-				//JDF::FileOutputStream out4(fname);
-				//char buf[2048];
-				//int nread;
-				//while ((nread = in.read(buf,2048)) != -1)
-				//{
-				//	out4.write(buf,nread);
-				//}
+				if(i<2)
+				{
+								JDF::JDFDoc doc;
+								doc.StreamParse(in);
+								std::cout<<doc<<std::endl;
+				}
+				JDF::WString fname("c:\\tmp\\mimetest");
+				char buf2[20];
+				fname.append(itoa(i,buf2,10));
+				fname.append(".txt");
+				std::cout<<i<<fname<<std::endl;
+				JDF::FileOutputStream out4(fname);
+				char buf[2048];
+				int nread;
+				while ((nread = in.read(buf,2048)) != -1)
+				{
+					out4.write(buf,nread);
+				}
 			}
 		}
 	}

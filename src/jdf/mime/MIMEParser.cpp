@@ -1061,7 +1061,11 @@ void MIMEParser::decodeDataBuffer()
 	{
 		m_ResourceStream->close();
 		InputStream* in = m_Resource->getInputStream();
-		saveBodyData(in, mimeBasicPart);
+		
+		//071008 RP added actual call to decode
+		QPDecoder qpDec;
+		ByteBuffer* byteBuf = qpDec.decodeBuffer(*in);
+		saveBodyData(byteBuf, byteBuf->size(), mimeBasicPart);
 		delete m_Resource;
 		delete m_ResourceStream;
 		m_Resource = NULL;
