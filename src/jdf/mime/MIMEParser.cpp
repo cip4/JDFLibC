@@ -2183,17 +2183,26 @@ int MIMEParser::setCurrentMessage( MIMEComponent* message, int nMessageType )
  
 int MIMEParser::boundaryCheck( char* s, int len )
 {
-	const WString& currentBoundary = getCurrentBoundary();
 	int boundaryLen = 0;
 	
-	if (s == NULL)
+	// 071008 if it don't start with '-', then  ciao!
+	if (s == NULL || len<2)
+		return NOT_A_BOUNDARY;
+	if(*s!='-')
 		return NOT_A_BOUNDARY;
 
-	if ( len > 0 && isspace( (char) s[len-1] ) )
+	if(*(s+1)!='-')
+		return NOT_A_BOUNDARY;
+
+	const WString& currentBoundary = getCurrentBoundary();
+
+	if ( len > 0 && (char) s[len-1]>0 && isspace( (char) s[len-1] ) )
+	{
 		len--;
 	
-	if ( len > 0 && isspace( (char) s[len-1] ) )
-		len--;
+		if ( len > 0 && (char) s[len-1]>0 && isspace( (char) s[len-1] ) )
+			len--;
+	}
 	
 	if ( len >= 2 && currentBoundary.length() )
 	{

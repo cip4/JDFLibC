@@ -142,7 +142,7 @@ void testGetParts(JDF::MIMEMessage* msg)
 			{
 				JDF::MIMEBasicPart* part = (JDF::MIMEBasicPart*) mmp->getBodyPart(i,false);
 				JDF::InputStream& in = part->getBodyData();
-				if(i<2)
+				if(i<0)
 				{
 								JDF::JDFDoc doc;
 								doc.StreamParse(in);
