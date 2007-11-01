@@ -43,11 +43,11 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...
 	{
 
+		JDFDate d;
+		cout<<d.GetSecondsSince1970();
 	}
-	
 
 	JDF::PlatformUtils::Terminate();
-
 
 	return 0;
 }

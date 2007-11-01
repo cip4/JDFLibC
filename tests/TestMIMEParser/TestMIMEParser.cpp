@@ -99,6 +99,7 @@
 #include <jdf/mime/MIMEMultiPart.h>
 #include <jdf/mime/MIMEParser.h>
 #include <jdf/mime/MIMEBasicPart.h>
+#include <jdf/mime/MIMELocalResourceFactory.h>
 #include <iostream>
 
 /******************************************************************************
@@ -186,8 +187,9 @@ int main(int argc, char* argv[])
 		JDF::File f(argv[1]);
 		JDF::FileInputStream fin(f);
 		// parse the entire file
-		JDF::MIMEParser parser;
-
+		//JDF::MIMEParser parser;
+		JDF::MIMELocalResourceFactory mimeFileFactory(JDF::File(L"C:\\tmp")); 
+                JDF::MIMEParser parser(&mimeFileFactory); 
 		MyTime t1("Read");
 		std::cout << "Reading MIME message..." << std::endl;
 		JDF::MIMEMessage* msg = parser.parseEntireMessage(fin);

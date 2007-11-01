@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2007 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -161,6 +161,18 @@ public:
 	 */
 
 	BufferedInputStream(InputStream& in, unsigned int size);
+	
+	/**
+	 * Creates a <code>BufferedInputStream</code> with the specified buffer size, 
+	 * and saves its argument, the input stream <code>mIn</code>, for later use.
+	 * An internal buffer array of length <code>size</code> is created and stored in <code>mBuf</code>.
+	 * Ownership of the input stream is passed to this and destruction results in destruction of the passed input stream
+	 * 
+	 * @param in the underlying input stream.
+	 * @param size the buffer size.
+	 * @exception IllegalArgumentException if size == 0
+	 */
+	BufferedInputStream(InputStream* in, unsigned int size=2048);
 
 /*@}*/ 
 
@@ -384,6 +396,8 @@ protected:
 	 */
 
 	int				mReadAheadLimit;
+
+	bool bKillInStream;
 
 private:
 

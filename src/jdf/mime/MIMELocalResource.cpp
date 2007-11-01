@@ -14,6 +14,8 @@
 #include <jdf/mime/MIMELocalResource.h>
 #include <jdf/io/FileInputStream.h>
 #include <jdf/io/FileOutputStream.h>
+#include <jdf/io/BufferedOutputStream.h>
+#include <jdf/io/BufferedInputStream.h>
 
 namespace JDF
 {
@@ -58,12 +60,12 @@ MIMELocalResource::~MIMELocalResource()
 
 InputStream* MIMELocalResource::getInputStream()
 {
-	return new FileInputStream(mResFile);
+	return new BufferedInputStream(new FileInputStream(mResFile));
 }
 
 OutputStream* MIMELocalResource::getOutputStream()
 {
-	return new FileOutputStream(mResFile);
+	return new BufferedOutputStream(new FileOutputStream(mResFile));
 }
 
 } // namespace JDF

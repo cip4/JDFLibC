@@ -1,6 +1,7 @@
 #include <jdf/util/PlatformUtils.h>
 
 #include "jdf/wrapper/JDF.h"
+#include "jdf/wrapper/JDFDoc.h"
 #include "jdf/net/URLEncoder.h"
 #include "jdf/net/URL.h"
 #include "jdf/net/URLConnection.h"
@@ -77,6 +78,7 @@ int main(int argC, char* argV[]){
 	// use TestDoc as a container that holds the various example routines
 	// clean up
 	if(1)
+	{
 			JDFDoc doc(0);
 			JDFNode root = doc.GetJDFRoot();
 			root.SetType("ProcessGroup");
@@ -91,24 +93,22 @@ int main(int argC, char* argV[]){
 
 	}
 	else if(1){
-		for(int j=0;j<5;j++)
+		WString dumpURL="http://localhost:8080/JDFUtility/dump";
+//		WString dumpURL="http://10.10.146.58:8010/FJC/imgpass";
+		for(int j=0;j<6;j++)
 		{
+			if(j==5)
+				dumpURL="http://10.10.146.58:8010/FJC/imgpass";
 			cout<<"---------"<<j<<"--------------"<<endl;
-			JDFDoc doc(1);
-			JDFJMF root = doc.GetJMFRoot();
-			JDFQuery q=root.AppendQuery(JDFMessage::Type_KnownMessages);
-			JDFKnownMsgQuParams qp=q.AppendKnownMsgQuParams();
-			JDFDoc docResp=doc.Write2URL("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");
-			cout<<docResp<<endl;
 			File f("C:\\data\\canon\\test.mjm");
 			FileInputStream is(f);
 
-			URL url("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");
+			URL url(dumpURL);
 
 			URLConnection* pURLConnection =url.openConnection();
 
 			pURLConnection->setDoOutput(true);
-			pURLConnection->setRequestProperty(L"Connection",   L"keep-alive");
+//			pURLConnection->setRequestProperty(L"Connection",   L"keep-alive");
 			pURLConnection->setRequestProperty(L"Content-Type", L"multipart/related");
 
 			OutputStream& os =pURLConnection->getOutputStream();
@@ -134,22 +134,24 @@ int main(int argC, char* argV[]){
 
 			cout <<" end of submit "<<endl;
 
-			for(int i=0;i<100;i++)
-				root.AppendComment().SetText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-			JDFDoc doc2=doc.Write2URL("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");//
-//			JDFDoc doc3=doc.Write2URL("http://localhost:8080/JDFUtility/dump");
-			cout<<doc<<endl<<"-------------------------------------------------"<<endl;
-			cout<<doc2<<endl;
-			//doc.
+			JDFDoc doc(1);
+			JDFJMF root = doc.GetJMFRoot();
+			JDFQuery q=root.AppendQuery(JDFMessage::Type_Status);
+			JDFStatusQuParams qp=q.AppendStatusQuParams();
+			qp.SetJobID("pp070730-1_Book0003_p1_Book0004_p1");
+			qp.SetJobPartID("PP0.D");
+			JDFSubscription sub=q.AppendSubscription();
+			sub.SetURL("http://10.10.146.85/JDFUtility/dump");
+			JDFDoc docResp=doc.Write2URL(dumpURL);
+			cout<<docResp<<endl;
 			cout<<"\n---------------------- done ---------------------------"<<endl;
-			for(int i=120;i<200;i++)
+			for(int i=120;i<100;i++)
 			{
 				JDFDoc dClean(1);
 				JDFJMF root = doc.GetJMFRoot();
 				JDFCommand c=root.AppendCommand(JDFMessage::Type_AbortQueueEntry);
 				c.AppendQueueEntryDef().SetQueueEntryID(WString(i));
-				JDFDoc docResp=doc.Write2URL("http://KIE-DIGIPRINT.ceu.corp.heidelberg.com:8010/FJC/ImagePressC1");
+				JDFDoc docResp=doc.Write2URL(dumpURL);
 				cout<<docResp<<endl;
 
 			}

@@ -120,6 +120,7 @@ BufferedOutputStream::BufferedOutputStream(OutputStream& out) :
 	mCount	(0)
 {
 	mBuf = new char[mSize];
+	bKillOutStream=false;
 }
 
 BufferedOutputStream::BufferedOutputStream(OutputStream& out, unsigned int size) :
@@ -131,6 +132,18 @@ BufferedOutputStream::BufferedOutputStream(OutputStream& out, unsigned int size)
 		throw IllegalArgumentException("BufferSize == 0");
 
 	mBuf = new char[mSize];
+	bKillOutStream=false;
+}
+BufferedOutputStream::BufferedOutputStream(OutputStream* out, unsigned int size) :
+	FilterOutputStream(*out),
+	mSize	(size),
+	mCount	(0)
+{
+	if (size == 0)
+		throw IllegalArgumentException("BufferSize == 0");
+
+	mBuf = new char[mSize];
+	bKillOutStream=true;
 }
 
 BufferedOutputStream::~BufferedOutputStream()
@@ -141,6 +154,9 @@ BufferedOutputStream::~BufferedOutputStream()
 		delete[] mBuf;
 		mBuf=0;
 	}
+	if(bKillOutStream)
+		delete(mOut);
+
 }
 
 void BufferedOutputStream::flush()
