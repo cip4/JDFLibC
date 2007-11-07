@@ -15,6 +15,8 @@
 #include <jdf/WrapperCore/JDFParser.h> 
 #include <jdf/WrapperCore/XMLDocUserData.h>
 #include <jdf/mime/MIMEMessage.h>
+#include <jdf/io/FileOutputStream.h>
+#include <jdf/io/File.h>
 
 //#include "DebugTrace.h"
 #include <iterator>
@@ -43,8 +45,11 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...
 	{
 
-		JDFDate d;
-		cout<<d.GetSecondsSince1970();
+WString msgDmpCntFile(WString(L"dummy")+L".xml");
+JDF::File qtJDF(msgDmpCntFile);
+JDF::FileOutputStream os(qtJDF);
+XMLDoc doc(L"FooBar",L"ns");
+doc.Write2Stream(os);
 	}
 
 	JDF::PlatformUtils::Terminate();
