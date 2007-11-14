@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -83,8 +83,10 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "JDFDoc.h"
 #include "JDFMessage.h"
+
+#include "JDFDoc.h"
+#include "JDFJMF.h"
 
 #include "JDFDevice.h" 
 #include "JDFDeviceList.h" 
@@ -2551,7 +2553,42 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
 	
-	
+
+
+
+   /**
+     * sets the senderID of this message
+     * @param senderID
+     */
+	void JDFMessage::setSenderID(const WString& senderID)
+    {
+        SetAttribute(atr_SenderID, senderID);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * sets the senderID of this message
+     * @return String the senderID of this message or the SenderID of the parent JMF.
+     */
+	WString JDFMessage::getSenderID() const
+    {
+        if(HasAttribute(atr_SenderID))
+            return GetAttribute(atr_SenderID);
+        KElement parentElm=GetParentNode();
+		if(parentElm.GetLocalName()==elm_JMF)
+		{
+			JDFJMF parentJMF=parentElm;
+            return parentJMF.GetSenderID();
+		}
+		return WString::emptyStr;
+    }
+
+   ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+ 	
 	
 }
 

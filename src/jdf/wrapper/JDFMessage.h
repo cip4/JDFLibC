@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2004 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -393,12 +393,26 @@ namespace JDF{
 		* @param typ the type
 		*/
 		void SetType(const WString& typ);
-		
-		
+		/**
+		* sets the senderID of this message
+		* @param senderID
+		*/
+		void setSenderID(const WString& senderID);
+
+		////////////////////////////////////////////////////////////////////////////////
+
+		/**
+		* sets the senderID of this message
+		* @return String the senderID of this message or the SenderID of the parent JMF.
+		*/
+		WString getSenderID() const;
+
+
+
 	protected:
-		
-	/**
-	* Gets a prefix for ID creation for the element
+
+		/**
+		* Gets a prefix for ID creation for the element
 		*/
 		virtual WString GetIDPrefix() const;
 		
