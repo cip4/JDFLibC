@@ -173,7 +173,11 @@ bool MacOSFileSystem::checkAccess(const File& file, bool flag)
 
 int MacOSFileSystem::compare(const File& f1, const File& f2)
 {
-	return (f1.getPath().toUpperCase() == f2.getPath().toUpperCase());
+	WString f1p = f1.getPath().toUpperCase();
+	WString f2p = f2.getPath().toUpperCase();
+    if (f1p < f2p) return -1;
+    if (f1p > f2p) return 1;
+    return 0;
 }
 
 
