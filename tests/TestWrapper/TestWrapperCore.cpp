@@ -25,6 +25,7 @@ using namespace std;
 #include <wchar.h>
 #include<io.h>
 #include "MyTime.h"
+#include "jdf/Wrappercore/StringUtil.h"
 
 
 using namespace JDF;
@@ -45,11 +46,17 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...
 	{
 
-WString msgDmpCntFile(WString(L"dummy")+L".xml");
-JDF::File qtJDF(msgDmpCntFile);
-JDF::FileOutputStream os(qtJDF);
-XMLDoc doc(L"FooBar",L"ns");
-doc.Write2Stream(os);
+		WString xml("<foo xmlns=\"abs\"/>");
+		xml=StringUtil::replaceString(xml,"xmlns=\"abs\"","xmlns=\"\"");
+		XMLDoc d;
+		d.StringParse(xml);
+		WString s;
+		d.Write2String(s);
+		cout<<s<<endl;
+		WString w=L"11ä1";
+		cout<<w.compareToIgnoreCase("11A1")<<endl;
+		cout<<w.compareToIgnoreCase("11Ä1")<<endl;
+		cout<<w.compareToIgnoreCase("11C1")<<endl;
 	}
 
 	JDF::PlatformUtils::Terminate();
