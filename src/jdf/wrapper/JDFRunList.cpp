@@ -240,7 +240,7 @@ namespace JDF{
 	JDFRunList JDFRunList::AddPDF(WString fileName, int first, int last){
 		JDFRunList r=AddRun(fileName,first,last);
         JDFFileSpec fs=r.GetLayoutElement().GetFileSpec();
-        fs.SetMimeType("application/PDF");
+        fs.SetMimeType(L"application/pdf");
 		return r;
 	}
 	
