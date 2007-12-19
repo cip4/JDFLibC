@@ -109,9 +109,17 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
+   /**
+     * Set ErrorText, (Notification/Comment/#text)
+     * also sets Notification/@Type=Error and Notification/@Class=Error
+     * doesn't create a notification if ErroerText=null
+     *
+     * @param et new error text
+     */
 	JDFNotification JDFResponse::SetErrorText(const WString& et){
 		JDFNotification n=AppendNotification();
 		n.SetType("Error");
+		n.SetClass(JDFAutoNotification::Class_Error);
 		JDFComment c=n.AppendComment();
 		c.AppendText(et);
 		return n;

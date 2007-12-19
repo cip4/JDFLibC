@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -95,7 +95,7 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 namespace JDF{
-	
+
 	class JDFNotification;
 	class JDFQuery;
 	/**
@@ -103,8 +103,8 @@ namespace JDF{
 	*/
 	class JDF_WRAPPERCORE_EXPORT JDFResponse  : public JDFAutoResponse{
 	public:
-	/**
-	* null ctor
+		/**
+		* null ctor
 		*/
 		inline JDFResponse():JDFAutoResponse(){};
 		/**
@@ -124,14 +124,15 @@ namespace JDF{
 
 		/**
 		* Creates a Notification of Type="Error" that Contains a comment with the appropriate text.
+		* also sets Notification/@Type=Error and Notification/@Class=Error
 		*@param WString et the error text contents of the appended comment
 		*@return JDFNotification the newly created Notification element
 		*/
 		JDFNotification SetErrorText(const WString& et);
-		
+
 	protected:
-	/**
-	* @tbd still very limited
+		/**
+		* @tbd still very limited
 		*/
 		WString ErrorToString(Error s);
 		/**

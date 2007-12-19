@@ -179,7 +179,10 @@ namespace JDF{
 		for(int i=0;i<sz;i++){
 			JDFIntegerRange r=PBASE->at(i);
 			r.SetDef(xDef);
-			n+=r.NElements();
+			int nn=r.NElements();
+			if(nn<=0)
+				return 0;
+			n+=nn;
 		}
 		return n;
 	}
