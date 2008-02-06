@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -5536,7 +5536,7 @@ namespace JDF{
 			{
 				JDFResourceLink rl=rlp.GetPoolChild(0,elementName+"Link",JDFAttributeMap(atr_Usage,"Input"),WString::emptyStr);
 				if(! rl.isNull() )
-					nici=rl.GetTarget();
+					nici=rl.GetPart(1).isNull() ? rl.GetTarget() : rl.GetLinkRoot();
 			}
 		}
 
