@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -132,68 +132,68 @@ namespace JDF{
 		virtual void resetErrors(){
 		}
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	class BinInputStreamAdapter : public BinInputStream
 	{
 	public :
-		
+
 		BinInputStreamAdapter(JDF::InputStream* in) :
 		   mStream(in)
 		   {
 			   fCurIndex = 0;		
 		   }
 		   virtual ~BinInputStreamAdapter() {}
-		   
+
 		   virtual unsigned int curPos() const;
 		   virtual unsigned int readBytes
 			   (
 			   XMLByte* const  toFill
 			   , const unsigned int    maxToRead
 			   );
-		   
+
 	private :
-		
+
 		JDF::InputStream* mStream;
 		unsigned int    fCurIndex;
 	};
-	
-	
+
+
 	inline unsigned int BinInputStreamAdapter::curPos() const
 	{
 		return fCurIndex;
 	}
-	
+
 	class InputSourceAdapter : public InputSource
 	{
 	public:
-		
+
 		InputSourceAdapter(JDF::InputStream* in, bool takeOwnerShip=false) :
 		  mStream(in),
 			  mOwnerShip(takeOwnerShip)
 		  {
 		  }
-		  
+
 		  ~InputSourceAdapter() 
 		  {
 			  if (mOwnerShip)
 				  delete mStream;
 		  }
-		  
+
 		  BinInputStream* makeStream() const;
-		  
+
 	private:
 		JDF::InputStream* mStream;
 		bool			  mOwnerShip;
-		
+
 	};
-	
+
 	BinInputStream* InputSourceAdapter::makeStream() const
 	{
 		return new BinInputStreamAdapter(mStream);
 	}
-	
-	
+
+
 	// ---------------------------------------------------------------------------
 	//  MemBinInputStream: Implementation of the input stream interface
 	// ---------------------------------------------------------------------------
@@ -204,13 +204,13 @@ namespace JDF{
 		{
 			/*
 			if((fCurIndex%maxToRead)==0){
-				const unsigned int bytesRead = mStream->read((char*)toFill,maxToRead);
-				if (bytesRead == -1)
-					return 0;
-				fCurIndex += bytesRead;
-				return bytesRead;
+			const unsigned int bytesRead = mStream->read((char*)toFill,maxToRead);
+			if (bytesRead == -1)
+			return 0;
+			fCurIndex += bytesRead;
+			return bytesRead;
 			}else{
-				return 0;
+			return 0;
 			}
 			*/
 
@@ -219,7 +219,7 @@ namespace JDF{
 				return 0;
 			fCurIndex += bytesRead;
 			return bytesRead;
-			
+
 
 		}
 		catch (JDF::IOException&)
@@ -227,34 +227,34 @@ namespace JDF{
 			return 0;
 		}
 	}
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
-	
+
 	//////////////////////////////////////////////////////////////////////
-		JDFParser::JDFParser(){
-			xercesDOMParser = new XercesDOMParser();
-			LastParsed=new XMLDoc();
-		}
+	JDFParser::JDFParser(){
+		xercesDOMParser = new XercesDOMParser();
+		LastParsed=new XMLDoc();
+	}
 	//////////////////////////////////////////////////////////////////////
-		JDFParser::~JDFParser(){
-			delete xercesDOMParser;
-			delete LastParsed;
-		}
+	JDFParser::~JDFParser(){
+		delete xercesDOMParser;
+		delete LastParsed;
+	}
 	//////////////////////////////////////////////////////////////////////
-		JDFParser::JDFParser(const JDFParser& D){
-		}
+	JDFParser::JDFParser(const JDFParser& D){
+	}
 	//////////////////////////////////////////////////////////////////////
-		JDFParser& JDFParser::operator =(const JDFParser& other){
-			return *this;
-		};
+	JDFParser& JDFParser::operator =(const JDFParser& other){
+		return *this;
+	};
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	XMLDoc JDFParser::GetRoot()const{
 		return GetDocument();
 	}
@@ -263,20 +263,22 @@ namespace JDF{
 		return *LastParsed;
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	DOMDocument* JDFParser::AdoptDocument()const{
 		DOMDocument* pUserDomDocument=xercesDOMParser->adoptDocument();
 		return pUserDomDocument;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
-	
+
+
 	bool JDFParser::Parse(const WString& inFile, bool bValidate,bool bEraseEmpty,
 		bool bDoNamespaces, ErrorHandler * pErrorHandler, const WString& schemaLocation,
 		int nRetry, int waitMilliSecs)
 	{
 		*LastParsed=(DOMDocument*)0;
+		if(schemaLocation.empty()) // 080207 - don't validate w/o schema
+			bValidate=false;
 
 		// special case
 		if(inFile==L"_STDIN_") 
@@ -343,14 +345,16 @@ namespace JDF{
 			return bRet;
 		}
 	}
-	
-////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////
+
 	bool JDFParser::Parse(JDF::File inFile, bool bValidate, bool bEraseEmpty,
 		bool bDoNamespaces, ErrorHandler * pErrorHandler, const WString& schemaLocation, 
 		int nRetry, int waitMilliSecs)
 	{
 		*LastParsed=(DOMDocument*)0;
+		if(schemaLocation.empty()) // 080207 - don't validate w/o schema
+			bValidate=false;
 
 		// the actual parsing
 		if (JDF::File(inFile).exists() == false)
@@ -367,7 +371,7 @@ namespace JDF{
 		}else{
 			xercesDOMParser->setErrorHandler(&err);  
 		}
-		
+
 		bool bTry=bDoNamespaces;
 		bool bXMLError=false;
 		while(42){
@@ -411,31 +415,33 @@ namespace JDF{
 				xercesDOMParser->setDoNamespaces(false);
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	/////////////////////////////////////////////////////////////////
-	
-	
+
+
 	bool JDFParser::StreamParse(JDF::InputStream& in, bool bValidate,bool bEraseEmpty,
 		bool bDoNamespaces, ErrorHandler * pErrorHandler, const WString& schemaLocation)
 	{
+		if(schemaLocation.empty()) // 080207 - don't validate w/o schema
+			bValidate=false;
 		*LastParsed=(DOMDocument*)0;
 
 		InputSourceAdapter adapter(&in,false);
 		XMLErrorHandler err;
 		initParser(schemaLocation,bValidate);
 		xercesDOMParser->setDoNamespaces(bDoNamespaces);
-		
+
 		if (pErrorHandler != NULL){
 			xercesDOMParser->setErrorHandler(pErrorHandler);  
 		}else{
 			xercesDOMParser->setErrorHandler(&err);  
 		}
-		
+
 		bool bTry=bDoNamespaces;
 		while(42){
 			try{
@@ -444,7 +450,7 @@ namespace JDF{
 				// cleanup the XML
 				if(bEraseEmpty) 
 					GetRoot().GetRoot().EraseEmptyNodes();
-				
+
 				*LastParsed=AdoptDocument();
 
 				return true;
@@ -457,7 +463,7 @@ namespace JDF{
 				std::cout << "An error occured during parsing\n   Message: "
 					<< e.getMessage() << std::endl;
 			}
-			
+
 			// error case
 			if(bTry) // already tried or absolutely require ns handling
 				return false;
@@ -479,11 +485,11 @@ namespace JDF{
 		return bRet;
 	}
 	/////////////////////////////////////////////////////////////////
-	
+
 	void JDFParser::initParser(const WString& schemaLocation, bool bValidate)
 	{
 		xercesDOMParser->setDoValidation(bValidate);
-//		xercesDOMParser->setDoNamespaces(true);
+		//		xercesDOMParser->setDoNamespaces(true);
 		xercesDOMParser->setDoSchema(bValidate);
 	}
 

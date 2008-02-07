@@ -539,49 +539,83 @@ namespace JDF{
 	
 	bool JDFResourceLink::HasResourcePartMap(const mAttribute& partMap,bool bCheckResource)const
 	{
-		if(throwNull()) 
-			return false;
-		
-		vmAttribute vPart;
-		if(bCheckResource){
-			vPart=GetResourcePartMapVector();
-		}else{
-			if(partMap.empty()){ // not checking the reource and checking against the root partmap --> always true
-				return true;
-			}
+       //TODO remove implicit partitions
+        // Attention !!!
+        // Don't change this method without checking if routing is still working !
+        // The C++ method is different and is not used, the java method is used for routing.
+        JDFResource linkRoot = GetLinkRoot();
+        if(linkRoot.isNull())
+            return false;
 
-			vPart=GetPartMapVector();
-		}
-		int siz=vPart.size();
-        
-	        if(partMap.empty() && vPart.empty())
-	        {
-	            return true;
-	        }
 
-		bool bImplicit=GetLinkRoot().GetPartUsage()==JDFResource::PartUsage_Implicit;
-
-		if(bImplicit){
-            if (siz == 0){ // the resourcelink has no parts and therefore always points at anything
+        vMapWString vPart;
+		JDFResource::EnumPartUsage partUsage = linkRoot.GetPartUsage();
+		bool bImplicit = JDFResource::PartUsage_Implicit==partUsage;
+        if (bCheckResource)
+        {
+            if(partMap.isEmpty())
+            {
+                return true;
+            }
+            JDFResource partition = linkRoot.GetPartition(partMap, partUsage);
+            if (!partition.isNull() && partition != linkRoot)
+            {
+                return true;
+            }
+            else if(bImplicit)
+            {
+                KElement childByTagName = linkRoot.GetElement(linkRoot.GetNodeName());
+                if (childByTagName.isNull())
+                {
+                    // there is no partition
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            vPart = GetPartMapVector();
+            if (partMap.isEmpty() && vPart.empty())
+            {
                 return true;
             }
 
-			for(int i=0;i<siz;i++){
-				if(vPart[i].OverlapMap(partMap)) 
-					return true;
-			}
-		}else{ // explicit
-            if ((siz == 0) && (!bCheckResource)){ // the link has no parts and we don't know the details of the resource --> assume that it fits
-				return true;
-			}
-			for(int i=0;i<siz;i++){
-				// RP 050120 swap of vPart[i] and partmap
-				// RP 070511 swap back of vPart[i] and partmap
-				if(vPart[i].SubMap(partMap)) 
-					return true;
-			}
-		}
-		return false;
+            int siz = vPart.size();        
+            if (bImplicit)
+            {
+                if (siz == 0)
+                {
+                    return true;
+                }
+                for (int i = 0; i < siz; i++)
+                {
+                    if (vPart.elementAt(i).OverlapMap(partMap))
+                        return true;
+                }
+            }
+            else
+            { // explicit
+                if (siz == 0 && !bCheckResource)
+                {
+                    return true;
+                }
+
+                for (int i = 0; i < siz; i++)
+                {
+                    JDFAttributeMap part = vPart.elementAt(i);
+                    if(part.size()==0)
+                        return true;
+
+                    // RP 050120 swap of vPart[i] and partmap
+                    // RP 070511 swap back of vPart[i] and partmap
+                    if (part.SubMap(partMap))
+                        return true;
+                }
+            }
+        }
+
+
+        return false;
 	}
 	
 	//////////////////////////////////////////////////////////////////////
