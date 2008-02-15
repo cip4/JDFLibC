@@ -46,7 +46,7 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...
 	{
 
-		WString xml("<foo xmlns=\"abs\"/>");
+		WString xml("<foo xmlns=\"abs\"><bar/></foo>");
 		xml=StringUtil::replaceString(xml,"xmlns=\"abs\"","xmlns=\"\"");
 		XMLDoc d;
 		d.StringParse(xml);

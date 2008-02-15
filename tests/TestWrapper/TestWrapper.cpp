@@ -79,18 +79,68 @@ int main(int argC, char* argV[]){
 	// clean up
 	if(1)
 	{
-			JDFDoc doc(0);
-			JDFNode root = doc.GetJDFRoot();
-			root.SetType("ProcessGroup");
-			root.SetDescriptiveName("abc");
-			JDFNode node=root.AddProcess("foobar");
-			assertTrue(node.HasAttribute("DescriptiveName","",true));
-			assertFalse(node.HasAttribute("DescriptiveName","",false));
-			JDFRunList rl=root.addResource("RunList",JDFResource::Class_Parameter,JDFResourceLink::Usage_Input);
-			JDFRunList rl2=rl.AddPartition(JDFResource::PartIDKey_CellIndex,"33");
-			assertTrue(rl2.HasAttribute("ID","",true));
-			assertFalse(((KElement)rl2).HasAttribute("ID","",false));
+      JDFDoc d(0);
+        JDFNode n=d.GetJDFRoot();
+		JDFResource r=n.AddResource("ScreeningIntent", JDFResource::Class_Intent, JDFResourceLink::Usage_Input);
 
+		JDFResourceLink rl=n.getLink(r,JDFResourceLink::Usage_Input);
+		cout<<n;
+		cout<<rl;
+		JDFAttributeMap null;
+        // the root always exists
+        assertTrue(rl.HasResourcePartMap(null,false));
+        assertTrue(rl.HasResourcePartMap(null,true));
+        
+        JDFAttributeMap attributeMap("SignatureName", "sig1");
+
+        assertTrue(rl.HasResourcePartMap(attributeMap,false));
+        assertFalse(rl.HasResourcePartMap(attributeMap,true));
+               
+		r.SetPartUsage(JDFResource::PartUsage_Implicit);
+        assertTrue(rl.HasResourcePartMap(attributeMap,false));
+        assertTrue(rl.HasResourcePartMap(attributeMap,true));
+
+        
+        r.SetPartUsage(JDFResource::PartUsage_Explicit);
+
+        
+		JDFResource rSig=r.AddPartition(JDFResource::PartIDKey_SignatureName, "sig1");
+        
+        // the root always exists
+        assertTrue(rl.HasResourcePartMap(null,false));
+        assertTrue(rl.HasResourcePartMap(null,true));
+        
+        // link and resource match
+        rl.SetPartition(JDFResource::PartIDKey_SignatureName, "sig1");
+        assertTrue(rl.HasResourcePartMap(null,false));
+        assertTrue(rl.HasResourcePartMap(null,true));
+        
+        // resource is partitioned deeper than link
+        rSig.AddPartition(JDFResource::PartIDKey_SheetName, "sh1");
+        assertTrue(rl.HasResourcePartMap(null,false));
+        assertTrue(rl.HasResourcePartMap(attributeMap,false));
+        
+        attributeMap.put("SheetName", "sh1");
+        assertTrue(rl.HasResourcePartMap(attributeMap,true));
+        assertFalse(rl.HasResourcePartMap(attributeMap,false));
+        
+        attributeMap.put("SheetName", "sh2");
+        assertFalse(rl.HasResourcePartMap(attributeMap,true));
+        assertFalse(rl.HasResourcePartMap(attributeMap,false));
+        
+        attributeMap.put("Side", "Front");
+        assertFalse(rl.HasResourcePartMap(attributeMap,true));
+        assertFalse(rl.HasResourcePartMap(attributeMap,false));
+
+        assertFalse(rl.HasResourcePartMap(JDFAttributeMap("SignatureName", "sig2"),false));
+        assertFalse(rl.HasResourcePartMap(JDFAttributeMap("SignatureName", "sig2"),true));
+
+        r.SetPartUsage(JDFResource::PartUsage_Implicit);
+        assertTrue(rl.HasResourcePartMap(attributeMap,true));
+        assertTrue(rl.HasResourcePartMap(attributeMap,false));
+      
+        assertFalse(rl.HasResourcePartMap(JDFAttributeMap("SignatureName", "sig2"),false));
+        assertFalse(rl.HasResourcePartMap(JDFAttributeMap("SignatureName", "sig2"),true));
 	}
 	else if(1){
 		WString dumpURL="http://localhost:8080/JDFUtility/dump";
