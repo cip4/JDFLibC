@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -265,9 +265,16 @@ namespace JDF{
             if(s.endsWith(".0"))
                 s=s.substring(0,s.length()-2);
             
-            if(s.length()>10)
+            if(s.indexOf("E")>=0)
             {
-				int posDot=s.indexOf(WString::dot);
+                char buf[20];
+                s=sprintf(buf,"%10.10f", d);
+				s=buf;
+            }
+
+            if(s.length()>8)
+            {
+                int posDot=s.indexOf(WString::dot);
                 if(posDot>=0)
                 {
                     int l=s.length();
@@ -275,10 +282,25 @@ namespace JDF{
                     {
                         l=posDot+9;
                         s=s.substring(0,l);
+                        if(s.endsWith("999"))
+                            return formatDouble(d+0.000000004);
+
+                        int n;
+                        for(n=l;n>posDot;n--)
+                        {
+                            if(!s.substring(n-1,n).equals("0"))
+                                break;
+                        }
+                        s=s.substring(0,n);
                     }
-                }
-                
+                }                
             }
+            if(s.endsWith("."))
+            {
+				s=s.leftStr(-1);                
+            }
+            if(s=="-0")
+                s="0";
         }
         return s;
 	}

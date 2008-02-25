@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1608,14 +1608,14 @@ namespace JDF
 	WString WString::valueOf(double d)
 	{
 		char temp[515];
-		size_t templen = dtoa(temp, d, 'f', 50, 6);
+		size_t templen = dtoa(temp, d, 'f', 50, 8);
 		return WString(temp,templen);
 	}
 
 	WString WString::valueOf(float f)
 	{
 		char temp[515];
-		size_t templen = dtoa(temp, (double)f, 'f', 50, 6);
+		size_t templen = dtoa(temp, (double)f, 'f', 50, 8);
 		return WString(temp,templen);
 	}
 

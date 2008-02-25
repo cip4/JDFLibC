@@ -46,17 +46,12 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...
 	{
 
-		WString xml("<foo xmlns=\"abs\"><bar/></foo>");
-		xml=StringUtil::replaceString(xml,"xmlns=\"abs\"","xmlns=\"\"");
-		XMLDoc d;
-		d.StringParse(xml);
-		WString s;
-		d.Write2String(s);
-		cout<<s<<endl;
-		WString w=L"11ä1";
-		cout<<w.compareToIgnoreCase("11A1")<<endl;
-		cout<<w.compareToIgnoreCase("11Ä1")<<endl;
-		cout<<w.compareToIgnoreCase("11C1")<<endl;
+			WString ww(1.0);
+		cout<<ww<<endl;
+			WString ww2(0.9999999999);
+			WString ww3(1.0000000001);
+		cout<<ww2<<endl<<ww3<<endl;
+		cout <<StringUtil::formatDouble(0.9999999999)<<endl;
 	}
 
 	JDF::PlatformUtils::Terminate();
