@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2004 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -93,11 +93,11 @@
 
 #include "AutoJDF/JDFAutoSpawned.h"
 namespace JDF{
-/*
-*********************************************************************
-class JDFSpawned : public JDFAutoSpawned
+	/*
+	*********************************************************************
+	class JDFSpawned : public JDFAutoSpawned
 
-  *********************************************************************
+	*********************************************************************
 	*/
 	/**
 	* Typesafe resource wrapper calss JDFSpawned 
@@ -106,11 +106,11 @@ class JDFSpawned : public JDFAutoSpawned
 	*/
 	class JDF_WRAPPERCORE_EXPORT JDFSpawned : public JDFAutoSpawned{
 	public:
-		
-		
+
+
 		// Constructors / Destructors  
-		
-		
+
+
 		/**
 		* null ctor
 		*/
@@ -129,7 +129,7 @@ class JDFSpawned : public JDFAutoSpawned
 		* dtor
 		*/
 		virtual ~JDFSpawned(){};
-		
+
 		/**
 		* Typesafe attribute adder of rRefsROCopied
 		* @param WString& rRefs the reference list
@@ -141,6 +141,17 @@ class JDFSpawned : public JDFAutoSpawned
 		*/
 		void AppendrRefsRWCopied(const WString& rRefs);
 
+		/**
+		* Set attribute rRefsROCopied
+		*@param vWString value: the value to set the attribute to
+		*/
+		virtual void SetrRefsROCopied(const vWString& value);
+
+		/**
+		* Set attribute rRefsRWCopied
+		*@param vWString value: the value to set the attribute to
+		*/
+		virtual void SetrRefsRWCopied(const vWString& value);
 
 		//@{
 		/**
@@ -170,7 +181,7 @@ class JDFSpawned : public JDFAutoSpawned
 		* @param mAttribute& mPart: attribute map for the part to remove
 		*/
 		void RemovePartMap(const mAttribute & mPart);
-		
+
 		/**
 		* checks whether the part defined in mPart is included
 		*
@@ -179,9 +190,9 @@ class JDFSpawned : public JDFAutoSpawned
 		*/
 		bool HasPartMap(const mAttribute & mPart);
 		//@}
-		
+
 	}; // endJDFSpawned
-	
+
 	// ******************************************************
 }; // end namespace JDF
 #endif //_JDFSpawned_H_

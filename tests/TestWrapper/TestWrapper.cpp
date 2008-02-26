@@ -81,6 +81,12 @@ int main(int argC, char* argV[]){
 	{
       JDFDoc d(0);
         JDFNode n=d.GetJDFRoot();
+		JDFAuditPool ap=n.GetCreateAuditPool();
+		JDFSpawned sp=ap.AddSpawned(n);
+		cout<<sp<<endl;
+		sp.SetrRefsROCopied(vWString::emptyvStr);
+		cout<<sp<<endl;
+		return 0;
 		JDFResource r=n.AddResource("ScreeningIntent", JDFResource::Class_Intent, JDFResourceLink::Usage_Input);
 
 		JDFResourceLink rl=n.getLink(r,JDFResourceLink::Usage_Input);
