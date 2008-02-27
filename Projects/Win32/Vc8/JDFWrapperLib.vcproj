@@ -4612,6 +4612,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFLot.h"
+						>
+					</File>
+					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFPool.h"
 						>
 					</File>
@@ -4662,6 +4666,10 @@
 					</File>
 					<File
 						RelativePath="..\..\..\src\jdf\wrapper\JDFGeneralID.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\..\src\jdf\wrapper\JDFLot.cpp"
 						>
 					</File>
 					<File

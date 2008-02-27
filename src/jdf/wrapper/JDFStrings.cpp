@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -492,6 +492,7 @@ namespace JDF{
 	const WString JDFStrings::elm_LongitudinalRibbonOperationParams=L"LongitudinalRibbonOperationParams";
 	const WString JDFStrings::elm_LongPerforate=L"LongPerforate";
 	const WString JDFStrings::elm_LongSlit=L"LongSlit";
+	const WString JDFStrings::elm_Lot=L"Lot";
 	const WString JDFStrings::elm_LZWParams=L"LZWParams";
 
 	// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM

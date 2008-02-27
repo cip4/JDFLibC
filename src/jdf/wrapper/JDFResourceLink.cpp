@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -853,6 +853,25 @@ namespace JDF{
 		return GetParentNode();
 	}
 	
+	//////////////////////////////////////////////////////////////////////
+	
+	JDFPart JDFResourceLink::AppendLot(){
+		JDFPart e=AppendElement(elm_Lot);
+		e.init();
+		return e;
+	};
+	//////////////////////////////////////////////////////////////////////
+	
+	JDFPart JDFResourceLink::GetCreateLot(int iSkip){
+		JDFPart e=GetCreateElement(elm_Lot,WString::emptyStr,iSkip);
+		e.init();
+		return e;
+	};
+	
+	///////////////////////////////////////////////////////////////////////
+	JDFPart JDFResourceLink::GetLot( int iSkip)const{
+		return GetElement(elm_Lot,WString::emptyStr,iSkip);
+	};
 	//////////////////////////////////////////////////////////////////////
 	
 	JDFPart JDFResourceLink::AppendPart(){
