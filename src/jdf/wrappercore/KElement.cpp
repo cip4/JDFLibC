@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -92,6 +92,7 @@
 #include "StringUtil.h"
 #include "XMLDocUserData.h"
 #include "jdf/lang/Mutex.h"
+#include "jdf/lang/Exception.h"
 #include "jdf/lang/SetWString.h"
 
 #include <xercesc/framework/MemBufFormatTarget.hpp>
@@ -3026,61 +3027,167 @@ namespace JDF{
 	}
 	*/
 	KElement KElement::GetXPathElement(const WString & pathIn)const{
-		if(throwNull()) 
-			return DefKElement;
-		if(pathIn.empty()) 
-			return *this;
+		vElement v=getXPathElementVectorInternal(pathIn, 1, true);
+		if(v.empty())
+			return KElement::DefKElement;
+		return v.elementAt(0);
+	}
+	vElement KElement::GetXPathElementVector(const WString & pathIn, int maxSize)const{
+		return getXPathElementVectorInternal(pathIn, maxSize,true);
+	}
 
-		WString path=StringUtil::replaceString(pathIn, "[@", "|||");
-
-		if(path[0]==L'/'){ 
-			KElement r=GetDocRoot();
-			int nextPos=path.find(L"/",2);
-			if(path.substring(1,nextPos)!=r.GetNodeName())
-				return DefKElement;
-			if(nextPos==WString::npos)
-				return *this;
-
-			return r.GetXPathElement(path.substring(nextPos+1));
-		}
-		if(path.leftStr(2)==L"./") 
-			return GetXPathElement(path.substring(2));
-		if(path.leftStr(3)==L"../") 
-			return GetParentNode().GetXPathElement(path.substring(3));
-		if(path.equals(L"..")) 
-			return GetParentNode();
-		if(path.equals(L".")) 
-			return *this;
-
-		int posB0=path.find(L"[");
-        int posBAt=path.indexOf(L"|||");
-		int pos=path.find(L"/");
-		int iSkip=0;
-		WString newPath=path;
-
+	JDFAttributeMap KElement::getXPathAtMap(const WString& path, int posBAt, int posB1)const
+	{
 		JDFAttributeMap map;
-		if(posB0!=path.npos && (posB0<pos || pos==WString::npos)){
-			int posB1=path.find(L"]");
-			iSkip=path.substring(posB0+1,posB1);
-			iSkip--;
-			newPath=path.leftStr(posB0)+path.substring(posB1+1,path.npos);
-			pos=newPath.find(L"/");
-		}
-		else  if (posBAt != -1 && (posBAt<pos || pos==-1))
+		WString attEqVal = path.substring(posBAt + 3, posB1);
+		//TODO multiple attributes, maybe tokenize by ","
+		WString attName=StringUtil::token(attEqVal, 0, "=");
+		WString attVal=attEqVal.substring(attName.length()+2,attEqVal.length()-1);
+		map.put(attName,attVal);
+		return map;
+	}
+
+	/**
+	* gets an vector of elements element as defined by XPath to value <br>
+	*
+	*
+	* @tbd enhance the subsets of allowed XPaths,
+	*      now only .,..,/,@,// are supported
+	*
+	* @param path XPath abbreviated syntax representation of the
+	*             attribute, e.g
+	*              <code>parentElement/thisElement</code>
+	*              <code>parentElement/thisElement[2]</code>
+	*              <code>parentElement[@a=\"b\"]/thisElement[@foo=\"bar\"]</code>
+	*
+	* @return VElement the vector of matching elements
+	*
+	* @throws IllegalArgumentException if path is not supported
+	*/
+	vElement KElement::getXPathElementVectorInternal(WString path, int maxSize, bool bLocal)const
+	{
+		VElement vRet;
+		if (path.empty())
 		{
-			int posB1 = path.indexOf(L"]");
-			WString attEqVal = path.substring(posBAt + 3, posB1);
-			WString attName=StringUtil::token(attEqVal, 0, L"=");
-			WString attVal=attEqVal.substring(attName.length()+2,attEqVal.length()-1);
-			map=JDFAttributeMap(attName,attVal);
+			if(bLocal)
+				vRet.add(*this);
+			else
+				vRet=GetChildrenByTagName(WString::emptyStr, WString::emptyStr, JDFAttributeMap::emptyMap, false, true, 0);
+			return vRet;
+		}
+		if (path.startsWith(L"/"))
+		{
+			if(path.startsWith(L"//"))
+			{
+                return GetDocRoot().getXPathElementVectorInternal(path.substring(2), maxSize, false);
+			}
+			KElement r=GetDocRoot();
+			WString rootNodeName = r.GetNodeName();
+			int nextPos = path.indexOf("/", 2);
+			WString rootPath = nextPos>0 ? path.substring( 1,nextPos) : path.substring( 1);
+			WString nextPath = nextPos>0 ? path.substring( nextPos+1) : "";
+			if (rootPath.equals(rootNodeName) || IsWildcard(rootPath.c_str())) 
+			{
+				return r.getXPathElementVectorInternal(nextPath,maxSize,true);
+			}
+			throw new IllegalArgumentException("Invalid root node name");
+
+		}
+		else if (path.startsWith(L"."))
+		{
+			if (path.startsWith(L"./")) {
+				return getXPathElementVectorInternal(path.substring(2/*JDFConstants.DOTSLASH.length()*/),maxSize,true);
+			}
+			if (path.startsWith(L"../"))
+			{
+				KElement parent = GetParentNode();
+				if(parent.isNull()) {
+					return vElement::emptyVector;
+				}
+				return parent.getXPathElementVectorInternal(path.substring(3/*JDFConstants.DOTDOTSLASH.length()*/),maxSize,true);
+			}
+			else if (path.equals(L"."))
+			{
+				vRet.add(*this);
+				return vRet;
+			}
+			else if (path.equals(L".."))
+			{
+				KElement parent=GetParentNode();
+				if(parent.isNull()) {
+					return vElement::emptyVector;
+				}
+				vRet.add(parent);
+				return vRet;
+			}
+		}
+
+		path=StringUtil::replaceString(path, L"[@", L"|||");
+		int posB0 = path.indexOf("[");
+		int posBAt=path.indexOf("|||");
+		int iSkip = 0;
+		WString newPath = path;
+		int pos = newPath.indexOf(L"/");
+		JDFAttributeMap map=JDFAttributeMap::emptyMap;
+		bool bExplicitSkip=false;
+
+		if (posB0 != -1 && (posB0<pos || pos==-1)) // parse for [n]
+		{
+			int posB1 = path.indexOf("]");
+
+			//TODO fix escape attribute values
+
+			WString n = path.substring(posB0 + 1, posB1);
+			iSkip = n;
+			if(iSkip<=0)
+				throw new IllegalArgumentException("getXPathVector: bad index:"+iSkip);
+			iSkip--;
+			bExplicitSkip=true;
+			newPath = path.substring(0, posB0) + path.substring(posB1 + 1);
+			pos = newPath.indexOf(L"/");
+		}
+		else  if (posBAt != -1 && (posBAt<pos || pos==-1)) // parse for [@a="b"]
+		{
+			int posB1 = path.indexOf("]");
+			map = getXPathAtMap(path, posBAt, posB1);
 			newPath = path.substring(0, posBAt) + path.substring(posB1 + 1);
-			pos = newPath.indexOf(WString::slash);                   
+			pos = newPath.indexOf(L"/");
 		}
-		if(pos!=newPath.npos){ 
-			KElement e=GetChildByTagName(newPath.substring(0, pos), WString::emptyStr, iSkip, map, true, true); 
-			return e.GetXPathElement(newPath.substring(pos+1));
+
+		if (pos != -1) // have another element
+		{
+			WString elmName = newPath.substring(0, pos);
+			VElement ve = GetChildrenByTagName(elmName, L"", map, bLocal);
+			if(ve.size()<=iSkip) {
+				return vElement::emptyVector;
+			}
+			int iFirst=bExplicitSkip ? iSkip : 0;
+			int iLast=bExplicitSkip ? iSkip+1 : ve.size();
+			for(int i=iFirst;i<iLast;i++) // loop in case multiple elements contain the same attribute
+			{
+				VElement eRet;
+				KElement ee=ve.item(i);
+				if (!ee.isNull()) {
+					eRet= ee.getXPathElementVectorInternal(newPath.substring(pos + 1),maxSize,true);
+				}
+				if(!eRet.isEmpty()) {
+					vRet.addAll(eRet);
+				}
+			}
+			return vRet;
 		}
-		return GetChildByTagName(newPath.substring(0, pos), WString::emptyStr, iSkip, map, true, true); 
+		// last element
+		if(bExplicitSkip)
+		{
+			KElement e=GetChildByTagName(newPath, L"", iSkip, map, true, true);
+			if(e.isNull()) {
+				return vElement::emptyVector;
+			}
+			vRet.add(e);
+			return vRet;
+		}
+		return GetChildrenByTagName(newPath, L"", map, bLocal);
+
 	}
 
 	//////////////////////////////////////////////////////////////////////

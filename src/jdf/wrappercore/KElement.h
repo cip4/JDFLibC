@@ -835,6 +835,7 @@ namespace JDF {
 		*/
 		KElement GetXPathElement(const WString & path)const;
 
+		vElement GetXPathElementVector(const WString & pathIn, int maxSize)const;
 		/**
 		* Gets an element as defined by XPath to value and creates it if it does not exist <br>
 		*
@@ -2020,7 +2021,10 @@ namespace JDF {
 		friend class XMLDoc;
 		friend class JDFResource;
 		friend class JDFElement;
-		XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* domElement;
+		XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* domElement;	
+		vElement getXPathElementVectorInternal(WString path, int maxSize, bool bLocal)const;
+		JDFAttributeMap getXPathAtMap(const WString& path, int posBAt, int posB1)const;
+
 
 		/**
 		* Gets a child node of nodetype nodeType with index=iPos
