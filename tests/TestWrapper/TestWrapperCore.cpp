@@ -47,6 +47,7 @@ int main(int argc, char* argv[]){
 
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
+	if(false)
 	{
 
         XMLDoc  jdfDoc("JDF");
@@ -91,6 +92,15 @@ int main(int argc, char* argv[]){
         assertEquals(root.GetXPathAttribute("/JDF/ee[@a=\"2\"]/ff/@b"), "3");
         assertEquals(root.GetXPathAttribute("//ee[@a=\"2\"]/ff/@b"), "3");
         assertEquals(root.GetXPathAttribute("/JDF/ee[1]/ff/@b"),"");	
+	}
+	else
+	{
+		WString s="abc";
+		assertTrue(s.matches("abc"));
+		assertFalse(s.matches("ab"));
+		assertFalse(s.matches("c"));
+		assertFalse(s.matches("(.)?"));
+		assertTrue(s.matches("ab(.)?"));
 	}
 
 	JDF::PlatformUtils::Terminate();
