@@ -19,6 +19,7 @@
 #include "MyTime.h"
 #include "MyArgs.h"
 #include <iostream>
+#include <locale.h>
 
 XERCES_CPP_NAMESPACE_USE
 int nnnn=0;
@@ -54,6 +55,7 @@ int main(int argC, char* argV[]){
 	} catch (const JDF::Exception&)	{
 		return 1;
 	}
+struct lconv * lc=localeconv(  );
 
 	// trivial argument handling
 	MyArgs args(argC,argV,"","aio");
@@ -87,7 +89,11 @@ int main(int argC, char* argV[]){
 		doc.Parse("c:\\data\\layout.jdf");
 
         JDFNode n=doc.GetJDFRoot();
+
 		JDFCuttingParams cp=n.GetChildByTagName("CuttingParams","",0,JDFAttributeMap(),false);
+		cp.AppendCutMark().SetPosition(JDFXYPair(1.0,2.2));
+		cp.AppendCutMark().SetPosition(JDFXYPair("1,1 2.0"));
+		cout<<cp<<endl;
 		vElement v=cp.GetPartitionVector(JDFResource::PartIDKey_SheetName,"FB 001",true);
 		cout<<v<<endl;
 		return 1;
