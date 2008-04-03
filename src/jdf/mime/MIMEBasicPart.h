@@ -367,7 +367,10 @@ private:
 	static const JDFCh* m_StringDisposition[];
 
 	int			m_contentType;
+#pragma warning(push)
+#pragma warning(disable: 4251)
 	value_pair  m_contentMD5;
+#pragma warning(pop)
 	int			m_contentTransferEncoding;
 	int			m_parsedPart;
 
@@ -378,7 +381,10 @@ private:
 	// must convert the header name to lower-case always prior to the 
 	// hash look-up. The entries added to the hash table are objects of
 	// class Header.
+#pragma warning(push)
+#pragma warning(disable: 4251)
 	hmap<WString,MIMEHeader,ElfHash> m_mimeHeadersTable;
+#pragma warning(pop)
 
 	// Buffer to hold body-part (not encoded). We always store un-encoded.
 	// Buffer stores data as parsed from input message or as given by the user
