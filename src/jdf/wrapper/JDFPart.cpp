@@ -112,8 +112,8 @@ namespace JDF{
 		if(eKey==JDFResource::PartIDKey_Unknown)
 			return resourceValue.equals(linkValue);
         bool b;
-        if(JDFResource::PartIDKey_PartVersion==eKey
-                || JDFResource::PartIDKey_DocTags==eKey
+		// 080403 RP removed JDFResource::PartIDKey_PartVersion==eKey 
+        if(JDFResource::PartIDKey_DocTags==eKey
                 || JDFResource::PartIDKey_ItemNames==eKey
                 || JDFResource::PartIDKey_PageTags==eKey
                 || JDFResource::PartIDKey_RunTags==eKey
