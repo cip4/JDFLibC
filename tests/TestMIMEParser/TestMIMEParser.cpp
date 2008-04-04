@@ -207,6 +207,9 @@ int main(int argc, char* argv[])
 			JDF::FileOutputStream fos (argv[2]);
 			JDF::BufferedOutputStream bos(fos,10000);
 			msg->putByteStream(bos);
+			bos.flush();
+			fos.flush();
+			fos.close();
 			delete msg;
 		}
 		else
