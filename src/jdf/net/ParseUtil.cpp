@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -170,7 +170,7 @@ namespace JDF
 				m_encodedPath.insert(chCloseSquare);// ']'
 				m_encodedPath.insert(0x60);         //'`'
 
-				m_encodedPath.insert(chDash);         //'-'
+				// 080407 RP removed        m_encodedPath.insert(chDash);         //'-'
 				//			m_encodedPath.insert(chUnderscore);   //'_'
 				//			m_encodedPath.insert(chPeriod);       //'.'
 				m_encodedPath.insert(chBang);         //'!'
