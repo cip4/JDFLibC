@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -149,12 +149,14 @@ namespace JDF{
 
 	JDFColor JDFColorPool::GetColorWith8BitName(const char* rawName)const{
 		vElement v=GetChildElementVector(elm_Color);
-
-		for(int i=0;i<v.size();i++){
-			JDFColor c=v[i];
-			const char*pRawName=c.Get8BitName().GetRawBytes();
-			if(!strcmp(pRawName,rawName)){
-				return c;
+		if(rawName!=0)
+		{
+			for(int i=0;i<v.size();i++){
+				JDFColor c=v[i];
+				const char*pRawName=c.Get8BitName().GetRawBytes();
+				if(!strcmp(pRawName,rawName)){
+					return c;
+				}
 			}
 		}
 		return JDFColor();
@@ -183,7 +185,8 @@ namespace JDF{
 		}
 		if(col.isNull()){
 			col=AppendColor();
-			col.Set8BitNames(rawName);
+			if(rawName!=0)
+				col.Set8BitNames(rawName);
 			col.SetName(name);
 		}else{
 			throw JDFException(L"JDFColorPool::AppendColorWithName color exists: "+name);

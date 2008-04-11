@@ -17,6 +17,7 @@
 #include <jdf/mime/MIMEMessage.h>
 #include <jdf/io/FileOutputStream.h>
 #include <jdf/io/File.h>
+#include <jdf/net/URI.h>
 
 //#include "DebugTrace.h"
 #include <iterator>
@@ -95,6 +96,14 @@ int main(int argc, char* argv[]){
 	}
 	else
 	{
+		
+		File f("\\\\abs\\foo\\abc.dir");
+		cout <<f.toURI().toString()<<endl;
+		File f2("\\\\kie-prosirai-lg\\gimmedat\\abc.dir");
+		cout <<f2.toURI().toString()<<endl;
+		return 0;
+
+
 		WString s="abc";
 		assertTrue(s.matches("abc"));
 		assertFalse(s.matches("ab"));

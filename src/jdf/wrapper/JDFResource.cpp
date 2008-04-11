@@ -3590,7 +3590,9 @@ namespace JDF{
 		if(value==Class_Unknown) // what a stupid thing to set it to - Ciao
 			throw JDFException("SetClass:: Invalid class value ");
 
-		if(IsResourceRoot() || IsResourceElement()){
+		EnumVersion ev=GetEnumVersion();
+		if(IsResourceRoot() || (ev!=JDFElement::Version_Unknown && ev >= JDFElement::Version_1_3 && IsResourceElement()))
+		{
 			SetEnumAttribute(atr_Class,value,ClassString());
 			// now we've set it - call the virtual valid class to check whether that was a good idea
 			if (!ValidClass(ValidationLevel_Complete)){

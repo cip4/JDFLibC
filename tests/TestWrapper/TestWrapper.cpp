@@ -86,16 +86,30 @@ struct lconv * lc=localeconv(  );
 		JDFParser p;
 	
 		JDFDoc doc;
-		doc.Parse("c:\\data\\layout.jdf");
-
+		JDFDoc doc2;
         JDFNode n=doc.GetJDFRoot();
+		n.SetVersion("1.2");
+		JDFRunList rl=n.addResource("RunList",JDFResource::Class_Parameter,JDFResourceLink::Usage_Input);
+		rl.AddRun("foobar.pdf");
+		JDFColorPool cp=n.addResource("ColorPool",JDFResource::Class_Parameter,JDFResourceLink::Usage_Input);
+		JDFColor col=cp.AppendColor();
+		col.SetName(L"Color #1");
+		col=cp.AppendColorWithName(L"Color #2",0);
+	    col=cp.AppendColor();
+		wchar_t wc[]=L"Color #3";
+		col.SetName(wc);
 
-		JDFCuttingParams cp=n.GetChildByTagName("CuttingParams","",0,JDFAttributeMap(),false);
-		cp.AppendCutMark().SetPosition(JDFXYPair(1.0,2.2));
-		cp.AppendCutMark().SetPosition(JDFXYPair("1,1 2.0"));
+
+         WString s="";
+         for(int i=32;i<255;i++)
+             s+=(char)i;
+         n.SetDescriptiveName(s);
+         doc.Write2File("bad_c.jdf");
+         doc2.Parse("bad_c.jdf");
+         doc2.Write2File("bad_c2.jdf");
+
+		cout<<rl<<endl;
 		cout<<cp<<endl;
-		vElement v=cp.GetPartitionVector(JDFResource::PartIDKey_SheetName,"FB 001",true);
-		cout<<v<<endl;
 		return 1;
 
 	}
