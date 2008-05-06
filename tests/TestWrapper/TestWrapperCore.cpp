@@ -97,13 +97,30 @@ int main(int argc, char* argv[]){
 	else
 	{
 		
-		File f("\\\\abs\\foo\\abc.dir");
-		cout <<f.toURI().toString()<<endl;
-		File f2("\\\\kie-prosirai-lg\\gimmedat\\abc.dir");
-		cout <<f2.toURI().toString()<<endl;
-		return 0;
-
-
+	    XMLDoc doc("abc");
+		for(int i=0;i<2;i++)
+		{
+		try
+		{
+		doc.Write2File(0);
+		doc.Write2URL("http://aa");
+		}
+		catch(...)
+		{
+			cout<<"cot"<<i<<endl;
+		}
+		}
+		doc.StringParse("<a/>");
+		cout<<doc<<endl;
+		try
+		{
+		doc.StringParse("<a");
+		}
+		catch(...)
+		{
+			cout<<"cotttt"<<endl;
+		
+		}
 		WString s="abc";
 		assertTrue(s.matches("abc"));
 		assertFalse(s.matches("ab"));
@@ -113,7 +130,7 @@ int main(int argc, char* argv[]){
 	}
 
 	JDF::PlatformUtils::Terminate();
-
+cout<<"end"<<endl;
 	return 0;
 }
 
