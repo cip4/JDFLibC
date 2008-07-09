@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -96,6 +96,7 @@
 #include <jdf/io/PushbackInputStream.h>
 #include <jdf/lang/Janitor.h>
 #include <jdf/net/URLConnection.h>
+#include <jdf/util/PlatformUtils.h>
 
 #include <xercesc/DOM/DOMDocument.hpp>
 #include <xercesc/DOM/DOMImplementation.hpp>
@@ -116,6 +117,7 @@ namespace JDF{
 	static bool setIgnoreNSDefault=false;
 	static bool generateUID=false;
 	static bool compressPrint=false;
+	static int writeRetry=0;
 
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
@@ -271,6 +273,13 @@ namespace JDF{
 	}
 
 	//////////////////////////////////////////////////////////////////////
+	// mak esure taht it is set in a reasonable range
+	void XMLDoc::setWriteRetry(int i)
+	{
+		writeRetry=i>0 ? i : 1;
+		writeRetry=i<100 ? i : 100;
+	}
+	//////////////////////////////////////////////////////////////////////
 	void XMLDoc::DeleteAdopted(){
 		if(!isNull()){
 			XMLDocUserData* ud=GetXMLDocUserData();
@@ -410,49 +419,74 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool XMLDoc::Write2FormatTarget(XMLFormatTarget* formTarget,const DOMNode* node){
-		try 
+		writeRetry=writeRetry<1?1:writeRetry;
+		writeRetry=writeRetry>100?100:writeRetry;
+
+		for(int tryWrite=0;tryWrite<writeRetry;tryWrite++)
 		{
-			// get a serializer, an instance of DOMWriter
-			XMLCh tempStr[100];
-			XMLString::transcode("LS", tempStr, 99);
-			DOMImplementation *impl          = DOMImplementationRegistry::getDOMImplementation(tempStr);
-			DOMWriter         *theSerializer = ((DOMImplementationLS*)impl)->createDOMWriter();
-
-			
-			if (theSerializer->canSetFeature(XMLUni::fgDOMWRTFormatPrettyPrint, true))
-				theSerializer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint, !compressPrint);
-
-			XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument* document=node->getOwnerDocument();
-			if(document==0 && node->getNodeType()==KElement::DOCUMENT_NODE)
+			DOMWriter *theSerializer = 0;
+			try 
 			{
-				document=(DOMDocument*) node;
-			}
-			if(document)
-			{
-				const XMLCh* encoding = document->getEncoding();
-				WString wStrEncoding = L"UTF-16";
-				if (encoding != NULL && (wStrEncoding.compareToIgnoreCase(encoding) == 0) &&
-					theSerializer->canSetFeature(XERCES_CPP_NAMESPACE::XMLUni::fgDOMWRTBOM, true))
+				// get a serializer, an instance of DOMWriter
+				XMLCh tempStr[100];
+				XMLString::transcode("LS", tempStr, 99);
+				DOMImplementation *impl          = DOMImplementationRegistry::getDOMImplementation(tempStr);
+				theSerializer = ((DOMImplementationLS*)impl)->createDOMWriter();
+
+
+				if (theSerializer->canSetFeature(XMLUni::fgDOMWRTFormatPrettyPrint, true))
+					theSerializer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint, !compressPrint);
+
+				XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument* document=node->getOwnerDocument();
+				if(document==0 && node->getNodeType()==KElement::DOCUMENT_NODE)
 				{
-					theSerializer->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgDOMWRTBOM, true);
-					theSerializer->setEncoding(encoding);
+					document=(DOMDocument*) node;
+				}
+				if(document)
+				{
+					const XMLCh* encoding = document->getEncoding();
+					WString wStrEncoding = L"UTF-16";
+					if (encoding != NULL && (wStrEncoding.compareToIgnoreCase(encoding) == 0) &&
+						theSerializer->canSetFeature(XERCES_CPP_NAMESPACE::XMLUni::fgDOMWRTBOM, true))
+					{
+						theSerializer->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgDOMWRTBOM, true);
+						theSerializer->setEncoding(encoding);
+					}
+				}
+
+				//
+				// do the serialization through DOMWriter::writeNode();
+				//
+
+				theSerializer->writeNode(formTarget, *node);
+				delete theSerializer;
+				return true;
+
+			} 
+			catch (XMLException& e) 
+			{
+				if(tryWrite==writeRetry-1)
+				{
+					std::cerr << "An error occurred during creation of output transcoder. Msg is:"
+						<< std::endl<< WString(e.getMessage()) << std::endl;
+				}
+				else
+				{
+					PlatformUtils::sleep(1000);
 				}
 			}
-
-			//
-			// do the serialization through DOMWriter::writeNode();
-			//
-
-			theSerializer->writeNode(formTarget, *node);
-			delete theSerializer;
-			return true;
-
-		} 
-		catch (XMLException& e) 
-		{
-			std::cerr << "An error occurred during creation of output transcoder. Msg is:"
-				<< std::endl
-				<< WString(e.getMessage()) << std::endl;
+			catch (...) 
+			{
+				if(tryWrite==writeRetry-1)
+				{
+					std::cerr << "An unknown error occurred during creation of output transcoder. " << std::endl;
+				}
+				else
+				{
+					PlatformUtils::sleep(1000);
+				}
+			}
+			delete theSerializer; // always zapp also in case of snafu
 		}
 		return false;
 	}

@@ -48,78 +48,53 @@ int main(int argc, char* argv[]){
 
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
-	if(false)
+	if(!false)
 	{
-
-        XMLDoc  jdfDoc("JDF");
-        KElement root   = jdfDoc.GetRoot();
-
-        root.SetXPathAttribute("/JDF/a[2]/@foo", "v2");
-		cout<<root<<endl;
-        root.SetXPathAttribute("/JDF/a[3]/@foo", "v3");
-		cout<<root<<endl;
-		root.AppendElement("AuditPool").AppendElement("Created");
-        assertEquals(root.GetXPathElement("/JDF/a[2]"), root.GetXPathElement("/JDF/a[@foo=\"v2\"]"));
-        assertEquals(root.GetXPathElement("/JDF/a[3]"), root.GetXPathElement("/JDF/a[@foo=\"v3\"]"));
-
-        WString nodeName = "Created";
-        KElement kElem = root.GetXPathElement("AuditPool/"+nodeName);
-        assertEquals(kElem.GetNodeName(),nodeName);
-        assertTrue(kElem.matchesPath("Created",false));
-        assertTrue(kElem.matchesPath("/JDF/AuditPool/Created",false));
-        assertTrue(kElem.matchesPath("JDF/AuditPool/Created",false));
-        assertFalse(kElem.matchesPath("/Created",false));
-
-        nodeName = "notFound";
-        kElem    = root.GetXPathElement("AuditPool/"+nodeName);
-        XMLDoc d2("doc","");
-        KElement root2=d2.GetRoot();
-        for(int i=0;i<10;i++)
-        {
-            KElement e=root2.AppendElement("e");
-            assertEquals(root2.GetXPathElement(WString("e[")+(i+1)+"]"), e);
-            assertEquals(root2, e.GetXPathElement("../"));
-            assertEquals(root2, e.GetXPathElement(".."));
-            assertEquals(root2, e.GetXPathElement(".././."));
-        }
-        KElement e=root2.GetCreateElement("foo.bar");
-        assertEquals(e.GetNodeName(), "foo.bar");
-        assertEquals(root2.GetXPathElement("foo.bar"), e);
-        assertEquals(root2.GetCreateXPathElement("foo.bar"), e);
-        root.SetXPathAttribute("/JDF/ee[2]/@a", "2");
-        root.SetXPathAttribute("/JDF/ee[1]/@a", "2");
-        root.SetXPathAttribute("/JDF/ee[2]/ff/@b", "3");
-        assertEquals(root.GetXPathAttribute("/JDF/ee/ff/@b"), "3");
-        assertEquals(root.GetXPathAttribute("/JDF/ee[@a=\"2\"]/ff/@b"), "3");
-        assertEquals(root.GetXPathAttribute("//ee[@a=\"2\"]/ff/@b"), "3");
-        assertEquals(root.GetXPathAttribute("/JDF/ee[1]/ff/@b"),"");	
+		File dir(L"//KIE-PROSIRAI-LG/gimmedat/FileDir");
+		assertTrue(dir.mkdir());
+		XMLDoc d("foobar");
+		KElement e=d.GetRoot();
+		for(int j=0;j<1000;j++)
+		{
+			cout<<j<<" ";
+			for(int i=0;i<100;i++)
+			{
+				cout<<".";
+				e.AppendElement(WString("bar")+i);
+				File file(dir,WString("File")+i+".txt");
+				file.remove();
+				assertTrue(file.createNewFile());
+				d.Write2File(file);
+			}
+		cout<<endl;
+		}
 	}
 	else
 	{
-		
-	    XMLDoc doc("abc");
+
+		XMLDoc doc("abc");
 		for(int i=0;i<2;i++)
 		{
-		try
-		{
-		doc.Write2File(0);
-		doc.Write2URL("http://aa");
-		}
-		catch(...)
-		{
-			cout<<"cot"<<i<<endl;
-		}
+			try
+			{
+				doc.Write2File(0);
+				doc.Write2URL("http://aa");
+			}
+			catch(...)
+			{
+				cout<<"cot"<<i<<endl;
+			}
 		}
 		doc.StringParse("<a/>");
 		cout<<doc<<endl;
 		try
 		{
-		doc.StringParse("<a");
+			doc.StringParse("<a");
 		}
 		catch(...)
 		{
 			cout<<"cotttt"<<endl;
-		
+
 		}
 		WString s="abc";
 		assertTrue(s.matches("abc"));
@@ -130,7 +105,7 @@ int main(int argc, char* argv[]){
 	}
 
 	JDF::PlatformUtils::Terminate();
-cout<<"end"<<endl;
+	cout<<"end"<<endl;
 	return 0;
 }
 

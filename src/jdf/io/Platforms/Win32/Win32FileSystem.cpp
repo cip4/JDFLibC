@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -122,7 +122,7 @@ namespace JDF
 	const JDFCh ILLEGALCHARS[] =
 	{
 		chBackSlash, chForwardSlash, chColon, chAsterisk, 
-			chQuestion, chDoubleQuote, chOpenAngle, chCloseAngle, chPipe   	
+		chQuestion, chDoubleQuote, chOpenAngle, chCloseAngle, chPipe   	
 	};
 
 	/******************************************************************************
@@ -179,19 +179,22 @@ namespace JDF
 	int Win32FileSystem::compare(const File& f1, const File& f2)
 	{
 		WString f1p = f1.getPath().toUpperCase();
-        WString f2p = f2.getPath().toUpperCase();
-        if (f1p < f2p) return -1;
-        if (f1p > f2p) return 1;
-        return 0;
+		WString f2p = f2.getPath().toUpperCase();
+		if (f1p < f2p) return -1;
+		if (f1p > f2p) return 1;
+		return 0;
 	}
 
 	void replaceYenWonSigns(WString& s)
 	{
+		return;
+		/*
 		for (int i=0;i<s.length(); i++)
 		{
 			if (s[i] == chYenSign || s[i] == chWonSign)
 				s[i] = chForwardSlash;
 		}
+		*/
 	}
 
 	bool Win32FileSystem::createDirectory(const File& file)
@@ -1411,10 +1414,13 @@ namespace JDF
 
 	void addUNCPrefetch(WString& s)
 	{
-		if (s.substr(0,2) == JDFStrL("\\\\"))
-			s.replace(0,2,WString("\\\\?\\UNC\\"));
-		else
-			s.insert(0,JDFStrL("\\\\?\\"));
+		if(s.length()>1 &&(s[1]==L':' || s[0]==L'\\'))
+		{
+			if (s.substr(0,2) == JDFStrL("\\\\"))
+				s.replace(0,2,WString("\\\\?\\UNC\\"));
+			else
+				s.insert(0,JDFStrL("\\\\?\\"));
+		}
 	}
 
 	// check if a path is a root 

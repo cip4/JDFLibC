@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -349,6 +349,12 @@ namespace JDF {
 		}
 
 		/**
+		* staticly sets the number of times that a write should be attempted prior to utterly failing
+		* a 1000 msec sleep is inserted between each failure
+		*/ 
+		static void setWriteRetry(int i);
+
+		/**
 		* return the internal DOMDocument pointer<br>
 		* attention, use with care. No guarantee for internal consistency is given when modifying the DOMDocument
 		* @return DOMDocument* the internal DOMDocument
@@ -525,7 +531,6 @@ namespace JDF {
 	private:
 		static bool Write2FormatTarget(XERCES_CPP_NAMESPACE_QUALIFIER XMLFormatTarget* formTarget, const XERCES_CPP_NAMESPACE_QUALIFIER DOMNode*);
 		XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument* domDocument;
-
 		int DecRef();
 		int IncRef();
 		/**
