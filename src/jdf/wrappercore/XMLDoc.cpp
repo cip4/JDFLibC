@@ -117,7 +117,7 @@ namespace JDF{
 	static bool setIgnoreNSDefault=false;
 	static bool generateUID=false;
 	static bool compressPrint=false;
-	static int writeRetry=0;
+	static int writeRetry=3;
 
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
@@ -410,10 +410,43 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool XMLDoc::Write2File(const WString& outFile)const{
-		LocalFileFormatTarget *formTarget = new LocalFileFormatTarget(outFile.c_str());
-		bool bRet=Write2FormatTarget(formTarget,domDocument);
-		delete formTarget;
-		return bRet;
+		writeRetry=writeRetry<1?1:writeRetry;
+		writeRetry=writeRetry>100?100:writeRetry;
+
+		for(int tryWrite=0;tryWrite<writeRetry;tryWrite++)
+		{
+			try
+			{
+				LocalFileFormatTarget *formTarget = new LocalFileFormatTarget(outFile.c_str());
+				bool bRet=Write2FormatTarget(formTarget,domDocument);
+				delete formTarget;
+				return bRet;
+			}
+			catch (XMLException& e) 
+			{
+				if(tryWrite==writeRetry-1)
+				{
+					std::cerr << "An error occurred during creation or deletion of format target. Msg is:"
+						<< std::endl<< WString(e.getMessage()) << std::endl;
+				}
+				else
+				{
+					PlatformUtils::sleep(1000);
+				}
+			}
+			catch (...) 
+			{
+				if(tryWrite==writeRetry-1)
+				{
+					std::cerr << "An error occurred during creation or deletion of format target." << std::endl;
+				}
+				else
+				{
+					PlatformUtils::sleep(1000);
+				}
+			}
+		}
+		return false;
 	}
 
 	//////////////////////////////////////////////////////////////////////

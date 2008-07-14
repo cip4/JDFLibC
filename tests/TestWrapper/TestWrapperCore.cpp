@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
 		assertTrue(dir.mkdir());
 		XMLDoc d("foobar");
 		KElement e=d.GetRoot();
-		for(int j=0;j<1000;j++)
+		for(int j=0;j<100000;j++)
 		{
 			cout<<j<<" ";
 			for(int i=0;i<100;i++)
@@ -64,7 +64,11 @@ int main(int argc, char* argv[]){
 				File file(dir,WString("File")+i+".txt");
 				file.remove();
 				assertTrue(file.createNewFile());
-				d.Write2File(file);
+				if(!d.Write2File(file))
+				{
+					cout<<" ---  snafu! "<<endl;
+					return 1;
+				}
 			}
 		cout<<endl;
 		}
