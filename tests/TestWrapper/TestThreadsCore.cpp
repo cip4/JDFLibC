@@ -204,19 +204,20 @@ unsigned __stdcall threadproc3 (void* p)
 	for(int j=0;j<100000;j++)
 	{
 		cout<<"3 "<<j<<" ";
-		for(int i=0;i<100;i++)
+		for(int i=0;i<1000;i++)
 		{
-			cout<<".";
+			if(i%10==0)
+			     cout<<".";
 			for(int j=0;j<1;j++)
 				e.AppendElement(WString("bar")+i+100*j);
 			e.AppendElement(WString("bar")+i);
 			File file(dir,(WString("File")+*pi)+"_3_"+i+".txt");
 			file.remove();
-			assertTrue(file.createNewFile());
+			//assertTrue(file.createNewFile());
 			if(!d.Write2File(file))
 			{
-				cout<<" ---  snafu! "<<endl;
-				return 1;
+				cout<<" ---  3 snafu!"<<endl;
+				//return 1;
 			}
 		}
 		cout<<endl;
@@ -248,17 +249,18 @@ unsigned __stdcall threadproc2 (void* p)
 	for(int j=0;j<100000;j++)
 	{
 		cout<<"2 "<<j<<" ";
-		for(int i=0;i<100;i++)
+		for(int i=0;i<1000;i++)
 		{
-			cout<<".";
-			for(int j=0;j<1;j++)
+			if(i%10==0)
+			     cout<<".";
+		for(int j=0;j<1;j++)
 				e.AppendElement(WString("bar")+i+100*j);
 			File file(dir,(WString("File")+*pi)+"_2_"+i+".txt");
 			file.remove();
-			assertTrue(file.createNewFile());
+			//assertTrue(file.createNewFile());
 			if(!d.Write2File(file))
 			{
-				cout<<" ---  snafu! "<<endl;
+				cout<<" --- 2 snafu! "<<endl;
 				return 1;
 			}
 		}
@@ -291,18 +293,19 @@ unsigned __stdcall threadproc4 (void* p)
 	for(int j=0;j<100000;j++)
 	{
 		cout<<"4 "<<j<<" ";
-		for(int i=0;i<100;i++)
+		for(int i=0;i<1000;i++)
 		{
-			cout<<".";
+			if(i%10==0)
+			     cout<<".";
 			for(int j=0;j<1;j++)
 				e.AppendElement(WString("bar")+i+100*j);
 			File file(dir,(WString("File")+*pi)+"_4_"+i+".txt");
 			file.remove();
-			assertTrue(file.createNewFile());
+	//		assertTrue(file.createNewFile());
 			if(!d.Write2File(file))
 			{
-				cout<<" ---  snafu! "<<endl;
-				return 1;
+				cout<<" ---  4 snafu! "<<endl;
+				//  return 1;
 			}
 		}
 		cout<<endl;
@@ -334,18 +337,19 @@ unsigned __stdcall threadproc1 (void* p)
 	for(int j=0;j<100000;j++)
 	{
 		cout<<"1 "<<j<<" ";
-		for(int i=0;i<100;i++)
+		for(int i=0;i<1000;i++)
 		{
-			cout<<".";
+			if(i%10==0)
+			     cout<<".";
 			for(int j=0;j<1;j++)
 				e.AppendElement(WString("bar")+i+100*j);
 			File file(dir,(WString("File")+*pi)+"_1_"+i+".txt");
 			file.remove();
-			assertTrue(file.createNewFile());
+			//assertTrue(file.createNewFile());
 			if(!d.Write2File(file))
 			{
-				cout<<" ---  snafu! "<<endl;
-				return 1;
+				cout<<" ---  1 snafu! "<<endl;
+				// return 1;
 			}
 		}
 		cout<<endl;

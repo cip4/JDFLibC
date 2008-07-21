@@ -117,7 +117,7 @@ namespace JDF{
 	static bool setIgnoreNSDefault=false;
 	static bool generateUID=false;
 	static bool compressPrint=false;
-	static int writeRetry=3;
+	static int writeRetry=10;
 
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
@@ -415,12 +415,16 @@ namespace JDF{
 
 		for(int tryWrite=0;tryWrite<writeRetry;tryWrite++)
 		{
+			LocalFileFormatTarget *formTarget=0;
 			try
 			{
-				LocalFileFormatTarget *formTarget = new LocalFileFormatTarget(outFile.c_str());
+				formTarget = new LocalFileFormatTarget(outFile.c_str());
 				bool bRet=Write2FormatTarget(formTarget,domDocument);
 				delete formTarget;
-				return bRet;
+				formTarget=0;
+				if(bRet)
+					return true;
+
 			}
 			catch (XMLException& e) 
 			{
@@ -431,7 +435,9 @@ namespace JDF{
 				}
 				else
 				{
-					PlatformUtils::sleep(1000);
+					std::cerr << "An error occurred during creation or deletion of format target. Msg is:"
+						<< std::endl<< WString(e.getMessage()) << tryWrite<<std::endl;
+					PlatformUtils::sleep(1000*(tryWrite+1));
 				}
 			}
 			catch (...) 
@@ -442,9 +448,11 @@ namespace JDF{
 				}
 				else
 				{
-					PlatformUtils::sleep(1000);
+					std::cerr << "An error occurred during creation or deletion of format target." << tryWrite<<std::endl;
+					PlatformUtils::sleep(1000*(tryWrite+1));
 				}
 			}
+			delete formTarget;
 		}
 		return false;
 	}
@@ -505,7 +513,9 @@ namespace JDF{
 				}
 				else
 				{
-					PlatformUtils::sleep(1000);
+					std::cerr << "An error occurred during creation of output transcoder. Msg is:"
+						<< std::endl<< WString(e.getMessage()) << " "<<tryWrite<< std::endl;
+					PlatformUtils::sleep(1000*(tryWrite+1));
 				}
 			}
 			catch (...) 
@@ -516,7 +526,8 @@ namespace JDF{
 				}
 				else
 				{
-					PlatformUtils::sleep(1000);
+					std::cerr << "An unknown error occurred during creation of output transcoder. " << tryWrite<<std::endl;
+					PlatformUtils::sleep(1000*(tryWrite+1));
 				}
 			}
 			delete theSerializer; // always zapp also in case of snafu

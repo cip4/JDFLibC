@@ -319,7 +319,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\..\external\xerces\src,..\..\..\..\external\xerces\src\xercesc,..\..\..\..\src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;JDF_TOOLS_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;JDF_TOOLS_LIB;JDF_WRAPPERCORE_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
@@ -449,7 +449,15 @@
 			Name="Lib"
 			>
 			<File
-				RelativePath="..\..\..\..\Build\Win32\Vc7\Debug\jdftoolslib_D.lib"
+				RelativePath="..\..\..\..\Build\Win32\VC8\Debug\jdftoolslib_D.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\Build\Win32\VC8\Debug\JDFWrapperCoreLib_D.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\external\xerces\lib\xerces-c_2D.lib"
 				>
 			</File>
 		</Filter>
