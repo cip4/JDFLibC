@@ -97,6 +97,7 @@
 #include <jdf/lang/Janitor.h>
 #include <jdf/net/URLConnection.h>
 #include <jdf/util/PlatformUtils.h>
+#include <jdf/wrapper/JDFDate.h>
 
 #include <xercesc/DOM/DOMDocument.hpp>
 #include <xercesc/DOM/DOMImplementation.hpp>
@@ -117,7 +118,7 @@ namespace JDF{
 	static bool setIgnoreNSDefault=false;
 	static bool generateUID=false;
 	static bool compressPrint=false;
-	static int writeRetry=10;
+	static int writeRetry=3;
 
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
@@ -419,6 +420,37 @@ namespace JDF{
 			try
 			{
 				formTarget = new LocalFileFormatTarget(outFile.c_str());
+			}
+			catch (XMLException& e) 
+			{
+				//					std::cerr <<outFile<< "An error occurred during creation  format target. Msg is:"
+				//						<< std::endl<< WString(e.getMessage()) <<" attempt: "<< tryWrite<<" target: "<<(int)formTarget
+				//						<< JDFDate().DateTime();
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				delete formTarget;
+				formTarget=0;
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				int ok=File(outFile).remove();
+				//					std::cerr << " delete "<<(ok ? "succeded" : "failed")<<std::endl;
+
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				continue;
+			}
+			catch (...) 
+			{
+				//					std::cerr <<outFile<< "An unknown error occurred during creation of format target."  <<" attempt: "<< tryWrite<<" target: "<<(int)formTarget << JDFDate().DateTime();
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				delete formTarget;
+				formTarget=0;
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				int ok=File(outFile).remove();
+				//					std::cerr << " delete "<<(ok ? "succeded" : "failed")<<std::endl;
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				continue;
+			}
+
+			try
+			{
 				bool bRet=Write2FormatTarget(formTarget,domDocument);
 				delete formTarget;
 				formTarget=0;
@@ -428,30 +460,24 @@ namespace JDF{
 			}
 			catch (XMLException& e) 
 			{
-				if(tryWrite==writeRetry-1)
-				{
-					std::cerr << "An error occurred during creation or deletion of format target. Msg is:"
-						<< std::endl<< WString(e.getMessage()) << std::endl;
-				}
-				else
-				{
-					std::cerr << "An error occurred during creation or deletion of format target. Msg is:"
-						<< std::endl<< WString(e.getMessage()) << tryWrite<<std::endl;
-					PlatformUtils::sleep(1000*(tryWrite+1));
-				}
+				//				std::cerr << "An error occurred during deletion of format target. Msg is:"
+				//					<< std::endl<< WString(e.getMessage()) <<" attempt: "<< tryWrite<<" target: "<<(int)formTarget
+				//					<< JDFDate().DateTime();
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				int ok=File(outFile).remove();
+				//				std::cerr << " delete "<<(ok ? "succeeded" : "failed")<<std::endl;
+
+				PlatformUtils::sleep(1000*(tryWrite+1));
 			}
 			catch (...) 
 			{
-				if(tryWrite==writeRetry-1)
-				{
-					std::cerr << "An error occurred during creation or deletion of format target." << std::endl;
-				}
-				else
-				{
-					std::cerr << "An error occurred during creation or deletion of format target." << tryWrite<<std::endl;
-					PlatformUtils::sleep(1000*(tryWrite+1));
-				}
+//				std::cerr << "An unknown error occurred during deletion of format target."  <<" attempt: "<< tryWrite<<" target: "<<(int)formTarget << JDFDate().DateTime();
+				PlatformUtils::sleep(1000*(tryWrite+1));
+				int ok=File(outFile).remove();
+//				std::cerr << " delete "<<(ok ? "succeeded" : "failed")<<std::endl;
+				PlatformUtils::sleep(1000*(tryWrite+1));
 			}
+
 			delete formTarget;
 		}
 		return false;
@@ -506,29 +532,14 @@ namespace JDF{
 			} 
 			catch (XMLException& e) 
 			{
-				if(tryWrite==writeRetry-1)
-				{
-					std::cerr << "An error occurred during creation of output transcoder. Msg is:"
-						<< std::endl<< WString(e.getMessage()) << std::endl;
-				}
-				else
-				{
-					std::cerr << "An error occurred during creation of output transcoder. Msg is:"
-						<< std::endl<< WString(e.getMessage()) << " "<<tryWrite<< std::endl;
-					PlatformUtils::sleep(1000*(tryWrite+1));
-				}
+//				std::cerr << "An error occurred during creation of output transcoder. Msg is:"
+//					<< std::endl<< WString(e.getMessage()) << " "<<tryWrite<< std::endl;
+				PlatformUtils::sleep(1000*(tryWrite+1));
 			}
 			catch (...) 
 			{
-				if(tryWrite==writeRetry-1)
-				{
-					std::cerr << "An unknown error occurred during creation of output transcoder. " << std::endl;
-				}
-				else
-				{
-					std::cerr << "An unknown error occurred during creation of output transcoder. " << tryWrite<<std::endl;
-					PlatformUtils::sleep(1000*(tryWrite+1));
-				}
+//				std::cerr << "An unknown error occurred during creation of output transcoder. " << tryWrite<<std::endl;
+				PlatformUtils::sleep(1000*(tryWrite+1));
 			}
 			delete theSerializer; // always zapp also in case of snafu
 		}

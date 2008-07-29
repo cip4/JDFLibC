@@ -55,7 +55,6 @@ int main(int argC, char* argV[]){
 	} catch (const JDF::Exception&)	{
 		return 1;
 	}
-struct lconv * lc=localeconv(  );
 
 	// trivial argument handling
 	MyArgs args(argC,argV,"","aio");
@@ -70,7 +69,7 @@ struct lconv * lc=localeconv(  );
 
 
 
-		JDF::PlatformUtils::setProperty("http.keepAlive","false");
+	//	JDF::PlatformUtils::setProperty("http.keepAlive","false");
 
 	// setup indentation for the output - 2 blanks/level
 	// read input, output and action settings from the command line
@@ -84,32 +83,16 @@ struct lconv * lc=localeconv(  );
 	if(1)
 	{
 		JDFParser p;
+		p.Parse(inFile);
+		JDFDoc d=p.GetDocument();
+		JDFNode n=d.GetJDFRoot();
+		vElement v=n.getLinks(JDFElement::elm_Device, JDFAttributeMap());
+		JDFResourceLink rldev=v.elementAt(0);
+		JDFDevice dev=rldev.GetTarget();
+
+		cout<<dev<<endl;
 	
-		JDFDoc doc;
-		JDFDoc doc2;
-        JDFNode n=doc.GetJDFRoot();
-		n.SetVersion("1.2");
-		JDFRunList rl=n.addResource("RunList",JDFResource::Class_Parameter,JDFResourceLink::Usage_Input);
-		rl.AddRun("foobar.pdf");
-		JDFColorPool cp=n.addResource("ColorPool",JDFResource::Class_Parameter,JDFResourceLink::Usage_Input);
-		JDFColor col=cp.AppendColor();
-		col.SetName(L"Color #1");
-		col=cp.AppendColorWithName(L"Color #2",0);
-	    col=cp.AppendColor();
-		wchar_t wc[]=L"Color #3";
-		col.SetName(wc);
-
-
-         WString s="";
-         for(int i=32;i<255;i++)
-             s+=(char)i;
-         n.SetDescriptiveName(s);
-         doc.Write2File("bad_c.jdf");
-         doc2.Parse("bad_c.jdf");
-         doc2.Write2File("bad_c2.jdf");
-
-		cout<<rl<<endl;
-		cout<<cp<<endl;
+	
 		return 1;
 
 	}
