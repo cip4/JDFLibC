@@ -141,6 +141,13 @@ GLOBAL_MAKEFILE_INC_PATH = $(PRJ_VOB_PATH)$(DIRSEP)$(GLOBAL_MAKEINCLUDES)   # **
 # This makefile's home directory
 MAKEFILE_HOME_DIR = $(DIRROOT)$(DIRSEP)$(DIRUP)$(VOB_NAME)$(COMPONENT_NAME) # ***** DO NOT CHANGE THIS LINE
 
+
+!IF (("$(MSC_VERSION)" == "VC8") || ("$(MSC_VERSION)" == "VC9"))
+MSC_VERSION_UPPER_8 = VC89
+!ELSE
+MSC_VERSION_UPPER_8 = $(MSC_VERSION)
+!ENDIF
+
 ###-------------------------------------------------------------------###
 # Special case for JDFOpenSrc
 # the dll build needs a version string in the dll name for a better
@@ -508,7 +515,7 @@ USER_DLL_OBJS = $(USER_OBJS)
 !IF (("$(CFG)"=="JDFToolsLib") || ("$(CFG)"=="debuglineonlyJDFToolsLib"))
 USER_LIB_LINK_LIBS = \
                      $(XERCES-C_LIBNAME) \
-!IF ("$(MSC_VERSION)" == "VC8")
+!IF ("$(MSC_VERSION_UPPER_8)" == "VC89")
                      rpcrt4.lib \
 !ENDIF
                      WS2_32.lib
@@ -535,7 +542,7 @@ USER_LIB_LINK_LIBS = \
 USER_DLL_LINK_LIBS = \
                      $(XERCES-C_LIBNAME) \
                      $(LIBPNGLIB) \
-!IF ("$(MSC_VERSION)" != "VC8")
+!IF ("$(MSC_VERSION_UPPER_8)" != "VC89")
                      WS2_32.lib largeint.lib ole32.lib
 !ELSE
                      rpcrt4.lib WS2_32.lib ole32.lib
@@ -549,7 +556,7 @@ USER_DLL_LINK_LIBS = \
 USER_DLL_LINK_LIBS = \
                      JDFToolsDll$(BUILD_EXTENSION).lib \
                      $(XERCES-C_LIBNAME) \
-!IF ("$(MSC_VERSION)" != "VC8")
+!IF ("$(MSC_VERSION_UPPER_8)" != "VC89")
                      largeint.lib ole32.lib oleaut32.lib
 !ELSE
                      ole32.lib oleaut32.lib
