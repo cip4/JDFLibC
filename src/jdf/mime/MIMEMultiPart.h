@@ -321,9 +321,15 @@ private:
 	int	 m_bpCount; // count of body parts
 	bool m_needPreamble;
 	bool m_endPart;
+#pragma warning(push)
+#pragma warning(disable: 4251)
 	std::vector<MIMEBodyPart*> m_bodyParts;
+#pragma warning(pop)
 	WString     m_boundary;
+#pragma warning(push)
+#pragma warning(disable: 4251)
 	value_pair  m_preamble;
+#pragma warning(pop)
 	int			m_contentTransferEncoding;
 	
 	friend class MIMEParser;

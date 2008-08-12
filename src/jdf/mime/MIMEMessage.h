@@ -404,10 +404,11 @@ private:
 	// hash look-up. The entries added to the hash table are objects of class
 	// MIMEHeader
 	
-#   pragma warning(disable: 4251)
+#pragma warning(push)
+#pragma warning(disable: 4251)
 	hmap<WString,MIMEHeader,ElfHash> m_822HeadersTable;
 	std::vector<MIMEHeader>	m_repeatHdrs;
-#   pragma warning(default: 4251)
+#pragma warning(pop)
 	
 	// Body
 	

@@ -293,12 +293,15 @@ protected:
 	static const int DATABUFSZ;
 	static const int HDRBUFSZ;
 
+#pragma warning(push)
+#pragma warning(disable: 4251)
 	value_pair m_contentSubType;
 	value_pair m_contentTypeParams;
 	value_pair m_contentID;
 	int		   m_contentDisposition;
 	value_pair m_contentDispParams;
 	value_pair m_contentDescription;
+#pragma warning(pop)
 
 	/**
 	 * Byte characters representing CRLF

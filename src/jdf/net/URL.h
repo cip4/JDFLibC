@@ -936,7 +936,10 @@ private:
 	 * URL's
      */
 
+#pragma warning(push)
+#pragma warning(disable: 4251)
 	AutoPtr<URLStreamHandler> mHandler;
+#pragma warning(pop)
 
    /**
      * The URLStreamHandler factory.
