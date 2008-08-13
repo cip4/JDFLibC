@@ -198,8 +198,9 @@ unsigned __stdcall threadproc3 (void* p)
 	current_time = start_time;
 	cout<<41<<endl;
 
-	File dir(L"//KIE-PROSIRAI-LG/gimmedat/FileDir");
+	File dir(L"FileDir");
 	assertTrue(dir.mkdir());
+	cout<<dir.getAbsolutePath()<<endl;
 	XMLDoc d("foobar");
 	KElement e=d.GetRoot();
 	for(int j=0;j<100000;j++)
@@ -243,7 +244,7 @@ unsigned __stdcall threadproc2 (void* p)
 	current_time = start_time;
 	cout<<41<<endl;
 
-	File dir(L"//KIE-PROSIRAI-LG/gimmedat/FileDir");
+	File dir(L"FileDir");
 	assertTrue(dir.mkdir());
 	XMLDoc d("foobar");
 	KElement e=d.GetRoot();
@@ -287,7 +288,7 @@ unsigned __stdcall threadproc4 (void* p)
 	current_time = start_time;
 	cout<<41<<endl;
 
-	File dir(L"//KIE-PROSIRAI-LG/gimmedat/FileDir");
+	File dir(L"FileDir");
 	assertTrue(dir.mkdir());
 	XMLDoc d("foobar");
 	KElement e=d.GetRoot();
@@ -331,7 +332,7 @@ unsigned __stdcall threadproc1 (void* p)
 	current_time = start_time;
 	cout<<41<<endl;
 
-	File dir(L"//KIE-PROSIRAI-LG/gimmedat/FileDir");
+	File dir(L"FileDir");
 	assertTrue(dir.mkdir());
 	XMLDoc d("foobar");
 	KElement e=d.GetRoot();
