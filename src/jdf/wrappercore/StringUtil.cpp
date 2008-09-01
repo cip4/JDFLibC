@@ -82,6 +82,7 @@
 
 #include "StringUtil.h"
 #include "jdf/lang/WString.h"
+#include "jdf/io/File.h"
 #include "jdf/wrapper/JDFRange.h"
 #include "jdf/wrapper/JDFNumTypeList.h"
 #include "jdf/wrapper/JDFNumberRangeList.h"
@@ -89,6 +90,8 @@
 #include "jdf/wrapper/JDFXYPairRangeList.h"
 
 namespace JDF{
+	const WString StringUtil::m_URIEscape = L"%?@&=+$,[]";
+
 	bool StringUtil::matchesAttribute(const WString& smallAtt, const WString& bigAtt, KElement::EnumAttributeType dataType)
 	{
 		if(dataType==KElement::AttributeType_Unknown || dataType == KElement::AttributeType_Any)
@@ -252,105 +255,171 @@ namespace JDF{
 	{
 		WString s;
 		if(d==WString::pDINF)
-        {
+		{
 			s=WString::pDINFstr;
-        }
+		}
 		else if(d==-WString::pDINF)
-        {
+		{
 			s=WString::nINFstr;
-        }
-        else
-        {
+		}
+		else
+		{
 			s=WString::valueOf(d);
-            if(s.endsWith(".0"))
-                s=s.substring(0,s.length()-2);
-            
-            if(s.indexOf("E")>=0)
-            {
-                char buf[20];
-                s=sprintf(buf,"%10.10f", d);
+			if(s.endsWith(".0"))
+				s=s.substring(0,s.length()-2);
+
+			if(s.indexOf("E")>=0)
+			{
+				char buf[20];
+				s=sprintf(buf,"%10.10f", d);
 				s=buf;
-            }
+			}
 
-            if(s.length()>8)
-            {
-                int posDot=s.indexOf(WString::dot);
-                if(posDot>=0)
-                {
-                    int l=s.length();
-                    if(l-posDot>8)
-                    {
-                        l=posDot+9;
-                        s=s.substring(0,l);
-                        if(s.endsWith("999"))
-                            return formatDouble(d+0.000000004);
+			if(s.length()>8)
+			{
+				int posDot=s.indexOf(WString::dot);
+				if(posDot>=0)
+				{
+					int l=s.length();
+					if(l-posDot>8)
+					{
+						l=posDot+9;
+						s=s.substring(0,l);
+						if(s.endsWith("999"))
+							return formatDouble(d+0.000000004);
 
-                        int n;
-                        for(n=l;n>posDot;n--)
-                        {
-                            if(!s.substring(n-1,n).equals("0"))
-                                break;
-                        }
-                        s=s.substring(0,n);
-                    }
-                }                
-            }
-            if(s.endsWith("."))
-            {
+						int n;
+						for(n=l;n>posDot;n--)
+						{
+							if(!s.substring(n-1,n).equals("0"))
+								break;
+						}
+						s=s.substring(0,n);
+					}
+				}                
+			}
+			if(s.endsWith("."))
+			{
 				s=s.leftStr(-1);                
-            }
-            if(s=="-0")
-                s="0";
-        }
-        return s;
+			}
+			if(s=="-0")
+				s="0";
+		}
+		return s;
 	}
 
-   /**
-     * replace a character in a given String
-     * <p>
-     * default: replaceChar(strWork, c, s, 0)
-     * 
-     * @param strIn String to work on
-     * @param toReplace       character to replace
-     * @param replaceBy       String to insert for c
-      * @return the String with replaced characters
-     */
-    WString StringUtil::replaceString(const WString& strIn, const WString& toReplace, const WString& replaceBy)
-    {
-         int indexOf = strIn.indexOf(toReplace);
-         if( indexOf<0)
-             return strIn;
+	/**
+	* replace a character in a given String
+	* <p>
+	* default: replaceChar(strWork, c, s, 0)
+	* 
+	* @param strIn String to work on
+	* @param toReplace       character to replace
+	* @param replaceBy       String to insert for c
+	* @return the String with replaced characters
+	*/
+	WString StringUtil::replaceString(const WString& strIn, const WString& toReplace, const WString& replaceBy)
+	{
+		int indexOf = strIn.indexOf(toReplace);
+		if( indexOf<0)
+			return strIn;
 
-		 WString strWork=strIn;
-         int len = toReplace.length();
-         WString r;
-         do
-         {
-             r+=strWork.substring(0,indexOf);
-             r+=replaceBy;
-             strWork=strWork.substring(indexOf+len);
-             indexOf = strWork.indexOf(toReplace);
-         }
-         while(indexOf>=0);
-         r+=strWork;
-         
-         return r;
-    }
+		WString strWork=strIn;
+		int len = toReplace.length();
+		WString r;
+		do
+		{
+			r+=strWork.substring(0,indexOf);
+			r+=replaceBy;
+			strWork=strWork.substring(indexOf+len);
+			indexOf = strWork.indexOf(toReplace);
+		}
+		while(indexOf>=0);
+		r+=strWork;
 
-	   /**
-     * get a single token from a String
-     * <p>
-     * default: Token(strWork, index," \t\n")
-     * 
-     * @param strWork the String to work on
-     * @param index   index of the token to return<br>
-     *                if<0 return from end (e.g. -1 is the last token)
-     * @param delim   the delimiter
-     * @return the single token (<code>null</code> if no token found)
-     */
-     WString StringUtil::token(const WString& strWork, int index, const WString &delim)
-	 {
-		 return strWork.Token(index,delim);
-	 }
+		return r;
+	}
 
+	/**
+	* get a single token from a String
+	* <p>
+	* default: Token(strWork, index," \t\n")
+	* 
+	* @param strWork the String to work on
+	* @param index   index of the token to return<br>
+	*                if<0 return from end (e.g. -1 is the last token)
+	* @param delim   the delimiter
+	* @return the single token (<code>null</code> if no token found)
+	*/
+	WString StringUtil::token(const WString& strWork, int index, const WString &delim)
+	{
+		return strWork.Token(index,delim);
+	}
+	/**
+	* Retrieve a file for a relative or absolute file url
+	* 
+	* @param urlString the file url to retrieve a file for
+	* @return the file located at url
+	*/
+	WString StringUtil::urlToFile(WString urlString)
+	{
+		if (urlString.empty())
+			return WString::emptyStr;
+
+		if (urlString.toLowerCase().startsWith("file:"))
+			urlString = urlString.substring(5); // remove "file:"
+
+		File f(urlString);
+		if (f.canRead())
+			return urlString;
+
+		if (File::separator().equals(L"\\")) // on windows
+		{
+			if (urlString.startsWith("///") && urlString.length() > 5 && urlString.charAt(4) == '/')
+				urlString = urlString.charAt(3) + ":" + urlString.substring(4);
+			else if (urlString.startsWith("/") && urlString.length() > 3 && urlString.charAt(2) == '/'
+				&& urlString.charAt(1) != '/')
+				urlString = urlString.charAt(1) + ":" + urlString.substring(2);
+			else if (urlString.startsWith("///"))
+				urlString = urlString.substring(2);
+		}
+
+		urlString.SetRawBytes(urlString.GetUTF8Bytes()); // ensure that any non-utf8 gets encoded to utf-8
+		urlString = urlString.UnEscape('%', 16, 2);
+		urlString.SetUTF8Bytes(urlString.GetRawBytes());
+
+		return urlString;
+	}
+
+	/**
+	* Convert a File to a valid file URL or IRL<br>
+	* note that some internal functions use network protocol and therefor performance may be non-optimal
+	* 
+	* @param f the File to parse,
+	* @param bEscape128 if true, escape non -ascii chars (URI), if false, don't (IRI)
+	* @return the URL string
+	*/
+	WString StringUtil::fileToUrl(const WString& f, bool bEscape128)
+	{
+		if (f.empty())
+			return WString::emptyStr;
+		WString s=f;
+		if (File::separator().equals(L"\\"))
+			s = s.replaceChar('\\', '/');
+		if (bEscape128)
+		{
+			s.SetRawBytes(s.GetUTF8Bytes()); // ensure that any non-utf8 gets encoded to utf-8
+			s=s.Escape(m_URIEscape, "%", 16, 2, 0x21, 127);
+		}
+		else
+		{
+			s=s.Escape(m_URIEscape, "%", 16, 2, 0x21, 0x7fffffff);
+		}
+		// if(s.length()>2 && s.charAt(1)==':' && File.separator.equals("\\"))
+		// s=s.charAt(0)+s.substring(2);
+		if (s.charAt(0) != '/')
+			s = "///" + s;
+
+		return "file:" + s;
+	}
 }; // namespace JDF

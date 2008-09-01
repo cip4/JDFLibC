@@ -104,6 +104,7 @@ namespace JDF{
 		/////////////////////////////////////
 		inline StringUtil() {};
 		inline ~StringUtil() {};
+		static const WString m_URIEscape;
 
 		/////////////////////////////////////
 		// static methods
@@ -162,6 +163,20 @@ namespace JDF{
 		*/
 		static WString StringUtil::token(const WString& strWork, int index, const WString &delim);
 
+		/**
+		* convert an incoming url String to a File String
+		*/
+		static WString urlToFile(WString url); 
+
+		/**
+		* Convert a File to a valid file URL or IRL<br>
+		* note that some internal functions use network protocol and therefor performance may be non-optimal
+		* 
+		* @param f the File name to parse,
+		* @param bEscape128 if true, escape non -ascii chars (URI), if false, don't (IRI)
+		* @return the URL string
+		*/
+		static WString fileToUrl(const WString& f, bool bEscape128);
 
 	}; // class StringUtil
 
