@@ -542,7 +542,9 @@ namespace JDF
 		const JDFCh* data()const;
 		const size_type length()const;
 		const_reference at(int i)const;
+		const_reference charAt(int i)const;
 		reference at(int i);
+		reference charAt(int i);
 		WString substr(size_type pos = 0, size_type n = npos) const;
 		WString substring(int beginIndex, int endIndex) const;
 		WString substring(int beginIndex) const;
