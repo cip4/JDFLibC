@@ -5,6 +5,7 @@
 #include "jdf/Wrapper/JDFNumTypeList.h"
 #include "jdf/Wrapper/JDFNumberRangeList.h"
 #include <jdf/util/PlatformUtils.h>
+#include <jdf/WrapperCore/StringUtil.h>
 #include <xercesc/util/PlatformUtils.hpp>
 #include "jdf/WrapperCore/KElement.h"
 #include "jdf/lang/Exception.h"
@@ -49,6 +50,16 @@ int main(int argc, char* argv[]){
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
 	if(!false)
+	{
+		cout<<StringUtil::urlToFile("file://foo€Bar%20/44%e2%82%ac.txt");
+		assertEquals(StringUtil::urlToFile("file://foo€Bar%20/44%e2%82%ac.txt"), "//foo€Bar /44€.txt");
+		cout<<endl<<StringUtil::fileToUrl("//foo€Bar /44€.txt",true);
+		assertEquals(StringUtil::fileToUrl("\\foo€Bar \\44€.txt",true).toUpperCase(),WString(L"file:/foo%e2%82%acBar%20/44%e2%82%ac.txt").toUpperCase());
+		cout<<endl<<StringUtil::urlToFile("file:/gr%fcn.txt");
+		assertEquals(StringUtil::urlToFile("file://gr%fcn.txt").toUpperCase(),WString(L"/grün.txt").toUpperCase());
+
+	}
+	else if(false)
 	{
 		File dir(L"//KIE-PROSIRAI-LG/gimmedat/FileDir");
 		assertTrue(dir.mkdir());

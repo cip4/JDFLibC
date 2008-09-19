@@ -100,6 +100,7 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/regx/RegularExpression.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
+#include <xercesc/util/UTFDataFormatException.hpp>
 
 #include <jdf/lang/WString.h>
 #include <jdf/lang/WStringBase.h>
@@ -2354,16 +2355,35 @@ namespace JDF
 			unsigned int    charsEaten;
 			const unsigned int srcCount = endPtr - srcPtr;
 
-			const unsigned int outBytes = gUTF8Transcoder->transcodeFrom(srcPtr	, srcCount, tmpBuf, srcCount, charsEaten, charSizes );
+			unsigned int outBytes;
+			try
+			{
+			 outBytes = gUTF8Transcoder->transcodeFrom(srcPtr	, srcCount, tmpBuf, srcCount, charsEaten, charSizes );
+			}
+			catch (UTFDataFormatException x)
+			{
+				WString s(buffer,len);
+				if(s.size()<len)
+					throw IllegalArgumentException(WString(L"WString::SetUTF8Bytes illegal input chars: ")+buffer);
+				assign(s);
+				return;
+
+			};
 
 			// If we get any bytes out, then write them
 			if (outBytes){
 				tmpBuf+=outBytes;
 			}
 
-			// throw an exception for illegal input streams
+			// try default encoding, else throw an exception for illegal input streams
 			if(!charsEaten)
-				throw IllegalArgumentException(WString(L"WString::SetUTF8Bytes illegal input chars: ")+buffer);
+			{
+				WString s(buffer,len);
+				if(s.size()<len)
+					throw IllegalArgumentException(WString(L"WString::SetUTF8Bytes illegal input chars: ")+buffer);
+				assign(s);
+				return;
+			}
 
 			// And bump up our pointer
 			srcPtr += charsEaten;
