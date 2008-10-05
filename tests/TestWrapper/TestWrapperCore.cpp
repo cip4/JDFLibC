@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){
 
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...
-	if(!false)
+	if(false)
 	{
 		cout<<StringUtil::urlToFile("file://foo€Bar%20/44%e2%82%ac.txt");
 		assertEquals(StringUtil::urlToFile("file://foo€Bar%20/44%e2%82%ac.txt"), "//foo€Bar /44€.txt");
@@ -87,36 +87,18 @@ int main(int argc, char* argv[]){
 	else
 	{
 
+		JDFDate d=0;
+		cout<<d.DateTimeISO()<<endl;
+
 		XMLDoc doc("abc");
 		for(int i=0;i<2;i++)
 		{
-			try
-			{
-				doc.Write2File(0);
-				doc.Write2URL("http://aa");
-			}
-			catch(...)
-			{
-				cout<<"cot"<<i<<endl;
-			}
+			KElement e=doc.GetRoot();
+			e.SetAttribute("xmlns:foo","www.foo.com");
+			e.SetAttribute("foo:bar","blub");
+			e.SetAttribute("bar","blub2");
+			assertTrue(e.HasAttribute("foo:bar"));
 		}
-		doc.StringParse("<a/>");
-		cout<<doc<<endl;
-		try
-		{
-			doc.StringParse("<a");
-		}
-		catch(...)
-		{
-			cout<<"cotttt"<<endl;
-
-		}
-		WString s="abc";
-		assertTrue(s.matches("abc"));
-		assertFalse(s.matches("ab"));
-		assertFalse(s.matches("c"));
-		assertFalse(s.matches("(.)?"));
-		assertTrue(s.matches("ab(.)?"));
 	}
 
 	JDF::PlatformUtils::Terminate();
