@@ -23,7 +23,8 @@
 
 XERCES_CPP_NAMESPACE_USE
 int nnnn=0;
-#define assertEquals(a,b)if(a!=b)cout<<"bad\n"<<a<<endl<<b;
+#define assertEquals(a,b)if(a!=b)cout<<"bad assertEquals\n"<<a<<endl<<b;
+#define assertNotSame(a,b)if(a==b)cout<<"bad assertNotSame\n"<<a<<endl<<b;
 #define assertTrue(a)if(!a)cout<<"bad True\n"<<a<<endl;
 #define assertFalse(a)if(a)cout<<"bad False\n"<<a<<endl;
 #define CPPUNIT_ASSERT(a)if(!a)cout<<"bad Equals\n"<<nnnn++<<endl;else{nnnn++;}
@@ -81,6 +82,25 @@ int main(int argC, char* argV[]){
 	// use TestDoc as a container that holds the various example routines
 	// clean up
 	if(1)
+	{
+		JDFDoc d;
+		JDFNode n=d.GetJDFRoot();
+		JDFAuditPool myAuditPool=n.GetCreateAuditPool();
+		for(int i=0;i<100000;i++)
+		{
+				JDFNotification n1 = myAuditPool.AddNotification(JDFNotification::Class_Event);
+		WString id1 = n1.GetID();
+		n1.AppendComment();
+		JDFNotification n2 = myAuditPool.AddNotification(JDFNotification::Class_Event);
+		n2.AppendComment();
+		WString id2 = n2.GetID();
+		assertNotSame(id1, id2);
+		if(i%100==0)
+		cout<<id1<<" "<<id2<<endl;
+		}
+
+	}
+	else if(2)
 	{
 		JDFParser p;
 		p.Parse(inFile);

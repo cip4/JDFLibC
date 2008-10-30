@@ -4946,76 +4946,8 @@ namespace JDF{
 
 	int JDFNode::GetMinID()
 	{
-		VElement v = GetChildrenByTagName(WString::star,WString::emptyStr, mAttribute::emptyMap,false);
-        v.add(*this);
-
-        int iMax = 0;
-        VString vIDNames("ID SpawnID MergeID NewSpawnID"," ");
-        int idSize = vIDNames.size();
-
-        int size = v.size();
-        for (int i = 0; i < size; i++)
-        {
-            KElement jdfElem = v.item(i);
-
-            for (int j = 0; j < idSize; j++)
-            {   
-                // 4 = size of the atr vector
-                // get the rightmost last 4 numerical characters as seed for UniqueID()
-
-                WString strID = jdfElem.GetAttribute(vIDNames.stringAt(j));
-				if (!strID.empty())
-                {
-                    if (strID.length() > 7)
-                    {
-                        strID = strID.substring(strID.length()-7);  // only use the last 5 chars
-                    }
-
-                    int pos = strID.find_last_not_of("0123456789");
-
-                    if (pos == -1)
-                    {
-                        continue;
-                    }
-
-                    strID = strID.substring(pos + 1);
-                    strID = strID.trim();
-					int len= strID.length();
-
-					if (strID.empty())
-                    {
-                        continue;
-                    }
-
-                    int iPos = 0;
-                    while (iPos<len && strID[iPos] == L'0')
-                    {
-                        iPos++;
-                    }
-
-                    if (iPos > 0)
-                    {
-                        strID = strID.substring(iPos); 
-                    }
-
-					if (strID.empty())
-                    {
-                        continue;
-                    }
-
-                    int iS = (int)strID;
-                    if (iS > 1000000) // not in the simple ordering
-                    {
-                        iS = iS % 1000000;
-                    }
-
-                    iMax = (iS > iMax) ? iS : iMax;
-                }
-            }
-        }
-
-        UniqueID(iMax);
-        return iMax;	
+		// the previous algorithm did more harm than good!
+        return UniqueID(0);
 	}
 
 	//////////////////////////////////////////////////////////////////////
