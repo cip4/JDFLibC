@@ -4947,7 +4947,7 @@ namespace JDF{
 	int JDFNode::GetMinID()
 	{
 		// the previous algorithm did more harm than good!
-        return UniqueID(0);
+        return 0;
 	}
 
 	//////////////////////////////////////////////////////////////////////

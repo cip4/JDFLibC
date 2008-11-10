@@ -25,8 +25,8 @@
 #error Only INTEL envirnoments are supported!
 #endif
 
-// Only MS VC++ 5 to 7
-#if (_MSC_VER < 1100) || (_MSC_VER > 1400)
+// Only MS VC++ 5 to 9
+#if (_MSC_VER < 1100) || (_MSC_VER > 1500)
 #error Only MS VC++ 5/6/7/7.1/8 supported. Check if the '_CrtMemBlockHeader' has not changed with this compiler!
 #endif
 
