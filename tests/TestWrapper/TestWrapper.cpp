@@ -81,7 +81,7 @@ int main(int argC, char* argV[]){
 	// create a JDF Doc
 	// use TestDoc as a container that holds the various example routines
 	// clean up
-	if(1)
+	if(0)
 	{
 		JDFDoc d;
 		JDFNode n=d.GetJDFRoot();
