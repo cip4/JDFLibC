@@ -3079,7 +3079,7 @@ namespace JDF{
 		{
 			if(path.startsWith(L"//"))
 			{
-                return GetDocRoot().getXPathElementVectorInternal(path.substring(2), maxSize, false);
+				return GetDocRoot().getXPathElementVectorInternal(path.substring(2), maxSize, false);
 			}
 			KElement r=GetDocRoot();
 			WString rootNodeName = r.GetNodeName();
@@ -4064,14 +4064,26 @@ namespace JDF{
 	* @param attNS attrib ute namespaceuri
 	* @param preFill the HashSet to fill
 	*/
-	void KElement::fillHashSet(const WString& attName,const WString& attNS, SetWString* preFill)const
+	void KElement::fillHashSet(const XMLCh* attName,SetWString* preFill)const
 	{
-		WString attVal=GetAttribute(attName,attNS);
-		if(!attVal.empty()) 
+		if(domElement==0)
+			return;
+		const XMLCh* cAttVal = domElement->getAttribute(attName);
+		if(cAttVal!=0 && *cAttVal!=0)
+		//if(!attVal.empty()) 
 		{
+			WString attVal=cAttVal;
 			if (preFill->contains(attVal))
-				return; // been here already: break
-			preFill->add(attVal);
+			{
+				if (wcscmp(L"ID",attName)!=0)
+				{				
+					return; // been here already: break
+				}
+			}
+			else
+			{
+				preFill->add(attVal);
+			}
 		}
 
 		// get all subnodes, INCLUDING partition leaves
@@ -4079,15 +4091,7 @@ namespace JDF{
 		int siz=v.size();
 		for(int i=0;i<siz;i++)
 		{
-			v.at(i).fillHashSet(attName,attNS,preFill);
-		}
-
-		// also get all lower level parent partition refs
-		v=GetChildElementVector();
-		siz=v.size();
-		for(int i=0;i<siz;i++)
-		{
-			v.at(i).fillHashSet(attName,attNS,preFill);
+			v.at(i).fillHashSet(attName,preFill);
 		}
 	}
 

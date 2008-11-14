@@ -259,6 +259,48 @@ namespace JDF{
 		vmAttribute vmParts=GetPartMapVector();
 		return GetMapTargetVector(vmParts,nMax);
 	}
+	//////////////////////////////////////////////////////////////////////
+	 
+	vElement JDFResourceLink::getLeafVector()const
+	{
+		vElement v;
+		if(throwNull())
+			return v;
+		
+		// split it into leaves 
+		// 150802 changed GetResourcePartMapVector to GetPartMapVector
+		vmAttribute vmParts=GetPartMapVector();
+		JDFResource resRoot=GetLinkRoot();
+		// get the value of PartUsage
+
+		if(vmParts.empty())
+		{
+			return resRoot.GetLeaves();
+		}
+		else
+		{
+			JDFResource::EnumPartUsage partUsage=resRoot.GetPartUsage();
+
+			for(int i=0;i<vmParts.size();i++)
+			{				
+				vElement vr=resRoot.GetPartitionVector(vmParts[i],partUsage);
+				for(int j=0;j<vr.size();j++)
+				{
+					JDFResource targ=vr[j];
+					VElement leaves=targ.getLeaves();
+					for(int k=0;k<leaves.size();k++)
+					{
+						JDFResource leaf=leaves[k];
+						while(!leaf.getPartMap().OvelapsMap(vmParts[i]) && ! leaf.IsResourceRoot())
+							leaf=leaf.GetParentNode();
+						v.AppendUnique(leaf);
+					}
+				}			
+			}
+		}
+		return v;
+	}
+	 
 	
 	//////////////////////////////////////////////////////////////////////
 	

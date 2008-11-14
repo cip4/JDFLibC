@@ -313,6 +313,11 @@ namespace JDF{
 		vElement GetTargetVector(int nMax=-1)const;
 		
 		/**
+		get the vector of all explicitly or explictly referenced leaves
+		*/
+		vElement JDFResourceLink::getLeafVector()const;
+
+		/**
 		* Gets the 1st resource leaf that this resourcelink refers to
 		* for details, see the description of @see GetTargetVector
 		*

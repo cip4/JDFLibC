@@ -181,7 +181,7 @@ int main(int argc, char* argv[]){
 			pTime2.Start();
 			JDFDoc docOut;
 			if(!bInformative){
-				cout<<vRWRes<<endl;
+				cout<<vRWRes<<endl<<pCut;
 				docOut= pCut.Spawn(xmlFile, outFile, vRWRes, vMap ,false,true,true);
 			}else{
 				docOut= pCut.SpawnInformative(xmlFile, outFile, vMap ,false,true,true);

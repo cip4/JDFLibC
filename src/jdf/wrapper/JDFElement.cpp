@@ -97,7 +97,7 @@
 #include "jdf/lang/SetWString.h"
 #include "jdf/util/PlatformUtils.h"
 #include <xercesc/dom/DOMAttr.hpp>
-
+#include <iostream>
 XERCES_CPP_NAMESPACE_USE
 
 
@@ -1513,11 +1513,11 @@ namespace JDF{
 			vElement vLeaves=r.GetLeaves(true);
 			int siz=vLeaves.size();
 			for(int i=0;i<siz;i++)
-				vLeaves.elementAt(i).fillHashSet(atr_rRef,WString::emptyStr,&h);
+				vLeaves.elementAt(i).fillHashSet(atr_rRef.c_str(),&h);
 		}
 		else
 		{
-			fillHashSet(atr_rRef,WString::emptyStr,&h);
+			fillHashSet(atr_rRef.c_str(),&h);
 		}
 		int iFirstPos = vrRefs.size(); // get the previous size
 		vWString v2;

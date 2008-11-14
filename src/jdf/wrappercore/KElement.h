@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1882,10 +1882,9 @@ namespace JDF {
 		/**
 		* fills a HashSet with all values of the attribute in all child elements
 		* @param attName attribute name
-		* @param attNS attrib ute namespaceuri
 		* @param preFill the HashSet to fill
 		*/
-		void fillHashSet(const WString& attName,const WString& attNS, SetWString* preFill)const;
+		void fillHashSet(const XMLCh* attName,SetWString* preFill)const;
 
 		/*
 		* set attribute "xsi:type"
