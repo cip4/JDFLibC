@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -111,10 +111,10 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPart::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Sorting,SortAmount,BinderySignatureName,BlockName,BundleItemIndex,CellIndex,Condition,DeliveryUnit0,DeliveryUnit1,DeliveryUnit2,DeliveryUnit3,DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocIndex,DocCopies")
-	+WString(L",DocRunIndex,DocSheetIndex,FountainNumber,DocTags,Edition,EditionVersion,ItemNames,LayerIDs,Location,Option,PageNumber,PageTags,PartVersion,PlateLayout,PreflightRule,PreviewType,RibbonName,Run,RunIndex")
-	+WString(L",RunPage,RunSet,RunTags,SectionIndex,Separation,SetDocIndex,SetRunIndex,SetSheetIndex,SetTags,SetIndex,SheetIndex,SheetName,Side,SignatureName,SubRun,TileID,WebName,WebProduct,WebSetup")
-	+WString(L"");
+		return JDFElement::OptionalAttributes()+WString(L",Sorting,SortAmount,BinderySignatureName,BlockName,BundleItemIndex,CellIndex,Condition,DeliveryUnit0,DeliveryUnit1,DeliveryUnit2,DeliveryUnit3,DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocCopies,DocIndex")
+	+WString(L",DocRunIndex,DocSheetIndex,DocTags,Edition,EditionVersion,FountainNumber,ItemNames,LayerIDs,Location,Metadata0,Metadata1,Metadata2,Metadata3,Metadata4,Metadata5,Metadata6,Metadata7,Metadata8,Metadata9")
+	+WString(L",Option,PageNumber,PageTags,PartVersion,PlateLayout,PreflightRule,PreviewType,RibbonName,Run,RunIndex,RunPage,RunPageRange,RunSet,RunTags,SectionIndex,Separation,SetDocIndex,SetRunIndex,SetSheetIndex")
+	+WString(L",SetTags,SetIndex,SheetIndex,SheetName,Side,SignatureName,StationName,SubRun,TileID,WebName,WebProduct,WebSetup");
 };
 
 /**
@@ -210,13 +210,13 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidDocIndex(level)) {
-			vAtts.push_back(atr_DocIndex);
+		if(!ValidDocCopies(level)) {
+			vAtts.push_back(atr_DocCopies);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidDocCopies(level)) {
-			vAtts.push_back(atr_DocCopies);
+		if(!ValidDocIndex(level)) {
+			vAtts.push_back(atr_DocIndex);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -227,11 +227,6 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		};
 		if(!ValidDocSheetIndex(level)) {
 			vAtts.push_back(atr_DocSheetIndex);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidFountainNumber(level)) {
-			vAtts.push_back(atr_FountainNumber);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -250,6 +245,11 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidFountainNumber(level)) {
+			vAtts.push_back(atr_FountainNumber);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidItemNames(level)) {
 			vAtts.push_back(atr_ItemNames);
 			if(++n>=nMax)
@@ -262,6 +262,56 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		};
 		if(!ValidLocation(level)) {
 			vAtts.push_back(atr_Location);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata0(level)) {
+			vAtts.push_back(atr_Metadata0);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata1(level)) {
+			vAtts.push_back(atr_Metadata1);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata2(level)) {
+			vAtts.push_back(atr_Metadata2);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata3(level)) {
+			vAtts.push_back(atr_Metadata3);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata4(level)) {
+			vAtts.push_back(atr_Metadata4);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata5(level)) {
+			vAtts.push_back(atr_Metadata5);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata6(level)) {
+			vAtts.push_back(atr_Metadata6);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata7(level)) {
+			vAtts.push_back(atr_Metadata7);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata8(level)) {
+			vAtts.push_back(atr_Metadata8);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata9(level)) {
+			vAtts.push_back(atr_Metadata9);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -317,6 +367,11 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		};
 		if(!ValidRunPage(level)) {
 			vAtts.push_back(atr_RunPage);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidRunPageRange(level)) {
+			vAtts.push_back(atr_RunPageRange);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -382,6 +437,11 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		};
 		if(!ValidSignatureName(level)) {
 			vAtts.push_back(atr_SignatureName);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidStationName(level)) {
+			vAtts.push_back(atr_StationName);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -719,24 +779,6 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		return ValidAttribute(atr_DeliveryUnit9,AttributeType_string,false);
 	};
 /**
-* Set attribute DocIndex
-*@param JDFIntegerRangeList value: the value to set the attribute to
-*/
-	 void JDFAutoPart::SetDocIndex(const JDFIntegerRangeList& value){
-	SetAttribute(atr_DocIndex,value.GetString());
-};
-/**
-* Get range attribute DocIndex
-* @return JDFIntegerRangeList the vaue of the attribute 
-*/
-	 JDFIntegerRangeList JDFAutoPart::GetDocIndex() const {
-	return GetAttribute(atr_DocIndex,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPart::ValidDocIndex(EnumValidationLevel level) const {
-		return ValidAttribute(atr_DocIndex,AttributeType_IntegerRangeList,false);
-	};
-/**
 * Set attribute DocCopies
 *@param JDFIntegerRangeList value: the value to set the attribute to
 */
@@ -753,6 +795,24 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidDocCopies(EnumValidationLevel level) const {
 		return ValidAttribute(atr_DocCopies,AttributeType_IntegerRangeList,false);
+	};
+/**
+* Set attribute DocIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetDocIndex(const JDFIntegerRangeList& value){
+	SetAttribute(atr_DocIndex,value.GetString());
+};
+/**
+* Get range attribute DocIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	 JDFIntegerRangeList JDFAutoPart::GetDocIndex() const {
+	return GetAttribute(atr_DocIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidDocIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_DocIndex,AttributeType_IntegerRangeList,false);
 	};
 /**
 * Set attribute DocRunIndex
@@ -791,40 +851,22 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		return ValidAttribute(atr_DocSheetIndex,AttributeType_IntegerRangeList,false);
 	};
 /**
-* Set attribute FountainNumber
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoPart::SetFountainNumber(int value){
-	SetAttribute(atr_FountainNumber,WString::valueOf(value));
-};
-/**
-* Get integer attribute FountainNumber
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoPart::GetFountainNumber() const {
-	return GetIntAttribute(atr_FountainNumber,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPart::ValidFountainNumber(EnumValidationLevel level) const {
-		return ValidAttribute(atr_FountainNumber,AttributeType_integer,false);
-	};
-/**
 * Set attribute DocTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	 void JDFAutoPart::SetDocTags(const vWString& value){
-	SetAttribute(atr_DocTags,value);
+	 void JDFAutoPart::SetDocTags(const NameRangeList& value){
+	SetAttribute(atr_DocTags,value.GetString());
 };
 /**
-* Get string attribute DocTags
-* @return vWString the vaue of the attribute 
+* Get range attribute DocTags
+* @return NameRangeList the vaue of the attribute 
 */
-	 vWString JDFAutoPart::GetDocTags() const {
+	 NameRangeList JDFAutoPart::GetDocTags() const {
 	return GetAttribute(atr_DocTags,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidDocTags(EnumValidationLevel level) const {
-		return ValidAttribute(atr_DocTags,AttributeType_Any,false);
+		return ValidAttribute(atr_DocTags,AttributeType_NameRangeList,false);
 	};
 /**
 * Set attribute Edition
@@ -861,6 +903,24 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidEditionVersion(EnumValidationLevel level) const {
 		return ValidAttribute(atr_EditionVersion,AttributeType_NMTOKEN,false);
+	};
+/**
+* Set attribute FountainNumber
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetFountainNumber(int value){
+	SetAttribute(atr_FountainNumber,WString::valueOf(value));
+};
+/**
+* Get integer attribute FountainNumber
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoPart::GetFountainNumber() const {
+	return GetIntAttribute(atr_FountainNumber,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidFountainNumber(EnumValidationLevel level) const {
+		return ValidAttribute(atr_FountainNumber,AttributeType_integer,false);
 	};
 /**
 * Set attribute ItemNames
@@ -917,6 +977,186 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		return ValidAttribute(atr_Location,AttributeType_NMTOKEN,false);
 	};
 /**
+* Set attribute Metadata0
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata0(const NameRangeList& value){
+	SetAttribute(atr_Metadata0,value.GetString());
+};
+/**
+* Get range attribute Metadata0
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata0() const {
+	return GetAttribute(atr_Metadata0,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata0(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata0,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata1
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata1(const NameRangeList& value){
+	SetAttribute(atr_Metadata1,value.GetString());
+};
+/**
+* Get range attribute Metadata1
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata1() const {
+	return GetAttribute(atr_Metadata1,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata1(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata1,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata2
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata2(const NameRangeList& value){
+	SetAttribute(atr_Metadata2,value.GetString());
+};
+/**
+* Get range attribute Metadata2
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata2() const {
+	return GetAttribute(atr_Metadata2,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata2(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata2,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata3
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata3(const NameRangeList& value){
+	SetAttribute(atr_Metadata3,value.GetString());
+};
+/**
+* Get range attribute Metadata3
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata3() const {
+	return GetAttribute(atr_Metadata3,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata3(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata3,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata4
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata4(const NameRangeList& value){
+	SetAttribute(atr_Metadata4,value.GetString());
+};
+/**
+* Get range attribute Metadata4
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata4() const {
+	return GetAttribute(atr_Metadata4,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata4(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata4,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata5
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata5(const NameRangeList& value){
+	SetAttribute(atr_Metadata5,value.GetString());
+};
+/**
+* Get range attribute Metadata5
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata5() const {
+	return GetAttribute(atr_Metadata5,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata5(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata5,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata6
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata6(const NameRangeList& value){
+	SetAttribute(atr_Metadata6,value.GetString());
+};
+/**
+* Get range attribute Metadata6
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata6() const {
+	return GetAttribute(atr_Metadata6,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata6(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata6,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata7
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata7(const NameRangeList& value){
+	SetAttribute(atr_Metadata7,value.GetString());
+};
+/**
+* Get range attribute Metadata7
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata7() const {
+	return GetAttribute(atr_Metadata7,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata7(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata7,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata8
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata8(const NameRangeList& value){
+	SetAttribute(atr_Metadata8,value.GetString());
+};
+/**
+* Get range attribute Metadata8
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata8() const {
+	return GetAttribute(atr_Metadata8,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata8(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata8,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata9
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetMetadata9(const NameRangeList& value){
+	SetAttribute(atr_Metadata9,value.GetString());
+};
+/**
+* Get range attribute Metadata9
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPart::GetMetadata9() const {
+	return GetAttribute(atr_Metadata9,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidMetadata9(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata9,AttributeType_NameRangeList,false);
+	};
+/**
 * Set attribute Option
 *@param WString value: the value to set the attribute to
 */
@@ -954,21 +1194,21 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 	};
 /**
 * Set attribute PageTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	 void JDFAutoPart::SetPageTags(const vWString& value){
-	SetAttribute(atr_PageTags,value);
+	 void JDFAutoPart::SetPageTags(const NameRangeList& value){
+	SetAttribute(atr_PageTags,value.GetString());
 };
 /**
-* Get string attribute PageTags
-* @return vWString the vaue of the attribute 
+* Get range attribute PageTags
+* @return NameRangeList the vaue of the attribute 
 */
-	 vWString JDFAutoPart::GetPageTags() const {
+	 NameRangeList JDFAutoPart::GetPageTags() const {
 	return GetAttribute(atr_PageTags,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidPageTags(EnumValidationLevel level) const {
-		return ValidAttribute(atr_PageTags,AttributeType_Any,false);
+		return ValidAttribute(atr_PageTags,AttributeType_NameRangeList,false);
 	};
 /**
 * Set attribute PartVersion
@@ -1122,6 +1362,24 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		return ValidAttribute(atr_RunPage,AttributeType_integer,false);
 	};
 /**
+* Set attribute RunPageRange
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetRunPageRange(const JDFIntegerRangeList& value){
+	SetAttribute(atr_RunPageRange,value.GetString());
+};
+/**
+* Get range attribute RunPageRange
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	 JDFIntegerRangeList JDFAutoPart::GetRunPageRange() const {
+	return GetAttribute(atr_RunPageRange,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidRunPageRange(EnumValidationLevel level) const {
+		return ValidAttribute(atr_RunPageRange,AttributeType_IntegerRangeList,false);
+	};
+/**
 * Set attribute RunSet
 *@param WString value: the value to set the attribute to
 */
@@ -1141,21 +1399,21 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 	};
 /**
 * Set attribute RunTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	 void JDFAutoPart::SetRunTags(const vWString& value){
-	SetAttribute(atr_RunTags,value);
+	 void JDFAutoPart::SetRunTags(const NameRangeList& value){
+	SetAttribute(atr_RunTags,value.GetString());
 };
 /**
-* Get string attribute RunTags
-* @return vWString the vaue of the attribute 
+* Get range attribute RunTags
+* @return NameRangeList the vaue of the attribute 
 */
-	 vWString JDFAutoPart::GetRunTags() const {
+	 NameRangeList JDFAutoPart::GetRunTags() const {
 	return GetAttribute(atr_RunTags,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidRunTags(EnumValidationLevel level) const {
-		return ValidAttribute(atr_RunTags,AttributeType_Any,false);
+		return ValidAttribute(atr_RunTags,AttributeType_NameRangeList,false);
 	};
 /**
 * Set attribute SectionIndex
@@ -1249,21 +1507,21 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 	};
 /**
 * Set attribute SetTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	 void JDFAutoPart::SetSetTags(const vWString& value){
-	SetAttribute(atr_SetTags,value);
+	 void JDFAutoPart::SetSetTags(const NameRangeList& value){
+	SetAttribute(atr_SetTags,value.GetString());
 };
 /**
-* Get string attribute SetTags
-* @return vWString the vaue of the attribute 
+* Get range attribute SetTags
+* @return NameRangeList the vaue of the attribute 
 */
-	 vWString JDFAutoPart::GetSetTags() const {
+	 NameRangeList JDFAutoPart::GetSetTags() const {
 	return GetAttribute(atr_SetTags,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidSetTags(EnumValidationLevel level) const {
-		return ValidAttribute(atr_SetTags,AttributeType_Any,false);
+		return ValidAttribute(atr_SetTags,AttributeType_NameRangeList,false);
 	};
 /**
 * Set attribute SetIndex
@@ -1361,6 +1619,24 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidSignatureName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SignatureName,AttributeType_string,false);
+	};
+/**
+* Set attribute StationName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetStationName(const WString& value){
+	SetAttribute(atr_StationName,value);
+};
+/**
+* Get string attribute StationName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPart::GetStationName() const {
+	return GetAttribute(atr_StationName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidStationName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StationName,AttributeType_string,false);
 	};
 /**
 * Set attribute SubRun

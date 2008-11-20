@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoHeadBandApplicationParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoHeadBandApplicationParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BottomBrand,BottomColor,BottomLength,TopBrand,TopColor,TopLength,StripMaterial,Width");
+		return JDFResource::OptionalAttributes()+WString(L",BottomBrand,BottomColor,BottomColorDetails,BottomLength,TopBrand,TopColor,TopColorDetails,TopLength,StripMaterial,Width");
 };
 
 /**
@@ -150,6 +150,11 @@ bool JDFAutoHeadBandApplicationParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidBottomColorDetails(level)) {
+			vAtts.push_back(atr_BottomColorDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidBottomLength(level)) {
 			vAtts.push_back(atr_BottomLength);
 			if(++n>=nMax)
@@ -162,6 +167,11 @@ bool JDFAutoHeadBandApplicationParams::init(){
 		};
 		if(!ValidTopColor(level)) {
 			vAtts.push_back(atr_TopColor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTopColorDetails(level)) {
+			vAtts.push_back(atr_TopColorDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -214,6 +224,24 @@ bool JDFAutoHeadBandApplicationParams::init(){
 		return ValidEnumAttribute(atr_BottomColor,NamedColorString(),false);
 	};
 /**
+* Set attribute BottomColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoHeadBandApplicationParams::SetBottomColorDetails(const WString& value){
+	SetAttribute(atr_BottomColorDetails,value);
+};
+/**
+* Get string attribute BottomColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoHeadBandApplicationParams::GetBottomColorDetails() const {
+	return GetAttribute(atr_BottomColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoHeadBandApplicationParams::ValidBottomColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BottomColorDetails,AttributeType_string,false);
+	};
+/**
 * Set attribute BottomLength
 *@param double value: the value to set the attribute to
 */
@@ -260,6 +288,24 @@ bool JDFAutoHeadBandApplicationParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoHeadBandApplicationParams::ValidTopColor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_TopColor,NamedColorString(),false);
+	};
+/**
+* Set attribute TopColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoHeadBandApplicationParams::SetTopColorDetails(const WString& value){
+	SetAttribute(atr_TopColorDetails,value);
+};
+/**
+* Get string attribute TopColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoHeadBandApplicationParams::GetTopColorDetails() const {
+	return GetAttribute(atr_TopColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoHeadBandApplicationParams::ValidTopColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TopColorDetails,AttributeType_string,false);
 	};
 /**
 * Set attribute TopLength

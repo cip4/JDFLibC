@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -122,7 +122,7 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoJobPhase::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",Status";
+		return JDFElement::RequiredAttributes()+L",Status,URL";
 };
 
 /**
@@ -217,6 +217,11 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
 		};
 		if(!ValidTotalAmount(level)) {
 			vAtts.push_back(atr_TotalAmount);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidURL(level)) {
+			vAtts.push_back(atr_URL);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -523,6 +528,24 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoJobPhase::ValidTotalAmount(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TotalAmount,AttributeType_double,false);
+	};
+/**
+* Set attribute URL
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoJobPhase::SetURL(const WString& value){
+	SetAttribute(atr_URL,value);
+};
+/**
+* Get string attribute URL
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoJobPhase::GetURL() const {
+	return GetAttribute(atr_URL,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoJobPhase::ValidURL(EnumValidationLevel level) const {
+		return ValidAttribute(atr_URL,AttributeType_URL,RequiredLevel(level));
 	};
 /**
 * Set attribute Waste

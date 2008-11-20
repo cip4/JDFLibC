@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -259,6 +259,24 @@ public:
 * Append element HeadBandColor
  */
 	JDFSpanNamedColor AppendHeadBandColor();
+
+/** Get Element HeadBandColorDetails
+* 
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCreateHeadBandColorDetails(int iSkip=0);
+
+/**
+* const get element HeadBandColorDetails
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetHeadBandColorDetails(int iSkip=0)const;
+/**
+* Append element HeadBandColorDetails
+ */
+	JDFStringSpan AppendHeadBandColorDetails();
 
 /** Get Element Jacket
 * 

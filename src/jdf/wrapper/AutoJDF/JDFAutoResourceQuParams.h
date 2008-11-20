@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -169,6 +169,16 @@ public:
 
 	enum EnumClasses{Classes_Unknown,Classes_Consumable,Classes_Handling,Classes_Implementation,Classes_Intent,Classes_Parameter,Classes_PlaceHolder,Classes_Quantity};
 /**
+* Enumeration for attribute LotDetails
+*/
+
+	enum EnumLotDetails{LotDetails_Unknown,LotDetails_Brief,LotDetails_Full,LotDetails_Amount};
+/**
+* Enumeration for attribute ResourceDetails
+*/
+
+	enum EnumResourceDetails{ResourceDetails_Unknown,ResourceDetails_Brief,ResourceDetails_Full};
+/**
 * Enumeration for attribute Usage
 */
 
@@ -274,6 +284,51 @@ public:
 */
 	virtual bool ValidJobPartID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Enumeration strings for LotDetails
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& LotDetailsString();
+/**
+* Enumeration string for enum value
+* @param EnumLotDetails value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString LotDetailsString(EnumLotDetails value);
+/**
+* Set attribute LotDetails
+* @param EnumLotDetails value the value to set the attribute to
+*/
+	virtual void SetLotDetails( EnumLotDetails value);
+
+/**
+* Typesafe enumerated attribute LotDetails; defaults to Brief
+* @return EnumLotDetailsthe enumeration value of the attribute
+*/
+	virtual EnumLotDetails GetLotDetails() const;
+
+/**
+* Typesafe attribute validation of LotDetails
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidLotDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute LotID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetLotID(const WString& value);
+/**
+* Get string attribute LotID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetLotID() const;
+/**
+* Typesafe attribute validation of LotID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLotID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute ProcessUsage
 *@param WString value: the value to set the attribute to
 */
@@ -322,6 +377,35 @@ public:
 */
 	virtual bool ValidQueueEntryID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Enumeration strings for ResourceDetails
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ResourceDetailsString();
+/**
+* Enumeration string for enum value
+* @param EnumResourceDetails value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ResourceDetailsString(EnumResourceDetails value);
+/**
+* Set attribute ResourceDetails
+* @param EnumResourceDetails value the value to set the attribute to
+*/
+	virtual void SetResourceDetails( EnumResourceDetails value);
+
+/**
+* Typesafe enumerated attribute ResourceDetails; defaults to Full
+* @return EnumResourceDetailsthe enumeration value of the attribute
+*/
+	virtual EnumResourceDetails GetResourceDetails() const;
+
+/**
+* Typesafe attribute validation of ResourceDetails
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidResourceDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute ResourceID
 *@param WString value: the value to set the attribute to
 */
@@ -339,14 +423,14 @@ public:
 	virtual bool ValidResourceID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ResourceName
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	virtual void SetResourceName(const WString& value);
+	virtual void SetResourceName(const vWString& value);
 /**
 * Get string attribute ResourceName
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	virtual WString GetResourceName() const;
+	virtual vWString GetResourceName() const;
 /**
 * Typesafe attribute validation of ResourceName
 * @param EnumValidationLevel level of attribute validation 

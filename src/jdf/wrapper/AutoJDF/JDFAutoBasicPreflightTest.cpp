@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -115,10 +115,17 @@ JDFAutoBasicPreflightTest& JDFAutoBasicPreflightTest::operator=(const KElement& 
 
 
 /**
+ definition of required attributes in the JDF namespace
+*/
+	WString JDFAutoBasicPreflightTest::RequiredAttributes()const{
+		return JDFElement::RequiredAttributes()+L",Name";
+};
+
+/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBasicPreflightTest::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",DevNS,ListType,MaxOccurs,MinOccurs,Name");
+		return JDFElement::OptionalAttributes()+WString(L",Classes,ClassName,DevNS,ListType,MaxOccurs,MinOccurs");
 };
 
 /**
@@ -129,6 +136,16 @@ JDFAutoBasicPreflightTest& JDFAutoBasicPreflightTest::operator=(const KElement& 
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidClasses(level)) {
+			vAtts.push_back(atr_Classes);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidClassName(level)) {
+			vAtts.push_back(atr_ClassName);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidDevNS(level)) {
 			vAtts.push_back(atr_DevNS);
 			if(++n>=nMax)
@@ -157,6 +174,42 @@ JDFAutoBasicPreflightTest& JDFAutoBasicPreflightTest::operator=(const KElement& 
 		return vAtts;
 	};
 
+/**
+* Set attribute Classes
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoBasicPreflightTest::SetClasses(const vWString& value){
+	SetAttribute(atr_Classes,value);
+};
+/**
+* Get string attribute Classes
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoBasicPreflightTest::GetClasses() const {
+	return GetAttribute(atr_Classes,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBasicPreflightTest::ValidClasses(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Classes,AttributeType_NMTOKENS,false);
+	};
+/**
+* Set attribute ClassName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoBasicPreflightTest::SetClassName(const WString& value){
+	SetAttribute(atr_ClassName,value);
+};
+/**
+* Get string attribute ClassName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoBasicPreflightTest::GetClassName() const {
+	return GetAttribute(atr_ClassName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBasicPreflightTest::ValidClassName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ClassName,AttributeType_NMTOKEN,false);
+	};
 /**
 * Set attribute DevNS
 *@param WString value: the value to set the attribute to
@@ -195,7 +248,7 @@ JDFAutoBasicPreflightTest& JDFAutoBasicPreflightTest::operator=(const KElement& 
 };
 /////////////////////////////////////////////////////////////////////////
 	 JDFAutoBasicPreflightTest::EnumListType JDFAutoBasicPreflightTest:: GetListType() const {
-	return (EnumListType) GetEnumAttribute(atr_ListType,ListTypeString(),WString::emptyStr);
+	return (EnumListType) GetEnumAttribute(atr_ListType,ListTypeString(),WString::emptyStr,ListType_SingleValue);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBasicPreflightTest::ValidListType(EnumValidationLevel level) const {
@@ -253,7 +306,7 @@ JDFAutoBasicPreflightTest& JDFAutoBasicPreflightTest::operator=(const KElement& 
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBasicPreflightTest::ValidName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Name,AttributeType_NMTOKEN,false);
+		return ValidAttribute(atr_Name,AttributeType_NMTOKEN,RequiredLevel(level));
 	};
 
 /* ******************************************************

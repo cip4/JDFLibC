@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -1417,6 +1417,22 @@ public:
 */
 	virtual bool ValidFontVendor(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute IsDoubleByteFont
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetIsDoubleByteFont(bool value);
+/**
+* Get bool attribute IsDoubleByteFont
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetIsDoubleByteFont() const;
+/**
+* Typesafe attribute validation of IsDoubleByteFont
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidIsDoubleByteFont(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute IsFontScreenOnly
 *@param bool value: the value to set the attribute to
 */
@@ -2204,6 +2220,22 @@ public:
 */
 	virtual bool ValidBlendColorSpace(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute PageHasOptionalContent
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetPageHasOptionalContent(bool value);
+/**
+* Get bool attribute PageHasOptionalContent
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetPageHasOptionalContent() const;
+/**
+* Typesafe attribute validation of PageHasOptionalContent
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPageHasOptionalContent(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute PageHasUnknownObjects
 *@param bool value: the value to set the attribute to
 */
@@ -2219,6 +2251,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidPageHasUnknownObjects(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PageScalingFactor
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetPageScalingFactor(double value);
+/**
+* Get double attribute PageScalingFactor
+* @return double the vaue of the attribute 
+*/
+	virtual double GetPageScalingFactor() const;
+/**
+* Typesafe attribute validation of PageScalingFactor
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPageScalingFactor(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ReversePageNumber
 *@param int value: the value to set the attribute to

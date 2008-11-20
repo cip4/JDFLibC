@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoRingBindingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoRingBindingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BinderColor,BinderMaterial,BinderName,RingDiameter,RingMechanic,RingShape,RingSystem,RivetsExposed,SpineColor,SpineWidth,ViewBinder");
+		return JDFResource::OptionalAttributes()+WString(L",BinderColor,BinderColorDetails,BinderMaterial,BinderName,RingDiameter,RingMechanic,RingShape,RingSystem,RivetsExposed,SpineColor,SpineColorDetails,SpineWidth,ViewBinder");
 };
 
 /**
@@ -142,6 +142,11 @@ bool JDFAutoRingBindingParams::init(){
 			return vAtts;
 		if(!ValidBinderColor(level)) {
 			vAtts.push_back(atr_BinderColor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBinderColorDetails(level)) {
+			vAtts.push_back(atr_BinderColorDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -185,6 +190,11 @@ bool JDFAutoRingBindingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidSpineColorDetails(level)) {
+			vAtts.push_back(atr_SpineColorDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidSpineWidth(level)) {
 			vAtts.push_back(atr_SpineWidth);
 			if(++n>=nMax)
@@ -209,6 +219,24 @@ bool JDFAutoRingBindingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRingBindingParams::ValidBinderColor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_BinderColor,NamedColorString(),false);
+	};
+/**
+* Set attribute BinderColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoRingBindingParams::SetBinderColorDetails(const WString& value){
+	SetAttribute(atr_BinderColorDetails,value);
+};
+/**
+* Get string attribute BinderColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoRingBindingParams::GetBinderColorDetails() const {
+	return GetAttribute(atr_BinderColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRingBindingParams::ValidBinderColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BinderColorDetails,AttributeType_string,false);
 	};
 /**
 * Set attribute BinderMaterial
@@ -352,6 +380,24 @@ bool JDFAutoRingBindingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRingBindingParams::ValidSpineColor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_SpineColor,NamedColorString(),false);
+	};
+/**
+* Set attribute SpineColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoRingBindingParams::SetSpineColorDetails(const WString& value){
+	SetAttribute(atr_SpineColorDetails,value);
+};
+/**
+* Get string attribute SpineColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoRingBindingParams::GetSpineColorDetails() const {
+	return GetAttribute(atr_SpineColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRingBindingParams::ValidSpineColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SpineColorDetails,AttributeType_string,false);
 	};
 /**
 * Set attribute SpineWidth

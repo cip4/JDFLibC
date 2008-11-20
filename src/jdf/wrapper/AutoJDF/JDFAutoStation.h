@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFShapeDef;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoStation : public JDFElement
@@ -131,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -158,6 +169,22 @@ public:
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute AssemblyIDs
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetAssemblyIDs(const vWString& value);
+/**
+* Get string attribute AssemblyIDs
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetAssemblyIDs() const;
+/**
+* Typesafe attribute validation of AssemblyIDs
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAssemblyIDs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute StationAmount
 *@param int value: the value to set the attribute to
@@ -195,6 +222,35 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element ShapeDef
+* 
+* @param int iSkip number of elements to skip
+* @return JDFShapeDef The element
+*/
+	JDFShapeDef GetCreateShapeDef(int iSkip=0);
+
+/**
+* const get element ShapeDef
+* @param int iSkip number of elements to skip
+* @return JDFShapeDef The element
+*/
+	JDFShapeDef GetShapeDef(int iSkip=0)const;
+/**
+* Append element ShapeDef
+ */
+	JDFShapeDef AppendShapeDef();
+/**
+* create inter-resource link to refTarget
+* @param JDFShapeDef& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefShapeDef(JDFShapeDef& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoStation
 
 // ******************************************************

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoStripBindingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStripBindingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Brand,Distance,Length,StripColor");
+		return JDFResource::OptionalAttributes()+WString(L",Brand,Distance,Length,StripColor,StripColorDetails");
 };
 
 /**
@@ -157,6 +157,11 @@ bool JDFAutoStripBindingParams::init(){
 		};
 		if(!ValidStripColor(level)) {
 			vAtts.push_back(atr_StripColor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidStripColorDetails(level)) {
+			vAtts.push_back(atr_StripColorDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -228,6 +233,24 @@ bool JDFAutoStripBindingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStripBindingParams::ValidStripColor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_StripColor,NamedColorString(),false);
+	};
+/**
+* Set attribute StripColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoStripBindingParams::SetStripColorDetails(const WString& value){
+	SetAttribute(atr_StripColorDetails,value);
+};
+/**
+* Get string attribute StripColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoStripBindingParams::GetStripColorDetails() const {
+	return GetAttribute(atr_StripColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripBindingParams::ValidStripColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StripColorDetails,AttributeType_string,false);
 	};
 
 /* ******************************************************

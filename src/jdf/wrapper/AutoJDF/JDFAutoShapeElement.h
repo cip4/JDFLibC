@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -80,11 +80,13 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFElement.h"
+#include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFShapeElement;
+class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoShapeElement : public JDFElement
+class JDFAutoShapeElement : public JDFResource
 
 *********************************************************************
 */
@@ -94,7 +96,7 @@ class JDFAutoShapeElement : public JDFElement
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFShapeElement should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoShapeElement : public JDFElement{
+class JDF_WRAPPERCORE_EXPORT JDFAutoShapeElement : public JDFResource{
 public:
 
 
@@ -105,11 +107,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoShapeElement():JDFElement(){};
+	inline JDFAutoShapeElement():JDFResource(){};
 /**
 * copy ctor
 */
-	inline JDFAutoShapeElement(const KElement & other):JDFElement(){
+	inline JDFAutoShapeElement(const KElement & other):JDFResource(){
 	*this=other;
 };
 /**
@@ -130,6 +132,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -152,6 +163,18 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
+/** 
+ * Typesafe attribute validation of Class
+* @return true if class is valid
+*/
+virtual bool ValidClass(EnumValidationLevel level) const;
+
+/** 
+ * Typesafe initialization
+ * @return true if succcessful
+*/
+virtual bool init();
+
 /**
 * Enumeration for attribute CutType
 */
@@ -173,6 +196,22 @@ public:
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute LockOrigins
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetLockOrigins(bool value);
+/**
+* Get bool attribute LockOrigins
+* @return bool the vaue of the attribute ; defaults to false
+*/
+	virtual bool GetLockOrigins() const;
+/**
+* Typesafe attribute validation of LockOrigins
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLockOrigins(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute CutBox
 *@param JDFRectangle value: the value to set the attribute to
@@ -222,22 +261,6 @@ public:
 */
 	virtual bool ValidCutPath(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute Material
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetMaterial(const WString& value);
-/**
-* Get string attribute Material
-* @return WString the vaue of the attribute 
-*/
-	virtual WString GetMaterial() const;
-/**
-* Typesafe attribute validation of Material
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidMaterial(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Enumeration strings for CutType
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -255,7 +278,7 @@ public:
 	virtual void SetCutType( EnumCutType value);
 
 /**
-* Typesafe enumerated attribute CutType; defaults to Cut
+* Typesafe enumerated attribute CutType
 * @return EnumCutTypethe enumeration value of the attribute
 */
 	virtual EnumCutType GetCutType() const;
@@ -266,6 +289,38 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidCutType(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DDESCutType
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetDDESCutType(int value);
+/**
+* Get integer attribute DDESCutType
+* @return int the vaue of the attribute ; defaults to 101
+*/
+	virtual int GetDDESCutType() const;
+/**
+* Typesafe attribute validation of DDESCutType
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDDESCutType(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Material
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetMaterial(const WString& value);
+/**
+* Get string attribute Material
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetMaterial() const;
+/**
+* Typesafe attribute validation of Material
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMaterial(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ShapeDepth
 *@param double value: the value to set the attribute to
@@ -312,22 +367,6 @@ public:
 */
 	virtual bool ValidShapeType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute StationName
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetStationName(const WString& value);
-/**
-* Get string attribute StationName
-* @return WString the vaue of the attribute 
-*/
-	virtual WString GetStationName() const;
-/**
-* Typesafe attribute validation of StationName
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidStationName(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute TeethPerDimension
 *@param double value: the value to set the attribute to
 */
@@ -348,6 +387,35 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Shape
+* 
+* @param int iSkip number of elements to skip
+* @return JDFShapeElement The element
+*/
+	JDFShapeElement GetCreateShape(int iSkip=0);
+
+/**
+* const get element Shape
+* @param int iSkip number of elements to skip
+* @return JDFShapeElement The element
+*/
+	JDFShapeElement GetShape(int iSkip=0)const;
+/**
+* Append element Shape
+ */
+	JDFShapeElement AppendShape();
+/**
+* create inter-resource link to refTarget
+* @param JDFShapeElement& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefShape(JDFShapeElement& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoShapeElement
 
 // ******************************************************

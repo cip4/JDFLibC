@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -185,7 +185,7 @@ virtual bool init();
 * Enumeration for attribute WorkStyle
 */
 
-	enum EnumWorkStyle{WorkStyle_Unknown,WorkStyle_Simplex,WorkStyle_WorkAndBack,WorkStyle_Perfecting,WorkStyle_WorkAndTurn,WorkStyle_WorkAndTumble,WorkStyle_WorkAndTwist};
+	enum EnumWorkStyle{WorkStyle_Unknown,WorkStyle_Simplex,WorkStyle_Perfecting,WorkStyle_WorkAndBack,WorkStyle_WorkAndTurn,WorkStyle_WorkAndTumble,WorkStyle_WorkAndTwist};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -225,6 +225,38 @@ virtual bool init();
 */
 	virtual bool ValidAssemblyIDs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute Automated
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetAutomated(bool value);
+/**
+* Get bool attribute Automated
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetAutomated() const;
+/**
+* Typesafe attribute validation of Automated
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAutomated(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute InnermostShingling
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetInnermostShingling(double value);
+/**
+* Get double attribute InnermostShingling
+* @return double the vaue of the attribute 
+*/
+	virtual double GetInnermostShingling() const;
+/**
+* Typesafe attribute validation of InnermostShingling
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidInnermostShingling(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to
 */
@@ -241,6 +273,22 @@ virtual bool init();
 */
 	virtual bool ValidJobID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute OutermostShingling
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetOutermostShingling(double value);
+/**
+* Get double attribute OutermostShingling
+* @return double the vaue of the attribute 
+*/
+	virtual double GetOutermostShingling() const;
+/**
+* Typesafe attribute validation of OutermostShingling
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOutermostShingling(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute SectionList
 *@param JDFIntegerList value: the value to set the attribute to
 */
@@ -256,6 +304,54 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSectionList(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SheetNameFormat
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSheetNameFormat(const WString& value);
+/**
+* Get string attribute SheetNameFormat
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSheetNameFormat() const;
+/**
+* Typesafe attribute validation of SheetNameFormat
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetNameFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SheetNameTemplate
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSheetNameTemplate(const WString& value);
+/**
+* Get string attribute SheetNameTemplate
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSheetNameTemplate() const;
+/**
+* Typesafe attribute validation of SheetNameTemplate
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetNameTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute StackDepth
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetStackDepth(int value);
+/**
+* Get integer attribute StackDepth
+* @return int the vaue of the attribute 
+*/
+	virtual int GetStackDepth() const;
+/**
+* Typesafe attribute validation of StackDepth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidStackDepth(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for WorkStyle
 * @return const WString& comma separated list of enumerated string values 

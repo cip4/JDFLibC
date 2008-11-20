@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFCIELABMeasuringField;
 class JDFDensityMeasuringField;
+class JDFSeparationSpec;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -178,11 +179,6 @@ virtual bool init();
 
 
 /**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
-
-/**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
@@ -204,22 +200,6 @@ virtual bool init();
 */
 	virtual bool ValidCenter(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute Size
-*@param JDFXYPair value: the value to set the attribute to
-*/
-	virtual void SetSize(const JDFXYPair& value);
-/**
-* Get string attribute Size
-* @return JDFXYPair the vaue of the attribute 
-*/
-	virtual JDFXYPair GetSize() const;
-/**
-* Typesafe attribute validation of Size
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidSize(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute Rotation
 *@param double value: the value to set the attribute to
 */
@@ -235,6 +215,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidRotation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Size
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	virtual void SetSize(const JDFXYPair& value);
+/**
+* Get string attribute Size
+* @return JDFXYPair the vaue of the attribute 
+*/
+	virtual JDFXYPair GetSize() const;
+/**
+* Typesafe attribute validation of Size
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSize(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute StripType
 *@param WString value: the value to set the attribute to
@@ -304,6 +300,24 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefDensityMeasuringField(JDFDensityMeasuringField& refTarget);
+
+/** Get Element SeparationSpec
+* 
+* @param int iSkip number of elements to skip
+* @return JDFSeparationSpec The element
+*/
+	JDFSeparationSpec GetCreateSeparationSpec(int iSkip=0);
+
+/**
+* const get element SeparationSpec
+* @param int iSkip number of elements to skip
+* @return JDFSeparationSpec The element
+*/
+	JDFSeparationSpec GetSeparationSpec(int iSkip=0)const;
+/**
+* Append element SeparationSpec
+ */
+	JDFSeparationSpec AppendSeparationSpec();
 
 /**
  definition of optional elements in the JDF namespace

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -136,7 +136,7 @@ bool JDFAutoJobField::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoJobField::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",OperatorText,UserText");
+		return JDFResource::OptionalAttributes()+WString(L",JobFormat,JobTemplate,OperatorText,UserText");
 };
 
 /**
@@ -149,6 +149,16 @@ bool JDFAutoJobField::init(){
 			return vAtts;
 		if(!ValidShowList(level)) {
 			vAtts.push_back(atr_ShowList);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidJobFormat(level)) {
+			vAtts.push_back(atr_JobFormat);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidJobTemplate(level)) {
+			vAtts.push_back(atr_JobTemplate);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -182,6 +192,42 @@ bool JDFAutoJobField::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoJobField::ValidShowList(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ShowList,AttributeType_NMTOKENS,RequiredLevel(level));
+	};
+/**
+* Set attribute JobFormat
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoJobField::SetJobFormat(const WString& value){
+	SetAttribute(atr_JobFormat,value);
+};
+/**
+* Get string attribute JobFormat
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoJobField::GetJobFormat() const {
+	return GetAttribute(atr_JobFormat,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoJobField::ValidJobFormat(EnumValidationLevel level) const {
+		return ValidAttribute(atr_JobFormat,AttributeType_string,false);
+	};
+/**
+* Set attribute JobTemplate
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoJobField::SetJobTemplate(const WString& value){
+	SetAttribute(atr_JobTemplate,value);
+};
+/**
+* Get string attribute JobTemplate
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoJobField::GetJobTemplate() const {
+	return GetAttribute(atr_JobTemplate,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoJobField::ValidJobTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_JobTemplate,AttributeType_string,false);
 	};
 /**
 * Set attribute OperatorText

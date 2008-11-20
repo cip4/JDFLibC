@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,6 +76,7 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLayoutElement.h"
 #include "jdf/wrapper/JDFColorPool.h"
+#include "jdf/wrapper/JDFContentList.h"
 #include "jdf/wrapper/JDFDependencies.h"
 #include "jdf/wrapper/JDFElementColorParams.h"
 #include "jdf/wrapper/JDFFileSpec.h"
@@ -136,7 +137,7 @@ bool JDFAutoLayoutElement::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoLayoutElement::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",IgnorePDLCopies,IgnorePDLImposition,ClipPath,ElementType,HasBleeds,IsBlank,IsPrintable,IsTrapped,PageListIndex,SourceBleedBox,SourceClipBox,SourceTrimBox,Template");
+		return JDFResource::OptionalAttributes()+WString(L",IgnorePDLCopies,IgnorePDLImposition,ClipPath,ContentDataRefs,ElementType,HasBleeds,IsBlank,IsPrintable,IsTrapped,PageListIndex,SourceBleedBox,SourceClipBox,SourceMediaBox,SourceTrimBox,Template");
 };
 
 /**
@@ -159,6 +160,11 @@ bool JDFAutoLayoutElement::init(){
 		};
 		if(!ValidClipPath(level)) {
 			vAtts.push_back(atr_ClipPath);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidContentDataRefs(level)) {
+			vAtts.push_back(atr_ContentDataRefs);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -199,6 +205,11 @@ bool JDFAutoLayoutElement::init(){
 		};
 		if(!ValidSourceClipBox(level)) {
 			vAtts.push_back(atr_SourceClipBox);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSourceMediaBox(level)) {
+			vAtts.push_back(atr_SourceMediaBox);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -267,10 +278,28 @@ bool JDFAutoLayoutElement::init(){
 	bool JDFAutoLayoutElement::ValidClipPath(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ClipPath,AttributeType_PDFPath,false);
 	};
+/**
+* Set attribute ContentDataRefs
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoLayoutElement::SetContentDataRefs(const vWString& value){
+	SetAttribute(atr_ContentDataRefs,value);
+};
+/**
+* Get string attribute ContentDataRefs
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoLayoutElement::GetContentDataRefs() const {
+	return GetAttribute(atr_ContentDataRefs,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayoutElement::ValidContentDataRefs(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ContentDataRefs,AttributeType_IDREFS,false);
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoLayoutElement::ElementTypeString(){
-		static const WString enums=WString(L"Unknown,Auxilliary,Barcode,Composed,Document,Graphic,IdentificationField,Image,MultiDocument,MultiSet")
+		static const WString enums=WString(L"Unknown,Auxiliary,Barcode,Composed,Document,Graphic,IdentificationField,Image,MultiDocument,MultiSet")
 	+WString(L",Page,Reservation,Surface,Text,Tile");
 		return enums;
 	};
@@ -416,6 +445,24 @@ bool JDFAutoLayoutElement::init(){
 		return ValidAttribute(atr_SourceClipBox,AttributeType_rectangle,false);
 	};
 /**
+* Set attribute SourceMediaBox
+*@param JDFRectangle value: the value to set the attribute to
+*/
+	 void JDFAutoLayoutElement::SetSourceMediaBox(const JDFRectangle& value){
+	SetAttribute(atr_SourceMediaBox,value);
+};
+/**
+* Get string attribute SourceMediaBox
+* @return JDFRectangle the vaue of the attribute 
+*/
+	 JDFRectangle JDFAutoLayoutElement::GetSourceMediaBox() const {
+	return GetAttribute(atr_SourceMediaBox,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayoutElement::ValidSourceMediaBox(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SourceMediaBox,AttributeType_rectangle,false);
+	};
+/**
 * Set attribute SourceTrimBox
 *@param JDFRectangle value: the value to set the attribute to
 */
@@ -477,6 +524,31 @@ JDFColorPool JDFAutoLayoutElement::AppendColorPool(){
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
 JDFRefElement JDFAutoLayoutElement::RefColorPool(JDFColorPool& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFContentList JDFAutoLayoutElement::GetContentList(int iSkip)const{
+	JDFContentList e=GetElement(elm_ContentList,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFContentList JDFAutoLayoutElement::GetCreateContentList(int iSkip){
+	JDFContentList e=GetCreateElement(elm_ContentList,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFContentList JDFAutoLayoutElement::AppendContentList(){
+	JDFContentList e=AppendElement(elm_ContentList);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLayoutElement::RefContentList(JDFContentList& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -668,6 +740,16 @@ JDFSeparationSpec JDFAutoLayoutElement::AppendSeparationSpec(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_ContentList);
+
+		for(i=0;i<nElem;i++){
+			if (!GetContentList(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ContentList);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Dependencies);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_Dependencies);
@@ -765,6 +847,6 @@ JDFSeparationSpec JDFAutoLayoutElement::AppendSeparationSpec(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayoutElement::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ColorPool,Dependencies,ElementColorParams,FileSpec,ImageCompressionParams,PageList,ScreeningParams,SeparationSpec";
+		return JDFResource::OptionalElements()+L",ColorPool,ContentList,Dependencies,ElementColorParams,FileSpec,ImageCompressionParams,PageList,ScreeningParams,SeparationSpec";
 	};
 }; // end namespace JDF

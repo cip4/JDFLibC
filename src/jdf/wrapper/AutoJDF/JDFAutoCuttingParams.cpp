@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -128,6 +128,13 @@ bool JDFAutoCuttingParams::init(){
 
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoCuttingParams::OptionalAttributes()const{
+		return JDFResource::OptionalAttributes()+WString(L",NUpSeparation");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoCuttingParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -135,9 +142,32 @@ bool JDFAutoCuttingParams::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidNUpSeparation(level)) {
+			vAtts.push_back(atr_NUpSeparation);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+/**
+* Set attribute NUpSeparation
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	 void JDFAutoCuttingParams::SetNUpSeparation(const JDFXYPair& value){
+	SetAttribute(atr_NUpSeparation,value);
+};
+/**
+* Get string attribute NUpSeparation
+* @return JDFXYPair the vaue of the attribute 
+*/
+	 JDFXYPair JDFAutoCuttingParams::GetNUpSeparation() const {
+	return GetAttribute(atr_NUpSeparation,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCuttingParams::ValidNUpSeparation(EnumValidationLevel level) const {
+		return ValidAttribute(atr_NUpSeparation,AttributeType_XYPair,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter

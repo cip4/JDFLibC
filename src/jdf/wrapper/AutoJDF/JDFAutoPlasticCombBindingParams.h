@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -179,7 +179,7 @@ virtual bool init();
 * Enumeration for attribute Type
 */
 
-	enum EnumType{Type_Unknown,Type_R2_generic,Type_R2m_DIN,Type_R2m_ISO,Type_R2m_MIB,Type_R2i_US_a,Type_R2i_US_b,Type_R3_generic,Type_R3i_US,Type_R4_generic,Type_R4m_DIN_A4,Type_R4m_DIN_A5,Type_R4m_swedish,Type_R4i_US,Type_R5_generic,Type_R5i_US_a,Type_R5i_US_b,Type_R5i_US_c,Type_R6_generic,Type_R6m_4h2s,Type_R6m_DIN_A5,Type_R7_generic,Type_R7i_US_a,Type_R7i_US_b,Type_R7i_US_c,Type_R11m_7h4s,Type_P16_9i_rect_0t,Type_P12m_rect_0t,Type_W2_1i_round_0t,Type_W2_1i_square_0t,Type_W3_1i_square_0t,Type_C9_5m_round_0t};
+	enum EnumType{Type_Unknown,Type_R2_generic,Type_S1_generic,Type_S_generic,Type_R2m_DIN,Type_R2m_ISO,Type_R2m_MIB,Type_R2i_US_a,Type_R2i_US_b,Type_R3_generic,Type_R3i_US,Type_R4_generic,Type_R4m_DIN_A4,Type_R4m_DIN_A5,Type_R4m_swedish,Type_R4i_US,Type_R5_generic,Type_R5i_US_a,Type_R5i_US_b,Type_R5i_US_c,Type_R6_generic,Type_R6m_4h2s,Type_R6m_DIN_A5,Type_R7_generic,Type_R7i_US_a,Type_R7i_US_b,Type_R7i_US_c,Type_R11m_7h4s,Type_P16_9i_rect_0t,Type_P12m_rect_0t,Type_W2_1i_round_0t,Type_W2_1i_square_0t,Type_W3_1i_square_0t,Type_C9_5m_round_0t};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -220,6 +220,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidColor(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetColorDetails(const WString& value);
+/**
+* Get string attribute ColorDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetColorDetails() const;
+/**
+* Typesafe attribute validation of ColorDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidColorDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Diameter
 *@param double value: the value to set the attribute to

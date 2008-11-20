@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -131,7 +131,7 @@ bool JDFAutoBinderySignature::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBinderySignature::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BinderySignatureType,BindingEdge,JogEdge,NumberUp,FoldCatalog,BindingOrientation,OutsideGutter,StaggerColumns,StaggerContinuous,StaggerRows");
+		return JDFResource::OptionalAttributes()+WString(L",BinderySignatureType,BindingEdge,JogEdge,NumberUp,AlignmentReferenceWeb,BindingOrientation,FoldCatalog,FoldLay,OutsideGutter,StaggerColumns,StaggerContinuous,StaggerRows,WebCellAlignment");
 };
 
 /**
@@ -162,13 +162,23 @@ bool JDFAutoBinderySignature::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidFoldCatalog(level)) {
-			vAtts.push_back(atr_FoldCatalog);
+		if(!ValidAlignmentReferenceWeb(level)) {
+			vAtts.push_back(atr_AlignmentReferenceWeb);
 			if(++n>=nMax)
 				return vAtts;
 		};
 		if(!ValidBindingOrientation(level)) {
 			vAtts.push_back(atr_BindingOrientation);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidFoldCatalog(level)) {
+			vAtts.push_back(atr_FoldCatalog);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidFoldLay(level)) {
+			vAtts.push_back(atr_FoldLay);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -189,6 +199,11 @@ bool JDFAutoBinderySignature::init(){
 		};
 		if(!ValidStaggerRows(level)) {
 			vAtts.push_back(atr_StaggerRows);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidWebCellAlignment(level)) {
+			vAtts.push_back(atr_WebCellAlignment);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -289,6 +304,36 @@ bool JDFAutoBinderySignature::init(){
 		return ValidAttribute(atr_NumberUp,AttributeType_XYPair,false);
 	};
 /**
+* Set attribute AlignmentReferenceWeb
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetAlignmentReferenceWeb(const WString& value){
+	SetAttribute(atr_AlignmentReferenceWeb,value);
+};
+/**
+* Get string attribute AlignmentReferenceWeb
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoBinderySignature::GetAlignmentReferenceWeb() const {
+	return GetAttribute(atr_AlignmentReferenceWeb,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidAlignmentReferenceWeb(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AlignmentReferenceWeb,AttributeType_NMTOKEN,false);
+	};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoBinderySignature::SetBindingOrientation( EnumOrientation value){
+	SetEnumAttribute(atr_BindingOrientation,value,OrientationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoBinderySignature::EnumOrientation JDFAutoBinderySignature:: GetBindingOrientation() const {
+	return (EnumOrientation) GetEnumAttribute(atr_BindingOrientation,OrientationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidBindingOrientation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_BindingOrientation,OrientationString(),false);
+	};
+/**
 * Set attribute FoldCatalog
 *@param WString value: the value to set the attribute to
 */
@@ -307,16 +352,16 @@ bool JDFAutoBinderySignature::init(){
 		return ValidAttribute(atr_FoldCatalog,AttributeType_string,false);
 	};
 /////////////////////////////////////////////////////////////////////////
-	void JDFAutoBinderySignature::SetBindingOrientation( EnumOrientation value){
-	SetEnumAttribute(atr_BindingOrientation,value,OrientationString());
+	void JDFAutoBinderySignature::SetFoldLay( EnumOrientation value){
+	SetEnumAttribute(atr_FoldLay,value,OrientationString());
 };
 /////////////////////////////////////////////////////////////////////////
-	 JDFAutoBinderySignature::EnumOrientation JDFAutoBinderySignature:: GetBindingOrientation() const {
-	return (EnumOrientation) GetEnumAttribute(atr_BindingOrientation,OrientationString(),WString::emptyStr);
+	 JDFAutoBinderySignature::EnumOrientation JDFAutoBinderySignature:: GetFoldLay() const {
+	return (EnumOrientation) GetEnumAttribute(atr_FoldLay,OrientationString(),WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoBinderySignature::ValidBindingOrientation(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_BindingOrientation,OrientationString(),false);
+	bool JDFAutoBinderySignature::ValidFoldLay(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_FoldLay,OrientationString(),false);
 	};
 /**
 * Set attribute OutsideGutter
@@ -387,6 +432,24 @@ bool JDFAutoBinderySignature::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBinderySignature::ValidStaggerRows(EnumValidationLevel level) const {
 		return ValidAttribute(atr_StaggerRows,AttributeType_NumberList,false);
+	};
+/**
+* Set attribute WebCellAlignment
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetWebCellAlignment(const JDFXYPair& value){
+	SetAttribute(atr_WebCellAlignment,value);
+};
+/**
+* Get string attribute WebCellAlignment
+* @return JDFXYPair the vaue of the attribute 
+*/
+	 JDFXYPair JDFAutoBinderySignature::GetWebCellAlignment() const {
+	return GetAttribute(atr_WebCellAlignment,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidWebCellAlignment(EnumValidationLevel level) const {
+		return ValidAttribute(atr_WebCellAlignment,AttributeType_XYPair,false);
 	};
 
 /* ******************************************************

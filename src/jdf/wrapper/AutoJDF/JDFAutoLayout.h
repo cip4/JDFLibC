@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -88,6 +88,7 @@ class JDFLayerList;
 class JDFMarkObject;
 class JDFMedia;
 class JDFMediaSource;
+class JDFPageCondition;
 class JDFSignature;
 class JDFTransferCurvePool;
 class JDFRefElement;
@@ -183,10 +184,20 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 virtual bool init();
 
 /**
+* Enumeration for attribute OrdReset
+*/
+
+	enum EnumOrdReset{OrdReset_Unknown,OrdReset_Continue,OrdReset_PagePool,OrdReset_PagePoolList};
+/**
+* Enumeration for attribute SheetCountReset
+*/
+
+	enum EnumSheetCountReset{SheetCountReset_Unknown,SheetCountReset_Continue,SheetCountReset_PagePool,SheetCountReset_PagePoolList};
+/**
 * Enumeration for attribute SourceWorkStyle
 */
 
-	enum EnumSourceWorkStyle{SourceWorkStyle_Unknown,SourceWorkStyle_Simplex,SourceWorkStyle_WorkAndBack,SourceWorkStyle_Perfecting,SourceWorkStyle_WorkAndTurn,SourceWorkStyle_WorkAndTumble,SourceWorkStyle_WorkAndTwist};
+	enum EnumSourceWorkStyle{SourceWorkStyle_Unknown,SourceWorkStyle_Simplex,SourceWorkStyle_Perfecting,SourceWorkStyle_WorkAndBack,SourceWorkStyle_WorkAndTurn,SourceWorkStyle_WorkAndTumble,SourceWorkStyle_WorkAndTwist};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -258,6 +269,64 @@ virtual bool init();
 */
 	virtual bool ValidMaxSetOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Enumeration strings for OrdReset
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& OrdResetString();
+/**
+* Enumeration string for enum value
+* @param EnumOrdReset value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString OrdResetString(EnumOrdReset value);
+/**
+* Set attribute OrdReset
+* @param EnumOrdReset value the value to set the attribute to
+*/
+	virtual void SetOrdReset( EnumOrdReset value);
+
+/**
+* Typesafe enumerated attribute OrdReset; defaults to Continue
+* @return EnumOrdResetthe enumeration value of the attribute
+*/
+	virtual EnumOrdReset GetOrdReset() const;
+
+/**
+* Typesafe attribute validation of OrdReset
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidOrdReset(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for SheetCountReset
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& SheetCountResetString();
+/**
+* Enumeration string for enum value
+* @param EnumSheetCountReset value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString SheetCountResetString(EnumSheetCountReset value);
+/**
+* Set attribute SheetCountReset
+* @param EnumSheetCountReset value the value to set the attribute to
+*/
+	virtual void SetSheetCountReset( EnumSheetCountReset value);
+
+/**
+* Typesafe enumerated attribute SheetCountReset; defaults to Continue
+* @return EnumSheetCountResetthe enumeration value of the attribute
+*/
+	virtual EnumSheetCountReset GetSheetCountReset() const;
+
+/**
+* Typesafe attribute validation of SheetCountReset
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetCountReset(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute Name
 *@param WString value: the value to set the attribute to
 */
@@ -274,6 +343,22 @@ virtual bool init();
 */
 	virtual bool ValidName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute MaxCollect
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetMaxCollect(int value);
+/**
+* Get integer attribute MaxCollect
+* @return int the vaue of the attribute 
+*/
+	virtual int GetMaxCollect() const;
+/**
+* Typesafe attribute validation of MaxCollect
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMaxCollect(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute MaxOrd
 *@param int value: the value to set the attribute to
 */
@@ -289,6 +374,70 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidMaxOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute MinCollect
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetMinCollect(int value);
+/**
+* Get integer attribute MinCollect
+* @return int the vaue of the attribute 
+*/
+	virtual int GetMinCollect() const;
+/**
+* Typesafe attribute validation of MinCollect
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMinCollect(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute OrdsConsumed
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetOrdsConsumed(const JDFIntegerRangeList& value);
+/**
+* Get range attribute OrdsConsumed
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetOrdsConsumed() const;
+/**
+* Typesafe attribute validation of OrdsConsumed
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOrdsConsumed(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SheetNameFormat
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSheetNameFormat(const WString& value);
+/**
+* Get string attribute SheetNameFormat
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSheetNameFormat() const;
+/**
+* Typesafe attribute validation of SheetNameFormat
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetNameFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SheetNameTemplate
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSheetNameTemplate(const WString& value);
+/**
+* Get string attribute SheetNameTemplate
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSheetNameTemplate() const;
+/**
+* Typesafe attribute validation of SheetNameTemplate
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetNameTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for SourceWorkStyle
 * @return const WString& comma separated list of enumerated string values 
@@ -318,6 +467,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSourceWorkStyle(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute StackDepth
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetStackDepth(int value);
+/**
+* Get integer attribute StackDepth
+* @return int the vaue of the attribute 
+*/
+	virtual int GetStackDepth() const;
+/**
+* Typesafe attribute validation of StackDepth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidStackDepth(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SurfaceContentsBox
 *@param JDFRectangle value: the value to set the attribute to
@@ -419,19 +584,20 @@ virtual bool init();
 
 /** Get Element Media
 * 
+* @param int iSkip number of elements to skip
 * @return JDFMedia The element
 */
-	JDFMedia GetCreateMedia();
+	JDFMedia GetCreateMedia(int iSkip=0);
 
 /**
 * const get element Media
-*@return  JDFMedia The element
+* @param int iSkip number of elements to skip
+* @return JDFMedia The element
 */
-	JDFMedia GetMedia()const;
+	JDFMedia GetMedia(int iSkip=0)const;
 /**
 * Append element Media
- * 
-*/
+ */
 	JDFMedia AppendMedia();
 /**
 * create inter-resource link to refTarget
@@ -462,6 +628,24 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefMediaSource(JDFMediaSource& refTarget);
+
+/** Get Element PageCondition
+* 
+* @param int iSkip number of elements to skip
+* @return JDFPageCondition The element
+*/
+	JDFPageCondition GetCreatePageCondition(int iSkip=0);
+
+/**
+* const get element PageCondition
+* @param int iSkip number of elements to skip
+* @return JDFPageCondition The element
+*/
+	JDFPageCondition GetPageCondition(int iSkip=0)const;
+/**
+* Append element PageCondition
+ */
+	JDFPageCondition AppendPageCondition();
 
 /** Get Element Signature
 * 

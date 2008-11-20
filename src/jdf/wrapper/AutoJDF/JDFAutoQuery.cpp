@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,7 +75,9 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoQuery.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFSubscription.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -252,6 +254,26 @@ JDFAutoQuery& JDFAutoQuery::operator=(const KElement& other){
 **************************************************************** */
 
 
+JDFEmployee JDFAutoQuery::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoQuery::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoQuery::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFSubscription JDFAutoQuery::GetSubscription(int iSkip)const{
 	JDFSubscription e=GetElement(elm_Subscription,WString::emptyStr,iSkip);
 	return e;
@@ -282,6 +304,16 @@ JDFSubscription JDFAutoQuery::AppendSubscription(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Subscription);
 
 		for(i=0;i<nElem;i++){
@@ -300,6 +332,6 @@ JDFSubscription JDFAutoQuery::AppendSubscription(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoQuery::OptionalElements()const{
-		return JDFMessage::OptionalElements()+L",Subscription";
+		return JDFMessage::OptionalElements()+L",Employee,Subscription";
 	};
 }; // end namespace JDF

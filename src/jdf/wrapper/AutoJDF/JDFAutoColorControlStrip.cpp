@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoColorControlStrip.h"
 #include "jdf/wrapper/JDFCIELABMeasuringField.h"
 #include "jdf/wrapper/JDFDensityMeasuringField.h"
+#include "jdf/wrapper/JDFSeparationSpec.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -127,17 +128,10 @@ bool JDFAutoColorControlStrip::init(){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoColorControlStrip::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",Center,Size";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColorControlStrip::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Rotation,StripType");
+		return JDFResource::OptionalAttributes()+WString(L",Center,Rotation,Size,StripType");
 };
 
 /**
@@ -153,13 +147,13 @@ bool JDFAutoColorControlStrip::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidSize(level)) {
-			vAtts.push_back(atr_Size);
+		if(!ValidRotation(level)) {
+			vAtts.push_back(atr_Rotation);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidRotation(level)) {
-			vAtts.push_back(atr_Rotation);
+		if(!ValidSize(level)) {
+			vAtts.push_back(atr_Size);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -187,25 +181,7 @@ bool JDFAutoColorControlStrip::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorControlStrip::ValidCenter(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Center,AttributeType_XYPair,RequiredLevel(level));
-	};
-/**
-* Set attribute Size
-*@param JDFXYPair value: the value to set the attribute to
-*/
-	 void JDFAutoColorControlStrip::SetSize(const JDFXYPair& value){
-	SetAttribute(atr_Size,value);
-};
-/**
-* Get string attribute Size
-* @return JDFXYPair the vaue of the attribute 
-*/
-	 JDFXYPair JDFAutoColorControlStrip::GetSize() const {
-	return GetAttribute(atr_Size,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoColorControlStrip::ValidSize(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Size,AttributeType_XYPair,RequiredLevel(level));
+		return ValidAttribute(atr_Center,AttributeType_XYPair,false);
 	};
 /**
 * Set attribute Rotation
@@ -224,6 +200,24 @@ bool JDFAutoColorControlStrip::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorControlStrip::ValidRotation(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Rotation,AttributeType_double,false);
+	};
+/**
+* Set attribute Size
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	 void JDFAutoColorControlStrip::SetSize(const JDFXYPair& value){
+	SetAttribute(atr_Size,value);
+};
+/**
+* Get string attribute Size
+* @return JDFXYPair the vaue of the attribute 
+*/
+	 JDFXYPair JDFAutoColorControlStrip::GetSize() const {
+	return GetAttribute(atr_Size,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorControlStrip::ValidSize(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Size,AttributeType_XYPair,false);
 	};
 /**
 * Set attribute StripType
@@ -299,6 +293,26 @@ JDFRefElement JDFAutoColorControlStrip::RefDensityMeasuringField(JDFDensityMeasu
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFSeparationSpec JDFAutoColorControlStrip::GetSeparationSpec(int iSkip)const{
+	JDFSeparationSpec e=GetElement(elm_SeparationSpec,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationSpec JDFAutoColorControlStrip::GetCreateSeparationSpec(int iSkip){
+	JDFSeparationSpec e=GetCreateElement(elm_SeparationSpec,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationSpec JDFAutoColorControlStrip::AppendSeparationSpec(){
+	JDFSeparationSpec e=AppendElement(elm_SeparationSpec);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -329,6 +343,16 @@ JDFRefElement JDFAutoColorControlStrip::RefDensityMeasuringField(JDFDensityMeasu
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_SeparationSpec);
+
+		for(i=0;i<nElem;i++){
+			if (!GetSeparationSpec(i).IsValid(level)) {
+				vElem.AppendUnique(elm_SeparationSpec);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -337,6 +361,6 @@ JDFRefElement JDFAutoColorControlStrip::RefDensityMeasuringField(JDFDensityMeasu
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoColorControlStrip::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",CIELABMeasuringField,DensityMeasuringField";
+		return JDFResource::OptionalElements()+L",CIELABMeasuringField,DensityMeasuringField,SeparationSpec";
 	};
 }; // end namespace JDF

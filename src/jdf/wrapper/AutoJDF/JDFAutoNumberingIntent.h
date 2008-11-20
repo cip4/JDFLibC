@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -187,6 +187,24 @@ public:
  * 
 */
 	JDFSpanNamedColor AppendColorName();
+
+/** Get Element ColorNameDetails
+* 
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCreateColorNameDetails(int iSkip=0);
+
+/**
+* const get element ColorNameDetails
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetColorNameDetails(int iSkip=0)const;
+/**
+* Append element ColorNameDetails
+ */
+	JDFStringSpan AppendColorNameDetails();
 
 /** Get Element ColorPool
 * 

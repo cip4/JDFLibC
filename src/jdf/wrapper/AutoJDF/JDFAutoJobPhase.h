@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -472,6 +472,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidTotalAmount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute URL
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetURL(const WString& value);
+/**
+* Get string attribute URL
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetURL() const;
+/**
+* Typesafe attribute validation of URL
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidURL(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Waste
 *@param double value: the value to set the attribute to

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -168,7 +168,7 @@ virtual bool init();
 * Enumeration for attribute Encoding
 */
 
-	enum EnumEncoding{Encoding_Unknown,Encoding_ASCII,Encoding_Barcode,Encoding_BarCode1D,Encoding_BarCode2D,Encoding_RFID};
+	enum EnumEncoding{Encoding_Unknown,Encoding_ASCII,Encoding_Barcode,Encoding_BarCode1D,Encoding_BarCode2D,Encoding_Braille,Encoding_RFID};
 /**
 * Enumeration for attribute Position
 */

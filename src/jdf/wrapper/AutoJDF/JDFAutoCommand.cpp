@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,9 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoCommand.h"
+#include "jdf/wrapper/JDFEmployee.h"
+#include "jdf/wrapper/JDFEmployee.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -114,7 +117,7 @@ JDFAutoCommand& JDFAutoCommand::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCommand::OptionalAttributes()const{
-		return JDFMessage::OptionalAttributes()+WString(L",AcknowledgeFormat,AcknowledgeTemplate,AcknowledgeURL,AcknowledgeType");
+		return JDFMessage::OptionalAttributes()+WString(L",AcknowledgeFormat,AcknowledgeTemplate,AcknowledgeURL,AcknowledgeType,RelatedCommands,TransactionID");
 };
 
 /**
@@ -142,6 +145,16 @@ JDFAutoCommand& JDFAutoCommand::operator=(const KElement& other){
 		};
 		if(!ValidAcknowledgeType(level)) {
 			vAtts.push_back(atr_AcknowledgeType);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidRelatedCommands(level)) {
+			vAtts.push_back(atr_RelatedCommands);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTransactionID(level)) {
+			vAtts.push_back(atr_TransactionID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -243,5 +256,97 @@ JDFAutoCommand& JDFAutoCommand::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoCommand::ValidAcknowledgeType(EnumValidationLevel level) const {
 		return ValidEnumerationsAttribute(atr_AcknowledgeType,AcknowledgeTypeString(),false);
+	};
+/**
+* Set attribute RelatedCommands
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoCommand::SetRelatedCommands(const vWString& value){
+	SetAttribute(atr_RelatedCommands,value);
+};
+/**
+* Get string attribute RelatedCommands
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoCommand::GetRelatedCommands() const {
+	return GetAttribute(atr_RelatedCommands,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCommand::ValidRelatedCommands(EnumValidationLevel level) const {
+		return ValidAttribute(atr_RelatedCommands,AttributeType_NMTOKENS,false);
+	};
+/**
+* Set attribute TransactionID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoCommand::SetTransactionID(const WString& value){
+	SetAttribute(atr_TransactionID,value);
+};
+/**
+* Get string attribute TransactionID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoCommand::GetTransactionID() const {
+	return GetAttribute(atr_TransactionID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCommand::ValidTransactionID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TransactionID,AttributeType_string,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFEmployee JDFAutoCommand::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoCommand::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoCommand::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoCommand::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFMessage::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoCommand::OptionalElements()const{
+		return JDFMessage::OptionalElements()+L",Employee";
 	};
 }; // end namespace JDF

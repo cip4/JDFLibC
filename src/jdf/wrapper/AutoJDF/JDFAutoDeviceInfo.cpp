@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -128,7 +128,7 @@ JDFAutoDeviceInfo& JDFAutoDeviceInfo::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDeviceInfo::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",CounterUnit,DeviceCondition,DeviceID,DeviceOperationMode,HourCounter,PowerOnTime,ProductionCounter,Speed,StatusDetails,TotalProductionCounter");
+		return JDFElement::OptionalAttributes()+WString(L",CounterUnit,DeviceCondition,DeviceID,DeviceOperationMode,HourCounter,IdleStartTime,PowerOnTime,ProductionCounter,Speed,StatusDetails,TotalProductionCounter");
 };
 
 /**
@@ -166,6 +166,11 @@ JDFAutoDeviceInfo& JDFAutoDeviceInfo::operator=(const KElement& other){
 		};
 		if(!ValidHourCounter(level)) {
 			vAtts.push_back(atr_HourCounter);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidIdleStartTime(level)) {
+			vAtts.push_back(atr_IdleStartTime);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -325,6 +330,24 @@ JDFAutoDeviceInfo& JDFAutoDeviceInfo::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDeviceInfo::ValidHourCounter(EnumValidationLevel level) const {
 		return ValidAttribute(atr_HourCounter,AttributeType_duration,false);
+	};
+/**
+* Set attribute IdleStartTime
+*@param JDFDate value: the value to set the attribute to
+*/
+	 void JDFAutoDeviceInfo::SetIdleStartTime(JDFDate value){
+	SetAttribute(atr_IdleStartTime,value.DateTimeISO());
+};
+/**
+* Get string attribute IdleStartTime
+* @return JDFDate the vaue of the attribute 
+*/
+	 JDFDate JDFAutoDeviceInfo::GetIdleStartTime() const {
+	return GetAttribute(atr_IdleStartTime,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDeviceInfo::ValidIdleStartTime(EnumValidationLevel level) const {
+		return ValidAttribute(atr_IdleStartTime,AttributeType_dateTime,false);
 	};
 /**
 * Set attribute PowerOnTime

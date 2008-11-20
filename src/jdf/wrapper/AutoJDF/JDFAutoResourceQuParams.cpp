@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -118,7 +118,7 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoResourceQuParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Classes,Exact,JobID,JobPartID,ProcessUsage,ProductID,QueueEntryID,ResourceID,ResourceName,Usage");
+		return JDFElement::OptionalAttributes()+WString(L",Classes,Exact,JobID,JobPartID,LotDetails,LotID,ProcessUsage,ProductID,QueueEntryID,ResourceDetails,ResourceID,ResourceName,Usage");
 };
 
 /**
@@ -149,6 +149,16 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidLotDetails(level)) {
+			vAtts.push_back(atr_LotDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidLotID(level)) {
+			vAtts.push_back(atr_LotID);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidProcessUsage(level)) {
 			vAtts.push_back(atr_ProcessUsage);
 			if(++n>=nMax)
@@ -161,6 +171,11 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
 		};
 		if(!ValidQueueEntryID(level)) {
 			vAtts.push_back(atr_QueueEntryID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidResourceDetails(level)) {
+			vAtts.push_back(atr_ResourceDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -277,6 +292,49 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
 	bool JDFAutoResourceQuParams::ValidJobPartID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_JobPartID,AttributeType_shortString,false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoResourceQuParams::LotDetailsString(){
+		static const WString enums=WString(L"Unknown,Brief,Full,Amount");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoResourceQuParams::LotDetailsString(EnumLotDetails value){
+		return LotDetailsString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoResourceQuParams::SetLotDetails( EnumLotDetails value){
+	SetEnumAttribute(atr_LotDetails,value,LotDetailsString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoResourceQuParams::EnumLotDetails JDFAutoResourceQuParams:: GetLotDetails() const {
+	return (EnumLotDetails) GetEnumAttribute(atr_LotDetails,LotDetailsString(),WString::emptyStr,LotDetails_Brief);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceQuParams::ValidLotDetails(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_LotDetails,LotDetailsString(),false);
+	};
+/**
+* Set attribute LotID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoResourceQuParams::SetLotID(const WString& value){
+	SetAttribute(atr_LotID,value);
+};
+/**
+* Get string attribute LotID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoResourceQuParams::GetLotID() const {
+	return GetAttribute(atr_LotID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceQuParams::ValidLotID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LotID,AttributeType_string,false);
+	};
 /**
 * Set attribute ProcessUsage
 *@param WString value: the value to set the attribute to
@@ -331,6 +389,31 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
 	bool JDFAutoResourceQuParams::ValidQueueEntryID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_QueueEntryID,AttributeType_shortString,false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoResourceQuParams::ResourceDetailsString(){
+		static const WString enums=WString(L"Unknown,Brief,Full");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoResourceQuParams::ResourceDetailsString(EnumResourceDetails value){
+		return ResourceDetailsString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoResourceQuParams::SetResourceDetails( EnumResourceDetails value){
+	SetEnumAttribute(atr_ResourceDetails,value,ResourceDetailsString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoResourceQuParams::EnumResourceDetails JDFAutoResourceQuParams:: GetResourceDetails() const {
+	return (EnumResourceDetails) GetEnumAttribute(atr_ResourceDetails,ResourceDetailsString(),WString::emptyStr,ResourceDetails_Full);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceQuParams::ValidResourceDetails(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ResourceDetails,ResourceDetailsString(),false);
+	};
 /**
 * Set attribute ResourceID
 *@param WString value: the value to set the attribute to
@@ -351,21 +434,21 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
 	};
 /**
 * Set attribute ResourceName
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	 void JDFAutoResourceQuParams::SetResourceName(const WString& value){
+	 void JDFAutoResourceQuParams::SetResourceName(const vWString& value){
 	SetAttribute(atr_ResourceName,value);
 };
 /**
 * Get string attribute ResourceName
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	 WString JDFAutoResourceQuParams::GetResourceName() const {
+	 vWString JDFAutoResourceQuParams::GetResourceName() const {
 	return GetAttribute(atr_ResourceName,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoResourceQuParams::ValidResourceName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ResourceName,AttributeType_NMTOKEN,false);
+		return ValidAttribute(atr_ResourceName,AttributeType_NMTOKENS,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

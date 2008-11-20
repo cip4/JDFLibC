@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -204,6 +204,26 @@ JDFSpanNamedColor JDFAutoNumberItem::AppendColorName(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFStringSpan JDFAutoNumberItem::GetColorNameDetails(int iSkip)const{
+	JDFStringSpan e=GetElement(elm_ColorNameDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoNumberItem::GetCreateColorNameDetails(int iSkip){
+	JDFStringSpan e=GetCreateElement(elm_ColorNameDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoNumberItem::AppendColorNameDetails(){
+	JDFStringSpan e=AppendElement(elm_ColorNameDetails);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFNumberSpan JDFAutoNumberItem::GetXPosition()const{
 	JDFNumberSpan e=GetElement(elm_XPosition);
 	return e;
@@ -306,6 +326,16 @@ JDFSeparationSpec JDFAutoNumberItem::AppendSeparationSpec(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_ColorNameDetails);
+
+		for(i=0;i<nElem;i++){
+			if (!GetColorNameDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ColorNameDetails);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_XPosition);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_XPosition);
@@ -369,6 +399,6 @@ JDFSeparationSpec JDFAutoNumberItem::AppendSeparationSpec(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoNumberItem::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",ColorName,XPosition,YPosition,Orientation,SeparationSpec";
+		return JDFElement::OptionalElements()+L",ColorName,ColorNameDetails,XPosition,YPosition,Orientation,SeparationSpec";
 	};
 }; // end namespace JDF

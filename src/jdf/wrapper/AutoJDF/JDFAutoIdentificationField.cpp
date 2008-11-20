@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -211,7 +211,7 @@ bool JDFAutoIdentificationField::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoIdentificationField::EncodingString(){
-		static const WString enums=WString(L"Unknown,ASCII,Barcode,BarCode1D,BarCode2D,RFID");
+		static const WString enums=WString(L"Unknown,ASCII,Barcode,BarCode1D,BarCode2D,Braille,RFID");
 		return enums;
 	};
 

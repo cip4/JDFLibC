@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -222,6 +222,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidJobPartID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute MilestoneTypes
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetMilestoneTypes(const vWString& value);
+/**
+* Get string attribute MilestoneTypes
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetMilestoneTypes() const;
+/**
+* Typesafe attribute validation of MilestoneTypes
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMilestoneTypes(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute QueueEntryID
 *@param WString value: the value to set the attribute to

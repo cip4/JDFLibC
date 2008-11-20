@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,7 @@
 
 #include "jdf/wrapper/JDFAudit.h"
 namespace JDF{
+class JDFEmployee;
 class JDFPart;
 class JDFRefElement;
 /*
@@ -208,15 +209,15 @@ public:
 	virtual bool ValidEnd(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute EndStatus
-* @param EnumStatus value the value to set the attribute to
+* @param JDFElement::EnumStatus value the value to set the attribute to
 */
-	virtual void SetEndStatus( EnumStatus value);
+	virtual void SetEndStatus( JDFElement::EnumStatus value);
 
 /**
 * Typesafe enumerated attribute EndStatus
 * @return EnumEndStatusthe enumeration value of the attribute
 */
-	virtual EnumStatus GetEndStatus() const;
+	virtual JDFElement::EnumStatus GetEndStatus() const;
 
 /**
 * Typesafe attribute validation of EndStatus
@@ -224,6 +225,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidEndStatus(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ReturnTime
+*@param JDFDate value: the value to set the attribute to
+*/
+	virtual void SetReturnTime(JDFDate value=JDFDate());
+/**
+* Get string attribute ReturnTime
+* @return JDFDate the vaue of the attribute 
+*/
+	virtual JDFDate GetReturnTime() const;
+/**
+* Typesafe attribute validation of ReturnTime
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidReturnTime(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Start
 *@param JDFDate value: the value to set the attribute to
@@ -240,11 +257,45 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidStart(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SubmissionTime
+*@param JDFDate value: the value to set the attribute to
+*/
+	virtual void SetSubmissionTime(JDFDate value=JDFDate());
+/**
+* Get string attribute SubmissionTime
+* @return JDFDate the vaue of the attribute 
+*/
+	virtual JDFDate GetSubmissionTime() const;
+/**
+* Typesafe attribute validation of SubmissionTime
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSubmissionTime(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Employee
+* 
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetCreateEmployee(int iSkip=0);
+
+/**
+* const get element Employee
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetEmployee(int iSkip=0)const;
+/**
+* Append element Employee
+ */
+	JDFEmployee AppendEmployee();
 
 /** Get Element Part
 * 

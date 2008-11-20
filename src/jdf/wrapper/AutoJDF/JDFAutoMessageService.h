@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -81,12 +81,26 @@
 #endif // _MSC_VER >= 1000
 
 #include "jdf/wrapper/JDFElement.h"
+#include "jdf/wrapper/JDFState.h"
+#include "jdf/wrapper/JDFBooleanState.h"
+#include "jdf/wrapper/JDFDateTimeState.h"
+#include "jdf/wrapper/JDFDurationState.h"
+#include "jdf/wrapper/JDFEnumerationState.h"
+#include "jdf/wrapper/JDFIntegerState.h"
+#include "jdf/wrapper/JDFMatrixState.h"
+#include "jdf/wrapper/JDFNameState.h"
+#include "jdf/wrapper/JDFNumberState.h"
+#include "jdf/wrapper/JDFPDFPathState.h"
+#include "jdf/wrapper/JDFRectangleState.h"
+#include "jdf/wrapper/JDFShapeState.h"
+#include "jdf/wrapper/JDFStringState.h"
+#include "jdf/wrapper/JDFXYPairState.h"
 namespace JDF{
 class JDFActionPool;
 class JDFDevCapPool;
 class JDFDevCaps;
 class JDFModulePool;
-class JDFModulePool;
+class JDFTestPool;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -168,6 +182,11 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute ChannelMode
+*/
+
+	enum EnumChannelMode{ChannelMode_Unknown,ChannelMode_FireAndForget,ChannelMode_Reliable};
+/**
 * Enumeration for attribute JMFRole
 */
 
@@ -199,6 +218,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidAcknowledge(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for ChannelMode
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ChannelModeString();
+/**
+* Enumeration string for enum value
+* @param EnumChannelMode value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ChannelModeString(EnumChannelMode value);
+/**
+* Set attribute ChannelMode
+* @param EnumChannelMode value the value to set the attribute to
+*/
+	virtual void SetChannelMode( EnumChannelMode value);
+
+/**
+* Typesafe enumerated attribute ChannelMode
+* @return EnumChannelModethe enumeration value of the attribute
+*/
+	virtual EnumChannelMode GetChannelMode() const;
+
+/**
+* Typesafe attribute validation of ChannelMode
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidChannelMode(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Command
 *@param bool value: the value to set the attribute to
@@ -431,22 +479,256 @@ public:
 */
 	JDFModulePool AppendModulePool();
 
+/** Get Element BooleanState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFBooleanState The element
+*/
+	JDFBooleanState GetCreateBooleanState(int iSkip=0);
+
+/**
+* const get element BooleanState
+* @param int iSkip number of elements to skip
+* @return JDFBooleanState The element
+*/
+	JDFBooleanState GetBooleanState(int iSkip=0)const;
+/**
+* Append element BooleanState
+ */
+	JDFBooleanState AppendBooleanState();
+
+/** Get Element DateTimeState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFDateTimeState The element
+*/
+	JDFDateTimeState GetCreateDateTimeState(int iSkip=0);
+
+/**
+* const get element DateTimeState
+* @param int iSkip number of elements to skip
+* @return JDFDateTimeState The element
+*/
+	JDFDateTimeState GetDateTimeState(int iSkip=0)const;
+/**
+* Append element DateTimeState
+ */
+	JDFDateTimeState AppendDateTimeState();
+
+/** Get Element DurationState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFDurationState The element
+*/
+	JDFDurationState GetCreateDurationState(int iSkip=0);
+
+/**
+* const get element DurationState
+* @param int iSkip number of elements to skip
+* @return JDFDurationState The element
+*/
+	JDFDurationState GetDurationState(int iSkip=0)const;
+/**
+* Append element DurationState
+ */
+	JDFDurationState AppendDurationState();
+
+/** Get Element EnumerationState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFEnumerationState The element
+*/
+	JDFEnumerationState GetCreateEnumerationState(int iSkip=0);
+
+/**
+* const get element EnumerationState
+* @param int iSkip number of elements to skip
+* @return JDFEnumerationState The element
+*/
+	JDFEnumerationState GetEnumerationState(int iSkip=0)const;
+/**
+* Append element EnumerationState
+ */
+	JDFEnumerationState AppendEnumerationState();
+
+/** Get Element IntegerState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFIntegerState The element
+*/
+	JDFIntegerState GetCreateIntegerState(int iSkip=0);
+
+/**
+* const get element IntegerState
+* @param int iSkip number of elements to skip
+* @return JDFIntegerState The element
+*/
+	JDFIntegerState GetIntegerState(int iSkip=0)const;
+/**
+* Append element IntegerState
+ */
+	JDFIntegerState AppendIntegerState();
+
+/** Get Element MatrixState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFMatrixState The element
+*/
+	JDFMatrixState GetCreateMatrixState(int iSkip=0);
+
+/**
+* const get element MatrixState
+* @param int iSkip number of elements to skip
+* @return JDFMatrixState The element
+*/
+	JDFMatrixState GetMatrixState(int iSkip=0)const;
+/**
+* Append element MatrixState
+ */
+	JDFMatrixState AppendMatrixState();
+
+/** Get Element NameState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFNameState The element
+*/
+	JDFNameState GetCreateNameState(int iSkip=0);
+
+/**
+* const get element NameState
+* @param int iSkip number of elements to skip
+* @return JDFNameState The element
+*/
+	JDFNameState GetNameState(int iSkip=0)const;
+/**
+* Append element NameState
+ */
+	JDFNameState AppendNameState();
+
+/** Get Element NumberState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFNumberState The element
+*/
+	JDFNumberState GetCreateNumberState(int iSkip=0);
+
+/**
+* const get element NumberState
+* @param int iSkip number of elements to skip
+* @return JDFNumberState The element
+*/
+	JDFNumberState GetNumberState(int iSkip=0)const;
+/**
+* Append element NumberState
+ */
+	JDFNumberState AppendNumberState();
+
+/** Get Element PDFPathState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFPDFPathState The element
+*/
+	JDFPDFPathState GetCreatePDFPathState(int iSkip=0);
+
+/**
+* const get element PDFPathState
+* @param int iSkip number of elements to skip
+* @return JDFPDFPathState The element
+*/
+	JDFPDFPathState GetPDFPathState(int iSkip=0)const;
+/**
+* Append element PDFPathState
+ */
+	JDFPDFPathState AppendPDFPathState();
+
+/** Get Element RectangleState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFRectangleState The element
+*/
+	JDFRectangleState GetCreateRectangleState(int iSkip=0);
+
+/**
+* const get element RectangleState
+* @param int iSkip number of elements to skip
+* @return JDFRectangleState The element
+*/
+	JDFRectangleState GetRectangleState(int iSkip=0)const;
+/**
+* Append element RectangleState
+ */
+	JDFRectangleState AppendRectangleState();
+
+/** Get Element ShapeState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFShapeState The element
+*/
+	JDFShapeState GetCreateShapeState(int iSkip=0);
+
+/**
+* const get element ShapeState
+* @param int iSkip number of elements to skip
+* @return JDFShapeState The element
+*/
+	JDFShapeState GetShapeState(int iSkip=0)const;
+/**
+* Append element ShapeState
+ */
+	JDFShapeState AppendShapeState();
+
+/** Get Element StringState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFStringState The element
+*/
+	JDFStringState GetCreateStringState(int iSkip=0);
+
+/**
+* const get element StringState
+* @param int iSkip number of elements to skip
+* @return JDFStringState The element
+*/
+	JDFStringState GetStringState(int iSkip=0)const;
+/**
+* Append element StringState
+ */
+	JDFStringState AppendStringState();
+
+/** Get Element XYPairState
+* 
+* @param int iSkip number of elements to skip
+* @return JDFXYPairState The element
+*/
+	JDFXYPairState GetCreateXYPairState(int iSkip=0);
+
+/**
+* const get element XYPairState
+* @param int iSkip number of elements to skip
+* @return JDFXYPairState The element
+*/
+	JDFXYPairState GetXYPairState(int iSkip=0)const;
+/**
+* Append element XYPairState
+ */
+	JDFXYPairState AppendXYPairState();
+
 /** Get Element TestPool
 * 
-* @return JDFModulePool The element
+* @return JDFTestPool The element
 */
-	JDFModulePool GetCreateTestPool();
+	JDFTestPool GetCreateTestPool();
 
 /**
 * const get element TestPool
-*@return  JDFModulePool The element
+*@return  JDFTestPool The element
 */
-	JDFModulePool GetTestPool()const;
+	JDFTestPool GetTestPool()const;
 /**
 * Append element TestPool
  * 
 */
-	JDFModulePool AppendTestPool();
+	JDFTestPool AppendTestPool();
 
 /**
  definition of unique elements in the JDF namespace

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,7 +75,9 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoAcknowledge.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFNotification.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -236,6 +238,26 @@ JDFAutoAcknowledge& JDFAutoAcknowledge::operator=(const KElement& other){
 **************************************************************** */
 
 
+JDFEmployee JDFAutoAcknowledge::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoAcknowledge::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoAcknowledge::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFNotification JDFAutoAcknowledge::GetNotification(int iSkip)const{
 	JDFNotification e=GetElement(elm_Notification,WString::emptyStr,iSkip);
 	return e;
@@ -266,6 +288,16 @@ JDFNotification JDFAutoAcknowledge::AppendNotification(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Notification);
 
 		for(i=0;i<nElem;i++){
@@ -284,6 +316,6 @@ JDFNotification JDFAutoAcknowledge::AppendNotification(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoAcknowledge::OptionalElements()const{
-		return JDFMessage::OptionalElements()+L",Notification";
+		return JDFMessage::OptionalElements()+L",Employee,Notification";
 	};
 }; // end namespace JDF

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -87,6 +87,7 @@ class JDFBundle;
 class JDFDisjointing;
 class JDFSheet;
 class JDFLayout;
+class JDFMedia;
 class JDFPageList;
 class JDFRefElement;
 /*
@@ -243,22 +244,6 @@ virtual bool init();
 */
 	virtual bool ValidComponentType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute IsWaste
-*@param bool value: the value to set the attribute to
-*/
-	virtual void SetIsWaste(bool value);
-/**
-* Get bool attribute IsWaste
-* @return bool the vaue of the attribute ; defaults to false
-*/
-	virtual bool GetIsWaste() const;
-/**
-* Typesafe attribute validation of IsWaste
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidIsWaste(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute AssemblyIDs
 *@param vWString value: the value to set the attribute to
 */
@@ -306,6 +291,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidDimensions(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute IsWaste
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetIsWaste(bool value);
+/**
+* Get bool attribute IsWaste
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetIsWaste() const;
+/**
+* Typesafe attribute validation of IsWaste
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidIsWaste(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MaxHeat
 *@param double value: the value to set the attribute to
@@ -483,6 +484,22 @@ virtual bool init();
 */
 	virtual bool ValidSourceWeb(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute SpineThickness
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetSpineThickness(double value);
+/**
+* Get double attribute SpineThickness
+* @return double the vaue of the attribute 
+*/
+	virtual double GetSpineThickness() const;
+/**
+* Typesafe attribute validation of SpineThickness
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSpineThickness(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute SurfaceCount
 *@param int value: the value to set the attribute to
 */
@@ -628,6 +645,29 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefLayout(JDFLayout& refTarget);
+
+/** Get Element Media
+* 
+* @return JDFMedia The element
+*/
+	JDFMedia GetCreateMedia();
+
+/**
+* const get element Media
+*@return  JDFMedia The element
+*/
+	JDFMedia GetMedia()const;
+/**
+* Append element Media
+ * 
+*/
+	JDFMedia AppendMedia();
+/**
+* create inter-resource link to refTarget
+* @param JDFMedia& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefMedia(JDFMedia& refTarget);
 
 /** Get Element PageList
 * 

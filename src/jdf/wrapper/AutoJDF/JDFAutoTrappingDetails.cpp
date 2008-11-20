@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -192,9 +192,9 @@ bool JDFAutoTrappingDetails::init(){
 };
 /**
 * Get bool attribute IgnoreFileParams
-* @return bool the vaue of the attribute ; defaults to true
+* @return bool the vaue of the attribute 
 */
-	 bool JDFAutoTrappingDetails::GetIgnoreFileParams() const {return GetBoolAttribute(atr_IgnoreFileParams,WString::emptyStr,true);
+	 bool JDFAutoTrappingDetails::GetIgnoreFileParams() const {return GetBoolAttribute(atr_IgnoreFileParams,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoTrappingDetails::ValidIgnoreFileParams(EnumValidationLevel level) const {

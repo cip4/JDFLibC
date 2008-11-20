@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -266,14 +266,14 @@ virtual bool init();
 	virtual bool ValidFriendlyName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ICSVersions
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	virtual void SetICSVersions(const WString& value);
+	virtual void SetICSVersions(const vWString& value);
 /**
 * Get string attribute ICSVersions
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	virtual WString GetICSVersions() const;
+	virtual vWString GetICSVersions() const;
 /**
 * Typesafe attribute validation of ICSVersions
 * @param EnumValidationLevel level of attribute validation 

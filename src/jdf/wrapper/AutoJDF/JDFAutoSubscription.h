@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -163,12 +163,51 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
+/**
+* Enumeration for attribute ChannelMode
+*/
+
+	enum EnumChannelMode{ChannelMode_Unknown,ChannelMode_FireAndForget,ChannelMode_Reliable};
+/**
+* Enumeration for attribute RetryPolicy
+*/
+
+	enum EnumRetryPolicy{RetryPolicy_Unknown,RetryPolicy_DiscardAtNextSignal,RetryPolicy_RetryForever};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for ChannelMode
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ChannelModeString();
+/**
+* Enumeration string for enum value
+* @param EnumChannelMode value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ChannelModeString(EnumChannelMode value);
+/**
+* Set attribute ChannelMode
+* @param EnumChannelMode value the value to set the attribute to
+*/
+	virtual void SetChannelMode( EnumChannelMode value);
+
+/**
+* Typesafe enumerated attribute ChannelMode; defaults to FireAndForget
+* @return EnumChannelModethe enumeration value of the attribute
+*/
+	virtual EnumChannelMode GetChannelMode() const;
+
+/**
+* Typesafe attribute validation of ChannelMode
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidChannelMode(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Format
 *@param WString value: the value to set the attribute to
@@ -202,22 +241,6 @@ public:
 */
 	virtual bool ValidMinDelayTime(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute Template
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetTemplate(const WString& value);
-/**
-* Get string attribute Template
-* @return WString the vaue of the attribute 
-*/
-	virtual WString GetTemplate() const;
-/**
-* Typesafe attribute validation of Template
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute RepeatStep
 *@param int value: the value to set the attribute to
 */
@@ -249,6 +272,51 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidRepeatTime(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for RetryPolicy
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& RetryPolicyString();
+/**
+* Enumeration string for enum value
+* @param EnumRetryPolicy value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString RetryPolicyString(EnumRetryPolicy value);
+/**
+* Set attribute RetryPolicy
+* @param EnumRetryPolicy value the value to set the attribute to
+*/
+	virtual void SetRetryPolicy( EnumRetryPolicy value);
+
+/**
+* Typesafe enumerated attribute RetryPolicy
+* @return EnumRetryPolicythe enumeration value of the attribute
+*/
+	virtual EnumRetryPolicy GetRetryPolicy() const;
+
+/**
+* Typesafe attribute validation of RetryPolicy
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidRetryPolicy(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Template
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetTemplate(const WString& value);
+/**
+* Get string attribute Template
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetTemplate() const;
+/**
+* Typesafe attribute validation of Template
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute URL
 *@param WString value: the value to set the attribute to

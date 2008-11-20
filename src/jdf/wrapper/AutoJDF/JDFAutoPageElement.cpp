@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,7 +116,7 @@ JDFAutoPageElement& JDFAutoPageElement::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPageElement::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",ContentListIndex,ElementPages,ContentType,RelativeBox");
+		return JDFElement::OptionalAttributes()+WString(L",ContentDataRefs,ContentListIndex,ElementPages,ContentType,RelativeBox");
 };
 
 /**
@@ -127,6 +127,11 @@ JDFAutoPageElement& JDFAutoPageElement::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidContentDataRefs(level)) {
+			vAtts.push_back(atr_ContentDataRefs);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidContentListIndex(level)) {
 			vAtts.push_back(atr_ContentListIndex);
 			if(++n>=nMax)
@@ -150,6 +155,24 @@ JDFAutoPageElement& JDFAutoPageElement::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute ContentDataRefs
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoPageElement::SetContentDataRefs(const vWString& value){
+	SetAttribute(atr_ContentDataRefs,value);
+};
+/**
+* Get string attribute ContentDataRefs
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoPageElement::GetContentDataRefs() const {
+	return GetAttribute(atr_ContentDataRefs,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPageElement::ValidContentDataRefs(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ContentDataRefs,AttributeType_IDREFS,false);
+	};
 /**
 * Set attribute ContentListIndex
 *@param int value: the value to set the attribute to

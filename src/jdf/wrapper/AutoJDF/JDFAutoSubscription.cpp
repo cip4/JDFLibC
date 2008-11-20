@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -118,7 +118,7 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoSubscription::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Format,MinDelayTime,Template,RepeatStep,RepeatTime,URL");
+		return JDFElement::OptionalAttributes()+WString(L",ChannelMode,Format,MinDelayTime,RepeatStep,RepeatTime,RetryPolicy,Template,URL");
 };
 
 /**
@@ -129,6 +129,11 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidChannelMode(level)) {
+			vAtts.push_back(atr_ChannelMode);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidFormat(level)) {
 			vAtts.push_back(atr_Format);
 			if(++n>=nMax)
@@ -136,11 +141,6 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
 		};
 		if(!ValidMinDelayTime(level)) {
 			vAtts.push_back(atr_MinDelayTime);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidTemplate(level)) {
-			vAtts.push_back(atr_Template);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -154,6 +154,16 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidRetryPolicy(level)) {
+			vAtts.push_back(atr_RetryPolicy);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTemplate(level)) {
+			vAtts.push_back(atr_Template);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidURL(level)) {
 			vAtts.push_back(atr_URL);
 			if(++n>=nMax)
@@ -162,6 +172,31 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoSubscription::ChannelModeString(){
+		static const WString enums=WString(L"Unknown,FireAndForget,Reliable");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoSubscription::ChannelModeString(EnumChannelMode value){
+		return ChannelModeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoSubscription::SetChannelMode( EnumChannelMode value){
+	SetEnumAttribute(atr_ChannelMode,value,ChannelModeString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoSubscription::EnumChannelMode JDFAutoSubscription:: GetChannelMode() const {
+	return (EnumChannelMode) GetEnumAttribute(atr_ChannelMode,ChannelModeString(),WString::emptyStr,ChannelMode_FireAndForget);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSubscription::ValidChannelMode(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ChannelMode,ChannelModeString(),false);
+	};
 /**
 * Set attribute Format
 *@param WString value: the value to set the attribute to
@@ -199,24 +234,6 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
 		return ValidAttribute(atr_MinDelayTime,AttributeType_duration,false);
 	};
 /**
-* Set attribute Template
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoSubscription::SetTemplate(const WString& value){
-	SetAttribute(atr_Template,value);
-};
-/**
-* Get string attribute Template
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoSubscription::GetTemplate() const {
-	return GetAttribute(atr_Template,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoSubscription::ValidTemplate(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Template,AttributeType_string,false);
-	};
-/**
 * Set attribute RepeatStep
 *@param int value: the value to set the attribute to
 */
@@ -251,6 +268,49 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSubscription::ValidRepeatTime(EnumValidationLevel level) const {
 		return ValidAttribute(atr_RepeatTime,AttributeType_double,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoSubscription::RetryPolicyString(){
+		static const WString enums=WString(L"Unknown,DiscardAtNextSignal,RetryForever");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoSubscription::RetryPolicyString(EnumRetryPolicy value){
+		return RetryPolicyString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoSubscription::SetRetryPolicy( EnumRetryPolicy value){
+	SetEnumAttribute(atr_RetryPolicy,value,RetryPolicyString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoSubscription::EnumRetryPolicy JDFAutoSubscription:: GetRetryPolicy() const {
+	return (EnumRetryPolicy) GetEnumAttribute(atr_RetryPolicy,RetryPolicyString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSubscription::ValidRetryPolicy(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_RetryPolicy,RetryPolicyString(),false);
+	};
+/**
+* Set attribute Template
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoSubscription::SetTemplate(const WString& value){
+	SetAttribute(atr_Template,value);
+};
+/**
+* Get string attribute Template
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoSubscription::GetTemplate() const {
+	return GetAttribute(atr_Template,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSubscription::ValidTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Template,AttributeType_string,false);
 	};
 /**
 * Set attribute URL

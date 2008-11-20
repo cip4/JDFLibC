@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -122,8 +122,8 @@ JDFAutoPageData& JDFAutoPageData::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPageData::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",AssemblyID,AssemblyIDs,CatalogID,CatalogDetails,FoldOutPages,HasBleeds,IsBlank,IsPrintable,IsTrapped,JobID,PageFormat,PageLabel,PageLabelPrefix,PageLabelSuffix,PageStatus,ProductID,SourceBleedBox,SourceClipBox,SourceTrimBox")
-	+WString(L",Template");
+		return JDFElement::OptionalAttributes()+WString(L",AssemblyID,AssemblyIDs,CatalogID,CatalogDetails,FoldOutPages,HasBleeds,IsBlank,IsPrintable,IsTrapped,JobID,PageFormat,PageIndex,PageLabel,PageLabelPrefix,PageLabelSuffix,PageStatus,ProductID,SourceBleedBox,SourceClipBox")
+	+WString(L",SourceTrimBox,Template");
 };
 
 /**
@@ -186,6 +186,11 @@ JDFAutoPageData& JDFAutoPageData::operator=(const KElement& other){
 		};
 		if(!ValidPageFormat(level)) {
 			vAtts.push_back(atr_PageFormat);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPageIndex(level)) {
+			vAtts.push_back(atr_PageIndex);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -430,6 +435,24 @@ JDFAutoPageData& JDFAutoPageData::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPageData::ValidPageFormat(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PageFormat,AttributeType_NMTOKEN,false);
+	};
+/**
+* Set attribute PageIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPageData::SetPageIndex(const JDFIntegerRangeList& value){
+	SetAttribute(atr_PageIndex,value.GetString());
+};
+/**
+* Get range attribute PageIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	 JDFIntegerRangeList JDFAutoPageData::GetPageIndex() const {
+	return GetAttribute(atr_PageIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPageData::ValidPageIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PageIndex,AttributeType_IntegerRangeList,false);
 	};
 /**
 * Set attribute PageLabel

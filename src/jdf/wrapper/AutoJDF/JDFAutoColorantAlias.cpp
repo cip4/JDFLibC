@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -133,6 +133,13 @@ bool JDFAutoColorantAlias::init(){
 };
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoColorantAlias::OptionalAttributes()const{
+		return JDFResource::OptionalAttributes()+WString(L",RawNames");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoColorantAlias::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -142,6 +149,11 @@ bool JDFAutoColorantAlias::init(){
 			return vAtts;
 		if(!ValidReplacementColorantName(level)) {
 			vAtts.push_back(atr_ReplacementColorantName);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidRawNames(level)) {
+			vAtts.push_back(atr_RawNames);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -165,6 +177,24 @@ bool JDFAutoColorantAlias::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorantAlias::ValidReplacementColorantName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ReplacementColorantName,AttributeType_string,RequiredLevel(level));
+	};
+/**
+* Set attribute RawNames
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoColorantAlias::SetRawNames(const WString& value){
+	SetAttribute(atr_RawNames,value);
+};
+/**
+* Get string attribute RawNames
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoColorantAlias::GetRawNames() const {
+	return GetAttribute(atr_RawNames,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorantAlias::ValidRawNames(EnumValidationLevel level) const {
+		return ValidAttribute(atr_RawNames,AttributeType_Any,false);
 	};
 
 /* ******************************************************

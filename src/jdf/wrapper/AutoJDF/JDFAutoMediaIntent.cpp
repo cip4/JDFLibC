@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoMediaIntent.h"
+#include "jdf/wrapper/JDFMediaLayers.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -285,6 +286,46 @@ JDFXYPairSpan JDFAutoMediaIntent::AppendDimensions(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFNameSpan JDFAutoMediaIntent::GetFlute()const{
+	JDFNameSpan e=GetElement(elm_Flute);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNameSpan JDFAutoMediaIntent::GetCreateFlute(){
+	JDFNameSpan e=GetCreateElement(elm_Flute);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNameSpan JDFAutoMediaIntent::AppendFlute(){
+	JDFNameSpan e=AppendElementN(elm_Flute,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSpanFluteDirection JDFAutoMediaIntent::GetFluteDirection()const{
+	JDFSpanFluteDirection e=GetElement(elm_FluteDirection);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSpanFluteDirection JDFAutoMediaIntent::GetCreateFluteDirection(){
+	JDFSpanFluteDirection e=GetCreateElement(elm_FluteDirection);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSpanFluteDirection JDFAutoMediaIntent::AppendFluteDirection(){
+	JDFSpanFluteDirection e=AppendElementN(elm_FluteDirection,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFSpanCoatings JDFAutoMediaIntent::GetFrontCoatings()const{
 	JDFSpanCoatings e=GetElement(elm_FrontCoatings);
 	return e;
@@ -420,6 +461,26 @@ JDFStringSpan JDFAutoMediaIntent::GetCreateMediaColorDetails(){
 
 JDFStringSpan JDFAutoMediaIntent::AppendMediaColorDetails(){
 	JDFStringSpan e=AppendElementN(elm_MediaColorDetails,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoMediaIntent::GetMediaQuality()const{
+	JDFStringSpan e=GetElement(elm_MediaQuality);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoMediaIntent::GetCreateMediaQuality(){
+	JDFStringSpan e=GetCreateElement(elm_MediaQuality);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoMediaIntent::AppendMediaQuality(){
+	JDFStringSpan e=AppendElementN(elm_MediaQuality,1);
 	e.init();
 	return e;
 };
@@ -685,6 +746,26 @@ JDFNumberSpan JDFAutoMediaIntent::AppendWeight(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFMediaLayers JDFAutoMediaIntent::GetMediaLayers()const{
+	JDFMediaLayers e=GetElement(elm_MediaLayers);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMediaLayers JDFAutoMediaIntent::GetCreateMediaLayers(){
+	JDFMediaLayers e=GetCreateElement(elm_MediaLayers);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMediaLayers JDFAutoMediaIntent::AppendMediaLayers(){
+	JDFMediaLayers e=AppendElementN(elm_MediaLayers,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -739,6 +820,30 @@ JDFNumberSpan JDFAutoMediaIntent::AppendWeight(){
 		}else if(nElem==1){
 			if(!GetDimensions().IsValid(level)) {
 				vElem.AppendUnique(elm_Dimensions);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_Flute);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_Flute);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFlute().IsValid(level)) {
+				vElem.AppendUnique(elm_Flute);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_FluteDirection);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_FluteDirection);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFluteDirection().IsValid(level)) {
+				vElem.AppendUnique(elm_FluteDirection);
 				if (++n>=nMax)
 					return vElem;
 			}
@@ -823,6 +928,18 @@ JDFNumberSpan JDFAutoMediaIntent::AppendWeight(){
 		}else if(nElem==1){
 			if(!GetMediaColorDetails().IsValid(level)) {
 				vElem.AppendUnique(elm_MediaColorDetails);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_MediaQuality);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_MediaQuality);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetMediaQuality().IsValid(level)) {
+				vElem.AppendUnique(elm_MediaQuality);
 				if (++n>=nMax)
 					return vElem;
 			}
@@ -983,6 +1100,18 @@ JDFNumberSpan JDFAutoMediaIntent::AppendWeight(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_MediaLayers);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_MediaLayers);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetMediaLayers().IsValid(level)) {
+				vElem.AppendUnique(elm_MediaLayers);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		return vElem;
 	};
 
@@ -991,13 +1120,13 @@ JDFNumberSpan JDFAutoMediaIntent::AppendWeight(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoMediaIntent::UniqueElements()const{
-		return JDFIntentResource::UniqueElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,MediaColor,MediaColorDetails,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight";
+		return JDFIntentResource::UniqueElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,Flute,FluteDirection,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,MediaColor,MediaColorDetails,MediaQuality,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight,MediaLayers";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMediaIntent::OptionalElements()const{
-		return JDFIntentResource::OptionalElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,MediaColor,MediaColorDetails,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight";
+		return JDFIntentResource::OptionalElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,Flute,FluteDirection,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,MediaColor,MediaColorDetails,MediaQuality,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight,MediaLayers";
 	};
 }; // end namespace JDF

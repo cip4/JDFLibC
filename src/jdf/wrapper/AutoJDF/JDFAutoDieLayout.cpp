@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,7 +75,10 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoDieLayout.h"
+#include "jdf/wrapper/JDFDevice.h"
 #include "jdf/wrapper/JDFFileSpec.h"
+#include "jdf/wrapper/JDFMedia.h"
+#include "jdf/wrapper/JDFRuleLength.h"
 #include "jdf/wrapper/JDFStation.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -127,6 +130,13 @@ bool JDFAutoDieLayout::init(){
 
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoDieLayout::OptionalAttributes()const{
+		return JDFResource::OptionalAttributes()+WString(L",DieSide,MediaSide,Rotated,Waste");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoDieLayout::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -134,14 +144,144 @@ bool JDFAutoDieLayout::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidDieSide(level)) {
+			vAtts.push_back(atr_DieSide);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMediaSide(level)) {
+			vAtts.push_back(atr_MediaSide);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidRotated(level)) {
+			vAtts.push_back(atr_Rotated);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidWaste(level)) {
+			vAtts.push_back(atr_Waste);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoDieLayout::DieSideString(){
+		static const WString enums=WString(L"Unknown,Up,Down");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoDieLayout::DieSideString(EnumDieSide value){
+		return DieSideString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoDieLayout::SetDieSide( EnumDieSide value){
+	SetEnumAttribute(atr_DieSide,value,DieSideString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoDieLayout::EnumDieSide JDFAutoDieLayout:: GetDieSide() const {
+	return (EnumDieSide) GetEnumAttribute(atr_DieSide,DieSideString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDieLayout::ValidDieSide(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_DieSide,DieSideString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoDieLayout::MediaSideString(){
+		static const WString enums=WString(L"Unknown,Front,Back,Both");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoDieLayout::MediaSideString(EnumMediaSide value){
+		return MediaSideString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoDieLayout::SetMediaSide( EnumMediaSide value){
+	SetEnumAttribute(atr_MediaSide,value,MediaSideString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoDieLayout::EnumMediaSide JDFAutoDieLayout:: GetMediaSide() const {
+	return (EnumMediaSide) GetEnumAttribute(atr_MediaSide,MediaSideString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDieLayout::ValidMediaSide(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_MediaSide,MediaSideString(),false);
+	};
+/**
+* Set attribute Rotated
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoDieLayout::SetRotated(bool value){
+	SetAttribute(atr_Rotated,WString::valueOf(value));
+};
+/**
+* Get bool attribute Rotated
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoDieLayout::GetRotated() const {return GetBoolAttribute(atr_Rotated,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDieLayout::ValidRotated(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Rotated,AttributeType_boolean,false);
+	};
+/**
+* Set attribute Waste
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoDieLayout::SetWaste(double value){
+	SetAttribute(atr_Waste,WString::valueOf(value));
+};
+/**
+* Get double attribute Waste
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoDieLayout::GetWaste() const {
+	return GetRealAttribute(atr_Waste,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDieLayout::ValidWaste(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Waste,AttributeType_double,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+JDFDevice JDFAutoDieLayout::GetDevice(int iSkip)const{
+	JDFDevice e=GetElement(elm_Device,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDevice JDFAutoDieLayout::GetCreateDevice(int iSkip){
+	JDFDevice e=GetCreateElement(elm_Device,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDevice JDFAutoDieLayout::AppendDevice(){
+	JDFDevice e=AppendElement(elm_Device);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoDieLayout::RefDevice(JDFDevice& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFFileSpec JDFAutoDieLayout::GetFileSpec()const{
 	JDFFileSpec e=GetElement(elm_FileSpec);
@@ -165,6 +305,51 @@ JDFFileSpec JDFAutoDieLayout::AppendFileSpec(){
 // element resource linking 
 JDFRefElement JDFAutoDieLayout::RefFileSpec(JDFFileSpec& refTarget){
 	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoDieLayout::GetMedia()const{
+	JDFMedia e=GetElement(elm_Media);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoDieLayout::GetCreateMedia(){
+	JDFMedia e=GetCreateElement(elm_Media);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoDieLayout::AppendMedia(){
+	JDFMedia e=AppendElementN(elm_Media,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoDieLayout::RefMedia(JDFMedia& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRuleLength JDFAutoDieLayout::GetRuleLength(int iSkip)const{
+	JDFRuleLength e=GetElement(elm_RuleLength,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRuleLength JDFAutoDieLayout::GetCreateRuleLength(int iSkip){
+	JDFRuleLength e=GetCreateElement(elm_RuleLength,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRuleLength JDFAutoDieLayout::AppendRuleLength(){
+	JDFRuleLength e=AppendElement(elm_RuleLength);
+	e.init();
+	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -198,6 +383,16 @@ JDFStation JDFAutoDieLayout::AppendStation(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Device);
+
+		for(i=0;i<nElem;i++){
+			if (!GetDevice(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Device);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_FileSpec);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_FileSpec);
@@ -208,6 +403,28 @@ JDFStation JDFAutoDieLayout::AppendStation(){
 				vElem.AppendUnique(elm_FileSpec);
 				if (++n>=nMax)
 					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_Media);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_Media);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetMedia().IsValid(level)) {
+				vElem.AppendUnique(elm_Media);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_RuleLength);
+
+		for(i=0;i<nElem;i++){
+			if (!GetRuleLength(i).IsValid(level)) {
+				vElem.AppendUnique(elm_RuleLength);
+				if (++n>=nMax)
+					return vElem;
+				break;
 			}
 		}
 		nElem=NumChildElements(elm_Station);
@@ -228,13 +445,13 @@ JDFStation JDFAutoDieLayout::AppendStation(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoDieLayout::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",FileSpec";
+		return JDFResource::UniqueElements()+L",FileSpec,Media";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoDieLayout::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",FileSpec,Station";
+		return JDFResource::OptionalElements()+L",Device,FileSpec,Media,RuleLength,Station";
 	};
 }; // end namespace JDF

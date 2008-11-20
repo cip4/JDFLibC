@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -127,7 +127,7 @@ bool JDFAutoBoxPackingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBoxPackingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ComponentsPerRow,FillMaterial,Layers,Pattern,Rows,Ties,UnderLays");
+		return JDFResource::OptionalAttributes()+WString(L",ComponentsPerRow,Columns,ComponentOrientation,Copies,FillMaterial,Layers,MaxWeight,Pattern,Rows,Ties,UnderLays");
 };
 
 /**
@@ -143,6 +143,21 @@ bool JDFAutoBoxPackingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidColumns(level)) {
+			vAtts.push_back(atr_Columns);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidComponentOrientation(level)) {
+			vAtts.push_back(atr_ComponentOrientation);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidCopies(level)) {
+			vAtts.push_back(atr_Copies);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidFillMaterial(level)) {
 			vAtts.push_back(atr_FillMaterial);
 			if(++n>=nMax)
@@ -150,6 +165,11 @@ bool JDFAutoBoxPackingParams::init(){
 		};
 		if(!ValidLayers(level)) {
 			vAtts.push_back(atr_Layers);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMaxWeight(level)) {
+			vAtts.push_back(atr_MaxWeight);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -195,6 +215,54 @@ bool JDFAutoBoxPackingParams::init(){
 		return ValidAttribute(atr_ComponentsPerRow,AttributeType_integer,false);
 	};
 /**
+* Set attribute Columns
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoBoxPackingParams::SetColumns(int value){
+	SetAttribute(atr_Columns,WString::valueOf(value));
+};
+/**
+* Get integer attribute Columns
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoBoxPackingParams::GetColumns() const {
+	return GetIntAttribute(atr_Columns,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBoxPackingParams::ValidColumns(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Columns,AttributeType_integer,false);
+	};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoBoxPackingParams::SetComponentOrientation( EnumOrientation value){
+	SetEnumAttribute(atr_ComponentOrientation,value,OrientationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoBoxPackingParams::EnumOrientation JDFAutoBoxPackingParams:: GetComponentOrientation() const {
+	return (EnumOrientation) GetEnumAttribute(atr_ComponentOrientation,OrientationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBoxPackingParams::ValidComponentOrientation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ComponentOrientation,OrientationString(),false);
+	};
+/**
+* Set attribute Copies
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoBoxPackingParams::SetCopies(int value){
+	SetAttribute(atr_Copies,WString::valueOf(value));
+};
+/**
+* Get integer attribute Copies
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoBoxPackingParams::GetCopies() const {
+	return GetIntAttribute(atr_Copies,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBoxPackingParams::ValidCopies(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Copies,AttributeType_integer,false);
+	};
+/**
 * Set attribute FillMaterial
 *@param WString value: the value to set the attribute to
 */
@@ -229,6 +297,24 @@ bool JDFAutoBoxPackingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBoxPackingParams::ValidLayers(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Layers,AttributeType_integer,false);
+	};
+/**
+* Set attribute MaxWeight
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBoxPackingParams::SetMaxWeight(double value){
+	SetAttribute(atr_MaxWeight,WString::valueOf(value));
+};
+/**
+* Get double attribute MaxWeight
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBoxPackingParams::GetMaxWeight() const {
+	return GetRealAttribute(atr_MaxWeight,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBoxPackingParams::ValidMaxWeight(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MaxWeight,AttributeType_double,false);
 	};
 /**
 * Set attribute Pattern

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -200,7 +200,7 @@ virtual bool init();
 * Enumeration for attribute SourceWorkStyle
 */
 
-	enum EnumSourceWorkStyle{SourceWorkStyle_Unknown,SourceWorkStyle_Simplex,SourceWorkStyle_WorkAndBack,SourceWorkStyle_Perfecting,SourceWorkStyle_WorkAndTurn,SourceWorkStyle_WorkAndTumble,SourceWorkStyle_WorkAndTwist};
+	enum EnumSourceWorkStyle{SourceWorkStyle_Unknown,SourceWorkStyle_Simplex,SourceWorkStyle_Perfecting,SourceWorkStyle_WorkAndBack,SourceWorkStyle_WorkAndTurn,SourceWorkStyle_WorkAndTumble,SourceWorkStyle_WorkAndTwist};
 
 /**
  * definition of optional attributes in the JDF namespace

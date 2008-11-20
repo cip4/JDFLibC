@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,8 @@
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFBarcodeProductionParams;
+class JDFLayoutElement;
+class JDFPositionObj;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -164,6 +166,28 @@ public:
 ****************************************************** */
 
 
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
+/**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetID(const WString& value);
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetID() const;
+/**
+* Typesafe attribute validation of ID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidID(EnumValidationLevel level=ValidationLevel_Complete) const;
+
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
@@ -186,6 +210,48 @@ public:
 * Append element BarcodeProductionParams
  */
 	JDFBarcodeProductionParams AppendBarcodeProductionParams();
+
+/** Get Element LayoutElement
+* 
+* @param int iSkip number of elements to skip
+* @return JDFLayoutElement The element
+*/
+	JDFLayoutElement GetCreateLayoutElement(int iSkip=0);
+
+/**
+* const get element LayoutElement
+* @param int iSkip number of elements to skip
+* @return JDFLayoutElement The element
+*/
+	JDFLayoutElement GetLayoutElement(int iSkip=0)const;
+/**
+* Append element LayoutElement
+ */
+	JDFLayoutElement AppendLayoutElement();
+/**
+* create inter-resource link to refTarget
+* @param JDFLayoutElement& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefLayoutElement(JDFLayoutElement& refTarget);
+
+/** Get Element PositionObj
+* 
+* @param int iSkip number of elements to skip
+* @return JDFPositionObj The element
+*/
+	JDFPositionObj GetCreatePositionObj(int iSkip=0);
+
+/**
+* const get element PositionObj
+* @param int iSkip number of elements to skip
+* @return JDFPositionObj The element
+*/
+	JDFPositionObj GetPositionObj(int iSkip=0)const;
+/**
+* Append element PositionObj
+ */
+	JDFPositionObj AppendPositionObj();
 
 /**
  definition of optional elements in the JDF namespace

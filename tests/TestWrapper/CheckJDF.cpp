@@ -372,15 +372,6 @@ void PrintDevCap(JDFElement jdfRoot, const WString& devCapFile, JDFElement::Enum
 int main(int argc, char* argv[]){
     // Initialize the XML4C2 system 
 	int i;
-    try{
-        XMLPlatformUtils::Initialize();
-    }catch(const XMLException& toCatch){
-        cout << "Error during XML4C2 Initialization.\n"
-			"  Exception message is \"%s\"\n"
-			<< toCatch.getMessage() << endl;
-        return 1;
-    }
-	
 	// Initialize the JDFTools system
 	try	{
 		JDF::PlatformUtils::Initialize();

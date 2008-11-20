@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -202,6 +202,38 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidShowList(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute JobFormat
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetJobFormat(const WString& value);
+/**
+* Get string attribute JobFormat
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetJobFormat() const;
+/**
+* Typesafe attribute validation of JobFormat
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidJobFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute JobTemplate
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetJobTemplate(const WString& value);
+/**
+* Get string attribute JobTemplate
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetJobTemplate() const;
+/**
+* Typesafe attribute validation of JobTemplate
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidJobTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute OperatorText
 *@param WString value: the value to set the attribute to

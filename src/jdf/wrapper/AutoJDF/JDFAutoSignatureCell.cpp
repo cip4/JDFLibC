@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,7 +116,7 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoSignatureCell::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",BackFacePages,BackPages,BottleAngle,BottleAxis,FrontFacePages,FrontPages,Orientation,SectionIndex,StationName");
+		return JDFElement::OptionalAttributes()+WString(L",BackFacePages,BackPages,BottleAngle,BottleAxis,FaceCells,FrontFacePages,FrontPages,Orientation,SectionIndex,StationName");
 };
 
 /**
@@ -144,6 +144,11 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
 		};
 		if(!ValidBottleAxis(level)) {
 			vAtts.push_back(atr_BottleAxis);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidFaceCells(level)) {
+			vAtts.push_back(atr_FaceCells);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -253,6 +258,24 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSignatureCell::ValidBottleAxis(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_BottleAxis,BottleAxisString(),false);
+	};
+/**
+* Set attribute FaceCells
+*@param JDFIntegerList value: the value to set the attribute to
+*/
+	 void JDFAutoSignatureCell::SetFaceCells(const JDFIntegerList& value){
+	SetAttribute(atr_FaceCells,value.GetString());
+};
+/**
+* Get string attribute FaceCells
+* @return JDFIntegerList the vaue of the attribute 
+*/
+	 JDFIntegerList JDFAutoSignatureCell::GetFaceCells() const {
+	return GetAttribute(atr_FaceCells,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSignatureCell::ValidFaceCells(EnumValidationLevel level) const {
+		return ValidAttribute(atr_FaceCells,AttributeType_IntegerList,false);
 	};
 /**
 * Set attribute FrontFacePages

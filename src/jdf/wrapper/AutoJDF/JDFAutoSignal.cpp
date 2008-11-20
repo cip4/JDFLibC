@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoSignal.h"
+#include "jdf/wrapper/JDFEmployee.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFNotification.h"
 #include "jdf/wrapper/JDFTrigger.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -117,7 +119,7 @@ JDFAutoSignal& JDFAutoSignal::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoSignal::OptionalAttributes()const{
-		return JDFMessage::OptionalAttributes()+WString(L",LastRepeat,refID");
+		return JDFMessage::OptionalAttributes()+WString(L",ChannelMode,LastRepeat,refID");
 };
 
 /**
@@ -128,6 +130,11 @@ JDFAutoSignal& JDFAutoSignal::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidChannelMode(level)) {
+			vAtts.push_back(atr_ChannelMode);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidLastRepeat(level)) {
 			vAtts.push_back(atr_LastRepeat);
 			if(++n>=nMax)
@@ -141,6 +148,31 @@ JDFAutoSignal& JDFAutoSignal::operator=(const KElement& other){
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoSignal::ChannelModeString(){
+		static const WString enums=WString(L"Unknown,FireAndForget,Reliable");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoSignal::ChannelModeString(EnumChannelMode value){
+		return ChannelModeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoSignal::SetChannelMode( EnumChannelMode value){
+	SetEnumAttribute(atr_ChannelMode,value,ChannelModeString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoSignal::EnumChannelMode JDFAutoSignal:: GetChannelMode() const {
+	return (EnumChannelMode) GetEnumAttribute(atr_ChannelMode,ChannelModeString(),WString::emptyStr,ChannelMode_FireAndForget);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSignal::ValidChannelMode(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ChannelMode,ChannelModeString(),false);
+	};
 /**
 * Set attribute LastRepeat
 *@param bool value: the value to set the attribute to
@@ -181,6 +213,26 @@ JDFAutoSignal& JDFAutoSignal::operator=(const KElement& other){
 // Element Getter / Setter
 **************************************************************** */
 
+
+JDFEmployee JDFAutoSignal::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoSignal::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoSignal::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFNotification JDFAutoSignal::GetNotification(int iSkip)const{
 	JDFNotification e=GetElement(elm_Notification,WString::emptyStr,iSkip);
@@ -232,6 +284,16 @@ JDFTrigger JDFAutoSignal::AppendTrigger(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Notification);
 
 		for(i=0;i<nElem;i++){
@@ -260,6 +322,6 @@ JDFTrigger JDFAutoSignal::AppendTrigger(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoSignal::OptionalElements()const{
-		return JDFMessage::OptionalElements()+L",Notification,Trigger";
+		return JDFMessage::OptionalElements()+L",Employee,Notification,Trigger";
 	};
 }; // end namespace JDF

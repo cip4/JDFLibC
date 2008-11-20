@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,10 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFIdentificationField;
+class JDFMedia;
+class JDFMedia;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoEmboss : public JDFElement
@@ -131,6 +135,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -166,7 +179,7 @@ public:
 * Enumeration for attribute EmbossingType
 */
 
-	enum EnumEmbossingType{EmbossingType_Unknown,EmbossingType_BlinedEmbossing,EmbossingType_EmbossedFinish,EmbossingType_FoilEmbossing,EmbossingType_FoilStamping,EmbossingType_RegisteredEmbossing};
+	enum EnumEmbossingType{EmbossingType_Unknown,EmbossingType_BlindEmbossing,EmbossingType_Braille,EmbossingType_EmbossedFinish,EmbossingType_FoilEmbossing,EmbossingType_FoilStamping,EmbossingType_RegisteredEmbossing};
 /**
 * Enumeration for attribute Level
 */
@@ -368,6 +381,83 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element IdentificationField
+* 
+* @param int iSkip number of elements to skip
+* @return JDFIdentificationField The element
+*/
+	JDFIdentificationField GetCreateIdentificationField(int iSkip=0);
+
+/**
+* const get element IdentificationField
+* @param int iSkip number of elements to skip
+* @return JDFIdentificationField The element
+*/
+	JDFIdentificationField GetIdentificationField(int iSkip=0)const;
+/**
+* Append element IdentificationField
+ */
+	JDFIdentificationField AppendIdentificationField();
+/**
+* create inter-resource link to refTarget
+* @param JDFIdentificationField& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefIdentificationField(JDFIdentificationField& refTarget);
+
+/** Get Element Media
+* 
+* @param int iSkip number of elements to skip
+* @return JDFMedia The element
+*/
+	JDFMedia GetCreateMedia(int iSkip=0);
+
+/**
+* const get element Media
+* @param int iSkip number of elements to skip
+* @return JDFMedia The element
+*/
+	JDFMedia GetMedia(int iSkip=0)const;
+/**
+* Append element Media
+ */
+	JDFMedia AppendMedia();
+/**
+* create inter-resource link to refTarget
+* @param JDFMedia& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefMedia(JDFMedia& refTarget);
+
+/** Get Element Tool
+* 
+* @param int iSkip number of elements to skip
+* @return JDFMedia The element
+*/
+	JDFMedia GetCreateTool(int iSkip=0);
+
+/**
+* const get element Tool
+* @param int iSkip number of elements to skip
+* @return JDFMedia The element
+*/
+	JDFMedia GetTool(int iSkip=0)const;
+/**
+* Append element Tool
+ */
+	JDFMedia AppendTool();
+/**
+* create inter-resource link to refTarget
+* @param JDFMedia& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefTool(JDFMedia& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoEmboss
 
 // ******************************************************

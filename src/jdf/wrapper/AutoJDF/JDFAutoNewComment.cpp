@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoNewComment.h"
+#include "jdf/wrapper/JDFPart.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -212,5 +214,77 @@ JDFAutoNewComment& JDFAutoNewComment::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoNewComment::ValidrefID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_refID,AttributeType_NMTOKEN,RequiredLevel(level));
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFPart JDFAutoNewComment::GetPart(int iSkip)const{
+	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPart JDFAutoNewComment::GetCreatePart(int iSkip){
+	JDFPart e=GetCreateElement(elm_Part,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPart JDFAutoNewComment::AppendPart(){
+	JDFPart e=AppendElement(elm_Part);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+	vmAttribute JDFAutoNewComment::GetPartMapVector()const{
+		return JDFElement::GetPartMapVector();
+	}
+
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoNewComment::SetPartMapVector(const vmAttribute & vParts){
+		JDFElement::SetPartMapVector(vParts);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoNewComment::SetPartMap(const mAttribute & mPart){
+		JDFElement::SetPartMap(mPart);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoNewComment::RemovePartMap(const mAttribute & mPart){
+		JDFElement::RemovePartMap(mPart);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	bool JDFAutoNewComment::HasPartMap(const mAttribute & mPart){
+		return JDFElement::HasPartMap(mPart);
+	}
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoNewComment::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoNewComment::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",Part";
 	};
 }; // end namespace JDF

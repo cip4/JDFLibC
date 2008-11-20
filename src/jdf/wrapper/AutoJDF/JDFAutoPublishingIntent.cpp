@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPublishingIntent.h"
+#include "jdf/wrapper/JDFContentList.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -114,6 +115,13 @@ JDFAutoPublishingIntent& JDFAutoPublishingIntent::operator=(const KElement& othe
 
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoPublishingIntent::OptionalAttributes()const{
+		return JDFIntentResource::OptionalAttributes()+WString(L",ContentDataRefs");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoPublishingIntent::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -121,9 +129,32 @@ JDFAutoPublishingIntent& JDFAutoPublishingIntent::operator=(const KElement& othe
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidContentDataRefs(level)) {
+			vAtts.push_back(atr_ContentDataRefs);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+/**
+* Set attribute ContentDataRefs
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoPublishingIntent::SetContentDataRefs(const vWString& value){
+	SetAttribute(atr_ContentDataRefs,value);
+};
+/**
+* Get string attribute ContentDataRefs
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoPublishingIntent::GetContentDataRefs() const {
+	return GetAttribute(atr_ContentDataRefs,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPublishingIntent::ValidContentDataRefs(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ContentDataRefs,AttributeType_IDREFS,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
@@ -210,6 +241,31 @@ JDFIntegerSpan JDFAutoPublishingIntent::AppendCirculation(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFContentList JDFAutoPublishingIntent::GetContentList()const{
+	JDFContentList e=GetElement(elm_ContentList);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFContentList JDFAutoPublishingIntent::GetCreateContentList(){
+	JDFContentList e=GetCreateElement(elm_ContentList);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFContentList JDFAutoPublishingIntent::AppendContentList(){
+	JDFContentList e=AppendElementN(elm_ContentList,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoPublishingIntent::RefContentList(JDFContentList& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -283,6 +339,18 @@ JDFIntegerSpan JDFAutoPublishingIntent::AppendCirculation(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_ContentList);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ContentList);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetContentList().IsValid(level)) {
+				vElem.AppendUnique(elm_ContentList);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		return vElem;
 	};
 
@@ -291,7 +359,7 @@ JDFIntegerSpan JDFAutoPublishingIntent::AppendCirculation(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoPublishingIntent::UniqueElements()const{
-		return JDFIntentResource::UniqueElements()+L",IssueDate,IssueName,IssueType,Circulation";
+		return JDFIntentResource::UniqueElements()+L",IssueDate,IssueName,IssueType,Circulation,ContentList";
 	};
 
 /**
@@ -305,6 +373,6 @@ JDFIntegerSpan JDFAutoPublishingIntent::AppendCirculation(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoPublishingIntent::OptionalElements()const{
-		return JDFIntentResource::OptionalElements()+L",Circulation";
+		return JDFIntentResource::OptionalElements()+L",Circulation,ContentList";
 	};
 }; // end namespace JDF

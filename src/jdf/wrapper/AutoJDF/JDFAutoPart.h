@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -433,22 +433,6 @@ public:
 */
 	virtual bool ValidDeliveryUnit9(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute DocIndex
-*@param JDFIntegerRangeList value: the value to set the attribute to
-*/
-	virtual void SetDocIndex(const JDFIntegerRangeList& value);
-/**
-* Get range attribute DocIndex
-* @return JDFIntegerRangeList the vaue of the attribute 
-*/
-	virtual JDFIntegerRangeList GetDocIndex() const;
-/**
-* Typesafe attribute validation of DocIndex
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidDocIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute DocCopies
 *@param JDFIntegerRangeList value: the value to set the attribute to
 */
@@ -464,6 +448,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidDocCopies(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DocIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetDocIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute DocIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetDocIndex() const;
+/**
+* Typesafe attribute validation of DocIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDocIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute DocRunIndex
 *@param JDFIntegerRangeList value: the value to set the attribute to
@@ -497,31 +497,15 @@ public:
 */
 	virtual bool ValidDocSheetIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute FountainNumber
-*@param int value: the value to set the attribute to
-*/
-	virtual void SetFountainNumber(int value);
-/**
-* Get integer attribute FountainNumber
-* @return int the vaue of the attribute 
-*/
-	virtual int GetFountainNumber() const;
-/**
-* Typesafe attribute validation of FountainNumber
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidFountainNumber(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute DocTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	virtual void SetDocTags(const vWString& value);
+	virtual void SetDocTags(const NameRangeList& value);
 /**
-* Get string attribute DocTags
-* @return vWString the vaue of the attribute 
+* Get range attribute DocTags
+* @return NameRangeList the vaue of the attribute 
 */
-	virtual vWString GetDocTags() const;
+	virtual NameRangeList GetDocTags() const;
 /**
 * Typesafe attribute validation of DocTags
 * @param EnumValidationLevel level of attribute validation 
@@ -560,6 +544,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidEditionVersion(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute FountainNumber
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetFountainNumber(int value);
+/**
+* Get integer attribute FountainNumber
+* @return int the vaue of the attribute 
+*/
+	virtual int GetFountainNumber() const;
+/**
+* Typesafe attribute validation of FountainNumber
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidFountainNumber(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ItemNames
 *@param vWString value: the value to set the attribute to
@@ -609,6 +609,166 @@ public:
 */
 	virtual bool ValidLocation(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute Metadata0
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata0(const NameRangeList& value);
+/**
+* Get range attribute Metadata0
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata0() const;
+/**
+* Typesafe attribute validation of Metadata0
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata0(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata1
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata1(const NameRangeList& value);
+/**
+* Get range attribute Metadata1
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata1() const;
+/**
+* Typesafe attribute validation of Metadata1
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata1(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata2
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata2(const NameRangeList& value);
+/**
+* Get range attribute Metadata2
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata2() const;
+/**
+* Typesafe attribute validation of Metadata2
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata2(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata3
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata3(const NameRangeList& value);
+/**
+* Get range attribute Metadata3
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata3() const;
+/**
+* Typesafe attribute validation of Metadata3
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata3(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata4
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata4(const NameRangeList& value);
+/**
+* Get range attribute Metadata4
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata4() const;
+/**
+* Typesafe attribute validation of Metadata4
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata4(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata5
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata5(const NameRangeList& value);
+/**
+* Get range attribute Metadata5
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata5() const;
+/**
+* Typesafe attribute validation of Metadata5
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata5(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata6
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata6(const NameRangeList& value);
+/**
+* Get range attribute Metadata6
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata6() const;
+/**
+* Typesafe attribute validation of Metadata6
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata6(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata7
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata7(const NameRangeList& value);
+/**
+* Get range attribute Metadata7
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata7() const;
+/**
+* Typesafe attribute validation of Metadata7
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata7(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata8
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata8(const NameRangeList& value);
+/**
+* Get range attribute Metadata8
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata8() const;
+/**
+* Typesafe attribute validation of Metadata8
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata8(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Metadata9
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetMetadata9(const NameRangeList& value);
+/**
+* Get range attribute Metadata9
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetMetadata9() const;
+/**
+* Typesafe attribute validation of Metadata9
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMetadata9(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute Option
 *@param WString value: the value to set the attribute to
 */
@@ -642,14 +802,14 @@ public:
 	virtual bool ValidPageNumber(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute PageTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	virtual void SetPageTags(const vWString& value);
+	virtual void SetPageTags(const NameRangeList& value);
 /**
-* Get string attribute PageTags
-* @return vWString the vaue of the attribute 
+* Get range attribute PageTags
+* @return NameRangeList the vaue of the attribute 
 */
-	virtual vWString GetPageTags() const;
+	virtual NameRangeList GetPageTags() const;
 /**
 * Typesafe attribute validation of PageTags
 * @param EnumValidationLevel level of attribute validation 
@@ -798,6 +958,22 @@ public:
 */
 	virtual bool ValidRunPage(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute RunPageRange
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetRunPageRange(const JDFIntegerRangeList& value);
+/**
+* Get range attribute RunPageRange
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetRunPageRange() const;
+/**
+* Typesafe attribute validation of RunPageRange
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRunPageRange(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute RunSet
 *@param WString value: the value to set the attribute to
 */
@@ -815,14 +991,14 @@ public:
 	virtual bool ValidRunSet(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute RunTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	virtual void SetRunTags(const vWString& value);
+	virtual void SetRunTags(const NameRangeList& value);
 /**
-* Get string attribute RunTags
-* @return vWString the vaue of the attribute 
+* Get range attribute RunTags
+* @return NameRangeList the vaue of the attribute 
 */
-	virtual vWString GetRunTags() const;
+	virtual NameRangeList GetRunTags() const;
 /**
 * Typesafe attribute validation of RunTags
 * @param EnumValidationLevel level of attribute validation 
@@ -911,14 +1087,14 @@ public:
 	virtual bool ValidSetSheetIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SetTags
-*@param vWString value: the value to set the attribute to
+*@param NameRangeList value: the value to set the attribute to
 */
-	virtual void SetSetTags(const vWString& value);
+	virtual void SetSetTags(const NameRangeList& value);
 /**
-* Get string attribute SetTags
-* @return vWString the vaue of the attribute 
+* Get range attribute SetTags
+* @return NameRangeList the vaue of the attribute 
 */
-	virtual vWString GetSetTags() const;
+	virtual NameRangeList GetSetTags() const;
 /**
 * Typesafe attribute validation of SetTags
 * @param EnumValidationLevel level of attribute validation 
@@ -1018,6 +1194,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidSignatureName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute StationName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetStationName(const WString& value);
+/**
+* Get string attribute StationName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetStationName() const;
+/**
+* Typesafe attribute validation of StationName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidStationName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SubRun
 *@param WString value: the value to set the attribute to

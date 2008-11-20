@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -131,8 +131,8 @@ bool JDFAutoFileSpec::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoFileSpec::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Compression,Application,AppOS,AppVersion,CheckSum,Disposition,DocumentNaturalLang,FileFormat,FileSize,FileTargetDeviceModel,FileTemplate,FileVersion,MimeType,MimeTypeVersion,OverwritePolicy,OSVersion,PageOrder,Password,RequestQuality")
-	+WString(L",ResourceUsage,SearchDepth,UID,URL,UserFileName");
+		return JDFResource::OptionalAttributes()+WString(L",Compression,Application,AppOS,AppVersion,CheckSum,Disposition,DocumentNaturalLang,Encoding,FileFormat,FileSize,FileTargetDeviceModel,FileTemplate,FileVersion,MimeType,MimeTypeVersion,OverwritePolicy,OSVersion,PageOrder,Password")
+	+WString(L",RequestQuality,ResourceUsage,SearchDepth,UID,URL,UserFileName");
 };
 
 /**
@@ -175,6 +175,11 @@ bool JDFAutoFileSpec::init(){
 		};
 		if(!ValidDocumentNaturalLang(level)) {
 			vAtts.push_back(atr_DocumentNaturalLang);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidEncoding(level)) {
+			vAtts.push_back(atr_Encoding);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -398,6 +403,24 @@ bool JDFAutoFileSpec::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoFileSpec::ValidDocumentNaturalLang(EnumValidationLevel level) const {
 		return ValidAttribute(atr_DocumentNaturalLang,AttributeType_language,false);
+	};
+/**
+* Set attribute Encoding
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoFileSpec::SetEncoding(const WString& value){
+	SetAttribute(atr_Encoding,value);
+};
+/**
+* Get string attribute Encoding
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoFileSpec::GetEncoding() const {
+	return GetAttribute(atr_Encoding,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoFileSpec::ValidEncoding(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Encoding,AttributeType_string,false);
 	};
 /**
 * Set attribute FileFormat

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,7 +116,7 @@ JDFAutoKnownMsgQuParams& JDFAutoKnownMsgQuParams::operator=(const KElement& othe
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoKnownMsgQuParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Exact,ListCommands,ListQueries,ListRegistrations,ListSignals,Persistent");
+		return JDFElement::OptionalAttributes()+WString(L",ChannelMode,Exact,ListCommands,ListQueries,ListRegistrations,ListSignals,Persistent");
 };
 
 /**
@@ -127,6 +127,11 @@ JDFAutoKnownMsgQuParams& JDFAutoKnownMsgQuParams::operator=(const KElement& othe
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidChannelMode(level)) {
+			vAtts.push_back(atr_ChannelMode);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidExact(level)) {
 			vAtts.push_back(atr_Exact);
 			if(++n>=nMax)
@@ -160,6 +165,31 @@ JDFAutoKnownMsgQuParams& JDFAutoKnownMsgQuParams::operator=(const KElement& othe
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoKnownMsgQuParams::ChannelModeString(){
+		static const WString enums=WString(L"Unknown,FireAndForget,Reliable");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoKnownMsgQuParams::ChannelModeString(EnumChannelMode value){
+		return ChannelModeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoKnownMsgQuParams::SetChannelMode( EnumChannelMode value){
+	SetEnumAttribute(atr_ChannelMode,value,ChannelModeString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoKnownMsgQuParams::EnumChannelMode JDFAutoKnownMsgQuParams:: GetChannelMode() const {
+	return (EnumChannelMode) GetEnumAttribute(atr_ChannelMode,ChannelModeString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoKnownMsgQuParams::ValidChannelMode(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ChannelMode,ChannelModeString(),false);
+	};
 /**
 * Set attribute Exact
 *@param bool value: the value to set the attribute to

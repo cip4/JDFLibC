@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -127,7 +127,7 @@ bool JDFAutoChannelBindingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoChannelBindingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ClampSystem,Brand,ClampColor,ClampD,ClampSize");
+		return JDFResource::OptionalAttributes()+WString(L",ClampSystem,Brand,ClampColor,ClampColorDetails,ClampD,ClampSize");
 };
 
 /**
@@ -150,6 +150,11 @@ bool JDFAutoChannelBindingParams::init(){
 		};
 		if(!ValidClampColor(level)) {
 			vAtts.push_back(atr_ClampColor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidClampColorDetails(level)) {
+			vAtts.push_back(atr_ClampColorDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -212,6 +217,24 @@ bool JDFAutoChannelBindingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoChannelBindingParams::ValidClampColor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_ClampColor,NamedColorString(),false);
+	};
+/**
+* Set attribute ClampColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoChannelBindingParams::SetClampColorDetails(const WString& value){
+	SetAttribute(atr_ClampColorDetails,value);
+};
+/**
+* Get string attribute ClampColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoChannelBindingParams::GetClampColorDetails() const {
+	return GetAttribute(atr_ClampColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoChannelBindingParams::ValidClampColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ClampColorDetails,AttributeType_string,false);
 	};
 /**
 * Set attribute ClampD

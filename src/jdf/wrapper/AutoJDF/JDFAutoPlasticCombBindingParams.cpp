@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoPlasticCombBindingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPlasticCombBindingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Brand,Color,Diameter,Thickness,Type");
+		return JDFResource::OptionalAttributes()+WString(L",Brand,Color,ColorDetails,Diameter,Thickness,Type");
 };
 
 /**
@@ -147,6 +147,11 @@ bool JDFAutoPlasticCombBindingParams::init(){
 		};
 		if(!ValidColor(level)) {
 			vAtts.push_back(atr_Color);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidColorDetails(level)) {
+			vAtts.push_back(atr_ColorDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -199,6 +204,24 @@ bool JDFAutoPlasticCombBindingParams::init(){
 		return ValidEnumAttribute(atr_Color,NamedColorString(),false);
 	};
 /**
+* Set attribute ColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPlasticCombBindingParams::SetColorDetails(const WString& value){
+	SetAttribute(atr_ColorDetails,value);
+};
+/**
+* Get string attribute ColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPlasticCombBindingParams::GetColorDetails() const {
+	return GetAttribute(atr_ColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPlasticCombBindingParams::ValidColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ColorDetails,AttributeType_string,false);
+	};
+/**
 * Set attribute Diameter
 *@param double value: the value to set the attribute to
 */
@@ -237,10 +260,10 @@ bool JDFAutoPlasticCombBindingParams::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoPlasticCombBindingParams::TypeString(){
-		static const WString enums=WString(L"Unknown,R2-generic,R2m-DIN,R2m-ISO,R2m-MIB,R2i-US-a,R2i-US-b,R3-generic,R3i-US,R4-generic")
-	+WString(L",R4m-DIN-A4,R4m-DIN-A5,R4m-swedish,R4i-US,R5-generic,R5i-US-a,R5i-US-b,R5i-US-c,R6-generic,R6m-4h2s")
-	+WString(L",R6m-DIN-A5,R7-generic,R7i-US-a,R7i-US-b,R7i-US-c,R11m-7h4s,P16_9i-rect-0t,P12m-rect-0t,W2_1i-round-0t,W2_1i-square-0t")
-	+WString(L",W3_1i-square-0t,C9.5m-round-0t");
+		static const WString enums=WString(L"Unknown,R2-generic,S1-generic,S-generic,R2m-DIN,R2m-ISO,R2m-MIB,R2i-US-a,R2i-US-b,R3-generic")
+	+WString(L",R3i-US,R4-generic,R4m-DIN-A4,R4m-DIN-A5,R4m-swedish,R4i-US,R5-generic,R5i-US-a,R5i-US-b,R5i-US-c")
+	+WString(L",R6-generic,R6m-4h2s,R6m-DIN-A5,R7-generic,R7i-US-a,R7i-US-b,R7i-US-c,R11m-7h4s,P16_9i-rect-0t,P12m-rect-0t")
+	+WString(L",W2_1i-round-0t,W2_1i-square-0t,W3_1i-square-0t,C9.5m-round-0t");
 		return enums;
 	};
 

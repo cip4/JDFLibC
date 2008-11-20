@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -207,7 +207,7 @@ virtual bool init();
 	virtual void SetIgnoreFileParams(bool value);
 /**
 * Get bool attribute IgnoreFileParams
-* @return bool the vaue of the attribute ; defaults to true
+* @return bool the vaue of the attribute 
 */
 	virtual bool GetIgnoreFileParams() const;
 /**

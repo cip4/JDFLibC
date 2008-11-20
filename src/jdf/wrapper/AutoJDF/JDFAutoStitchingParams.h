@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -165,6 +165,11 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 virtual bool init();
 
 /**
+* Enumeration for attribute StitchOrigin
+*/
+
+	enum EnumStitchOrigin{StitchOrigin_Unknown,StitchOrigin_TrimBoxCenter,StitchOrigin_TrimBoxJogSide,StitchOrigin_UntrimmedJogSide};
+/**
 * Enumeration for attribute ReferenceEdge
 */
 
@@ -185,6 +190,35 @@ virtual bool init();
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for StitchOrigin
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& StitchOriginString();
+/**
+* Enumeration string for enum value
+* @param EnumStitchOrigin value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString StitchOriginString(EnumStitchOrigin value);
+/**
+* Set attribute StitchOrigin
+* @param EnumStitchOrigin value the value to set the attribute to
+*/
+	virtual void SetStitchOrigin( EnumStitchOrigin value);
+
+/**
+* Typesafe enumerated attribute StitchOrigin; defaults to UntrimmedJogSide
+* @return EnumStitchOriginthe enumeration value of the attribute
+*/
+	virtual EnumStitchOrigin GetStitchOrigin() const;
+
+/**
+* Typesafe attribute validation of StitchOrigin
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidStitchOrigin(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Angle
 *@param double value: the value to set the attribute to

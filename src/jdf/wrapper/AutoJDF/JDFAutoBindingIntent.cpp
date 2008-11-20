@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -206,6 +206,26 @@ JDFSpanNamedColor JDFAutoBindingIntent::AppendBackCoverColor(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFStringSpan JDFAutoBindingIntent::GetBackCoverColorDetails(int iSkip)const{
+	JDFStringSpan e=GetElement(elm_BackCoverColorDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::GetCreateBackCoverColorDetails(int iSkip){
+	JDFStringSpan e=GetCreateElement(elm_BackCoverColorDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::AppendBackCoverColorDetails(){
+	JDFStringSpan e=AppendElement(elm_BackCoverColorDetails);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFSpanBindingType JDFAutoBindingIntent::GetBindingType(int iSkip)const{
 	JDFSpanBindingType e=GetElement(elm_BindingType,WString::emptyStr,iSkip);
 	return e;
@@ -241,6 +261,26 @@ JDFSpanNamedColor JDFAutoBindingIntent::GetCreateBindingColor(int iSkip){
 
 JDFSpanNamedColor JDFAutoBindingIntent::AppendBindingColor(){
 	JDFSpanNamedColor e=AppendElement(elm_BindingColor);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::GetBindingColorDetails(int iSkip)const{
+	JDFStringSpan e=GetElement(elm_BindingColorDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::GetCreateBindingColorDetails(int iSkip){
+	JDFStringSpan e=GetCreateElement(elm_BindingColorDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::AppendBindingColorDetails(){
+	JDFStringSpan e=AppendElement(elm_BindingColorDetails);
 	e.init();
 	return e;
 };
@@ -301,6 +341,26 @@ JDFSpanNamedColor JDFAutoBindingIntent::GetCreateCoverColor(int iSkip){
 
 JDFSpanNamedColor JDFAutoBindingIntent::AppendCoverColor(){
 	JDFSpanNamedColor e=AppendElement(elm_CoverColor);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::GetCoverColorDetails(int iSkip)const{
+	JDFStringSpan e=GetElement(elm_CoverColorDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::GetCreateCoverColorDetails(int iSkip){
+	JDFStringSpan e=GetCreateElement(elm_CoverColorDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoBindingIntent::AppendCoverColorDetails(){
+	JDFStringSpan e=AppendElement(elm_CoverColorDetails);
 	e.init();
 	return e;
 };
@@ -706,6 +766,16 @@ JDFWireCombBinding JDFAutoBindingIntent::AppendWireCombBinding(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_BackCoverColorDetails);
+
+		for(i=0;i<nElem;i++){
+			if (!GetBackCoverColorDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_BackCoverColorDetails);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_BindingType);
 
 		for(i=0;i<nElem;i++){
@@ -721,6 +791,16 @@ JDFWireCombBinding JDFAutoBindingIntent::AppendWireCombBinding(){
 		for(i=0;i<nElem;i++){
 			if (!GetBindingColor(i).IsValid(level)) {
 				vElem.AppendUnique(elm_BindingColor);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_BindingColorDetails);
+
+		for(i=0;i<nElem;i++){
+			if (!GetBindingColorDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_BindingColorDetails);
 				if (++n>=nMax)
 					return vElem;
 				break;
@@ -751,6 +831,16 @@ JDFWireCombBinding JDFAutoBindingIntent::AppendWireCombBinding(){
 		for(i=0;i<nElem;i++){
 			if (!GetCoverColor(i).IsValid(level)) {
 				vElem.AppendUnique(elm_CoverColor);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_CoverColorDetails);
+
+		for(i=0;i<nElem;i++){
+			if (!GetCoverColorDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_CoverColorDetails);
 				if (++n>=nMax)
 					return vElem;
 				break;
@@ -954,6 +1044,6 @@ JDFWireCombBinding JDFAutoBindingIntent::AppendWireCombBinding(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoBindingIntent::OptionalElements()const{
-		return JDFIntentResource::OptionalElements()+L",BackCoverColor,BindingType,BindingColor,BindingLength,BindingSide,CoverColor,AdhesiveBinding,BindList,BookCase,ChannelBinding,CoilBinding,EdgeGluing,HardCoverBinding,PlasticCombBinding,RingBinding,SaddleStitching,SideSewing,SideStitching,SoftCoverBinding,Tape,Tabs,ThreadSealing,ThreadSewing,StripBinding,WireCombBinding";
+		return JDFIntentResource::OptionalElements()+L",BackCoverColor,BackCoverColorDetails,BindingType,BindingColor,BindingColorDetails,BindingLength,BindingSide,CoverColor,CoverColorDetails,AdhesiveBinding,BindList,BookCase,ChannelBinding,CoilBinding,EdgeGluing,HardCoverBinding,PlasticCombBinding,RingBinding,SaddleStitching,SideSewing,SideStitching,SoftCoverBinding,Tape,Tabs,ThreadSealing,ThreadSewing,StripBinding,WireCombBinding";
 	};
 }; // end namespace JDF

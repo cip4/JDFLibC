@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -250,14 +250,14 @@ public:
 	virtual bool ValidContext(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute DevCapRef
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	virtual void SetDevCapRef(const WString& value);
+	virtual void SetDevCapRef(const vWString& value);
 /**
 * Get string attribute DevCapRef
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	virtual WString GetDevCapRef() const;
+	virtual vWString GetDevCapRef() const;
 /**
 * Typesafe attribute validation of DevCapRef
 * @param EnumValidationLevel level of attribute validation 

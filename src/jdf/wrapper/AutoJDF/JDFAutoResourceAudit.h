@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,7 +82,9 @@
 
 #include "jdf/wrapper/JDFAudit.h"
 namespace JDF{
+class JDFEmployee;
 class JDFMISDetails;
+class JDFPart;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -191,6 +193,24 @@ public:
 */
 	virtual bool ValidContentsModified(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute NodeStatus
+* @param JDFElement::EnumStatus value the value to set the attribute to
+*/
+	virtual void SetNodeStatus( JDFElement::EnumStatus value);
+
+/**
+* Typesafe enumerated attribute NodeStatus
+* @return EnumNodeStatusthe enumeration value of the attribute
+*/
+	virtual JDFElement::EnumStatus GetNodeStatus() const;
+
+/**
+* Typesafe attribute validation of NodeStatus
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidNodeStatus(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for Reason
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -225,6 +245,24 @@ public:
 **************************************************************** */
 
 
+/** Get Element Employee
+* 
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetCreateEmployee(int iSkip=0);
+
+/**
+* const get element Employee
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetEmployee(int iSkip=0)const;
+/**
+* Append element Employee
+ */
+	JDFEmployee AppendEmployee();
+
 /** Get Element MISDetails
 * 
 * @param int iSkip number of elements to skip
@@ -242,6 +280,53 @@ public:
 * Append element MISDetails
  */
 	JDFMISDetails AppendMISDetails();
+
+/** Get Element Part
+* 
+* @param int iSkip number of elements to skip
+* @return JDFPart The element
+*/
+	JDFPart GetCreatePart(int iSkip=0);
+
+/**
+* const get element Part
+* @param int iSkip number of elements to skip
+* @return JDFPart The element
+*/
+	JDFPart GetPart(int iSkip=0)const;
+/**
+* Append element Part
+ */
+	JDFPart AppendPart();
+//@{
+		/**
+		* get part map vector
+		* @return vector of mAttribute, one for each part
+		*/
+		vmAttribute GetPartMapVector()const;
+		
+		        /**
+		* set all parts to those define in vParts
+		* @param vmAttribute& vParts vector of attribute maps for the parts
+		*/
+		void SetPartMapVector(const vmAttribute & vParts);
+		/**
+		* set part to mPart
+		* @param mAttribute& mPart attribute map for the part to set
+		*/
+	void SetPartMap(const mAttribute & mPart);
+		/**
+		* remove the part defined in mPart
+		* @param mAttribute& mPart attribute map for the part to remove
+		*/
+		void RemovePartMap(const mAttribute & mPart);
+		/**
+		* check whether the part defined in mPart is included
+		* @param mAttribute& mPart attribute map for the part to remove
+		* @return bool if the part exists
+		*/
+		bool HasPartMap(const mAttribute & mPart);
+		//@}
 
 /**
  definition of optional elements in the JDF namespace

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -117,7 +117,7 @@ JDFAutoTabs& JDFAutoTabs::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoTabs::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",TabBanks,TabsPerBank");
+		return JDFElement::OptionalAttributes()+WString(L",TabBanks,TabCount,TabsPerBank");
 };
 
 /**
@@ -130,6 +130,11 @@ JDFAutoTabs& JDFAutoTabs::operator=(const KElement& other){
 			return vAtts;
 		if(!ValidTabBanks(level)) {
 			vAtts.push_back(atr_TabBanks);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTabCount(level)) {
+			vAtts.push_back(atr_TabCount);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -158,6 +163,24 @@ JDFAutoTabs& JDFAutoTabs::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoTabs::ValidTabBanks(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TabBanks,AttributeType_integer,false);
+	};
+/**
+* Set attribute TabCount
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoTabs::SetTabCount(int value){
+	SetAttribute(atr_TabCount,WString::valueOf(value));
+};
+/**
+* Get integer attribute TabCount
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoTabs::GetTabCount() const {
+	return GetIntAttribute(atr_TabCount,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoTabs::ValidTabCount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TabCount,AttributeType_integer,false);
 	};
 /**
 * Set attribute TabsPerBank
@@ -303,6 +326,26 @@ JDFSpanNamedColor JDFAutoTabs::AppendTabMylarColor(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFStringSpan JDFAutoTabs::GetTabMylarColorDetails(int iSkip)const{
+	JDFStringSpan e=GetElement(elm_TabMylarColorDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoTabs::GetCreateTabMylarColorDetails(int iSkip){
+	JDFStringSpan e=GetCreateElement(elm_TabMylarColorDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoTabs::AppendTabMylarColorDetails(){
+	JDFStringSpan e=AppendElement(elm_TabMylarColorDetails);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -373,6 +416,16 @@ JDFSpanNamedColor JDFAutoTabs::AppendTabMylarColor(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_TabMylarColorDetails);
+
+		for(i=0;i<nElem;i++){
+			if (!GetTabMylarColorDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_TabMylarColorDetails);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -381,6 +434,6 @@ JDFSpanNamedColor JDFAutoTabs::AppendTabMylarColor(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoTabs::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",TabBrand,TabExtensionDistance,TabExtensionMylar,TabBindMylar,TabBodyCopy,TabMylarColor";
+		return JDFElement::OptionalElements()+L",TabBrand,TabExtensionDistance,TabExtensionMylar,TabBindMylar,TabBodyCopy,TabMylarColor,TabMylarColorDetails";
 	};
 }; // end namespace JDF

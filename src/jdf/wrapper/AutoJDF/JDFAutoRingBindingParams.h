@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -205,6 +205,22 @@ virtual bool init();
 */
 	virtual bool ValidBinderColor(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute BinderColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetBinderColorDetails(const WString& value);
+/**
+* Get string attribute BinderColorDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetBinderColorDetails() const;
+/**
+* Typesafe attribute validation of BinderColorDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBinderColorDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute BinderMaterial
 *@param WString value: the value to set the attribute to
 */
@@ -347,6 +363,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSpineColor(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SpineColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSpineColorDetails(const WString& value);
+/**
+* Get string attribute SpineColorDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSpineColorDetails() const;
+/**
+* Typesafe attribute validation of SpineColorDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSpineColorDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SpineWidth
 *@param double value: the value to set the attribute to

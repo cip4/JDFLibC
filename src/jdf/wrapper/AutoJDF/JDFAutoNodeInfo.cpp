@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -133,7 +133,8 @@ bool JDFAutoNodeInfo::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoNodeInfo::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",JobPriority,CleanupDuration,DueLevel,End,FirstEnd,FirstStart,IPPVersion,LastEnd,LastStart,NaturalLang,NodeStatus,NodeStatusDetails,MergeTarget,Route,SetupDuration,Start,TargetRoute,TotalDuration");
+		return JDFResource::OptionalAttributes()+WString(L",JobPriority,CleanupDuration,DueLevel,End,FirstEnd,FirstStart,IPPVersion,LastEnd,LastStart,NaturalLang,NodeStatus,NodeStatusDetails,MergeTarget,Route,SetupDuration,Start,TargetRoute,TotalDuration,WorkStepID")
+	+WString(L"");
 };
 
 /**
@@ -231,6 +232,11 @@ bool JDFAutoNodeInfo::init(){
 		};
 		if(!ValidTotalDuration(level)) {
 			vAtts.push_back(atr_TotalDuration);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidWorkStepID(level)) {
+			vAtts.push_back(atr_WorkStepID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -560,6 +566,24 @@ bool JDFAutoNodeInfo::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoNodeInfo::ValidTotalDuration(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TotalDuration,AttributeType_duration,false);
+	};
+/**
+* Set attribute WorkStepID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoNodeInfo::SetWorkStepID(const WString& value){
+	SetAttribute(atr_WorkStepID,value);
+};
+/**
+* Get string attribute WorkStepID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoNodeInfo::GetWorkStepID() const {
+	return GetAttribute(atr_WorkStepID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNodeInfo::ValidWorkStepID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_WorkStepID,AttributeType_string,false);
 	};
 
 /* ******************************************************

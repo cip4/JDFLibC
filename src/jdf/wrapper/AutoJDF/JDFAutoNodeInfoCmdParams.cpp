@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -217,7 +217,7 @@ JDFAutoNodeInfoCmdParams& JDFAutoNodeInfoCmdParams::operator=(const KElement& ot
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoNodeInfoCmdParams::UpdateMethodString(){
-		static const WString enums=WString(L"Unknown,Complete,Incremental");
+		static const WString enums=WString(L"Unknown,Complete,Incremental,Remove");
 		return enums;
 	};
 

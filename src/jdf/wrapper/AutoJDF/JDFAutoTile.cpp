@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoTile.h"
+#include "jdf/wrapper/JDFMarkObject.h"
 #include "jdf/wrapper/JDFMedia.h"
 #include "jdf/wrapper/JDFMediaSource.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -196,6 +197,26 @@ bool JDFAutoTile::init(){
 **************************************************************** */
 
 
+JDFMarkObject JDFAutoTile::GetMarkObject(int iSkip)const{
+	JDFMarkObject e=GetElement(elm_MarkObject,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMarkObject JDFAutoTile::GetCreateMarkObject(int iSkip){
+	JDFMarkObject e=GetCreateElement(elm_MarkObject,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMarkObject JDFAutoTile::AppendMarkObject(){
+	JDFMarkObject e=AppendElement(elm_MarkObject);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFMedia JDFAutoTile::GetMedia()const{
 	JDFMedia e=GetElement(elm_Media);
 	return e;
@@ -256,6 +277,16 @@ JDFRefElement JDFAutoTile::RefMediaSource(JDFMediaSource& refTarget){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_MarkObject);
+
+		for(i=0;i<nElem;i++){
+			if (!GetMarkObject(i).IsValid(level)) {
+				vElem.AppendUnique(elm_MarkObject);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Media);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_Media);
@@ -295,6 +326,6 @@ JDFRefElement JDFAutoTile::RefMediaSource(JDFMediaSource& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoTile::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Media,MediaSource";
+		return JDFResource::OptionalElements()+L",MarkObject,Media,MediaSource";
 	};
 }; // end namespace JDF

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -118,7 +118,7 @@ JDFAutoNotificationFilter& JDFAutoNotificationFilter::operator=(const KElement& 
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoNotificationFilter::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",DeviceID,JobID,JobPartID,QueueEntryID,SignalTypes,Types,Classes");
+		return JDFElement::OptionalAttributes()+WString(L",DeviceID,JobID,JobPartID,MilestoneTypes,QueueEntryID,SignalTypes,Types,Classes");
 };
 
 /**
@@ -141,6 +141,11 @@ JDFAutoNotificationFilter& JDFAutoNotificationFilter::operator=(const KElement& 
 		};
 		if(!ValidJobPartID(level)) {
 			vAtts.push_back(atr_JobPartID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMilestoneTypes(level)) {
+			vAtts.push_back(atr_MilestoneTypes);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -220,6 +225,24 @@ JDFAutoNotificationFilter& JDFAutoNotificationFilter::operator=(const KElement& 
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoNotificationFilter::ValidJobPartID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_JobPartID,AttributeType_shortString,false);
+	};
+/**
+* Set attribute MilestoneTypes
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoNotificationFilter::SetMilestoneTypes(const vWString& value){
+	SetAttribute(atr_MilestoneTypes,value);
+};
+/**
+* Get string attribute MilestoneTypes
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoNotificationFilter::GetMilestoneTypes() const {
+	return GetAttribute(atr_MilestoneTypes,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNotificationFilter::ValidMilestoneTypes(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MilestoneTypes,AttributeType_NMTOKENS,false);
 	};
 /**
 * Set attribute QueueEntryID

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -78,6 +78,7 @@
 #include "jdf/wrapper/JDFCompany.h"
 #include "jdf/wrapper/JDFContact.h"
 #include "jdf/wrapper/JDFCustomerMessage.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -120,7 +121,7 @@ JDFAutoCustomerInfo& JDFAutoCustomerInfo::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCustomerInfo::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BillingCode,CustomerID,CustomerJobName,CustomerOrderID,CustomerProjectID,rRefs");
+		return JDFResource::OptionalAttributes()+WString(L",BillingCode,CustomerID,CustomerJobName,CustomerOrderID,CustomerProjectID");
 };
 
 /**
@@ -153,11 +154,6 @@ JDFAutoCustomerInfo& JDFAutoCustomerInfo::operator=(const KElement& other){
 		};
 		if(!ValidCustomerProjectID(level)) {
 			vAtts.push_back(atr_CustomerProjectID);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidrRefs(level)) {
-			vAtts.push_back(atr_rRefs);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -254,24 +250,6 @@ JDFAutoCustomerInfo& JDFAutoCustomerInfo::operator=(const KElement& other){
 	bool JDFAutoCustomerInfo::ValidCustomerProjectID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CustomerProjectID,AttributeType_string,false);
 	};
-/**
-* Set attribute rRefs
-*@param vWString value: the value to set the attribute to
-*/
-	 void JDFAutoCustomerInfo::SetrRefs(const vWString& value){
-	SetAttribute(atr_rRefs,value);
-};
-/**
-* Get string attribute rRefs
-* @return vWString the vaue of the attribute 
-*/
-	 vWString JDFAutoCustomerInfo::GetrRefs() const {
-	return GetAttribute(atr_rRefs,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoCustomerInfo::ValidrRefs(EnumValidationLevel level) const {
-		return ValidAttribute(atr_rRefs,AttributeType_IDREFS,false);
-	};
 
 /* ******************************************************
 // Element Getter / Setter
@@ -348,6 +326,31 @@ JDFCustomerMessage JDFAutoCustomerInfo::AppendCustomerMessage(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFQualityControlResult JDFAutoCustomerInfo::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCustomerInfo::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCustomerInfo::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoCustomerInfo::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -388,6 +391,16 @@ JDFCustomerMessage JDFAutoCustomerInfo::AppendCustomerMessage(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -396,6 +409,6 @@ JDFCustomerMessage JDFAutoCustomerInfo::AppendCustomerMessage(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoCustomerInfo::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Company,Contact,CustomerMessage";
+		return JDFResource::OptionalElements()+L",Company,Contact,CustomerMessage,QualityControlResult";
 	};
 }; // end namespace JDF

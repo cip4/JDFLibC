@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -230,6 +230,26 @@ JDFSpanNamedColor JDFAutoEmbossingItem::AppendFoilColor(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFStringSpan JDFAutoEmbossingItem::GetFoilColorDetails()const{
+	JDFStringSpan e=GetElement(elm_FoilColorDetails);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoEmbossingItem::GetCreateFoilColorDetails(){
+	JDFStringSpan e=GetCreateElement(elm_FoilColorDetails);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoEmbossingItem::AppendFoilColorDetails(){
+	JDFStringSpan e=AppendElementN(elm_FoilColorDetails,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFNumberSpan JDFAutoEmbossingItem::GetHeight()const{
 	JDFNumberSpan e=GetElement(elm_Height);
 	return e;
@@ -385,6 +405,18 @@ JDFXYPairSpan JDFAutoEmbossingItem::AppendPosition(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_FoilColorDetails);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_FoilColorDetails);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFoilColorDetails().IsValid(level)) {
+				vElem.AppendUnique(elm_FoilColorDetails);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_Height);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_Height);
@@ -441,7 +473,7 @@ JDFXYPairSpan JDFAutoEmbossingItem::AppendPosition(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoEmbossingItem::UniqueElements()const{
-		return JDFElement::UniqueElements()+L",Direction,EdgeAngle,EdgeShape,EmbossingType,FoilColor,Height,ImageSize,Level,Position";
+		return JDFElement::UniqueElements()+L",Direction,EdgeAngle,EdgeShape,EmbossingType,FoilColor,FoilColorDetails,Height,ImageSize,Level,Position";
 	};
 
 /**
@@ -455,6 +487,6 @@ JDFXYPairSpan JDFAutoEmbossingItem::AppendPosition(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoEmbossingItem::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",EdgeAngle,EdgeShape,EmbossingType,FoilColor,Height,ImageSize,Level,Position";
+		return JDFElement::OptionalElements()+L",EdgeAngle,EdgeShape,EmbossingType,FoilColor,FoilColorDetails,Height,ImageSize,Level,Position";
 	};
 }; // end namespace JDF

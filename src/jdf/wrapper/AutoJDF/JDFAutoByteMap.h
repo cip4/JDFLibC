@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -183,17 +183,75 @@ virtual bool init();
 */
 
 	enum EnumBandOrdering{BandOrdering_Unknown,BandOrdering_BandMajor,BandOrdering_ColorMajor};
-
 /**
- * definition of required attributes in the JDF namespace
+* Enumeration for attribute ElementType
 */
-	virtual WString RequiredAttributes()const;
+
+	enum EnumElementType{ElementType_Unknown,ElementType_Auxiliary,ElementType_Barcode,ElementType_Composed,ElementType_Document,ElementType_Graphic,ElementType_IdentificationField,ElementType_Image,ElementType_MultiDocument,ElementType_MultiSet,ElementType_Page,ElementType_Reservation,ElementType_Surface,ElementType_Text,ElementType_Tile};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for BandOrdering
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& BandOrderingString();
+/**
+* Enumeration string for enum value
+* @param EnumBandOrdering value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString BandOrderingString(EnumBandOrdering value);
+/**
+* Set attribute BandOrdering
+* @param EnumBandOrdering value the value to set the attribute to
+*/
+	virtual void SetBandOrdering( EnumBandOrdering value);
+
+/**
+* Typesafe enumerated attribute BandOrdering
+* @return EnumBandOrderingthe enumeration value of the attribute
+*/
+	virtual EnumBandOrdering GetBandOrdering() const;
+
+/**
+* Typesafe attribute validation of BandOrdering
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidBandOrdering(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for ElementType
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ElementTypeString();
+/**
+* Enumeration string for enum value
+* @param EnumElementType value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ElementTypeString(EnumElementType value);
+/**
+* Set attribute ElementType
+* @param EnumElementType value the value to set the attribute to
+*/
+	virtual void SetElementType( EnumElementType value);
+
+/**
+* Typesafe enumerated attribute ElementType
+* @return EnumElementTypethe enumeration value of the attribute
+*/
+	virtual EnumElementType GetElementType() const;
+
+/**
+* Typesafe attribute validation of ElementType
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidElementType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute FrameHeight
 *@param int value: the value to set the attribute to
@@ -259,51 +317,6 @@ virtual bool init();
 */
 	virtual bool ValidInterleaved(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute Resolution
-*@param JDFXYPair value: the value to set the attribute to
-*/
-	virtual void SetResolution(const JDFXYPair& value);
-/**
-* Get string attribute Resolution
-* @return JDFXYPair the vaue of the attribute 
-*/
-	virtual JDFXYPair GetResolution() const;
-/**
-* Typesafe attribute validation of Resolution
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidResolution(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Enumeration strings for BandOrdering
-* @return const WString& comma separated list of enumerated string values 
-*/
-	static const WString& BandOrderingString();
-/**
-* Enumeration string for enum value
-* @param EnumBandOrdering value the enumeration to translate
-* @return WString the string representation of the enumeration
-*/
-	static WString BandOrderingString(EnumBandOrdering value);
-/**
-* Set attribute BandOrdering
-* @param EnumBandOrdering value the value to set the attribute to
-*/
-	virtual void SetBandOrdering( EnumBandOrdering value);
-
-/**
-* Typesafe enumerated attribute BandOrdering
-* @return EnumBandOrderingthe enumeration value of the attribute
-*/
-	virtual EnumBandOrdering GetBandOrdering() const;
-
-/**
-* Typesafe attribute validation of BandOrdering
-* @param EnumValidationLevel level element validation level 
-* @return bool true if valid
-*/
-	virtual bool ValidBandOrdering(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute PixelSkip
 *@param int value: the value to set the attribute to
 */
@@ -319,6 +332,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidPixelSkip(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Resolution
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	virtual void SetResolution(const JDFXYPair& value);
+/**
+* Get string attribute Resolution
+* @return JDFXYPair the vaue of the attribute 
+*/
+	virtual JDFXYPair GetResolution() const;
+/**
+* Typesafe attribute validation of Resolution
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidResolution(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPreview.h"
+#include "jdf/wrapper/JDFComment.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -134,7 +136,7 @@ bool JDFAutoPreview::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPreview::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",PreviewFileType,PreviewUsage,Compensation,CTM,Directory");
+		return JDFResource::OptionalAttributes()+WString(L",PreviewFileType,PreviewUsage,Compensation,CTM,Directory,MimeTypeDetails");
 };
 
 /**
@@ -172,6 +174,11 @@ bool JDFAutoPreview::init(){
 		};
 		if(!ValidDirectory(level)) {
 			vAtts.push_back(atr_Directory);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMimeTypeDetails(level)) {
+			vAtts.push_back(atr_MimeTypeDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -306,5 +313,79 @@ bool JDFAutoPreview::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPreview::ValidDirectory(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Directory,AttributeType_URL,false);
+	};
+/**
+* Set attribute MimeTypeDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMimeTypeDetails(const WString& value){
+	SetAttribute(atr_MimeTypeDetails,value);
+};
+/**
+* Get string attribute MimeTypeDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPreview::GetMimeTypeDetails() const {
+	return GetAttribute(atr_MimeTypeDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMimeTypeDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MimeTypeDetails,AttributeType_string,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFComment JDFAutoPreview::GetComment(int iSkip)const{
+	JDFComment e=GetElement(elm_Comment,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFComment JDFAutoPreview::GetCreateComment(int iSkip){
+	JDFComment e=GetCreateElement(elm_Comment,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFComment JDFAutoPreview::AppendComment(){
+	JDFComment e=AppendElement(elm_Comment);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoPreview::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_Comment);
+
+		for(i=0;i<nElem;i++){
+			if (!GetComment(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Comment);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoPreview::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",Comment";
 	};
 }; // end namespace JDF

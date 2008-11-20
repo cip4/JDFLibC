@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -140,7 +140,7 @@ bool JDFAutoColor::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColor::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",MappingSelection,CMYK,ColorBook,ColorBookEntry,ColorBookPrefix,ColorBookSuffix,ColorName,ColorType,Density,Lab,MediaType,NeutralDensity,RawName,sRGB,UsePDLAlternateCS");
+		return JDFResource::OptionalAttributes()+WString(L",MappingSelection,ActualColorName,CMYK,ColorBook,ColorBookEntry,ColorBookPrefix,ColorBookSuffix,ColorDetails,ColorName,ColorType,Density,Gray,Lab,MediaType,NeutralDensity,RawName,sRGB,UsePDLAlternateCS");
 };
 
 /**
@@ -158,6 +158,11 @@ bool JDFAutoColor::init(){
 		};
 		if(!ValidName(level)) {
 			vAtts.push_back(atr_Name);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidActualColorName(level)) {
+			vAtts.push_back(atr_ActualColorName);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -186,6 +191,11 @@ bool JDFAutoColor::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidColorDetails(level)) {
+			vAtts.push_back(atr_ColorDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidColorName(level)) {
 			vAtts.push_back(atr_ColorName);
 			if(++n>=nMax)
@@ -198,6 +208,11 @@ bool JDFAutoColor::init(){
 		};
 		if(!ValidDensity(level)) {
 			vAtts.push_back(atr_Density);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidGray(level)) {
+			vAtts.push_back(atr_Gray);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -276,6 +291,24 @@ bool JDFAutoColor::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColor::ValidName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Name,AttributeType_string,RequiredLevel(level));
+	};
+/**
+* Set attribute ActualColorName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoColor::SetActualColorName(const WString& value){
+	SetAttribute(atr_ActualColorName,value);
+};
+/**
+* Get string attribute ActualColorName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoColor::GetActualColorName() const {
+	return GetAttribute(atr_ActualColorName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColor::ValidActualColorName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ActualColorName,AttributeType_string,false);
 	};
 /**
 * Set attribute CMYK
@@ -367,6 +400,24 @@ bool JDFAutoColor::init(){
 	bool JDFAutoColor::ValidColorBookSuffix(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ColorBookSuffix,AttributeType_string,false);
 	};
+/**
+* Set attribute ColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoColor::SetColorDetails(const WString& value){
+	SetAttribute(atr_ColorDetails,value);
+};
+/**
+* Get string attribute ColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoColor::GetColorDetails() const {
+	return GetAttribute(atr_ColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColor::ValidColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ColorDetails,AttributeType_string,false);
+	};
 /////////////////////////////////////////////////////////////////////////
 	void JDFAutoColor::SetColorName( EnumNamedColor value){
 	SetEnumAttribute(atr_ColorName,value,NamedColorString());
@@ -421,6 +472,24 @@ bool JDFAutoColor::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColor::ValidDensity(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Density,AttributeType_double,false);
+	};
+/**
+* Set attribute Gray
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoColor::SetGray(double value){
+	SetAttribute(atr_Gray,WString::valueOf(value));
+};
+/**
+* Get double attribute Gray
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoColor::GetGray() const {
+	return GetRealAttribute(atr_Gray,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColor::ValidGray(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Gray,AttributeType_double,false);
 	};
 /**
 * Set attribute Lab

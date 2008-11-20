@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,7 +116,7 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoScreenSelector::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Angle,AngleMap,DotSize,Frequency,ScreeningFamily,ScreeningType,Separation,SourceFrequency,SourceObjects,SpotFunction");
+		return JDFElement::OptionalAttributes()+WString(L",Angle,AngleMap,DotSize,Frequency,ObjectTags,ScreeningFamily,ScreeningType,Separation,SourceFrequency,SourceObjects,SpotFunction");
 };
 
 /**
@@ -144,6 +144,11 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 		};
 		if(!ValidFrequency(level)) {
 			vAtts.push_back(atr_Frequency);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidObjectTags(level)) {
+			vAtts.push_back(atr_ObjectTags);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -251,6 +256,24 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoScreenSelector::ValidFrequency(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Frequency,AttributeType_double,false);
+	};
+/**
+* Set attribute ObjectTags
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoScreenSelector::SetObjectTags(const vWString& value){
+	SetAttribute(atr_ObjectTags,value);
+};
+/**
+* Get string attribute ObjectTags
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoScreenSelector::GetObjectTags() const {
+	return GetAttribute(atr_ObjectTags,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoScreenSelector::ValidObjectTags(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ObjectTags,AttributeType_NMTOKENS,false);
 	};
 /**
 * Set attribute ScreeningFamily

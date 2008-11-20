@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,7 @@
 #include "jdf/wrapper/JDFIntentResource.h"
 #include "jdf/wrapper/AutoJDF/JDFAutoEnumerationSpan.h"
 namespace JDF{
+class JDFContentList;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -164,6 +165,28 @@ public:
 ****************************************************** */
 
 
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
+/**
+* Set attribute ContentDataRefs
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetContentDataRefs(const vWString& value);
+/**
+* Get string attribute ContentDataRefs
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetContentDataRefs() const;
+/**
+* Typesafe attribute validation of ContentDataRefs
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidContentDataRefs(EnumValidationLevel level=ValidationLevel_Complete) const;
+
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
@@ -236,6 +259,29 @@ public:
  * 
 */
 	JDFIntegerSpan AppendCirculation();
+
+/** Get Element ContentList
+* 
+* @return JDFContentList The element
+*/
+	JDFContentList GetCreateContentList();
+
+/**
+* const get element ContentList
+*@return  JDFContentList The element
+*/
+	JDFContentList GetContentList()const;
+/**
+* Append element ContentList
+ * 
+*/
+	JDFContentList AppendContentList();
+/**
+* create inter-resource link to refTarget
+* @param JDFContentList& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefContentList(JDFContentList& refTarget);
 
 /**
  definition of unique elements in the JDF namespace

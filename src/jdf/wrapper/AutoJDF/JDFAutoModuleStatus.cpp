@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -118,14 +118,14 @@ JDFAutoModuleStatus& JDFAutoModuleStatus::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoModuleStatus::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",DeviceStatus,ModuleIndex,ModuleType";
+		return JDFElement::RequiredAttributes()+L",DeviceStatus,ModuleType";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoModuleStatus::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",CombinedProcessIndex,ModuleID,StatusDetails");
+		return JDFElement::OptionalAttributes()+WString(L",CombinedProcessIndex,ModuleID,ModuleIndex,StatusDetails");
 };
 
 /**
@@ -246,7 +246,7 @@ JDFAutoModuleStatus& JDFAutoModuleStatus::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoModuleStatus::ValidModuleIndex(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ModuleIndex,AttributeType_IntegerRangeList,RequiredLevel(level));
+		return ValidAttribute(atr_ModuleIndex,AttributeType_IntegerRangeList,false);
 	};
 /**
 * Set attribute ModuleType

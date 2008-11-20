@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -121,7 +121,7 @@ JDFAutoMessage& JDFAutoMessage::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMessage::OptionalAttributes()const{
-		return JDFMessageElement::OptionalAttributes()+WString(L",Time");
+		return JDFMessageElement::OptionalAttributes()+WString(L",AgentName,AgentVersion,ICSVersions,SenderID,Time,Version");
 };
 
 /**
@@ -132,8 +132,28 @@ JDFAutoMessage& JDFAutoMessage::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidAgentName(level)) {
+			vAtts.push_back(atr_AgentName);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidAgentVersion(level)) {
+			vAtts.push_back(atr_AgentVersion);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidICSVersions(level)) {
+			vAtts.push_back(atr_ICSVersions);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidID(level)) {
 			vAtts.push_back(atr_ID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSenderID(level)) {
+			vAtts.push_back(atr_SenderID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -147,9 +167,68 @@ JDFAutoMessage& JDFAutoMessage::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidVersion(level)) {
+			vAtts.push_back(atr_Version);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+/**
+* Set attribute AgentName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMessage::SetAgentName(const WString& value){
+	SetAttribute(atr_AgentName,value);
+};
+/**
+* Get string attribute AgentName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMessage::GetAgentName() const {
+	return GetAttribute(atr_AgentName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMessage::ValidAgentName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AgentName,AttributeType_string,false);
+	};
+/**
+* Set attribute AgentVersion
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMessage::SetAgentVersion(const WString& value){
+	SetAttribute(atr_AgentVersion,value);
+};
+/**
+* Get string attribute AgentVersion
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMessage::GetAgentVersion() const {
+	return GetAttribute(atr_AgentVersion,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMessage::ValidAgentVersion(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AgentVersion,AttributeType_string,false);
+	};
+/**
+* Set attribute ICSVersions
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoMessage::SetICSVersions(const vWString& value){
+	SetAttribute(atr_ICSVersions,value);
+};
+/**
+* Get string attribute ICSVersions
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoMessage::GetICSVersions() const {
+	return GetAttribute(atr_ICSVersions,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMessage::ValidICSVersions(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ICSVersions,AttributeType_NMTOKENS,false);
+	};
 /**
 * Set attribute ID
 *@param WString value: the value to set the attribute to
@@ -167,6 +246,24 @@ JDFAutoMessage& JDFAutoMessage::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMessage::ValidID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ID,AttributeType_ID,RequiredLevel(level));
+	};
+/**
+* Set attribute SenderID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMessage::SetSenderID(const WString& value){
+	SetAttribute(atr_SenderID,value);
+};
+/**
+* Get string attribute SenderID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMessage::GetSenderID() const {
+	return GetAttribute(atr_SenderID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMessage::ValidSenderID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SenderID,AttributeType_string,false);
 	};
 /**
 * Set attribute Time
@@ -203,5 +300,23 @@ JDFAutoMessage& JDFAutoMessage::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMessage::ValidType(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Type,AttributeType_NMTOKEN,RequiredLevel(level));
+	};
+/**
+* Set attribute Version
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMessage::SetVersion(const WString& value){
+	SetAttribute(atr_Version,value);
+};
+/**
+* Get string attribute Version
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMessage::GetVersion() const {
+	return GetAttribute(atr_Version,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMessage::ValidVersion(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Version,AttributeType_Any,false);
 	};
 }; // end namespace JDF

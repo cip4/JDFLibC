@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFBundle;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoPalletizingParams : public JDFResource
@@ -131,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -171,21 +182,21 @@ virtual bool init();
 	virtual WString OptionalAttributes()const;
 
 /**
-* Set attribute Pattern
-*@param WString value: the value to set the attribute to
+* Set attribute LayerAmount
+*@param JDFIntegerList value: the value to set the attribute to
 */
-	virtual void SetPattern(const WString& value);
+	virtual void SetLayerAmount(const JDFIntegerList& value);
 /**
-* Get string attribute Pattern
-* @return WString the vaue of the attribute 
+* Get string attribute LayerAmount
+* @return JDFIntegerList the vaue of the attribute 
 */
-	virtual WString GetPattern() const;
+	virtual JDFIntegerList GetLayerAmount() const;
 /**
-* Typesafe attribute validation of Pattern
+* Typesafe attribute validation of LayerAmount
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidPattern(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidLayerAmount(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MaxHeight
 *@param double value: the value to set the attribute to
@@ -218,11 +229,88 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidMaxWeight(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Overhang
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	virtual void SetOverhang(const JDFXYPair& value);
+/**
+* Get string attribute Overhang
+* @return JDFXYPair the vaue of the attribute 
+*/
+	virtual JDFXYPair GetOverhang() const;
+/**
+* Typesafe attribute validation of Overhang
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOverhang(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute OverhangOffset
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	virtual void SetOverhangOffset(const JDFXYPair& value);
+/**
+* Get string attribute OverhangOffset
+* @return JDFXYPair the vaue of the attribute 
+*/
+	virtual JDFXYPair GetOverhangOffset() const;
+/**
+* Typesafe attribute validation of OverhangOffset
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOverhangOffset(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Pattern
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPattern(const WString& value);
+/**
+* Get string attribute Pattern
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPattern() const;
+/**
+* Typesafe attribute validation of Pattern
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPattern(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Bundle
+* 
+* @param int iSkip number of elements to skip
+* @return JDFBundle The element
+*/
+	JDFBundle GetCreateBundle(int iSkip=0);
+
+/**
+* const get element Bundle
+* @param int iSkip number of elements to skip
+* @return JDFBundle The element
+*/
+	JDFBundle GetBundle(int iSkip=0)const;
+/**
+* Append element Bundle
+ */
+	JDFBundle AppendBundle();
+/**
+* create inter-resource link to refTarget
+* @param JDFBundle& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefBundle(JDFBundle& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoPalletizingParams
 
 // ******************************************************

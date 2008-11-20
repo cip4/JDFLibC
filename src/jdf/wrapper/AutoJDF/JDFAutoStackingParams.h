@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -175,12 +175,33 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 */
 virtual bool init();
 
+/**
+* Enumeration for attribute PreStackMethod
+*/
+
+	enum EnumPreStackMethod{PreStackMethod_Unknown,PreStackMethod_All,PreStackMethod_First,PreStackMethod_None};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute BundleDepth
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetBundleDepth(int value);
+/**
+* Get integer attribute BundleDepth
+* @return int the vaue of the attribute ; defaults to 0
+*/
+	virtual int GetBundleDepth() const;
+/**
+* Typesafe attribute validation of BundleDepth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBundleDepth(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Compensate
 *@param bool value: the value to set the attribute to
@@ -214,6 +235,38 @@ virtual bool init();
 */
 	virtual bool ValidLayerAmount(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute LayerLift
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetLayerLift(bool value);
+/**
+* Get bool attribute LayerLift
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetLayerLift() const;
+/**
+* Typesafe attribute validation of LayerLift
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLayerLift(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute LayerCompression
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetLayerCompression(bool value);
+/**
+* Get bool attribute LayerCompression
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetLayerCompression() const;
+/**
+* Typesafe attribute validation of LayerCompression
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLayerCompression(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute MaxAmount
 *@param int value: the value to set the attribute to
 */
@@ -229,6 +282,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidMaxAmount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute MaxHeight
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetMaxHeight(int value);
+/**
+* Get integer attribute MaxHeight
+* @return int the vaue of the attribute 
+*/
+	virtual int GetMaxHeight() const;
+/**
+* Typesafe attribute validation of MaxHeight
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMaxHeight(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MinAmount
 *@param int value: the value to set the attribute to
@@ -277,6 +346,67 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidOffset(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PreStackAmount
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetPreStackAmount(int value);
+/**
+* Get integer attribute PreStackAmount
+* @return int the vaue of the attribute 
+*/
+	virtual int GetPreStackAmount() const;
+/**
+* Typesafe attribute validation of PreStackAmount
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPreStackAmount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for PreStackMethod
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& PreStackMethodString();
+/**
+* Enumeration string for enum value
+* @param EnumPreStackMethod value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString PreStackMethodString(EnumPreStackMethod value);
+/**
+* Set attribute PreStackMethod
+* @param EnumPreStackMethod value the value to set the attribute to
+*/
+	virtual void SetPreStackMethod( EnumPreStackMethod value);
+
+/**
+* Typesafe enumerated attribute PreStackMethod
+* @return EnumPreStackMethodthe enumeration value of the attribute
+*/
+	virtual EnumPreStackMethod GetPreStackMethod() const;
+
+/**
+* Typesafe attribute validation of PreStackMethod
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidPreStackMethod(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute StackCompression
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetStackCompression(bool value);
+/**
+* Get bool attribute StackCompression
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetStackCompression() const;
+/**
+* Typesafe attribute validation of StackCompression
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidStackCompression(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute UnderLays
 *@param JDFIntegerList value: the value to set the attribute to

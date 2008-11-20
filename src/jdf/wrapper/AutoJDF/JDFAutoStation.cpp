@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoStation.h"
+#include "jdf/wrapper/JDFShapeDef.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -116,7 +118,7 @@ JDFAutoStation& JDFAutoStation::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStation::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",StationAmount,StationName");
+		return JDFElement::OptionalAttributes()+WString(L",AssemblyIDs,StationAmount,StationName");
 };
 
 /**
@@ -127,6 +129,11 @@ JDFAutoStation& JDFAutoStation::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidAssemblyIDs(level)) {
+			vAtts.push_back(atr_AssemblyIDs);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidStationAmount(level)) {
 			vAtts.push_back(atr_StationAmount);
 			if(++n>=nMax)
@@ -140,6 +147,24 @@ JDFAutoStation& JDFAutoStation::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute AssemblyIDs
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoStation::SetAssemblyIDs(const vWString& value){
+	SetAttribute(atr_AssemblyIDs,value);
+};
+/**
+* Get string attribute AssemblyIDs
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoStation::GetAssemblyIDs() const {
+	return GetAttribute(atr_AssemblyIDs,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStation::ValidAssemblyIDs(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AssemblyIDs,AttributeType_NMTOKENS,false);
+	};
 /**
 * Set attribute StationAmount
 *@param int value: the value to set the attribute to
@@ -175,5 +200,66 @@ JDFAutoStation& JDFAutoStation::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStation::ValidStationName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_StationName,AttributeType_string,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFShapeDef JDFAutoStation::GetShapeDef(int iSkip)const{
+	JDFShapeDef e=GetElement(elm_ShapeDef,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeDef JDFAutoStation::GetCreateShapeDef(int iSkip){
+	JDFShapeDef e=GetCreateElement(elm_ShapeDef,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeDef JDFAutoStation::AppendShapeDef(){
+	JDFShapeDef e=AppendElement(elm_ShapeDef);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoStation::RefShapeDef(JDFShapeDef& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoStation::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_ShapeDef);
+
+		for(i=0;i<nElem;i++){
+			if (!GetShapeDef(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ShapeDef);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoStation::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",ShapeDef";
 	};
 }; // end namespace JDF

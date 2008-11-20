@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoProcessRun.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFPart.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -125,7 +126,7 @@ JDFAutoProcessRun& JDFAutoProcessRun::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoProcessRun::OptionalAttributes()const{
-		return JDFAudit::OptionalAttributes()+WString(L",Duration");
+		return JDFAudit::OptionalAttributes()+WString(L",Duration,ReturnTime,SubmissionTime");
 };
 
 /**
@@ -151,8 +152,18 @@ JDFAutoProcessRun& JDFAutoProcessRun::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidReturnTime(level)) {
+			vAtts.push_back(atr_ReturnTime);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidStart(level)) {
 			vAtts.push_back(atr_Start);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSubmissionTime(level)) {
+			vAtts.push_back(atr_SubmissionTime);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -196,16 +207,34 @@ JDFAutoProcessRun& JDFAutoProcessRun::operator=(const KElement& other){
 		return ValidAttribute(atr_End,AttributeType_dateTime,RequiredLevel(level));
 	};
 /////////////////////////////////////////////////////////////////////////
-	void JDFAutoProcessRun::SetEndStatus( EnumStatus value){
-	SetEnumAttribute(atr_EndStatus,value,StatusString());
+	void JDFAutoProcessRun::SetEndStatus( JDFElement::EnumStatus value){
+	SetEnumAttribute(atr_EndStatus,value,JDFElement::StatusString());
 };
 /////////////////////////////////////////////////////////////////////////
-	 JDFAutoProcessRun::EnumStatus JDFAutoProcessRun:: GetEndStatus() const {
-	return (EnumStatus) GetEnumAttribute(atr_EndStatus,StatusString(),WString::emptyStr);
+	 JDFElement::EnumStatus JDFAutoProcessRun::GetEndStatus() const {
+	return (JDFElement::EnumStatus) GetEnumAttribute(atr_EndStatus,JDFElement::StatusString(),WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoProcessRun::ValidEndStatus(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_EndStatus,StatusString(),RequiredLevel(level));
+		return ValidEnumAttribute(atr_EndStatus,JDFElement::StatusString(),RequiredLevel(level));
+	};
+/**
+* Set attribute ReturnTime
+*@param JDFDate value: the value to set the attribute to
+*/
+	 void JDFAutoProcessRun::SetReturnTime(JDFDate value){
+	SetAttribute(atr_ReturnTime,value.DateTimeISO());
+};
+/**
+* Get string attribute ReturnTime
+* @return JDFDate the vaue of the attribute 
+*/
+	 JDFDate JDFAutoProcessRun::GetReturnTime() const {
+	return GetAttribute(atr_ReturnTime,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoProcessRun::ValidReturnTime(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ReturnTime,AttributeType_dateTime,false);
 	};
 /**
 * Set attribute Start
@@ -225,11 +254,49 @@ JDFAutoProcessRun& JDFAutoProcessRun::operator=(const KElement& other){
 	bool JDFAutoProcessRun::ValidStart(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Start,AttributeType_dateTime,RequiredLevel(level));
 	};
+/**
+* Set attribute SubmissionTime
+*@param JDFDate value: the value to set the attribute to
+*/
+	 void JDFAutoProcessRun::SetSubmissionTime(JDFDate value){
+	SetAttribute(atr_SubmissionTime,value.DateTimeISO());
+};
+/**
+* Get string attribute SubmissionTime
+* @return JDFDate the vaue of the attribute 
+*/
+	 JDFDate JDFAutoProcessRun::GetSubmissionTime() const {
+	return GetAttribute(atr_SubmissionTime,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoProcessRun::ValidSubmissionTime(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SubmissionTime,AttributeType_dateTime,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+JDFEmployee JDFAutoProcessRun::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoProcessRun::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoProcessRun::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFPart JDFAutoProcessRun::GetPart(int iSkip)const{
 	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);
@@ -287,6 +354,16 @@ JDFPart JDFAutoProcessRun::AppendPart(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -295,6 +372,6 @@ JDFPart JDFAutoProcessRun::AppendPart(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoProcessRun::OptionalElements()const{
-		return JDFAudit::OptionalElements()+L",Part";
+		return JDFAudit::OptionalElements()+L",Employee,Part";
 	};
 }; // end namespace JDF

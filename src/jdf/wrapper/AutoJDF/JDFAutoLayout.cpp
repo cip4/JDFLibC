@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -81,6 +81,7 @@
 #include "jdf/wrapper/JDFMarkObject.h"
 #include "jdf/wrapper/JDFMedia.h"
 #include "jdf/wrapper/JDFMediaSource.h"
+#include "jdf/wrapper/JDFPageCondition.h"
 #include "jdf/wrapper/JDFSignature.h"
 #include "jdf/wrapper/JDFTransferCurvePool.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -136,7 +137,7 @@ bool JDFAutoLayout::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoLayout::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Automated,LockOrigins,MaxDocOrd,MaxSetOrd,Name,MaxOrd,SourceWorkStyle,SurfaceContentsBox");
+		return JDFResource::OptionalAttributes()+WString(L",Automated,LockOrigins,MaxDocOrd,MaxSetOrd,OrdReset,SheetCountReset,Name,MaxCollect,MaxOrd,MinCollect,OrdsConsumed,SheetNameFormat,SheetNameTemplate,SourceWorkStyle,StackDepth,SurfaceContentsBox");
 };
 
 /**
@@ -167,8 +168,23 @@ bool JDFAutoLayout::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidOrdReset(level)) {
+			vAtts.push_back(atr_OrdReset);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSheetCountReset(level)) {
+			vAtts.push_back(atr_SheetCountReset);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidName(level)) {
 			vAtts.push_back(atr_Name);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMaxCollect(level)) {
+			vAtts.push_back(atr_MaxCollect);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -177,8 +193,33 @@ bool JDFAutoLayout::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidMinCollect(level)) {
+			vAtts.push_back(atr_MinCollect);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidOrdsConsumed(level)) {
+			vAtts.push_back(atr_OrdsConsumed);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSheetNameFormat(level)) {
+			vAtts.push_back(atr_SheetNameFormat);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSheetNameTemplate(level)) {
+			vAtts.push_back(atr_SheetNameTemplate);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidSourceWorkStyle(level)) {
 			vAtts.push_back(atr_SourceWorkStyle);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidStackDepth(level)) {
+			vAtts.push_back(atr_StackDepth);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -260,6 +301,56 @@ bool JDFAutoLayout::init(){
 	bool JDFAutoLayout::ValidMaxSetOrd(EnumValidationLevel level) const {
 		return ValidAttribute(atr_MaxSetOrd,AttributeType_integer,false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoLayout::OrdResetString(){
+		static const WString enums=WString(L"Unknown,Continue,PagePool,PagePoolList");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoLayout::OrdResetString(EnumOrdReset value){
+		return OrdResetString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoLayout::SetOrdReset( EnumOrdReset value){
+	SetEnumAttribute(atr_OrdReset,value,OrdResetString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoLayout::EnumOrdReset JDFAutoLayout:: GetOrdReset() const {
+	return (EnumOrdReset) GetEnumAttribute(atr_OrdReset,OrdResetString(),WString::emptyStr,OrdReset_Continue);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidOrdReset(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_OrdReset,OrdResetString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoLayout::SheetCountResetString(){
+		static const WString enums=WString(L"Unknown,Continue,PagePool,PagePoolList");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoLayout::SheetCountResetString(EnumSheetCountReset value){
+		return SheetCountResetString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoLayout::SetSheetCountReset( EnumSheetCountReset value){
+	SetEnumAttribute(atr_SheetCountReset,value,SheetCountResetString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoLayout::EnumSheetCountReset JDFAutoLayout:: GetSheetCountReset() const {
+	return (EnumSheetCountReset) GetEnumAttribute(atr_SheetCountReset,SheetCountResetString(),WString::emptyStr,SheetCountReset_Continue);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidSheetCountReset(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_SheetCountReset,SheetCountResetString(),false);
+	};
 /**
 * Set attribute Name
 *@param WString value: the value to set the attribute to
@@ -279,6 +370,24 @@ bool JDFAutoLayout::init(){
 		return ValidAttribute(atr_Name,AttributeType_string,false);
 	};
 /**
+* Set attribute MaxCollect
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoLayout::SetMaxCollect(int value){
+	SetAttribute(atr_MaxCollect,WString::valueOf(value));
+};
+/**
+* Get integer attribute MaxCollect
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoLayout::GetMaxCollect() const {
+	return GetIntAttribute(atr_MaxCollect,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidMaxCollect(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MaxCollect,AttributeType_integer,false);
+	};
+/**
 * Set attribute MaxOrd
 *@param int value: the value to set the attribute to
 */
@@ -296,10 +405,82 @@ bool JDFAutoLayout::init(){
 	bool JDFAutoLayout::ValidMaxOrd(EnumValidationLevel level) const {
 		return ValidAttribute(atr_MaxOrd,AttributeType_integer,false);
 	};
+/**
+* Set attribute MinCollect
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoLayout::SetMinCollect(int value){
+	SetAttribute(atr_MinCollect,WString::valueOf(value));
+};
+/**
+* Get integer attribute MinCollect
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoLayout::GetMinCollect() const {
+	return GetIntAttribute(atr_MinCollect,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidMinCollect(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MinCollect,AttributeType_integer,false);
+	};
+/**
+* Set attribute OrdsConsumed
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoLayout::SetOrdsConsumed(const JDFIntegerRangeList& value){
+	SetAttribute(atr_OrdsConsumed,value.GetString());
+};
+/**
+* Get range attribute OrdsConsumed
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	 JDFIntegerRangeList JDFAutoLayout::GetOrdsConsumed() const {
+	return GetAttribute(atr_OrdsConsumed,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidOrdsConsumed(EnumValidationLevel level) const {
+		return ValidAttribute(atr_OrdsConsumed,AttributeType_IntegerRangeList,false);
+	};
+/**
+* Set attribute SheetNameFormat
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoLayout::SetSheetNameFormat(const WString& value){
+	SetAttribute(atr_SheetNameFormat,value);
+};
+/**
+* Get string attribute SheetNameFormat
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoLayout::GetSheetNameFormat() const {
+	return GetAttribute(atr_SheetNameFormat,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidSheetNameFormat(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SheetNameFormat,AttributeType_string,false);
+	};
+/**
+* Set attribute SheetNameTemplate
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoLayout::SetSheetNameTemplate(const WString& value){
+	SetAttribute(atr_SheetNameTemplate,value);
+};
+/**
+* Get string attribute SheetNameTemplate
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoLayout::GetSheetNameTemplate() const {
+	return GetAttribute(atr_SheetNameTemplate,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidSheetNameTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SheetNameTemplate,AttributeType_string,false);
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoLayout::SourceWorkStyleString(){
-		static const WString enums=WString(L"Unknown,Simplex,WorkAndBack,Perfecting,WorkAndTurn,WorkAndTumble,WorkAndTwist");
+		static const WString enums=WString(L"Unknown,Simplex,Perfecting,WorkAndBack,WorkAndTurn,WorkAndTumble,WorkAndTwist");
 		return enums;
 	};
 
@@ -320,6 +501,24 @@ bool JDFAutoLayout::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLayout::ValidSourceWorkStyle(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_SourceWorkStyle,SourceWorkStyleString(),false);
+	};
+/**
+* Set attribute StackDepth
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoLayout::SetStackDepth(int value){
+	SetAttribute(atr_StackDepth,WString::valueOf(value));
+};
+/**
+* Get integer attribute StackDepth
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoLayout::GetStackDepth() const {
+	return GetIntAttribute(atr_StackDepth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidStackDepth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StackDepth,AttributeType_integer,false);
 	};
 /**
 * Set attribute SurfaceContentsBox
@@ -430,21 +629,21 @@ JDFMarkObject JDFAutoLayout::AppendMarkObject(){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFMedia JDFAutoLayout::GetMedia()const{
-	JDFMedia e=GetElement(elm_Media);
+JDFMedia JDFAutoLayout::GetMedia(int iSkip)const{
+	JDFMedia e=GetElement(elm_Media,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFMedia JDFAutoLayout::GetCreateMedia(){
-	JDFMedia e=GetCreateElement(elm_Media);
+JDFMedia JDFAutoLayout::GetCreateMedia(int iSkip){
+	JDFMedia e=GetCreateElement(elm_Media,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFMedia JDFAutoLayout::AppendMedia(){
-	JDFMedia e=AppendElementN(elm_Media,1);
+	JDFMedia e=AppendElement(elm_Media);
 	e.init();
 	return e;
 };
@@ -477,6 +676,26 @@ JDFMediaSource JDFAutoLayout::AppendMediaSource(){
 // element resource linking 
 JDFRefElement JDFAutoLayout::RefMediaSource(JDFMediaSource& refTarget){
 	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPageCondition JDFAutoLayout::GetPageCondition(int iSkip)const{
+	JDFPageCondition e=GetElement(elm_PageCondition,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPageCondition JDFAutoLayout::GetCreatePageCondition(int iSkip){
+	JDFPageCondition e=GetCreateElement(elm_PageCondition,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPageCondition JDFAutoLayout::AppendPageCondition(){
+	JDFPageCondition e=AppendElement(elm_PageCondition);
+	e.init();
+	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -578,15 +797,13 @@ JDFRefElement JDFAutoLayout::RefTransferCurvePool(JDFTransferCurvePool& refTarge
 			}
 		}
 		nElem=NumChildElements(elm_Media);
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_Media);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetMedia().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetMedia(i).IsValid(level)) {
 				vElem.AppendUnique(elm_Media);
 				if (++n>=nMax)
 					return vElem;
+				break;
 			}
 		}
 		nElem=NumChildElements(elm_MediaSource);
@@ -599,6 +816,16 @@ JDFRefElement JDFAutoLayout::RefTransferCurvePool(JDFTransferCurvePool& refTarge
 				vElem.AppendUnique(elm_MediaSource);
 				if (++n>=nMax)
 					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_PageCondition);
+
+		for(i=0;i<nElem;i++){
+			if (!GetPageCondition(i).IsValid(level)) {
+				vElem.AppendUnique(elm_PageCondition);
+				if (++n>=nMax)
+					return vElem;
+				break;
 			}
 		}
 		nElem=NumChildElements(elm_Signature);
@@ -631,13 +858,13 @@ JDFRefElement JDFAutoLayout::RefTransferCurvePool(JDFTransferCurvePool& refTarge
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoLayout::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",LayerList,Media,MediaSource,TransferCurvePool";
+		return JDFResource::UniqueElements()+L",LayerList,MediaSource,TransferCurvePool";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayout::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ContentObject,InsertSheet,LayerList,MarkObject,Media,MediaSource,Signature,TransferCurvePool";
+		return JDFResource::OptionalElements()+L",ContentObject,InsertSheet,LayerList,MarkObject,Media,MediaSource,PageCondition,Signature,TransferCurvePool";
 	};
 }; // end namespace JDF

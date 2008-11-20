@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,7 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFContentMetaData;
 class JDFElementColorParams;
 class JDFImageCompressionParams;
 class JDFScreeningParams;
@@ -205,6 +206,22 @@ public:
 */
 	virtual bool ValidCatalogDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ContentRefs
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetContentRefs(const vWString& value);
+/**
+* Get string attribute ContentRefs
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetContentRefs() const;
+/**
+* Typesafe attribute validation of ContentRefs
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidContentRefs(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute ContentType
 *@param WString value: the value to set the attribute to
 */
@@ -236,6 +253,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidHasBleeds(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetID(const WString& value);
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetID() const;
+/**
+* Typesafe attribute validation of ID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute IsBlank
 *@param bool value: the value to set the attribute to
@@ -305,6 +338,24 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element ContentMetaData
+* 
+* @param int iSkip number of elements to skip
+* @return JDFContentMetaData The element
+*/
+	JDFContentMetaData GetCreateContentMetaData(int iSkip=0);
+
+/**
+* const get element ContentMetaData
+* @param int iSkip number of elements to skip
+* @return JDFContentMetaData The element
+*/
+	JDFContentMetaData GetContentMetaData(int iSkip=0)const;
+/**
+* Append element ContentMetaData
+ */
+	JDFContentMetaData AppendContentMetaData();
 
 /** Get Element ElementColorParams
 * 

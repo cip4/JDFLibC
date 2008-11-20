@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,7 @@
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
 class JDFColorPool;
+class JDFContentList;
 class JDFDependencies;
 class JDFElementColorParams;
 class JDFFileSpec;
@@ -186,7 +187,7 @@ virtual bool init();
 * Enumeration for attribute ElementType
 */
 
-	enum EnumElementType{ElementType_Unknown,ElementType_Auxilliary,ElementType_Barcode,ElementType_Composed,ElementType_Document,ElementType_Graphic,ElementType_IdentificationField,ElementType_Image,ElementType_MultiDocument,ElementType_MultiSet,ElementType_Page,ElementType_Reservation,ElementType_Surface,ElementType_Text,ElementType_Tile};
+	enum EnumElementType{ElementType_Unknown,ElementType_Auxiliary,ElementType_Barcode,ElementType_Composed,ElementType_Document,ElementType_Graphic,ElementType_IdentificationField,ElementType_Image,ElementType_MultiDocument,ElementType_MultiSet,ElementType_Page,ElementType_Reservation,ElementType_Surface,ElementType_Text,ElementType_Tile};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -241,6 +242,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidClipPath(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ContentDataRefs
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetContentDataRefs(const vWString& value);
+/**
+* Get string attribute ContentDataRefs
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetContentDataRefs() const;
+/**
+* Typesafe attribute validation of ContentDataRefs
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidContentDataRefs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for ElementType
 * @return const WString& comma separated list of enumerated string values 
@@ -383,6 +400,22 @@ virtual bool init();
 */
 	virtual bool ValidSourceClipBox(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute SourceMediaBox
+*@param JDFRectangle value: the value to set the attribute to
+*/
+	virtual void SetSourceMediaBox(const JDFRectangle& value);
+/**
+* Get string attribute SourceMediaBox
+* @return JDFRectangle the vaue of the attribute 
+*/
+	virtual JDFRectangle GetSourceMediaBox() const;
+/**
+* Typesafe attribute validation of SourceMediaBox
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSourceMediaBox(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute SourceTrimBox
 *@param JDFRectangle value: the value to set the attribute to
 */
@@ -442,6 +475,30 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefColorPool(JDFColorPool& refTarget);
+
+/** Get Element ContentList
+* 
+* @param int iSkip number of elements to skip
+* @return JDFContentList The element
+*/
+	JDFContentList GetCreateContentList(int iSkip=0);
+
+/**
+* const get element ContentList
+* @param int iSkip number of elements to skip
+* @return JDFContentList The element
+*/
+	JDFContentList GetContentList(int iSkip=0)const;
+/**
+* Append element ContentList
+ */
+	JDFContentList AppendContentList();
+/**
+* create inter-resource link to refTarget
+* @param JDFContentList& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefContentList(JDFContentList& refTarget);
 
 /** Get Element Dependencies
 * 

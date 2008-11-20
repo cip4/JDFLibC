@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,7 +82,10 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFDevice;
 class JDFFileSpec;
+class JDFMedia;
+class JDFRuleLength;
 class JDFStation;
 class JDFRefElement;
 /*
@@ -176,11 +179,141 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 */
 virtual bool init();
 
+/**
+* Enumeration for attribute DieSide
+*/
+
+	enum EnumDieSide{DieSide_Unknown,DieSide_Up,DieSide_Down};
+/**
+* Enumeration for attribute MediaSide
+*/
+
+	enum EnumMediaSide{MediaSide_Unknown,MediaSide_Front,MediaSide_Back,MediaSide_Both};
+
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
+/**
+* Enumeration strings for DieSide
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& DieSideString();
+/**
+* Enumeration string for enum value
+* @param EnumDieSide value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString DieSideString(EnumDieSide value);
+/**
+* Set attribute DieSide
+* @param EnumDieSide value the value to set the attribute to
+*/
+	virtual void SetDieSide( EnumDieSide value);
+
+/**
+* Typesafe enumerated attribute DieSide
+* @return EnumDieSidethe enumeration value of the attribute
+*/
+	virtual EnumDieSide GetDieSide() const;
+
+/**
+* Typesafe attribute validation of DieSide
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidDieSide(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for MediaSide
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& MediaSideString();
+/**
+* Enumeration string for enum value
+* @param EnumMediaSide value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString MediaSideString(EnumMediaSide value);
+/**
+* Set attribute MediaSide
+* @param EnumMediaSide value the value to set the attribute to
+*/
+	virtual void SetMediaSide( EnumMediaSide value);
+
+/**
+* Typesafe enumerated attribute MediaSide
+* @return EnumMediaSidethe enumeration value of the attribute
+*/
+	virtual EnumMediaSide GetMediaSide() const;
+
+/**
+* Typesafe attribute validation of MediaSide
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidMediaSide(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Rotated
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetRotated(bool value);
+/**
+* Get bool attribute Rotated
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetRotated() const;
+/**
+* Typesafe attribute validation of Rotated
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRotated(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Waste
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetWaste(double value);
+/**
+* Get double attribute Waste
+* @return double the vaue of the attribute 
+*/
+	virtual double GetWaste() const;
+/**
+* Typesafe attribute validation of Waste
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidWaste(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Device
+* 
+* @param int iSkip number of elements to skip
+* @return JDFDevice The element
+*/
+	JDFDevice GetCreateDevice(int iSkip=0);
+
+/**
+* const get element Device
+* @param int iSkip number of elements to skip
+* @return JDFDevice The element
+*/
+	JDFDevice GetDevice(int iSkip=0)const;
+/**
+* Append element Device
+ */
+	JDFDevice AppendDevice();
+/**
+* create inter-resource link to refTarget
+* @param JDFDevice& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefDevice(JDFDevice& refTarget);
 
 /** Get Element FileSpec
 * 
@@ -204,6 +337,47 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefFileSpec(JDFFileSpec& refTarget);
+
+/** Get Element Media
+* 
+* @return JDFMedia The element
+*/
+	JDFMedia GetCreateMedia();
+
+/**
+* const get element Media
+*@return  JDFMedia The element
+*/
+	JDFMedia GetMedia()const;
+/**
+* Append element Media
+ * 
+*/
+	JDFMedia AppendMedia();
+/**
+* create inter-resource link to refTarget
+* @param JDFMedia& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefMedia(JDFMedia& refTarget);
+
+/** Get Element RuleLength
+* 
+* @param int iSkip number of elements to skip
+* @return JDFRuleLength The element
+*/
+	JDFRuleLength GetCreateRuleLength(int iSkip=0);
+
+/**
+* const get element RuleLength
+* @param int iSkip number of elements to skip
+* @return JDFRuleLength The element
+*/
+	JDFRuleLength GetRuleLength(int iSkip=0)const;
+/**
+* Append element RuleLength
+ */
+	JDFRuleLength AppendRuleLength();
 
 /** Get Element Station
 * 

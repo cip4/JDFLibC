@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -246,6 +246,22 @@ virtual bool init();
 */
 	virtual bool ValidName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ActualColorName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetActualColorName(const WString& value);
+/**
+* Get string attribute ActualColorName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetActualColorName() const;
+/**
+* Typesafe attribute validation of ActualColorName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidActualColorName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute CMYK
 *@param JDFCMYKColor value: the value to set the attribute to
 */
@@ -326,6 +342,22 @@ virtual bool init();
 */
 	virtual bool ValidColorBookSuffix(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetColorDetails(const WString& value);
+/**
+* Get string attribute ColorDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetColorDetails() const;
+/**
+* Typesafe attribute validation of ColorDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidColorDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute ColorName
 * @param EnumNamedColor value the value to set the attribute to
 */
@@ -388,6 +420,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidDensity(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Gray
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetGray(double value);
+/**
+* Get double attribute Gray
+* @return double the vaue of the attribute 
+*/
+	virtual double GetGray() const;
+/**
+* Typesafe attribute validation of Gray
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidGray(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Lab
 *@param JDFLabColor value: the value to set the attribute to

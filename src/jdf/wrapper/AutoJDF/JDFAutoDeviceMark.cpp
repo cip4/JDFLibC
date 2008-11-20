@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoDeviceMark.h"
+#include "jdf/wrapper/JDFBarcodeReproParams.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -127,7 +129,7 @@ bool JDFAutoDeviceMark::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDeviceMark::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Font,FontSize,MarkJustification,MarkOffset,MarkOrientation,MarkPosition");
+		return JDFResource::OptionalAttributes()+WString(L",Anchor,Font,FontSize,HorizontalFitPolicy,MarkJustification,MarkOffset,MarkOrientation,MarkPosition,VerticalFitPolicy");
 };
 
 /**
@@ -138,6 +140,11 @@ bool JDFAutoDeviceMark::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidAnchor(level)) {
+			vAtts.push_back(atr_Anchor);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidFont(level)) {
 			vAtts.push_back(atr_Font);
 			if(++n>=nMax)
@@ -145,6 +152,11 @@ bool JDFAutoDeviceMark::init(){
 		};
 		if(!ValidFontSize(level)) {
 			vAtts.push_back(atr_FontSize);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidHorizontalFitPolicy(level)) {
+			vAtts.push_back(atr_HorizontalFitPolicy);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -168,9 +180,39 @@ bool JDFAutoDeviceMark::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidVerticalFitPolicy(level)) {
+			vAtts.push_back(atr_VerticalFitPolicy);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoDeviceMark::AnchorString(){
+		static const WString enums=WString(L"Unknown,TopLeft,TopCenter,TopRight,CenterLeft,Center,CenterRight,BottomLeft,BottomCenter,BottomRight");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoDeviceMark::AnchorString(EnumAnchor value){
+		return AnchorString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoDeviceMark::SetAnchor( EnumAnchor value){
+	SetEnumAttribute(atr_Anchor,value,AnchorString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoDeviceMark::EnumAnchor JDFAutoDeviceMark:: GetAnchor() const {
+	return (EnumAnchor) GetEnumAttribute(atr_Anchor,AnchorString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDeviceMark::ValidAnchor(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Anchor,AnchorString(),false);
+	};
 /**
 * Set attribute Font
 *@param WString value: the value to set the attribute to
@@ -191,21 +233,46 @@ bool JDFAutoDeviceMark::init(){
 	};
 /**
 * Set attribute FontSize
-*@param int value: the value to set the attribute to
+*@param double value: the value to set the attribute to
 */
-	 void JDFAutoDeviceMark::SetFontSize(int value){
+	 void JDFAutoDeviceMark::SetFontSize(double value){
 	SetAttribute(atr_FontSize,WString::valueOf(value));
 };
 /**
-* Get integer attribute FontSize
-* @return int the vaue of the attribute 
+* Get double attribute FontSize
+* @return double the vaue of the attribute 
 */
-	 int JDFAutoDeviceMark::GetFontSize() const {
-	return GetIntAttribute(atr_FontSize,WString::emptyStr);
+	 double JDFAutoDeviceMark::GetFontSize() const {
+	return GetRealAttribute(atr_FontSize,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDeviceMark::ValidFontSize(EnumValidationLevel level) const {
-		return ValidAttribute(atr_FontSize,AttributeType_integer,false);
+		return ValidAttribute(atr_FontSize,AttributeType_double,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoDeviceMark::HorizontalFitPolicyString(){
+		static const WString enums=WString(L"Unknown,NoRepeat,StretchToFit,UndistortedScaleToFit,RepeatToFill,RepeatUnclipped");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoDeviceMark::HorizontalFitPolicyString(EnumHorizontalFitPolicy value){
+		return HorizontalFitPolicyString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoDeviceMark::SetHorizontalFitPolicy( EnumHorizontalFitPolicy value){
+	SetEnumAttribute(atr_HorizontalFitPolicy,value,HorizontalFitPolicyString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoDeviceMark::EnumHorizontalFitPolicy JDFAutoDeviceMark:: GetHorizontalFitPolicy() const {
+	return (EnumHorizontalFitPolicy) GetEnumAttribute(atr_HorizontalFitPolicy,HorizontalFitPolicyString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDeviceMark::ValidHorizontalFitPolicy(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_HorizontalFitPolicy,HorizontalFitPolicyString(),false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -286,5 +353,91 @@ bool JDFAutoDeviceMark::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDeviceMark::ValidMarkPosition(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_MarkPosition,MarkPositionString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoDeviceMark::VerticalFitPolicyString(){
+		static const WString enums=WString(L"Unknown,NoRepeat,StretchToFit,UndistortedScaleToFit,RepeatToFill,RepeatUnclipped");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoDeviceMark::VerticalFitPolicyString(EnumVerticalFitPolicy value){
+		return VerticalFitPolicyString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoDeviceMark::SetVerticalFitPolicy( EnumVerticalFitPolicy value){
+	SetEnumAttribute(atr_VerticalFitPolicy,value,VerticalFitPolicyString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoDeviceMark::EnumVerticalFitPolicy JDFAutoDeviceMark:: GetVerticalFitPolicy() const {
+	return (EnumVerticalFitPolicy) GetEnumAttribute(atr_VerticalFitPolicy,VerticalFitPolicyString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDeviceMark::ValidVerticalFitPolicy(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_VerticalFitPolicy,VerticalFitPolicyString(),false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFBarcodeReproParams JDFAutoDeviceMark::GetBarcodeReproParams(int iSkip)const{
+	JDFBarcodeReproParams e=GetElement(elm_BarcodeReproParams,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFBarcodeReproParams JDFAutoDeviceMark::GetCreateBarcodeReproParams(int iSkip){
+	JDFBarcodeReproParams e=GetCreateElement(elm_BarcodeReproParams,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFBarcodeReproParams JDFAutoDeviceMark::AppendBarcodeReproParams(){
+	JDFBarcodeReproParams e=AppendElement(elm_BarcodeReproParams);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoDeviceMark::RefBarcodeReproParams(JDFBarcodeReproParams& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoDeviceMark::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_BarcodeReproParams);
+
+		for(i=0;i<nElem;i++){
+			if (!GetBarcodeReproParams(i).IsValid(level)) {
+				vElem.AppendUnique(elm_BarcodeReproParams);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoDeviceMark::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",BarcodeReproParams";
 	};
 }; // end namespace JDF

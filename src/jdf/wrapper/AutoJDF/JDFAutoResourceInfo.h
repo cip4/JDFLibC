@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -85,6 +85,7 @@
 namespace JDF{
 class JDFAmountPool;
 class JDFCostCenter;
+class JDFLot;
 class JDFMISDetails;
 class JDFPart;
 class JDFRefElement;
@@ -168,6 +169,11 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute CommandResult
+*/
+
+	enum EnumCommandResult{CommandResult_Unknown,CommandResult_Rejected,CommandResult_Removed,CommandResult_New,CommandResult_Merged,CommandResult_Replaced};
+/**
 * Enumeration for attribute Level
 */
 
@@ -232,6 +238,35 @@ public:
 */
 	virtual bool ValidAvailableAmount(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Enumeration strings for CommandResult
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& CommandResultString();
+/**
+* Enumeration string for enum value
+* @param EnumCommandResult value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString CommandResultString(EnumCommandResult value);
+/**
+* Set attribute CommandResult
+* @param EnumCommandResult value the value to set the attribute to
+*/
+	virtual void SetCommandResult( EnumCommandResult value);
+
+/**
+* Typesafe enumerated attribute CommandResult
+* @return EnumCommandResultthe enumeration value of the attribute
+*/
+	virtual EnumCommandResult GetCommandResult() const;
+
+/**
+* Typesafe attribute validation of CommandResult
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidCommandResult(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for Level
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -249,7 +284,7 @@ public:
 	virtual void SetLevel( EnumLevel value);
 
 /**
-* Typesafe enumerated attribute Level; defaults to OK
+* Typesafe enumerated attribute Level
 * @return EnumLevelthe enumeration value of the attribute
 */
 	virtual EnumLevel GetLevel() const;
@@ -276,6 +311,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidLocation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute LotControlled
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetLotControlled(bool value);
+/**
+* Get bool attribute LotControlled
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetLotControlled() const;
+/**
+* Typesafe attribute validation of LotControlled
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLotControlled(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ModuleID
 *@param WString value: the value to set the attribute to
@@ -474,6 +525,24 @@ public:
  * 
 */
 	JDFCostCenter AppendCostCenter();
+
+/** Get Element Lot
+* 
+* @param int iSkip number of elements to skip
+* @return JDFLot The element
+*/
+	JDFLot GetCreateLot(int iSkip=0);
+
+/**
+* const get element Lot
+* @param int iSkip number of elements to skip
+* @return JDFLot The element
+*/
+	JDFLot GetLot(int iSkip=0)const;
+/**
+* Append element Lot
+ */
+	JDFLot AppendLot();
 
 /** Get Element MISDetails
 * 

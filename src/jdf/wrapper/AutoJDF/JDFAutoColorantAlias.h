@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -180,6 +180,12 @@ virtual bool init();
  * definition of required attributes in the JDF namespace
 */
 	virtual WString RequiredAttributes()const;
+
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
 /**
 * Set attribute ReplacementColorantName
 *@param WString value: the value to set the attribute to
@@ -196,6 +202,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidReplacementColorantName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute RawNames
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetRawNames(const WString& value);
+/**
+* Get string attribute RawNames
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetRawNames() const;
+/**
+* Typesafe attribute validation of RawNames
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRawNames(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

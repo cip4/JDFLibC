@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFPart;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoNewComment : public JDFElement
@@ -130,6 +132,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -234,6 +245,58 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Part
+* 
+* @param int iSkip number of elements to skip
+* @return JDFPart The element
+*/
+	JDFPart GetCreatePart(int iSkip=0);
+
+/**
+* const get element Part
+* @param int iSkip number of elements to skip
+* @return JDFPart The element
+*/
+	JDFPart GetPart(int iSkip=0)const;
+/**
+* Append element Part
+ */
+	JDFPart AppendPart();
+//@{
+		/**
+		* get part map vector
+		* @return vector of mAttribute, one for each part
+		*/
+		vmAttribute GetPartMapVector()const;
+		
+		        /**
+		* set all parts to those define in vParts
+		* @param vmAttribute& vParts vector of attribute maps for the parts
+		*/
+		void SetPartMapVector(const vmAttribute & vParts);
+		/**
+		* set part to mPart
+		* @param mAttribute& mPart attribute map for the part to set
+		*/
+	void SetPartMap(const mAttribute & mPart);
+		/**
+		* remove the part defined in mPart
+		* @param mAttribute& mPart attribute map for the part to remove
+		*/
+		void RemovePartMap(const mAttribute & mPart);
+		/**
+		* check whether the part defined in mPart is included
+		* @param mAttribute& mPart attribute map for the part to remove
+		* @return bool if the part exists
+		*/
+		bool HasPartMap(const mAttribute & mPart);
+		//@}
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoNewComment
 
 // ******************************************************

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,6 +76,7 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoColorantControl.h"
 #include "jdf/wrapper/JDFColorantAlias.h"
+#include "jdf/wrapper/JDFSeparationList.h"
 #include "jdf/wrapper/JDFSeparationList.h"
 #include "jdf/wrapper/JDFSeparationList.h"
 #include "jdf/wrapper/JDFColorPool.h"
@@ -222,6 +223,26 @@ JDFColorantAlias JDFAutoColorantControl::AppendColorantAlias(){
 // element resource linking 
 JDFRefElement JDFAutoColorantControl::RefColorantAlias(JDFColorantAlias& refTarget){
 	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationList JDFAutoColorantControl::GetColorantConvertProcess()const{
+	JDFSeparationList e=GetElement(elm_ColorantConvertProcess);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationList JDFAutoColorantControl::GetCreateColorantConvertProcess(){
+	JDFSeparationList e=GetCreateElement(elm_ColorantConvertProcess);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationList JDFAutoColorantControl::AppendColorantConvertProcess(){
+	JDFSeparationList e=AppendElementN(elm_ColorantConvertProcess,1);
+	e.init();
+	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -375,6 +396,18 @@ JDFRefElement JDFAutoColorantControl::RefDeviceNSpace(JDFDeviceNSpace& refTarget
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_ColorantConvertProcess);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ColorantConvertProcess);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetColorantConvertProcess().IsValid(level)) {
+				vElem.AppendUnique(elm_ColorantConvertProcess);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_ColorantOrder);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_ColorantOrder);
@@ -451,13 +484,13 @@ JDFRefElement JDFAutoColorantControl::RefDeviceNSpace(JDFDeviceNSpace& refTarget
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoColorantControl::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",ColorantOrder,ColorantParams,ColorPool,DeviceColorantOrder";
+		return JDFResource::UniqueElements()+L",ColorantConvertProcess,ColorantOrder,ColorantParams,ColorPool,DeviceColorantOrder";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoColorantControl::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ColorantAlias,ColorantOrder,ColorantParams,ColorPool,ColorSpaceSubstitute,DeviceColorantOrder,DeviceNSpace";
+		return JDFResource::OptionalElements()+L",ColorantAlias,ColorantConvertProcess,ColorantOrder,ColorantParams,ColorPool,ColorSpaceSubstitute,DeviceColorantOrder,DeviceNSpace";
 	};
 }; // end namespace JDF

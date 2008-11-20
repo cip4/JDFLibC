@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -86,6 +86,7 @@ class JDFColor;
 class JDFColorMeasurementConditions;
 class JDFMediaLayers;
 class JDFHoleList;
+class JDFTabDimensions;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -182,7 +183,7 @@ virtual bool init();
 * Enumeration for attribute HoleType
 */
 
-	enum EnumHoleType{HoleType_Unknown,HoleType_None,HoleType_R2_generic,HoleType_R2m_DIN,HoleType_R2m_ISO,HoleType_R2m_MIB,HoleType_R2i_US_a,HoleType_R2i_US_b,HoleType_R3_generic,HoleType_R3i_US,HoleType_R4_generic,HoleType_R4m_DIN_A4,HoleType_R4m_DIN_A5,HoleType_R4m_swedish,HoleType_R4i_US,HoleType_R5_generic,HoleType_R5i_US_a,HoleType_R5i_US_b,HoleType_R5i_US_c,HoleType_R6_generic,HoleType_R6m_4h2s,HoleType_R6m_DIN_A5,HoleType_R7_generic,HoleType_R7i_US_a,HoleType_R7i_US_b,HoleType_R7i_US_c,HoleType_R11m_7h4s,HoleType_P16_9i_rect_0t,HoleType_P12m_rect_0t,HoleType_W2_1i_round_0t,HoleType_W2_1i_square_0t,HoleType_W3_1i_square_0t,HoleType_C9_5m_round_0t,HoleType_Explicit};
+	enum EnumHoleType{HoleType_Unknown,HoleType_None,HoleType_S1_generic,HoleType_S_generic,HoleType_R2_generic,HoleType_R2m_DIN,HoleType_R2m_ISO,HoleType_R2m_MIB,HoleType_R2i_US_a,HoleType_R2i_US_b,HoleType_R3_generic,HoleType_R3i_US,HoleType_R4_generic,HoleType_R4m_DIN_A4,HoleType_R4m_DIN_A5,HoleType_R4m_swedish,HoleType_R4i_US,HoleType_R5_generic,HoleType_R5i_US_a,HoleType_R5i_US_b,HoleType_R5i_US_c,HoleType_R6_generic,HoleType_R6m_4h2s,HoleType_R6m_DIN_A5,HoleType_R7_generic,HoleType_R7i_US_a,HoleType_R7i_US_b,HoleType_R7i_US_c,HoleType_R11m_7h4s,HoleType_P16_9i_rect_0t,HoleType_P12m_rect_0t,HoleType_W2_1i_round_0t,HoleType_W2_1i_square_0t,HoleType_W3_1i_square_0t,HoleType_C9_5m_round_0t,HoleType_Explicit};
 /**
 * Enumeration for attribute MediaUnit
 */
@@ -217,7 +218,7 @@ virtual bool init();
 * Enumeration for attribute MediaType
 */
 
-	enum EnumMediaType{MediaType_Unknown,MediaType_CorrugatedBoard,MediaType_Disc,MediaType_EndBoard,MediaType_EmbossingFoil,MediaType_Film,MediaType_Foil,MediaType_GravureCylinder,MediaType_ImagingCylinder,MediaType_LaminatingFoil,MediaType_Other,MediaType_Paper,MediaType_Plate,MediaType_SelfAdhesive,MediaType_ShrinkFoil,MediaType_Transparency};
+	enum EnumMediaType{MediaType_Unknown,MediaType_CorrugatedBoard,MediaType_Disc,MediaType_EndBoard,MediaType_EmbossingFoil,MediaType_Film,MediaType_Foil,MediaType_GravureCylinder,MediaType_ImagingCylinder,MediaType_LaminatingFoil,MediaType_MountingTape,MediaType_Other,MediaType_Paper,MediaType_Plate,MediaType_SelfAdhesive,MediaType_Sleeve,MediaType_ShrinkFoil,MediaType_Transparency};
 /**
 * Enumeration for attribute Opacity
 */
@@ -227,7 +228,7 @@ virtual bool init();
 * Enumeration for attribute PlateTechnology
 */
 
-	enum EnumPlateTechnology{PlateTechnology_Unknown,PlateTechnology_InkJet,PlateTechnology_Thermal,PlateTechnology_UV,PlateTechnology_Visible};
+	enum EnumPlateTechnology{PlateTechnology_Unknown,PlateTechnology_FlexoAnalogSolvent,PlateTechnology_FlexoAnalogThermal,PlateTechnology_FlexoDigitalSolvent,PlateTechnology_FlexoDigitalThermal,PlateTechnology_FlexoDirectEngraving,PlateTechnology_InkJet,PlateTechnology_Thermal,PlateTechnology_UV,PlateTechnology_Visible};
 /**
 * Enumeration for attribute Polarity
 */
@@ -330,6 +331,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidPrePrinted(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BackCoatingDetail
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetBackCoatingDetail(const WString& value);
+/**
+* Get string attribute BackCoatingDetail
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetBackCoatingDetail() const;
+/**
+* Typesafe attribute validation of BackCoatingDetail
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBackCoatingDetail(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for BackCoatings
 * @return const WString& comma separated list of enumerated string values 
@@ -516,6 +533,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidFluteDirection(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute FrontCoatingDetail
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetFrontCoatingDetail(const WString& value);
+/**
+* Get string attribute FrontCoatingDetail
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetFrontCoatingDetail() const;
+/**
+* Typesafe attribute validation of FrontCoatingDetail
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidFrontCoatingDetail(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for FrontCoatings
 * @return const WString& comma separated list of enumerated string values 
@@ -718,6 +751,22 @@ virtual bool init();
 */
 	virtual bool ValidMediaColorNameDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute MediaQuality
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetMediaQuality(const WString& value);
+/**
+* Get string attribute MediaQuality
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetMediaQuality() const;
+/**
+* Typesafe attribute validation of MediaQuality
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMediaQuality(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute MediaSetCount
 *@param int value: the value to set the attribute to
 */
@@ -914,6 +963,22 @@ virtual bool init();
 */
 	virtual bool ValidPolarity(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute PrintingTechnology
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPrintingTechnology(const WString& value);
+/**
+* Get string attribute PrintingTechnology
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPrintingTechnology() const;
+/**
+* Typesafe attribute validation of PrintingTechnology
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPrintingTechnology(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute Recycled
 *@param bool value: the value to set the attribute to
 */
@@ -946,6 +1011,22 @@ virtual bool init();
 */
 	virtual bool ValidRecycledPercentage(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ReliefThickness
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetReliefThickness(double value);
+/**
+* Get double attribute ReliefThickness
+* @return double the vaue of the attribute 
+*/
+	virtual double GetReliefThickness() const;
+/**
+* Typesafe attribute validation of ReliefThickness
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidReliefThickness(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute RollDiameter
 *@param double value: the value to set the attribute to
 */
@@ -977,6 +1058,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidShrinkIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SleeveInterlock
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSleeveInterlock(const WString& value);
+/**
+* Get string attribute SleeveInterlock
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSleeveInterlock() const;
+/**
+* Typesafe attribute validation of SleeveInterlock
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSleeveInterlock(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute StockType
 *@param WString value: the value to set the attribute to
@@ -1168,6 +1265,24 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefHoleList(JDFHoleList& refTarget);
+
+/** Get Element TabDimensions
+* 
+* @param int iSkip number of elements to skip
+* @return JDFTabDimensions The element
+*/
+	JDFTabDimensions GetCreateTabDimensions(int iSkip=0);
+
+/**
+* const get element TabDimensions
+* @param int iSkip number of elements to skip
+* @return JDFTabDimensions The element
+*/
+	JDFTabDimensions GetTabDimensions(int iSkip=0)const;
+/**
+* Append element TabDimensions
+ */
+	JDFTabDimensions AppendTabDimensions();
 
 /**
  definition of optional elements in the JDF namespace

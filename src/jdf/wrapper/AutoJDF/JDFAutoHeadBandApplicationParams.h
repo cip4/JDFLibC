@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -221,6 +221,22 @@ virtual bool init();
 */
 	virtual bool ValidBottomColor(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute BottomColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetBottomColorDetails(const WString& value);
+/**
+* Get string attribute BottomColorDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetBottomColorDetails() const;
+/**
+* Typesafe attribute validation of BottomColorDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBottomColorDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute BottomLength
 *@param double value: the value to set the attribute to
 */
@@ -270,6 +286,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidTopColor(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TopColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetTopColorDetails(const WString& value);
+/**
+* Get string attribute TopColorDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetTopColorDetails() const;
+/**
+* Typesafe attribute validation of TopColorDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTopColorDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute TopLength
 *@param double value: the value to set the attribute to

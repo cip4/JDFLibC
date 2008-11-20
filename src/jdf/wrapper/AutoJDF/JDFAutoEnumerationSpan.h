@@ -579,6 +579,8 @@ public:
 	 virtual WString AllowedValues()const;
 };
 
+#define JDFSpanFluteDirection JDFSpanGrainDirection
+#define EnumSpanFluteDirection EnumSpanGrainDirection
 
 ///////////////////////////////////////////////////////////////
 

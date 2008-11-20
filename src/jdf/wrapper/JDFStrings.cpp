@@ -875,6 +875,61 @@ namespace JDF{
 
 
 
+
+
+const WString JDFStrings::elm_TabDimensions=L"TabDimensions";
+const WString JDFStrings::elm_ColorantConvertProcess=L"ColorantConvertProcess";
+const WString JDFStrings::elm_ContentMetaData=L"ContentMetaData";
+
+const WString JDFStrings::elm_RuleLength=L"RuleLength";
+const WString JDFStrings::elm_ShapeDef=L"ShapeDef";
+const WString JDFStrings::elm_ConvertingConfig=L"ConvertingConfig";
+const WString JDFStrings::elm_RepeatDesc=L"RepeatDesc";
+const WString JDFStrings::elm_DieLayoutProductionParams=L"DieLayoutProductionParams";
+const WString JDFStrings::elm_PageCondition=L"PageCondition";
+const WString JDFStrings::elm_MarkActivation=L"MarkActivation";
+const WString JDFStrings::elm_RefAnchor=L"RefAnchor";
+
+
+const WString JDFStrings::elm_PositionObj=L"PositionObj";
+
+const WString JDFStrings::elm_ShiftPoint=L"ShiftPoint";
+const WString JDFStrings::elm_LayoutShift=L"LayoutShift";
+
+const WString JDFStrings::elm_PageAssignParams=L"PageAssignParams";
+
+const WString JDFStrings::elm_MetadataMap=L"MetadataMap";
+
+const WString JDFStrings::elm_ObjectModel=L"ObjectModel";
+const WString JDFStrings::elm_ShapeTemplate=L"ShapeTemplate";
+const WString JDFStrings::elm_ShapeDefProductionParams=L"ShapeDefProductionParams";
+
+const WString JDFStrings::elm_StaticBlockingParams=L"StaticBlockingParams";
+
+
+const WString JDFStrings::elm_ControllerFilter=L"ControllerFilter";
+
+const WString JDFStrings::elm_SubscriptionFilter=L"SubscriptionFilter";
+const WString JDFStrings::elm_SubscriptionInfo=L"SubscriptionInfo";
+
+const WString JDFStrings::elm_Certificate=L"Certificate";
+const WString JDFStrings::elm_AuthenticationResp=L"AuthenticationResp";
+const WString JDFStrings::elm_AuthenticationQuParams=L"AuthenticationQuParams";
+const WString JDFStrings::elm_AuthenticationCmdParams=L"AuthenticationCmdParams";
+
+const WString JDFStrings::elm_Flute=L"Flute";
+const WString JDFStrings::elm_FluteDirection=L"FluteDirection";
+const WString JDFStrings::elm_MediaQuality=L"MediaQuality";
+
+const WString JDFStrings::elm_TabMylarColorDetails=L"TabMylarColorDetails";
+const WString JDFStrings::elm_ColorNameDetails=L"ColorNameDetails";
+const WString JDFStrings::elm_HeadBandColorDetails=L"HeadBandColorDetails";
+const WString JDFStrings::elm_FoilColorDetails=L"FoilColorDetails";
+const WString JDFStrings::elm_BindingColorDetails=L"BindingColorDetails";
+const WString JDFStrings::elm_CoverColorDetails=L"CoverColorDetails";
+const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
+
+	
 	//////////////////////////////////////////////////////////
 
 	const WString JDFStrings::atr_Aborted=L"Aborted";
@@ -2584,4 +2639,180 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
+
+const WString JDFStrings::atr_AbsoluteHeight=L"AbsoluteHeight";
+const WString JDFStrings::atr_AbsoluteWidth=L"AbsoluteWidth";
+const WString JDFStrings::atr_Anchor=L"Anchor";
+const WString JDFStrings::atr_Metadata0=L"Metadata0";
+const WString JDFStrings::atr_Metadata1=L"Metadata1";
+const WString JDFStrings::atr_Metadata2=L"Metadata2";
+const WString JDFStrings::atr_Metadata3=L"Metadata3";
+const WString JDFStrings::atr_Metadata4=L"Metadata4";
+const WString JDFStrings::atr_Metadata5=L"Metadata5";
+const WString JDFStrings::atr_Metadata6=L"Metadata6";
+const WString JDFStrings::atr_Metadata7=L"Metadata7";
+const WString JDFStrings::atr_Metadata8=L"Metadata8";
+const WString JDFStrings::atr_Metadata9=L"Metadata9";
+
+const WString JDFStrings::atr_VarnishMethod=L"VarnishMethod";
+const WString JDFStrings::atr_TabEdge=L"TabEdge";
+const WString JDFStrings::atr_TabExtensionDistance=L"TabExtensionDistance";
+const WString JDFStrings::atr_TabOffset=L"TabOffset";
+const WString JDFStrings::atr_TabSetCollationOrder=L"TabSetCollationOrder";
+const WString JDFStrings::atr_TabWidth=L"TabWidth";
+const WString JDFStrings::atr_Families=L"Families";
+const WString JDFStrings::atr_MessageTypes=L"MessageTypes";
+const WString JDFStrings::atr_InnerDimensions=L"InnerDimensions";
+const WString JDFStrings::atr_Standard=L"Standard";
+
+const WString JDFStrings::atr_Area=L"Area";
+const WString JDFStrings::atr_DDESCutType=L"DDESCutType";
+const WString JDFStrings::atr_AllowedRotate=L"AllowedRotate";
+const WString JDFStrings::atr_GutterX=L"GutterX";
+const WString JDFStrings::atr_GutterX2=L"GutterX2";
+const WString JDFStrings::atr_GutterY=L"GutterY";
+const WString JDFStrings::atr_GutterY2=L"GutterY2";
+const WString JDFStrings::atr_LayoutStyle=L"LayoutStyle";
+const WString JDFStrings::atr_OrderQuantity=L"OrderQuantity";
+const WString JDFStrings::atr_UseBleeds=L"UseBleeds";
+
+
+
+const WString JDFStrings::atr_AnchorType=L"AnchorType";
+
+const WString JDFStrings::atr_PageRange=L"PageRange";
+const WString JDFStrings::atr_RunPageRange=L"RunPageRange";
+const WString JDFStrings::atr_PositionPolicy=L"PositionPolicy";
+const WString JDFStrings::atr_RelativeSize=L"RelativeSize";
+const WString JDFStrings::atr_RotationPolicy=L"RotationPolicy";
+
+const WString JDFStrings::atr_RestrictedContentObjects=L"RestrictedContentObjects";
+const WString JDFStrings::atr_Index=L"Index";
+
+const WString JDFStrings::atr_Estimate=L"Estimate";
+const WString JDFStrings::atr_SheetHeight=L"SheetHeight";
+const WString JDFStrings::atr_SheetWidth=L"SheetWidth";
+
+const WString JDFStrings::atr_URLTypes=L"URLTypes";
+const WString JDFStrings::atr_URLType=L"URLType";
+
+const WString JDFStrings::atr_OrdReset=L"OrdReset";
+const WString JDFStrings::atr_SheetCountReset=L"SheetCountReset";
+const WString JDFStrings::atr_MaxCollect=L"MaxCollect";
+const WString JDFStrings::atr_MinCollect=L"MinCollect";
+const WString JDFStrings::atr_OrdsConsumed=L"OrdsConsumed";
+const WString JDFStrings::atr_SheetNameFormat=L"SheetNameFormat";
+const WString JDFStrings::atr_SheetNameTemplate=L"SheetNameTemplate";
+
+
+const WString JDFStrings::atr_JobFormat=L"JobFormat";
+const WString JDFStrings::atr_JobTemplate=L"JobTemplate";
+
+const WString JDFStrings::atr_ISBN10=L"ISBN10";
+const WString JDFStrings::atr_ISBN13=L"ISBN13";
+
+const WString JDFStrings::atr_AuthenticationType=L"AuthenticationType";
+const WString JDFStrings::atr_ReasonDetails=L"ReasonDetails";
+
+const WString JDFStrings::atr_FaceCells=L"FaceCells";
+const WString JDFStrings::atr_ObjectTags=L"ObjectTags";
+
+const WString JDFStrings::atr_IsDoubleByteFont=L"IsDoubleByteFont";
+const WString JDFStrings::atr_PageHasOptionalContent=L"PageHasOptionalContent";
+
+const WString JDFStrings::atr_PageScalingFactor=L"PageScalingFactor";
+
+const WString JDFStrings::atr_ContentRef=L"ContentRef";
+const WString JDFStrings::atr_StackOrd=L"StackOrd";
+const WString JDFStrings::atr_TrimClipPath=L"TrimClipPath";
+const WString JDFStrings::atr_CompensationCTM=L"CompensationCTM";
+
+const WString JDFStrings::atr_CutWidth=L"CutWidth";
+const WString JDFStrings::atr_ColorDetails=L"ColorDetails";
+
+const WString JDFStrings::atr_InnermostShingling=L"InnermostShingling";
+const WString JDFStrings::atr_OutermostShingling=L"OutermostShingling";
+
+const WString JDFStrings::atr_StripColorDetails=L"StripColorDetails";
+const WString JDFStrings::atr_StitchOrigin=L"StitchOrigin";
+const WString JDFStrings::atr_LayerLift=L"LayerLift";
+
+const WString JDFStrings::atr_LayerCompression=L"LayerCompression";
+const WString JDFStrings::atr_PreStackAmount=L"PreStackAmount";
+const WString JDFStrings::atr_PreStackMethod=L"PreStackMethod";
+const WString JDFStrings::atr_StackCompression=L"StackCompression";
+
+
+const WString JDFStrings::atr_HorizontalExcessBack=L"HorizontalExcessBack";
+const WString JDFStrings::atr_BinderColorDetails=L"BinderColorDetails";
+const WString JDFStrings::atr_SpineColorDetails=L"SpineColorDetails";
+const WString JDFStrings::atr_RibbonColorDetails=L"RibbonColorDetails";
+const WString JDFStrings::atr_MimeTypeDetails=L"MimeTypeDetails";
+
+const WString JDFStrings::atr_IgnoreContext=L"IgnoreContext";
+const WString JDFStrings::atr_SheetSides=L"SheetSides";
+const WString JDFStrings::atr_Languages=L"Languages";
+
+const WString JDFStrings::atr_Overhang=L"Overhang";
+const WString JDFStrings::atr_OverhangOffset=L"OverhangOffset";
+
+const WString JDFStrings::atr_BackCoatingDetail=L"BackCoatingDetail";
+const WString JDFStrings::atr_FrontCoatingDetail=L"FrontCoatingDetail";
+const WString JDFStrings::atr_MediaQuality=L"MediaQuality";
+const WString JDFStrings::atr_PrintingTechnology=L"PrintingTechnology";
+const WString JDFStrings::atr_ReliefThickness=L"ReliefThickness";
+const WString JDFStrings::atr_SleeveInterlock=L"SleeveInterlock";
+
+const WString JDFStrings::atr_ContentDataRefs=L"ContentDataRefs";
+const WString JDFStrings::atr_SourceMediaBox=L"SourceMediaBox";
+
+const WString JDFStrings::atr_TopColorDetails=L"TopColorDetails";
+const WString JDFStrings::atr_BottomColorDetails=L"BottomColorDetails";
+const WString JDFStrings::atr_ClampColorDetails=L"ClampColorDetails";
+
+const WString JDFStrings::atr_HorizontalFitPolicy=L"HorizontalFitPolicy";
+const WString JDFStrings::atr_VerticalFitPolicy=L"VerticalFitPolicy";
+
+const WString JDFStrings::atr_NUpSeparation=L"NUpSeparation";
+const WString JDFStrings::atr_SpineThickness=L"SpineThickness";
+const WString JDFStrings::atr_RawNames=L"RawNames";
+
+const WString JDFStrings::atr_ActualColorName=L"ActualColorName";
+const WString JDFStrings::atr_Gray=L"Gray";
+
+const WString JDFStrings::atr_Columns=L"Columns";
+const WString JDFStrings::atr_ComponentOrientation=L"ComponentOrientation";
+
+const WString JDFStrings::atr_AlignmentReferenceWeb=L"AlignmentReferenceWeb";
+const WString JDFStrings::atr_FoldLay=L"FoldLay";
+const WString JDFStrings::atr_WebCellAlignment=L"WebCellAlignment";
+
+const WString JDFStrings::atr_TabCount=L"TabCount";
+
+const WString JDFStrings::atr_ChannelMode=L"ChannelMode";
+const WString JDFStrings::atr_RetryPolicy=L"RetryPolicy";
+const WString JDFStrings::atr_LotDetails=L"LotDetails";
+const WString JDFStrings::atr_ResourceDetails=L"ResourceDetails";
+const WString JDFStrings::atr_CommandResult=L"CommandResult";
+const WString JDFStrings::atr_LotControlled=L"LotControlled";
+
+const WString JDFStrings::atr_PreviewUsages=L"PreviewUsages";
+const WString JDFStrings::atr_UpdateGranularity=L"UpdateGranularity";
+const WString JDFStrings::atr_MilestoneTypes=L"MilestoneTypes";
+
+const WString JDFStrings::atr_TransactionID=L"TransactionID";
+const WString JDFStrings::atr_IdleStartTime=L"IdleStartTime";
+const WString JDFStrings::atr_RelatedCommands=L"RelatedCommands";
+const WString JDFStrings::atr_ReturnTime=L"ReturnTime";
+const WString JDFStrings::atr_WorkStepID=L"WorkStepID";
+
+const WString JDFStrings::atr_MarkContext=L"MarkContext";
+const WString JDFStrings::atr_RelativeHeight=L"RelativeHeight";
+const WString JDFStrings::atr_RelativeWidth=L"RelativeWidth";
+
+const WString JDFStrings::atr_DieSide=L"DieSide";
+const WString JDFStrings::atr_Rotated=L"Rotated";
+const WString JDFStrings::atr_ContentRefs=L"ContentRefs";
+
+
 }

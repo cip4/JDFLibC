@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,7 @@
 #include "jdf/wrapper/JDFIntentResource.h"
 #include "jdf/wrapper/AutoJDF/JDFAutoEnumerationSpan.h"
 namespace JDF{
+class JDFMediaLayers;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -291,6 +292,40 @@ public:
 */
 	JDFXYPairSpan AppendDimensions();
 
+/** Get Element Flute
+* 
+* @return JDFNameSpan The element
+*/
+	JDFNameSpan GetCreateFlute();
+
+/**
+* const get element Flute
+*@return  JDFNameSpan The element
+*/
+	JDFNameSpan GetFlute()const;
+/**
+* Append element Flute
+ * 
+*/
+	JDFNameSpan AppendFlute();
+
+/** Get Element FluteDirection
+* 
+* @return JDFSpanFluteDirection The element
+*/
+	JDFSpanFluteDirection GetCreateFluteDirection();
+
+/**
+* const get element FluteDirection
+*@return  JDFSpanFluteDirection The element
+*/
+	JDFSpanFluteDirection GetFluteDirection()const;
+/**
+* Append element FluteDirection
+ * 
+*/
+	JDFSpanFluteDirection AppendFluteDirection();
+
 /** Get Element FrontCoatings
 * 
 * @return JDFSpanCoatings The element
@@ -409,6 +444,23 @@ public:
  * 
 */
 	JDFStringSpan AppendMediaColorDetails();
+
+/** Get Element MediaQuality
+* 
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCreateMediaQuality();
+
+/**
+* const get element MediaQuality
+*@return  JDFStringSpan The element
+*/
+	JDFStringSpan GetMediaQuality()const;
+/**
+* Append element MediaQuality
+ * 
+*/
+	JDFStringSpan AppendMediaQuality();
 
 /** Get Element MediaType
 * 
@@ -630,6 +682,23 @@ public:
  * 
 */
 	JDFNumberSpan AppendWeight();
+
+/** Get Element MediaLayers
+* 
+* @return JDFMediaLayers The element
+*/
+	JDFMediaLayers GetCreateMediaLayers();
+
+/**
+* const get element MediaLayers
+*@return  JDFMediaLayers The element
+*/
+	JDFMediaLayers GetMediaLayers()const;
+/**
+* Append element MediaLayers
+ * 
+*/
+	JDFMediaLayers AppendMediaLayers();
 
 /**
  definition of unique elements in the JDF namespace

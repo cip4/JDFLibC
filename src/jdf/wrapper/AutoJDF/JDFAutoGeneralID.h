@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -152,11 +152,51 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
+/**
+* Enumeration for attribute DataType
+*/
+
+	enum EnumDataType{DataType_Unknown,DataType_string,DataType_integer,DataType_double,DataType_NMTOKEN,DataType_boolean,DataType_dateTime,DataType_duration};
 
 /**
  * definition of required attributes in the JDF namespace
 */
 	virtual WString RequiredAttributes()const;
+
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
+/**
+* Enumeration strings for DataType
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& DataTypeString();
+/**
+* Enumeration string for enum value
+* @param EnumDataType value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString DataTypeString(EnumDataType value);
+/**
+* Set attribute DataType
+* @param EnumDataType value the value to set the attribute to
+*/
+	virtual void SetDataType( EnumDataType value);
+
+/**
+* Typesafe enumerated attribute DataType
+* @return EnumDataTypethe enumeration value of the attribute
+*/
+	virtual EnumDataType GetDataType() const;
+
+/**
+* Typesafe attribute validation of DataType
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidDataType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute IDUsage
 *@param WString value: the value to set the attribute to

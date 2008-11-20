@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,17 +129,10 @@ bool JDFAutoByteMap::init(){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoByteMap::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",FrameHeight,FrameWidth,Halftoned,Interleaved,Resolution";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoByteMap::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BandOrdering,PixelSkip");
+		return JDFResource::OptionalAttributes()+WString(L",BandOrdering,ElementType,FrameHeight,FrameWidth,Halftoned,Interleaved,PixelSkip,Resolution");
 };
 
 /**
@@ -150,6 +143,16 @@ bool JDFAutoByteMap::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidBandOrdering(level)) {
+			vAtts.push_back(atr_BandOrdering);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidElementType(level)) {
+			vAtts.push_back(atr_ElementType);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidFrameHeight(level)) {
 			vAtts.push_back(atr_FrameHeight);
 			if(++n>=nMax)
@@ -170,112 +173,19 @@ bool JDFAutoByteMap::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidResolution(level)) {
-			vAtts.push_back(atr_Resolution);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidBandOrdering(level)) {
-			vAtts.push_back(atr_BandOrdering);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidPixelSkip(level)) {
 			vAtts.push_back(atr_PixelSkip);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidResolution(level)) {
+			vAtts.push_back(atr_Resolution);
 			if(++n>=nMax)
 				return vAtts;
 		};
 		return vAtts;
 	};
 
-/**
-* Set attribute FrameHeight
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoByteMap::SetFrameHeight(int value){
-	SetAttribute(atr_FrameHeight,WString::valueOf(value));
-};
-/**
-* Get integer attribute FrameHeight
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoByteMap::GetFrameHeight() const {
-	return GetIntAttribute(atr_FrameHeight,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoByteMap::ValidFrameHeight(EnumValidationLevel level) const {
-		return ValidAttribute(atr_FrameHeight,AttributeType_integer,RequiredLevel(level));
-	};
-/**
-* Set attribute FrameWidth
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoByteMap::SetFrameWidth(int value){
-	SetAttribute(atr_FrameWidth,WString::valueOf(value));
-};
-/**
-* Get integer attribute FrameWidth
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoByteMap::GetFrameWidth() const {
-	return GetIntAttribute(atr_FrameWidth,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoByteMap::ValidFrameWidth(EnumValidationLevel level) const {
-		return ValidAttribute(atr_FrameWidth,AttributeType_integer,RequiredLevel(level));
-	};
-/**
-* Set attribute Halftoned
-*@param bool value: the value to set the attribute to
-*/
-	 void JDFAutoByteMap::SetHalftoned(bool value){
-	SetAttribute(atr_Halftoned,WString::valueOf(value));
-};
-/**
-* Get bool attribute Halftoned
-* @return bool the vaue of the attribute 
-*/
-	 bool JDFAutoByteMap::GetHalftoned() const {return GetBoolAttribute(atr_Halftoned,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoByteMap::ValidHalftoned(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Halftoned,AttributeType_boolean,RequiredLevel(level));
-	};
-/**
-* Set attribute Interleaved
-*@param bool value: the value to set the attribute to
-*/
-	 void JDFAutoByteMap::SetInterleaved(bool value){
-	SetAttribute(atr_Interleaved,WString::valueOf(value));
-};
-/**
-* Get bool attribute Interleaved
-* @return bool the vaue of the attribute 
-*/
-	 bool JDFAutoByteMap::GetInterleaved() const {return GetBoolAttribute(atr_Interleaved,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoByteMap::ValidInterleaved(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Interleaved,AttributeType_boolean,RequiredLevel(level));
-	};
-/**
-* Set attribute Resolution
-*@param JDFXYPair value: the value to set the attribute to
-*/
-	 void JDFAutoByteMap::SetResolution(const JDFXYPair& value){
-	SetAttribute(atr_Resolution,value);
-};
-/**
-* Get string attribute Resolution
-* @return JDFXYPair the vaue of the attribute 
-*/
-	 JDFXYPair JDFAutoByteMap::GetResolution() const {
-	return GetAttribute(atr_Resolution,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoByteMap::ValidResolution(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Resolution,AttributeType_XYPair,RequiredLevel(level));
-	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoByteMap::BandOrderingString(){
@@ -301,6 +211,102 @@ bool JDFAutoByteMap::init(){
 	bool JDFAutoByteMap::ValidBandOrdering(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_BandOrdering,BandOrderingString(),false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoByteMap::ElementTypeString(){
+		static const WString enums=WString(L"Unknown,Auxiliary,Barcode,Composed,Document,Graphic,IdentificationField,Image,MultiDocument,MultiSet")
+	+WString(L",Page,Reservation,Surface,Text,Tile");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoByteMap::ElementTypeString(EnumElementType value){
+		return ElementTypeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoByteMap::SetElementType( EnumElementType value){
+	SetEnumAttribute(atr_ElementType,value,ElementTypeString(),WString::emptyStr,true);
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoByteMap::EnumElementType JDFAutoByteMap:: GetElementType() const {
+	return (EnumElementType) GetEnumAttribute(atr_ElementType,ElementTypeString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoByteMap::ValidElementType(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ElementType,ElementTypeString(),false,WString::emptyStr,true);
+	};
+/**
+* Set attribute FrameHeight
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoByteMap::SetFrameHeight(int value){
+	SetAttribute(atr_FrameHeight,WString::valueOf(value));
+};
+/**
+* Get integer attribute FrameHeight
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoByteMap::GetFrameHeight() const {
+	return GetIntAttribute(atr_FrameHeight,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoByteMap::ValidFrameHeight(EnumValidationLevel level) const {
+		return ValidAttribute(atr_FrameHeight,AttributeType_integer,false);
+	};
+/**
+* Set attribute FrameWidth
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoByteMap::SetFrameWidth(int value){
+	SetAttribute(atr_FrameWidth,WString::valueOf(value));
+};
+/**
+* Get integer attribute FrameWidth
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoByteMap::GetFrameWidth() const {
+	return GetIntAttribute(atr_FrameWidth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoByteMap::ValidFrameWidth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_FrameWidth,AttributeType_integer,false);
+	};
+/**
+* Set attribute Halftoned
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoByteMap::SetHalftoned(bool value){
+	SetAttribute(atr_Halftoned,WString::valueOf(value));
+};
+/**
+* Get bool attribute Halftoned
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoByteMap::GetHalftoned() const {return GetBoolAttribute(atr_Halftoned,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoByteMap::ValidHalftoned(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Halftoned,AttributeType_boolean,false);
+	};
+/**
+* Set attribute Interleaved
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoByteMap::SetInterleaved(bool value){
+	SetAttribute(atr_Interleaved,WString::valueOf(value));
+};
+/**
+* Get bool attribute Interleaved
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoByteMap::GetInterleaved() const {return GetBoolAttribute(atr_Interleaved,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoByteMap::ValidInterleaved(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Interleaved,AttributeType_boolean,false);
+	};
 /**
 * Set attribute PixelSkip
 *@param int value: the value to set the attribute to
@@ -318,6 +324,24 @@ bool JDFAutoByteMap::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoByteMap::ValidPixelSkip(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PixelSkip,AttributeType_integer,false);
+	};
+/**
+* Set attribute Resolution
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	 void JDFAutoByteMap::SetResolution(const JDFXYPair& value){
+	SetAttribute(atr_Resolution,value);
+};
+/**
+* Get string attribute Resolution
+* @return JDFXYPair the vaue of the attribute 
+*/
+	 JDFXYPair JDFAutoByteMap::GetResolution() const {
+	return GetAttribute(atr_Resolution,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoByteMap::ValidResolution(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Resolution,AttributeType_XYPair,false);
 	};
 
 /* ******************************************************
@@ -463,11 +487,6 @@ JDFPixelColorant JDFAutoByteMap::AppendPixelColorant(){
 			}
 		}
 		nElem=NumChildElements(elm_PixelColorant);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_PixelColorant);
-			if (++n>=nMax)
-			return vElem;
-		}
 
 		for(i=0;i<nElem;i++){
 			if (!GetPixelColorant(i).IsValid(level)) {
@@ -492,13 +511,13 @@ JDFPixelColorant JDFAutoByteMap::AppendPixelColorant(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoByteMap::RequiredElements()const{
-		return JDFResource::RequiredElements()+L",Band,PixelColorant";
+		return JDFResource::RequiredElements()+L",Band";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoByteMap::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ColorPool,FileSpec";
+		return JDFResource::OptionalElements()+L",ColorPool,FileSpec,PixelColorant";
 	};
 }; // end namespace JDF

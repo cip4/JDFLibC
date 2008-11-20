@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,7 +75,9 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoResourceAudit.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFMISDetails.h"
+#include "jdf/wrapper/JDFPart.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -118,7 +120,7 @@ JDFAutoResourceAudit& JDFAutoResourceAudit::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoResourceAudit::OptionalAttributes()const{
-		return JDFAudit::OptionalAttributes()+WString(L",ContentsModified,Reason");
+		return JDFAudit::OptionalAttributes()+WString(L",ContentsModified,NodeStatus,Reason");
 };
 
 /**
@@ -131,6 +133,11 @@ JDFAutoResourceAudit& JDFAutoResourceAudit::operator=(const KElement& other){
 			return vAtts;
 		if(!ValidContentsModified(level)) {
 			vAtts.push_back(atr_ContentsModified);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidNodeStatus(level)) {
+			vAtts.push_back(atr_NodeStatus);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -158,6 +165,18 @@ JDFAutoResourceAudit& JDFAutoResourceAudit::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoResourceAudit::ValidContentsModified(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ContentsModified,AttributeType_boolean,false);
+	};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoResourceAudit::SetNodeStatus( JDFElement::EnumStatus value){
+	SetEnumAttribute(atr_NodeStatus,value,JDFElement::StatusString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFElement::EnumStatus JDFAutoResourceAudit::GetNodeStatus() const {
+	return (JDFElement::EnumStatus) GetEnumAttribute(atr_NodeStatus,JDFElement::StatusString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceAudit::ValidNodeStatus(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_NodeStatus,JDFElement::StatusString(),false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -190,6 +209,26 @@ JDFAutoResourceAudit& JDFAutoResourceAudit::operator=(const KElement& other){
 **************************************************************** */
 
 
+JDFEmployee JDFAutoResourceAudit::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoResourceAudit::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoResourceAudit::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFMISDetails JDFAutoResourceAudit::GetMISDetails(int iSkip)const{
 	JDFMISDetails e=GetElement(elm_MISDetails,WString::emptyStr,iSkip);
 	return e;
@@ -210,6 +249,52 @@ JDFMISDetails JDFAutoResourceAudit::AppendMISDetails(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFPart JDFAutoResourceAudit::GetPart(int iSkip)const{
+	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPart JDFAutoResourceAudit::GetCreatePart(int iSkip){
+	JDFPart e=GetCreateElement(elm_Part,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPart JDFAutoResourceAudit::AppendPart(){
+	JDFPart e=AppendElement(elm_Part);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+	vmAttribute JDFAutoResourceAudit::GetPartMapVector()const{
+		return JDFElement::GetPartMapVector();
+	}
+
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoResourceAudit::SetPartMapVector(const vmAttribute & vParts){
+		JDFElement::SetPartMapVector(vParts);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoResourceAudit::SetPartMap(const mAttribute & mPart){
+		JDFElement::SetPartMap(mPart);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoResourceAudit::RemovePartMap(const mAttribute & mPart){
+		JDFElement::RemovePartMap(mPart);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	bool JDFAutoResourceAudit::HasPartMap(const mAttribute & mPart){
+		return JDFElement::HasPartMap(mPart);
+	}
+
 /**
  typesafe validator
 */
@@ -220,6 +305,16 @@ JDFMISDetails JDFAutoResourceAudit::AppendMISDetails(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_MISDetails);
 
 		for(i=0;i<nElem;i++){
@@ -238,6 +333,6 @@ JDFMISDetails JDFAutoResourceAudit::AppendMISDetails(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoResourceAudit::OptionalElements()const{
-		return JDFAudit::OptionalElements()+L",MISDetails";
+		return JDFAudit::OptionalElements()+L",Employee,MISDetails,Part";
 	};
 }; // end namespace JDF

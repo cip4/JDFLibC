@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -229,7 +229,11 @@ JDFColorCorrectionOp JDFAutoColorCorrectionParams::AppendColorCorrectionOp(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_FileSpec);
-
+		if(nElem>2){ //bound error
+			vElem.AppendUnique(elm_FileSpec);
+			if (++n>=nMax)
+				return vElem;
+		}
 		for(i=0;i<nElem;i++){
 			if (!GetFileSpec(i).IsValid(level)) {
 				vElem.AppendUnique(elm_FileSpec);

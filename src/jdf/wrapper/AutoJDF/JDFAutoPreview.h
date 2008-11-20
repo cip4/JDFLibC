@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFComment;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoPreview : public JDFResource
@@ -130,6 +132,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -325,11 +336,50 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidDirectory(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute MimeTypeDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetMimeTypeDetails(const WString& value);
+/**
+* Get string attribute MimeTypeDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetMimeTypeDetails() const;
+/**
+* Typesafe attribute validation of MimeTypeDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMimeTypeDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Comment
+* 
+* @param int iSkip number of elements to skip
+* @return JDFComment The element
+*/
+	JDFComment GetCreateComment(int iSkip=0);
+
+/**
+* const get element Comment
+* @param int iSkip number of elements to skip
+* @return JDFComment The element
+*/
+	JDFComment GetComment(int iSkip=0)const;
+/**
+* Append element Comment
+ */
+	JDFComment AppendComment();
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoPreview
 
 // ******************************************************

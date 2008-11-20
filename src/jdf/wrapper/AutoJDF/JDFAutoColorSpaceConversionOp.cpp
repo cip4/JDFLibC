@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -121,7 +121,7 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColorSpaceConversionOp::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",IgnoreEmbeddedICC,PreserveBlack,RenderingIntent,RGBGray2Black,RGBGray2BlackThreshold,SourceObjects,Operation,SourceCS,SourceRenderingIntent");
+		return JDFElement::OptionalAttributes()+WString(L",IgnoreEmbeddedICC,PreserveBlack,RenderingIntent,RGBGray2Black,RGBGray2BlackThreshold,SourceObjects,ObjectTags,Operation,SourceCS,SourceRenderingIntent");
 };
 
 /**
@@ -159,6 +159,11 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 		};
 		if(!ValidSourceObjects(level)) {
 			vAtts.push_back(atr_SourceObjects);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidObjectTags(level)) {
+			vAtts.push_back(atr_ObjectTags);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -315,6 +320,24 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorSpaceConversionOp::ValidSourceObjects(EnumValidationLevel level) const {
 		return ValidEnumerationsAttribute(atr_SourceObjects,SourceObjectsString(),false);
+	};
+/**
+* Set attribute ObjectTags
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoColorSpaceConversionOp::SetObjectTags(const vWString& value){
+	SetAttribute(atr_ObjectTags,value);
+};
+/**
+* Get string attribute ObjectTags
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoColorSpaceConversionOp::GetObjectTags() const {
+	return GetAttribute(atr_ObjectTags,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorSpaceConversionOp::ValidObjectTags(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ObjectTags,AttributeType_NMTOKENS,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

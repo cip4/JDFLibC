@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoContentData.h"
+#include "jdf/wrapper/JDFContentMetaData.h"
 #include "jdf/wrapper/JDFElementColorParams.h"
 #include "jdf/wrapper/JDFImageCompressionParams.h"
 #include "jdf/wrapper/JDFScreeningParams.h"
@@ -121,7 +122,7 @@ JDFAutoContentData& JDFAutoContentData::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoContentData::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",CatalogID,CatalogDetails,ContentType,HasBleeds,IsBlank,IsTrapped,JobID,ProductID");
+		return JDFElement::OptionalAttributes()+WString(L",CatalogID,CatalogDetails,ContentRefs,ContentType,HasBleeds,ID,IsBlank,IsTrapped,JobID,ProductID");
 };
 
 /**
@@ -142,6 +143,11 @@ JDFAutoContentData& JDFAutoContentData::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidContentRefs(level)) {
+			vAtts.push_back(atr_ContentRefs);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidContentType(level)) {
 			vAtts.push_back(atr_ContentType);
 			if(++n>=nMax)
@@ -149,6 +155,11 @@ JDFAutoContentData& JDFAutoContentData::operator=(const KElement& other){
 		};
 		if(!ValidHasBleeds(level)) {
 			vAtts.push_back(atr_HasBleeds);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidID(level)) {
+			vAtts.push_back(atr_ID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -212,6 +223,24 @@ JDFAutoContentData& JDFAutoContentData::operator=(const KElement& other){
 		return ValidAttribute(atr_CatalogDetails,AttributeType_string,false);
 	};
 /**
+* Set attribute ContentRefs
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoContentData::SetContentRefs(const vWString& value){
+	SetAttribute(atr_ContentRefs,value);
+};
+/**
+* Get string attribute ContentRefs
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoContentData::GetContentRefs() const {
+	return GetAttribute(atr_ContentRefs,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentData::ValidContentRefs(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ContentRefs,AttributeType_IDREFS,false);
+	};
+/**
 * Set attribute ContentType
 *@param WString value: the value to set the attribute to
 */
@@ -245,6 +274,24 @@ JDFAutoContentData& JDFAutoContentData::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoContentData::ValidHasBleeds(EnumValidationLevel level) const {
 		return ValidAttribute(atr_HasBleeds,AttributeType_boolean,false);
+	};
+/**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoContentData::SetID(const WString& value){
+	SetAttribute(atr_ID,value);
+};
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoContentData::GetID() const {
+	return GetAttribute(atr_ID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentData::ValidID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ID,AttributeType_ID,false);
 	};
 /**
 * Set attribute IsBlank
@@ -321,6 +368,26 @@ JDFAutoContentData& JDFAutoContentData::operator=(const KElement& other){
 // Element Getter / Setter
 **************************************************************** */
 
+
+JDFContentMetaData JDFAutoContentData::GetContentMetaData(int iSkip)const{
+	JDFContentMetaData e=GetElement(elm_ContentMetaData,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFContentMetaData JDFAutoContentData::GetCreateContentMetaData(int iSkip){
+	JDFContentMetaData e=GetCreateElement(elm_ContentMetaData,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFContentMetaData JDFAutoContentData::AppendContentMetaData(){
+	JDFContentMetaData e=AppendElement(elm_ContentMetaData);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFElementColorParams JDFAutoContentData::GetElementColorParams(int iSkip)const{
 	JDFElementColorParams e=GetElement(elm_ElementColorParams,WString::emptyStr,iSkip);
@@ -427,6 +494,16 @@ JDFSeparationSpec JDFAutoContentData::AppendSeparationSpec(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_ContentMetaData);
+
+		for(i=0;i<nElem;i++){
+			if (!GetContentMetaData(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ContentMetaData);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_ElementColorParams);
 
 		for(i=0;i<nElem;i++){
@@ -475,6 +552,6 @@ JDFSeparationSpec JDFAutoContentData::AppendSeparationSpec(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoContentData::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",ElementColorParams,ImageCompressionParams,ScreeningParams,SeparationSpec";
+		return JDFElement::OptionalElements()+L",ContentMetaData,ElementColorParams,ImageCompressionParams,ScreeningParams,SeparationSpec";
 	};
 }; // end namespace JDF

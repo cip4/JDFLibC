@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,10 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoShapeElement.h"
+#include "jdf/wrapper/JDFShapeElement.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoShapeElement : public JDFElement
+class JDFAutoShapeElement : public JDFResource
 
 *********************************************************************
 */
@@ -106,6 +108,17 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 	return L"*:,Shape";
 };
 
+bool JDFAutoShapeElement::ValidClass(EnumValidationLevel level) const {
+	if(!HasAttribute(atr_Class))
+		return !RequiredLevel(level);
+	return GetClass()==Class_Parameter;
+};
+
+bool JDFAutoShapeElement::init(){
+	bool bRet=JDFResource::init();
+	SetClass(Class_Parameter);
+	return bRet;
+};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -116,24 +129,29 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoShapeElement::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",ShapeType";
+		return JDFResource::RequiredAttributes()+L",ShapeType";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoShapeElement::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",CutBox,CutOut,CutPath,Material,CutType,ShapeDepth,StationName,TeethPerDimension");
+		return JDFResource::OptionalAttributes()+WString(L",LockOrigins,CutBox,CutOut,CutPath,CutType,DDESCutType,Material,ShapeDepth,TeethPerDimension");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoShapeElement::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidLockOrigins(level)) {
+			vAtts.push_back(atr_LockOrigins);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidCutBox(level)) {
 			vAtts.push_back(atr_CutBox);
 			if(++n>=nMax)
@@ -149,13 +167,18 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidMaterial(level)) {
-			vAtts.push_back(atr_Material);
+		if(!ValidCutType(level)) {
+			vAtts.push_back(atr_CutType);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidCutType(level)) {
-			vAtts.push_back(atr_CutType);
+		if(!ValidDDESCutType(level)) {
+			vAtts.push_back(atr_DDESCutType);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMaterial(level)) {
+			vAtts.push_back(atr_Material);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -169,11 +192,6 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidStationName(level)) {
-			vAtts.push_back(atr_StationName);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidTeethPerDimension(level)) {
 			vAtts.push_back(atr_TeethPerDimension);
 			if(++n>=nMax)
@@ -182,6 +200,23 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute LockOrigins
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoShapeElement::SetLockOrigins(bool value){
+	SetAttribute(atr_LockOrigins,WString::valueOf(value));
+};
+/**
+* Get bool attribute LockOrigins
+* @return bool the vaue of the attribute ; defaults to false
+*/
+	 bool JDFAutoShapeElement::GetLockOrigins() const {return GetBoolAttribute(atr_LockOrigins,WString::emptyStr,false);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoShapeElement::ValidLockOrigins(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LockOrigins,AttributeType_boolean,false);
+	};
 /**
 * Set attribute CutBox
 *@param JDFRectangle value: the value to set the attribute to
@@ -235,24 +270,6 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 	bool JDFAutoShapeElement::ValidCutPath(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CutPath,AttributeType_PDFPath,false);
 	};
-/**
-* Set attribute Material
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoShapeElement::SetMaterial(const WString& value){
-	SetAttribute(atr_Material,value);
-};
-/**
-* Get string attribute Material
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoShapeElement::GetMaterial() const {
-	return GetAttribute(atr_Material,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoShapeElement::ValidMaterial(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Material,AttributeType_string,false);
-	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoShapeElement::CutTypeString(){
@@ -272,11 +289,47 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	 JDFAutoShapeElement::EnumCutType JDFAutoShapeElement:: GetCutType() const {
-	return (EnumCutType) GetEnumAttribute(atr_CutType,CutTypeString(),WString::emptyStr,CutType_Cut);
+	return (EnumCutType) GetEnumAttribute(atr_CutType,CutTypeString(),WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoShapeElement::ValidCutType(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_CutType,CutTypeString(),false);
+	};
+/**
+* Set attribute DDESCutType
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoShapeElement::SetDDESCutType(int value){
+	SetAttribute(atr_DDESCutType,WString::valueOf(value));
+};
+/**
+* Get integer attribute DDESCutType
+* @return int the vaue of the attribute ; defaults to 101
+*/
+	 int JDFAutoShapeElement::GetDDESCutType() const {
+	return GetIntAttribute(atr_DDESCutType,WString::emptyStr,101);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoShapeElement::ValidDDESCutType(EnumValidationLevel level) const {
+		return ValidAttribute(atr_DDESCutType,AttributeType_integer,false);
+	};
+/**
+* Set attribute Material
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoShapeElement::SetMaterial(const WString& value){
+	SetAttribute(atr_Material,value);
+};
+/**
+* Get string attribute Material
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoShapeElement::GetMaterial() const {
+	return GetAttribute(atr_Material,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoShapeElement::ValidMaterial(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Material,AttributeType_string,false);
 	};
 /**
 * Set attribute ShapeDepth
@@ -322,24 +375,6 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 		return ValidEnumAttribute(atr_ShapeType,ShapeTypeString(),RequiredLevel(level));
 	};
 /**
-* Set attribute StationName
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoShapeElement::SetStationName(const WString& value){
-	SetAttribute(atr_StationName,value);
-};
-/**
-* Get string attribute StationName
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoShapeElement::GetStationName() const {
-	return GetAttribute(atr_StationName,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoShapeElement::ValidStationName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_StationName,AttributeType_string,false);
-	};
-/**
 * Set attribute TeethPerDimension
 *@param double value: the value to set the attribute to
 */
@@ -356,5 +391,66 @@ JDFAutoShapeElement& JDFAutoShapeElement::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoShapeElement::ValidTeethPerDimension(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TeethPerDimension,AttributeType_double,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFShapeElement JDFAutoShapeElement::GetShape(int iSkip)const{
+	JDFShapeElement e=GetElement(elm_Shape,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeElement JDFAutoShapeElement::GetCreateShape(int iSkip){
+	JDFShapeElement e=GetCreateElement(elm_Shape,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeElement JDFAutoShapeElement::AppendShape(){
+	JDFShapeElement e=AppendElement(elm_Shape);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoShapeElement::RefShape(JDFShapeElement& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoShapeElement::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_Shape);
+
+		for(i=0;i<nElem;i++){
+			if (!GetShape(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Shape);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoShapeElement::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",Shape";
 	};
 }; // end namespace JDF

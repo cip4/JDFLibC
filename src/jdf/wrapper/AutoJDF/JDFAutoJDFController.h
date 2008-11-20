@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -152,6 +152,11 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
+/**
+* Enumeration for attribute URLType
+*/
+
+	enum EnumURLType{URLType_Unknown,URLType_JDFError,URLType_JDFInput,URLType_JDFOutput,URLType_JMF,URLType_SecureJMF};
 
 /**
  * definition of required attributes in the JDF namespace
@@ -195,6 +200,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidURL(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for URLType
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& URLTypeString();
+/**
+* Enumeration string for enum value
+* @param EnumURLType value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString URLTypeString(EnumURLType value);
+/**
+* Set attribute URLType
+* @param EnumURLType value the value to set the attribute to
+*/
+	virtual void SetURLType( EnumURLType value);
+
+/**
+* Typesafe enumerated attribute URLType
+* @return EnumURLTypethe enumeration value of the attribute
+*/
+	virtual EnumURLType GetURLType() const;
+
+/**
+* Typesafe attribute validation of URLType
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidURLType(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

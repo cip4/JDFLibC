@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,10 +116,10 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 		return JDFElement::OptionalAttributes()+WString(L",PageNumber,AnnotationPrintFlag,AnnotationType,TrapnetAnnotationPDFX,BoundingBox,DifferentBoxSize,InsideBox,OutsideBox,ClassName,PropertyList,AliasSeparations,AmbiguousSeparations,InkCoverage,SeparationList,Author,Binding,CreationDate,CreationDateInDocument,CreationID")
 	+WString(L",Creator,DocumentCompression,DocumentCorruption,DocumentEncoding,DocumentIsGoodCompression,EncryptedDocument,EncryptionFilter,EncryptionLength,EncryptionRestrictions,EncryptionSubFilter,EncryptionV,FileName,FileSize,Keywords,Linearized,ModificationDate,ModificationDateInDocument,ModificationID,NumberOfPages")
 	+WString(L",OutputIntentColorSpace,OutputIntentStandard,PagesHaveSameOrientation,PDFXVersion,DocumentPDLType,PDLVersion,Producer,SeparationFlag,Subject,Title,TrappedKey,FillColorName,FillColorType,HasFillColor,EmbeddingRestrictionFlag,FontCorrupted,FontCreator,FontEmbedded,FontIsStandardLatin")
-	+WString(L",FontName,FontNotUsed,FontSubset,FontType,FontVendor,IsFontScreenOnly,PSFontName,AlphaIsShape,AlternateColorSpace,BelongsToAnnotation,BlackGeneration,BlendMode,ColorSpace,EmbeddedPS,Flatness,HasSoftMask,HalfTone,HalfTonePhase,HasColorLUT")
-	+WString(L",NumberOfColorsInLUT,OverPrintFlag,OverPrintMode,RenderingIntent,Smoothness,TransferFunction,TransparencyFlag,UnderColorRemoval,AlternateImages,BitsPerSample,CompressionRatio,CompressionTypes,EffectiveResolution,EstimatedJPEGQuality,ImageFlipped,ImageMaskType,ImageRotation,ImageScalingRatio,ImageSkew")
-	+WString(L",OriginalResolution,PixelHeight,PixelWidth,Count,PageBoxType,BlankPage,BlendColorSpace,PageHasUnknownObjects,ReversePageNumber,PDLType,ExternalReferenceMissing,HasExternalReference,HasOPI,OPIMissing,OPIType,OPIVersion,ShadingType,HasStrokeColor,StrokeAlternateColorSpace")
-	+WString(L",StrokeColorName,StrokeColorSpace,StrokeColorType,StrokeOverprintFlag,StrokeShadingType,StrokeThickness,CharacterProblem,MissingPrinterFont,MissingScreenFont,TextSize,UseArtificialTextEffect,NumberOfPathPoints");
+	+WString(L",FontName,FontNotUsed,FontSubset,FontType,FontVendor,IsDoubleByteFont,IsFontScreenOnly,PSFontName,AlphaIsShape,AlternateColorSpace,BelongsToAnnotation,BlackGeneration,BlendMode,ColorSpace,EmbeddedPS,Flatness,HasSoftMask,HalfTone,HalfTonePhase")
+	+WString(L",HasColorLUT,NumberOfColorsInLUT,OverPrintFlag,OverPrintMode,RenderingIntent,Smoothness,TransferFunction,TransparencyFlag,UnderColorRemoval,AlternateImages,BitsPerSample,CompressionRatio,CompressionTypes,EffectiveResolution,EstimatedJPEGQuality,ImageFlipped,ImageMaskType,ImageRotation,ImageScalingRatio")
+	+WString(L",ImageSkew,OriginalResolution,PixelHeight,PixelWidth,Count,PageBoxType,BlankPage,BlendColorSpace,PageHasOptionalContent,PageHasUnknownObjects,PageScalingFactor,ReversePageNumber,PDLType,ExternalReferenceMissing,HasExternalReference,HasOPI,OPIMissing,OPIType,OPIVersion")
+	+WString(L",ShadingType,HasStrokeColor,StrokeAlternateColorSpace,StrokeColorName,StrokeColorSpace,StrokeColorType,StrokeOverprintFlag,StrokeShadingType,StrokeThickness,CharacterProblem,MissingPrinterFont,MissingScreenFont,TextSize,UseArtificialTextEffect,NumberOfPathPoints");
 };
 
 /**
@@ -440,6 +440,11 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidIsDoubleByteFont(level)) {
+			vAtts.push_back(atr_IsDoubleByteFont);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidIsFontScreenOnly(level)) {
 			vAtts.push_back(atr_IsFontScreenOnly);
 			if(++n>=nMax)
@@ -640,8 +645,18 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidPageHasOptionalContent(level)) {
+			vAtts.push_back(atr_PageHasOptionalContent);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidPageHasUnknownObjects(level)) {
 			vAtts.push_back(atr_PageHasUnknownObjects);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPageScalingFactor(level)) {
+			vAtts.push_back(atr_PageScalingFactor);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -1956,6 +1971,23 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 		return ValidAttribute(atr_FontVendor,AttributeType_string,false);
 	};
 /**
+* Set attribute IsDoubleByteFont
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoPRGroupOccurrenceBase::SetIsDoubleByteFont(bool value){
+	SetAttribute(atr_IsDoubleByteFont,WString::valueOf(value));
+};
+/**
+* Get bool attribute IsDoubleByteFont
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoPRGroupOccurrenceBase::GetIsDoubleByteFont() const {return GetBoolAttribute(atr_IsDoubleByteFont,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPRGroupOccurrenceBase::ValidIsDoubleByteFont(EnumValidationLevel level) const {
+		return ValidAttribute(atr_IsDoubleByteFont,AttributeType_boolean,false);
+	};
+/**
 * Set attribute IsFontScreenOnly
 *@param bool value: the value to set the attribute to
 */
@@ -2758,6 +2790,23 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 		return ValidEnumAttribute(atr_BlendColorSpace,BlendColorSpaceString(),false);
 	};
 /**
+* Set attribute PageHasOptionalContent
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoPRGroupOccurrenceBase::SetPageHasOptionalContent(bool value){
+	SetAttribute(atr_PageHasOptionalContent,WString::valueOf(value));
+};
+/**
+* Get bool attribute PageHasOptionalContent
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoPRGroupOccurrenceBase::GetPageHasOptionalContent() const {return GetBoolAttribute(atr_PageHasOptionalContent,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPRGroupOccurrenceBase::ValidPageHasOptionalContent(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PageHasOptionalContent,AttributeType_boolean,false);
+	};
+/**
 * Set attribute PageHasUnknownObjects
 *@param bool value: the value to set the attribute to
 */
@@ -2773,6 +2822,24 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPRGroupOccurrenceBase::ValidPageHasUnknownObjects(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PageHasUnknownObjects,AttributeType_boolean,false);
+	};
+/**
+* Set attribute PageScalingFactor
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoPRGroupOccurrenceBase::SetPageScalingFactor(double value){
+	SetAttribute(atr_PageScalingFactor,WString::valueOf(value));
+};
+/**
+* Get double attribute PageScalingFactor
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoPRGroupOccurrenceBase::GetPageScalingFactor() const {
+	return GetRealAttribute(atr_PageScalingFactor,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPRGroupOccurrenceBase::ValidPageScalingFactor(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PageScalingFactor,AttributeType_double,false);
 	};
 /**
 * Set attribute ReversePageNumber

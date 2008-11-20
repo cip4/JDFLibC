@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -91,6 +91,8 @@ class JDFDynamicField;
 class JDFIdentificationField;
 class JDFJobField;
 class JDFLayoutElement;
+class JDFMarkActivation;
+class JDFRefAnchor;
 class JDFRegisterMark;
 class JDFScavengerArea;
 class JDFRefElement;
@@ -174,6 +176,11 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute Anchor
+*/
+
+	enum EnumAnchor{Anchor_Unknown,Anchor_TopLeft,Anchor_TopCenter,Anchor_TopRight,Anchor_CenterLeft,Anchor_Center,Anchor_CenterRight,Anchor_BottomLeft,Anchor_BottomCenter,Anchor_BottomRight};
+/**
 * Enumeration for attribute Type
 */
 
@@ -190,13 +197,29 @@ public:
 	virtual WString OptionalAttributes()const;
 
 /**
+* Set attribute ContentRef
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetContentRef(const WString& value);
+/**
+* Get string attribute ContentRef
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetContentRef() const;
+/**
+* Typesafe attribute validation of ContentRef
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidContentRef(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute LayoutElementPageNum
 *@param int value: the value to set the attribute to
 */
 	virtual void SetLayoutElementPageNum(int value);
 /**
 * Get integer attribute LayoutElementPageNum
-* @return int the vaue of the attribute ; defaults to 0
+* @return int the vaue of the attribute 
 */
 	virtual int GetLayoutElementPageNum() const;
 /**
@@ -221,6 +244,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for Anchor
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& AnchorString();
+/**
+* Enumeration string for enum value
+* @param EnumAnchor value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString AnchorString(EnumAnchor value);
+/**
+* Set attribute Anchor
+* @param EnumAnchor value the value to set the attribute to
+*/
+	virtual void SetAnchor( EnumAnchor value);
+
+/**
+* Typesafe enumerated attribute Anchor
+* @return EnumAnchorthe enumeration value of the attribute
+*/
+	virtual EnumAnchor GetAnchor() const;
+
+/**
+* Typesafe attribute validation of Anchor
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidAnchor(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ClipBox
 *@param JDFRectangle value: the value to set the attribute to
@@ -253,6 +305,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidClipPath(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute CompensationCTM
+*@param JDFMatrix value: the value to set the attribute to
+*/
+	virtual void SetCompensationCTM(const JDFMatrix& value);
+/**
+* Get string attribute CompensationCTM
+* @return JDFMatrix the vaue of the attribute 
+*/
+	virtual JDFMatrix GetCompensationCTM() const;
+/**
+* Typesafe attribute validation of CompensationCTM
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCompensationCTM(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute CTM
 *@param JDFMatrix value: the value to set the attribute to
@@ -333,6 +401,38 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidSourceClipPath(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute StackOrd
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetStackOrd(int value);
+/**
+* Get integer attribute StackOrd
+* @return int the vaue of the attribute 
+*/
+	virtual int GetStackOrd() const;
+/**
+* Typesafe attribute validation of StackOrd
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidStackOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TrimClipPath
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetTrimClipPath(const WString& value);
+/**
+* Get string attribute TrimClipPath
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetTrimClipPath() const;
+/**
+* Typesafe attribute validation of TrimClipPath
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTrimClipPath(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute TrimCTM
 *@param JDFMatrix value: the value to set the attribute to
@@ -607,6 +707,48 @@ public:
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefLayoutElement(JDFLayoutElement& refTarget);
+
+/** Get Element MarkActivation
+* 
+* @param int iSkip number of elements to skip
+* @return JDFMarkActivation The element
+*/
+	JDFMarkActivation GetCreateMarkActivation(int iSkip=0);
+
+/**
+* const get element MarkActivation
+* @param int iSkip number of elements to skip
+* @return JDFMarkActivation The element
+*/
+	JDFMarkActivation GetMarkActivation(int iSkip=0)const;
+/**
+* Append element MarkActivation
+ */
+	JDFMarkActivation AppendMarkActivation();
+
+/** Get Element RefAnchor
+* 
+* @param int iSkip number of elements to skip
+* @return JDFRefAnchor The element
+*/
+	JDFRefAnchor GetCreateRefAnchor(int iSkip=0);
+
+/**
+* const get element RefAnchor
+* @param int iSkip number of elements to skip
+* @return JDFRefAnchor The element
+*/
+	JDFRefAnchor GetRefAnchor(int iSkip=0)const;
+/**
+* Append element RefAnchor
+ */
+	JDFRefAnchor AppendRefAnchor();
+/**
+* create inter-resource link to refTarget
+* @param JDFRefAnchor& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefRefAnchor(JDFRefAnchor& refTarget);
 
 /** Get Element RegisterMark
 * 

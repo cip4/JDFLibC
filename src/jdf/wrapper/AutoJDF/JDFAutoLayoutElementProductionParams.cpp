@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,7 +75,10 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLayoutElementProductionParams.h"
+#include "jdf/wrapper/JDFActionPool.h"
 #include "jdf/wrapper/JDFLayoutElementPart.h"
+#include "jdf/wrapper/JDFShapeDef.h"
+#include "jdf/wrapper/JDFTestPool.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -142,6 +145,26 @@ bool JDFAutoLayoutElementProductionParams::init(){
 **************************************************************** */
 
 
+JDFActionPool JDFAutoLayoutElementProductionParams::GetActionPool(int iSkip)const{
+	JDFActionPool e=GetElement(elm_ActionPool,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActionPool JDFAutoLayoutElementProductionParams::GetCreateActionPool(int iSkip){
+	JDFActionPool e=GetCreateElement(elm_ActionPool,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActionPool JDFAutoLayoutElementProductionParams::AppendActionPool(){
+	JDFActionPool e=AppendElement(elm_ActionPool);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFLayoutElementPart JDFAutoLayoutElementProductionParams::GetLayoutElementPart(int iSkip)const{
 	JDFLayoutElementPart e=GetElement(elm_LayoutElementPart,WString::emptyStr,iSkip);
 	return e;
@@ -162,6 +185,51 @@ JDFLayoutElementPart JDFAutoLayoutElementProductionParams::AppendLayoutElementPa
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFShapeDef JDFAutoLayoutElementProductionParams::GetShapeDef()const{
+	JDFShapeDef e=GetElement(elm_ShapeDef);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeDef JDFAutoLayoutElementProductionParams::GetCreateShapeDef(){
+	JDFShapeDef e=GetCreateElement(elm_ShapeDef);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeDef JDFAutoLayoutElementProductionParams::AppendShapeDef(){
+	JDFShapeDef e=AppendElementN(elm_ShapeDef,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLayoutElementProductionParams::RefShapeDef(JDFShapeDef& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTestPool JDFAutoLayoutElementProductionParams::GetTestPool(int iSkip)const{
+	JDFTestPool e=GetElement(elm_TestPool,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTestPool JDFAutoLayoutElementProductionParams::GetCreateTestPool(int iSkip){
+	JDFTestPool e=GetCreateElement(elm_TestPool,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTestPool JDFAutoLayoutElementProductionParams::AppendTestPool(){
+	JDFTestPool e=AppendElement(elm_TestPool);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -172,6 +240,18 @@ JDFLayoutElementPart JDFAutoLayoutElementProductionParams::AppendLayoutElementPa
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_ActionPool);
+		if(nElem>0){ //bound error
+			vElem.AppendUnique(elm_ActionPool);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetActionPool().IsValid(level)) {
+				vElem.AppendUnique(elm_ActionPool);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_LayoutElementPart);
 
 		for(i=0;i<nElem;i++){
@@ -182,14 +262,45 @@ JDFLayoutElementPart JDFAutoLayoutElementProductionParams::AppendLayoutElementPa
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_ShapeDef);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ShapeDef);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetShapeDef().IsValid(level)) {
+				vElem.AppendUnique(elm_ShapeDef);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_TestPool);
+		if(nElem>0){ //bound error
+			vElem.AppendUnique(elm_TestPool);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetTestPool().IsValid(level)) {
+				vElem.AppendUnique(elm_TestPool);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		return vElem;
 	};
 
 
 /**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoLayoutElementProductionParams::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",ShapeDef";
+	};
+
+/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayoutElementProductionParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",LayoutElementPart";
+		return JDFResource::OptionalElements()+L",ActionPool,LayoutElementPart,ShapeDef,TestPool";
 	};
 }; // end namespace JDF

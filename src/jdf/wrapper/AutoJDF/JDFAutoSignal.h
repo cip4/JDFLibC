@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFMessage.h"
 namespace JDF{
+class JDFEmployee;
+class JDFEmployee;
 class JDFNotification;
 class JDFTrigger;
 class JDFRefElement;
@@ -164,12 +166,46 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
+/**
+* Enumeration for attribute ChannelMode
+*/
+
+	enum EnumChannelMode{ChannelMode_Unknown,ChannelMode_FireAndForget,ChannelMode_Reliable};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for ChannelMode
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ChannelModeString();
+/**
+* Enumeration string for enum value
+* @param EnumChannelMode value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ChannelModeString(EnumChannelMode value);
+/**
+* Set attribute ChannelMode
+* @param EnumChannelMode value the value to set the attribute to
+*/
+	virtual void SetChannelMode( EnumChannelMode value);
+
+/**
+* Typesafe enumerated attribute ChannelMode; defaults to FireAndForget
+* @return EnumChannelModethe enumeration value of the attribute
+*/
+	virtual EnumChannelMode GetChannelMode() const;
+
+/**
+* Typesafe attribute validation of ChannelMode
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidChannelMode(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute LastRepeat
 *@param bool value: the value to set the attribute to
@@ -207,6 +243,24 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Employee
+* 
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetCreateEmployee(int iSkip=0);
+
+/**
+* const get element Employee
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetEmployee(int iSkip=0)const;
+/**
+* Append element Employee
+ */
+	JDFEmployee AppendEmployee();
 
 /** Get Element Notification
 * 

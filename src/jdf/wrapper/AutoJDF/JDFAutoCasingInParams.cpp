@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoCasingInParams.h"
+#include "jdf/wrapper/JDFGlueLine.h"
 #include "jdf/wrapper/JDFGlueLine.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -172,6 +173,31 @@ bool JDFAutoCasingInParams::init(){
 **************************************************************** */
 
 
+JDFGlueLine JDFAutoCasingInParams::GetGlueApplication(int iSkip)const{
+	JDFGlueLine e=GetElement(elm_GlueApplication,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFGlueLine JDFAutoCasingInParams::GetCreateGlueApplication(int iSkip){
+	JDFGlueLine e=GetCreateElement(elm_GlueApplication,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFGlueLine JDFAutoCasingInParams::AppendGlueApplication(){
+	JDFGlueLine e=AppendElement(elm_GlueApplication);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoCasingInParams::RefGlueApplication(JDFGlueLine& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFGlueLine JDFAutoCasingInParams::GetGlueLine(int iSkip)const{
 	JDFGlueLine e=GetElement(elm_GlueLine,WString::emptyStr,iSkip);
 	return e;
@@ -207,12 +233,17 @@ JDFRefElement JDFAutoCasingInParams::RefGlueLine(JDFGlueLine& refTarget){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
-		nElem=NumChildElements(elm_GlueLine);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_GlueLine);
-			if (++n>=nMax)
-			return vElem;
+		nElem=NumChildElements(elm_GlueApplication);
+
+		for(i=0;i<nElem;i++){
+			if (!GetGlueApplication(i).IsValid(level)) {
+				vElem.AppendUnique(elm_GlueApplication);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
 		}
+		nElem=NumChildElements(elm_GlueLine);
 
 		for(i=0;i<nElem;i++){
 			if (!GetGlueLine(i).IsValid(level)) {
@@ -227,9 +258,9 @@ JDFRefElement JDFAutoCasingInParams::RefGlueLine(JDFGlueLine& refTarget){
 
 
 /**
- definition of required elements in the JDF namespace
+ definition of optional elements in the JDF namespace
 */
-	WString JDFAutoCasingInParams::RequiredElements()const{
-		return JDFResource::RequiredElements()+L",GlueLine";
+	WString JDFAutoCasingInParams::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",GlueApplication,GlueLine";
 	};
 }; // end namespace JDF

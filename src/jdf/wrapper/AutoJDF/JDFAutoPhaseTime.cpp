@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -122,14 +122,14 @@ JDFAutoPhaseTime& JDFAutoPhaseTime::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoPhaseTime::RequiredAttributes()const{
-		return JDFAudit::RequiredAttributes()+L",End,Start,Status";
+		return JDFAudit::RequiredAttributes()+L",Start,Status";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPhaseTime::OptionalAttributes()const{
-		return JDFAudit::OptionalAttributes()+WString(L",StatusDetails");
+		return JDFAudit::OptionalAttributes()+WString(L",End,StatusDetails");
 };
 
 /**
@@ -179,7 +179,7 @@ JDFAutoPhaseTime& JDFAutoPhaseTime::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPhaseTime::ValidEnd(EnumValidationLevel level) const {
-		return ValidAttribute(atr_End,AttributeType_dateTime,RequiredLevel(level));
+		return ValidAttribute(atr_End,AttributeType_dateTime,false);
 	};
 /**
 * Set attribute Start

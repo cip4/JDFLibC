@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -118,7 +118,7 @@ JDFAutoColorCorrectionOp& JDFAutoColorCorrectionOp::operator=(const KElement& ot
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColorCorrectionOp::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",SourceObjects,AdjustCyanRed,AdjustMagentaGreen,AdjustYellowBlue,AdjustContrast,AdjustHue,AdjustLightness,AdjustSaturation");
+		return JDFElement::OptionalAttributes()+WString(L",SourceObjects,AdjustCyanRed,AdjustMagentaGreen,AdjustYellowBlue,AdjustContrast,AdjustHue,AdjustLightness,AdjustSaturation,ObjectTags");
 };
 
 /**
@@ -166,6 +166,11 @@ JDFAutoColorCorrectionOp& JDFAutoColorCorrectionOp::operator=(const KElement& ot
 		};
 		if(!ValidAdjustSaturation(level)) {
 			vAtts.push_back(atr_AdjustSaturation);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidObjectTags(level)) {
+			vAtts.push_back(atr_ObjectTags);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -339,6 +344,24 @@ JDFAutoColorCorrectionOp& JDFAutoColorCorrectionOp::operator=(const KElement& ot
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorCorrectionOp::ValidAdjustSaturation(EnumValidationLevel level) const {
 		return ValidAttribute(atr_AdjustSaturation,AttributeType_double,false);
+	};
+/**
+* Set attribute ObjectTags
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoColorCorrectionOp::SetObjectTags(const vWString& value){
+	SetAttribute(atr_ObjectTags,value);
+};
+/**
+* Get string attribute ObjectTags
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoColorCorrectionOp::GetObjectTags() const {
+	return GetAttribute(atr_ObjectTags,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorCorrectionOp::ValidObjectTags(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ObjectTags,AttributeType_NMTOKENS,false);
 	};
 
 /* ******************************************************

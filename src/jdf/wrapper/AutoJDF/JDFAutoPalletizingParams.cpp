@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPalletizingParams.h"
+#include "jdf/wrapper/JDFBundle.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -127,7 +129,7 @@ bool JDFAutoPalletizingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPalletizingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Pattern,MaxHeight,MaxWeight");
+		return JDFResource::OptionalAttributes()+WString(L",LayerAmount,MaxHeight,MaxWeight,Overhang,OverhangOffset,Pattern");
 };
 
 /**
@@ -138,8 +140,8 @@ bool JDFAutoPalletizingParams::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidPattern(level)) {
-			vAtts.push_back(atr_Pattern);
+		if(!ValidLayerAmount(level)) {
+			vAtts.push_back(atr_LayerAmount);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -153,26 +155,41 @@ bool JDFAutoPalletizingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidOverhang(level)) {
+			vAtts.push_back(atr_Overhang);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidOverhangOffset(level)) {
+			vAtts.push_back(atr_OverhangOffset);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPattern(level)) {
+			vAtts.push_back(atr_Pattern);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
 /**
-* Set attribute Pattern
-*@param WString value: the value to set the attribute to
+* Set attribute LayerAmount
+*@param JDFIntegerList value: the value to set the attribute to
 */
-	 void JDFAutoPalletizingParams::SetPattern(const WString& value){
-	SetAttribute(atr_Pattern,value);
+	 void JDFAutoPalletizingParams::SetLayerAmount(const JDFIntegerList& value){
+	SetAttribute(atr_LayerAmount,value.GetString());
 };
 /**
-* Get string attribute Pattern
-* @return WString the vaue of the attribute 
+* Get string attribute LayerAmount
+* @return JDFIntegerList the vaue of the attribute 
 */
-	 WString JDFAutoPalletizingParams::GetPattern() const {
-	return GetAttribute(atr_Pattern,WString::emptyStr);
+	 JDFIntegerList JDFAutoPalletizingParams::GetLayerAmount() const {
+	return GetAttribute(atr_LayerAmount,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPalletizingParams::ValidPattern(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Pattern,AttributeType_string,false);
+	bool JDFAutoPalletizingParams::ValidLayerAmount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LayerAmount,AttributeType_IntegerList,false);
 	};
 /**
 * Set attribute MaxHeight
@@ -209,5 +226,120 @@ bool JDFAutoPalletizingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPalletizingParams::ValidMaxWeight(EnumValidationLevel level) const {
 		return ValidAttribute(atr_MaxWeight,AttributeType_double,false);
+	};
+/**
+* Set attribute Overhang
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	 void JDFAutoPalletizingParams::SetOverhang(const JDFXYPair& value){
+	SetAttribute(atr_Overhang,value);
+};
+/**
+* Get string attribute Overhang
+* @return JDFXYPair the vaue of the attribute 
+*/
+	 JDFXYPair JDFAutoPalletizingParams::GetOverhang() const {
+	return GetAttribute(atr_Overhang,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPalletizingParams::ValidOverhang(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Overhang,AttributeType_XYPair,false);
+	};
+/**
+* Set attribute OverhangOffset
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	 void JDFAutoPalletizingParams::SetOverhangOffset(const JDFXYPair& value){
+	SetAttribute(atr_OverhangOffset,value);
+};
+/**
+* Get string attribute OverhangOffset
+* @return JDFXYPair the vaue of the attribute 
+*/
+	 JDFXYPair JDFAutoPalletizingParams::GetOverhangOffset() const {
+	return GetAttribute(atr_OverhangOffset,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPalletizingParams::ValidOverhangOffset(EnumValidationLevel level) const {
+		return ValidAttribute(atr_OverhangOffset,AttributeType_XYPair,false);
+	};
+/**
+* Set attribute Pattern
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPalletizingParams::SetPattern(const WString& value){
+	SetAttribute(atr_Pattern,value);
+};
+/**
+* Get string attribute Pattern
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPalletizingParams::GetPattern() const {
+	return GetAttribute(atr_Pattern,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPalletizingParams::ValidPattern(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Pattern,AttributeType_string,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFBundle JDFAutoPalletizingParams::GetBundle(int iSkip)const{
+	JDFBundle e=GetElement(elm_Bundle,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFBundle JDFAutoPalletizingParams::GetCreateBundle(int iSkip){
+	JDFBundle e=GetCreateElement(elm_Bundle,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFBundle JDFAutoPalletizingParams::AppendBundle(){
+	JDFBundle e=AppendElement(elm_Bundle);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoPalletizingParams::RefBundle(JDFBundle& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoPalletizingParams::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_Bundle);
+
+		for(i=0;i<nElem;i++){
+			if (!GetBundle(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Bundle);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoPalletizingParams::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",Bundle";
 	};
 }; // end namespace JDF

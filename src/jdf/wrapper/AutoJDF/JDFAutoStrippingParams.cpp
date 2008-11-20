@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -135,7 +135,7 @@ bool JDFAutoStrippingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStrippingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",AssemblyID,AssemblyIDs,JobID,SectionList,WorkStyle");
+		return JDFResource::OptionalAttributes()+WString(L",AssemblyID,AssemblyIDs,Automated,InnermostShingling,JobID,OutermostShingling,SectionList,SheetNameFormat,SheetNameTemplate,StackDepth,WorkStyle");
 };
 
 /**
@@ -156,13 +156,43 @@ bool JDFAutoStrippingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidAutomated(level)) {
+			vAtts.push_back(atr_Automated);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidInnermostShingling(level)) {
+			vAtts.push_back(atr_InnermostShingling);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidJobID(level)) {
 			vAtts.push_back(atr_JobID);
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidOutermostShingling(level)) {
+			vAtts.push_back(atr_OutermostShingling);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidSectionList(level)) {
 			vAtts.push_back(atr_SectionList);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSheetNameFormat(level)) {
+			vAtts.push_back(atr_SheetNameFormat);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSheetNameTemplate(level)) {
+			vAtts.push_back(atr_SheetNameTemplate);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidStackDepth(level)) {
+			vAtts.push_back(atr_StackDepth);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -211,6 +241,41 @@ bool JDFAutoStrippingParams::init(){
 		return ValidAttribute(atr_AssemblyIDs,AttributeType_NMTOKENS,false);
 	};
 /**
+* Set attribute Automated
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoStrippingParams::SetAutomated(bool value){
+	SetAttribute(atr_Automated,WString::valueOf(value));
+};
+/**
+* Get bool attribute Automated
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoStrippingParams::GetAutomated() const {return GetBoolAttribute(atr_Automated,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStrippingParams::ValidAutomated(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Automated,AttributeType_boolean,false);
+	};
+/**
+* Set attribute InnermostShingling
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoStrippingParams::SetInnermostShingling(double value){
+	SetAttribute(atr_InnermostShingling,WString::valueOf(value));
+};
+/**
+* Get double attribute InnermostShingling
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoStrippingParams::GetInnermostShingling() const {
+	return GetRealAttribute(atr_InnermostShingling,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStrippingParams::ValidInnermostShingling(EnumValidationLevel level) const {
+		return ValidAttribute(atr_InnermostShingling,AttributeType_double,false);
+	};
+/**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to
 */
@@ -227,6 +292,24 @@ bool JDFAutoStrippingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStrippingParams::ValidJobID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_JobID,AttributeType_shortString,false);
+	};
+/**
+* Set attribute OutermostShingling
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoStrippingParams::SetOutermostShingling(double value){
+	SetAttribute(atr_OutermostShingling,WString::valueOf(value));
+};
+/**
+* Get double attribute OutermostShingling
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoStrippingParams::GetOutermostShingling() const {
+	return GetRealAttribute(atr_OutermostShingling,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStrippingParams::ValidOutermostShingling(EnumValidationLevel level) const {
+		return ValidAttribute(atr_OutermostShingling,AttributeType_double,false);
 	};
 /**
 * Set attribute SectionList
@@ -246,10 +329,64 @@ bool JDFAutoStrippingParams::init(){
 	bool JDFAutoStrippingParams::ValidSectionList(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SectionList,AttributeType_IntegerList,false);
 	};
+/**
+* Set attribute SheetNameFormat
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoStrippingParams::SetSheetNameFormat(const WString& value){
+	SetAttribute(atr_SheetNameFormat,value);
+};
+/**
+* Get string attribute SheetNameFormat
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoStrippingParams::GetSheetNameFormat() const {
+	return GetAttribute(atr_SheetNameFormat,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStrippingParams::ValidSheetNameFormat(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SheetNameFormat,AttributeType_string,false);
+	};
+/**
+* Set attribute SheetNameTemplate
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoStrippingParams::SetSheetNameTemplate(const WString& value){
+	SetAttribute(atr_SheetNameTemplate,value);
+};
+/**
+* Get string attribute SheetNameTemplate
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoStrippingParams::GetSheetNameTemplate() const {
+	return GetAttribute(atr_SheetNameTemplate,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStrippingParams::ValidSheetNameTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SheetNameTemplate,AttributeType_string,false);
+	};
+/**
+* Set attribute StackDepth
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoStrippingParams::SetStackDepth(int value){
+	SetAttribute(atr_StackDepth,WString::valueOf(value));
+};
+/**
+* Get integer attribute StackDepth
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoStrippingParams::GetStackDepth() const {
+	return GetIntAttribute(atr_StackDepth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStrippingParams::ValidStackDepth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StackDepth,AttributeType_integer,false);
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoStrippingParams::WorkStyleString(){
-		static const WString enums=WString(L"Unknown,Simplex,WorkAndBack,Perfecting,WorkAndTurn,WorkAndTumble,WorkAndTwist");
+		static const WString enums=WString(L"Unknown,Simplex,Perfecting,WorkAndBack,WorkAndTurn,WorkAndTumble,WorkAndTwist");
 		return enums;
 	};
 

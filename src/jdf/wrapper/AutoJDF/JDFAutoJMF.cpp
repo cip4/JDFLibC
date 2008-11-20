@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoJMF.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFCommand.h"
 #include "jdf/wrapper/JDFAcknowledge.h"
 #include "jdf/wrapper/JDFResponse.h"
@@ -123,7 +124,7 @@ JDFAutoJMF& JDFAutoJMF::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoJMF::OptionalAttributes()const{
-		return JDFPool::OptionalAttributes()+WString(L",DeviceID,ICSVersions,MaxVersion,ResponseURL");
+		return JDFPool::OptionalAttributes()+WString(L",AgentName,AgentVersion,DeviceID,ICSVersions,MaxVersion,ResponseURL");
 };
 
 /**
@@ -134,6 +135,16 @@ JDFAutoJMF& JDFAutoJMF::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidAgentName(level)) {
+			vAtts.push_back(atr_AgentName);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidAgentVersion(level)) {
+			vAtts.push_back(atr_AgentVersion);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidDeviceID(level)) {
 			vAtts.push_back(atr_DeviceID);
 			if(++n>=nMax)
@@ -172,6 +183,42 @@ JDFAutoJMF& JDFAutoJMF::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute AgentName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoJMF::SetAgentName(const WString& value){
+	SetAttribute(atr_AgentName,value);
+};
+/**
+* Get string attribute AgentName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoJMF::GetAgentName() const {
+	return GetAttribute(atr_AgentName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoJMF::ValidAgentName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AgentName,AttributeType_string,false);
+	};
+/**
+* Set attribute AgentVersion
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoJMF::SetAgentVersion(const WString& value){
+	SetAttribute(atr_AgentVersion,value);
+};
+/**
+* Get string attribute AgentVersion
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoJMF::GetAgentVersion() const {
+	return GetAttribute(atr_AgentVersion,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoJMF::ValidAgentVersion(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AgentVersion,AttributeType_string,false);
+	};
 /**
 * Set attribute DeviceID
 *@param WString value: the value to set the attribute to
@@ -304,6 +351,26 @@ JDFAutoJMF& JDFAutoJMF::operator=(const KElement& other){
 **************************************************************** */
 
 
+JDFEmployee JDFAutoJMF::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoJMF::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoJMF::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFCommand JDFAutoJMF::GetCommand(int iSkip)const{
 	JDFCommand e=GetElement(elm_Command,WString::emptyStr,iSkip);
 	return e;
@@ -404,7 +471,6 @@ JDFQuery JDFAutoJMF::AppendQuery(){
 };
 /////////////////////////////////////////////////////////////////////
 
-
 JDFRegistration JDFAutoJMF::GetRegistration(int iSkip)const{
 	JDFRegistration e=GetElement(elm_Registration,WString::emptyStr,iSkip);
 	return e;
@@ -435,6 +501,16 @@ JDFRegistration JDFAutoJMF::AppendRegistration(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Command);
 
 		for(i=0;i<nElem;i++){
@@ -503,6 +579,6 @@ JDFRegistration JDFAutoJMF::AppendRegistration(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoJMF::OptionalElements()const{
-		return JDFPool::OptionalElements()+L",Command,Acknowledge,Response,Signal,Query,Registration";
+		return JDFPool::OptionalElements()+L",Employee,Command,Acknowledge,Response,Signal,Query,Registration";
 	};
 }; // end namespace JDF

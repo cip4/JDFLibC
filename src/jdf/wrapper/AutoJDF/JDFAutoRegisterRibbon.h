@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -166,11 +166,6 @@ virtual bool init();
 
 
 /**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
-
-/**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
@@ -191,22 +186,6 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidLengthOverall(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute VisibleLength
-*@param double value: the value to set the attribute to
-*/
-	virtual void SetVisibleLength(double value);
-/**
-* Get double attribute VisibleLength
-* @return double the vaue of the attribute 
-*/
-	virtual double GetVisibleLength() const;
-/**
-* Typesafe attribute validation of VisibleLength
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidVisibleLength(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Material
 *@param WString value: the value to set the attribute to
@@ -242,6 +221,22 @@ virtual bool init();
 */
 	virtual bool ValidRibbonColor(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute RibbonColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetRibbonColorDetails(const WString& value);
+/**
+* Get string attribute RibbonColorDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetRibbonColorDetails() const;
+/**
+* Typesafe attribute validation of RibbonColorDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRibbonColorDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute RibbonEnd
 *@param WString value: the value to set the attribute to
 */
@@ -257,6 +252,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidRibbonEnd(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute VisibleLength
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetVisibleLength(double value);
+/**
+* Get double attribute VisibleLength
+* @return double the vaue of the attribute 
+*/
+	virtual double GetVisibleLength() const;
+/**
+* Typesafe attribute validation of VisibleLength
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidVisibleLength(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

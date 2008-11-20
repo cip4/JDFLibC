@@ -293,20 +293,6 @@ namespace JDF{
 		return testResult;
 	}
 
-	//////////////////////////////////////////////////////////////////////
-	void JDFDevCaps::SetDevCapRef(const WString& value){
-		SetAttribute(atr_DevCapRef,value);
-	};
-	//////////////////////////////////////////////////////////////////////
-
-	WString JDFDevCaps::GetDevCapRef() const {
-		return GetAttribute(atr_DevCapRef,WString::emptyStr);
-	};
-	//////////////////////////////////////////////////////////////////////
-
-	bool JDFDevCaps::ValidDevCapRef(EnumValidationLevel level) const {
-		return ValidAttribute(atr_DevCapRef,AttributeType_IDREF,false);
-	};
 
 	//////////////////////////////////////////////////////////////////////
 	void JDFDevCaps::SetModuleRefs(const vWString& value){

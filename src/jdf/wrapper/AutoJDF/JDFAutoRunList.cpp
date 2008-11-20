@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -135,8 +135,8 @@ bool JDFAutoRunList::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoRunList::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ComponentGranularity,IsPage,PageCopies,SetCopies,Directory,DocNames,Docs,EndOfBundleItem,EndOfDocument,EndOfSet,FirstPage,LogicalPage,NDoc,NPage,NSet,PageListIndex,PageNames,Pages,RunTag")
-	+WString(L",SetNames,Sets,SkipPage,Sorted");
+		return JDFResource::OptionalAttributes()+WString(L",IsPage,PageCopies,SetCopies,ComponentGranularity,Directory,DocNames,Docs,EndOfBundleItem,EndOfDocument,EndOfSet,FirstPage,IgnoreContext,LogicalPage,NDoc,NPage,NSet,PageListIndex,PageNames,Pages")
+	+WString(L",RunTag,SetNames,Sets,SheetSides,SkipPage,Sorted");
 };
 
 /**
@@ -147,11 +147,6 @@ bool JDFAutoRunList::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidComponentGranularity(level)) {
-			vAtts.push_back(atr_ComponentGranularity);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidIsPage(level)) {
 			vAtts.push_back(atr_IsPage);
 			if(++n>=nMax)
@@ -164,6 +159,11 @@ bool JDFAutoRunList::init(){
 		};
 		if(!ValidSetCopies(level)) {
 			vAtts.push_back(atr_SetCopies);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidComponentGranularity(level)) {
+			vAtts.push_back(atr_ComponentGranularity);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -199,6 +199,11 @@ bool JDFAutoRunList::init(){
 		};
 		if(!ValidFirstPage(level)) {
 			vAtts.push_back(atr_FirstPage);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidIgnoreContext(level)) {
+			vAtts.push_back(atr_IgnoreContext);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -252,6 +257,11 @@ bool JDFAutoRunList::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidSheetSides(level)) {
+			vAtts.push_back(atr_SheetSides);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidSkipPage(level)) {
 			vAtts.push_back(atr_SkipPage);
 			if(++n>=nMax)
@@ -265,31 +275,6 @@ bool JDFAutoRunList::init(){
 		return vAtts;
 	};
 
-///////////////////////////////////////////////////////////////////////
-
-	const WString& JDFAutoRunList::ComponentGranularityString(){
-		static const WString enums=WString(L"Unknown,Page,Document,Set,All,BundleItem");
-		return enums;
-	};
-
-///////////////////////////////////////////////////////////////////////
-
-	WString JDFAutoRunList::ComponentGranularityString(EnumComponentGranularity value){
-		return ComponentGranularityString().Token(value,WString::comma);
-	};
-
-/////////////////////////////////////////////////////////////////////////
-	void JDFAutoRunList::SetComponentGranularity( EnumComponentGranularity value){
-	SetEnumAttribute(atr_ComponentGranularity,value,ComponentGranularityString());
-};
-/////////////////////////////////////////////////////////////////////////
-	 JDFAutoRunList::EnumComponentGranularity JDFAutoRunList:: GetComponentGranularity() const {
-	return (EnumComponentGranularity) GetEnumAttribute(atr_ComponentGranularity,ComponentGranularityString(),WString::emptyStr,ComponentGranularity_Document);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoRunList::ValidComponentGranularity(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_ComponentGranularity,ComponentGranularityString(),false);
-	};
 /**
 * Set attribute IsPage
 *@param bool value: the value to set the attribute to
@@ -342,6 +327,31 @@ bool JDFAutoRunList::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRunList::ValidSetCopies(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SetCopies,AttributeType_integer,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoRunList::ComponentGranularityString(){
+		static const WString enums=WString(L"Unknown,Page,Document,Set,All,BundleItem");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoRunList::ComponentGranularityString(EnumComponentGranularity value){
+		return ComponentGranularityString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoRunList::SetComponentGranularity( EnumComponentGranularity value){
+	SetEnumAttribute(atr_ComponentGranularity,value,ComponentGranularityString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoRunList::EnumComponentGranularity JDFAutoRunList:: GetComponentGranularity() const {
+	return (EnumComponentGranularity) GetEnumAttribute(atr_ComponentGranularity,ComponentGranularityString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRunList::ValidComponentGranularity(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ComponentGranularity,ComponentGranularityString(),false);
 	};
 /**
 * Set attribute Directory
@@ -465,6 +475,24 @@ bool JDFAutoRunList::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRunList::ValidFirstPage(EnumValidationLevel level) const {
 		return ValidAttribute(atr_FirstPage,AttributeType_integer,false);
+	};
+/**
+* Set attribute IgnoreContext
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoRunList::SetIgnoreContext(const vWString& value){
+	SetAttribute(atr_IgnoreContext,value);
+};
+/**
+* Get string attribute IgnoreContext
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoRunList::GetIgnoreContext() const {
+	return GetAttribute(atr_IgnoreContext,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRunList::ValidIgnoreContext(EnumValidationLevel level) const {
+		return ValidAttribute(atr_IgnoreContext,AttributeType_NMTOKENS,false);
 	};
 /**
 * Set attribute LogicalPage
@@ -645,6 +673,31 @@ bool JDFAutoRunList::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRunList::ValidSets(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Sets,AttributeType_IntegerRangeList,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoRunList::SheetSidesString(){
+		static const WString enums=WString(L"Unknown,Front,Back,FrontBack,BackFront");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoRunList::SheetSidesString(EnumSheetSides value){
+		return SheetSidesString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoRunList::SetSheetSides( EnumSheetSides value){
+	SetEnumAttribute(atr_SheetSides,value,SheetSidesString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoRunList::EnumSheetSides JDFAutoRunList:: GetSheetSides() const {
+	return (EnumSheetSides) GetEnumAttribute(atr_SheetSides,SheetSidesString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRunList::ValidSheetSides(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_SheetSides,SheetSidesString(),false);
 	};
 /**
 * Set attribute SkipPage

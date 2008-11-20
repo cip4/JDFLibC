@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,7 +82,10 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFActionPool;
 class JDFLayoutElementPart;
+class JDFShapeDef;
+class JDFTestPool;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -181,6 +184,24 @@ virtual bool init();
 **************************************************************** */
 
 
+/** Get Element ActionPool
+* 
+* @param int iSkip number of elements to skip
+* @return JDFActionPool The element
+*/
+	JDFActionPool GetCreateActionPool(int iSkip=0);
+
+/**
+* const get element ActionPool
+* @param int iSkip number of elements to skip
+* @return JDFActionPool The element
+*/
+	JDFActionPool GetActionPool(int iSkip=0)const;
+/**
+* Append element ActionPool
+ */
+	JDFActionPool AppendActionPool();
+
 /** Get Element LayoutElementPart
 * 
 * @param int iSkip number of elements to skip
@@ -198,6 +219,52 @@ virtual bool init();
 * Append element LayoutElementPart
  */
 	JDFLayoutElementPart AppendLayoutElementPart();
+
+/** Get Element ShapeDef
+* 
+* @return JDFShapeDef The element
+*/
+	JDFShapeDef GetCreateShapeDef();
+
+/**
+* const get element ShapeDef
+*@return  JDFShapeDef The element
+*/
+	JDFShapeDef GetShapeDef()const;
+/**
+* Append element ShapeDef
+ * 
+*/
+	JDFShapeDef AppendShapeDef();
+/**
+* create inter-resource link to refTarget
+* @param JDFShapeDef& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefShapeDef(JDFShapeDef& refTarget);
+
+/** Get Element TestPool
+* 
+* @param int iSkip number of elements to skip
+* @return JDFTestPool The element
+*/
+	JDFTestPool GetCreateTestPool(int iSkip=0);
+
+/**
+* const get element TestPool
+* @param int iSkip number of elements to skip
+* @return JDFTestPool The element
+*/
+	JDFTestPool GetTestPool(int iSkip=0)const;
+/**
+* Append element TestPool
+ */
+	JDFTestPool AppendTestPool();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -170,10 +170,47 @@ public:
 	enum EnumListType{ListType_Unknown,ListType_CompleteList,ListType_CompleteOrderedList,ListType_ContainedList,ListType_List,ListType_OrderedList,ListType_OrderedRangeList,ListType_Range,ListType_RangeList,ListType_SingleValue,ListType_Span,ListType_UniqueList,ListType_UniqueRangeList,ListType_UniqueOrderedList,ListType_UniqueOrderedRangeList};
 
 /**
+ * definition of required attributes in the JDF namespace
+*/
+	virtual WString RequiredAttributes()const;
+
+/**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute Classes
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetClasses(const vWString& value);
+/**
+* Get string attribute Classes
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetClasses() const;
+/**
+* Typesafe attribute validation of Classes
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidClasses(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ClassName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetClassName(const WString& value);
+/**
+* Get string attribute ClassName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetClassName() const;
+/**
+* Typesafe attribute validation of ClassName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidClassName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute DevNS
 *@param WString value: the value to set the attribute to
@@ -208,7 +245,7 @@ public:
 	virtual void SetListType( EnumListType value);
 
 /**
-* Typesafe enumerated attribute ListType
+* Typesafe enumerated attribute ListType; defaults to SingleValue
 * @return EnumListTypethe enumeration value of the attribute
 */
 	virtual EnumListType GetListType() const;

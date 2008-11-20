@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,8 @@
 #include "jdf/wrapper/JDFIdentificationField.h"
 #include "jdf/wrapper/JDFJobField.h"
 #include "jdf/wrapper/JDFLayoutElement.h"
+#include "jdf/wrapper/JDFMarkActivation.h"
+#include "jdf/wrapper/JDFRefAnchor.h"
 #include "jdf/wrapper/JDFRegisterMark.h"
 #include "jdf/wrapper/JDFScavengerArea.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -128,14 +130,14 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoMarkObject::RequiredAttributes()const{
-		return JDFPlacedObject::RequiredAttributes()+L",CTM";
+		return JDFPlacedObject::RequiredAttributes()+L",CompensationCTM,CTM";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMarkObject::OptionalAttributes()const{
-		return JDFPlacedObject::OptionalAttributes()+WString(L",LayoutElementPageNum,Ord,ClipBox,ClipPath,HalfTonePhaseOrigin,LayerID,OrdID,SourceClipPath,TrimCTM,TrimSize,Type");
+		return JDFPlacedObject::OptionalAttributes()+WString(L",ContentRef,LayoutElementPageNum,Ord,Anchor,ClipBox,ClipPath,HalfTonePhaseOrigin,LayerID,OrdID,SourceClipPath,StackOrd,TrimClipPath,TrimCTM,TrimSize,Type");
 };
 
 /**
@@ -146,6 +148,11 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidContentRef(level)) {
+			vAtts.push_back(atr_ContentRef);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidLayoutElementPageNum(level)) {
 			vAtts.push_back(atr_LayoutElementPageNum);
 			if(++n>=nMax)
@@ -156,6 +163,11 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidAnchor(level)) {
+			vAtts.push_back(atr_Anchor);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidClipBox(level)) {
 			vAtts.push_back(atr_ClipBox);
 			if(++n>=nMax)
@@ -163,6 +175,11 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 		};
 		if(!ValidClipPath(level)) {
 			vAtts.push_back(atr_ClipPath);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidCompensationCTM(level)) {
+			vAtts.push_back(atr_CompensationCTM);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -191,6 +208,16 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidStackOrd(level)) {
+			vAtts.push_back(atr_StackOrd);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTrimClipPath(level)) {
+			vAtts.push_back(atr_TrimClipPath);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidTrimCTM(level)) {
 			vAtts.push_back(atr_TrimCTM);
 			if(++n>=nMax)
@@ -210,6 +237,24 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 	};
 
 /**
+* Set attribute ContentRef
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMarkObject::SetContentRef(const WString& value){
+	SetAttribute(atr_ContentRef,value);
+};
+/**
+* Get string attribute ContentRef
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMarkObject::GetContentRef() const {
+	return GetAttribute(atr_ContentRef,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMarkObject::ValidContentRef(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ContentRef,AttributeType_IDREF,false);
+	};
+/**
 * Set attribute LayoutElementPageNum
 *@param int value: the value to set the attribute to
 */
@@ -218,10 +263,10 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 };
 /**
 * Get integer attribute LayoutElementPageNum
-* @return int the vaue of the attribute ; defaults to 0
+* @return int the vaue of the attribute 
 */
 	 int JDFAutoMarkObject::GetLayoutElementPageNum() const {
-	return GetIntAttribute(atr_LayoutElementPageNum,WString::emptyStr,0);
+	return GetIntAttribute(atr_LayoutElementPageNum,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMarkObject::ValidLayoutElementPageNum(EnumValidationLevel level) const {
@@ -244,6 +289,31 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMarkObject::ValidOrd(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Ord,AttributeType_integer,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoMarkObject::AnchorString(){
+		static const WString enums=WString(L"Unknown,TopLeft,TopCenter,TopRight,CenterLeft,Center,CenterRight,BottomLeft,BottomCenter,BottomRight");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoMarkObject::AnchorString(EnumAnchor value){
+		return AnchorString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoMarkObject::SetAnchor( EnumAnchor value){
+	SetEnumAttribute(atr_Anchor,value,AnchorString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoMarkObject::EnumAnchor JDFAutoMarkObject:: GetAnchor() const {
+	return (EnumAnchor) GetEnumAttribute(atr_Anchor,AnchorString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMarkObject::ValidAnchor(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Anchor,AnchorString(),false);
 	};
 /**
 * Set attribute ClipBox
@@ -280,6 +350,24 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMarkObject::ValidClipPath(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ClipPath,AttributeType_PDFPath,false);
+	};
+/**
+* Set attribute CompensationCTM
+*@param JDFMatrix value: the value to set the attribute to
+*/
+	 void JDFAutoMarkObject::SetCompensationCTM(const JDFMatrix& value){
+	SetAttribute(atr_CompensationCTM,value);
+};
+/**
+* Get string attribute CompensationCTM
+* @return JDFMatrix the vaue of the attribute 
+*/
+	 JDFMatrix JDFAutoMarkObject::GetCompensationCTM() const {
+	return GetAttribute(atr_CompensationCTM,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMarkObject::ValidCompensationCTM(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CompensationCTM,AttributeType_matrix,RequiredLevel(level));
 	};
 /**
 * Set attribute CTM
@@ -370,6 +458,42 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMarkObject::ValidSourceClipPath(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SourceClipPath,AttributeType_PDFPath,false);
+	};
+/**
+* Set attribute StackOrd
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoMarkObject::SetStackOrd(int value){
+	SetAttribute(atr_StackOrd,WString::valueOf(value));
+};
+/**
+* Get integer attribute StackOrd
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoMarkObject::GetStackOrd() const {
+	return GetIntAttribute(atr_StackOrd,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMarkObject::ValidStackOrd(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StackOrd,AttributeType_integer,false);
+	};
+/**
+* Set attribute TrimClipPath
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMarkObject::SetTrimClipPath(const WString& value){
+	SetAttribute(atr_TrimClipPath,value);
+};
+/**
+* Get string attribute TrimClipPath
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMarkObject::GetTrimClipPath() const {
+	return GetAttribute(atr_TrimClipPath,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMarkObject::ValidTrimClipPath(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TrimClipPath,AttributeType_PDFPath,false);
 	};
 /**
 * Set attribute TrimCTM
@@ -658,6 +782,51 @@ JDFRefElement JDFAutoMarkObject::RefLayoutElement(JDFLayoutElement& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFMarkActivation JDFAutoMarkObject::GetMarkActivation(int iSkip)const{
+	JDFMarkActivation e=GetElement(elm_MarkActivation,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMarkActivation JDFAutoMarkObject::GetCreateMarkActivation(int iSkip){
+	JDFMarkActivation e=GetCreateElement(elm_MarkActivation,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMarkActivation JDFAutoMarkObject::AppendMarkActivation(){
+	JDFMarkActivation e=AppendElement(elm_MarkActivation);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRefAnchor JDFAutoMarkObject::GetRefAnchor(int iSkip)const{
+	JDFRefAnchor e=GetElement(elm_RefAnchor,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRefAnchor JDFAutoMarkObject::GetCreateRefAnchor(int iSkip){
+	JDFRefAnchor e=GetCreateElement(elm_RefAnchor,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRefAnchor JDFAutoMarkObject::AppendRefAnchor(){
+	JDFRefAnchor e=AppendElement(elm_RefAnchor);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoMarkObject::RefRefAnchor(JDFRefAnchor& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFRegisterMark JDFAutoMarkObject::GetRegisterMark(int iSkip)const{
 	JDFRegisterMark e=GetElement(elm_RegisterMark,WString::emptyStr,iSkip);
 	return e;
@@ -812,6 +981,26 @@ JDFRefElement JDFAutoMarkObject::RefScavengerArea(JDFScavengerArea& refTarget){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_MarkActivation);
+
+		for(i=0;i<nElem;i++){
+			if (!GetMarkActivation(i).IsValid(level)) {
+				vElem.AppendUnique(elm_MarkActivation);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_RefAnchor);
+
+		for(i=0;i<nElem;i++){
+			if (!GetRefAnchor(i).IsValid(level)) {
+				vElem.AppendUnique(elm_RefAnchor);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_RegisterMark);
 
 		for(i=0;i<nElem;i++){
@@ -847,6 +1036,6 @@ JDFRefElement JDFAutoMarkObject::RefScavengerArea(JDFScavengerArea& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMarkObject::OptionalElements()const{
-		return JDFPlacedObject::OptionalElements()+L",CIELABMeasuringField,ColorControlStrip,CutMark,DensityMeasuringField,DeviceMark,DynamicField,IdentificationField,JobField,LayoutElement,RegisterMark,ScavengerArea";
+		return JDFPlacedObject::OptionalElements()+L",CIELABMeasuringField,ColorControlStrip,CutMark,DensityMeasuringField,DeviceMark,DynamicField,IdentificationField,JobField,LayoutElement,MarkActivation,RefAnchor,RegisterMark,ScavengerArea";
 	};
 }; // end namespace JDF

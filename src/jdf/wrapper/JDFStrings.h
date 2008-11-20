@@ -889,7 +889,107 @@ namespace JDF{
 		
 		static const WString elm_YPosition;
 		
-		
+
+
+
+
+
+
+static const WString elm_ColorantConvertProcess;
+static const WString elm_ContentMetaData;
+
+static const WString elm_RuleLength;
+
+static const WString elm_ShapeDef;
+static const WString elm_ConvertingConfig;
+static const WString elm_RepeatDesc;
+static const WString elm_DieLayoutProductionParams;
+
+
+
+static const WString elm_PageCondition;
+
+static const WString elm_MarkActivation;
+static const WString elm_RefAnchor;
+
+
+static const WString elm_PositionObj;
+
+static const WString elm_ShiftPoint;
+static const WString elm_LayoutShift;
+
+
+static const WString elm_TabDimensions;
+
+static const WString elm_PageAssignParams;
+
+
+
+
+static const WString elm_MetadataMap;
+
+
+static const WString elm_ObjectModel;
+static const WString elm_ShapeTemplate;
+static const WString elm_ShapeDefProductionParams;
+
+static const WString elm_StaticBlockingParams;
+
+
+
+static const WString elm_VarnishingParams;
+
+
+static const WString elm_ControllerFilter;
+
+static const WString elm_SubscriptionFilter;
+static const WString elm_SubscriptionInfo;
+
+static const WString elm_Certificate;
+static const WString elm_AuthenticationResp;
+static const WString elm_AuthenticationQuParams;
+static const WString elm_AuthenticationCmdParams;
+
+
+static const WString elm_Flute;
+static const WString elm_FluteDirection;
+static const WString elm_MediaQuality;
+
+
+static const WString elm_TabMylarColorDetails;
+static const WString elm_ColorNameDetails;
+static const WString elm_HeadBandColorDetails;
+static const WString elm_FoilColorDetails;
+static const WString elm_BindingColorDetails;
+static const WString elm_CoverColorDetails;
+static const WString elm_BackCoverColorDetails;
+
+static const WString atr_ChannelMode;
+static const WString atr_RetryPolicy;
+static const WString atr_LotDetails;
+static const WString atr_ResourceDetails;
+static const WString atr_CommandResult;
+static const WString atr_LotControlled;
+
+static const WString atr_PreviewUsages;
+static const WString atr_UpdateGranularity;
+static const WString atr_TransactionID;
+
+static const WString atr_IdleStartTime;
+static const WString atr_RelatedCommands;
+static const WString atr_MilestoneTypes;
+static const WString atr_ReturnTime;
+static const WString atr_WorkStepID;
+
+static const WString atr_MarkContext;
+static const WString atr_RelativeHeight;
+static const WString atr_RelativeWidth;
+
+static const WString atr_DieSide;
+static const WString atr_Rotated;
+static const WString atr_ContentRefs;
+
+
 		//////////////////////////////////////////////////////////
 		
 		
@@ -2570,7 +2670,8 @@ namespace JDF{
 		static const WString atr_ZoneWidth;
 		
 		
-		
+
+
 		static const WString atr_Intent;
 		static const WString atr_Params;
 		static const WString atr_Link;
@@ -2583,6 +2684,165 @@ namespace JDF{
 		
 		static const WString atr_Unknown;
 			
+
+
+
+		static const WString atr_AbsoluteHeight;
+static const WString atr_AbsoluteWidth;
+static const WString atr_Anchor;
+
+		static const WString atr_Metadata0;
+static const WString atr_Metadata1;
+static const WString atr_Metadata2;
+static const WString atr_Metadata3;
+static const WString atr_Metadata4;
+static const WString atr_Metadata5;
+static const WString atr_Metadata6;
+static const WString atr_Metadata7;
+static const WString atr_Metadata8;
+static const WString atr_Metadata9;
+
+static const WString atr_VarnishMethod;
+static const WString atr_TabEdge;
+static const WString atr_TabExtensionDistance;
+static const WString atr_TabOffset;
+static const WString atr_TabSetCollationOrder;
+static const WString atr_TabWidth;
+static const WString atr_Families;
+static const WString atr_MessageTypes;
+static const WString atr_InnerDimensions;
+static const WString atr_Standard;
+static const WString atr_Area;
+static const WString atr_DDESCutType;
+
+static const WString atr_AllowedRotate;
+static const WString atr_GutterX;
+static const WString atr_GutterX2;
+static const WString atr_GutterY;
+static const WString atr_GutterY2;
+static const WString atr_LayoutStyle;
+static const WString atr_OrderQuantity;
+static const WString atr_UseBleeds;
+
+static const WString atr_AnchorType;
+static const WString atr_RestrictedContentObjects;
+
+static const WString atr_PageRange;
+static const WString atr_PositionPolicy;
+static const WString atr_RelativeSize;
+static const WString atr_RotationPolicy;
+
+static const WString atr_Index;
+
+
+static const WString atr_RunPageRange;
+
+static const WString atr_Estimate;
+
+static const WString atr_SheetHeight;
+static const WString atr_SheetWidth;
+
+
+static const WString atr_URLTypes;
+static const WString atr_URLType;
+static const WString atr_OrdReset;
+static const WString atr_SheetCountReset;
+static const WString atr_MaxCollect;
+static const WString atr_MinCollect;
+static const WString atr_OrdsConsumed;
+static const WString atr_SheetNameFormat;
+static const WString atr_SheetNameTemplate;
+
+static const WString atr_JobFormat;
+static const WString atr_JobTemplate;
+
+static const WString atr_ISBN10;
+static const WString atr_ISBN13;
+
+static const WString atr_AuthenticationType;
+static const WString atr_ReasonDetails;
+
+static const WString atr_FaceCells;
+static const WString atr_ObjectTags;
+
+static const WString atr_IsDoubleByteFont;
+
+static const WString atr_PageHasOptionalContent;
+static const WString atr_PageScalingFactor;
+
+static const WString atr_CompensationCTM;
+static const WString atr_ContentRef;
+static const WString atr_StackOrd;
+static const WString atr_TrimClipPath;
+
+static const WString atr_CutWidth;
+
+static const WString atr_ColorDetails;
+
+static const WString atr_InnermostShingling;
+static const WString atr_OutermostShingling;
+
+
+static const WString atr_StripColorDetails;
+static const WString atr_StitchOrigin;
+static const WString atr_LayerLift;
+
+static const WString atr_LayerCompression;
+static const WString atr_PreStackAmount;
+static const WString atr_PreStackMethod;
+static const WString atr_StackCompression;
+
+static const WString atr_HorizontalExcessBack;
+
+static const WString atr_IgnoreContext;
+static const WString atr_SheetSides;
+
+static const WString atr_BinderColorDetails;
+static const WString atr_SpineColorDetails;
+static const WString atr_RibbonColorDetails;
+static const WString atr_MimeTypeDetails;
+
+
+static const WString atr_Languages;
+
+static const WString atr_Overhang;
+static const WString atr_OverhangOffset;
+
+static const WString atr_BackCoatingDetail;
+static const WString atr_FrontCoatingDetail;
+static const WString atr_MediaQuality;
+static const WString atr_PrintingTechnology;
+static const WString atr_ReliefThickness;
+static const WString atr_SleeveInterlock;
+
+static const WString atr_ContentDataRefs;
+static const WString atr_SourceMediaBox;
+
+static const WString atr_TopColorDetails;
+static const WString atr_BottomColorDetails;
+static const WString atr_ClampColorDetails;
+
+static const WString atr_HorizontalFitPolicy;
+static const WString atr_VerticalFitPolicy;
+
+static const WString atr_NUpSeparation;
+
+static const WString atr_SpineThickness;
+static const WString atr_RawNames;
+
+static const WString atr_ActualColorName;
+static const WString atr_Gray;
+
+static const WString atr_Columns;
+static const WString atr_ComponentOrientation;
+
+static const WString atr_AlignmentReferenceWeb;
+static const WString atr_FoldLay;
+static const WString atr_WebCellAlignment;
+
+static const WString atr_TabCount;
+
+
 	};
 };
 

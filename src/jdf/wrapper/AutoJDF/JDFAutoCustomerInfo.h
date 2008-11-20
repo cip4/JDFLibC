@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -85,6 +85,7 @@ namespace JDF{
 class JDFCompany;
 class JDFContact;
 class JDFCustomerMessage;
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -251,22 +252,6 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidCustomerProjectID(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute rRefs
-*@param vWString value: the value to set the attribute to
-*/
-	virtual void SetrRefs(const vWString& value);
-/**
-* Get string attribute rRefs
-* @return vWString the vaue of the attribute 
-*/
-	virtual vWString GetrRefs() const;
-/**
-* Typesafe attribute validation of rRefs
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidrRefs(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -338,6 +323,30 @@ public:
 * Append element CustomerMessage
  */
 	JDFCustomerMessage AppendCustomerMessage();
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

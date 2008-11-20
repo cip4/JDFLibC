@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,7 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFGlueLine;
 class JDFGlueLine;
 class JDFRefElement;
 /*
@@ -203,6 +204,30 @@ virtual bool init();
 **************************************************************** */
 
 
+/** Get Element GlueApplication
+* 
+* @param int iSkip number of elements to skip
+* @return JDFGlueLine The element
+*/
+	JDFGlueLine GetCreateGlueApplication(int iSkip=0);
+
+/**
+* const get element GlueApplication
+* @param int iSkip number of elements to skip
+* @return JDFGlueLine The element
+*/
+	JDFGlueLine GetGlueApplication(int iSkip=0)const;
+/**
+* Append element GlueApplication
+ */
+	JDFGlueLine AppendGlueApplication();
+/**
+* create inter-resource link to refTarget
+* @param JDFGlueLine& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefGlueApplication(JDFGlueLine& refTarget);
+
 /** Get Element GlueLine
 * 
 * @param int iSkip number of elements to skip
@@ -228,9 +253,9 @@ virtual bool init();
 	JDFRefElement RefGlueLine(JDFGlueLine& refTarget);
 
 /**
- definition of required elements in the JDF namespace
+ definition of optional elements in the JDF namespace
 */
-	virtual WString RequiredElements()const;
+	virtual WString OptionalElements()const;
 }; // endJDFAutoCasingInParams
 
 // ******************************************************

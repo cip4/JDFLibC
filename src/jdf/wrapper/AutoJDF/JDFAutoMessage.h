@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -164,6 +164,54 @@ public:
 	virtual WString OptionalAttributes()const;
 
 /**
+* Set attribute AgentName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetAgentName(const WString& value);
+/**
+* Get string attribute AgentName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetAgentName() const;
+/**
+* Typesafe attribute validation of AgentName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAgentName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute AgentVersion
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetAgentVersion(const WString& value);
+/**
+* Get string attribute AgentVersion
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetAgentVersion() const;
+/**
+* Typesafe attribute validation of AgentVersion
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAgentVersion(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ICSVersions
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetICSVersions(const vWString& value);
+/**
+* Get string attribute ICSVersions
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetICSVersions() const;
+/**
+* Typesafe attribute validation of ICSVersions
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidICSVersions(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute ID
 *@param WString value: the value to set the attribute to
 */
@@ -179,6 +227,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SenderID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSenderID(const WString& value);
+/**
+* Get string attribute SenderID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSenderID() const;
+/**
+* Typesafe attribute validation of SenderID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSenderID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Time
 *@param JDFDate value: the value to set the attribute to
@@ -211,6 +275,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidType(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Version
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetVersion(const WString& value);
+/**
+* Get string attribute Version
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetVersion() const;
+/**
+* Typesafe attribute validation of Version
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidVersion(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

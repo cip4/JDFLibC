@@ -1404,6 +1404,8 @@ public:
 				eType="NamedColor";
 			if(name.endsWith("Orientation")&&name!="FinishedPageOrientation")
 				eType="Orientation";
+			if(name=="FoldLay") 
+				eType="Orientation";
 			
 			if(!def.empty()) {
 				defComment="; defaults to "+def;

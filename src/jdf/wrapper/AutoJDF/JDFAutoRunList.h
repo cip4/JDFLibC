@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -186,41 +186,17 @@ virtual bool init();
 */
 
 	enum EnumComponentGranularity{ComponentGranularity_Unknown,ComponentGranularity_Page,ComponentGranularity_Document,ComponentGranularity_Set,ComponentGranularity_All,ComponentGranularity_BundleItem};
+/**
+* Enumeration for attribute SheetSides
+*/
+
+	enum EnumSheetSides{SheetSides_Unknown,SheetSides_Front,SheetSides_Back,SheetSides_FrontBack,SheetSides_BackFront};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
-/**
-* Enumeration strings for ComponentGranularity
-* @return const WString& comma separated list of enumerated string values 
-*/
-	static const WString& ComponentGranularityString();
-/**
-* Enumeration string for enum value
-* @param EnumComponentGranularity value the enumeration to translate
-* @return WString the string representation of the enumeration
-*/
-	static WString ComponentGranularityString(EnumComponentGranularity value);
-/**
-* Set attribute ComponentGranularity
-* @param EnumComponentGranularity value the value to set the attribute to
-*/
-	virtual void SetComponentGranularity( EnumComponentGranularity value);
-
-/**
-* Typesafe enumerated attribute ComponentGranularity; defaults to Document
-* @return EnumComponentGranularitythe enumeration value of the attribute
-*/
-	virtual EnumComponentGranularity GetComponentGranularity() const;
-
-/**
-* Typesafe attribute validation of ComponentGranularity
-* @param EnumValidationLevel level element validation level 
-* @return bool true if valid
-*/
-	virtual bool ValidComponentGranularity(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute IsPage
 *@param bool value: the value to set the attribute to
@@ -269,6 +245,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSetCopies(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for ComponentGranularity
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ComponentGranularityString();
+/**
+* Enumeration string for enum value
+* @param EnumComponentGranularity value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ComponentGranularityString(EnumComponentGranularity value);
+/**
+* Set attribute ComponentGranularity
+* @param EnumComponentGranularity value the value to set the attribute to
+*/
+	virtual void SetComponentGranularity( EnumComponentGranularity value);
+
+/**
+* Typesafe enumerated attribute ComponentGranularity
+* @return EnumComponentGranularitythe enumeration value of the attribute
+*/
+	virtual EnumComponentGranularity GetComponentGranularity() const;
+
+/**
+* Typesafe attribute validation of ComponentGranularity
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidComponentGranularity(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Directory
 *@param WString value: the value to set the attribute to
@@ -381,6 +386,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidFirstPage(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute IgnoreContext
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetIgnoreContext(const vWString& value);
+/**
+* Get string attribute IgnoreContext
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetIgnoreContext() const;
+/**
+* Typesafe attribute validation of IgnoreContext
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidIgnoreContext(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute LogicalPage
 *@param int value: the value to set the attribute to
@@ -541,6 +562,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSets(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for SheetSides
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& SheetSidesString();
+/**
+* Enumeration string for enum value
+* @param EnumSheetSides value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString SheetSidesString(EnumSheetSides value);
+/**
+* Set attribute SheetSides
+* @param EnumSheetSides value the value to set the attribute to
+*/
+	virtual void SetSheetSides( EnumSheetSides value);
+
+/**
+* Typesafe enumerated attribute SheetSides
+* @return EnumSheetSidesthe enumeration value of the attribute
+*/
+	virtual EnumSheetSides GetSheetSides() const;
+
+/**
+* Typesafe attribute validation of SheetSides
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetSides(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SkipPage
 *@param int value: the value to set the attribute to

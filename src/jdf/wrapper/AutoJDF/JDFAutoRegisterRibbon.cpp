@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -124,17 +124,10 @@ bool JDFAutoRegisterRibbon::init(){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoRegisterRibbon::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",LengthOverall,VisibleLength";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoRegisterRibbon::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Material,RibbonColor,RibbonEnd");
+		return JDFResource::OptionalAttributes()+WString(L",LengthOverall,Material,RibbonColor,RibbonColorDetails,RibbonEnd,VisibleLength");
 };
 
 /**
@@ -150,11 +143,6 @@ bool JDFAutoRegisterRibbon::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidVisibleLength(level)) {
-			vAtts.push_back(atr_VisibleLength);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidMaterial(level)) {
 			vAtts.push_back(atr_Material);
 			if(++n>=nMax)
@@ -165,8 +153,18 @@ bool JDFAutoRegisterRibbon::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidRibbonColorDetails(level)) {
+			vAtts.push_back(atr_RibbonColorDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidRibbonEnd(level)) {
 			vAtts.push_back(atr_RibbonEnd);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidVisibleLength(level)) {
+			vAtts.push_back(atr_VisibleLength);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -189,25 +187,7 @@ bool JDFAutoRegisterRibbon::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRegisterRibbon::ValidLengthOverall(EnumValidationLevel level) const {
-		return ValidAttribute(atr_LengthOverall,AttributeType_double,RequiredLevel(level));
-	};
-/**
-* Set attribute VisibleLength
-*@param double value: the value to set the attribute to
-*/
-	 void JDFAutoRegisterRibbon::SetVisibleLength(double value){
-	SetAttribute(atr_VisibleLength,WString::valueOf(value));
-};
-/**
-* Get double attribute VisibleLength
-* @return double the vaue of the attribute 
-*/
-	 double JDFAutoRegisterRibbon::GetVisibleLength() const {
-	return GetRealAttribute(atr_VisibleLength,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoRegisterRibbon::ValidVisibleLength(EnumValidationLevel level) const {
-		return ValidAttribute(atr_VisibleLength,AttributeType_double,RequiredLevel(level));
+		return ValidAttribute(atr_LengthOverall,AttributeType_double,false);
 	};
 /**
 * Set attribute Material
@@ -240,6 +220,24 @@ bool JDFAutoRegisterRibbon::init(){
 		return ValidEnumAttribute(atr_RibbonColor,NamedColorString(),false);
 	};
 /**
+* Set attribute RibbonColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoRegisterRibbon::SetRibbonColorDetails(const WString& value){
+	SetAttribute(atr_RibbonColorDetails,value);
+};
+/**
+* Get string attribute RibbonColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoRegisterRibbon::GetRibbonColorDetails() const {
+	return GetAttribute(atr_RibbonColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRegisterRibbon::ValidRibbonColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_RibbonColorDetails,AttributeType_string,false);
+	};
+/**
 * Set attribute RibbonEnd
 *@param WString value: the value to set the attribute to
 */
@@ -256,5 +254,23 @@ bool JDFAutoRegisterRibbon::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRegisterRibbon::ValidRibbonEnd(EnumValidationLevel level) const {
 		return ValidAttribute(atr_RibbonEnd,AttributeType_NMTOKEN,false);
+	};
+/**
+* Set attribute VisibleLength
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoRegisterRibbon::SetVisibleLength(double value){
+	SetAttribute(atr_VisibleLength,WString::valueOf(value));
+};
+/**
+* Get double attribute VisibleLength
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoRegisterRibbon::GetVisibleLength() const {
+	return GetRealAttribute(atr_VisibleLength,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRegisterRibbon::ValidVisibleLength(EnumValidationLevel level) const {
+		return ValidAttribute(atr_VisibleLength,AttributeType_double,false);
 	};
 }; // end namespace JDF

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -164,6 +164,11 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 */
 virtual bool init();
 
+/**
+* Enumeration for attribute ComponentOrientation
+*/
+
+	enum EnumComponentOrientation{ComponentOrientation_Unknown,ComponentOrientation_XY,ComponentOrientation_XZ,ComponentOrientation_YZ};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -186,6 +191,56 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidComponentsPerRow(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Columns
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetColumns(int value);
+/**
+* Get integer attribute Columns
+* @return int the vaue of the attribute 
+*/
+	virtual int GetColumns() const;
+/**
+* Typesafe attribute validation of Columns
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidColumns(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ComponentOrientation
+* @param EnumOrientation value the value to set the attribute to
+*/
+	virtual void SetComponentOrientation( EnumOrientation value);
+
+/**
+* Typesafe enumerated attribute ComponentOrientation
+* @return EnumComponentOrientationthe enumeration value of the attribute
+*/
+	virtual EnumOrientation GetComponentOrientation() const;
+
+/**
+* Typesafe attribute validation of ComponentOrientation
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidComponentOrientation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Copies
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetCopies(int value);
+/**
+* Get integer attribute Copies
+* @return int the vaue of the attribute 
+*/
+	virtual int GetCopies() const;
+/**
+* Typesafe attribute validation of Copies
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCopies(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute FillMaterial
 *@param WString value: the value to set the attribute to
@@ -218,6 +273,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidLayers(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute MaxWeight
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetMaxWeight(double value);
+/**
+* Get double attribute MaxWeight
+* @return double the vaue of the attribute 
+*/
+	virtual double GetMaxWeight() const;
+/**
+* Typesafe attribute validation of MaxWeight
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidMaxWeight(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Pattern
 *@param WString value: the value to set the attribute to

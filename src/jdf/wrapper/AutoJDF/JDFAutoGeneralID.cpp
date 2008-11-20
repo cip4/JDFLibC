@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -120,6 +120,13 @@ JDFAutoGeneralID& JDFAutoGeneralID::operator=(const KElement& other){
 };
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoGeneralID::OptionalAttributes()const{
+		return JDFElement::OptionalAttributes()+WString(L",DataType");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoGeneralID::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -127,6 +134,11 @@ JDFAutoGeneralID& JDFAutoGeneralID::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidDataType(level)) {
+			vAtts.push_back(atr_DataType);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidIDUsage(level)) {
 			vAtts.push_back(atr_IDUsage);
 			if(++n>=nMax)
@@ -140,6 +152,31 @@ JDFAutoGeneralID& JDFAutoGeneralID::operator=(const KElement& other){
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoGeneralID::DataTypeString(){
+		static const WString enums=WString(L"Unknown,string,integer,double,NMTOKEN,boolean,dateTime,duration");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoGeneralID::DataTypeString(EnumDataType value){
+		return DataTypeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoGeneralID::SetDataType( EnumDataType value){
+	SetEnumAttribute(atr_DataType,value,DataTypeString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoGeneralID::EnumDataType JDFAutoGeneralID:: GetDataType() const {
+	return (EnumDataType) GetEnumAttribute(atr_DataType,DataTypeString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoGeneralID::ValidDataType(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_DataType,DataTypeString(),false);
+	};
 /**
 * Set attribute IDUsage
 *@param WString value: the value to set the attribute to

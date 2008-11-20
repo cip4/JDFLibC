@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -80,6 +80,7 @@
 #include "jdf/wrapper/JDFDisjointing.h"
 #include "jdf/wrapper/JDFSheet.h"
 #include "jdf/wrapper/JDFLayout.h"
+#include "jdf/wrapper/JDFMedia.h"
 #include "jdf/wrapper/JDFPageList.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -141,7 +142,7 @@ bool JDFAutoComponent::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoComponent::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",IsWaste,AssemblyIDs,CartonTopFlaps,Dimensions,MaxHeat,Overfold,OverfoldSide,PageListIndex,ProductType,ProductTypeDetails,ReaderPageCount,SheetPart,SourceRibbon,SourceSheet,SourceWeb,SurfaceCount,Transformation");
+		return JDFResource::OptionalAttributes()+WString(L",AssemblyIDs,CartonTopFlaps,Dimensions,IsWaste,MaxHeat,Overfold,OverfoldSide,PageListIndex,ProductType,ProductTypeDetails,ReaderPageCount,SheetPart,SourceRibbon,SourceSheet,SourceWeb,SpineThickness,SurfaceCount,Transformation");
 };
 
 /**
@@ -157,11 +158,6 @@ bool JDFAutoComponent::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidIsWaste(level)) {
-			vAtts.push_back(atr_IsWaste);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidAssemblyIDs(level)) {
 			vAtts.push_back(atr_AssemblyIDs);
 			if(++n>=nMax)
@@ -174,6 +170,11 @@ bool JDFAutoComponent::init(){
 		};
 		if(!ValidDimensions(level)) {
 			vAtts.push_back(atr_Dimensions);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidIsWaste(level)) {
+			vAtts.push_back(atr_IsWaste);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -229,6 +230,11 @@ bool JDFAutoComponent::init(){
 		};
 		if(!ValidSourceWeb(level)) {
 			vAtts.push_back(atr_SourceWeb);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSpineThickness(level)) {
+			vAtts.push_back(atr_SpineThickness);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -288,23 +294,6 @@ bool JDFAutoComponent::init(){
 		return ValidEnumerationsAttribute(atr_ComponentType,ComponentTypeString(),RequiredLevel(level));
 	};
 /**
-* Set attribute IsWaste
-*@param bool value: the value to set the attribute to
-*/
-	 void JDFAutoComponent::SetIsWaste(bool value){
-	SetAttribute(atr_IsWaste,WString::valueOf(value));
-};
-/**
-* Get bool attribute IsWaste
-* @return bool the vaue of the attribute ; defaults to false
-*/
-	 bool JDFAutoComponent::GetIsWaste() const {return GetBoolAttribute(atr_IsWaste,WString::emptyStr,false);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoComponent::ValidIsWaste(EnumValidationLevel level) const {
-		return ValidAttribute(atr_IsWaste,AttributeType_boolean,false);
-	};
-/**
 * Set attribute AssemblyIDs
 *@param vWString value: the value to set the attribute to
 */
@@ -357,6 +346,23 @@ bool JDFAutoComponent::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoComponent::ValidDimensions(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Dimensions,AttributeType_shape,false);
+	};
+/**
+* Set attribute IsWaste
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoComponent::SetIsWaste(bool value){
+	SetAttribute(atr_IsWaste,WString::valueOf(value));
+};
+/**
+* Get bool attribute IsWaste
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoComponent::GetIsWaste() const {return GetBoolAttribute(atr_IsWaste,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoComponent::ValidIsWaste(EnumValidationLevel level) const {
+		return ValidAttribute(atr_IsWaste,AttributeType_boolean,false);
 	};
 /**
 * Set attribute MaxHeat
@@ -557,6 +563,24 @@ bool JDFAutoComponent::init(){
 		return ValidAttribute(atr_SourceWeb,AttributeType_string,false);
 	};
 /**
+* Set attribute SpineThickness
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoComponent::SetSpineThickness(double value){
+	SetAttribute(atr_SpineThickness,WString::valueOf(value));
+};
+/**
+* Get double attribute SpineThickness
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoComponent::GetSpineThickness() const {
+	return GetRealAttribute(atr_SpineThickness,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoComponent::ValidSpineThickness(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SpineThickness,AttributeType_double,false);
+	};
+/**
 * Set attribute SurfaceCount
 *@param int value: the value to set the attribute to
 */
@@ -718,6 +742,31 @@ JDFRefElement JDFAutoComponent::RefLayout(JDFLayout& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFMedia JDFAutoComponent::GetMedia()const{
+	JDFMedia e=GetElement(elm_Media);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoComponent::GetCreateMedia(){
+	JDFMedia e=GetCreateElement(elm_Media);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoComponent::AppendMedia(){
+	JDFMedia e=AppendElementN(elm_Media,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoComponent::RefMedia(JDFMedia& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFPageList JDFAutoComponent::GetPageList()const{
 	JDFPageList e=GetElement(elm_PageList);
 	return e;
@@ -813,6 +862,18 @@ JDFRefElement JDFAutoComponent::RefPageList(JDFPageList& refTarget){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_Media);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_Media);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetMedia().IsValid(level)) {
+				vElem.AppendUnique(elm_Media);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_PageList);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_PageList);
@@ -833,13 +894,13 @@ JDFRefElement JDFAutoComponent::RefPageList(JDFPageList& refTarget){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoComponent::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",Assembly,Bundle,Disjointing,Sheet,Layout,PageList";
+		return JDFResource::UniqueElements()+L",Assembly,Bundle,Disjointing,Sheet,Layout,Media,PageList";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoComponent::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Assembly,Bundle,Disjointing,Sheet,Layout,PageList";
+		return JDFResource::OptionalElements()+L",Assembly,Bundle,Disjointing,Sheet,Layout,Media,PageList";
 	};
 }; // end namespace JDF

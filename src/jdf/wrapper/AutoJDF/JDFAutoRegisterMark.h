@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -179,7 +179,7 @@ virtual bool init();
 * Enumeration for attribute MarkUsage
 */
 
-	enum EnumMarkUsage{MarkUsage_Unknown,MarkUsage_Color,MarkUsage_PaperPath};
+	enum EnumMarkUsage{MarkUsage_Unknown,MarkUsage_Color,MarkUsage_PaperPath,MarkUsage_Tile};
 
 /**
  * definition of required attributes in the JDF namespace
@@ -209,14 +209,14 @@ virtual bool init();
 	virtual bool ValidCenter(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MarkType
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	virtual void SetMarkType(const WString& value);
+	virtual void SetMarkType(const vWString& value);
 /**
 * Get string attribute MarkType
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	virtual WString GetMarkType() const;
+	virtual vWString GetMarkType() const;
 /**
 * Typesafe attribute validation of MarkType
 * @param EnumValidationLevel level of attribute validation 

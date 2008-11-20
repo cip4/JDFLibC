@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -215,10 +215,10 @@ bool JDFAutoHoleMakingParams::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoHoleMakingParams::HoleTypeString(){
-		static const WString enums=WString(L"Unknown,R2-generic,R2m-DIN,R2m-ISO,R2m-MIB,R2i-US-a,R2i-US-b,R3-generic,R3i-US,R4-generic")
-	+WString(L",R4m-DIN-A4,R4m-DIN-A5,R4m-swedish,R4i-US,R5-generic,R5i-US-a,R5i-US-b,R5i-US-c,R6-generic,R6m-4h2s")
-	+WString(L",R6m-DIN-A5,R7-generic,R7i-US-a,R7i-US-b,R7i-US-c,R11m-7h4s,P16_9i-rect-0t,P12m-rect-0t,W2_1i-round-0t,W2_1i-square-0t")
-	+WString(L",W3_1i-square-0t,C9.5m-round-0t");
+		static const WString enums=WString(L"Unknown,R2-generic,S1-generic,S-generic,R2m-DIN,R2m-ISO,R2m-MIB,R2i-US-a,R2i-US-b,R3-generic")
+	+WString(L",R3i-US,R4-generic,R4m-DIN-A4,R4m-DIN-A5,R4m-swedish,R4i-US,R5-generic,R5i-US-a,R5i-US-b,R5i-US-c")
+	+WString(L",R6-generic,R6m-4h2s,R6m-DIN-A5,R7-generic,R7i-US-a,R7i-US-b,R7i-US-c,R11m-7h4s,P16_9i-rect-0t,P12m-rect-0t")
+	+WString(L",W2_1i-round-0t,W2_1i-square-0t,W3_1i-square-0t,C9.5m-round-0t");
 		return enums;
 	};
 

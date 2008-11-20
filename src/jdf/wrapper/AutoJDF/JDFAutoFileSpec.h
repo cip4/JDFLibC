@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -323,6 +323,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidDocumentNaturalLang(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Encoding
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetEncoding(const WString& value);
+/**
+* Get string attribute Encoding
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetEncoding() const;
+/**
+* Typesafe attribute validation of Encoding
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidEncoding(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute FileFormat
 *@param WString value: the value to set the attribute to

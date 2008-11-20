@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -158,6 +158,22 @@ public:
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute ContentDataRefs
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetContentDataRefs(const vWString& value);
+/**
+* Get string attribute ContentDataRefs
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetContentDataRefs() const;
+/**
+* Typesafe attribute validation of ContentDataRefs
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidContentDataRefs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ContentListIndex
 *@param int value: the value to set the attribute to

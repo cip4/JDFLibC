@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -190,26 +190,26 @@ bool JDFAutoRegisterMark::init(){
 	};
 /**
 * Set attribute MarkType
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	 void JDFAutoRegisterMark::SetMarkType(const WString& value){
+	 void JDFAutoRegisterMark::SetMarkType(const vWString& value){
 	SetAttribute(atr_MarkType,value);
 };
 /**
 * Get string attribute MarkType
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	 WString JDFAutoRegisterMark::GetMarkType() const {
+	 vWString JDFAutoRegisterMark::GetMarkType() const {
 	return GetAttribute(atr_MarkType,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRegisterMark::ValidMarkType(EnumValidationLevel level) const {
-		return ValidAttribute(atr_MarkType,AttributeType_NMTOKEN,false);
+		return ValidAttribute(atr_MarkType,AttributeType_NMTOKENS,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoRegisterMark::MarkUsageString(){
-		static const WString enums=WString(L"Unknown,Color,PaperPath");
+		static const WString enums=WString(L"Unknown,Color,PaperPath,Tile");
 		return enums;
 	};
 

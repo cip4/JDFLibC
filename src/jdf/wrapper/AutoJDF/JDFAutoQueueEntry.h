@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,7 +84,6 @@
 namespace JDF{
 class JDFJobPhase;
 class JDFPart;
-class JDFPreview;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -423,30 +422,6 @@ public:
 		*/
 		bool HasPartMap(const mAttribute & mPart);
 		//@}
-
-/** Get Element Preview
-* 
-* @param int iSkip number of elements to skip
-* @return JDFPreview The element
-*/
-	JDFPreview GetCreatePreview(int iSkip=0);
-
-/**
-* const get element Preview
-* @param int iSkip number of elements to skip
-* @return JDFPreview The element
-*/
-	JDFPreview GetPreview(int iSkip=0)const;
-/**
-* Append element Preview
- */
-	JDFPreview AppendPreview();
-/**
-* create inter-resource link to refTarget
-* @param JDFPreview& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefPreview(JDFPreview& refTarget);
 
 /**
  definition of unique elements in the JDF namespace

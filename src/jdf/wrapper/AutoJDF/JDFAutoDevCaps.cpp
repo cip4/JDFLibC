@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -262,21 +262,21 @@ JDFAutoDevCaps& JDFAutoDevCaps::operator=(const KElement& other){
 	};
 /**
 * Set attribute DevCapRef
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	 void JDFAutoDevCaps::SetDevCapRef(const WString& value){
+	 void JDFAutoDevCaps::SetDevCapRef(const vWString& value){
 	SetAttribute(atr_DevCapRef,value);
 };
 /**
 * Get string attribute DevCapRef
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	 WString JDFAutoDevCaps::GetDevCapRef() const {
+	 vWString JDFAutoDevCaps::GetDevCapRef() const {
 	return GetAttribute(atr_DevCapRef,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDevCaps::ValidDevCapRef(EnumValidationLevel level) const {
-		return ValidAttribute(atr_DevCapRef,AttributeType_IDREF,false);
+		return ValidAttribute(atr_DevCapRef,AttributeType_IDREFS,false);
 	};
 /**
 * Set attribute DevNS

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -123,7 +123,7 @@ JDFAutoJDFController& JDFAutoJDFController::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoJDFController::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",ControllerID");
+		return JDFElement::OptionalAttributes()+WString(L",ControllerID,URLType");
 };
 
 /**
@@ -141,6 +141,11 @@ JDFAutoJDFController& JDFAutoJDFController::operator=(const KElement& other){
 		};
 		if(!ValidURL(level)) {
 			vAtts.push_back(atr_URL);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidURLType(level)) {
+			vAtts.push_back(atr_URLType);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -182,5 +187,30 @@ JDFAutoJDFController& JDFAutoJDFController::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoJDFController::ValidURL(EnumValidationLevel level) const {
 		return ValidAttribute(atr_URL,AttributeType_URL,RequiredLevel(level));
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoJDFController::URLTypeString(){
+		static const WString enums=WString(L"Unknown,JDFError,JDFInput,JDFOutput,JMF,SecureJMF");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoJDFController::URLTypeString(EnumURLType value){
+		return URLTypeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoJDFController::SetURLType( EnumURLType value){
+	SetEnumAttribute(atr_URLType,value,URLTypeString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoJDFController::EnumURLType JDFAutoJDFController:: GetURLType() const {
+	return (EnumURLType) GetEnumAttribute(atr_URLType,URLTypeString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoJDFController::ValidURLType(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_URLType,URLTypeString(),false);
 	};
 }; // end namespace JDF

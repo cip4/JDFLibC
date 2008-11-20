@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFBarcodeReproParams;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoDeviceMark : public JDFResource
@@ -131,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -165,6 +176,16 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 virtual bool init();
 
 /**
+* Enumeration for attribute Anchor
+*/
+
+	enum EnumAnchor{Anchor_Unknown,Anchor_TopLeft,Anchor_TopCenter,Anchor_TopRight,Anchor_CenterLeft,Anchor_Center,Anchor_CenterRight,Anchor_BottomLeft,Anchor_BottomCenter,Anchor_BottomRight};
+/**
+* Enumeration for attribute HorizontalFitPolicy
+*/
+
+	enum EnumHorizontalFitPolicy{HorizontalFitPolicy_Unknown,HorizontalFitPolicy_NoRepeat,HorizontalFitPolicy_StretchToFit,HorizontalFitPolicy_UndistortedScaleToFit,HorizontalFitPolicy_RepeatToFill,HorizontalFitPolicy_RepeatUnclipped};
+/**
 * Enumeration for attribute MarkJustification
 */
 
@@ -179,12 +200,46 @@ virtual bool init();
 */
 
 	enum EnumMarkPosition{MarkPosition_Unknown,MarkPosition_Top,MarkPosition_Bottom,MarkPosition_Left,MarkPosition_Right};
+/**
+* Enumeration for attribute VerticalFitPolicy
+*/
+
+	enum EnumVerticalFitPolicy{VerticalFitPolicy_Unknown,VerticalFitPolicy_NoRepeat,VerticalFitPolicy_StretchToFit,VerticalFitPolicy_UndistortedScaleToFit,VerticalFitPolicy_RepeatToFill,VerticalFitPolicy_RepeatUnclipped};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for Anchor
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& AnchorString();
+/**
+* Enumeration string for enum value
+* @param EnumAnchor value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString AnchorString(EnumAnchor value);
+/**
+* Set attribute Anchor
+* @param EnumAnchor value the value to set the attribute to
+*/
+	virtual void SetAnchor( EnumAnchor value);
+
+/**
+* Typesafe enumerated attribute Anchor
+* @return EnumAnchorthe enumeration value of the attribute
+*/
+	virtual EnumAnchor GetAnchor() const;
+
+/**
+* Typesafe attribute validation of Anchor
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidAnchor(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Font
 *@param WString value: the value to set the attribute to
@@ -203,20 +258,49 @@ virtual bool init();
 	virtual bool ValidFont(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute FontSize
-*@param int value: the value to set the attribute to
+*@param double value: the value to set the attribute to
 */
-	virtual void SetFontSize(int value);
+	virtual void SetFontSize(double value);
 /**
-* Get integer attribute FontSize
-* @return int the vaue of the attribute 
+* Get double attribute FontSize
+* @return double the vaue of the attribute 
 */
-	virtual int GetFontSize() const;
+	virtual double GetFontSize() const;
 /**
 * Typesafe attribute validation of FontSize
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
 	virtual bool ValidFontSize(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for HorizontalFitPolicy
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& HorizontalFitPolicyString();
+/**
+* Enumeration string for enum value
+* @param EnumHorizontalFitPolicy value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString HorizontalFitPolicyString(EnumHorizontalFitPolicy value);
+/**
+* Set attribute HorizontalFitPolicy
+* @param EnumHorizontalFitPolicy value the value to set the attribute to
+*/
+	virtual void SetHorizontalFitPolicy( EnumHorizontalFitPolicy value);
+
+/**
+* Typesafe enumerated attribute HorizontalFitPolicy
+* @return EnumHorizontalFitPolicythe enumeration value of the attribute
+*/
+	virtual EnumHorizontalFitPolicy GetHorizontalFitPolicy() const;
+
+/**
+* Typesafe attribute validation of HorizontalFitPolicy
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidHorizontalFitPolicy(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for MarkJustification
 * @return const WString& comma separated list of enumerated string values 
@@ -309,11 +393,69 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidMarkPosition(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for VerticalFitPolicy
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& VerticalFitPolicyString();
+/**
+* Enumeration string for enum value
+* @param EnumVerticalFitPolicy value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString VerticalFitPolicyString(EnumVerticalFitPolicy value);
+/**
+* Set attribute VerticalFitPolicy
+* @param EnumVerticalFitPolicy value the value to set the attribute to
+*/
+	virtual void SetVerticalFitPolicy( EnumVerticalFitPolicy value);
+
+/**
+* Typesafe enumerated attribute VerticalFitPolicy
+* @return EnumVerticalFitPolicythe enumeration value of the attribute
+*/
+	virtual EnumVerticalFitPolicy GetVerticalFitPolicy() const;
+
+/**
+* Typesafe attribute validation of VerticalFitPolicy
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidVerticalFitPolicy(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element BarcodeReproParams
+* 
+* @param int iSkip number of elements to skip
+* @return JDFBarcodeReproParams The element
+*/
+	JDFBarcodeReproParams GetCreateBarcodeReproParams(int iSkip=0);
+
+/**
+* const get element BarcodeReproParams
+* @param int iSkip number of elements to skip
+* @return JDFBarcodeReproParams The element
+*/
+	JDFBarcodeReproParams GetBarcodeReproParams(int iSkip=0)const;
+/**
+* Append element BarcodeReproParams
+ */
+	JDFBarcodeReproParams AppendBarcodeReproParams();
+/**
+* create inter-resource link to refTarget
+* @param JDFBarcodeReproParams& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefBarcodeReproParams(JDFBarcodeReproParams& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoDeviceMark
 
 // ******************************************************

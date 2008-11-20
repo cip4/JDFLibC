@@ -81,24 +81,34 @@ int main(int argc, char* argv[]){
 					return 1;
 				}
 			}
-		cout<<endl;
+			cout<<endl;
 		}
 	}
 	else
 	{
-
-		JDFDate d=0;
-		cout<<d.DateTimeISO()<<endl;
-
+		char buf[2];
+		buf[1]=0;
 		XMLDoc doc("abc");
-		for(int i=0;i<2;i++)
+		for(int i=0;i<255;i++)
 		{
+			*buf=(char)i;
 			KElement e=doc.GetRoot();
-			e.SetAttribute("xmlns:foo","www.foo.com");
-			e.SetAttribute("foo:bar","blub");
-			e.SetAttribute("bar","blub2");
-			assertTrue(e.HasAttribute("foo:bar"));
+			e.SetAttribute(WString(L"a")+i,WString(buf));
+			XMLDoc doc2("abc");
+			KElement e2=doc2.GetRoot();
+			e2.SetAttribute(WString(L"a")+i,WString(buf));
+			WString w;
+			doc2.Write2String(w);
+			JDFParser p;
+			bool b=p.StringParse(w);
+			XMLDoc d3=p.GetRoot();
+			if(strchr(w.GetUTF8Bytes(),i))
+				cout<<" found "<<" "<<hex<<i<<dec<<" "<<w<<strlen(WString(buf).GetUTF8Bytes())<<endl;
+			if(!b || d3.isNull())
+				cout<<" failed "<<b<<" "<<i<<endl;
+
 		}
+		doc.Write2File("chars.xml");
 	}
 
 	JDF::PlatformUtils::Terminate();

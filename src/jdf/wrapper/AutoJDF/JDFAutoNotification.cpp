@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -134,7 +134,7 @@ JDFAutoNotification& JDFAutoNotification::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoNotification::OptionalAttributes()const{
-		return JDFAudit::OptionalAttributes()+WString(L",JobID,JobPartID,Type");
+		return JDFAudit::OptionalAttributes()+WString(L",CombinedProcessIndex,JobID,JobPartID,ModuleID,ModuleIndex,ModuleType,Type");
 };
 
 /**
@@ -150,6 +150,11 @@ JDFAutoNotification& JDFAutoNotification::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidCombinedProcessIndex(level)) {
+			vAtts.push_back(atr_CombinedProcessIndex);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidJobID(level)) {
 			vAtts.push_back(atr_JobID);
 			if(++n>=nMax)
@@ -157,6 +162,21 @@ JDFAutoNotification& JDFAutoNotification::operator=(const KElement& other){
 		};
 		if(!ValidJobPartID(level)) {
 			vAtts.push_back(atr_JobPartID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidModuleID(level)) {
+			vAtts.push_back(atr_ModuleID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidModuleIndex(level)) {
+			vAtts.push_back(atr_ModuleIndex);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidModuleType(level)) {
+			vAtts.push_back(atr_ModuleType);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -194,6 +214,24 @@ JDFAutoNotification& JDFAutoNotification::operator=(const KElement& other){
 		return ValidEnumAttribute(atr_Class,ClassString(),RequiredLevel(level));
 	};
 /**
+* Set attribute CombinedProcessIndex
+*@param JDFIntegerList value: the value to set the attribute to
+*/
+	 void JDFAutoNotification::SetCombinedProcessIndex(const JDFIntegerList& value){
+	SetAttribute(atr_CombinedProcessIndex,value.GetString());
+};
+/**
+* Get string attribute CombinedProcessIndex
+* @return JDFIntegerList the vaue of the attribute 
+*/
+	 JDFIntegerList JDFAutoNotification::GetCombinedProcessIndex() const {
+	return GetAttribute(atr_CombinedProcessIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNotification::ValidCombinedProcessIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CombinedProcessIndex,AttributeType_IntegerList,false);
+	};
+/**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to
 */
@@ -228,6 +266,60 @@ JDFAutoNotification& JDFAutoNotification::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoNotification::ValidJobPartID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_JobPartID,AttributeType_string,false);
+	};
+/**
+* Set attribute ModuleID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoNotification::SetModuleID(const WString& value){
+	SetAttribute(atr_ModuleID,value);
+};
+/**
+* Get string attribute ModuleID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoNotification::GetModuleID() const {
+	return GetAttribute(atr_ModuleID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNotification::ValidModuleID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ModuleID,AttributeType_string,false);
+	};
+/**
+* Set attribute ModuleIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoNotification::SetModuleIndex(const JDFIntegerRangeList& value){
+	SetAttribute(atr_ModuleIndex,value.GetString());
+};
+/**
+* Get range attribute ModuleIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	 JDFIntegerRangeList JDFAutoNotification::GetModuleIndex() const {
+	return GetAttribute(atr_ModuleIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNotification::ValidModuleIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ModuleIndex,AttributeType_IntegerRangeList,false);
+	};
+/**
+* Set attribute ModuleType
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoNotification::SetModuleType(const WString& value){
+	SetAttribute(atr_ModuleType,value);
+};
+/**
+* Get string attribute ModuleType
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoNotification::GetModuleType() const {
+	return GetAttribute(atr_ModuleType,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoNotification::ValidModuleType(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ModuleType,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute Type

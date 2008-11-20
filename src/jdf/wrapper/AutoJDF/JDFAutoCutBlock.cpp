@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -134,7 +134,7 @@ bool JDFAutoCutBlock::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCutBlock::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BlockSubdivision,BlockTrf,AssemblyIDs,BlockElementSize,BlockElementType");
+		return JDFResource::OptionalAttributes()+WString(L",BlockSubdivision,BlockTrf,AssemblyIDs,CutWidth,BlockElementSize,BlockElementType");
 };
 
 /**
@@ -172,6 +172,11 @@ bool JDFAutoCutBlock::init(){
 		};
 		if(!ValidAssemblyIDs(level)) {
 			vAtts.push_back(atr_AssemblyIDs);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidCutWidth(level)) {
+			vAtts.push_back(atr_CutWidth);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -302,6 +307,24 @@ bool JDFAutoCutBlock::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoCutBlock::ValidAssemblyIDs(EnumValidationLevel level) const {
 		return ValidAttribute(atr_AssemblyIDs,AttributeType_NMTOKENS,false);
+	};
+/**
+* Set attribute CutWidth
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoCutBlock::SetCutWidth(double value){
+	SetAttribute(atr_CutWidth,WString::valueOf(value));
+};
+/**
+* Get double attribute CutWidth
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoCutBlock::GetCutWidth() const {
+	return GetRealAttribute(atr_CutWidth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCutBlock::ValidCutWidth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CutWidth,AttributeType_double,false);
 	};
 /**
 * Set attribute BlockElementSize

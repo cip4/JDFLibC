@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,9 @@
 
 #include "jdf/wrapper/JDFMessage.h"
 namespace JDF{
+class JDFEmployee;
+class JDFEmployee;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoCommand : public JDFMessage
@@ -130,6 +133,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -257,11 +269,66 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidAcknowledgeType(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute RelatedCommands
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetRelatedCommands(const vWString& value);
+/**
+* Get string attribute RelatedCommands
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetRelatedCommands() const;
+/**
+* Typesafe attribute validation of RelatedCommands
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRelatedCommands(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TransactionID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetTransactionID(const WString& value);
+/**
+* Get string attribute TransactionID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetTransactionID() const;
+/**
+* Typesafe attribute validation of TransactionID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTransactionID(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Employee
+* 
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetCreateEmployee(int iSkip=0);
+
+/**
+* const get element Employee
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetEmployee(int iSkip=0)const;
+/**
+* Append element Employee
+ */
+	JDFEmployee AppendEmployee();
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoCommand
 
 // ******************************************************

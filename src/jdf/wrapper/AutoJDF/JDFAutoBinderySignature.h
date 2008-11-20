@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -302,21 +302,21 @@ virtual bool init();
 */
 	virtual bool ValidNumberUp(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute FoldCatalog
+* Set attribute AlignmentReferenceWeb
 *@param WString value: the value to set the attribute to
 */
-	virtual void SetFoldCatalog(const WString& value);
+	virtual void SetAlignmentReferenceWeb(const WString& value);
 /**
-* Get string attribute FoldCatalog
+* Get string attribute AlignmentReferenceWeb
 * @return WString the vaue of the attribute 
 */
-	virtual WString GetFoldCatalog() const;
+	virtual WString GetAlignmentReferenceWeb() const;
 /**
-* Typesafe attribute validation of FoldCatalog
+* Typesafe attribute validation of AlignmentReferenceWeb
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidFoldCatalog(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidAlignmentReferenceWeb(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute BindingOrientation
 * @param EnumOrientation value the value to set the attribute to
@@ -335,6 +335,40 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidBindingOrientation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute FoldCatalog
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetFoldCatalog(const WString& value);
+/**
+* Get string attribute FoldCatalog
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetFoldCatalog() const;
+/**
+* Typesafe attribute validation of FoldCatalog
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidFoldCatalog(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute FoldLay
+* @param EnumOrientation value the value to set the attribute to
+*/
+	virtual void SetFoldLay( EnumOrientation value);
+
+/**
+* Typesafe enumerated attribute FoldLay
+* @return EnumFoldLaythe enumeration value of the attribute
+*/
+	virtual EnumOrientation GetFoldLay() const;
+
+/**
+* Typesafe attribute validation of FoldLay
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidFoldLay(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute OutsideGutter
 *@param bool value: the value to set the attribute to
@@ -399,6 +433,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidStaggerRows(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute WebCellAlignment
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	virtual void SetWebCellAlignment(const JDFXYPair& value);
+/**
+* Get string attribute WebCellAlignment
+* @return JDFXYPair the vaue of the attribute 
+*/
+	virtual JDFXYPair GetWebCellAlignment() const;
+/**
+* Typesafe attribute validation of WebCellAlignment
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidWebCellAlignment(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

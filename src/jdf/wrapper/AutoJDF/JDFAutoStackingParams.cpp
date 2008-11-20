@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoStackingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStackingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Compensate,LayerAmount,MaxAmount,MinAmount,MaxWeight,Offset,UnderLays,StandardAmount");
+		return JDFResource::OptionalAttributes()+WString(L",BundleDepth,Compensate,LayerAmount,LayerLift,LayerCompression,MaxAmount,MaxHeight,MinAmount,MaxWeight,Offset,PreStackAmount,PreStackMethod,StackCompression,UnderLays,StandardAmount");
 };
 
 /**
@@ -140,6 +140,11 @@ bool JDFAutoStackingParams::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidBundleDepth(level)) {
+			vAtts.push_back(atr_BundleDepth);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidCompensate(level)) {
 			vAtts.push_back(atr_Compensate);
 			if(++n>=nMax)
@@ -150,8 +155,23 @@ bool JDFAutoStackingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidLayerLift(level)) {
+			vAtts.push_back(atr_LayerLift);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidLayerCompression(level)) {
+			vAtts.push_back(atr_LayerCompression);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidMaxAmount(level)) {
 			vAtts.push_back(atr_MaxAmount);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMaxHeight(level)) {
+			vAtts.push_back(atr_MaxHeight);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -170,6 +190,21 @@ bool JDFAutoStackingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidPreStackAmount(level)) {
+			vAtts.push_back(atr_PreStackAmount);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPreStackMethod(level)) {
+			vAtts.push_back(atr_PreStackMethod);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidStackCompression(level)) {
+			vAtts.push_back(atr_StackCompression);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidUnderLays(level)) {
 			vAtts.push_back(atr_UnderLays);
 			if(++n>=nMax)
@@ -183,6 +218,24 @@ bool JDFAutoStackingParams::init(){
 		return vAtts;
 	};
 
+/**
+* Set attribute BundleDepth
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoStackingParams::SetBundleDepth(int value){
+	SetAttribute(atr_BundleDepth,WString::valueOf(value));
+};
+/**
+* Get integer attribute BundleDepth
+* @return int the vaue of the attribute ; defaults to 0
+*/
+	 int JDFAutoStackingParams::GetBundleDepth() const {
+	return GetIntAttribute(atr_BundleDepth,WString::emptyStr,0);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStackingParams::ValidBundleDepth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BundleDepth,AttributeType_integer,false);
+	};
 /**
 * Set attribute Compensate
 *@param bool value: the value to set the attribute to
@@ -219,6 +272,40 @@ bool JDFAutoStackingParams::init(){
 		return ValidAttribute(atr_LayerAmount,AttributeType_IntegerList,false);
 	};
 /**
+* Set attribute LayerLift
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoStackingParams::SetLayerLift(bool value){
+	SetAttribute(atr_LayerLift,WString::valueOf(value));
+};
+/**
+* Get bool attribute LayerLift
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoStackingParams::GetLayerLift() const {return GetBoolAttribute(atr_LayerLift,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStackingParams::ValidLayerLift(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LayerLift,AttributeType_boolean,false);
+	};
+/**
+* Set attribute LayerCompression
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoStackingParams::SetLayerCompression(bool value){
+	SetAttribute(atr_LayerCompression,WString::valueOf(value));
+};
+/**
+* Get bool attribute LayerCompression
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoStackingParams::GetLayerCompression() const {return GetBoolAttribute(atr_LayerCompression,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStackingParams::ValidLayerCompression(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LayerCompression,AttributeType_boolean,false);
+	};
+/**
 * Set attribute MaxAmount
 *@param int value: the value to set the attribute to
 */
@@ -235,6 +322,24 @@ bool JDFAutoStackingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStackingParams::ValidMaxAmount(EnumValidationLevel level) const {
 		return ValidAttribute(atr_MaxAmount,AttributeType_integer,false);
+	};
+/**
+* Set attribute MaxHeight
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoStackingParams::SetMaxHeight(int value){
+	SetAttribute(atr_MaxHeight,WString::valueOf(value));
+};
+/**
+* Get integer attribute MaxHeight
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoStackingParams::GetMaxHeight() const {
+	return GetIntAttribute(atr_MaxHeight,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStackingParams::ValidMaxHeight(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MaxHeight,AttributeType_integer,false);
 	};
 /**
 * Set attribute MinAmount
@@ -288,6 +393,66 @@ bool JDFAutoStackingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStackingParams::ValidOffset(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Offset,AttributeType_boolean,false);
+	};
+/**
+* Set attribute PreStackAmount
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoStackingParams::SetPreStackAmount(int value){
+	SetAttribute(atr_PreStackAmount,WString::valueOf(value));
+};
+/**
+* Get integer attribute PreStackAmount
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoStackingParams::GetPreStackAmount() const {
+	return GetIntAttribute(atr_PreStackAmount,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStackingParams::ValidPreStackAmount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PreStackAmount,AttributeType_integer,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoStackingParams::PreStackMethodString(){
+		static const WString enums=WString(L"Unknown,All,First,None");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoStackingParams::PreStackMethodString(EnumPreStackMethod value){
+		return PreStackMethodString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStackingParams::SetPreStackMethod( EnumPreStackMethod value){
+	SetEnumAttribute(atr_PreStackMethod,value,PreStackMethodString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStackingParams::EnumPreStackMethod JDFAutoStackingParams:: GetPreStackMethod() const {
+	return (EnumPreStackMethod) GetEnumAttribute(atr_PreStackMethod,PreStackMethodString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStackingParams::ValidPreStackMethod(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_PreStackMethod,PreStackMethodString(),false);
+	};
+/**
+* Set attribute StackCompression
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoStackingParams::SetStackCompression(bool value){
+	SetAttribute(atr_StackCompression,WString::valueOf(value));
+};
+/**
+* Get bool attribute StackCompression
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoStackingParams::GetStackCompression() const {return GetBoolAttribute(atr_StackCompression,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStackingParams::ValidStackCompression(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StackCompression,AttributeType_boolean,false);
 	};
 /**
 * Set attribute UnderLays

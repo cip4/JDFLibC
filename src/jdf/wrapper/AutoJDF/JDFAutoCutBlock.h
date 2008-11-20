@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -294,6 +294,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidAssemblyIDs(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute CutWidth
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetCutWidth(double value);
+/**
+* Get double attribute CutWidth
+* @return double the vaue of the attribute 
+*/
+	virtual double GetCutWidth() const;
+/**
+* Typesafe attribute validation of CutWidth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCutWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute BlockElementSize
 *@param JDFXYPair value: the value to set the attribute to

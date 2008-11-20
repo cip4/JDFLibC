@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoStripMark.h"
 #include "jdf/wrapper/JDFPosition.h"
 #include "jdf/wrapper/JDFJobField.h"
+#include "jdf/wrapper/JDFRefAnchor.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -119,7 +120,7 @@ JDFAutoStripMark& JDFAutoStripMark::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStripMark::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",MarkName,MarkSide,StripMarkDetails");
+		return JDFElement::OptionalAttributes()+WString(L",AbsoluteHeight,AbsoluteWidth,Anchor,HorizontalFitPolicy,ID,MarkContext,MarkName,MarkSide,Offset,Ord,Orientation,RelativeHeight,RelativeWidth,StripMarkDetails,VerticalFitPolicy");
 };
 
 /**
@@ -130,6 +131,36 @@ JDFAutoStripMark& JDFAutoStripMark::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidAbsoluteHeight(level)) {
+			vAtts.push_back(atr_AbsoluteHeight);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidAbsoluteWidth(level)) {
+			vAtts.push_back(atr_AbsoluteWidth);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidAnchor(level)) {
+			vAtts.push_back(atr_Anchor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidHorizontalFitPolicy(level)) {
+			vAtts.push_back(atr_HorizontalFitPolicy);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidID(level)) {
+			vAtts.push_back(atr_ID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMarkContext(level)) {
+			vAtts.push_back(atr_MarkContext);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidMarkName(level)) {
 			vAtts.push_back(atr_MarkName);
 			if(++n>=nMax)
@@ -140,14 +171,173 @@ JDFAutoStripMark& JDFAutoStripMark::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidOffset(level)) {
+			vAtts.push_back(atr_Offset);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidOrd(level)) {
+			vAtts.push_back(atr_Ord);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidOrientation(level)) {
+			vAtts.push_back(atr_Orientation);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidRelativeHeight(level)) {
+			vAtts.push_back(atr_RelativeHeight);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidRelativeWidth(level)) {
+			vAtts.push_back(atr_RelativeWidth);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidStripMarkDetails(level)) {
 			vAtts.push_back(atr_StripMarkDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidVerticalFitPolicy(level)) {
+			vAtts.push_back(atr_VerticalFitPolicy);
 			if(++n>=nMax)
 				return vAtts;
 		};
 		return vAtts;
 	};
 
+/**
+* Set attribute AbsoluteHeight
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoStripMark::SetAbsoluteHeight(double value){
+	SetAttribute(atr_AbsoluteHeight,WString::valueOf(value));
+};
+/**
+* Get double attribute AbsoluteHeight
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoStripMark::GetAbsoluteHeight() const {
+	return GetRealAttribute(atr_AbsoluteHeight,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidAbsoluteHeight(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AbsoluteHeight,AttributeType_double,false);
+	};
+/**
+* Set attribute AbsoluteWidth
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoStripMark::SetAbsoluteWidth(double value){
+	SetAttribute(atr_AbsoluteWidth,WString::valueOf(value));
+};
+/**
+* Get double attribute AbsoluteWidth
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoStripMark::GetAbsoluteWidth() const {
+	return GetRealAttribute(atr_AbsoluteWidth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidAbsoluteWidth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AbsoluteWidth,AttributeType_double,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoStripMark::AnchorString(){
+		static const WString enums=WString(L"Unknown,TopLeft,TopCenter,TopRight,CenterLeft,Center,CenterRight,BottomLeft,BottomCenter,BottomRight");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoStripMark::AnchorString(EnumAnchor value){
+		return AnchorString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStripMark::SetAnchor( EnumAnchor value){
+	SetEnumAttribute(atr_Anchor,value,AnchorString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStripMark::EnumAnchor JDFAutoStripMark:: GetAnchor() const {
+	return (EnumAnchor) GetEnumAttribute(atr_Anchor,AnchorString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidAnchor(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Anchor,AnchorString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoStripMark::HorizontalFitPolicyString(){
+		static const WString enums=WString(L"Unknown,NoRepeat,StretchToFit,UndistortedScaleToFit,RepeatToFill,RepeatUnclipped");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoStripMark::HorizontalFitPolicyString(EnumHorizontalFitPolicy value){
+		return HorizontalFitPolicyString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStripMark::SetHorizontalFitPolicy( EnumHorizontalFitPolicy value){
+	SetEnumAttribute(atr_HorizontalFitPolicy,value,HorizontalFitPolicyString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStripMark::EnumHorizontalFitPolicy JDFAutoStripMark:: GetHorizontalFitPolicy() const {
+	return (EnumHorizontalFitPolicy) GetEnumAttribute(atr_HorizontalFitPolicy,HorizontalFitPolicyString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidHorizontalFitPolicy(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_HorizontalFitPolicy,HorizontalFitPolicyString(),false);
+	};
+/**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoStripMark::SetID(const WString& value){
+	SetAttribute(atr_ID,value);
+};
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoStripMark::GetID() const {
+	return GetAttribute(atr_ID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ID,AttributeType_NMTOKEN,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoStripMark::MarkContextString(){
+		static const WString enums=WString(L"Unknown,Sheet,BinderySignature,Cell,CellPair");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoStripMark::MarkContextString(EnumMarkContext value){
+		return MarkContextString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStripMark::SetMarkContext( EnumMarkContext value){
+	SetEnumAttribute(atr_MarkContext,value,MarkContextString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStripMark::EnumMarkContext JDFAutoStripMark:: GetMarkContext() const {
+	return (EnumMarkContext) GetEnumAttribute(atr_MarkContext,MarkContextString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidMarkContext(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_MarkContext,MarkContextString(),false);
+	};
 /**
 * Set attribute MarkName
 *@param WString value: the value to set the attribute to
@@ -192,6 +382,90 @@ JDFAutoStripMark& JDFAutoStripMark::operator=(const KElement& other){
 		return ValidEnumAttribute(atr_MarkSide,MarkSideString(),false);
 	};
 /**
+* Set attribute Offset
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	 void JDFAutoStripMark::SetOffset(const JDFXYPair& value){
+	SetAttribute(atr_Offset,value);
+};
+/**
+* Get string attribute Offset
+* @return JDFXYPair the vaue of the attribute 
+*/
+	 JDFXYPair JDFAutoStripMark::GetOffset() const {
+	return GetAttribute(atr_Offset,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidOffset(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Offset,AttributeType_XYPair,false);
+	};
+/**
+* Set attribute Ord
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoStripMark::SetOrd(int value){
+	SetAttribute(atr_Ord,WString::valueOf(value));
+};
+/**
+* Get integer attribute Ord
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoStripMark::GetOrd() const {
+	return GetIntAttribute(atr_Ord,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidOrd(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Ord,AttributeType_integer,false);
+	};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStripMark::SetOrientation( EnumOrientation value){
+	SetEnumAttribute(atr_Orientation,value,OrientationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStripMark::EnumOrientation JDFAutoStripMark:: GetOrientation() const {
+	return (EnumOrientation) GetEnumAttribute(atr_Orientation,OrientationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidOrientation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Orientation,OrientationString(),false);
+	};
+/**
+* Set attribute RelativeHeight
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoStripMark::SetRelativeHeight(double value){
+	SetAttribute(atr_RelativeHeight,WString::valueOf(value));
+};
+/**
+* Get double attribute RelativeHeight
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoStripMark::GetRelativeHeight() const {
+	return GetRealAttribute(atr_RelativeHeight,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidRelativeHeight(EnumValidationLevel level) const {
+		return ValidAttribute(atr_RelativeHeight,AttributeType_double,false);
+	};
+/**
+* Set attribute RelativeWidth
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoStripMark::SetRelativeWidth(double value){
+	SetAttribute(atr_RelativeWidth,WString::valueOf(value));
+};
+/**
+* Get double attribute RelativeWidth
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoStripMark::GetRelativeWidth() const {
+	return GetRealAttribute(atr_RelativeWidth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidRelativeWidth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_RelativeWidth,AttributeType_double,false);
+	};
+/**
 * Set attribute StripMarkDetails
 *@param WString value: the value to set the attribute to
 */
@@ -208,6 +482,31 @@ JDFAutoStripMark& JDFAutoStripMark::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStripMark::ValidStripMarkDetails(EnumValidationLevel level) const {
 		return ValidAttribute(atr_StripMarkDetails,AttributeType_string,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoStripMark::VerticalFitPolicyString(){
+		static const WString enums=WString(L"Unknown,NoRepeat,StretchToFit,UndistortedScaleToFit,RepeatToFill,RepeatUnclipped");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoStripMark::VerticalFitPolicyString(EnumVerticalFitPolicy value){
+		return VerticalFitPolicyString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStripMark::SetVerticalFitPolicy( EnumVerticalFitPolicy value){
+	SetEnumAttribute(atr_VerticalFitPolicy,value,VerticalFitPolicyString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStripMark::EnumVerticalFitPolicy JDFAutoStripMark:: GetVerticalFitPolicy() const {
+	return (EnumVerticalFitPolicy) GetEnumAttribute(atr_VerticalFitPolicy,VerticalFitPolicyString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStripMark::ValidVerticalFitPolicy(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_VerticalFitPolicy,VerticalFitPolicyString(),false);
 	};
 
 /* ******************************************************
@@ -260,6 +559,31 @@ JDFRefElement JDFAutoStripMark::RefJobField(JDFJobField& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFRefAnchor JDFAutoStripMark::GetRefAnchor()const{
+	JDFRefAnchor e=GetElement(elm_RefAnchor);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRefAnchor JDFAutoStripMark::GetCreateRefAnchor(){
+	JDFRefAnchor e=GetCreateElement(elm_RefAnchor);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRefAnchor JDFAutoStripMark::AppendRefAnchor(){
+	JDFRefAnchor e=AppendElementN(elm_RefAnchor,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoStripMark::RefRefAnchor(JDFRefAnchor& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -290,14 +614,33 @@ JDFRefElement JDFAutoStripMark::RefJobField(JDFJobField& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_RefAnchor);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_RefAnchor);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetRefAnchor().IsValid(level)) {
+				vElem.AppendUnique(elm_RefAnchor);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		return vElem;
 	};
 
 
 /**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoStripMark::UniqueElements()const{
+		return JDFElement::UniqueElements()+L",RefAnchor";
+	};
+
+/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoStripMark::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",Position,JobField";
+		return JDFElement::OptionalElements()+L",Position,JobField,RefAnchor";
 	};
 }; // end namespace JDF

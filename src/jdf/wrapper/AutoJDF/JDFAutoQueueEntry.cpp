@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,7 +77,6 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoQueueEntry.h"
 #include "jdf/wrapper/JDFJobPhase.h"
 #include "jdf/wrapper/JDFPart.h"
-#include "jdf/wrapper/JDFPreview.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -450,31 +449,6 @@ JDFPart JDFAutoQueueEntry::AppendPart(){
 		return JDFElement::HasPartMap(mPart);
 	}
 
-JDFPreview JDFAutoQueueEntry::GetPreview(int iSkip)const{
-	JDFPreview e=GetElement(elm_Preview,WString::emptyStr,iSkip);
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-
-JDFPreview JDFAutoQueueEntry::GetCreatePreview(int iSkip){
-	JDFPreview e=GetCreateElement(elm_Preview,WString::emptyStr,iSkip);
-	e.init();
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-
-JDFPreview JDFAutoQueueEntry::AppendPreview(){
-	JDFPreview e=AppendElement(elm_Preview);
-	e.init();
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoQueueEntry::RefPreview(JDFPreview& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
-
 /**
  typesafe validator
 */
@@ -497,16 +471,6 @@ JDFRefElement JDFAutoQueueEntry::RefPreview(JDFPreview& refTarget){
 					return vElem;
 			}
 		}
-		nElem=NumChildElements(elm_Preview);
-
-		for(i=0;i<nElem;i++){
-			if (!GetPreview(i).IsValid(level)) {
-				vElem.AppendUnique(elm_Preview);
-				if (++n>=nMax)
-					return vElem;
-				break;
-			}
-		}
 		return vElem;
 	};
 
@@ -522,6 +486,6 @@ JDFRefElement JDFAutoQueueEntry::RefPreview(JDFPreview& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoQueueEntry::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",JobPhase,Part,Preview";
+		return JDFElement::OptionalElements()+L",JobPhase,Part";
 	};
 }; // end namespace JDF

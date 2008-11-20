@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -246,6 +246,24 @@ public:
  */
 	JDFSpanNamedColor AppendBackCoverColor();
 
+/** Get Element BackCoverColorDetails
+* 
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCreateBackCoverColorDetails(int iSkip=0);
+
+/**
+* const get element BackCoverColorDetails
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetBackCoverColorDetails(int iSkip=0)const;
+/**
+* Append element BackCoverColorDetails
+ */
+	JDFStringSpan AppendBackCoverColorDetails();
+
 /** Get Element BindingType
 * 
 * @param int iSkip number of elements to skip
@@ -281,6 +299,24 @@ public:
 * Append element BindingColor
  */
 	JDFSpanNamedColor AppendBindingColor();
+
+/** Get Element BindingColorDetails
+* 
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCreateBindingColorDetails(int iSkip=0);
+
+/**
+* const get element BindingColorDetails
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetBindingColorDetails(int iSkip=0)const;
+/**
+* Append element BindingColorDetails
+ */
+	JDFStringSpan AppendBindingColorDetails();
 
 /** Get Element BindingLength
 * 
@@ -335,6 +371,24 @@ public:
 * Append element CoverColor
  */
 	JDFSpanNamedColor AppendCoverColor();
+
+/** Get Element CoverColorDetails
+* 
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCreateCoverColorDetails(int iSkip=0);
+
+/**
+* const get element CoverColorDetails
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCoverColorDetails(int iSkip=0)const;
+/**
+* Append element CoverColorDetails
+ */
+	JDFStringSpan AppendCoverColorDetails();
 
 /** Get Element AdhesiveBinding
 * 

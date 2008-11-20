@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -177,6 +177,28 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 */
 virtual bool init();
 
+
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
+/**
+* Set attribute NUpSeparation
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	virtual void SetNUpSeparation(const JDFXYPair& value);
+/**
+* Get string attribute NUpSeparation
+* @return JDFXYPair the vaue of the attribute 
+*/
+	virtual JDFXYPair GetNUpSeparation() const;
+/**
+* Typesafe attribute validation of NUpSeparation
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidNUpSeparation(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

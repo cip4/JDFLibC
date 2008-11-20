@@ -287,11 +287,11 @@ namespace JDF{
 				for(int j=0;j<vr.size();j++)
 				{
 					JDFResource targ=vr[j];
-					VElement leaves=targ.getLeaves();
+					VElement leaves=targ.GetLeaves();
 					for(int k=0;k<leaves.size();k++)
 					{
 						JDFResource leaf=leaves[k];
-						while(!leaf.getPartMap().OvelapsMap(vmParts[i]) && ! leaf.IsResourceRoot())
+						while(!leaf.GetPartMap().OverlapMap(vmParts[i]) && ! leaf.IsResourceRoot())
 							leaf=leaf.GetParentNode();
 						v.AppendUnique(leaf);
 					}

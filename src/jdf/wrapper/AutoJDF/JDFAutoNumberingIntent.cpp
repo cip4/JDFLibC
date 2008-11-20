@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -152,6 +152,26 @@ JDFSpanNamedColor JDFAutoNumberingIntent::AppendColorName(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFStringSpan JDFAutoNumberingIntent::GetColorNameDetails(int iSkip)const{
+	JDFStringSpan e=GetElement(elm_ColorNameDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoNumberingIntent::GetCreateColorNameDetails(int iSkip){
+	JDFStringSpan e=GetCreateElement(elm_ColorNameDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoNumberingIntent::AppendColorNameDetails(){
+	JDFStringSpan e=AppendElement(elm_ColorNameDetails);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFColorPool JDFAutoNumberingIntent::GetColorPool()const{
 	JDFColorPool e=GetElement(elm_ColorPool);
 	return e;
@@ -219,6 +239,16 @@ JDFNumberItem JDFAutoNumberingIntent::AppendNumberItem(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_ColorNameDetails);
+
+		for(i=0;i<nElem;i++){
+			if (!GetColorNameDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ColorNameDetails);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_ColorPool);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_ColorPool);
@@ -268,6 +298,6 @@ JDFNumberItem JDFAutoNumberingIntent::AppendNumberItem(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoNumberingIntent::OptionalElements()const{
-		return JDFIntentResource::OptionalElements()+L",ColorName,ColorPool";
+		return JDFIntentResource::OptionalElements()+L",ColorName,ColorNameDetails,ColorPool";
 	};
 }; // end namespace JDF

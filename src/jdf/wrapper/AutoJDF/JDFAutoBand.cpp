@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -113,17 +113,10 @@ JDFAutoBand& JDFAutoBand::operator=(const KElement& other){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoBand::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",Data,Height,WasMarked,Width";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBand::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Mask");
+		return JDFElement::OptionalAttributes()+WString(L",Data,Height,Mask,WasMarked,Width");
 };
 
 /**
@@ -178,7 +171,7 @@ JDFAutoBand& JDFAutoBand::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBand::ValidData(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Data,AttributeType_URL,RequiredLevel(level));
+		return ValidAttribute(atr_Data,AttributeType_URL,false);
 	};
 /**
 * Set attribute Height
@@ -196,7 +189,7 @@ JDFAutoBand& JDFAutoBand::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBand::ValidHeight(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Height,AttributeType_integer,RequiredLevel(level));
+		return ValidAttribute(atr_Height,AttributeType_integer,false);
 	};
 /**
 * Set attribute Mask
@@ -231,7 +224,7 @@ JDFAutoBand& JDFAutoBand::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBand::ValidWasMarked(EnumValidationLevel level) const {
-		return ValidAttribute(atr_WasMarked,AttributeType_boolean,RequiredLevel(level));
+		return ValidAttribute(atr_WasMarked,AttributeType_boolean,false);
 	};
 /**
 * Set attribute Width
@@ -249,6 +242,6 @@ JDFAutoBand& JDFAutoBand::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBand::ValidWidth(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Width,AttributeType_integer,RequiredLevel(level));
+		return ValidAttribute(atr_Width,AttributeType_integer,false);
 	};
 }; // end namespace JDF

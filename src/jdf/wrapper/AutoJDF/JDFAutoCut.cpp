@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -123,7 +123,7 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCut::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",RelativeStartPosition,RelativeWorkingPath,StartPosition,WorkingPath");
+		return JDFElement::OptionalAttributes()+WString(L",CutWidth,RelativeStartPosition,RelativeWorkingPath,StartPosition,WorkingPath");
 };
 
 /**
@@ -134,6 +134,11 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidCutWidth(level)) {
+			vAtts.push_back(atr_CutWidth);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidRelativeStartPosition(level)) {
 			vAtts.push_back(atr_RelativeStartPosition);
 			if(++n>=nMax)
@@ -162,6 +167,24 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute CutWidth
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoCut::SetCutWidth(double value){
+	SetAttribute(atr_CutWidth,WString::valueOf(value));
+};
+/**
+* Get double attribute CutWidth
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoCut::GetCutWidth() const {
+	return GetRealAttribute(atr_CutWidth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCut::ValidCutWidth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CutWidth,AttributeType_double,false);
+	};
 /**
 * Set attribute RelativeStartPosition
 *@param JDFXYPair value: the value to set the attribute to

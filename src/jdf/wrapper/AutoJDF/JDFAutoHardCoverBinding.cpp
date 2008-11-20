@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -226,6 +226,26 @@ JDFSpanNamedColor JDFAutoHardCoverBinding::GetCreateHeadBandColor(int iSkip){
 
 JDFSpanNamedColor JDFAutoHardCoverBinding::AppendHeadBandColor(){
 	JDFSpanNamedColor e=AppendElement(elm_HeadBandColor);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoHardCoverBinding::GetHeadBandColorDetails(int iSkip)const{
+	JDFStringSpan e=GetElement(elm_HeadBandColorDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoHardCoverBinding::GetCreateHeadBandColorDetails(int iSkip){
+	JDFStringSpan e=GetCreateElement(elm_HeadBandColorDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringSpan JDFAutoHardCoverBinding::AppendHeadBandColorDetails(){
+	JDFStringSpan e=AppendElement(elm_HeadBandColorDetails);
 	e.init();
 	return e;
 };
@@ -596,6 +616,16 @@ JDFRefElement JDFAutoHardCoverBinding::RefRegisterRibbon(JDFRegisterRibbon& refT
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_HeadBandColorDetails);
+
+		for(i=0;i<nElem;i++){
+			if (!GetHeadBandColorDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_HeadBandColorDetails);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Jacket);
 
 		for(i=0;i<nElem;i++){
@@ -754,6 +784,6 @@ JDFRefElement JDFAutoHardCoverBinding::RefRegisterRibbon(JDFRegisterRibbon& refT
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoHardCoverBinding::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",BlockThreadSewing,CoverStyle,EndSheets,HeadBands,HeadBandColor,Jacket,JacketFoldingWidth,JapanBind,SpineBrushing,SpineFiberRoughing,SpineGlue,SpineLevelling,SpineMilling,SpineNotching,SpineSanding,SpineShredding,StripMaterial,TightBacking,Thickness,RegisterRibbon";
+		return JDFElement::OptionalElements()+L",BlockThreadSewing,CoverStyle,EndSheets,HeadBands,HeadBandColor,HeadBandColorDetails,Jacket,JacketFoldingWidth,JapanBind,SpineBrushing,SpineFiberRoughing,SpineGlue,SpineLevelling,SpineMilling,SpineNotching,SpineSanding,SpineShredding,StripMaterial,TightBacking,Thickness,RegisterRibbon";
 	};
 }; // end namespace JDF

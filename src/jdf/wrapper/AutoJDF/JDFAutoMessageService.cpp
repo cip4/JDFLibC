@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -79,7 +79,7 @@
 #include "jdf/wrapper/JDFDevCapPool.h"
 #include "jdf/wrapper/JDFDevCaps.h"
 #include "jdf/wrapper/JDFModulePool.h"
-#include "jdf/wrapper/JDFModulePool.h"
+#include "jdf/wrapper/JDFTestPool.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -129,7 +129,7 @@ JDFAutoMessageService& JDFAutoMessageService::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMessageService::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Acknowledge,Command,GenericAttributes,JMFRole,Persistent,Query,Registration,Signal,URLSchemes");
+		return JDFElement::OptionalAttributes()+WString(L",Acknowledge,ChannelMode,Command,GenericAttributes,JMFRole,Persistent,Query,Registration,Signal,URLSchemes");
 };
 
 /**
@@ -142,6 +142,11 @@ JDFAutoMessageService& JDFAutoMessageService::operator=(const KElement& other){
 			return vAtts;
 		if(!ValidAcknowledge(level)) {
 			vAtts.push_back(atr_Acknowledge);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidChannelMode(level)) {
+			vAtts.push_back(atr_ChannelMode);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -209,6 +214,31 @@ JDFAutoMessageService& JDFAutoMessageService::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMessageService::ValidAcknowledge(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Acknowledge,AttributeType_boolean,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoMessageService::ChannelModeString(){
+		static const WString enums=WString(L"Unknown,FireAndForget,Reliable");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoMessageService::ChannelModeString(EnumChannelMode value){
+		return ChannelModeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoMessageService::SetChannelMode( EnumChannelMode value){
+	SetEnumAttribute(atr_ChannelMode,value,ChannelModeString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoMessageService::EnumChannelMode JDFAutoMessageService:: GetChannelMode() const {
+	return (EnumChannelMode) GetEnumAttribute(atr_ChannelMode,ChannelModeString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMessageService::ValidChannelMode(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ChannelMode,ChannelModeString(),false);
 	};
 /**
 * Set attribute Command
@@ -460,21 +490,281 @@ JDFModulePool JDFAutoMessageService::AppendModulePool(){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFModulePool JDFAutoMessageService::GetTestPool()const{
-	JDFModulePool e=GetElement(elm_TestPool);
+JDFBooleanState JDFAutoMessageService::GetBooleanState(int iSkip)const{
+	JDFBooleanState e=GetElement(elm_BooleanState,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFModulePool JDFAutoMessageService::GetCreateTestPool(){
-	JDFModulePool e=GetCreateElement(elm_TestPool);
+JDFBooleanState JDFAutoMessageService::GetCreateBooleanState(int iSkip){
+	JDFBooleanState e=GetCreateElement(elm_BooleanState,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFModulePool JDFAutoMessageService::AppendTestPool(){
-	JDFModulePool e=AppendElementN(elm_TestPool,1);
+JDFBooleanState JDFAutoMessageService::AppendBooleanState(){
+	JDFBooleanState e=AppendElement(elm_BooleanState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDateTimeState JDFAutoMessageService::GetDateTimeState(int iSkip)const{
+	JDFDateTimeState e=GetElement(elm_DateTimeState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDateTimeState JDFAutoMessageService::GetCreateDateTimeState(int iSkip){
+	JDFDateTimeState e=GetCreateElement(elm_DateTimeState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDateTimeState JDFAutoMessageService::AppendDateTimeState(){
+	JDFDateTimeState e=AppendElement(elm_DateTimeState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDurationState JDFAutoMessageService::GetDurationState(int iSkip)const{
+	JDFDurationState e=GetElement(elm_DurationState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDurationState JDFAutoMessageService::GetCreateDurationState(int iSkip){
+	JDFDurationState e=GetCreateElement(elm_DurationState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFDurationState JDFAutoMessageService::AppendDurationState(){
+	JDFDurationState e=AppendElement(elm_DurationState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEnumerationState JDFAutoMessageService::GetEnumerationState(int iSkip)const{
+	JDFEnumerationState e=GetElement(elm_EnumerationState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEnumerationState JDFAutoMessageService::GetCreateEnumerationState(int iSkip){
+	JDFEnumerationState e=GetCreateElement(elm_EnumerationState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEnumerationState JDFAutoMessageService::AppendEnumerationState(){
+	JDFEnumerationState e=AppendElement(elm_EnumerationState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFIntegerState JDFAutoMessageService::GetIntegerState(int iSkip)const{
+	JDFIntegerState e=GetElement(elm_IntegerState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFIntegerState JDFAutoMessageService::GetCreateIntegerState(int iSkip){
+	JDFIntegerState e=GetCreateElement(elm_IntegerState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFIntegerState JDFAutoMessageService::AppendIntegerState(){
+	JDFIntegerState e=AppendElement(elm_IntegerState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMatrixState JDFAutoMessageService::GetMatrixState(int iSkip)const{
+	JDFMatrixState e=GetElement(elm_MatrixState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMatrixState JDFAutoMessageService::GetCreateMatrixState(int iSkip){
+	JDFMatrixState e=GetCreateElement(elm_MatrixState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMatrixState JDFAutoMessageService::AppendMatrixState(){
+	JDFMatrixState e=AppendElement(elm_MatrixState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNameState JDFAutoMessageService::GetNameState(int iSkip)const{
+	JDFNameState e=GetElement(elm_NameState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNameState JDFAutoMessageService::GetCreateNameState(int iSkip){
+	JDFNameState e=GetCreateElement(elm_NameState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNameState JDFAutoMessageService::AppendNameState(){
+	JDFNameState e=AppendElement(elm_NameState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNumberState JDFAutoMessageService::GetNumberState(int iSkip)const{
+	JDFNumberState e=GetElement(elm_NumberState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNumberState JDFAutoMessageService::GetCreateNumberState(int iSkip){
+	JDFNumberState e=GetCreateElement(elm_NumberState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNumberState JDFAutoMessageService::AppendNumberState(){
+	JDFNumberState e=AppendElement(elm_NumberState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPDFPathState JDFAutoMessageService::GetPDFPathState(int iSkip)const{
+	JDFPDFPathState e=GetElement(elm_PDFPathState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPDFPathState JDFAutoMessageService::GetCreatePDFPathState(int iSkip){
+	JDFPDFPathState e=GetCreateElement(elm_PDFPathState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPDFPathState JDFAutoMessageService::AppendPDFPathState(){
+	JDFPDFPathState e=AppendElement(elm_PDFPathState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRectangleState JDFAutoMessageService::GetRectangleState(int iSkip)const{
+	JDFRectangleState e=GetElement(elm_RectangleState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRectangleState JDFAutoMessageService::GetCreateRectangleState(int iSkip){
+	JDFRectangleState e=GetCreateElement(elm_RectangleState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFRectangleState JDFAutoMessageService::AppendRectangleState(){
+	JDFRectangleState e=AppendElement(elm_RectangleState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeState JDFAutoMessageService::GetShapeState(int iSkip)const{
+	JDFShapeState e=GetElement(elm_ShapeState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeState JDFAutoMessageService::GetCreateShapeState(int iSkip){
+	JDFShapeState e=GetCreateElement(elm_ShapeState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFShapeState JDFAutoMessageService::AppendShapeState(){
+	JDFShapeState e=AppendElement(elm_ShapeState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringState JDFAutoMessageService::GetStringState(int iSkip)const{
+	JDFStringState e=GetElement(elm_StringState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringState JDFAutoMessageService::GetCreateStringState(int iSkip){
+	JDFStringState e=GetCreateElement(elm_StringState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFStringState JDFAutoMessageService::AppendStringState(){
+	JDFStringState e=AppendElement(elm_StringState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFXYPairState JDFAutoMessageService::GetXYPairState(int iSkip)const{
+	JDFXYPairState e=GetElement(elm_XYPairState,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFXYPairState JDFAutoMessageService::GetCreateXYPairState(int iSkip){
+	JDFXYPairState e=GetCreateElement(elm_XYPairState,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFXYPairState JDFAutoMessageService::AppendXYPairState(){
+	JDFXYPairState e=AppendElement(elm_XYPairState);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTestPool JDFAutoMessageService::GetTestPool()const{
+	JDFTestPool e=GetElement(elm_TestPool);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTestPool JDFAutoMessageService::GetCreateTestPool(){
+	JDFTestPool e=GetCreateElement(elm_TestPool);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTestPool JDFAutoMessageService::AppendTestPool(){
+	JDFTestPool e=AppendElementN(elm_TestPool,1);
 	e.init();
 	return e;
 };
@@ -536,6 +826,136 @@ JDFModulePool JDFAutoMessageService::AppendTestPool(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_BooleanState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetBooleanState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_BooleanState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_DateTimeState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetDateTimeState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_DateTimeState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_DurationState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetDurationState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_DurationState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_EnumerationState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEnumerationState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_EnumerationState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_IntegerState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetIntegerState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_IntegerState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_MatrixState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetMatrixState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_MatrixState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_NameState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetNameState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_NameState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_NumberState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetNumberState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_NumberState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_PDFPathState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetPDFPathState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_PDFPathState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_RectangleState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetRectangleState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_RectangleState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_ShapeState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetShapeState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ShapeState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_StringState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetStringState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_StringState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_XYPairState);
+
+		for(i=0;i<nElem;i++){
+			if (!GetXYPairState(i).IsValid(level)) {
+				vElem.AppendUnique(elm_XYPairState);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_TestPool);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_TestPool);
@@ -563,6 +983,6 @@ JDFModulePool JDFAutoMessageService::AppendTestPool(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMessageService::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",ActionPool,DevCapPool,DevCaps,ModulePool,TestPool";
+		return JDFElement::OptionalElements()+L",ActionPool,DevCapPool,DevCaps,ModulePool,BooleanState,DateTimeState,DurationState,EnumerationState,IntegerState,MatrixState,NameState,NumberState,PDFPathState,RectangleState,ShapeState,StringState,XYPairState,TestPool";
 	};
 }; // end namespace JDF

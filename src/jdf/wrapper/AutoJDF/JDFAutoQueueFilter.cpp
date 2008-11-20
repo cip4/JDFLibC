@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoQueueFilter.h"
 #include "jdf/wrapper/JDFQueueEntryDef.h"
 #include "jdf/wrapper/JDFDevice.h"
+#include "jdf/wrapper/JDFPart.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -119,7 +120,7 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoQueueFilter::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",GangNames,MaxEntries,OlderThan,NewerThan,QueueEntryDetails,StatusList");
+		return JDFElement::OptionalAttributes()+WString(L",GangNames,JobID,JobPartID,MaxEntries,OlderThan,PreviewUsages,NewerThan,QueueEntryDetails,StatusList,UpdateGranularity");
 };
 
 /**
@@ -135,6 +136,16 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidJobID(level)) {
+			vAtts.push_back(atr_JobID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidJobPartID(level)) {
+			vAtts.push_back(atr_JobPartID);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidMaxEntries(level)) {
 			vAtts.push_back(atr_MaxEntries);
 			if(++n>=nMax)
@@ -142,6 +153,11 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
 		};
 		if(!ValidOlderThan(level)) {
 			vAtts.push_back(atr_OlderThan);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPreviewUsages(level)) {
+			vAtts.push_back(atr_PreviewUsages);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -157,6 +173,11 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
 		};
 		if(!ValidStatusList(level)) {
 			vAtts.push_back(atr_StatusList);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidUpdateGranularity(level)) {
+			vAtts.push_back(atr_UpdateGranularity);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -180,6 +201,42 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoQueueFilter::ValidGangNames(EnumValidationLevel level) const {
 		return ValidAttribute(atr_GangNames,AttributeType_NMTOKENS,false);
+	};
+/**
+* Set attribute JobID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoQueueFilter::SetJobID(const WString& value){
+	SetAttribute(atr_JobID,value);
+};
+/**
+* Get string attribute JobID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoQueueFilter::GetJobID() const {
+	return GetAttribute(atr_JobID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoQueueFilter::ValidJobID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_JobID,AttributeType_string,false);
+	};
+/**
+* Set attribute JobPartID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoQueueFilter::SetJobPartID(const WString& value){
+	SetAttribute(atr_JobPartID,value);
+};
+/**
+* Get string attribute JobPartID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoQueueFilter::GetJobPartID() const {
+	return GetAttribute(atr_JobPartID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoQueueFilter::ValidJobPartID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_JobPartID,AttributeType_string,false);
 	};
 /**
 * Set attribute MaxEntries
@@ -217,6 +274,48 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
 	bool JDFAutoQueueFilter::ValidOlderThan(EnumValidationLevel level) const {
 		return ValidAttribute(atr_OlderThan,AttributeType_dateTime,false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoQueueFilter::PreviewUsagesString(){
+		static const WString enums=WString(L"Unknown,3D,Animation,Separation,SeparationRaw,SeparatedThumbNail,ThumbNail,Viewable");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoQueueFilter::PreviewUsagesString(EnumPreviewUsages value){
+		return PreviewUsagesString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoQueueFilter::AddPreviewUsages( EnumPreviewUsages value){
+	return AddEnumerationsAttribute(atr_PreviewUsages,value,PreviewUsagesString());
+};
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoQueueFilter::RemovePreviewUsages( EnumPreviewUsages value){
+	return RemoveEnumerationsAttribute(atr_PreviewUsages,value,PreviewUsagesString());
+};
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoQueueFilter::GetPreviewUsages() const {
+	return GetEnumerationsAttribute(atr_PreviewUsages,PreviewUsagesString(),WString::emptyStr,(unsigned int)PreviewUsages_Separation);
+};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoQueueFilter::SetPreviewUsages( EnumPreviewUsages value){
+	SetEnumAttribute(atr_PreviewUsages,value,PreviewUsagesString());
+};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoQueueFilter::SetPreviewUsages( const vint& value){
+	SetEnumerationsAttribute(atr_PreviewUsages,value,PreviewUsagesString());
+};
+/**
+* Typesafe attribute validation of PreviewUsages
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoQueueFilter::ValidPreviewUsages(EnumValidationLevel level) const {
+		return ValidEnumerationsAttribute(atr_PreviewUsages,PreviewUsagesString(),false);
+	};
 /**
 * Set attribute NewerThan
 *@param JDFDate value: the value to set the attribute to
@@ -238,7 +337,7 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoQueueFilter::QueueEntryDetailsString(){
-		static const WString enums=WString(L"Unknown,None,Brief,JobPhase,JDF,Full");
+		static const WString enums=WString(L"Unknown,None,Brief,JobPhase,JDF");
 		return enums;
 	};
 
@@ -302,6 +401,31 @@ JDFAutoQueueFilter& JDFAutoQueueFilter::operator=(const KElement& other){
 	bool JDFAutoQueueFilter::ValidStatusList(EnumValidationLevel level) const {
 		return ValidEnumerationsAttribute(atr_StatusList,StatusListString(),false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoQueueFilter::UpdateGranularityString(){
+		static const WString enums=WString(L"Unknown,All,ChangesOnly");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoQueueFilter::UpdateGranularityString(EnumUpdateGranularity value){
+		return UpdateGranularityString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoQueueFilter::SetUpdateGranularity( EnumUpdateGranularity value){
+	SetEnumAttribute(atr_UpdateGranularity,value,UpdateGranularityString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoQueueFilter::EnumUpdateGranularity JDFAutoQueueFilter:: GetUpdateGranularity() const {
+	return (EnumUpdateGranularity) GetEnumAttribute(atr_UpdateGranularity,UpdateGranularityString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoQueueFilter::ValidUpdateGranularity(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_UpdateGranularity,UpdateGranularityString(),false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
@@ -353,6 +477,52 @@ JDFRefElement JDFAutoQueueFilter::RefDevice(JDFDevice& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFPart JDFAutoQueueFilter::GetPart(int iSkip)const{
+	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPart JDFAutoQueueFilter::GetCreatePart(int iSkip){
+	JDFPart e=GetCreateElement(elm_Part,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPart JDFAutoQueueFilter::AppendPart(){
+	JDFPart e=AppendElement(elm_Part);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+	vmAttribute JDFAutoQueueFilter::GetPartMapVector()const{
+		return JDFElement::GetPartMapVector();
+	}
+
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoQueueFilter::SetPartMapVector(const vmAttribute & vParts){
+		JDFElement::SetPartMapVector(vParts);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoQueueFilter::SetPartMap(const mAttribute & mPart){
+		JDFElement::SetPartMap(mPart);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	void JDFAutoQueueFilter::RemovePartMap(const mAttribute & mPart){
+		JDFElement::RemovePartMap(mPart);
+	}
+//////////////////////////////////////////////////////////////////////
+
+	bool JDFAutoQueueFilter::HasPartMap(const mAttribute & mPart){
+		return JDFElement::HasPartMap(mPart);
+	}
+
 /**
  typesafe validator
 */
@@ -391,6 +561,6 @@ JDFRefElement JDFAutoQueueFilter::RefDevice(JDFDevice& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoQueueFilter::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",QueueEntryDef,Device";
+		return JDFElement::OptionalElements()+L",QueueEntryDef,Device,Part";
 	};
 }; // end namespace JDF

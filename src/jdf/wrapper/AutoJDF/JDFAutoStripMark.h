@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFPosition;
 class JDFJobField;
+class JDFRefAnchor;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -165,16 +166,171 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute Anchor
+*/
+
+	enum EnumAnchor{Anchor_Unknown,Anchor_TopLeft,Anchor_TopCenter,Anchor_TopRight,Anchor_CenterLeft,Anchor_Center,Anchor_CenterRight,Anchor_BottomLeft,Anchor_BottomCenter,Anchor_BottomRight};
+/**
+* Enumeration for attribute HorizontalFitPolicy
+*/
+
+	enum EnumHorizontalFitPolicy{HorizontalFitPolicy_Unknown,HorizontalFitPolicy_NoRepeat,HorizontalFitPolicy_StretchToFit,HorizontalFitPolicy_UndistortedScaleToFit,HorizontalFitPolicy_RepeatToFill,HorizontalFitPolicy_RepeatUnclipped};
+/**
+* Enumeration for attribute MarkContext
+*/
+
+	enum EnumMarkContext{MarkContext_Unknown,MarkContext_Sheet,MarkContext_BinderySignature,MarkContext_Cell,MarkContext_CellPair};
+/**
 * Enumeration for attribute MarkSide
 */
 
 	enum EnumMarkSide{MarkSide_Unknown,MarkSide_Front,MarkSide_Back,MarkSide_TwoSidedBackToBack,MarkSide_TwoSidedIndependent};
+/**
+* Enumeration for attribute VerticalFitPolicy
+*/
+
+	enum EnumVerticalFitPolicy{VerticalFitPolicy_Unknown,VerticalFitPolicy_NoRepeat,VerticalFitPolicy_StretchToFit,VerticalFitPolicy_UndistortedScaleToFit,VerticalFitPolicy_RepeatToFill,VerticalFitPolicy_RepeatUnclipped};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute AbsoluteHeight
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetAbsoluteHeight(double value);
+/**
+* Get double attribute AbsoluteHeight
+* @return double the vaue of the attribute 
+*/
+	virtual double GetAbsoluteHeight() const;
+/**
+* Typesafe attribute validation of AbsoluteHeight
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAbsoluteHeight(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute AbsoluteWidth
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetAbsoluteWidth(double value);
+/**
+* Get double attribute AbsoluteWidth
+* @return double the vaue of the attribute 
+*/
+	virtual double GetAbsoluteWidth() const;
+/**
+* Typesafe attribute validation of AbsoluteWidth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAbsoluteWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for Anchor
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& AnchorString();
+/**
+* Enumeration string for enum value
+* @param EnumAnchor value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString AnchorString(EnumAnchor value);
+/**
+* Set attribute Anchor
+* @param EnumAnchor value the value to set the attribute to
+*/
+	virtual void SetAnchor( EnumAnchor value);
+
+/**
+* Typesafe enumerated attribute Anchor
+* @return EnumAnchorthe enumeration value of the attribute
+*/
+	virtual EnumAnchor GetAnchor() const;
+
+/**
+* Typesafe attribute validation of Anchor
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidAnchor(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for HorizontalFitPolicy
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& HorizontalFitPolicyString();
+/**
+* Enumeration string for enum value
+* @param EnumHorizontalFitPolicy value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString HorizontalFitPolicyString(EnumHorizontalFitPolicy value);
+/**
+* Set attribute HorizontalFitPolicy
+* @param EnumHorizontalFitPolicy value the value to set the attribute to
+*/
+	virtual void SetHorizontalFitPolicy( EnumHorizontalFitPolicy value);
+
+/**
+* Typesafe enumerated attribute HorizontalFitPolicy
+* @return EnumHorizontalFitPolicythe enumeration value of the attribute
+*/
+	virtual EnumHorizontalFitPolicy GetHorizontalFitPolicy() const;
+
+/**
+* Typesafe attribute validation of HorizontalFitPolicy
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidHorizontalFitPolicy(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetID(const WString& value);
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetID() const;
+/**
+* Typesafe attribute validation of ID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for MarkContext
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& MarkContextString();
+/**
+* Enumeration string for enum value
+* @param EnumMarkContext value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString MarkContextString(EnumMarkContext value);
+/**
+* Set attribute MarkContext
+* @param EnumMarkContext value the value to set the attribute to
+*/
+	virtual void SetMarkContext( EnumMarkContext value);
+
+/**
+* Typesafe enumerated attribute MarkContext
+* @return EnumMarkContextthe enumeration value of the attribute
+*/
+	virtual EnumMarkContext GetMarkContext() const;
+
+/**
+* Typesafe attribute validation of MarkContext
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidMarkContext(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MarkName
 *@param WString value: the value to set the attribute to
@@ -221,6 +377,88 @@ public:
 */
 	virtual bool ValidMarkSide(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute Offset
+*@param JDFXYPair value: the value to set the attribute to
+*/
+	virtual void SetOffset(const JDFXYPair& value);
+/**
+* Get string attribute Offset
+* @return JDFXYPair the vaue of the attribute 
+*/
+	virtual JDFXYPair GetOffset() const;
+/**
+* Typesafe attribute validation of Offset
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOffset(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Ord
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetOrd(int value);
+/**
+* Get integer attribute Ord
+* @return int the vaue of the attribute 
+*/
+	virtual int GetOrd() const;
+/**
+* Typesafe attribute validation of Ord
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Orientation
+* @param EnumOrientation value the value to set the attribute to
+*/
+	virtual void SetOrientation( EnumOrientation value);
+
+/**
+* Typesafe enumerated attribute Orientation
+* @return EnumOrientationthe enumeration value of the attribute
+*/
+	virtual EnumOrientation GetOrientation() const;
+
+/**
+* Typesafe attribute validation of Orientation
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidOrientation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute RelativeHeight
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetRelativeHeight(double value);
+/**
+* Get double attribute RelativeHeight
+* @return double the vaue of the attribute 
+*/
+	virtual double GetRelativeHeight() const;
+/**
+* Typesafe attribute validation of RelativeHeight
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRelativeHeight(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute RelativeWidth
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetRelativeWidth(double value);
+/**
+* Get double attribute RelativeWidth
+* @return double the vaue of the attribute 
+*/
+	virtual double GetRelativeWidth() const;
+/**
+* Typesafe attribute validation of RelativeWidth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRelativeWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute StripMarkDetails
 *@param WString value: the value to set the attribute to
 */
@@ -236,6 +474,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidStripMarkDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for VerticalFitPolicy
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& VerticalFitPolicyString();
+/**
+* Enumeration string for enum value
+* @param EnumVerticalFitPolicy value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString VerticalFitPolicyString(EnumVerticalFitPolicy value);
+/**
+* Set attribute VerticalFitPolicy
+* @param EnumVerticalFitPolicy value the value to set the attribute to
+*/
+	virtual void SetVerticalFitPolicy( EnumVerticalFitPolicy value);
+
+/**
+* Typesafe enumerated attribute VerticalFitPolicy
+* @return EnumVerticalFitPolicythe enumeration value of the attribute
+*/
+	virtual EnumVerticalFitPolicy GetVerticalFitPolicy() const;
+
+/**
+* Typesafe attribute validation of VerticalFitPolicy
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidVerticalFitPolicy(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -283,6 +550,34 @@ public:
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefJobField(JDFJobField& refTarget);
+
+/** Get Element RefAnchor
+* 
+* @return JDFRefAnchor The element
+*/
+	JDFRefAnchor GetCreateRefAnchor();
+
+/**
+* const get element RefAnchor
+*@return  JDFRefAnchor The element
+*/
+	JDFRefAnchor GetRefAnchor()const;
+/**
+* Append element RefAnchor
+ * 
+*/
+	JDFRefAnchor AppendRefAnchor();
+/**
+* create inter-resource link to refTarget
+* @param JDFRefAnchor& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefRefAnchor(JDFRefAnchor& refTarget);
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

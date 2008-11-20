@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,7 @@
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
 class JDFColorantAlias;
+class JDFSeparationList;
 class JDFSeparationList;
 class JDFSeparationList;
 class JDFColorPool;
@@ -248,6 +249,23 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefColorantAlias(JDFColorantAlias& refTarget);
+
+/** Get Element ColorantConvertProcess
+* 
+* @return JDFSeparationList The element
+*/
+	JDFSeparationList GetCreateColorantConvertProcess();
+
+/**
+* const get element ColorantConvertProcess
+*@return  JDFSeparationList The element
+*/
+	JDFSeparationList GetColorantConvertProcess()const;
+/**
+* Append element ColorantConvertProcess
+ * 
+*/
+	JDFSeparationList AppendColorantConvertProcess();
 
 /** Get Element ColorantOrder
 * 

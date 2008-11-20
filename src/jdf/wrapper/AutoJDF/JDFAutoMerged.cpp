@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoMerged.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFPart.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -282,6 +283,26 @@ JDFAutoMerged& JDFAutoMerged::operator=(const KElement& other){
 **************************************************************** */
 
 
+JDFEmployee JDFAutoMerged::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoMerged::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFEmployee JDFAutoMerged::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFPart JDFAutoMerged::GetPart(int iSkip)const{
 	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);
 	return e;
@@ -338,6 +359,16 @@ JDFPart JDFAutoMerged::AppendPart(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Employee);
+
+		for(i=0;i<nElem;i++){
+			if (!GetEmployee(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Employee);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -346,6 +377,6 @@ JDFPart JDFAutoMerged::AppendPart(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMerged::OptionalElements()const{
-		return JDFAudit::OptionalElements()+L",Part";
+		return JDFAudit::OptionalElements()+L",Employee,Part";
 	};
 }; // end namespace JDF

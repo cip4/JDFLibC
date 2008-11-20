@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoSpineTapingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoSpineTapingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",TopExcess,HorizontalExcess,StripBrand,StripColor,StripLength,StripMaterial");
+		return JDFResource::OptionalAttributes()+WString(L",TopExcess,HorizontalExcess,HorizontalExcessBack,StripBrand,StripColor,StripColorDetails,StripLength,StripMaterial");
 };
 
 /**
@@ -150,6 +150,11 @@ bool JDFAutoSpineTapingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidHorizontalExcessBack(level)) {
+			vAtts.push_back(atr_HorizontalExcessBack);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidStripBrand(level)) {
 			vAtts.push_back(atr_StripBrand);
 			if(++n>=nMax)
@@ -157,6 +162,11 @@ bool JDFAutoSpineTapingParams::init(){
 		};
 		if(!ValidStripColor(level)) {
 			vAtts.push_back(atr_StripColor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidStripColorDetails(level)) {
+			vAtts.push_back(atr_StripColorDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -210,6 +220,24 @@ bool JDFAutoSpineTapingParams::init(){
 		return ValidAttribute(atr_HorizontalExcess,AttributeType_double,false);
 	};
 /**
+* Set attribute HorizontalExcessBack
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoSpineTapingParams::SetHorizontalExcessBack(double value){
+	SetAttribute(atr_HorizontalExcessBack,WString::valueOf(value));
+};
+/**
+* Get double attribute HorizontalExcessBack
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoSpineTapingParams::GetHorizontalExcessBack() const {
+	return GetRealAttribute(atr_HorizontalExcessBack,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSpineTapingParams::ValidHorizontalExcessBack(EnumValidationLevel level) const {
+		return ValidAttribute(atr_HorizontalExcessBack,AttributeType_double,false);
+	};
+/**
 * Set attribute StripBrand
 *@param WString value: the value to set the attribute to
 */
@@ -238,6 +266,24 @@ bool JDFAutoSpineTapingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSpineTapingParams::ValidStripColor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_StripColor,NamedColorString(),false);
+	};
+/**
+* Set attribute StripColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoSpineTapingParams::SetStripColorDetails(const WString& value){
+	SetAttribute(atr_StripColorDetails,value);
+};
+/**
+* Get string attribute StripColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoSpineTapingParams::GetStripColorDetails() const {
+	return GetAttribute(atr_StripColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSpineTapingParams::ValidStripColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StripColorDetails,AttributeType_string,false);
 	};
 /**
 * Set attribute StripLength

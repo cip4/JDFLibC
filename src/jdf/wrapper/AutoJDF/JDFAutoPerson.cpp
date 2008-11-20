@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -130,7 +130,7 @@ bool JDFAutoPerson::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPerson::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",AdditionalNames,FamilyName,FirstName,JobTitle,NamePrefix,NameSuffix");
+		return JDFResource::OptionalAttributes()+WString(L",AdditionalNames,FamilyName,FirstName,JobTitle,Languages,NamePrefix,NameSuffix");
 };
 
 /**
@@ -158,6 +158,11 @@ bool JDFAutoPerson::init(){
 		};
 		if(!ValidJobTitle(level)) {
 			vAtts.push_back(atr_JobTitle);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidLanguages(level)) {
+			vAtts.push_back(atr_Languages);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -245,6 +250,24 @@ bool JDFAutoPerson::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPerson::ValidJobTitle(EnumValidationLevel level) const {
 		return ValidAttribute(atr_JobTitle,AttributeType_string,false);
+	};
+/**
+* Set attribute Languages
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoPerson::SetLanguages(const vWString& value){
+	SetAttribute(atr_Languages,value);
+};
+/**
+* Get string attribute Languages
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoPerson::GetLanguages() const {
+	return GetAttribute(atr_Languages,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPerson::ValidLanguages(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Languages,AttributeType_languages,false);
 	};
 /**
 * Set attribute NamePrefix

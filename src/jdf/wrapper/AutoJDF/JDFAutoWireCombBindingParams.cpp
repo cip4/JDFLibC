@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoWireCombBindingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoWireCombBindingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",FlipBackCover,Shape,Brand,Color,Diameter,Distance,Material,Thickness");
+		return JDFResource::OptionalAttributes()+WString(L",FlipBackCover,Shape,Brand,Color,ColorDetails,Diameter,Distance,Material,Thickness");
 };
 
 /**
@@ -157,6 +157,11 @@ bool JDFAutoWireCombBindingParams::init(){
 		};
 		if(!ValidColor(level)) {
 			vAtts.push_back(atr_Color);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidColorDetails(level)) {
+			vAtts.push_back(atr_ColorDetails);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -254,6 +259,24 @@ bool JDFAutoWireCombBindingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoWireCombBindingParams::ValidColor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_Color,NamedColorString(),false);
+	};
+/**
+* Set attribute ColorDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoWireCombBindingParams::SetColorDetails(const WString& value){
+	SetAttribute(atr_ColorDetails,value);
+};
+/**
+* Get string attribute ColorDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoWireCombBindingParams::GetColorDetails() const {
+	return GetAttribute(atr_ColorDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoWireCombBindingParams::ValidColorDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ColorDetails,AttributeType_string,false);
 	};
 /**
 * Set attribute Diameter

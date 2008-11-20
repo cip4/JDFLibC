@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -79,6 +79,7 @@
 #include "jdf/wrapper/JDFColorMeasurementConditions.h"
 #include "jdf/wrapper/JDFMediaLayers.h"
 #include "jdf/wrapper/JDFHoleList.h"
+#include "jdf/wrapper/JDFTabDimensions.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -132,9 +133,9 @@ bool JDFAutoMedia::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMedia::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",HoleType,MediaUnit,PrePrinted,BackCoatings,BackGlossValue,Brightness,CIETint,CIEWhiteness,ColorName,CoreWeight,Dimension,Flute,FluteDirection,FrontCoatings,FrontGlossValue,Grade,GrainDirection,HoleCount,ImagableSide")
-	+WString(L",InsideLoss,LabColorValue,MediaColorName,MediaColorNameDetails,MediaSetCount,MediaType,MediaTypeDetails,Opacity,OpacityLevel,OuterCoreDiameter,OutsideGain,PlateTechnology,Polarity,Recycled,RecycledPercentage,RollDiameter,ShrinkIndex,StockType,Texture")
-	+WString(L",Thickness,UserMediaType,Weight,WrapperWeight");
+		return JDFResource::OptionalAttributes()+WString(L",HoleType,MediaUnit,PrePrinted,BackCoatingDetail,BackCoatings,BackGlossValue,Brightness,CIETint,CIEWhiteness,ColorName,CoreWeight,Dimension,Flute,FluteDirection,FrontCoatingDetail,FrontCoatings,FrontGlossValue,Grade,GrainDirection")
+	+WString(L",HoleCount,ImagableSide,InsideLoss,LabColorValue,MediaColorName,MediaColorNameDetails,MediaQuality,MediaSetCount,MediaType,MediaTypeDetails,Opacity,OpacityLevel,OuterCoreDiameter,OutsideGain,PlateTechnology,Polarity,PrintingTechnology,Recycled,RecycledPercentage")
+	+WString(L",ReliefThickness,RollDiameter,ShrinkIndex,SleeveInterlock,StockType,Texture,Thickness,UserMediaType,Weight,WrapperWeight");
 };
 
 /**
@@ -157,6 +158,11 @@ bool JDFAutoMedia::init(){
 		};
 		if(!ValidPrePrinted(level)) {
 			vAtts.push_back(atr_PrePrinted);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBackCoatingDetail(level)) {
+			vAtts.push_back(atr_BackCoatingDetail);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -210,6 +216,11 @@ bool JDFAutoMedia::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidFrontCoatingDetail(level)) {
+			vAtts.push_back(atr_FrontCoatingDetail);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidFrontCoatings(level)) {
 			vAtts.push_back(atr_FrontCoatings);
 			if(++n>=nMax)
@@ -260,6 +271,11 @@ bool JDFAutoMedia::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidMediaQuality(level)) {
+			vAtts.push_back(atr_MediaQuality);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidMediaSetCount(level)) {
 			vAtts.push_back(atr_MediaSetCount);
 			if(++n>=nMax)
@@ -305,6 +321,11 @@ bool JDFAutoMedia::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidPrintingTechnology(level)) {
+			vAtts.push_back(atr_PrintingTechnology);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidRecycled(level)) {
 			vAtts.push_back(atr_Recycled);
 			if(++n>=nMax)
@@ -315,6 +336,11 @@ bool JDFAutoMedia::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidReliefThickness(level)) {
+			vAtts.push_back(atr_ReliefThickness);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidRollDiameter(level)) {
 			vAtts.push_back(atr_RollDiameter);
 			if(++n>=nMax)
@@ -322,6 +348,11 @@ bool JDFAutoMedia::init(){
 		};
 		if(!ValidShrinkIndex(level)) {
 			vAtts.push_back(atr_ShrinkIndex);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSleeveInterlock(level)) {
+			vAtts.push_back(atr_SleeveInterlock);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -361,10 +392,10 @@ bool JDFAutoMedia::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoMedia::HoleTypeString(){
-		static const WString enums=WString(L"Unknown,None,R2-generic,R2m-DIN,R2m-ISO,R2m-MIB,R2i-US-a,R2i-US-b,R3-generic,R3i-US")
-	+WString(L",R4-generic,R4m-DIN-A4,R4m-DIN-A5,R4m-swedish,R4i-US,R5-generic,R5i-US-a,R5i-US-b,R5i-US-c,R6-generic")
-	+WString(L",R6m-4h2s,R6m-DIN-A5,R7-generic,R7i-US-a,R7i-US-b,R7i-US-c,R11m-7h4s,P16_9i-rect-0t,P12m-rect-0t,W2_1i-round-0t")
-	+WString(L",W2_1i-square-0t,W3_1i-square-0t,C9.5m-round-0t,Explicit");
+		static const WString enums=WString(L"Unknown,None,S1-generic,S-generic,R2-generic,R2m-DIN,R2m-ISO,R2m-MIB,R2i-US-a,R2i-US-b")
+	+WString(L",R3-generic,R3i-US,R4-generic,R4m-DIN-A4,R4m-DIN-A5,R4m-swedish,R4i-US,R5-generic,R5i-US-a,R5i-US-b")
+	+WString(L",R5i-US-c,R6-generic,R6m-4h2s,R6m-DIN-A5,R7-generic,R7i-US-a,R7i-US-b,R7i-US-c,R11m-7h4s,P16_9i-rect-0t")
+	+WString(L",P12m-rect-0t,W2_1i-round-0t,W2_1i-square-0t,W3_1i-square-0t,C9.5m-round-0t,Explicit");
 		return enums;
 	};
 
@@ -444,6 +475,24 @@ bool JDFAutoMedia::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMedia::ValidPrePrinted(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PrePrinted,AttributeType_boolean,false);
+	};
+/**
+* Set attribute BackCoatingDetail
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMedia::SetBackCoatingDetail(const WString& value){
+	SetAttribute(atr_BackCoatingDetail,value);
+};
+/**
+* Get string attribute BackCoatingDetail
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMedia::GetBackCoatingDetail() const {
+	return GetAttribute(atr_BackCoatingDetail,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidBackCoatingDetail(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BackCoatingDetail,AttributeType_NMTOKEN,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -639,6 +688,24 @@ bool JDFAutoMedia::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMedia::ValidFluteDirection(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_FluteDirection,FluteDirectionString(),false);
+	};
+/**
+* Set attribute FrontCoatingDetail
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMedia::SetFrontCoatingDetail(const WString& value){
+	SetAttribute(atr_FrontCoatingDetail,value);
+};
+/**
+* Get string attribute FrontCoatingDetail
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMedia::GetFrontCoatingDetail() const {
+	return GetAttribute(atr_FrontCoatingDetail,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidFrontCoatingDetail(EnumValidationLevel level) const {
+		return ValidAttribute(atr_FrontCoatingDetail,AttributeType_NMTOKEN,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -837,6 +904,24 @@ bool JDFAutoMedia::init(){
 		return ValidAttribute(atr_MediaColorNameDetails,AttributeType_string,false);
 	};
 /**
+* Set attribute MediaQuality
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMedia::SetMediaQuality(const WString& value){
+	SetAttribute(atr_MediaQuality,value);
+};
+/**
+* Get string attribute MediaQuality
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMedia::GetMediaQuality() const {
+	return GetAttribute(atr_MediaQuality,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidMediaQuality(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MediaQuality,AttributeType_string,false);
+	};
+/**
 * Set attribute MediaSetCount
 *@param int value: the value to set the attribute to
 */
@@ -858,7 +943,7 @@ bool JDFAutoMedia::init(){
 
 	const WString& JDFAutoMedia::MediaTypeString(){
 		static const WString enums=WString(L"Unknown,CorrugatedBoard,Disc,EndBoard,EmbossingFoil,Film,Foil,GravureCylinder,ImagingCylinder,LaminatingFoil")
-	+WString(L",Other,Paper,Plate,SelfAdhesive,ShrinkFoil,Transparency");
+	+WString(L",MountingTape,Other,Paper,Plate,SelfAdhesive,Sleeve,ShrinkFoil,Transparency");
 		return enums;
 	};
 
@@ -980,7 +1065,7 @@ bool JDFAutoMedia::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoMedia::PlateTechnologyString(){
-		static const WString enums=WString(L"Unknown,InkJet,Thermal,UV,Visible");
+		static const WString enums=WString(L"Unknown,FlexoAnalogSolvent,FlexoAnalogThermal,FlexoDigitalSolvent,FlexoDigitalThermal,FlexoDirectEngraving,InkJet,Thermal,UV,Visible");
 		return enums;
 	};
 
@@ -1028,6 +1113,24 @@ bool JDFAutoMedia::init(){
 		return ValidEnumAttribute(atr_Polarity,PolarityString(),false);
 	};
 /**
+* Set attribute PrintingTechnology
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMedia::SetPrintingTechnology(const WString& value){
+	SetAttribute(atr_PrintingTechnology,value);
+};
+/**
+* Get string attribute PrintingTechnology
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMedia::GetPrintingTechnology() const {
+	return GetAttribute(atr_PrintingTechnology,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidPrintingTechnology(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PrintingTechnology,AttributeType_NMTOKEN,false);
+	};
+/**
 * Set attribute Recycled
 *@param bool value: the value to set the attribute to
 */
@@ -1061,6 +1164,24 @@ bool JDFAutoMedia::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMedia::ValidRecycledPercentage(EnumValidationLevel level) const {
 		return ValidAttribute(atr_RecycledPercentage,AttributeType_double,false);
+	};
+/**
+* Set attribute ReliefThickness
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoMedia::SetReliefThickness(double value){
+	SetAttribute(atr_ReliefThickness,WString::valueOf(value));
+};
+/**
+* Get double attribute ReliefThickness
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoMedia::GetReliefThickness() const {
+	return GetRealAttribute(atr_ReliefThickness,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidReliefThickness(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ReliefThickness,AttributeType_double,false);
 	};
 /**
 * Set attribute RollDiameter
@@ -1097,6 +1218,24 @@ bool JDFAutoMedia::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMedia::ValidShrinkIndex(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ShrinkIndex,AttributeType_XYPair,false);
+	};
+/**
+* Set attribute SleeveInterlock
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMedia::SetSleeveInterlock(const WString& value){
+	SetAttribute(atr_SleeveInterlock,value);
+};
+/**
+* Get string attribute SleeveInterlock
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMedia::GetSleeveInterlock() const {
+	return GetAttribute(atr_SleeveInterlock,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidSleeveInterlock(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SleeveInterlock,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute StockType
@@ -1307,6 +1446,26 @@ JDFRefElement JDFAutoMedia::RefHoleList(JDFHoleList& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFTabDimensions JDFAutoMedia::GetTabDimensions(int iSkip)const{
+	JDFTabDimensions e=GetElement(elm_TabDimensions,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTabDimensions JDFAutoMedia::GetCreateTabDimensions(int iSkip){
+	JDFTabDimensions e=GetCreateElement(elm_TabDimensions,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTabDimensions JDFAutoMedia::AppendTabDimensions(){
+	JDFTabDimensions e=AppendElement(elm_TabDimensions);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -1357,6 +1516,16 @@ JDFRefElement JDFAutoMedia::RefHoleList(JDFHoleList& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_TabDimensions);
+
+		for(i=0;i<nElem;i++){
+			if (!GetTabDimensions(i).IsValid(level)) {
+				vElem.AppendUnique(elm_TabDimensions);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -1365,6 +1534,6 @@ JDFRefElement JDFAutoMedia::RefHoleList(JDFHoleList& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMedia::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Color,ColorMeasurementConditions,MediaLayers,HoleList";
+		return JDFResource::OptionalElements()+L",Color,ColorMeasurementConditions,MediaLayers,HoleList,TabDimensions";
 	};
 }; // end namespace JDF

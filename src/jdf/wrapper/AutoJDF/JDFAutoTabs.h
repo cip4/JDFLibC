@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -186,6 +186,22 @@ public:
 */
 	virtual bool ValidTabBanks(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute TabCount
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetTabCount(int value);
+/**
+* Get integer attribute TabCount
+* @return int the vaue of the attribute 
+*/
+	virtual int GetTabCount() const;
+/**
+* Typesafe attribute validation of TabCount
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTabCount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute TabsPerBank
 *@param int value: the value to set the attribute to
 */
@@ -314,6 +330,24 @@ public:
 * Append element TabMylarColor
  */
 	JDFSpanNamedColor AppendTabMylarColor();
+
+/** Get Element TabMylarColorDetails
+* 
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetCreateTabMylarColorDetails(int iSkip=0);
+
+/**
+* const get element TabMylarColorDetails
+* @param int iSkip number of elements to skip
+* @return JDFStringSpan The element
+*/
+	JDFStringSpan GetTabMylarColorDetails(int iSkip=0)const;
+/**
+* Append element TabMylarColorDetails
+ */
+	JDFStringSpan AppendTabMylarColorDetails();
 
 /**
  definition of optional elements in the JDF namespace

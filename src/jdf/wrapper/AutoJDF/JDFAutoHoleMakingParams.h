@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -186,7 +186,7 @@ virtual bool init();
 * Enumeration for attribute HoleType
 */
 
-	enum EnumHoleType{HoleType_Unknown,HoleType_R2_generic,HoleType_R2m_DIN,HoleType_R2m_ISO,HoleType_R2m_MIB,HoleType_R2i_US_a,HoleType_R2i_US_b,HoleType_R3_generic,HoleType_R3i_US,HoleType_R4_generic,HoleType_R4m_DIN_A4,HoleType_R4m_DIN_A5,HoleType_R4m_swedish,HoleType_R4i_US,HoleType_R5_generic,HoleType_R5i_US_a,HoleType_R5i_US_b,HoleType_R5i_US_c,HoleType_R6_generic,HoleType_R6m_4h2s,HoleType_R6m_DIN_A5,HoleType_R7_generic,HoleType_R7i_US_a,HoleType_R7i_US_b,HoleType_R7i_US_c,HoleType_R11m_7h4s,HoleType_P16_9i_rect_0t,HoleType_P12m_rect_0t,HoleType_W2_1i_round_0t,HoleType_W2_1i_square_0t,HoleType_W3_1i_square_0t,HoleType_C9_5m_round_0t};
+	enum EnumHoleType{HoleType_Unknown,HoleType_R2_generic,HoleType_S1_generic,HoleType_S_generic,HoleType_R2m_DIN,HoleType_R2m_ISO,HoleType_R2m_MIB,HoleType_R2i_US_a,HoleType_R2i_US_b,HoleType_R3_generic,HoleType_R3i_US,HoleType_R4_generic,HoleType_R4m_DIN_A4,HoleType_R4m_DIN_A5,HoleType_R4m_swedish,HoleType_R4i_US,HoleType_R5_generic,HoleType_R5i_US_a,HoleType_R5i_US_b,HoleType_R5i_US_c,HoleType_R6_generic,HoleType_R6m_4h2s,HoleType_R6m_DIN_A5,HoleType_R7_generic,HoleType_R7i_US_a,HoleType_R7i_US_b,HoleType_R7i_US_c,HoleType_R11m_7h4s,HoleType_P16_9i_rect_0t,HoleType_P12m_rect_0t,HoleType_W2_1i_round_0t,HoleType_W2_1i_square_0t,HoleType_W3_1i_square_0t,HoleType_C9_5m_round_0t};
 /**
 * Enumeration for attribute HoleReferenceEdge
 */

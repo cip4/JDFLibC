@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,6 +76,8 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLayoutElementPart.h"
 #include "jdf/wrapper/JDFBarcodeProductionParams.h"
+#include "jdf/wrapper/JDFLayoutElement.h"
+#include "jdf/wrapper/JDFPositionObj.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -115,6 +117,13 @@ JDFAutoLayoutElementPart& JDFAutoLayoutElementPart::operator=(const KElement& ot
 
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoLayoutElementPart::OptionalAttributes()const{
+		return JDFElement::OptionalAttributes()+WString(L",ID");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoLayoutElementPart::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -122,9 +131,32 @@ JDFAutoLayoutElementPart& JDFAutoLayoutElementPart::operator=(const KElement& ot
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidID(level)) {
+			vAtts.push_back(atr_ID);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+/**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoLayoutElementPart::SetID(const WString& value){
+	SetAttribute(atr_ID,value);
+};
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoLayoutElementPart::GetID() const {
+	return GetAttribute(atr_ID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayoutElementPart::ValidID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ID,AttributeType_ID,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
@@ -151,6 +183,51 @@ JDFBarcodeProductionParams JDFAutoLayoutElementPart::AppendBarcodeProductionPara
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFLayoutElement JDFAutoLayoutElementPart::GetLayoutElement(int iSkip)const{
+	JDFLayoutElement e=GetElement(elm_LayoutElement,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFLayoutElement JDFAutoLayoutElementPart::GetCreateLayoutElement(int iSkip){
+	JDFLayoutElement e=GetCreateElement(elm_LayoutElement,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFLayoutElement JDFAutoLayoutElementPart::AppendLayoutElement(){
+	JDFLayoutElement e=AppendElement(elm_LayoutElement);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLayoutElementPart::RefLayoutElement(JDFLayoutElement& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPositionObj JDFAutoLayoutElementPart::GetPositionObj(int iSkip)const{
+	JDFPositionObj e=GetElement(elm_PositionObj,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPositionObj JDFAutoLayoutElementPart::GetCreatePositionObj(int iSkip){
+	JDFPositionObj e=GetCreateElement(elm_PositionObj,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFPositionObj JDFAutoLayoutElementPart::AppendPositionObj(){
+	JDFPositionObj e=AppendElement(elm_PositionObj);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -171,6 +248,26 @@ JDFBarcodeProductionParams JDFAutoLayoutElementPart::AppendBarcodeProductionPara
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_LayoutElement);
+
+		for(i=0;i<nElem;i++){
+			if (!GetLayoutElement(i).IsValid(level)) {
+				vElem.AppendUnique(elm_LayoutElement);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_PositionObj);
+
+		for(i=0;i<nElem;i++){
+			if (!GetPositionObj(i).IsValid(level)) {
+				vElem.AppendUnique(elm_PositionObj);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -179,6 +276,6 @@ JDFBarcodeProductionParams JDFAutoLayoutElementPart::AppendBarcodeProductionPara
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayoutElementPart::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",BarcodeProductionParams";
+		return JDFElement::OptionalElements()+L",BarcodeProductionParams,LayoutElement,PositionObj";
 	};
 }; // end namespace JDF

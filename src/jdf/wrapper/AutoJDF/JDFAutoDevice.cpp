@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -354,21 +354,21 @@ bool JDFAutoDevice::init(){
 	};
 /**
 * Set attribute ICSVersions
-*@param WString value: the value to set the attribute to
+*@param vWString value: the value to set the attribute to
 */
-	 void JDFAutoDevice::SetICSVersions(const WString& value){
+	 void JDFAutoDevice::SetICSVersions(const vWString& value){
 	SetAttribute(atr_ICSVersions,value);
 };
 /**
 * Get string attribute ICSVersions
-* @return WString the vaue of the attribute 
+* @return vWString the vaue of the attribute 
 */
-	 WString JDFAutoDevice::GetICSVersions() const {
+	 vWString JDFAutoDevice::GetICSVersions() const {
 	return GetAttribute(atr_ICSVersions,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDevice::ValidICSVersions(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ICSVersions,AttributeType_NMTOKEN,false);
+		return ValidAttribute(atr_ICSVersions,AttributeType_NMTOKENS,false);
 	};
 /**
 * Set attribute JDFErrorURL

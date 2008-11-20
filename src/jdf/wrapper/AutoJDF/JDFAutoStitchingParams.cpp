@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -127,7 +127,7 @@ bool JDFAutoStitchingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStitchingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Angle,NumberOfStitches,Offset,ReferenceEdge,StapleShape,StitchFromFront,StitchPositions,StitchType,StitchWidth,WireGauge,WireBrand");
+		return JDFResource::OptionalAttributes()+WString(L",StitchOrigin,Angle,NumberOfStitches,Offset,ReferenceEdge,StapleShape,StitchFromFront,StitchPositions,StitchType,StitchWidth,WireGauge,WireBrand");
 };
 
 /**
@@ -138,6 +138,11 @@ bool JDFAutoStitchingParams::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidStitchOrigin(level)) {
+			vAtts.push_back(atr_StitchOrigin);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidAngle(level)) {
 			vAtts.push_back(atr_Angle);
 			if(++n>=nMax)
@@ -196,6 +201,31 @@ bool JDFAutoStitchingParams::init(){
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoStitchingParams::StitchOriginString(){
+		static const WString enums=WString(L"Unknown,TrimBoxCenter,TrimBoxJogSide,UntrimmedJogSide");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoStitchingParams::StitchOriginString(EnumStitchOrigin value){
+		return StitchOriginString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStitchingParams::SetStitchOrigin( EnumStitchOrigin value){
+	SetEnumAttribute(atr_StitchOrigin,value,StitchOriginString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStitchingParams::EnumStitchOrigin JDFAutoStitchingParams:: GetStitchOrigin() const {
+	return (EnumStitchOrigin) GetEnumAttribute(atr_StitchOrigin,StitchOriginString(),WString::emptyStr,StitchOrigin_UntrimmedJogSide);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStitchingParams::ValidStitchOrigin(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_StitchOrigin,StitchOriginString(),false);
+	};
 /**
 * Set attribute Angle
 *@param double value: the value to set the attribute to

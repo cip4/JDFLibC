@@ -142,25 +142,6 @@ namespace JDF{
 		vWString GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const;
 
 		/**
-		* Sets IDREF attribute DevCapRef
-		* @param WString value: the value to set the attribute to
-		*/
-		void SetDevCapRef(const WString& value);
-
-		/**
-		* Gets IDREF attribute DevCapRef
-		* @return WString: the value of attribute DevCapRef
-		*/
-		WString GetDevCapRef() const;
-
-		/**
-		* Typesafe attribute validation of DevCapRef
-		* @param EnumValidationLevel level: level of attribute validation 
-		* @return bool: true if valid
-		*/
-		bool ValidDevCapRef(EnumValidationLevel level) const;
-
-		/**
 		* Sets IDREFS attribute ModuleRefs
 		* @param vWString value: the value to set the attribute to
 		*/

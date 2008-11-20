@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,10 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoEmboss.h"
+#include "jdf/wrapper/JDFIdentificationField.h"
+#include "jdf/wrapper/JDFMedia.h"
+#include "jdf/wrapper/JDFMedia.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -248,7 +252,7 @@ JDFAutoEmboss& JDFAutoEmboss::operator=(const KElement& other){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoEmboss::EmbossingTypeString(){
-		static const WString enums=WString(L"Unknown,BlinedEmbossing,EmbossedFinish,FoilEmbossing,FoilStamping,RegisteredEmbossing");
+		static const WString enums=WString(L"Unknown,BlindEmbossing,Braille,EmbossedFinish,FoilEmbossing,FoilStamping,RegisteredEmbossing");
 		return enums;
 	};
 
@@ -348,5 +352,136 @@ JDFAutoEmboss& JDFAutoEmboss::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoEmboss::ValidPosition(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Position,AttributeType_XYPair,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFIdentificationField JDFAutoEmboss::GetIdentificationField(int iSkip)const{
+	JDFIdentificationField e=GetElement(elm_IdentificationField,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFIdentificationField JDFAutoEmboss::GetCreateIdentificationField(int iSkip){
+	JDFIdentificationField e=GetCreateElement(elm_IdentificationField,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFIdentificationField JDFAutoEmboss::AppendIdentificationField(){
+	JDFIdentificationField e=AppendElement(elm_IdentificationField);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoEmboss::RefIdentificationField(JDFIdentificationField& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoEmboss::GetMedia(int iSkip)const{
+	JDFMedia e=GetElement(elm_Media,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoEmboss::GetCreateMedia(int iSkip){
+	JDFMedia e=GetCreateElement(elm_Media,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoEmboss::AppendMedia(){
+	JDFMedia e=AppendElement(elm_Media);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoEmboss::RefMedia(JDFMedia& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoEmboss::GetTool(int iSkip)const{
+	JDFMedia e=GetElement(elm_Tool,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoEmboss::GetCreateTool(int iSkip){
+	JDFMedia e=GetCreateElement(elm_Tool,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoEmboss::AppendTool(){
+	JDFMedia e=AppendElement(elm_Tool);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoEmboss::RefTool(JDFMedia& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoEmboss::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_IdentificationField);
+
+		for(i=0;i<nElem;i++){
+			if (!GetIdentificationField(i).IsValid(level)) {
+				vElem.AppendUnique(elm_IdentificationField);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_Media);
+
+		for(i=0;i<nElem;i++){
+			if (!GetMedia(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Media);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_Tool);
+
+		for(i=0;i<nElem;i++){
+			if (!GetTool(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Tool);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoEmboss::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",IdentificationField,Media,Tool";
 	};
 }; // end namespace JDF

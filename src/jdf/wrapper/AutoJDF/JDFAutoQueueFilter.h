@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFQueueEntryDef;
 class JDFDevice;
+class JDFPart;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -165,15 +166,25 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute PreviewUsages
+*/
+
+	enum EnumPreviewUsages{PreviewUsages_Unknown,PreviewUsages_3D,PreviewUsages_Animation,PreviewUsages_Separation,PreviewUsages_SeparationRaw,PreviewUsages_SeparatedThumbNail,PreviewUsages_ThumbNail,PreviewUsages_Viewable};
+/**
 * Enumeration for attribute QueueEntryDetails
 */
 
-	enum EnumQueueEntryDetails{QueueEntryDetails_Unknown,QueueEntryDetails_None,QueueEntryDetails_Brief,QueueEntryDetails_JobPhase,QueueEntryDetails_JDF,QueueEntryDetails_Full};
+	enum EnumQueueEntryDetails{QueueEntryDetails_Unknown,QueueEntryDetails_None,QueueEntryDetails_Brief,QueueEntryDetails_JobPhase,QueueEntryDetails_JDF};
 /**
 * Enumeration for attribute StatusList
 */
 
 	enum EnumStatusList{StatusList_Unknown,StatusList_Running,StatusList_Waiting,StatusList_Held,StatusList_Removed,StatusList_Suspended,StatusList_PendingReturn,StatusList_Completed,StatusList_Aborted};
+/**
+* Enumeration for attribute UpdateGranularity
+*/
+
+	enum EnumUpdateGranularity{UpdateGranularity_Unknown,UpdateGranularity_All,UpdateGranularity_ChangesOnly};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -196,6 +207,38 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidGangNames(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute JobID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetJobID(const WString& value);
+/**
+* Get string attribute JobID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetJobID() const;
+/**
+* Typesafe attribute validation of JobID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidJobID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute JobPartID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetJobPartID(const WString& value);
+/**
+* Get string attribute JobPartID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetJobPartID() const;
+/**
+* Typesafe attribute validation of JobPartID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidJobPartID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MaxEntries
 *@param int value: the value to set the attribute to
@@ -228,6 +271,52 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidOlderThan(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for PreviewUsages
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& PreviewUsagesString();
+/**
+* Enumeration string for enum value
+* @param EnumPreviewUsages value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString PreviewUsagesString(EnumPreviewUsages value);
+/**
+* Append value to the attribute PreviewUsages
+* @param EnumPreviewUsages value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual vint AddPreviewUsages( EnumPreviewUsages value);
+/**
+* Remove value from the attribute PreviewUsages
+* @param EnumPreviewUsages value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual vint RemovePreviewUsages( EnumPreviewUsages value);
+/**
+* Typesafe enumerated attribute PreviewUsages; defaults to Separation
+* @return EnumPreviewUsagesthe enumeration value of the attribute
+*/
+	virtual vint GetPreviewUsages() const;
+/**
+* Set value of the attribute PreviewUsages
+* @param EnumPreviewUsages value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual void SetPreviewUsages( EnumPreviewUsages value);
+/**
+* Set value of the attribute PreviewUsages to a list
+* @param vint value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual void SetPreviewUsages( const vint& value);
+/**
+* Typesafe attribute validation of PreviewUsages
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidPreviewUsages(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute NewerThan
 *@param JDFDate value: the value to set the attribute to
@@ -319,6 +408,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidStatusList(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for UpdateGranularity
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& UpdateGranularityString();
+/**
+* Enumeration string for enum value
+* @param EnumUpdateGranularity value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString UpdateGranularityString(EnumUpdateGranularity value);
+/**
+* Set attribute UpdateGranularity
+* @param EnumUpdateGranularity value the value to set the attribute to
+*/
+	virtual void SetUpdateGranularity( EnumUpdateGranularity value);
+
+/**
+* Typesafe enumerated attribute UpdateGranularity
+* @return EnumUpdateGranularitythe enumeration value of the attribute
+*/
+	virtual EnumUpdateGranularity GetUpdateGranularity() const;
+
+/**
+* Typesafe attribute validation of UpdateGranularity
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidUpdateGranularity(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -366,6 +484,53 @@ public:
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefDevice(JDFDevice& refTarget);
+
+/** Get Element Part
+* 
+* @param int iSkip number of elements to skip
+* @return JDFPart The element
+*/
+	JDFPart GetCreatePart(int iSkip=0);
+
+/**
+* const get element Part
+* @param int iSkip number of elements to skip
+* @return JDFPart The element
+*/
+	JDFPart GetPart(int iSkip=0)const;
+/**
+* Append element Part
+ */
+	JDFPart AppendPart();
+//@{
+		/**
+		* get part map vector
+		* @return vector of mAttribute, one for each part
+		*/
+		vmAttribute GetPartMapVector()const;
+		
+		        /**
+		* set all parts to those define in vParts
+		* @param vmAttribute& vParts vector of attribute maps for the parts
+		*/
+		void SetPartMapVector(const vmAttribute & vParts);
+		/**
+		* set part to mPart
+		* @param mAttribute& mPart attribute map for the part to set
+		*/
+	void SetPartMap(const mAttribute & mPart);
+		/**
+		* remove the part defined in mPart
+		* @param mAttribute& mPart attribute map for the part to remove
+		*/
+		void RemovePartMap(const mAttribute & mPart);
+		/**
+		* check whether the part defined in mPart is included
+		* @param mAttribute& mPart attribute map for the part to remove
+		* @return bool if the part exists
+		*/
+		bool HasPartMap(const mAttribute & mPart);
+		//@}
 
 /**
  definition of optional elements in the JDF namespace

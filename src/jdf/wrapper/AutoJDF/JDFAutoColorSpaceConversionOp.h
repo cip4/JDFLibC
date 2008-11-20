@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -336,6 +336,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidSourceObjects(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ObjectTags
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetObjectTags(const vWString& value);
+/**
+* Get string attribute ObjectTags
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetObjectTags() const;
+/**
+* Typesafe attribute validation of ObjectTags
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidObjectTags(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for Operation
 * @return const WString& comma separated list of enumerated string values 

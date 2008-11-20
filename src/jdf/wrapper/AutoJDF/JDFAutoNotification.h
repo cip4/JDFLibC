@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -218,6 +218,22 @@ public:
 */
 	virtual bool ValidClass(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute CombinedProcessIndex
+*@param JDFIntegerList value: the value to set the attribute to
+*/
+	virtual void SetCombinedProcessIndex(const JDFIntegerList& value);
+/**
+* Get string attribute CombinedProcessIndex
+* @return JDFIntegerList the vaue of the attribute 
+*/
+	virtual JDFIntegerList GetCombinedProcessIndex() const;
+/**
+* Typesafe attribute validation of CombinedProcessIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCombinedProcessIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to
 */
@@ -249,6 +265,54 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidJobPartID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ModuleID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetModuleID(const WString& value);
+/**
+* Get string attribute ModuleID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetModuleID() const;
+/**
+* Typesafe attribute validation of ModuleID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidModuleID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ModuleIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetModuleIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute ModuleIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetModuleIndex() const;
+/**
+* Typesafe attribute validation of ModuleIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidModuleIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ModuleType
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetModuleType(const WString& value);
+/**
+* Get string attribute ModuleType
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetModuleType() const;
+/**
+* Typesafe attribute validation of ModuleType
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidModuleType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Type
 *@param WString value: the value to set the attribute to

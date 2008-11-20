@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -118,14 +118,14 @@ JDFAutoModulePhase& JDFAutoModulePhase::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoModulePhase::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",DeviceID,DeviceStatus,ModuleType,Start";
+		return JDFElement::RequiredAttributes()+L",DeviceID,ModuleType";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoModulePhase::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",CombinedProcessIndex,End,ModuleID,ModuleIndex,StatusDetails");
+		return JDFElement::OptionalAttributes()+WString(L",CombinedProcessIndex,DeviceStatus,End,ModuleID,ModuleIndex,Start,StatusDetails");
 };
 
 /**
@@ -243,7 +243,7 @@ JDFAutoModulePhase& JDFAutoModulePhase::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoModulePhase::ValidDeviceStatus(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_DeviceStatus,DeviceStatusString(),RequiredLevel(level),WString::emptyStr,true);
+		return ValidEnumAttribute(atr_DeviceStatus,DeviceStatusString(),false,WString::emptyStr,true);
 	};
 /**
 * Set attribute End
@@ -333,7 +333,7 @@ JDFAutoModulePhase& JDFAutoModulePhase::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoModulePhase::ValidStart(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Start,AttributeType_dateTime,RequiredLevel(level));
+		return ValidAttribute(atr_Start,AttributeType_dateTime,false);
 	};
 /**
 * Set attribute StatusDetails
