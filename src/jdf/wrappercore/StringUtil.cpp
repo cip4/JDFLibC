@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -375,11 +375,14 @@ namespace JDF{
 
 		if (File::separator().equals(L"\\")) // on windows
 		{
-			if (urlString.startsWith("///") && urlString.length() > 5 && urlString.charAt(4) == '/')
-				urlString = urlString.charAt(3) + ":" + urlString.substring(4);
-			else if (urlString.startsWith("/") && urlString.length() > 3 && urlString.charAt(2) == '/'
-				&& urlString.charAt(1) != '/')
-				urlString = urlString.charAt(1) + ":" + urlString.substring(2);
+			if (urlString.startsWith("///") && urlString.length() > 6 && urlString.charAt(4) == ':'&& urlString.charAt(5) == '/')
+			{
+				urlString = urlString.charAt(3) + urlString.substring(4);
+			}
+			else if (urlString.startsWith("/") && urlString.length() > 3 && urlString.charAt(2) == '/' && urlString.charAt(1) != '/')
+			{
+				urlString = urlString.charAt(1) + WString::colon + urlString.substring(2);
+			}
 			else if (urlString.startsWith("///"))
 				urlString = urlString.substring(2);
 		}

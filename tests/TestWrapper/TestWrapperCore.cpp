@@ -19,6 +19,7 @@
 #include <jdf/io/FileOutputStream.h>
 #include <jdf/io/File.h>
 #include <jdf/net/URI.h>
+#include <jdf/net/URL.h>
 
 //#include "DebugTrace.h"
 #include <iterator>
@@ -48,9 +49,19 @@ int main(int argc, char* argv[]){
 	}
 
 	MyTime t("total");
-	// these braces are important due to scoping of doc and terminate...
-	if(false)
+	// these braces are important due to scoping of doc and terminate...	else if(1)
+
+	if(true)
 	{
+		WString s="file:///C:/Documents%20and%20Settings/All%20Users/Desktop/Prinect_Imposition_Editor/Examples/x.jdf";
+		WString sc(L'a');
+		cout<<sc<<" - "<<(char) sc.charAt(0)<<endl;
+		URL url(s);
+		cout<<url.getPath()<<endl;
+		cout<<StringUtil::urlToFile(s)<<endl;
+		cout<<(char)s.charAt(3)<<endl;
+
+
 		cout<<StringUtil::urlToFile("file://foo€Bar%20/44%e2%82%ac.txt");
 		assertEquals(StringUtil::urlToFile("file://foo€Bar%20/44%e2%82%ac.txt"), "//foo€Bar /44€.txt");
 		cout<<endl<<StringUtil::fileToUrl("//foo€Bar /44€.txt",true);

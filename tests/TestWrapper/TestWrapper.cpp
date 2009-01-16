@@ -100,7 +100,13 @@ int main(int argC, char* argV[]){
 		}
 
 	}
-	else if(2)
+	else if(1)
+	{
+		WString s="file:///C:/Documents%20and%20Settings/All%20Users/Desktop/Prinect_Imposition_Editor/Examples/x.jdf";
+		URL url(s);
+		cout<<url.getPath()<<endl;
+	}
+	else if(0)
 	{
 		JDFParser p;
 		p.Parse(inFile);
@@ -116,7 +122,7 @@ int main(int argC, char* argV[]){
 		return 1;
 
 	}
-	else if(1){
+	else if(0){
 		WString dumpURL="http://localhost:8080/JDFUtility/dump";
 //		WString dumpURL="http://10.10.146.58:8010/FJC/imgpass";
 		for(int j=0;j<6;j++)
@@ -210,18 +216,22 @@ int main(int argC, char* argV[]){
 			}
 			doc.Write2File(outFile);
 			cout <<WString(L"a");
-		}else if(0){
-			JDFDoc doc(0);
-			JDFNode root = doc.GetJDFRoot();
-			root.SetEnumVersion(JDFElement::Version_1_3);
-			JDFAttributeMap pm("SheetName","s1");
-			root.SetPartStatus(pm, JDFElement::Status_Waiting);
-			JDFNodeInfo ni=root.GetNodeInfo().GetPartition(pm);
-			cout<<root<<endl;
+		}else if(1){
+			JDFDoc doc(1);
+			JDFJMF root = doc.GetJMFRoot();
+			JDFCommand c=root.AppendCommand(JDFMessage::Type_Unknown);
+			c.SetType("HDM:AR");
+			KElement k=c.AppendElement("AR");
+			k.SetAttribute("UNC","Foo");
+			
+			doc.Write2File("test.jmf");
 
-			root.SetEnumVersion(JDFElement::Version_1_2);
-			root.SetPartStatus(pm, JDFElement::Status_Completed);
-			cout<<root<<endl;
+			JDFDoc dc;
+			dc.Parse("test.jmf",false);
+			cout<<dc<<endl;
+			JDFJMF newjmf=dc.GetJMFRoot();
+			KString s=newjmf.GetCommand(0).GetElement("AR").GetAttribute("UNC");
+			cout<<endl<<s<<endl;
 		}else if(0){
 			JDFDoc dc;
 			dc.Parse("mimetest1.xml",false);
