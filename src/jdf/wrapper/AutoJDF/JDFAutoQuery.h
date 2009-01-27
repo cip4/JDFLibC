@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,7 +82,6 @@
 
 #include "jdf/wrapper/JDFMessage.h"
 namespace JDF{
-class JDFEmployee;
 class JDFSubscription;
 class JDFEmployee;
 class JDFRefElement;
@@ -276,24 +275,6 @@ public:
 **************************************************************** */
 
 
-/** Get Element Employee
-* 
-* @param int iSkip number of elements to skip
-* @return JDFEmployee The element
-*/
-	JDFEmployee GetCreateEmployee(int iSkip=0);
-
-/**
-* const get element Employee
-* @param int iSkip number of elements to skip
-* @return JDFEmployee The element
-*/
-	JDFEmployee GetEmployee(int iSkip=0)const;
-/**
-* Append element Employee
- */
-	JDFEmployee AppendEmployee();
-
 /** Get Element Subscription
 * 
 * @param int iSkip number of elements to skip
@@ -311,6 +292,24 @@ public:
 * Append element Subscription
  */
 	JDFSubscription AppendSubscription();
+
+/** Get Element Employee
+* 
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetCreateEmployee(int iSkip=0);
+
+/**
+* const get element Employee
+* @param int iSkip number of elements to skip
+* @return JDFEmployee The element
+*/
+	JDFEmployee GetEmployee(int iSkip=0)const;
+/**
+* Append element Employee
+ */
+	JDFEmployee AppendEmployee();
 
 /**
  definition of optional elements in the JDF namespace
