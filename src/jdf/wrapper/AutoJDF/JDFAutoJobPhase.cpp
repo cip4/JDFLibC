@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -122,14 +122,14 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoJobPhase::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",Status,URL";
+		return JDFElement::RequiredAttributes()+L",Status";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoJobPhase::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Activation,Amount,DeadLine,JobID,JobPartID,PercentCompleted,PhaseAmount,PhaseStartTime,PhaseWaste,QueueEntryID,RestTime,Speed,StartTime,StatusDetails,TotalAmount,Waste");
+		return JDFElement::OptionalAttributes()+WString(L",Activation,Amount,DeadLine,JobID,JobPartID,PercentCompleted,PhaseAmount,PhaseStartTime,PhaseWaste,QueueEntryID,RestTime,Speed,StartTime,StatusDetails,TotalAmount,URL,Waste");
 };
 
 /**
@@ -545,7 +545,7 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoJobPhase::ValidURL(EnumValidationLevel level) const {
-		return ValidAttribute(atr_URL,AttributeType_URL,RequiredLevel(level));
+		return ValidAttribute(atr_URL,AttributeType_URL,false);
 	};
 /**
 * Set attribute Waste
