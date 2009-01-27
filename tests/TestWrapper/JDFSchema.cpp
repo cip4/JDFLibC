@@ -332,6 +332,8 @@ public:
 
 		if(t=="jdf:ResourceRef") 
 			return ""; 		
+		if(t=="Expr") 
+			return ""; 		
 		if(t=="jdf:DevCap_State") 
 			return ""; 		
 		
@@ -3350,6 +3352,7 @@ int SchemaDoc::MakeCProc(){
 
 int SchemaDoc::MakeC(const WString& classString){
 	KElement r=GetRoot();
+
 	vElement e=r.GetChildrenByTagName("xs:complexType","",MapWString(),false);
 	vWString doneList;
 	vWString names;
