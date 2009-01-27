@@ -848,6 +848,7 @@ namespace JDF{
 	const WString JDFStrings::elm_USWeight=L"USWeight";
 
 	const WString JDFStrings::elm_Value=L"Value";
+	const WString JDFStrings::elm_VarnishingParams=L"VarnishingParams";
 	const WString JDFStrings::elm_ValueLoc=L"ValueLoc";
 	const WString JDFStrings::elm_VeloBindingParams=L"VeloBindingParams";
 	const WString JDFStrings::elm_VerificationParams=L"VerificationParams";
