@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -283,6 +283,38 @@ public:
 */
 	virtual bool ValidClipBox(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ClipBoxFormat
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetClipBoxFormat(const WString& value);
+/**
+* Get string attribute ClipBoxFormat
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetClipBoxFormat() const;
+/**
+* Typesafe attribute validation of ClipBoxFormat
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidClipBoxFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ClipBoxTemplate
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetClipBoxTemplate(const WString& value);
+/**
+* Get string attribute ClipBoxTemplate
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetClipBoxTemplate() const;
+/**
+* Typesafe attribute validation of ClipBoxTemplate
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidClipBoxTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute ClipPath
 *@param WString value: the value to set the attribute to
 */
@@ -299,21 +331,37 @@ public:
 */
 	virtual bool ValidClipPath(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute CompensationCTM
-*@param JDFMatrix value: the value to set the attribute to
+* Set attribute CompensationCTMFormat
+*@param WString value: the value to set the attribute to
 */
-	virtual void SetCompensationCTM(const JDFMatrix& value);
+	virtual void SetCompensationCTMFormat(const WString& value);
 /**
-* Get string attribute CompensationCTM
-* @return JDFMatrix the vaue of the attribute 
+* Get string attribute CompensationCTMFormat
+* @return WString the vaue of the attribute 
 */
-	virtual JDFMatrix GetCompensationCTM() const;
+	virtual WString GetCompensationCTMFormat() const;
 /**
-* Typesafe attribute validation of CompensationCTM
+* Typesafe attribute validation of CompensationCTMFormat
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidCompensationCTM(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidCompensationCTMFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute CompensationCTMTemplate
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetCompensationCTMTemplate(const WString& value);
+/**
+* Get string attribute CompensationCTMTemplate
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetCompensationCTMTemplate() const;
+/**
+* Typesafe attribute validation of CompensationCTMTemplate
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCompensationCTMTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute CTM
 *@param JDFMatrix value: the value to set the attribute to
@@ -363,6 +411,22 @@ public:
 */
 	virtual bool ValidLayerID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute LogicalStackOrd
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetLogicalStackOrd(int value);
+/**
+* Get integer attribute LogicalStackOrd
+* @return int the vaue of the attribute 
+*/
+	virtual int GetLogicalStackOrd() const;
+/**
+* Typesafe attribute validation of LogicalStackOrd
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLogicalStackOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute OrdID
 *@param int value: the value to set the attribute to
 */
@@ -394,22 +458,6 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidSourceClipPath(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute StackOrd
-*@param int value: the value to set the attribute to
-*/
-	virtual void SetStackOrd(int value);
-/**
-* Get integer attribute StackOrd
-* @return int the vaue of the attribute 
-*/
-	virtual int GetStackOrd() const;
-/**
-* Typesafe attribute validation of StackOrd
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidStackOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute TrimClipPath
 *@param WString value: the value to set the attribute to

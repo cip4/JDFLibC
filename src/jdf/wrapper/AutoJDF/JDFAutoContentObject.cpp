@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,14 +116,15 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoContentObject::RequiredAttributes()const{
-		return JDFPlacedObject::RequiredAttributes()+L",CompensationCTM,CTM";
+		return JDFPlacedObject::RequiredAttributes()+L",CTM";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoContentObject::OptionalAttributes()const{
-		return JDFPlacedObject::OptionalAttributes()+WString(L",DocOrd,Ord,OrdExpression,SetOrd,Anchor,ClipBox,ClipPath,HalfTonePhaseOrigin,LayerID,OrdID,SourceClipPath,StackOrd,TrimClipPath,TrimCTM,TrimSize,Type");
+		return JDFPlacedObject::OptionalAttributes()+WString(L",DocOrd,Ord,OrdExpression,SetOrd,Anchor,ClipBox,ClipBoxFormat,ClipBoxTemplate,ClipPath,CompensationCTMFormat,CompensationCTMTemplate,HalfTonePhaseOrigin,LayerID,LogicalStackOrd,OrdID,SourceClipPath,TrimClipPath,TrimCTM,TrimSize")
+	+WString(L",Type");
 };
 
 /**
@@ -164,13 +165,28 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidClipBoxFormat(level)) {
+			vAtts.push_back(atr_ClipBoxFormat);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidClipBoxTemplate(level)) {
+			vAtts.push_back(atr_ClipBoxTemplate);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidClipPath(level)) {
 			vAtts.push_back(atr_ClipPath);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidCompensationCTM(level)) {
-			vAtts.push_back(atr_CompensationCTM);
+		if(!ValidCompensationCTMFormat(level)) {
+			vAtts.push_back(atr_CompensationCTMFormat);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidCompensationCTMTemplate(level)) {
+			vAtts.push_back(atr_CompensationCTMTemplate);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -189,6 +205,11 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidLogicalStackOrd(level)) {
+			vAtts.push_back(atr_LogicalStackOrd);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidOrdID(level)) {
 			vAtts.push_back(atr_OrdID);
 			if(++n>=nMax)
@@ -196,11 +217,6 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 		};
 		if(!ValidSourceClipPath(level)) {
 			vAtts.push_back(atr_SourceClipPath);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidStackOrd(level)) {
-			vAtts.push_back(atr_StackOrd);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -343,6 +359,42 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 		return ValidAttribute(atr_ClipBox,AttributeType_rectangle,false);
 	};
 /**
+* Set attribute ClipBoxFormat
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoContentObject::SetClipBoxFormat(const WString& value){
+	SetAttribute(atr_ClipBoxFormat,value);
+};
+/**
+* Get string attribute ClipBoxFormat
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoContentObject::GetClipBoxFormat() const {
+	return GetAttribute(atr_ClipBoxFormat,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentObject::ValidClipBoxFormat(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ClipBoxFormat,AttributeType_string,false);
+	};
+/**
+* Set attribute ClipBoxTemplate
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoContentObject::SetClipBoxTemplate(const WString& value){
+	SetAttribute(atr_ClipBoxTemplate,value);
+};
+/**
+* Get string attribute ClipBoxTemplate
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoContentObject::GetClipBoxTemplate() const {
+	return GetAttribute(atr_ClipBoxTemplate,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentObject::ValidClipBoxTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ClipBoxTemplate,AttributeType_string,false);
+	};
+/**
 * Set attribute ClipPath
 *@param WString value: the value to set the attribute to
 */
@@ -361,22 +413,40 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 		return ValidAttribute(atr_ClipPath,AttributeType_PDFPath,false);
 	};
 /**
-* Set attribute CompensationCTM
-*@param JDFMatrix value: the value to set the attribute to
+* Set attribute CompensationCTMFormat
+*@param WString value: the value to set the attribute to
 */
-	 void JDFAutoContentObject::SetCompensationCTM(const JDFMatrix& value){
-	SetAttribute(atr_CompensationCTM,value);
+	 void JDFAutoContentObject::SetCompensationCTMFormat(const WString& value){
+	SetAttribute(atr_CompensationCTMFormat,value);
 };
 /**
-* Get string attribute CompensationCTM
-* @return JDFMatrix the vaue of the attribute 
+* Get string attribute CompensationCTMFormat
+* @return WString the vaue of the attribute 
 */
-	 JDFMatrix JDFAutoContentObject::GetCompensationCTM() const {
-	return GetAttribute(atr_CompensationCTM,WString::emptyStr);
+	 WString JDFAutoContentObject::GetCompensationCTMFormat() const {
+	return GetAttribute(atr_CompensationCTMFormat,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoContentObject::ValidCompensationCTM(EnumValidationLevel level) const {
-		return ValidAttribute(atr_CompensationCTM,AttributeType_matrix,RequiredLevel(level));
+	bool JDFAutoContentObject::ValidCompensationCTMFormat(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CompensationCTMFormat,AttributeType_string,false);
+	};
+/**
+* Set attribute CompensationCTMTemplate
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoContentObject::SetCompensationCTMTemplate(const WString& value){
+	SetAttribute(atr_CompensationCTMTemplate,value);
+};
+/**
+* Get string attribute CompensationCTMTemplate
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoContentObject::GetCompensationCTMTemplate() const {
+	return GetAttribute(atr_CompensationCTMTemplate,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentObject::ValidCompensationCTMTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CompensationCTMTemplate,AttributeType_string,false);
 	};
 /**
 * Set attribute CTM
@@ -433,6 +503,24 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 		return ValidAttribute(atr_LayerID,AttributeType_integer,false);
 	};
 /**
+* Set attribute LogicalStackOrd
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoContentObject::SetLogicalStackOrd(int value){
+	SetAttribute(atr_LogicalStackOrd,WString::valueOf(value));
+};
+/**
+* Get integer attribute LogicalStackOrd
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoContentObject::GetLogicalStackOrd() const {
+	return GetIntAttribute(atr_LogicalStackOrd,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentObject::ValidLogicalStackOrd(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LogicalStackOrd,AttributeType_integer,false);
+	};
+/**
 * Set attribute OrdID
 *@param int value: the value to set the attribute to
 */
@@ -467,24 +555,6 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoContentObject::ValidSourceClipPath(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SourceClipPath,AttributeType_PDFPath,false);
-	};
-/**
-* Set attribute StackOrd
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoContentObject::SetStackOrd(int value){
-	SetAttribute(atr_StackOrd,WString::valueOf(value));
-};
-/**
-* Get integer attribute StackOrd
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoContentObject::GetStackOrd() const {
-	return GetIntAttribute(atr_StackOrd,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoContentObject::ValidStackOrd(EnumValidationLevel level) const {
-		return ValidAttribute(atr_StackOrd,AttributeType_integer,false);
 	};
 /**
 * Set attribute TrimClipPath
