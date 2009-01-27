@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1223,8 +1223,9 @@ static const WString atr_ContentRefs;
 		static const WString atr_Classes;
 		static const WString atr_ClassName;
 		static const WString atr_CleanupDuration;
-		static const WString atr_ClipBOx;
 		static const WString atr_ClipBox;
+		static const WString atr_ClipBoxFormat;
+		static const WString atr_ClipBoxTemplate;
 		static const WString atr_ClipOffset;
 		static const WString atr_ClipPath;
 		static const WString atr_CMYK;
@@ -1257,6 +1258,8 @@ static const WString atr_ContentRefs;
 		static const WString atr_Company;
 		static const WString atr_Compensate;
 		static const WString atr_Compensation;
+		static const WString atr_CompensationCTMFormat;
+		static const WString atr_CompensationCTMTemplate;
 		static const WString atr_CompensationProcess;
 		static const WString atr_CompensationValue;
 		static const WString atr_Completed;
@@ -1793,6 +1796,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_LockOrigins;
 		static const WString atr_LogicalPage;
 		static const WString atr_LogicalPrinterSection;
+	static const WString atr_LogicalStackOrd;
 		static const WString atr_LogErrors;
 		static const WString atr_LotControl;
 		static const WString atr_LotID;

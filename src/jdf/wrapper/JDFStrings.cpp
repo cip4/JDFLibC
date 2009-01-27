@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1162,8 +1162,9 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Classes=L"Classes";
 	const WString JDFStrings::atr_ClassName=L"ClassName";
 	const WString JDFStrings::atr_CleanupDuration=L"CleanupDuration";
-	const WString JDFStrings::atr_ClipBOx=L"ClipBOx";
 	const WString JDFStrings::atr_ClipBox=L"ClipBox";
+	const WString JDFStrings::atr_ClipBoxFormat=L"ClipBoxFormat";
+	const WString JDFStrings::atr_ClipBoxTemplate=L"ClipBoxTemplate";
 	const WString JDFStrings::atr_ClipOffset=L"ClipOffset";
 	const WString JDFStrings::atr_ClipPath=L"ClipPath";
 	const WString JDFStrings::atr_CMYK=L"CMYK";
@@ -1195,7 +1196,10 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_CommentURL=L"CommentURL";
 	const WString JDFStrings::atr_Company=L"Company";
 	const WString JDFStrings::atr_Compensate=L"Compensate";
-	const WString JDFStrings::atr_Compensation=L"Compensation";
+	const WString JDFStrings::atr_Compensation=L"Compensation";		
+	const WString JDFStrings::atr_CompensationCTMFormat=L"CompensationCTMFormat";		
+	const WString JDFStrings::atr_CompensationCTMTemplate=L"CompensationCTMTemplate";		
+	
 	const WString JDFStrings::atr_CompensationProcess=L"CompensationProcess";
 	const WString JDFStrings::atr_CompensationValue=L"CompensationValue";
 	const WString JDFStrings::atr_Completed=L"Completed";
@@ -1732,6 +1736,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_LockOrigins=L"LockOrigins";
 	const WString JDFStrings::atr_LogicalPage=L"LogicalPage";
 	const WString JDFStrings::atr_LogicalPrinterSection=L"LogicalPrinterSection";
+	const WString JDFStrings::atr_LogicalStackOrd=L"LogicalStackOrd";
 	const WString JDFStrings::atr_LogErrors=L"LogErrors";
 	const WString JDFStrings::atr_LotControl=L"LotControl";
 	const WString JDFStrings::atr_LotID=L"LotID";

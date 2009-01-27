@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -92,6 +92,7 @@
 #include "JDFAssembly.h"
 #include "JDFAssemblySection.h"
 #include "JDFAudit.h"
+#include "JDFAuthenticationResp.h"
 
 #include "JDFBand.h"
 #include "JDFBarcode.h"
@@ -138,7 +139,10 @@
 #include "JDFContainer.h"
 #include "JDFContentData.h"
 #include "JDFContentList.h"
+#include "JDFContentMetaData.h"
 #include "JDFContentObject.h"
+#include "JDFControllerFilter.h"
+#include "JDFConvertingConfig.h"
 #include "JDFCostCenter.h"
 #include "JDFIDPCover.h"
 #include "JDFCounterReset.h"
@@ -255,6 +259,7 @@
 #include "JDFLayout.h"
 #include "JDFLayoutElement.h"
 #include "JDFLayoutElementPart.h"
+#include "JDFLayoutShift.h"
 #include "JDFLoc.h"
 #include "JDFLocation.h"
 #include "JDFLongFold.h"
@@ -266,6 +271,7 @@
 
 #include "JDFmacro.h"
 #include "JDFMarkObject.h"
+#include "JDFMarkActivation.h"
 #include "JDFMatrixEvaluation.h"
 #include "JDFMatrixState.h"
 #include "JDFMedia.h"
@@ -275,6 +281,7 @@
 #include "JDFMessageService.h"
 #include "JDFMessage.h"
 #include "JDFMessageElement.h"
+#include "JDFMetadataMap.h"
 #include "JDFMilestone.h"
 #include "JDFMISDetails.h"
 #include "JDFModified.h"
@@ -301,6 +308,7 @@
 #include "JDFNumberingParam.h"
 #include "JDFNumberItem.h"
 
+#include "JDFObjectModel.h"
 #include "JDFObjectResolution.h"
 #include "JDFObservationTarget.h"
 #include "JDFOccupation.h"
@@ -310,6 +318,7 @@
 
 #include "JDFPageAssignedList.h"
 #include "JDFPageCell.h"
+#include "JDFPageCondition.h"
 #include "JDFPageData.h"
 #include "JDFPageElement.h"
 #include "JDFPageList.h"
@@ -329,6 +338,7 @@
 #include "JDFPlaceHolderResource.h"
 #include "JDFPlasticCombBinding.h"
 #include "JDFPosition.h"
+#include "JDFPositionObj.h"
 #include "JDFPreflightAction.h"
 #include "JDFPreflightAnalysis.h"
 #include "JDFPreflightArgument.h"
@@ -369,10 +379,12 @@
 #include "JDFRange.h"
 #include "JDFRectangleEvaluation.h"
 #include "JDFRectangleState.h"
+#include "JDFRefAnchor.h"
 #include "JDFRefElement.h"
 #include "JDFRegisterRibbon.h"
 #include "JDFRegisterMark.h"
 #include "JDFRemoved.h"
+#include "JDFRepeatDesc.h"
 #include "JDFResourceAudit.h"
 #include "JDFResourceInfo.h"
 #include "JDFResourceLink.h"
@@ -380,6 +392,7 @@
 #include "JDFResponse.h"
 #include "JDFRingBinding.h"
 #include "JDFRollStand.h"
+#include "JDFRuleLength.h"
 #include "JDFRunList.h"
 
 #include "JDFSaddleStitching.h"
@@ -390,10 +403,13 @@
 #include "JDFSeparationSpec.h"
 #include "JDFset.h"
 #include "JDFShapeCut.h"
+#include "JDFShapeDef.h"
 #include "JDFShapeElement.h"
 #include "JDFShapeEvaluation.h"
 #include "JDFShapeState.h"
+#include "JDFShapeTemplate.h"
 #include "JDFSheet.h"
+#include "JDFShiftPoint.h"
 #include "JDFSideSewing.h"
 #include "JDFSideStitching.h"
 #include "JDFSignal.h"
@@ -402,6 +418,7 @@
 #include "JDFSoftCoverBinding.h"
 #include "JDFSpawned.h"
 #include "JDFState.h"
+#include "JDFStaticBlockingParams.h"
 #include "JDFStrap.h"
 #include "JDFStation.h"
 #include "JDFStripMark.h"
@@ -411,10 +428,13 @@
 #include "JDFStripBinding.h"
 #include "JDFSubmissionMethods.h"
 #include "JDFSubscription.h"
+#include "JDFSubscriptionFilter.h"
+#include "JDFSubscriptionInfo.h"
 #include "JDFSurface.h"
 #include "JDFSystemTimeSet.h"
 
 #include "JDFTabs.h"
+#include "JDFTabDimensions.h"
 #include "JDFTape.h"
 #include "JDFTest.h"
 #include "JDFTestRef.h"
@@ -723,7 +743,9 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Audit.c_str())){
 			return new JDFAudit(part);
 		};
-
+		if(!wcscmp(pcResName,JDFElement::elm_AuthenticationResp.c_str())){
+			return new JDFAuthenticationResp(part);
+		};
 		return 0; 
 	}
 
@@ -914,10 +936,22 @@ namespace JDF{
 			return new JDFContentData(part);
 		};
 		
+		if(!wcscmp(pcResName,JDFElement::elm_ContentMetaData.c_str())){
+			return new JDFContentMetaData(part);
+		};
+		
 		if(!wcscmp(pcResName,JDFElement::elm_ContentObject.c_str())){
 			return new JDFContentObject(part);
 		};
 		
+		if(!wcscmp(pcResName,JDFElement::elm_ControllerFilter.c_str())){
+			return new JDFControllerFilter(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_ConvertingConfig.c_str())){
+			return new JDFConvertingConfig(part);
+		};
+
 		if(!wcscmp(pcResName,JDFElement::elm_CostCenter.c_str())){
 			return new JDFCostCenter(part);
 		};
@@ -1396,6 +1430,10 @@ namespace JDF{
 			return new JDFLayoutElementPart(part);
 		};
 		
+		if(!wcscmp(pcResName,JDFElement::elm_LayoutShift.c_str())){
+			return new JDFLayoutShift(part);
+		};
+		
 		if(!wcscmp(pcResName,JDFElement::elm_Loc.c_str())){
 			return new JDFLoc(part);
 		};
@@ -1435,6 +1473,10 @@ namespace JDF{
 			return new JDFMarkObject(part);
 		};
 		
+		if(!wcscmp(pcResName,JDFElement::elm_MarkActivation.c_str())){
+			return new JDFMarkActivation(part);
+		};
+		
 		if(!wcscmp(pcResName,JDFElement::elm_MatrixEvaluation.c_str())){
 			return new JDFMatrixEvaluation(part);
 		};
@@ -1457,6 +1499,10 @@ namespace JDF{
 		
 		if(!wcscmp(pcResName,JDFElement::elm_Merged.c_str())){
 			return new JDFMerged(part);
+		};
+		
+		if(!wcscmp(pcResName,JDFElement::elm_MetadataMap.c_str())){
+			return new JDFMetadataMap(part);
 		};
 		
 		if(!wcscmp(pcResName,JDFElement::elm_MessageService.c_str())){
@@ -1581,6 +1627,10 @@ namespace JDF{
 			return new JDFObjectResolution(part);
 		};
 		
+		if(!wcscmp(pcResName,JDFElement::elm_ObjectModel.c_str())){
+			return new JDFObjectModel(part);
+		};
+		
 		if(!wcscmp(pcResName,JDFElement::elm_ObservationTarget.c_str())){
 			return new JDFObservationTarget(part);
 		};
@@ -1614,6 +1664,10 @@ namespace JDF{
 		
 		if(!wcscmp(pcResName,JDFElement::elm_PageCell.c_str())){
 			return new JDFPageCell(part);
+		};
+		
+		if(!wcscmp(pcResName,JDFElement::elm_PageCondition.c_str())){
+			return new JDFPageCondition(part);
 		};
 		
 		if(!wcscmp(pcResName,JDFElement::elm_PageData.c_str())){
@@ -1694,6 +1748,10 @@ namespace JDF{
 		
 		if(!wcscmp(pcResName,JDFElement::elm_Position.c_str())){
 			return new JDFPosition(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_PositionObj.c_str())){
+			return new JDFPositionObj(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_PreflightAction.c_str())){
@@ -1852,6 +1910,10 @@ namespace JDF{
 			return new JDFRectangleState(part);
 		};
 
+		if(!wcscmp(pcResName,JDFElement::elm_RefAnchor.c_str())){
+			return new JDFRefAnchor(part);
+		};
+
 		if(!wcscmp(pcResName,JDFElement::elm_RegisterRibbon.c_str())){
 			return new JDFRegisterRibbon(part);
 		};
@@ -1862,6 +1924,10 @@ namespace JDF{
 		
 		if(!wcscmp(pcResName,JDFElement::elm_Removed.c_str())){
 			return new JDFRemoved(part);
+		};
+		
+		if(!wcscmp(pcResName,JDFElement::elm_RepeatDesc.c_str())){
+			return new JDFRepeatDesc(part);
 		};
 		
 		if(!wcscmp(pcResName,JDFElement::elm_ResourceAudit.c_str())){
@@ -1886,6 +1952,10 @@ namespace JDF{
 
 		if(!wcscmp(pcResName,JDFElement::elm_RollStand.c_str())){
 			return new JDFRollStand(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_RuleLength.c_str())){
+			return new JDFRuleLength(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_RunList.c_str())){
@@ -1922,6 +1992,14 @@ namespace JDF{
 			return new JDFSeparationSpec(part);
 		};
 		
+		if(!wcscmp(pcResName,JDFElement::elm_ShapeCut.c_str())){
+			return new JDFShapeCut(part);
+		};
+		
+		if(!wcscmp(pcResName,JDFElement::elm_ShapeDef.c_str())){
+			return new JDFShapeDef(part);
+		};
+		
 		if(!wcscmp(pcResName,JDFElement::elm_ShapeElement.c_str())){
 			return new JDFShapeElement(part);
 		};
@@ -1934,12 +2012,16 @@ namespace JDF{
 			return new JDFShapeState(part);
 		};
 
-		if(!wcscmp(pcResName,JDFElement::elm_ShapeCut.c_str())){
-			return new JDFShapeCut(part);
+		if(!wcscmp(pcResName,JDFElement::elm_ShapeTemplate.c_str())){
+			return new JDFShapeTemplate(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Sheet.c_str())){
 			return new JDFSheet(part);
+		};
+		
+		if(!wcscmp(pcResName,JDFElement::elm_ShiftPoint.c_str())){
+			return new JDFShiftPoint(part);
 		};
 		
 		if(!wcscmp(pcResName,JDFElement::elm_SideSewing.c_str())){
@@ -1968,6 +2050,10 @@ namespace JDF{
 
 		if(!wcscmp(pcResName,JDFElement::elm_Spawned.c_str())){
 			return new JDFSpawned(part);
+		};
+		
+		if(!wcscmp(pcResName,JDFElement::elm_StaticBlockingParams.c_str())){
+			return new JDFStaticBlockingParams(part);
 		};
 		
 		if(!wcscmp(pcResName,JDFElement::elm_Station.c_str())){
@@ -2006,6 +2092,14 @@ namespace JDF{
 			return new JDFSubscription(part);
 		};
 		
+		if(!wcscmp(pcResName,JDFElement::elm_SubscriptionFilter.c_str())){
+			return new JDFSubscriptionFilter(part);
+		};
+		
+		if(!wcscmp(pcResName,JDFElement::elm_SubscriptionInfo.c_str())){
+			return new JDFSubscriptionInfo(part);
+		};
+		
 		if(!wcscmp(pcResName,JDFElement::elm_Surface.c_str())){
 			return new JDFSurface(part);
 		};
@@ -2017,6 +2111,10 @@ namespace JDF{
 
 	JDFElement* JDFFactory::initRestT(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
+		if(!wcscmp(pcResName,JDFElement::elm_TabDimensions.c_str())){
+			return new JDFTabDimensions(part);
+		};
+		
 		if(!wcscmp(pcResName,JDFElement::elm_Tabs.c_str())){
 			return new JDFTabs(part);
 		};
