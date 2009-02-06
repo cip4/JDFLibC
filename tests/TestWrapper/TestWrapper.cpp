@@ -100,23 +100,20 @@ int main(int argC, char* argV[]){
 		}
 
 	}
-	else if(1)
+	else if(0)
 	{
 		WString s="file:///C:/Documents%20and%20Settings/All%20Users/Desktop/Prinect_Imposition_Editor/Examples/x.jdf";
 		URL url(s);
 		cout<<url.getPath()<<endl;
 	}
-	else if(0)
+	else if(1)
 	{
 		JDFParser p;
 		p.Parse(inFile);
 		JDFDoc d=p.GetDocument();
 		JDFNode n=d.GetJDFRoot();
-		vElement v=n.getLinks(JDFElement::elm_Device, JDFAttributeMap());
-		JDFResourceLink rldev=v.elementAt(0);
-		JDFDevice dev=rldev.GetTarget();
-
-		cout<<dev<<endl;
+		
+		cout<<n.GetAncestorPool()<<endl;
 	
 	
 		return 1;

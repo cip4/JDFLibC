@@ -17,9 +17,13 @@
 #include <jdf/WrapperCore/XMLDocUserData.h>
 #include <jdf/mime/MIMEMessage.h>
 #include <jdf/io/FileOutputStream.h>
+#include <jdf/io/BufferedOutputStream.h>
+#include <jdf/io/ByteArrayOutputStream.h>
 #include <jdf/io/File.h>
 #include <jdf/net/URI.h>
 #include <jdf/net/URL.h>
+
+#include "jdf/util/MyWalker.h"
 
 //#include "DebugTrace.h"
 #include <iterator>
@@ -29,7 +33,8 @@ using namespace std;
 #include<io.h>
 #include "MyTime.h"
 #include "jdf/Wrappercore/StringUtil.h"
-#define assertEquals(a,b)if(a!=b)cout<<"bad\n"<<a<<endl<<b;
+#define assertEquals(a,b)if(a!=b)cout<<"bad assertEquals\n"<<a<<endl<<b;
+#define assertNotSame(a,b)if(a==b)cout<<"bad assertNotSame\n"<<a<<endl<<b;
 #define assertTrue(a)if(!a)cout<<"bad True\n"<<a<<endl;
 #define assertFalse(a)if(a)cout<<"bad False\n"<<a<<endl;
 
@@ -52,6 +57,12 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...	else if(1)
 
 	if(true)
+	{
+		XMLDoc d;
+		assertFalse(d.StringParse(""));
+		assertTrue(d.isNull());
+	}
+	else if(33)
 	{
 		WString s="file:///C:/Documents%20and%20Settings/All%20Users/Desktop/Prinect_Imposition_Editor/Examples/x.jdf";
 		WString sc(L'a');

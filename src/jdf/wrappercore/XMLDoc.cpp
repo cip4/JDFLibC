@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -630,7 +630,8 @@ namespace JDF{
 	*/
 	bool XMLDoc::HasXMLDocUserData()const{
 		if(isNull()){
-			throw JDFException(L"XMLDoc::GetXMLDocUserData: used on Null document");
+			return false;
+//			throw JDFException(L"XMLDoc::HasXMLDocUserData: used on Null document");
 		}
 		XMLDocUserData* pUserData=(XMLDocUserData*)domDocument->getUserData(L"JDFTargetDirty");
 		return pUserData!=0;
@@ -642,8 +643,9 @@ namespace JDF{
 	* @return the XMLDocUserData of this
 	*/
 	XMLDocUserData* XMLDoc::GetCreateXMLDocUserData(){
-		if(isNull()){
-			throw JDFException(L"XMLDoc::GetXMLDocUserData: used on Null document");
+		if(throwNull()){
+			return 0;
+			//throw JDFException(L"XMLDoc::GetCreateXMLDocUserData: used on Null document");
 		}
 		XMLDocUserData* pUserData=(XMLDocUserData*)domDocument->getUserData(L"JDFTargetDirty");
 		if(pUserData==0){
