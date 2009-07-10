@@ -203,6 +203,11 @@ JDFEmployee JDFAutoModified::AppendEmployee(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoModified::RefEmployee(JDFEmployee& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

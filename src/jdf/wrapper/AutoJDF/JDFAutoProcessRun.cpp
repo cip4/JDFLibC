@@ -297,6 +297,11 @@ JDFEmployee JDFAutoProcessRun::AppendEmployee(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoProcessRun::RefEmployee(JDFEmployee& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFPart JDFAutoProcessRun::GetPart(int iSkip)const{
 	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);

@@ -249,6 +249,11 @@ JDFEmployee JDFAutoCreated::AppendEmployee(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoCreated::RefEmployee(JDFEmployee& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

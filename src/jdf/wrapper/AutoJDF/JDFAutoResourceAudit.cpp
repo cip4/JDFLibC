@@ -228,6 +228,11 @@ JDFEmployee JDFAutoResourceAudit::AppendEmployee(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoResourceAudit::RefEmployee(JDFEmployee& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFMISDetails JDFAutoResourceAudit::GetMISDetails(int iSkip)const{
 	JDFMISDetails e=GetElement(elm_MISDetails,WString::emptyStr,iSkip);

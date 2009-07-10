@@ -194,6 +194,11 @@ virtual bool init();
 
 	enum EnumSheetCountReset{SheetCountReset_Unknown,SheetCountReset_Continue,SheetCountReset_PagePool,SheetCountReset_PagePoolList};
 /**
+* Enumeration for attribute BaseOrdReset
+*/
+
+	enum EnumBaseOrdReset{BaseOrdReset_Unknown,BaseOrdReset_PagePool,BaseOrdReset_PagePoolList};
+/**
 * Enumeration for attribute SourceWorkStyle
 */
 
@@ -243,7 +248,7 @@ virtual bool init();
 	virtual void SetMaxDocOrd(int value);
 /**
 * Get integer attribute MaxDocOrd
-* @return int the vaue of the attribute ; defaults to 1
+* @return int the vaue of the attribute 
 */
 	virtual int GetMaxDocOrd() const;
 /**
@@ -259,7 +264,7 @@ virtual bool init();
 	virtual void SetMaxSetOrd(int value);
 /**
 * Get integer attribute MaxSetOrd
-* @return int the vaue of the attribute ; defaults to 1
+* @return int the vaue of the attribute 
 */
 	virtual int GetMaxSetOrd() const;
 /**
@@ -342,6 +347,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for BaseOrdReset
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& BaseOrdResetString();
+/**
+* Enumeration string for enum value
+* @param EnumBaseOrdReset value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString BaseOrdResetString(EnumBaseOrdReset value);
+/**
+* Set attribute BaseOrdReset
+* @param EnumBaseOrdReset value the value to set the attribute to
+*/
+	virtual void SetBaseOrdReset( EnumBaseOrdReset value);
+
+/**
+* Typesafe enumerated attribute BaseOrdReset
+* @return EnumBaseOrdResetthe enumeration value of the attribute
+*/
+	virtual EnumBaseOrdReset GetBaseOrdReset() const;
+
+/**
+* Typesafe attribute validation of BaseOrdReset
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidBaseOrdReset(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute MaxCollect
 *@param int value: the value to set the attribute to

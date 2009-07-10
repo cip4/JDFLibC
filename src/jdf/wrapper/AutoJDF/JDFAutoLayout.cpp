@@ -137,7 +137,7 @@ bool JDFAutoLayout::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoLayout::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Automated,LockOrigins,MaxDocOrd,MaxSetOrd,OrdReset,SheetCountReset,Name,MaxCollect,MaxOrd,MinCollect,OrdsConsumed,SheetNameFormat,SheetNameTemplate,SourceWorkStyle,StackDepth,SurfaceContentsBox");
+		return JDFResource::OptionalAttributes()+WString(L",Automated,LockOrigins,MaxDocOrd,MaxSetOrd,OrdReset,SheetCountReset,Name,BaseOrdReset,MaxCollect,MaxOrd,MinCollect,OrdsConsumed,SheetNameFormat,SheetNameTemplate,SourceWorkStyle,StackDepth,SurfaceContentsBox");
 };
 
 /**
@@ -180,6 +180,11 @@ bool JDFAutoLayout::init(){
 		};
 		if(!ValidName(level)) {
 			vAtts.push_back(atr_Name);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBaseOrdReset(level)) {
+			vAtts.push_back(atr_BaseOrdReset);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -274,10 +279,10 @@ bool JDFAutoLayout::init(){
 };
 /**
 * Get integer attribute MaxDocOrd
-* @return int the vaue of the attribute ; defaults to 1
+* @return int the vaue of the attribute 
 */
 	 int JDFAutoLayout::GetMaxDocOrd() const {
-	return GetIntAttribute(atr_MaxDocOrd,WString::emptyStr,1);
+	return GetIntAttribute(atr_MaxDocOrd,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLayout::ValidMaxDocOrd(EnumValidationLevel level) const {
@@ -292,10 +297,10 @@ bool JDFAutoLayout::init(){
 };
 /**
 * Get integer attribute MaxSetOrd
-* @return int the vaue of the attribute ; defaults to 1
+* @return int the vaue of the attribute 
 */
 	 int JDFAutoLayout::GetMaxSetOrd() const {
-	return GetIntAttribute(atr_MaxSetOrd,WString::emptyStr,1);
+	return GetIntAttribute(atr_MaxSetOrd,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLayout::ValidMaxSetOrd(EnumValidationLevel level) const {
@@ -368,6 +373,31 @@ bool JDFAutoLayout::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLayout::ValidName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Name,AttributeType_string,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoLayout::BaseOrdResetString(){
+		static const WString enums=WString(L"Unknown,PagePool,PagePoolList");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoLayout::BaseOrdResetString(EnumBaseOrdReset value){
+		return BaseOrdResetString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoLayout::SetBaseOrdReset( EnumBaseOrdReset value){
+	SetEnumAttribute(atr_BaseOrdReset,value,BaseOrdResetString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoLayout::EnumBaseOrdReset JDFAutoLayout:: GetBaseOrdReset() const {
+	return (EnumBaseOrdReset) GetEnumAttribute(atr_BaseOrdReset,BaseOrdResetString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidBaseOrdReset(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_BaseOrdReset,BaseOrdResetString(),false);
 	};
 /**
 * Set attribute MaxCollect

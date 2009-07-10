@@ -80,13 +80,14 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFComment;
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoPreview : public JDFResource
+class JDFAutoPreview : public JDFElement
 
 *********************************************************************
 */
@@ -96,7 +97,7 @@ class JDFAutoPreview : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFPreview should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoPreview : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoPreview : public JDFElement{
 public:
 
 
@@ -107,11 +108,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoPreview():JDFResource(){};
+	inline JDFAutoPreview():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoPreview(const KElement & other):JDFResource(){
+	inline JDFAutoPreview(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -163,18 +164,6 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
-
 /**
 * Enumeration for attribute PreviewFileType
 */
@@ -186,15 +175,15 @@ virtual bool init();
 
 	enum EnumPreviewUsage{PreviewUsage_Unknown,PreviewUsage_Separation,PreviewUsage_SeparatedThumbNail,PreviewUsage_SeparationRaw,PreviewUsage_ThumbNail,PreviewUsage_Viewable};
 /**
+* Enumeration for attribute PartUsage
+*/
+
+	enum EnumPartUsage{PartUsage_Unknown,PartUsage_Explicit,PartUsage_Implicit,PartUsage_Sparse};
+/**
 * Enumeration for attribute Compensation
 */
 
 	enum EnumCompensation{Compensation_Unknown,Compensation_None,Compensation_Film,Compensation_Plate,Compensation_Press};
-
-/**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -276,6 +265,67 @@ virtual bool init();
 */
 	virtual bool ValidURL(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute NoOp
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetNoOp(bool value);
+/**
+* Get bool attribute NoOp
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetNoOp() const;
+/**
+* Typesafe attribute validation of NoOp
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidNoOp(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Class
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetClass(const WString& value);
+/**
+* Get string attribute Class
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetClass() const;
+/**
+* Typesafe attribute validation of Class
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidClass(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for PartUsage
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& PartUsageString();
+/**
+* Enumeration string for enum value
+* @param EnumPartUsage value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString PartUsageString(EnumPartUsage value);
+/**
+* Set attribute PartUsage
+* @param EnumPartUsage value the value to set the attribute to
+*/
+	virtual void SetPartUsage( EnumPartUsage value);
+
+/**
+* Typesafe enumerated attribute PartUsage
+* @return EnumPartUsagethe enumeration value of the attribute
+*/
+	virtual EnumPartUsage GetPartUsage() const;
+
+/**
+* Typesafe attribute validation of PartUsage
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidPartUsage(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for Compensation
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -352,6 +402,518 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidMimeTypeDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BinderySignatureName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetBinderySignatureName(const WString& value);
+/**
+* Get string attribute BinderySignatureName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetBinderySignatureName() const;
+/**
+* Typesafe attribute validation of BinderySignatureName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBinderySignatureName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BlockName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetBlockName(const WString& value);
+/**
+* Get string attribute BlockName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetBlockName() const;
+/**
+* Typesafe attribute validation of BlockName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBlockName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BundleItemIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetBundleItemIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute BundleItemIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetBundleItemIndex() const;
+/**
+* Typesafe attribute validation of BundleItemIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBundleItemIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute CellIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetCellIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute CellIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetCellIndex() const;
+/**
+* Typesafe attribute validation of CellIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCellIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Condition
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetCondition(const WString& value);
+/**
+* Get string attribute Condition
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetCondition() const;
+/**
+* Typesafe attribute validation of Condition
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCondition(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit0
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit0(const WString& value);
+/**
+* Get string attribute DeliveryUnit0
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit0() const;
+/**
+* Typesafe attribute validation of DeliveryUnit0
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit0(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit1
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit1(const WString& value);
+/**
+* Get string attribute DeliveryUnit1
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit1() const;
+/**
+* Typesafe attribute validation of DeliveryUnit1
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit1(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit2
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit2(const WString& value);
+/**
+* Get string attribute DeliveryUnit2
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit2() const;
+/**
+* Typesafe attribute validation of DeliveryUnit2
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit2(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit3
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit3(const WString& value);
+/**
+* Get string attribute DeliveryUnit3
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit3() const;
+/**
+* Typesafe attribute validation of DeliveryUnit3
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit3(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit4
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit4(const WString& value);
+/**
+* Get string attribute DeliveryUnit4
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit4() const;
+/**
+* Typesafe attribute validation of DeliveryUnit4
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit4(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit5
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit5(const WString& value);
+/**
+* Get string attribute DeliveryUnit5
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit5() const;
+/**
+* Typesafe attribute validation of DeliveryUnit5
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit5(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit6
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit6(const WString& value);
+/**
+* Get string attribute DeliveryUnit6
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit6() const;
+/**
+* Typesafe attribute validation of DeliveryUnit6
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit6(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit7
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit7(const WString& value);
+/**
+* Get string attribute DeliveryUnit7
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit7() const;
+/**
+* Typesafe attribute validation of DeliveryUnit7
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit7(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit8
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit8(const WString& value);
+/**
+* Get string attribute DeliveryUnit8
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit8() const;
+/**
+* Typesafe attribute validation of DeliveryUnit8
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit8(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DeliveryUnit9
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeliveryUnit9(const WString& value);
+/**
+* Get string attribute DeliveryUnit9
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeliveryUnit9() const;
+/**
+* Typesafe attribute validation of DeliveryUnit9
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeliveryUnit9(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DocTags
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetDocTags(const NameRangeList& value);
+/**
+* Get range attribute DocTags
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetDocTags() const;
+/**
+* Typesafe attribute validation of DocTags
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDocTags(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Edition
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetEdition(const WString& value);
+/**
+* Get string attribute Edition
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetEdition() const;
+/**
+* Typesafe attribute validation of Edition
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidEdition(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute EditionVersion
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetEditionVersion(const WString& value);
+/**
+* Get string attribute EditionVersion
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetEditionVersion() const;
+/**
+* Typesafe attribute validation of EditionVersion
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidEditionVersion(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ItemNames
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetItemNames(const vWString& value);
+/**
+* Get string attribute ItemNames
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetItemNames() const;
+/**
+* Typesafe attribute validation of ItemNames
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidItemNames(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PageNumber
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetPageNumber(const JDFIntegerRangeList& value);
+/**
+* Get range attribute PageNumber
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetPageNumber() const;
+/**
+* Typesafe attribute validation of PageNumber
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPageNumber(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PageTags
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetPageTags(const NameRangeList& value);
+/**
+* Get range attribute PageTags
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetPageTags() const;
+/**
+* Typesafe attribute validation of PageTags
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPageTags(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PlateLayout
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPlateLayout(const WString& value);
+/**
+* Get string attribute PlateLayout
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPlateLayout() const;
+/**
+* Typesafe attribute validation of PlateLayout
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPlateLayout(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PreflightRule
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPreflightRule(const WString& value);
+/**
+* Get string attribute PreflightRule
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPreflightRule() const;
+/**
+* Typesafe attribute validation of PreflightRule
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPreflightRule(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute RunSet
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetRunSet(const WString& value);
+/**
+* Get string attribute RunSet
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetRunSet() const;
+/**
+* Typesafe attribute validation of RunSet
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidRunSet(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SectionIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetSectionIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute SectionIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetSectionIndex() const;
+/**
+* Typesafe attribute validation of SectionIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSectionIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SetDocIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetSetDocIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute SetDocIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetSetDocIndex() const;
+/**
+* Typesafe attribute validation of SetDocIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSetDocIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SetRunIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetSetRunIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute SetRunIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetSetRunIndex() const;
+/**
+* Typesafe attribute validation of SetRunIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSetRunIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SetSheetIndex
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetSetSheetIndex(const JDFIntegerRangeList& value);
+/**
+* Get range attribute SetSheetIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetSetSheetIndex() const;
+/**
+* Typesafe attribute validation of SetSheetIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSetSheetIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SetTags
+*@param NameRangeList value: the value to set the attribute to
+*/
+	virtual void SetSetTags(const NameRangeList& value);
+/**
+* Get range attribute SetTags
+* @return NameRangeList the vaue of the attribute 
+*/
+	virtual NameRangeList GetSetTags() const;
+/**
+* Typesafe attribute validation of SetTags
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSetTags(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SubRun
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSubRun(const WString& value);
+/**
+* Get string attribute SubRun
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSubRun() const;
+/**
+* Typesafe attribute validation of SubRun
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSubRun(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute WebProduct
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetWebProduct(const WString& value);
+/**
+* Get string attribute WebProduct
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetWebProduct() const;
+/**
+* Typesafe attribute validation of WebProduct
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidWebProduct(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute WebSetup
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetWebSetup(const WString& value);
+/**
+* Get string attribute WebSetup
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetWebSetup() const;
+/**
+* Typesafe attribute validation of WebSetup
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidWebSetup(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -375,6 +937,30 @@ virtual bool init();
 * Append element Comment
  */
 	JDFComment AppendComment();
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

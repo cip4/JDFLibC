@@ -180,6 +180,11 @@ JDFEmployee JDFAutoDeleted::AppendEmployee(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoDeleted::RefEmployee(JDFEmployee& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 /**
  typesafe validator

@@ -302,6 +302,11 @@ JDFEmployee JDFAutoMerged::AppendEmployee(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoMerged::RefEmployee(JDFEmployee& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFPart JDFAutoMerged::GetPart(int iSkip)const{
 	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);

@@ -118,7 +118,7 @@ JDFAutoSubscriptionInfo& JDFAutoSubscriptionInfo::operator=(const KElement& othe
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoSubscriptionInfo::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",ChannelID,DeviceID,Families,JobID,JobPartID,MessageTypes,QueueEntryID");
+		return JDFElement::OptionalAttributes()+WString(L",ChannelID,SenderID,Family,JobID,JobPartID,MessageType,QueueEntryID");
 };
 
 /**
@@ -134,13 +134,13 @@ JDFAutoSubscriptionInfo& JDFAutoSubscriptionInfo::operator=(const KElement& othe
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidDeviceID(level)) {
-			vAtts.push_back(atr_DeviceID);
+		if(!ValidSenderID(level)) {
+			vAtts.push_back(atr_SenderID);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidFamilies(level)) {
-			vAtts.push_back(atr_Families);
+		if(!ValidFamily(level)) {
+			vAtts.push_back(atr_Family);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -154,8 +154,8 @@ JDFAutoSubscriptionInfo& JDFAutoSubscriptionInfo::operator=(const KElement& othe
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidMessageTypes(level)) {
-			vAtts.push_back(atr_MessageTypes);
+		if(!ValidMessageType(level)) {
+			vAtts.push_back(atr_MessageType);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -186,40 +186,40 @@ JDFAutoSubscriptionInfo& JDFAutoSubscriptionInfo::operator=(const KElement& othe
 		return ValidAttribute(atr_ChannelID,AttributeType_NMTOKEN,false);
 	};
 /**
-* Set attribute DeviceID
+* Set attribute SenderID
 *@param WString value: the value to set the attribute to
 */
-	 void JDFAutoSubscriptionInfo::SetDeviceID(const WString& value){
-	SetAttribute(atr_DeviceID,value);
+	 void JDFAutoSubscriptionInfo::SetSenderID(const WString& value){
+	SetAttribute(atr_SenderID,value);
 };
 /**
-* Get string attribute DeviceID
+* Get string attribute SenderID
 * @return WString the vaue of the attribute 
 */
-	 WString JDFAutoSubscriptionInfo::GetDeviceID() const {
-	return GetAttribute(atr_DeviceID,WString::emptyStr);
+	 WString JDFAutoSubscriptionInfo::GetSenderID() const {
+	return GetAttribute(atr_SenderID,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoSubscriptionInfo::ValidDeviceID(EnumValidationLevel level) const {
-		return ValidAttribute(atr_DeviceID,AttributeType_string,false);
+	bool JDFAutoSubscriptionInfo::ValidSenderID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SenderID,AttributeType_string,false);
 	};
 /**
-* Set attribute Families
+* Set attribute Family
 *@param WString value: the value to set the attribute to
 */
-	 void JDFAutoSubscriptionInfo::SetFamilies(const WString& value){
-	SetAttribute(atr_Families,value);
+	 void JDFAutoSubscriptionInfo::SetFamily(const WString& value){
+	SetAttribute(atr_Family,value);
 };
 /**
-* Get string attribute Families
+* Get string attribute Family
 * @return WString the vaue of the attribute 
 */
-	 WString JDFAutoSubscriptionInfo::GetFamilies() const {
-	return GetAttribute(atr_Families,WString::emptyStr);
+	 WString JDFAutoSubscriptionInfo::GetFamily() const {
+	return GetAttribute(atr_Family,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoSubscriptionInfo::ValidFamilies(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Families,AttributeType_NMTOKEN,false);
+	bool JDFAutoSubscriptionInfo::ValidFamily(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Family,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute JobID
@@ -258,22 +258,22 @@ JDFAutoSubscriptionInfo& JDFAutoSubscriptionInfo::operator=(const KElement& othe
 		return ValidAttribute(atr_JobPartID,AttributeType_string,false);
 	};
 /**
-* Set attribute MessageTypes
+* Set attribute MessageType
 *@param WString value: the value to set the attribute to
 */
-	 void JDFAutoSubscriptionInfo::SetMessageTypes(const WString& value){
-	SetAttribute(atr_MessageTypes,value);
+	 void JDFAutoSubscriptionInfo::SetMessageType(const WString& value){
+	SetAttribute(atr_MessageType,value);
 };
 /**
-* Get string attribute MessageTypes
+* Get string attribute MessageType
 * @return WString the vaue of the attribute 
 */
-	 WString JDFAutoSubscriptionInfo::GetMessageTypes() const {
-	return GetAttribute(atr_MessageTypes,WString::emptyStr);
+	 WString JDFAutoSubscriptionInfo::GetMessageType() const {
+	return GetAttribute(atr_MessageType,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoSubscriptionInfo::ValidMessageTypes(EnumValidationLevel level) const {
-		return ValidAttribute(atr_MessageTypes,AttributeType_NMTOKEN,false);
+	bool JDFAutoSubscriptionInfo::ValidMessageType(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MessageType,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute QueueEntryID

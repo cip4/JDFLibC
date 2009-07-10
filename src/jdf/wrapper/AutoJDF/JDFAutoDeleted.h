@@ -208,6 +208,12 @@ public:
 * Append element Employee
  */
 	JDFEmployee AppendEmployee();
+/**
+* create inter-resource link to refTarget
+* @param JDFEmployee& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefEmployee(JDFEmployee& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

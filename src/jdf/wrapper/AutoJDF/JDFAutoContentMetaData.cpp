@@ -76,7 +76,7 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoContentMetaData.h"
 #include "jdf/wrapper/JDFContact.h"
-#include "jdf/wrapper/JDFContact.h"
+#include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFPart.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -234,27 +234,27 @@ JDFRefElement JDFAutoContentMetaData::RefContact(JDFContact& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFContact JDFAutoContentMetaData::GetEmployee(int iSkip)const{
-	JDFContact e=GetElement(elm_Employee,WString::emptyStr,iSkip);
+JDFEmployee JDFAutoContentMetaData::GetEmployee(int iSkip)const{
+	JDFEmployee e=GetElement(elm_Employee,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFContact JDFAutoContentMetaData::GetCreateEmployee(int iSkip){
-	JDFContact e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
+JDFEmployee JDFAutoContentMetaData::GetCreateEmployee(int iSkip){
+	JDFEmployee e=GetCreateElement(elm_Employee,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFContact JDFAutoContentMetaData::AppendEmployee(){
-	JDFContact e=AppendElement(elm_Employee);
+JDFEmployee JDFAutoContentMetaData::AppendEmployee(){
+	JDFEmployee e=AppendElement(elm_Employee);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoContentMetaData::RefEmployee(JDFContact& refTarget){
+JDFRefElement JDFAutoContentMetaData::RefEmployee(JDFEmployee& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////

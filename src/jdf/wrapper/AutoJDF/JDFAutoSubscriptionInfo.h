@@ -186,37 +186,37 @@ public:
 */
 	virtual bool ValidChannelID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute DeviceID
+* Set attribute SenderID
 *@param WString value: the value to set the attribute to
 */
-	virtual void SetDeviceID(const WString& value);
+	virtual void SetSenderID(const WString& value);
 /**
-* Get string attribute DeviceID
+* Get string attribute SenderID
 * @return WString the vaue of the attribute 
 */
-	virtual WString GetDeviceID() const;
+	virtual WString GetSenderID() const;
 /**
-* Typesafe attribute validation of DeviceID
+* Typesafe attribute validation of SenderID
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidDeviceID(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidSenderID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute Families
+* Set attribute Family
 *@param WString value: the value to set the attribute to
 */
-	virtual void SetFamilies(const WString& value);
+	virtual void SetFamily(const WString& value);
 /**
-* Get string attribute Families
+* Get string attribute Family
 * @return WString the vaue of the attribute 
 */
-	virtual WString GetFamilies() const;
+	virtual WString GetFamily() const;
 /**
-* Typesafe attribute validation of Families
+* Typesafe attribute validation of Family
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidFamilies(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidFamily(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to
@@ -250,21 +250,21 @@ public:
 */
 	virtual bool ValidJobPartID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute MessageTypes
+* Set attribute MessageType
 *@param WString value: the value to set the attribute to
 */
-	virtual void SetMessageTypes(const WString& value);
+	virtual void SetMessageType(const WString& value);
 /**
-* Get string attribute MessageTypes
+* Get string attribute MessageType
 * @return WString the vaue of the attribute 
 */
-	virtual WString GetMessageTypes() const;
+	virtual WString GetMessageType() const;
 /**
-* Typesafe attribute validation of MessageTypes
+* Typesafe attribute validation of MessageType
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidMessageTypes(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidMessageType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute QueueEntryID
 *@param WString value: the value to set the attribute to

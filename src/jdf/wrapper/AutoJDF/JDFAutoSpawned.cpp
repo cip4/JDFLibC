@@ -342,6 +342,11 @@ JDFEmployee JDFAutoSpawned::AppendEmployee(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoSpawned::RefEmployee(JDFEmployee& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFPart JDFAutoSpawned::GetPart(int iSkip)const{
 	JDFPart e=GetElement(elm_Part,WString::emptyStr,iSkip);

@@ -83,7 +83,7 @@
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFContact;
-class JDFContact;
+class JDFEmployee;
 class JDFPart;
 class JDFRefElement;
 /*
@@ -252,26 +252,26 @@ public:
 /** Get Element Employee
 * 
 * @param int iSkip number of elements to skip
-* @return JDFContact The element
+* @return JDFEmployee The element
 */
-	JDFContact GetCreateEmployee(int iSkip=0);
+	JDFEmployee GetCreateEmployee(int iSkip=0);
 
 /**
 * const get element Employee
 * @param int iSkip number of elements to skip
-* @return JDFContact The element
+* @return JDFEmployee The element
 */
-	JDFContact GetEmployee(int iSkip=0)const;
+	JDFEmployee GetEmployee(int iSkip=0)const;
 /**
 * Append element Employee
  */
-	JDFContact AppendEmployee();
+	JDFEmployee AppendEmployee();
 /**
 * create inter-resource link to refTarget
-* @param JDFContact& refTarget the element that is referenced
+* @param JDFEmployee& refTarget the element that is referenced
 *@return JDFRefElement the referenced element
 */
-	JDFRefElement RefEmployee(JDFContact& refTarget);
+	JDFRefElement RefEmployee(JDFEmployee& refTarget);
 
 /** Get Element Part
 * 
