@@ -58,9 +58,13 @@ int main(int argc, char* argv[]){
 
 	if(true)
 	{
-		XMLDoc d;
-		assertFalse(d.StringParse(""));
-		assertTrue(d.isNull());
+		JDFDate date("1999-12-26T11:43:10-03:00");
+		assertEquals(WString("-03:00"), date.ISOTimeZone());
+		date ="1999-12-26T11:43:10-05:00";
+		assertEquals(WString("-05:00"), date.ISOTimeZone());
+		date = "1999-06-26T11:43:10-05:00";
+		assertEquals(WString("-05:00"), date.ISOTimeZone());
+		assertEquals(-5, date.DeltaTimeZone());
 	}
 	else if(33)
 	{
