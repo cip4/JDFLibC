@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -119,9 +119,53 @@ namespace JDF
  ******************************************************************************/ 
 
 const int KeepAliveCache::LIFETIME = 15000;
+static KeepAliveCache * theCache=0;
+
+	KeepAliveKey::~KeepAliveKey()
+	{}
+
+	KeepAliveEntry::~KeepAliveEntry()
+	{}
+
+	KeepAliveClientList::~KeepAliveClientList()
+	{}
+
+	KeepAliveCache::~KeepAliveCache()
+	{
+		std::list<CacheItem>::iterator it = mCache.begin();
+		while (it != mCache.end())
+		{
+
+			while ((*it).second.size())
+			{
+				KeepAliveEntry entry =  (*it).second.mClients.front();
+				entry.mClient->closeServer();
+				delete entry.mClient;
+				entry.mClient = NULL;
+				(*it).second.mClients.pop();
+			}
+			it = mCache.erase(it);
+		}
+	}
+
+	void KeepAliveCache::terminate()
+	{
+		if(theCache)
+		{
+			delete(theCache);
+		}
+		theCache=0;
+	}
+
+	KeepAliveCache& KeepAliveCache::getKeepAliveCache()
+	{
+		if(!theCache)
+			theCache=new KeepAliveCache();
+		return *theCache;
+	}
 
 
-KeepAliveEntry::KeepAliveEntry(HttpClient* hc, unsigned long startTime)
+	KeepAliveEntry::KeepAliveEntry(HttpClient* hc, unsigned long startTime)
 {
 	mClient = hc;
 	mStartTime = startTime;

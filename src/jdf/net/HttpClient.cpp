@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -153,6 +153,9 @@ namespace JDF
 		bufferedOut          = NULL;
 	}
 
+	HttpClient::~HttpClient()
+	{
+	}
 	int HttpClient::getDefaultPort()
 	{
 		return httpPortNumber;
@@ -176,11 +179,15 @@ namespace JDF
 			return 80;
 		return Integer::parseInt(port.second);
 	}
+	void HttpClient::setHttpSystemKeepAlive(bool bKeepAlive)
+	{
+		PlatformUtils::setProperty(L"http.keepAlive",bKeepAlive?L"true":L"false");
+	}
 
 	bool HttpClient::getHttpKeepAliveSet()
 	{
 		bool ret = false;
-		PlatformUtils::value_pair keepAlive = PlatformUtils::getProperty("http.keepAlive");
+		PlatformUtils::value_pair keepAlive = PlatformUtils::getProperty(L"http.keepAlive");
 		if (keepAlive.first)
 		{
 			if (keepAlive.second == "true")
@@ -465,8 +472,12 @@ namespace JDF
 	{
 		try
 		{
+			if(serverInput!=0)
+				delete serverInput;
 			serverInput = &serverSocket->getInputStream();
 			serverInput = new BufferedInputStream(*serverInput);
+			// the socket owns the original stream
+			((BufferedInputStream*)serverInput)->setOwnsMember(false);
 			// fix memory leak keep buffered input stream
 			// for deleting afterwards
 			return parseHTTPHeader(responses);
@@ -617,6 +628,7 @@ namespace JDF
 			// but this is a considerable memory footprint
 			// the ChunkedInputStream will call the responses.mergeheader itself
 			serverInput = new ChunkedInputStream(serverInput,responses);
+			((ChunkedInputStream*)serverInput)->setOwnsMember(false);
 			/*
 			* If keep alive not specified then close after the stream
 			* has completed.
@@ -660,19 +672,22 @@ namespace JDF
 				keepingAlive=false;
 			}
 		}
-		if (cl > 0)
+//		090715 RP if keepalive we must have a keepalivestream, even if cl==0, else we run into a blocking socket read
+		if (cl > 0 || keepingAlive)
 		{
 
-			ProgressEntry* pe = new ProgressEntry;
+			ProgressEntry *pe=new ProgressEntry();
 			pe->update(0,cl);
-			if (isKeepingAlive())
+			if (keepingAlive)
 			{
 				serverInput = new KeepAliveInputStream(serverInput,pe,this);
+				((KeepAliveInputStream*)serverInput)->setOwnsMember(true);
 				failedOnce = false;
 			}		
 			else // 070912 RP use a metered input for non-keepalive and all should be well!
 			{
 				serverInput = new MeteredInputStream(serverInput,pe);
+				((MeteredInputStream*)serverInput)->setOwnsMember(true);
 			}
 
 		}
@@ -709,12 +724,15 @@ namespace JDF
 			if (serverInput)
 			{
 				delete serverInput;
+				serverInput=0;
 			}
 
 			if (serverOutput)
 			{
 				delete serverOutput;
+				serverOutput=0;
 				delete bufferedOut; // buffered out
+				bufferedOut=0;
 			}
 
 			if (serverSocket)
@@ -723,6 +741,7 @@ namespace JDF
 				{
 					serverSocket->close();
 					delete serverSocket;
+					serverSocket=0;
 				}
 			}
 			serverSocket = NULL;
@@ -760,9 +779,8 @@ namespace JDF
 	}
 
 	KeepAliveCache & HttpClient::getKeepAliveCache()
-	{
-		static KeepAliveCache theCache;
-		return theCache;
+	{		
+		return KeepAliveCache::getKeepAliveCache();
 	}
 
 } // namespace JDF

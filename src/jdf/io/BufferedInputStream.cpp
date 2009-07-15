@@ -124,7 +124,6 @@ mPos				(0)
 {
 	mMarkPos         = -1;
 	mReadAheadLimit = 0;
-	bKillInStream = false;
 
 	mBuf = new char[mSize];
 }
@@ -137,7 +136,6 @@ mPos				(0)
 {
 	mMarkPos        = -1;
 	mReadAheadLimit =0;
-	bKillInStream=false;
 
 	if (size == 0)
 		throw IllegalArgumentException("BufferedInputStream size is zero");
@@ -153,8 +151,6 @@ mPos				(0)
 {
 	mMarkPos        = -1;
 	mReadAheadLimit =0;
-	bKillInStream=true;
-
 	if (size == 0)
 		throw IllegalArgumentException("BufferedInputStream size is zero");
 
@@ -165,17 +161,17 @@ BufferedInputStream::~BufferedInputStream()
 {
 	delete[] mBuf;
 	mBuf = NULL;
-	if(bKillInStream)
-		delete(mIn);
 }
 
 void BufferedInputStream::close()
 {
 	if (mIn)
 	{
-		if(bKillInStream)
-			delete(mIn);
 		mIn->close();
+		if(bKillInStream)
+		{
+			delete(mIn);
+		}
 		mIn = NULL;
 		delete[] mBuf;
 		mBuf = NULL;

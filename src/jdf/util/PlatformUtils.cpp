@@ -96,6 +96,7 @@
 #include <jdf/net/Authenticator.h>
 #include <jdf/net/PlainURLStreamHandlerFactory.h>
 #include <jdf/net/URLConnection.h>
+#include <jdf/net/KeepAliveCache.h>
 #include <jdf/io/File.h>
 
 #include <xercesc/util/PlatformUtils.hpp>
@@ -294,6 +295,8 @@ namespace JDF
 		ServerSocket::terminate();
 		Socket::terminate();
 		File::terminate();
+		KeepAliveCache::terminate();
+
 		delete systemProperties;
 		systemProperties=0;
 

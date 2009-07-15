@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -125,8 +125,9 @@ public:
 
 	KeepAliveKey() { port=-1;}
 	KeepAliveKey(const URL& url);
-
+	virtual ~KeepAliveKey();
 	bool operator==(const KeepAliveKey& k);
+
 private:
 	WString protocol;
 	WString host;
@@ -139,6 +140,7 @@ class KeepAliveEntry
 public:
 
 	KeepAliveEntry(HttpClient* hc, unsigned long startTime);
+	virtual ~KeepAliveEntry();
 
 	HttpClient* mClient;
 	unsigned long mStartTime;
@@ -149,7 +151,7 @@ class KeepAliveClientList
 public:
 
 	KeepAliveClientList();
-
+	virtual ~KeepAliveClientList();
 
 	HttpClient* get();
 	bool put(HttpClient* hc);
@@ -184,9 +186,13 @@ public:
 	static int getMaxConnections();
 
 	void validateCache();
+	static void terminate();
 	static void validate();
 
 	KeepAliveCache();
+	virtual ~KeepAliveCache();
+	static KeepAliveCache& getKeepAliveCache();
+
 
 	bool put(const URL& url,HttpClient* hc);
 

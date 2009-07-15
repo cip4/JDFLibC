@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -138,6 +138,7 @@ namespace JDF
 		/*@{*/
 		
 		HttpClient();
+		virtual ~HttpClient();
 		/*@}*/ 
 		void create(const URL& url, const WString& proxy, int proxyPort, bool proxyDisabled=false);
 		
@@ -146,8 +147,13 @@ namespace JDF
 		*		to false if the system property http.keepAlive isn't set.
 		*/
 		
-		bool getHttpKeepAliveSet();
-		
+		static bool getHttpKeepAliveSet();
+
+		/**
+		* set the system property to keepalive
+		*/
+		static void setHttpSystemKeepAlive(bool bKeepalive);
+			
 		/**
 		* We're very particular here about what our InputStream to the server
 		* looks like for reasons that are apparent if you can decipher the

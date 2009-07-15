@@ -168,17 +168,17 @@ int Win32SocketImplInputStream::read(char* b, int blen)
 	int nrBytesReceived = 0;
 
 	// wait for stuff 
-
 	mSocketImpl->doWait(mSocketImpl->getOption(SocketOptions::SO_TIMEOUT_OPT), Win32SocketImpl::WAITFORREAD);
 
 	// check if bytes are available
 	// if socket is closed available == 0
-
 	if (available() == 0)
 		return -1;
 
-	// only read if blen not zero and bytes are available
 
+
+
+	// only read if blen not zero and bytes are available
 	if (blen)
 	{
 		if ((nrBytesReceived = SocketProxy::sysRecv(mSocketImpl->getFileDescriptor(),b,blen,0)) == SOCKET_ERROR)

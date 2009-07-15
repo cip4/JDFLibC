@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -540,7 +540,7 @@ int SocketProxy::sysSocketClose(int fd)
 
 		closesocketfn = (int (PASCAL FAR* )(int))Win32SocketInit::sockfnptrs[Win32SocketInit::FN_CLOSESOCKET];
 
-		if (sSocketInitImpl->isWinsock2Available())
+		if (sSocketInitImpl!=0 && sSocketInitImpl->isWinsock2Available())
 		{
 			wsasenddisconnectfn = (int (PASCAL FAR* )(int,char FAR*))Win32SocketInit::sockfnptrs[Win32SocketInit::FN_WSASENDDISCONNECT];
 			(void) (*wsasenddisconnectfn)(fd,NULL);

@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -117,14 +117,15 @@ namespace JDF
 MeteredInputStream::MeteredInputStream(InputStream* in,ProgressEntry* pe) : FilterInputStream(*in),
 			te(pe)
 {
-	mClosed   = false;
 	mExpected = pe->mNeeded;
 	mCount    = 0;
+	// 090715 rp - if we expect nothing, we are immediately closed
+	mClosed   = mExpected<=0;
+	bKillInStream=true;
 }
 
 MeteredInputStream::~MeteredInputStream() 
 {
-	delete mIn;
 	delete te;
 }
 

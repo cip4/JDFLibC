@@ -22,6 +22,7 @@
 #include <jdf/io/File.h>
 #include <jdf/net/URI.h>
 #include <jdf/net/URL.h>
+#include <jdf/net/HTTPClient.h>
 
 #include "jdf/util/MyWalker.h"
 
@@ -53,10 +54,24 @@ int main(int argc, char* argv[]){
 		return 1;
 	}
 
+	MyWalker walker;
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...	else if(1)
 
 	if(true)
+	{
+		HttpClient::setHttpSystemKeepAlive(false);
+		XMLDoc doc("abc");
+		long t0=clock();
+		for(int i=0;i<444;i++)
+		{
+			std::cout<<i<<"   "<<1000*(clock()-t0)/(i+1)<<endl;
+		doc.Write2URL("http://10.51.100.22:8080/httpdump/testXMLDoc?nodump=true");
+		}
+
+
+	}
+	else if(true)
 	{
 		JDFDate date("1999-12-26T11:43:10-03:00");
 		assertEquals(WString("-03:00"), date.ISOTimeZone());
@@ -136,6 +151,7 @@ int main(int argc, char* argv[]){
 		}
 		doc.Write2File("chars.xml");
 	}
+	cout<<"term"<<endl;
 
 	JDF::PlatformUtils::Terminate();
 	cout<<"end"<<endl;

@@ -96,6 +96,8 @@
 #include <jdf/io/PushbackInputStream.h>
 #include <jdf/lang/Janitor.h>
 #include <jdf/net/URLConnection.h>
+#include <jdf/net/HttpURLConnection.h>
+#include <jdf/net/HttpClient.h>
 #include <jdf/util/PlatformUtils.h>
 #include <jdf/wrapper/JDFDate.h>
 
@@ -358,8 +360,10 @@ namespace JDF{
 
 			JDF::Janitor<JDF::URLConnection> pURLConnection(url.openConnection());
 
+			
 			pURLConnection->setDoOutput(true);
-			pURLConnection->setRequestProperty(L"Connection",   L"close");
+			bool bKeepAlive=HttpClient::getHttpKeepAliveSet();
+			pURLConnection->setRequestProperty(L"Connection",  bKeepAlive ? L"keep-alive" : L"close");
 			pURLConnection->setRequestProperty(L"Content-Type", strContentType);
 
 			if (!Write2Stream(pURLConnection->getOutputStream()))
@@ -370,8 +374,7 @@ namespace JDF{
 			JDF::PushbackInputStream pbin(pURLConnection->getInputStream(),6);
 			char xmlHeader[6];
 			memset(xmlHeader,0,6);
-			int bytesRead = pbin.read(xmlHeader,5);
-			// empty response?
+			int bytesRead =pbin.read(xmlHeader,5);
 			if (bytesRead == -1)
 				return docResponse;
 
