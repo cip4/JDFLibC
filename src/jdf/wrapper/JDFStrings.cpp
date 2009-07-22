@@ -1053,6 +1053,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_BandOrdering=L"BandOrdering";
 	const WString JDFStrings::atr_BandWidth=L"BandWidth";
 	const WString JDFStrings::atr_BarcodeVersion=L"BarcodeVersion";
+	const WString JDFStrings::atr_BaseOrdReset=L"BaseOrdReset";
 	const WString JDFStrings::atr_BatchID=L"BatchID";	
 
 	const WString JDFStrings::atr_BearerBars=L"BearerBars";

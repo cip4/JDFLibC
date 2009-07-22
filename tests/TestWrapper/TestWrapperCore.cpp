@@ -60,13 +60,16 @@ int main(int argc, char* argv[]){
 
 	if(true)
 	{
-		HttpClient::setHttpSystemKeepAlive(false);
+		HttpClient::setHttpSystemKeepAlive(true);
 		XMLDoc doc("abc");
 		long t0=clock();
-		for(int i=0;i<444;i++)
+		for(int i=0;true;i++)
 		{
+//			if((i%100)==0)
 			std::cout<<i<<"   "<<1000*(clock()-t0)/(i+1)<<endl;
-		doc.Write2URL("http://10.51.100.22:8080/httpdump/testXMLDoc?nodump=true");
+		doc.Write2URL("http://10.51.201.7:8080/httpdump/testXMLDoc?nodump=true");
+//		doc.Write2URL("http://localhost:8080/httpdump/testXMLDoc?nodump=true");
+//		PlatformUtils::sleep(2);
 		}
 
 

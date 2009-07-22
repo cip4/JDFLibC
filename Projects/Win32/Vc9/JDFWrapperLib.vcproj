@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="JDFWrapperLib"
 	ProjectGUID="{766A96F7-A4F7-45C1-BE16-AC8F96748B33}"
 	RootNamespace="JDFWrapperLib"
@@ -4725,6 +4725,30 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationCmdParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationCmdParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationQuParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationQuParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationResp.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationResp.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoBarcodeCompParams.cpp"
 					>
 				</File>
@@ -4797,6 +4821,30 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoContentMetaData.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoContentMetaData.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoControllerFilter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoControllerFilter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoCreateLink.cpp"
 					>
 				</File>
@@ -4850,6 +4898,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayout.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.h"
 					>
 				</File>
 				<File
@@ -4961,6 +5017,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLot.cpp"
 					>
 				</File>
@@ -4969,11 +5033,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMediaLayers.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMediaLayers.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.h"
 					>
 				</File>
 				<File
@@ -5033,6 +5113,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoOCGControl.cpp"
 					>
 				</File>
@@ -5049,6 +5137,22 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageAssignParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageAssignParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageCondition.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageCondition.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageElement.cpp"
 					>
 				</File>
@@ -5062,6 +5166,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPDLCreationParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPositionObj.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPositionObj.h"
 					>
 				</File>
 				<File
@@ -5089,6 +5201,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRefAnchor.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRefAnchor.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRegistration.cpp"
 					>
 				</File>
@@ -5105,11 +5225,67 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRepeatDesc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRepeatDesc.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRuleLength.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRuleLength.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationList.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationList.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDef.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDef.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShiftPoint.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShiftPoint.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStaticBlockingParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStaticBlockingParams.h"
 					>
 				</File>
 				<File
@@ -5129,6 +5305,38 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionFilter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionFilter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTabDimensions.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTabDimensions.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoUpdateJDFCmdParams.cpp"
 					>
 				</File>
@@ -5142,6 +5350,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoUsageCounter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoVarnishingParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoVarnishingParams.h"
 					>
 				</File>
 				<File
@@ -8756,6 +8972,214 @@
 			<Filter
 				Name="New"
 				>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFAuthenticationCmdParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFAuthenticationCmdParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFAuthenticationQuParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFAuthenticationQuParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFAuthenticationResp.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFAuthenticationResp.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFContentMetaData.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFContentMetaData.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFControllerFilter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFControllerFilter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFConvertingConfig.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFConvertingConfig.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFDieLayoutProductionParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFDieLayoutProductionParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFLayoutShift.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFLayoutShift.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFMarkActivation.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFMarkActivation.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFMetadataMap.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFMetadataMap.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFObjectModel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFObjectModel.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFPageAssignParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFPageAssignParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFPageCondition.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFPageCondition.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFPositionObj.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFPositionObj.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFRefAnchor.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFRefAnchor.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFRepeatDesc.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFRepeatDesc.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFRuleLength.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFRuleLength.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShapeDef.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShapeDef.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShapeDefProductionParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShapeDefProductionParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShapeTemplate.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShapeTemplate.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShiftPoint.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFShiftPoint.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFStaticBlockingParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFStaticBlockingParams.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFSubscriptionFilter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFSubscriptionFilter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFSubscriptionInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFSubscriptionInfo.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFTabDimensions.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFTabDimensions.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFVarnishingParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFVarnishingParams.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

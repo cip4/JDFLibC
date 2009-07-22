@@ -124,281 +124,283 @@
 namespace JDF {
 
 	class WString;
-/**
-* date / time utility class
-* converts system times to various formats
-*/
-class JDF_WRAPPERCORE_EXPORT JDFDate {
-	friend class MyDate;
-public:
 	/**
-	* ctor
-	* @param int iOffset: offset to the current time in milliseconds
+	* date / time utility class
+	* converts system times to various formats
 	*/
-	JDFDate(int iOffset=0);
+	class JDF_WRAPPERCORE_EXPORT JDFDate {
+		friend class MyDate;
+	public:
+		/**
+		* ctor
+		* @param int iOffset: offset to the current time in milliseconds
+		*/
+		JDFDate(int iOffset=0);
 
-	/**
-	* ctor
-	* @param WString & a_aTimeFormat: formatted date and time
-	*/
-	JDFDate(const WString & aTimeFormat);
+		/**
+		* ctor
+		* @param WString & a_aTimeFormat: formatted date and time
+		*/
+		JDFDate(const WString & aTimeFormat);
 
-	/**
-	* ctor
-	* @param time_t tsec time in second from 1st Jan 1970
-	*/
-	JDFDate(const TIME_T_PREFIX::time_t tsec);
+		/**
+		* ctor
+		* @param time_t tsec time in second from 1st Jan 1970
+		*/
+		JDFDate(const TIME_T_PREFIX::time_t tsec);
 
-	/**
-	* ctor
-	* @param JDFDate & other: the date to copy
-	*/
-	JDFDate(const JDFDate & other);
+		/**
+		* ctor
+		* @param JDFDate & other: the date to copy
+		*/
+		JDFDate(const JDFDate & other);
 
-	/**
-	* ctor from MyDate. 
-	* @param MyDate & other: the date to copy
-	*/
-	JDFDate(const MyDate & other);
+		/**
+		* ctor from MyDate. 
+		* @param MyDate & other: the date to copy
+		*/
+		JDFDate(const MyDate & other);
 
-	/**
-	* ctor
-	* @param JDFDate & other: the date to copy
-	*/
-	JDFDate& operator=(const JDFDate& other);
+		/**
+		* ctor
+		* @param JDFDate & other: the date to copy
+		*/
+		JDFDate& operator=(const JDFDate& other);
 
-	/**
-	* constructs JDFDate from a string
-	* @param WString& a_aTimeFormat: the string to set this date to
-	*/
-	JDFDate& operator=(const WString & a_aTimeFormat);
-	
-	/**
-	* dtor 
-	*/
-	virtual ~JDFDate(){};
+		/**
+		* constructs JDFDate from a string
+		* @param WString& a_aTimeFormat: the string to set this date to
+		*/
+		JDFDate& operator=(const WString & a_aTimeFormat);
 
-	/**
-	* Sets date and time from a String
-	* @param WString & a_aTime: formatted date and time
-	*/
-	void SetDateTimeString(const WString & a_aTime);
-	
-	/**
-	* add time to the internal saved time
-	* @param int h:hours to be added
-	* @param int m: minutes to be added 
-	* @param int s: seconds to be added 
-	*/
-	void AddTime(int h,int m=0, int s=0);
+		/**
+		* dtor 
+		*/
+		virtual ~JDFDate(){};
 
-	/**
-	* add time to the internal saved time
-	* @param int y: years to be added
-	* @param int m: months to be added 
-	* @param int d: days to be added 
-	*/
-	void AddDate(int y,int m=0, int d=0);
+		/**
+		* Sets date and time from a String
+		* @param WString & a_aTime: formatted date and time
+		*/
+		void SetDateTimeString(const WString & a_aTime);
 
-	/**
-	* set local time, the date remains constant
-	* @param int h: hour 0-23
-	* @param int m: minute 0-59 
-	* @param int s: second 0-59 
-	*/
-	void SetTime(int h,int m=0, int s=0);
+		/**
+		* add time to the internal saved time
+		* @param int h:hours to be added
+		* @param int m: minutes to be added 
+		* @param int s: seconds to be added 
+		*/
+		void AddTime(int h,int m=0, int s=0);
 
-	/**
-	* set local time, the date and get an overflow for the date
-	* @param int h: hour 0-47
-	* @param int m: minute 0-59 
-	* @param int s: second 0-59 
-	* @return int: overflow for the date
-	*/
-	int SetTimeOverflow(int h, int m=0, int s=0);
-	
-	/**
-	* set date year, month, day
-	* @param int y: year
-	* @param int m: month 1-12 
-	* @param int d: day 1-31 
-	*/
-	void SetDate(int y,int m=1, int d=1);
+		/**
+		* add time to the internal saved time
+		* @param int y: years to be added
+		* @param int m: months to be added 
+		* @param int d: days to be added 
+		*/
+		void AddDate(int y,int m=0, int d=0);
 
-	/**
-	* set date year, month, day,carry (overflow from SetTimeOverflow)
-	* @param int y: year
-	* @param int m: month 1-12 
-	* @param int d: day 1-31
-	* @param int carry -1 - +1
-	*/
-	void SetDate(int y, int m, int d,int carry);
+		/**
+		* set local time, the date remains constant
+		* @param int h: hour 0-23
+		* @param int m: minute 0-59 
+		* @param int s: second 0-59 
+		*/
+		void SetTime(int h,int m=0, int s=0);
 
-	// various formatting routines
-	/** 
-	* the date in YYYYMMDD format
-	* @return WString: the date in YYYYMMDD format
-	*/
-	WString  DateYYYYMMDD()  const;
+		/**
+		* set local time, the date and get an overflow for the date
+		* @param int h: hour 0-47
+		* @param int m: minute 0-59 
+		* @param int s: second 0-59 
+		* @return int: overflow for the date
+		*/
+		int SetTimeOverflow(int h, int m=0, int s=0);
 
-	/** 
-	* the time in HHMMSS format
-	* @return WString: the time in HHMMSS format
-	*/
-	WString  TimeHHMMSS()  const;
+		/**
+		* set date year, month, day
+		* @param int y: year
+		* @param int m: month 1-12 
+		* @param int d: day 1-31 
+		*/
+		void SetDate(int y,int m=1, int d=1);
 
-	/** 
-	* the date + time in YYYYMMDDHHMMSS format
-	* @return WString: the date + time in YYYYMMDDHHMMSS format
-	*/
-	WString  DateTime()  const;
+		/**
+		* set date year, month, day,carry (overflow from SetTimeOverflow)
+		* @param int y: year
+		* @param int m: month 1-12 
+		* @param int d: day 1-31
+		* @param int carry -1 - +1
+		*/
+		void SetDate(int y, int m, int d,int carry);
 
-	/** 
-	* the date in ISO 8601 format: YYYY-MM-DD
-	* @return WString: the date in ISO 8601 format
-	*/
-	WString  DateISO()  const;
+		// various formatting routines
+		/** 
+		* the date in YYYYMMDD format
+		* @return WString: the date in YYYYMMDD format
+		*/
+		WString  DateYYYYMMDD()  const;
 
-	/** 
-	* the time in ISO 8601 format: HH:MM:SS-TZ:TZ
-	* @return WString: the time in ISO 8601 format
-	*/
-	WString  TimeISO()  const;
+		/** 
+		* the time in HHMMSS format
+		* @return WString: the time in HHMMSS format
+		*/
+		WString  TimeHHMMSS()  const;
 
-	/** 
-	* the date+time in ISO 8601 format: YYYY-MM-DDTHH:MM:SS-TZ:TZ
-	* @return WString: the time in ISO 8601 format
-	*/
-	WString  DateTimeISO()  const;
+		/** 
+		* the date + time in YYYYMMDDHHMMSS format
+		* @return WString: the date + time in YYYYMMDDHHMMSS format
+		*/
+		WString  DateTime()  const;
 
-	/**
-	* set the offset compared to machine time
-	* @param int iSec seconds of offset vs. machine time
-	*/
-	void SetOffset(int iSec)
-	{
-		offset=iSec;
-		Refresh();
+		/** 
+		* the date in ISO 8601 format: YYYY-MM-DD
+		* @return WString: the local date in ISO 8601 format
+		*/
+		WString  DateISO()  const;
+
+		/** 
+		* the time in ISO 8601 format: HH:MM:SS-TZ:TZbr/>
+		* the time is in local time with the respective time zone specified
+		* @return WString: the local time in ISO 8601 format
+		*/
+		WString  TimeISO()  const;
+
+		/** 
+		* the date+time in ISO 8601 format: YYYY-MM-DDTHH:MM:SS-TZ:TZ	 
+		* format the date and time as an ISO 8601 conform String<br/>
+		* the date and time are in local time with the respective time zone specified
+
+		* @return WString: the local time in ISO 8601 format
+		*/
+		WString  DateTimeISO()  const;
+
+		/**
+		* set the offset compared to machine time
+		* @param int iSec seconds of offset vs. machine time
+		*/
+		void SetOffset(int iSec)
+		{
+			offset=iSec;
+			Refresh();
+		};
+
+		/**
+		* apply the value of setdate, settime etc.
+		*/
+		void Refresh();
+
+		/**
+		* time zone off gmt
+		* @return int hours off GMT
+		*/
+		int DeltaTimeZone() const;
+
+		/**
+		* print out current timezone
+		* @return WString:  current timezone
+		*/
+		WString  ISOTimeZone()  const;
+
+		/**
+		* a pointer to the tm structure used internally
+		* @return const tm* the internal tm structure
+		*/
+		const struct tm * pTime() const {
+			return &sTim;
+		}
+
+		/** 
+		* the time in seconds since 1.1.1970 from internal tm structure sTim
+		* @return time_t in sec
+		*/
+		time_t GetSecondsSince1970() const;
+
+
+		/**
+		* equality operator
+		* @param JDFDate & md: the JDFDate object to compare to
+		* @return bool: true if 'this' and 'md' are equal
+		*/
+		bool operator ==(const JDFDate & md)const;
+
+		/**
+		* inequality operator
+		* @param JDFDate & md: the JDFDate object to compare to
+		* @return bool: true if 'this' and 'md' are not equal
+		*/
+		bool operator !=(const JDFDate & md)const;
+
+		/**
+		* greater/equality operator
+		* @param JDFDate & md: the JDFDate object to compare to
+		* @return bool: true if 'this' >= 'md'
+		*/
+		bool operator >=(const JDFDate & md)const;
+
+		/**
+		* less/equality operator
+		* @param JDFDate & md: the JDFDate object to compare to
+		* @return bool: true if 'this' <= 'md'
+		*/
+		bool operator <=(const JDFDate & md)const;
+
+		/**
+		* greater operator
+		* @param JDFDate & md: the JDFDate object to compare to
+		* @return bool: true if 'this' > 'md'
+		*/
+		bool operator >(const JDFDate & md)const;
+
+		/**
+		* less operator
+		* @param JDFDate & md: the JDFDate object to compare to
+		* @return bool: true if 'this' < 'md'
+		*/
+		bool operator <(const JDFDate & md)const;
+
+
+	protected:
+		/**
+		* time_t for internal use
+		*/
+		time_t t;
+
+		/**
+		* offset to machine time in seconds
+		*/
+		int offset;
+
+		/**
+		* tm for internal use
+		*/
+		struct tm sTim;
+
+	private:
+
+		/**
+		* set date and get overflow for the month
+		* @param int day -1 - 32 
+		* @param int month 0 - 11 
+		* @param int year 
+		* @return int overflow to the month
+		*/
+		int SetDayOverflow(int d,int m,int y);
+
+		/**
+		* set date and get overflow for the month
+		* @param int month 1-12 
+		* @return int overflow to the year
+		*/
+		int SetMonthOverflow(int m);
+
+		/**
+		* get daylight value
+		* @return int daylight value; 0 if not DST
+		*/
+		int GetDaylight() const;
+
 	};
-
-	/**
-	* apply the value of setdate, settime etc.
-	*/
-	void Refresh();
-
-	/**
-	* time zone off gmt
-	* @return int hours off GMT
-	*/
-	int DeltaTimeZone() const;
-
-	/**
-	* print out current timezone
-	* @return WString:  current timezone
-	*/
-	WString  ISOTimeZone()  const;
-
-	/**
-	* a pointer to the tm structure used internally
-	* @return const tm* the internal tm structure
-	*/
-	const struct tm * pTime() const {
-		return &sTim;
-	}
-
-	/** 
-	* the time in seconds since 1.1.1970 from internal tm structure sTim
-	* @return time_t in sec
-	*/
-    time_t GetSecondsSince1970() const;
-
-	
-	/**
-	* equality operator
-	* @param JDFDate & md: the JDFDate object to compare to
-	* @return bool: true if 'this' and 'md' are equal
-	*/
-	bool operator ==(const JDFDate & md)const;
-
-	/**
-	* equality operator
-	* @param JDFDate & md: the JDFDate object to compare to
-	* @return bool: true if 'this' and 'md' are not equal
-	*/
-	bool operator !=(const JDFDate & md)const;
-	
-	/**
-	* equality operator
-	* @param JDFDate & md: the JDFDate object to compare to
-	* @return bool: true if 'this' >= 'md'
-	*/
-	bool operator >=(const JDFDate & md)const;
-	
-	/**
-	* equality operator
-	* @param JDFDate & md: the JDFDate object to compare to
-	* @return bool: true if 'this' <= 'md'
-	*/
-	bool operator <=(const JDFDate & md)const;
-	
-	/**
-	* equality operator
-	* @param JDFDate & md: the JDFDate object to compare to
-	* @return bool: true if 'this' > 'md'
-	*/
-	bool operator >(const JDFDate & md)const;
-
-	/**
-	* equality operator
-	* @param JDFDate & md: the JDFDate object to compare to
-	* @return bool: true if 'this' < 'md'
-	*/
-	bool operator <(const JDFDate & md)const;
-
-	
-protected:
-	/**
-	* time_t for internal use
-	*/
-	time_t t;
-
-	/**
-	* offset to machine time in seconds
-	*/
-	int offset;
-
-	/**
-	* tm for internal use
-	*/
-	struct tm sTim;
-
-private:
-
-	/**
-	* set date and get overflow for the month
-	* @param int day -1 - 32 
-	* @param int month 0 - 11 
-	* @param int year 
-	* @return int overflow to the month
-	*/
-	int SetDayOverflow(int d,int m,int y);
-
-	/**
-	* set date and get overflow for the month
-	* @param int month 1-12 
-	* @return int overflow to the year
-	*/
-	int SetMonthOverflow(int m);
-	
-	/**
-	* get daylight value
-	* @return int daylight value; 0 if not DST
-	*/
-	int GetDaylight() const;
-
-};
-
 }
 #endif // !defined(_JDFDate_H_)
-
 
