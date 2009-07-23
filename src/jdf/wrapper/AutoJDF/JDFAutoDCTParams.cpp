@@ -176,7 +176,7 @@ JDFAutoDCTParams& JDFAutoDCTParams::operator=(const KElement& other){
 
 	const WString& JDFAutoDCTParams::SourceCSsString(){
 		static const WString enums=WString(L"Unknown,CalGray,CalRGB,Calibrated,CIEBased,CMYK,DeviceN,DevIndep,RGB,Gray")
-	+WString(L",ICCBased,ICCCMYK,ICCGray,ICCLAB,ICCRGB,Lab,Separtation,YUV");
+	+WString(L",ICCBased,ICCCMYK,ICCGray,ICCLAB,ICCRGB,Lab,Separtation,YUV,All");
 		return enums;
 	};
 

@@ -126,17 +126,10 @@ bool JDFAutoJobField::init(){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoJobField::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",ShowList";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoJobField::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",JobFormat,JobTemplate,OperatorText,UserText");
+		return JDFResource::OptionalAttributes()+WString(L",ShowList,JobFormat,JobTemplate,OperatorText,UserText");
 };
 
 /**
@@ -191,7 +184,7 @@ bool JDFAutoJobField::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoJobField::ValidShowList(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ShowList,AttributeType_NMTOKENS,RequiredLevel(level));
+		return ValidAttribute(atr_ShowList,AttributeType_NMTOKENS,false);
 	};
 /**
 * Set attribute JobFormat

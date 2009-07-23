@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFByteMap;
 class JDFDynamicInput;
+class JDFMetadataMap;
 class JDFInsertSheet;
 class JDFLayoutElement;
 class JDFInterpretedPDLData;
@@ -669,6 +670,24 @@ virtual bool init();
 * Append element DynamicInput
  */
 	JDFDynamicInput AppendDynamicInput();
+
+/** Get Element MetadataMap
+* 
+* @param int iSkip number of elements to skip
+* @return JDFMetadataMap The element
+*/
+	JDFMetadataMap GetCreateMetadataMap(int iSkip=0);
+
+/**
+* const get element MetadataMap
+* @param int iSkip number of elements to skip
+* @return JDFMetadataMap The element
+*/
+	JDFMetadataMap GetMetadataMap(int iSkip=0)const;
+/**
+* Append element MetadataMap
+ */
+	JDFMetadataMap AppendMetadataMap();
 
 /** Get Element InsertSheet
 * 

@@ -156,7 +156,7 @@ public:
 * Enumeration for attribute SourceCSs
 */
 
-	enum EnumSourceCSs{SourceCSs_Unknown,SourceCSs_CalGray,SourceCSs_CalRGB,SourceCSs_Calibrated,SourceCSs_CIEBased,SourceCSs_CMYK,SourceCSs_DeviceN,SourceCSs_DevIndep,SourceCSs_RGB,SourceCSs_Gray,SourceCSs_ICCBased,SourceCSs_ICCCMYK,SourceCSs_ICCGray,SourceCSs_ICCLAB,SourceCSs_ICCRGB,SourceCSs_Lab,SourceCSs_Separtation,SourceCSs_YUV};
+	enum EnumSourceCSs{SourceCSs_Unknown,SourceCSs_CalGray,SourceCSs_CalRGB,SourceCSs_Calibrated,SourceCSs_CIEBased,SourceCSs_CMYK,SourceCSs_DeviceN,SourceCSs_DevIndep,SourceCSs_RGB,SourceCSs_Gray,SourceCSs_ICCBased,SourceCSs_ICCCMYK,SourceCSs_ICCGray,SourceCSs_ICCLAB,SourceCSs_ICCRGB,SourceCSs_Lab,SourceCSs_Separtation,SourceCSs_YUV,SourceCSs_All};
 /**
 * Enumeration for attribute ColorTransform
 */

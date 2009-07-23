@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoRunList.h"
 #include "jdf/wrapper/JDFByteMap.h"
 #include "jdf/wrapper/JDFDynamicInput.h"
+#include "jdf/wrapper/JDFMetadataMap.h"
 #include "jdf/wrapper/JDFInsertSheet.h"
 #include "jdf/wrapper/JDFLayoutElement.h"
 #include "jdf/wrapper/JDFInterpretedPDLData.h"
@@ -785,6 +786,26 @@ JDFDynamicInput JDFAutoRunList::AppendDynamicInput(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFMetadataMap JDFAutoRunList::GetMetadataMap(int iSkip)const{
+	JDFMetadataMap e=GetElement(elm_MetadataMap,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMetadataMap JDFAutoRunList::GetCreateMetadataMap(int iSkip){
+	JDFMetadataMap e=GetCreateElement(elm_MetadataMap,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMetadataMap JDFAutoRunList::AppendMetadataMap(){
+	JDFMetadataMap e=AppendElement(elm_MetadataMap);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFInsertSheet JDFAutoRunList::GetInsertSheet(int iSkip)const{
 	JDFInsertSheet e=GetElement(elm_InsertSheet,WString::emptyStr,iSkip);
 	return e;
@@ -937,6 +958,16 @@ JDFRefElement JDFAutoRunList::RefPageList(JDFPageList& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_MetadataMap);
+
+		for(i=0;i<nElem;i++){
+			if (!GetMetadataMap(i).IsValid(level)) {
+				vElem.AppendUnique(elm_MetadataMap);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_InsertSheet);
 
 		for(i=0;i<nElem;i++){
@@ -1010,6 +1041,6 @@ JDFRefElement JDFAutoRunList::RefPageList(JDFPageList& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoRunList::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ByteMap,DynamicInput,InsertSheet,LayoutElement,InterpretedPDLData,Disposition,PageList";
+		return JDFResource::OptionalElements()+L",ByteMap,DynamicInput,MetadataMap,InsertSheet,LayoutElement,InterpretedPDLData,Disposition,PageList";
 	};
 }; // end namespace JDF

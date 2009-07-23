@@ -120,8 +120,8 @@ JDFAutoPreview& JDFAutoPreview::operator=(const KElement& other){
 */
 	WString JDFAutoPreview::OptionalAttributes()const{
 		return JDFElement::OptionalAttributes()+WString(L",PreviewFileType,PreviewUsage,URL,NoOp,Class,PartUsage,Compensation,CTM,Directory,MimeTypeDetails,BinderySignatureName,BlockName,BundleItemIndex,CellIndex,Condition,DeliveryUnit0,DeliveryUnit1,DeliveryUnit2,DeliveryUnit3")
-	+WString(L",DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocTags,Edition,EditionVersion,ItemNames,PageNumber,PageTags,PlateLayout,PreflightRule,RunSet,SectionIndex,SetDocIndex,SetRunIndex,SetSheetIndex")
-	+WString(L",SetTags,SubRun,WebProduct,WebSetup");
+	+WString(L",DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocTags,Edition,EditionVersion,ItemNames,Metadata0,Metadata1,Metadata2,Metadata3,Metadata4,Metadata5,Metadata6,Metadata7,Metadata8")
+	+WString(L",Metadata9,PageNumber,PageTags,PlateLayout,PreflightRule,RunSet,SectionIndex,SetDocIndex,SetRunIndex,SetSheetIndex,SetTags,SubRun,WebProduct,WebSetup");
 };
 
 /**
@@ -274,6 +274,56 @@ JDFAutoPreview& JDFAutoPreview::operator=(const KElement& other){
 		};
 		if(!ValidItemNames(level)) {
 			vAtts.push_back(atr_ItemNames);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata0(level)) {
+			vAtts.push_back(atr_Metadata0);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata1(level)) {
+			vAtts.push_back(atr_Metadata1);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata2(level)) {
+			vAtts.push_back(atr_Metadata2);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata3(level)) {
+			vAtts.push_back(atr_Metadata3);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata4(level)) {
+			vAtts.push_back(atr_Metadata4);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata5(level)) {
+			vAtts.push_back(atr_Metadata5);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata6(level)) {
+			vAtts.push_back(atr_Metadata6);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata7(level)) {
+			vAtts.push_back(atr_Metadata7);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata8(level)) {
+			vAtts.push_back(atr_Metadata8);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMetadata9(level)) {
+			vAtts.push_back(atr_Metadata9);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -893,6 +943,186 @@ JDFAutoPreview& JDFAutoPreview::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPreview::ValidItemNames(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ItemNames,AttributeType_Any,false);
+	};
+/**
+* Set attribute Metadata0
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata0(const NameRangeList& value){
+	SetAttribute(atr_Metadata0,value.GetString());
+};
+/**
+* Get range attribute Metadata0
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata0() const {
+	return GetAttribute(atr_Metadata0,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata0(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata0,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata1
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata1(const NameRangeList& value){
+	SetAttribute(atr_Metadata1,value.GetString());
+};
+/**
+* Get range attribute Metadata1
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata1() const {
+	return GetAttribute(atr_Metadata1,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata1(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata1,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata2
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata2(const NameRangeList& value){
+	SetAttribute(atr_Metadata2,value.GetString());
+};
+/**
+* Get range attribute Metadata2
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata2() const {
+	return GetAttribute(atr_Metadata2,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata2(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata2,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata3
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata3(const NameRangeList& value){
+	SetAttribute(atr_Metadata3,value.GetString());
+};
+/**
+* Get range attribute Metadata3
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata3() const {
+	return GetAttribute(atr_Metadata3,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata3(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata3,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata4
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata4(const NameRangeList& value){
+	SetAttribute(atr_Metadata4,value.GetString());
+};
+/**
+* Get range attribute Metadata4
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata4() const {
+	return GetAttribute(atr_Metadata4,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata4(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata4,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata5
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata5(const NameRangeList& value){
+	SetAttribute(atr_Metadata5,value.GetString());
+};
+/**
+* Get range attribute Metadata5
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata5() const {
+	return GetAttribute(atr_Metadata5,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata5(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata5,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata6
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata6(const NameRangeList& value){
+	SetAttribute(atr_Metadata6,value.GetString());
+};
+/**
+* Get range attribute Metadata6
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata6() const {
+	return GetAttribute(atr_Metadata6,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata6(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata6,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata7
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata7(const NameRangeList& value){
+	SetAttribute(atr_Metadata7,value.GetString());
+};
+/**
+* Get range attribute Metadata7
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata7() const {
+	return GetAttribute(atr_Metadata7,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata7(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata7,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata8
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata8(const NameRangeList& value){
+	SetAttribute(atr_Metadata8,value.GetString());
+};
+/**
+* Get range attribute Metadata8
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata8() const {
+	return GetAttribute(atr_Metadata8,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata8(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata8,AttributeType_NameRangeList,false);
+	};
+/**
+* Set attribute Metadata9
+*@param NameRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetMetadata9(const NameRangeList& value){
+	SetAttribute(atr_Metadata9,value.GetString());
+};
+/**
+* Get range attribute Metadata9
+* @return NameRangeList the vaue of the attribute 
+*/
+	 NameRangeList JDFAutoPreview::GetMetadata9() const {
+	return GetAttribute(atr_Metadata9,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreview::ValidMetadata9(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Metadata9,AttributeType_NameRangeList,false);
 	};
 /**
 * Set attribute PageNumber
