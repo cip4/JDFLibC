@@ -5329,14 +5329,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoUpdateJDFCmdParams.cpp"
 					>
 				</File>
