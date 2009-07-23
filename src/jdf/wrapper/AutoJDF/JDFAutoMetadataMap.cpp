@@ -114,10 +114,17 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
 
 
 /**
+ definition of required attributes in the JDF namespace
+*/
+	WString JDFAutoMetadataMap::RequiredAttributes()const{
+		return JDFElement::RequiredAttributes()+L",DataType,Name";
+};
+
+/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMetadataMap::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",DataType,Name,ValueFormat,ValueTemplate");
+		return JDFElement::OptionalAttributes()+WString(L",Context,ValueFormat,ValueTemplate");
 };
 
 /**
@@ -128,6 +135,11 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidContext(level)) {
+			vAtts.push_back(atr_Context);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidDataType(level)) {
 			vAtts.push_back(atr_DataType);
 			if(++n>=nMax)
@@ -153,13 +165,34 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
 
 ///////////////////////////////////////////////////////////////////////
 
+	const WString& JDFAutoMetadataMap::ContextString(){
+		static const WString enums=WString(L"Unknown,Set,Document,SubDoc0,SubDoc1,SubDoc2,SubDoc3,SubDoc4,SubDoc5,SubDoc6")
+	+WString(L",SubDoc7,SubDoc8,SubDoc9,PagePool,Page,Object");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoMetadataMap::ContextString(EnumContext value){
+		return ContextString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoMetadataMap::SetContext( EnumContext value){
+	SetEnumAttribute(atr_Context,value,ContextString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoMetadataMap::EnumContext JDFAutoMetadataMap:: GetContext() const {
+	return (EnumContext) GetEnumAttribute(atr_Context,ContextString(),WString::emptyStr,Context_PagePool);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMetadataMap::ValidContext(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Context,ContextString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
 	const WString& JDFAutoMetadataMap::DataTypeString(){
-		static const WString enums=WString(L"Unknown,BinderySignatureName,BlockName,BundleItemIndex,CellIndex,Condition,DeliveryUnit0,DeliveryUnit1,DeliveryUnit2,DeliveryUnit3")
-	+WString(L",DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocCopies,DocIndex,DocRunIndex,DocSheetIndex")
-	+WString(L",DocTags,Edition,EditionVersion,FountainNumber,ItemNames,LayerIDs,Location,Option,PageNumber,PageTags")
-	+WString(L",PlateLayout,PartVersion,PreflightRule,PreviewType,RibbonName,Run,RunIndex,RunPage,RunTags,RunSet")
-	+WString(L",SectionIndex,Separation,SetDocIndex,SetIndex,SetRunIndex,SetSheetIndex,SetTags,SheetIndex,SheetName,Side")
-	+WString(L",SignatureName,StationName,SubRun,TileID,WebName,WebProduct,WebSetup");
+		static const WString enums=WString(L"Unknown,string,integer,double,NMTOKEN,boolean,dateTime,duration,PartIDKeys");
 		return enums;
 	};
 
@@ -170,33 +203,16 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
 	};
 
 /////////////////////////////////////////////////////////////////////////
-	vint JDFAutoMetadataMap::AddDataType( EnumDataType value){
-	return AddEnumerationsAttribute(atr_DataType,value,DataTypeString());
-};
-/////////////////////////////////////////////////////////////////////////
-	vint JDFAutoMetadataMap::RemoveDataType( EnumDataType value){
-	return RemoveEnumerationsAttribute(atr_DataType,value,DataTypeString());
-};
-/////////////////////////////////////////////////////////////////////////
-	vint JDFAutoMetadataMap::GetDataType() const {
-	return GetEnumerationsAttribute(atr_DataType,DataTypeString(),WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
 	void JDFAutoMetadataMap::SetDataType( EnumDataType value){
 	SetEnumAttribute(atr_DataType,value,DataTypeString());
 };
 /////////////////////////////////////////////////////////////////////////
-	void JDFAutoMetadataMap::SetDataType( const vint& value){
-	SetEnumerationsAttribute(atr_DataType,value,DataTypeString());
+	 JDFAutoMetadataMap::EnumDataType JDFAutoMetadataMap:: GetDataType() const {
+	return (EnumDataType) GetEnumAttribute(atr_DataType,DataTypeString(),WString::emptyStr);
 };
-/**
-* Typesafe attribute validation of DataType
-* @param EnumValidationLevel level element validation level 
-* @return bool true if valid
-*/
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMetadataMap::ValidDataType(EnumValidationLevel level) const {
-		return ValidEnumerationsAttribute(atr_DataType,DataTypeString(),false);
+		return ValidEnumAttribute(atr_DataType,DataTypeString(),RequiredLevel(level));
 	};
 /**
 * Set attribute Name
@@ -214,7 +230,7 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMetadataMap::ValidName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Name,AttributeType_NMTOKEN,false);
+		return ValidAttribute(atr_Name,AttributeType_NMTOKEN,RequiredLevel(level));
 	};
 /**
 * Set attribute ValueFormat

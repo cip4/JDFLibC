@@ -163,16 +163,55 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute Context
+*/
+
+	enum EnumContext{Context_Unknown,Context_Set,Context_Document,Context_SubDoc0,Context_SubDoc1,Context_SubDoc2,Context_SubDoc3,Context_SubDoc4,Context_SubDoc5,Context_SubDoc6,Context_SubDoc7,Context_SubDoc8,Context_SubDoc9,Context_PagePool,Context_Page,Context_Object};
+/**
 * Enumeration for attribute DataType
 */
 
-	enum EnumDataType{DataType_Unknown,DataType_BinderySignatureName,DataType_BlockName,DataType_BundleItemIndex,DataType_CellIndex,DataType_Condition,DataType_DeliveryUnit0,DataType_DeliveryUnit1,DataType_DeliveryUnit2,DataType_DeliveryUnit3,DataType_DeliveryUnit4,DataType_DeliveryUnit5,DataType_DeliveryUnit6,DataType_DeliveryUnit7,DataType_DeliveryUnit8,DataType_DeliveryUnit9,DataType_DocCopies,DataType_DocIndex,DataType_DocRunIndex,DataType_DocSheetIndex,DataType_DocTags,DataType_Edition,DataType_EditionVersion,DataType_FountainNumber,DataType_ItemNames,DataType_LayerIDs,DataType_Location,DataType_Option,DataType_PageNumber,DataType_PageTags,DataType_PlateLayout,DataType_PartVersion,DataType_PreflightRule,DataType_PreviewType,DataType_RibbonName,DataType_Run,DataType_RunIndex,DataType_RunPage,DataType_RunTags,DataType_RunSet,DataType_SectionIndex,DataType_Separation,DataType_SetDocIndex,DataType_SetIndex,DataType_SetRunIndex,DataType_SetSheetIndex,DataType_SetTags,DataType_SheetIndex,DataType_SheetName,DataType_Side,DataType_SignatureName,DataType_StationName,DataType_SubRun,DataType_TileID,DataType_WebName,DataType_WebProduct,DataType_WebSetup};
+	enum EnumDataType{DataType_Unknown,DataType_string,DataType_integer,DataType_double,DataType_NMTOKEN,DataType_boolean,DataType_dateTime,DataType_duration,DataType_PartIDKeys};
+
+/**
+ * definition of required attributes in the JDF namespace
+*/
+	virtual WString RequiredAttributes()const;
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for Context
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ContextString();
+/**
+* Enumeration string for enum value
+* @param EnumContext value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ContextString(EnumContext value);
+/**
+* Set attribute Context
+* @param EnumContext value the value to set the attribute to
+*/
+	virtual void SetContext( EnumContext value);
+
+/**
+* Typesafe enumerated attribute Context; defaults to PagePool
+* @return EnumContextthe enumeration value of the attribute
+*/
+	virtual EnumContext GetContext() const;
+
+/**
+* Typesafe attribute validation of Context
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidContext(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for DataType
 * @return const WString& comma separated list of enumerated string values 
@@ -185,34 +224,17 @@ public:
 */
 	static WString DataTypeString(EnumDataType value);
 /**
-* Append value to the attribute DataType
+* Set attribute DataType
 * @param EnumDataType value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
 */
-	virtual vint AddDataType( EnumDataType value);
-/**
-* Remove value from the attribute DataType
-* @param EnumDataType value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
-*/
-	virtual vint RemoveDataType( EnumDataType value);
+	virtual void SetDataType( EnumDataType value);
+
 /**
 * Typesafe enumerated attribute DataType
 * @return EnumDataTypethe enumeration value of the attribute
 */
-	virtual vint GetDataType() const;
-/**
-* Set value of the attribute DataType
-* @param EnumDataType value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
-*/
-	virtual void SetDataType( EnumDataType value);
-/**
-* Set value of the attribute DataType to a list
-* @param vint value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
-*/
-	virtual void SetDataType( const vint& value);
+	virtual EnumDataType GetDataType() const;
+
 /**
 * Typesafe attribute validation of DataType
 * @param EnumValidationLevel level element validation level 
