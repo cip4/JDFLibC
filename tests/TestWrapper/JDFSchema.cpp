@@ -2623,6 +2623,10 @@ int main(int argC, char* argV[]){
 	WString classString=args.ParameterString('c').c_str();
     // Watch for special case help request
 	WString usage="JDFSchema <arg>\nschema .xsd file is input argument\n";
+	usage+="-c<class> class to generate\n";
+	usage+="-p generate processes\n";
+	usage+="-s strip the schema\n";
+	usage+="-f ???\n";
     if ((argC>1)&&(strcmp(argV[1], "-?") == 0)){
 		std::cerr<< args.Usage(usage).c_str();
         return 0;
