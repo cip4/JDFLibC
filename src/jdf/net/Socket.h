@@ -105,7 +105,8 @@ namespace JDF
 	class SocketImpl;
 	class OutputStream;
 	class InputStream;
-
+	class ServerSocket;
+	class PlatformUtils;
 /******************************************************************************
  *	Defines and constants
  ******************************************************************************/ 

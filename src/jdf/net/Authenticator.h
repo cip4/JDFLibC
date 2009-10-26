@@ -102,6 +102,7 @@ namespace JDF
  *	Forward declarations
  ******************************************************************************/ 
 	class PasswordAuthentication;
+	class PlatformUtils;
 
 /******************************************************************************
  *	Defines and constants

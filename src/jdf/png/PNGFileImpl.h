@@ -68,7 +68,7 @@
  * 
  */
 
-#include <png.h>
+#include <libpng/png.h>
 #include <jdf/png/PNGInfo.h>
 #include <jdf/io/InputStream.h>
 #include <jdf/io/OutputStream.h>

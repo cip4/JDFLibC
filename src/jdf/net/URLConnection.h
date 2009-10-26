@@ -103,6 +103,8 @@ namespace JDF
 	class InputStream;
 	class OutputStream;
 	class FileNameMap;
+	class PlatformUtils;
+
 
 /******************************************************************************
  *	Defines and constants
