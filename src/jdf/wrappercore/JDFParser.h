@@ -116,6 +116,7 @@ namespace JDF {
 	class XMLDoc;
 	class File;
 	class InputStream;
+	class KElement;
 
 	/**
 	JDF independent wrapper class around a Dom document

@@ -174,6 +174,8 @@ namespace JDF {
 	class XMLDoc;
 	class XMLDocUserData;
 	class SetWString;
+	class JDFResource;
+	class JDFElement;
 
 	/**
 	* stl vector of KElements.

@@ -123,6 +123,8 @@
 
 namespace JDF {
 
+	class JDFDate;
+	class JDFDuration;
 	class WString;
 /**
 * date / time utility class

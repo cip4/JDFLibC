@@ -129,6 +129,7 @@ namespace JDF {
 	class InputStream;
 	class ByteArrayInputStream;
 	class JDFParser;
+	class KElement;
 
 	/**
 	JDF independent wrapper class around a Dom document
