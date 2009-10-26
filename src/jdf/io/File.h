@@ -107,6 +107,7 @@ namespace JDF
 	class FileSystem;
 	class URL;
 	class URI;
+	class PlatformUtils;
 
 	/******************************************************************************
 	*	Defines and constants

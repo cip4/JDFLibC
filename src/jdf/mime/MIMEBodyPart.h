@@ -104,6 +104,7 @@ namespace JDF
  *	Forward declarations
  ******************************************************************************/ 
 	class OutputStream;
+	class PlatformUtils;
 
 /******************************************************************************
  *	Defines and constants

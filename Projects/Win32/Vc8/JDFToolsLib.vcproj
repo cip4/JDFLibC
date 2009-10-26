@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="JDFToolsLib"
 	ProjectGUID="{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}"
+	RootNamespace="JDFToolsLib"
 	>
 	<Platforms>
 		<Platform
@@ -41,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\external,..\..\..\src,..\..\..\external\xerces\include"
+				AdditionalIncludeDirectories="..\..\..\external;..\..\..\src;..\..\..\external\zlib;..\..\..\external\xerces\include"
 				PreprocessorDefinitions="JDF_TOOLS_LIB;WIN32;NDEBUG;_LIB;UNICODE;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -117,7 +118,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\external,..\..\..\src,..\..\..\external\xerces\include"
+				AdditionalIncludeDirectories="..\..\..\external;..\..\..\src;..\..\..\external\zlib;..\..\..\external\xerces\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;JDF_TOOLS_LIB;UNICODE;_CRT_SECURE_NO_DEPRECATE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -199,7 +200,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\external,..\..\..\src,..\..\..\external\xerces\include"
+				AdditionalIncludeDirectories="..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;..\..\..\external\zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TYPESAFE;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE;JDF_TOOLS"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -298,7 +299,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\external,..\..\..\src,..\..\..\external\xerces\include"
+				AdditionalIncludeDirectories="..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;..\..\..\external\zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JDF_TOOLS;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1470,6 +1471,34 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\jdf\lang\WStringBase.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="png"
+			>
+			<File
+				RelativePath="..\..\..\src\jdf\png\PNGFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\png\PNGFile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\png\PNGFileImpl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\png\PNGFileImpl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\png\PNGInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\jdf\png\PNGInfo.h"
 				>
 			</File>
 		</Filter>

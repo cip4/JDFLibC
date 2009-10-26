@@ -126,6 +126,7 @@ namespace JDF
 	class WStringBaseJDF;
 	class vWString;
 	class WStringIterator;                                            // RN20060320
+	class PlatformUtils;
 
 	/******************************************************************************
 	*	Defines and constants

@@ -96,6 +96,7 @@
 
 namespace JDF
 {
+	class QPDecoder;
 
 /******************************************************************************
  *	Forward declarations

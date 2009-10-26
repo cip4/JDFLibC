@@ -105,6 +105,7 @@ namespace JDF
 *	Forward declarations
 	******************************************************************************/ 
 	class InputStream;
+	class MIMEParser;
 	
 	/******************************************************************************
 	*	Defines and constants

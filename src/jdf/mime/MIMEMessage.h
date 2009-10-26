@@ -112,6 +112,7 @@ namespace JDF
 	class MIMEMultiPart;
 	class InputStream;
 	class OutputStream;
+	class MIMEParser;
 	
 	/******************************************************************************
 	*	Defines and constants

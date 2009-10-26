@@ -107,6 +107,7 @@ namespace JDF
  ******************************************************************************/ 
 	class MIMEMessage;
 	class InputStream;
+	class MIMEParser;
 
 /******************************************************************************
  *	Defines and constants
