@@ -188,6 +188,10 @@ namespace JDF{
 	class JDFQualityControlResult;
 	class JDFIdentificationField;
 	class JDFGeneralID;
+	class JDFResourcePool;
+	class JDFResourceLink;
+	class JDFResourceLinkPool;
+	class JDFResourceAudit;
 
 	/**
 	* mother of all JDF resource classes

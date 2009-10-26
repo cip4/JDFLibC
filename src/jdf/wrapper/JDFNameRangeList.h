@@ -101,6 +101,7 @@ namespace JDF{
 	* RangeList for names (NMTOKENS)
 	*/
 	class JDFNmRngLstIterator;                                           // RN20060321
+	class JDFNameRangeList;
 
 	class JDF_WRAPPERCORE_EXPORT JDFNameRangeList{
 

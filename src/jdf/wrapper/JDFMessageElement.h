@@ -96,6 +96,7 @@
 namespace JDF{
 	
 	class JDFQuery;
+	class JDFJMF;
 	/**
 	* wrapper for individual JMF message elements
 	* note that the an message itself is wrapped by JDFMessage

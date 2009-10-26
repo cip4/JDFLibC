@@ -116,6 +116,7 @@ namespace JDF{
 * also used as a class factory for resources
 	*/
 		class VoidSet;
+		class JDFNode;
 
 	class JDF_WRAPPERCORE_EXPORT JDFResourcePool : public JDFPool{
 		friend class JDFNode;
