@@ -152,6 +152,7 @@ namespace JDF{
 	class JDFTrackFilter;
 	class JDFTrackResult;
 	class JDFWakeUpCmdParams;
+	class JDFJMF;
 	
 	/**
 	* wrapper for individual JMF message families - Acknowledge, Command, Query, Response, Signal

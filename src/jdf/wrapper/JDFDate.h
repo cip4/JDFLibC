@@ -124,6 +124,7 @@
 namespace JDF {
 
 	class WString;
+	class MyDate;
 	/**
 	* date / time utility class
 	* converts system times to various formats

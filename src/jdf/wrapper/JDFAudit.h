@@ -105,6 +105,9 @@
 #include "JDFElement.h"
 
 namespace JDF{
+	
+	class JDFAuditPool;
+
 	/**
 	parent class for individual audit types
 	*/

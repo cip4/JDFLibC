@@ -188,6 +188,7 @@ namespace JDF{
 	class JDFComment;
 	class JDFResource;
 	class VoidSet;
+	class JDFRefElement;
 
 
 	/**
