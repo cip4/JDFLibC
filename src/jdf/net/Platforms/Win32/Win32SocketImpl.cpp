@@ -80,7 +80,6 @@
 *	Includes
 ******************************************************************************/ 
 
-#include "Win32SocketImpl.h"
 
 #include "Win32SocketImplInputStream.h"
 #include "Win32SocketImplOutputStream.h"
@@ -89,7 +88,7 @@
 
 #include <jdf/lang/Janitor.h>
 #include <jdf/lang/Exception.h>
-
+#include "Win32SocketImpl.h"
 namespace JDF
 {
 
