@@ -2320,6 +2320,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFReferenceXObjParams.cpp"
+							>
+						</File>
+						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFRegisterMark.cpp"
 							>
 						</File>
@@ -3070,6 +3074,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFQualityControlResult.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFReferenceXObjParams.h"
 							>
 						</File>
 						<File
@@ -7087,6 +7095,10 @@
 								>
 							</File>
 							<File
+								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoReferenceXObjParams.cpp"
+								>
+							</File>
+							<File
 								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRegisterMark.cpp"
 								>
 							</File>
@@ -7777,6 +7789,10 @@
 							</File>
 							<File
 								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoQualityControlResult.h"
+								>
+							</File>
+							<File
+								RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoReferenceXObjParams.h"
 								>
 							</File>
 							<File
