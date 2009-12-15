@@ -5426,6 +5426,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoReferenceXObjParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoReferenceXObjParams.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRegistration.cpp"
 					>
 				</File>

@@ -1893,6 +1893,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_MirrorMargins;
 		static const WString atr_MissingPrinterFont;
 		static const WString atr_MissingScreenFont;
+		static const WString atr_Mode;
 		static const WString atr_ModelDescription;
 		static const WString atr_ModelName;
 		static const WString atr_ModelNumber;

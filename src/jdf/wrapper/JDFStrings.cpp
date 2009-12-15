@@ -1836,6 +1836,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_MissingPrinterFont=L"MissingPrinterFont";
 	const WString JDFStrings::atr_MissingScreenFont=L"MissingScreenFont";
 	const WString JDFStrings::atr_ModelDescription=L"ModelDescription";
+	const WString JDFStrings::atr_Mode=L"Mode";
 	const WString JDFStrings::atr_ModelName=L"ModelName";
 	const WString JDFStrings::atr_ModelNumber=L"ModelNumber";
 	const WString JDFStrings::atr_ModelURL=L"ModelURL";
