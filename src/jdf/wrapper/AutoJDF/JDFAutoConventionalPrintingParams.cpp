@@ -130,7 +130,8 @@ bool JDFAutoConventionalPrintingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoConventionalPrintingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",DirectProof,Drying,FirstSurface,FountainSolution,MediaLocation,ModuleAvailableIndex,ModuleDrying,ModuleIndex,NonPrintableMarginBottom,NonPrintableMarginLeft,NonPrintableMarginRight,NonPrintableMarginTop,PerfectingModule,Powder,PrintingType,SheetLay,Speed,WorkStyle");
+		return JDFResource::OptionalAttributes()+WString(L",DirectProof,Drying,FirstSurface,FountainSolution,MediaLocation,ModuleAvailableIndex,ModuleDrying,ModuleIndex,NonPrintableMarginBottom,NonPrintableMarginLeft,NonPrintableMarginRight,NonPrintableMarginTop,PerfectingModule,Powder,PrintingType,PrintingTechnology,SheetLay,Speed,WorkStyle")
+	+WString(L"");
 };
 
 /**
@@ -213,6 +214,11 @@ bool JDFAutoConventionalPrintingParams::init(){
 		};
 		if(!ValidPrintingType(level)) {
 			vAtts.push_back(atr_PrintingType);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPrintingTechnology(level)) {
+			vAtts.push_back(atr_PrintingTechnology);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -524,6 +530,31 @@ bool JDFAutoConventionalPrintingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoConventionalPrintingParams::ValidPrintingType(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_PrintingType,PrintingTypeString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoConventionalPrintingParams::PrintingTechnologyString(){
+		static const WString enums=WString(L"Unknown,Flexo,Gravure,Offset,Screen");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoConventionalPrintingParams::PrintingTechnologyString(EnumPrintingTechnology value){
+		return PrintingTechnologyString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoConventionalPrintingParams::SetPrintingTechnology( EnumPrintingTechnology value){
+	SetEnumAttribute(atr_PrintingTechnology,value,PrintingTechnologyString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoConventionalPrintingParams::EnumPrintingTechnology JDFAutoConventionalPrintingParams:: GetPrintingTechnology() const {
+	return (EnumPrintingTechnology) GetEnumAttribute(atr_PrintingTechnology,PrintingTechnologyString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoConventionalPrintingParams::ValidPrintingTechnology(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_PrintingTechnology,PrintingTechnologyString(),false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

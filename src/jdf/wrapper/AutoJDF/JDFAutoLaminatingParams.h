@@ -171,31 +171,10 @@ virtual bool init();
 	enum EnumLaminatingMethod{LaminatingMethod_Unknown,LaminatingMethod_CompoundFoil,LaminatingMethod_DispersionGlue,LaminatingMethod_Fusing};
 
 /**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
-
-/**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
-/**
-* Set attribute LaminatingBox
-*@param JDFRectangle value: the value to set the attribute to
-*/
-	virtual void SetLaminatingBox(const JDFRectangle& value);
-/**
-* Get string attribute LaminatingBox
-* @return JDFRectangle the vaue of the attribute 
-*/
-	virtual JDFRectangle GetLaminatingBox() const;
-/**
-* Typesafe attribute validation of LaminatingBox
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidLaminatingBox(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute AdhesiveType
 *@param WString value: the value to set the attribute to
@@ -245,6 +224,22 @@ virtual bool init();
 */
 	virtual bool ValidHardenerType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute LaminatingBox
+*@param JDFRectangle value: the value to set the attribute to
+*/
+	virtual void SetLaminatingBox(const JDFRectangle& value);
+/**
+* Get string attribute LaminatingBox
+* @return JDFRectangle the vaue of the attribute 
+*/
+	virtual JDFRectangle GetLaminatingBox() const;
+/**
+* Typesafe attribute validation of LaminatingBox
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLaminatingBox(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for LaminatingMethod
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -289,6 +284,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidNipWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ModuleIndex
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetModuleIndex(int value);
+/**
+* Get integer attribute ModuleIndex
+* @return int the vaue of the attribute 
+*/
+	virtual int GetModuleIndex() const;
+/**
+* Typesafe attribute validation of ModuleIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidModuleIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Temperature
 *@param double value: the value to set the attribute to

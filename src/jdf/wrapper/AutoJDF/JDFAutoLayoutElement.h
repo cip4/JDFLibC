@@ -368,6 +368,22 @@ virtual bool init();
 */
 	virtual bool ValidPageListIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute SetLevel
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSetLevel(const WString& value);
+/**
+* Get string attribute SetLevel
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSetLevel() const;
+/**
+* Typesafe attribute validation of SetLevel
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSetLevel(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute SourceBleedBox
 *@param JDFRectangle value: the value to set the attribute to
 */

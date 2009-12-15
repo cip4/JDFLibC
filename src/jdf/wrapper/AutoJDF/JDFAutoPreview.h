@@ -419,6 +419,22 @@ public:
 */
 	virtual bool ValidBinderySignatureName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute BinderySignaturePaginationIndex
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetBinderySignaturePaginationIndex(const WString& value);
+/**
+* Get string attribute BinderySignaturePaginationIndex
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetBinderySignaturePaginationIndex() const;
+/**
+* Typesafe attribute validation of BinderySignaturePaginationIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBinderySignaturePaginationIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute BlockName
 *@param WString value: the value to set the attribute to
 */

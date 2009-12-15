@@ -83,6 +83,7 @@
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
 class JDFActionPool;
+class JDFFileSpec;
 class JDFTestPool;
 class JDFRefElement;
 /*
@@ -200,6 +201,29 @@ virtual bool init();
  */
 	JDFActionPool AppendActionPool();
 
+/** Get Element FileSpec
+* 
+* @return JDFFileSpec The element
+*/
+	JDFFileSpec GetCreateFileSpec();
+
+/**
+* const get element FileSpec
+*@return  JDFFileSpec The element
+*/
+	JDFFileSpec GetFileSpec()const;
+/**
+* Append element FileSpec
+ * 
+*/
+	JDFFileSpec AppendFileSpec();
+/**
+* create inter-resource link to refTarget
+* @param JDFFileSpec& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefFileSpec(JDFFileSpec& refTarget);
+
 /** Get Element TestPool
 * 
 * @return JDFTestPool The element
@@ -223,9 +247,9 @@ virtual bool init();
 	virtual WString UniqueElements()const;
 
 /**
- definition of required elements in the JDF namespace
+ definition of optional elements in the JDF namespace
 */
-	virtual WString RequiredElements()const;
+	virtual WString OptionalElements()const;
 }; // endJDFAutoPreflightParams
 
 // ******************************************************

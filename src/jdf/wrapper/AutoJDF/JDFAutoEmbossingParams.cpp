@@ -126,6 +126,13 @@ bool JDFAutoEmbossingParams::init(){
 
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoEmbossingParams::OptionalAttributes()const{
+		return JDFResource::OptionalAttributes()+WString(L",ModuleIndex");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoEmbossingParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -133,9 +140,32 @@ bool JDFAutoEmbossingParams::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidModuleIndex(level)) {
+			vAtts.push_back(atr_ModuleIndex);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+/**
+* Set attribute ModuleIndex
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoEmbossingParams::SetModuleIndex(int value){
+	SetAttribute(atr_ModuleIndex,WString::valueOf(value));
+};
+/**
+* Get integer attribute ModuleIndex
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoEmbossingParams::GetModuleIndex() const {
+	return GetIntAttribute(atr_ModuleIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoEmbossingParams::ValidModuleIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ModuleIndex,AttributeType_integer,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter

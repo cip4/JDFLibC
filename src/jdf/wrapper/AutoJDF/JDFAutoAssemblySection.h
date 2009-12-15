@@ -240,7 +240,7 @@ public:
 	virtual void SetOrder( EnumOrder value);
 
 /**
-* Typesafe enumerated attribute Order; defaults to Gathering
+* Typesafe enumerated attribute Order
 * @return EnumOrderthe enumeration value of the attribute
 */
 	virtual EnumOrder GetOrder() const;

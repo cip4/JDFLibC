@@ -130,7 +130,7 @@ bool JDFAutoShapeCuttingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoShapeCuttingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",DeliveryMode,SheetLay");
+		return JDFResource::OptionalAttributes()+WString(L",DeliveryMode,ModuleIndex,SheetLay");
 };
 
 /**
@@ -143,6 +143,11 @@ bool JDFAutoShapeCuttingParams::init(){
 			return vAtts;
 		if(!ValidDeliveryMode(level)) {
 			vAtts.push_back(atr_DeliveryMode);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidModuleIndex(level)) {
+			vAtts.push_back(atr_ModuleIndex);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -178,6 +183,24 @@ bool JDFAutoShapeCuttingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoShapeCuttingParams::ValidDeliveryMode(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_DeliveryMode,DeliveryModeString(),false);
+	};
+/**
+* Set attribute ModuleIndex
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoShapeCuttingParams::SetModuleIndex(int value){
+	SetAttribute(atr_ModuleIndex,WString::valueOf(value));
+};
+/**
+* Get integer attribute ModuleIndex
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoShapeCuttingParams::GetModuleIndex() const {
+	return GetIntAttribute(atr_ModuleIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoShapeCuttingParams::ValidModuleIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ModuleIndex,AttributeType_integer,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

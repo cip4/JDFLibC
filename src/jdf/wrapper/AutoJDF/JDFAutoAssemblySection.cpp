@@ -225,7 +225,7 @@ JDFAutoAssemblySection& JDFAutoAssemblySection::operator=(const KElement& other)
 };
 /////////////////////////////////////////////////////////////////////////
 	 JDFAutoAssemblySection::EnumOrder JDFAutoAssemblySection:: GetOrder() const {
-	return (EnumOrder) GetEnumAttribute(atr_Order,OrderString(),WString::emptyStr,Order_Gathering);
+	return (EnumOrder) GetEnumAttribute(atr_Order,OrderString(),WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoAssemblySection::ValidOrder(EnumValidationLevel level) const {

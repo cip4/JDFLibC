@@ -111,10 +111,10 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPart::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Sorting,SortAmount,BinderySignatureName,BlockName,BundleItemIndex,CellIndex,Condition,DeliveryUnit0,DeliveryUnit1,DeliveryUnit2,DeliveryUnit3,DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocCopies,DocIndex")
-	+WString(L",DocRunIndex,DocSheetIndex,DocTags,Edition,EditionVersion,FountainNumber,ItemNames,LayerIDs,Location,Metadata0,Metadata1,Metadata2,Metadata3,Metadata4,Metadata5,Metadata6,Metadata7,Metadata8,Metadata9")
-	+WString(L",Option,PageNumber,PageTags,PartVersion,PlateLayout,PreflightRule,PreviewType,RibbonName,Run,RunIndex,RunPage,RunPageRange,RunSet,RunTags,SectionIndex,Separation,SetDocIndex,SetRunIndex,SetSheetIndex")
-	+WString(L",SetTags,SetIndex,SheetIndex,SheetName,Side,SignatureName,StationName,SubRun,TileID,WebName,WebProduct,WebSetup");
+		return JDFElement::OptionalAttributes()+WString(L",Sorting,SortAmount,BinderySignatureName,BinderySignaturePaginationIndex,BlockName,BundleItemIndex,CellIndex,Condition,DeliveryUnit0,DeliveryUnit1,DeliveryUnit2,DeliveryUnit3,DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocCopies")
+	+WString(L",DocIndex,DocRunIndex,DocSheetIndex,DocTags,Edition,EditionVersion,FountainNumber,ItemNames,LayerIDs,Location,Metadata0,Metadata1,Metadata2,Metadata3,Metadata4,Metadata5,Metadata6,Metadata7,Metadata8")
+	+WString(L",Metadata9,Option,PageNumber,PageTags,PartVersion,PlateLayout,PreflightRule,PreviewType,RibbonName,Run,RunIndex,RunPage,RunPageRange,RunSet,RunTags,SectionIndex,Separation,SetDocIndex,SetRunIndex")
+	+WString(L",SetSheetIndex,SetTags,SetIndex,SheetIndex,SheetName,Side,SignatureName,StationName,SubRun,TileID,WebName,WebProduct,WebSetup");
 };
 
 /**
@@ -137,6 +137,11 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		};
 		if(!ValidBinderySignatureName(level)) {
 			vAtts.push_back(atr_BinderySignatureName);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBinderySignaturePaginationIndex(level)) {
+			vAtts.push_back(atr_BinderySignaturePaginationIndex);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -525,6 +530,24 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidBinderySignatureName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_BinderySignatureName,AttributeType_string,false);
+	};
+/**
+* Set attribute BinderySignaturePaginationIndex
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetBinderySignaturePaginationIndex(const WString& value){
+	SetAttribute(atr_BinderySignaturePaginationIndex,value);
+};
+/**
+* Get string attribute BinderySignaturePaginationIndex
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPart::GetBinderySignaturePaginationIndex() const {
+	return GetAttribute(atr_BinderySignaturePaginationIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidBinderySignaturePaginationIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BinderySignaturePaginationIndex,AttributeType_string,false);
 	};
 /**
 * Set attribute BlockName

@@ -124,17 +124,10 @@ bool JDFAutoLaminatingParams::init(){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoLaminatingParams::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",LaminatingBox";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoLaminatingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",AdhesiveType,GapList,HardenerType,LaminatingMethod,NipWidth,Temperature");
+		return JDFResource::OptionalAttributes()+WString(L",AdhesiveType,GapList,HardenerType,LaminatingBox,LaminatingMethod,NipWidth,ModuleIndex,Temperature");
 };
 
 /**
@@ -145,11 +138,6 @@ bool JDFAutoLaminatingParams::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidLaminatingBox(level)) {
-			vAtts.push_back(atr_LaminatingBox);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidAdhesiveType(level)) {
 			vAtts.push_back(atr_AdhesiveType);
 			if(++n>=nMax)
@@ -165,6 +153,11 @@ bool JDFAutoLaminatingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidLaminatingBox(level)) {
+			vAtts.push_back(atr_LaminatingBox);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidLaminatingMethod(level)) {
 			vAtts.push_back(atr_LaminatingMethod);
 			if(++n>=nMax)
@@ -172,6 +165,11 @@ bool JDFAutoLaminatingParams::init(){
 		};
 		if(!ValidNipWidth(level)) {
 			vAtts.push_back(atr_NipWidth);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidModuleIndex(level)) {
+			vAtts.push_back(atr_ModuleIndex);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -183,24 +181,6 @@ bool JDFAutoLaminatingParams::init(){
 		return vAtts;
 	};
 
-/**
-* Set attribute LaminatingBox
-*@param JDFRectangle value: the value to set the attribute to
-*/
-	 void JDFAutoLaminatingParams::SetLaminatingBox(const JDFRectangle& value){
-	SetAttribute(atr_LaminatingBox,value);
-};
-/**
-* Get string attribute LaminatingBox
-* @return JDFRectangle the vaue of the attribute 
-*/
-	 JDFRectangle JDFAutoLaminatingParams::GetLaminatingBox() const {
-	return GetAttribute(atr_LaminatingBox,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoLaminatingParams::ValidLaminatingBox(EnumValidationLevel level) const {
-		return ValidAttribute(atr_LaminatingBox,AttributeType_rectangle,RequiredLevel(level));
-	};
 /**
 * Set attribute AdhesiveType
 *@param WString value: the value to set the attribute to
@@ -255,6 +235,24 @@ bool JDFAutoLaminatingParams::init(){
 	bool JDFAutoLaminatingParams::ValidHardenerType(EnumValidationLevel level) const {
 		return ValidAttribute(atr_HardenerType,AttributeType_string,false);
 	};
+/**
+* Set attribute LaminatingBox
+*@param JDFRectangle value: the value to set the attribute to
+*/
+	 void JDFAutoLaminatingParams::SetLaminatingBox(const JDFRectangle& value){
+	SetAttribute(atr_LaminatingBox,value);
+};
+/**
+* Get string attribute LaminatingBox
+* @return JDFRectangle the vaue of the attribute 
+*/
+	 JDFRectangle JDFAutoLaminatingParams::GetLaminatingBox() const {
+	return GetAttribute(atr_LaminatingBox,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLaminatingParams::ValidLaminatingBox(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LaminatingBox,AttributeType_rectangle,false);
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoLaminatingParams::LaminatingMethodString(){
@@ -297,6 +295,24 @@ bool JDFAutoLaminatingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLaminatingParams::ValidNipWidth(EnumValidationLevel level) const {
 		return ValidAttribute(atr_NipWidth,AttributeType_double,false);
+	};
+/**
+* Set attribute ModuleIndex
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoLaminatingParams::SetModuleIndex(int value){
+	SetAttribute(atr_ModuleIndex,WString::valueOf(value));
+};
+/**
+* Get integer attribute ModuleIndex
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoLaminatingParams::GetModuleIndex() const {
+	return GetIntAttribute(atr_ModuleIndex,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLaminatingParams::ValidModuleIndex(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ModuleIndex,AttributeType_integer,false);
 	};
 /**
 * Set attribute Temperature

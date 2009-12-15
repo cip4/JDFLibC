@@ -167,10 +167,10 @@ public:
 ****************************************************** */
 
 /**
-* Enumeration for attribute SheetOccurence
+* Enumeration for attribute SheetOccurrence
 */
 
-	enum EnumSheetOccurence{SheetOccurence_Unknown,SheetOccurence_Always,SheetOccurence_End,SheetOccurence_OnError,SheetOccurence_Slip,SheetOccurence_Start,SheetOccurence_Both,SheetOccurence_None};
+	enum EnumSheetOccurrence{SheetOccurrence_Unknown,SheetOccurrence_Always,SheetOccurrence_End,SheetOccurrence_OnError,SheetOccurrence_Slip,SheetOccurrence_Start,SheetOccurrence_Both,SheetOccurrence_None};
 /**
 * Enumeration for attribute SheetType
 */
@@ -199,34 +199,34 @@ public:
 */
 	virtual bool ValidSheetFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Enumeration strings for SheetOccurence
+* Enumeration strings for SheetOccurrence
 * @return const WString& comma separated list of enumerated string values 
 */
-	static const WString& SheetOccurenceString();
+	static const WString& SheetOccurrenceString();
 /**
 * Enumeration string for enum value
-* @param EnumSheetOccurence value the enumeration to translate
+* @param EnumSheetOccurrence value the enumeration to translate
 * @return WString the string representation of the enumeration
 */
-	static WString SheetOccurenceString(EnumSheetOccurence value);
+	static WString SheetOccurrenceString(EnumSheetOccurrence value);
 /**
-* Set attribute SheetOccurence
-* @param EnumSheetOccurence value the value to set the attribute to
+* Set attribute SheetOccurrence
+* @param EnumSheetOccurrence value the value to set the attribute to
 */
-	virtual void SetSheetOccurence( EnumSheetOccurence value);
+	virtual void SetSheetOccurrence( EnumSheetOccurrence value);
 
 /**
-* Typesafe enumerated attribute SheetOccurence
-* @return EnumSheetOccurencethe enumeration value of the attribute
+* Typesafe enumerated attribute SheetOccurrence
+* @return EnumSheetOccurrencethe enumeration value of the attribute
 */
-	virtual EnumSheetOccurence GetSheetOccurence() const;
+	virtual EnumSheetOccurrence GetSheetOccurrence() const;
 
 /**
-* Typesafe attribute validation of SheetOccurence
+* Typesafe attribute validation of SheetOccurrence
 * @param EnumValidationLevel level element validation level 
 * @return bool true if valid
 */
-	virtual bool ValidSheetOccurence(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidSheetOccurrence(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for SheetType
 * @return const WString& comma separated list of enumerated string values 

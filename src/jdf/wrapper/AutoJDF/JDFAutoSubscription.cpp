@@ -191,7 +191,7 @@ JDFAutoSubscription& JDFAutoSubscription::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	 JDFAutoSubscription::EnumChannelMode JDFAutoSubscription:: GetChannelMode() const {
-	return (EnumChannelMode) GetEnumAttribute(atr_ChannelMode,ChannelModeString(),WString::emptyStr,ChannelMode_FireAndForget);
+	return (EnumChannelMode) GetEnumAttribute(atr_ChannelMode,ChannelModeString(),WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSubscription::ValidChannelMode(EnumValidationLevel level) const {

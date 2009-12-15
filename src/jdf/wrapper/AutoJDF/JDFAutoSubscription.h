@@ -197,7 +197,7 @@ public:
 	virtual void SetChannelMode( EnumChannelMode value);
 
 /**
-* Typesafe enumerated attribute ChannelMode; defaults to FireAndForget
+* Typesafe enumerated attribute ChannelMode
 * @return EnumChannelModethe enumeration value of the attribute
 */
 	virtual EnumChannelMode GetChannelMode() const;

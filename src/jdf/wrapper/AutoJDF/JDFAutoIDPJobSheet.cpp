@@ -121,7 +121,7 @@ JDFAutoIDPJobSheet& JDFAutoIDPJobSheet::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoIDPJobSheet::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",SheetFormat,SheetOccurence,SheetType");
+		return JDFElement::OptionalAttributes()+WString(L",SheetFormat,SheetOccurrence,SheetType");
 };
 
 /**
@@ -137,8 +137,8 @@ JDFAutoIDPJobSheet& JDFAutoIDPJobSheet::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidSheetOccurence(level)) {
-			vAtts.push_back(atr_SheetOccurence);
+		if(!ValidSheetOccurrence(level)) {
+			vAtts.push_back(atr_SheetOccurrence);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -170,28 +170,28 @@ JDFAutoIDPJobSheet& JDFAutoIDPJobSheet::operator=(const KElement& other){
 	};
 ///////////////////////////////////////////////////////////////////////
 
-	const WString& JDFAutoIDPJobSheet::SheetOccurenceString(){
+	const WString& JDFAutoIDPJobSheet::SheetOccurrenceString(){
 		static const WString enums=WString(L"Unknown,Always,End,OnError,Slip,Start,Both,None");
 		return enums;
 	};
 
 ///////////////////////////////////////////////////////////////////////
 
-	WString JDFAutoIDPJobSheet::SheetOccurenceString(EnumSheetOccurence value){
-		return SheetOccurenceString().Token(value,WString::comma);
+	WString JDFAutoIDPJobSheet::SheetOccurrenceString(EnumSheetOccurrence value){
+		return SheetOccurrenceString().Token(value,WString::comma);
 	};
 
 /////////////////////////////////////////////////////////////////////////
-	void JDFAutoIDPJobSheet::SetSheetOccurence( EnumSheetOccurence value){
-	SetEnumAttribute(atr_SheetOccurence,value,SheetOccurenceString());
+	void JDFAutoIDPJobSheet::SetSheetOccurrence( EnumSheetOccurrence value){
+	SetEnumAttribute(atr_SheetOccurrence,value,SheetOccurrenceString());
 };
 /////////////////////////////////////////////////////////////////////////
-	 JDFAutoIDPJobSheet::EnumSheetOccurence JDFAutoIDPJobSheet:: GetSheetOccurence() const {
-	return (EnumSheetOccurence) GetEnumAttribute(atr_SheetOccurence,SheetOccurenceString(),WString::emptyStr);
+	 JDFAutoIDPJobSheet::EnumSheetOccurrence JDFAutoIDPJobSheet:: GetSheetOccurrence() const {
+	return (EnumSheetOccurrence) GetEnumAttribute(atr_SheetOccurrence,SheetOccurrenceString(),WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoIDPJobSheet::ValidSheetOccurence(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_SheetOccurence,SheetOccurenceString(),false);
+	bool JDFAutoIDPJobSheet::ValidSheetOccurrence(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_SheetOccurrence,SheetOccurrenceString(),false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

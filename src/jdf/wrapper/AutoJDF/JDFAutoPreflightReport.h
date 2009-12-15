@@ -82,6 +82,7 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFFileSpec;
 class JDFPreflightParams;
 class JDFPreflightReportRulePool;
 class JDFRunList;
@@ -185,11 +186,6 @@ virtual bool init();
 	enum EnumErrorState{ErrorState_Unknown,ErrorState_TestNotSupported,ErrorState_TestWrongPDL};
 
 /**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
-
-/**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
@@ -210,22 +206,6 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidErrorCount(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute WarningCount
-*@param int value: the value to set the attribute to
-*/
-	virtual void SetWarningCount(int value);
-/**
-* Get integer attribute WarningCount
-* @return int the vaue of the attribute 
-*/
-	virtual int GetWarningCount() const;
-/**
-* Typesafe attribute validation of WarningCount
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidWarningCount(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for ErrorState
 * @return const WString& comma separated list of enumerated string values 
@@ -255,11 +235,50 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidErrorState(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute WarningCount
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetWarningCount(int value);
+/**
+* Get integer attribute WarningCount
+* @return int the vaue of the attribute 
+*/
+	virtual int GetWarningCount() const;
+/**
+* Typesafe attribute validation of WarningCount
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidWarningCount(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element FileSpec
+* 
+* @return JDFFileSpec The element
+*/
+	JDFFileSpec GetCreateFileSpec();
+
+/**
+* const get element FileSpec
+*@return  JDFFileSpec The element
+*/
+	JDFFileSpec GetFileSpec()const;
+/**
+* Append element FileSpec
+ * 
+*/
+	JDFFileSpec AppendFileSpec();
+/**
+* create inter-resource link to refTarget
+* @param JDFFileSpec& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefFileSpec(JDFFileSpec& refTarget);
 
 /** Get Element PreflightParams
 * 

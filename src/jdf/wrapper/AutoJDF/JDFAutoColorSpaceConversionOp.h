@@ -198,22 +198,6 @@ public:
 	virtual WString OptionalAttributes()const;
 
 /**
-* Set attribute IgnoreEmbeddedICC
-*@param bool value: the value to set the attribute to
-*/
-	virtual void SetIgnoreEmbeddedICC(bool value);
-/**
-* Get bool attribute IgnoreEmbeddedICC
-* @return bool the vaue of the attribute ; defaults to false
-*/
-	virtual bool GetIgnoreEmbeddedICC() const;
-/**
-* Typesafe attribute validation of IgnoreEmbeddedICC
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidIgnoreEmbeddedICC(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute PreserveBlack
 *@param bool value: the value to set the attribute to
 */
@@ -336,6 +320,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidSourceObjects(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute IgnoreEmbeddedICC
+*@param bool value: the value to set the attribute to
+*/
+	virtual void SetIgnoreEmbeddedICC(bool value);
+/**
+* Get bool attribute IgnoreEmbeddedICC
+* @return bool the vaue of the attribute 
+*/
+	virtual bool GetIgnoreEmbeddedICC() const;
+/**
+* Typesafe attribute validation of IgnoreEmbeddedICC
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidIgnoreEmbeddedICC(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ObjectTags
 *@param vWString value: the value to set the attribute to

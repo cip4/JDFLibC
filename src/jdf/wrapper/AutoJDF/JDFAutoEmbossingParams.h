@@ -176,6 +176,28 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 virtual bool init();
 
 
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
+/**
+* Set attribute ModuleIndex
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetModuleIndex(int value);
+/**
+* Get integer attribute ModuleIndex
+* @return int the vaue of the attribute 
+*/
+	virtual int GetModuleIndex() const;
+/**
+* Typesafe attribute validation of ModuleIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidModuleIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */

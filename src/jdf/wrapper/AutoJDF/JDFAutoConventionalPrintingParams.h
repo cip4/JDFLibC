@@ -197,6 +197,11 @@ virtual bool init();
 
 	enum EnumPrintingType{PrintingType_Unknown,PrintingType_ContinuousFed,PrintingType_SheetFed,PrintingType_WebFed,PrintingType_WebMultiple,PrintingType_WebSingle};
 /**
+* Enumeration for attribute PrintingTechnology
+*/
+
+	enum EnumPrintingTechnology{PrintingTechnology_Unknown,PrintingTechnology_Flexo,PrintingTechnology_Gravure,PrintingTechnology_Offset,PrintingTechnology_Screen};
+/**
 * Enumeration for attribute SheetLay
 */
 
@@ -506,6 +511,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidPrintingType(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for PrintingTechnology
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& PrintingTechnologyString();
+/**
+* Enumeration string for enum value
+* @param EnumPrintingTechnology value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString PrintingTechnologyString(EnumPrintingTechnology value);
+/**
+* Set attribute PrintingTechnology
+* @param EnumPrintingTechnology value the value to set the attribute to
+*/
+	virtual void SetPrintingTechnology( EnumPrintingTechnology value);
+
+/**
+* Typesafe enumerated attribute PrintingTechnology
+* @return EnumPrintingTechnologythe enumeration value of the attribute
+*/
+	virtual EnumPrintingTechnology GetPrintingTechnology() const;
+
+/**
+* Typesafe attribute validation of PrintingTechnology
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidPrintingTechnology(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for SheetLay
 * @return const WString& comma separated list of enumerated string values 

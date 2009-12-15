@@ -137,7 +137,7 @@ bool JDFAutoLayoutElement::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoLayoutElement::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",IgnorePDLCopies,IgnorePDLImposition,ClipPath,ContentDataRefs,ElementType,HasBleeds,IsBlank,IsPrintable,IsTrapped,PageListIndex,SourceBleedBox,SourceClipBox,SourceMediaBox,SourceTrimBox,Template");
+		return JDFResource::OptionalAttributes()+WString(L",IgnorePDLCopies,IgnorePDLImposition,ClipPath,ContentDataRefs,ElementType,HasBleeds,IsBlank,IsPrintable,IsTrapped,PageListIndex,SetLevel,SourceBleedBox,SourceClipBox,SourceMediaBox,SourceTrimBox,Template");
 };
 
 /**
@@ -195,6 +195,11 @@ bool JDFAutoLayoutElement::init(){
 		};
 		if(!ValidPageListIndex(level)) {
 			vAtts.push_back(atr_PageListIndex);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSetLevel(level)) {
+			vAtts.push_back(atr_SetLevel);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -407,6 +412,24 @@ bool JDFAutoLayoutElement::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLayoutElement::ValidPageListIndex(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PageListIndex,AttributeType_IntegerRangeList,false);
+	};
+/**
+* Set attribute SetLevel
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoLayoutElement::SetSetLevel(const WString& value){
+	SetAttribute(atr_SetLevel,value);
+};
+/**
+* Get string attribute SetLevel
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoLayoutElement::GetSetLevel() const {
+	return GetAttribute(atr_SetLevel,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayoutElement::ValidSetLevel(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SetLevel,AttributeType_XPath,false);
 	};
 /**
 * Set attribute SourceBleedBox

@@ -76,6 +76,7 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPreflightParams.h"
 #include "jdf/wrapper/JDFActionPool.h"
+#include "jdf/wrapper/JDFFileSpec.h"
 #include "jdf/wrapper/JDFTestPool.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -163,6 +164,31 @@ JDFActionPool JDFAutoPreflightParams::AppendActionPool(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFFileSpec JDFAutoPreflightParams::GetFileSpec()const{
+	JDFFileSpec e=GetElement(elm_FileSpec);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoPreflightParams::GetCreateFileSpec(){
+	JDFFileSpec e=GetCreateElement(elm_FileSpec);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoPreflightParams::AppendFileSpec(){
+	JDFFileSpec e=AppendElementN(elm_FileSpec,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoPreflightParams::RefFileSpec(JDFFileSpec& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFTestPool JDFAutoPreflightParams::GetTestPool()const{
 	JDFTestPool e=GetElement(elm_TestPool);
 	return e;
@@ -194,11 +220,6 @@ JDFTestPool JDFAutoPreflightParams::AppendTestPool(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_ActionPool);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_ActionPool);
-			if (++n>=nMax)
-			return vElem;
-		}
 
 		for(i=0;i<nElem;i++){
 			if (!GetActionPool(i).IsValid(level)) {
@@ -208,12 +229,19 @@ JDFTestPool JDFAutoPreflightParams::AppendTestPool(){
 				break;
 			}
 		}
-		nElem=NumChildElements(elm_TestPool);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_TestPool);
+		nElem=NumChildElements(elm_FileSpec);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_FileSpec);
 			if (++n>=nMax)
-			return vElem;
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFileSpec().IsValid(level)) {
+				vElem.AppendUnique(elm_FileSpec);
+				if (++n>=nMax)
+					return vElem;
+			}
 		}
+		nElem=NumChildElements(elm_TestPool);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_TestPool);
 			if (++n>=nMax)
@@ -233,13 +261,13 @@ JDFTestPool JDFAutoPreflightParams::AppendTestPool(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoPreflightParams::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",TestPool";
+		return JDFResource::UniqueElements()+L",FileSpec,TestPool";
 	};
 
 /**
- definition of required elements in the JDF namespace
+ definition of optional elements in the JDF namespace
 */
-	WString JDFAutoPreflightParams::RequiredElements()const{
-		return JDFResource::RequiredElements()+L",ActionPool,TestPool";
+	WString JDFAutoPreflightParams::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",ActionPool,FileSpec,TestPool";
 	};
 }; // end namespace JDF

@@ -76,6 +76,7 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPDFInterpretingParams.h"
 #include "jdf/wrapper/JDFOCGControl.h"
+#include "jdf/wrapper/JDFReferenceXObjParams.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -463,6 +464,26 @@ JDFOCGControl JDFAutoPDFInterpretingParams::AppendOCGControl(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFReferenceXObjParams JDFAutoPDFInterpretingParams::GetReferenceXObjParams(int iSkip)const{
+	JDFReferenceXObjParams e=GetElement(elm_ReferenceXObjParams,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFReferenceXObjParams JDFAutoPDFInterpretingParams::GetCreateReferenceXObjParams(int iSkip){
+	JDFReferenceXObjParams e=GetCreateElement(elm_ReferenceXObjParams,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFReferenceXObjParams JDFAutoPDFInterpretingParams::AppendReferenceXObjParams(){
+	JDFReferenceXObjParams e=AppendElement(elm_ReferenceXObjParams);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -483,6 +504,16 @@ JDFOCGControl JDFAutoPDFInterpretingParams::AppendOCGControl(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_ReferenceXObjParams);
+
+		for(i=0;i<nElem;i++){
+			if (!GetReferenceXObjParams(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ReferenceXObjParams);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -491,6 +522,6 @@ JDFOCGControl JDFAutoPDFInterpretingParams::AppendOCGControl(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoPDFInterpretingParams::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",OCGControl";
+		return JDFElement::OptionalElements()+L",OCGControl,ReferenceXObjParams";
 	};
 }; // end namespace JDF

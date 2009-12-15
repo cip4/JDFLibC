@@ -2284,21 +2284,21 @@ public:
 */
 	virtual bool ValidReversePageNumber(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute PDLType
+* Set attribute PDLObjectType
 *@param WString value: the value to set the attribute to
 */
-	virtual void SetPDLType(const WString& value);
+	virtual void SetPDLObjectType(const WString& value);
 /**
-* Get string attribute PDLType
+* Get string attribute PDLObjectType
 * @return WString the vaue of the attribute 
 */
-	virtual WString GetPDLType() const;
+	virtual WString GetPDLObjectType() const;
 /**
-* Typesafe attribute validation of PDLType
+* Typesafe attribute validation of PDLObjectType
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidPDLType(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidPDLObjectType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ExternalReferenceMissing
 *@param bool value: the value to set the attribute to

@@ -121,7 +121,7 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColorSpaceConversionOp::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",IgnoreEmbeddedICC,PreserveBlack,RenderingIntent,RGBGray2Black,RGBGray2BlackThreshold,SourceObjects,ObjectTags,Operation,SourceCS,SourceRenderingIntent");
+		return JDFElement::OptionalAttributes()+WString(L",PreserveBlack,RenderingIntent,RGBGray2Black,RGBGray2BlackThreshold,SourceObjects,IgnoreEmbeddedICC,ObjectTags,Operation,SourceCS,SourceRenderingIntent");
 };
 
 /**
@@ -132,11 +132,6 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidIgnoreEmbeddedICC(level)) {
-			vAtts.push_back(atr_IgnoreEmbeddedICC);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidPreserveBlack(level)) {
 			vAtts.push_back(atr_PreserveBlack);
 			if(++n>=nMax)
@@ -159,6 +154,11 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 		};
 		if(!ValidSourceObjects(level)) {
 			vAtts.push_back(atr_SourceObjects);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidIgnoreEmbeddedICC(level)) {
+			vAtts.push_back(atr_IgnoreEmbeddedICC);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -185,23 +185,6 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 		return vAtts;
 	};
 
-/**
-* Set attribute IgnoreEmbeddedICC
-*@param bool value: the value to set the attribute to
-*/
-	 void JDFAutoColorSpaceConversionOp::SetIgnoreEmbeddedICC(bool value){
-	SetAttribute(atr_IgnoreEmbeddedICC,WString::valueOf(value));
-};
-/**
-* Get bool attribute IgnoreEmbeddedICC
-* @return bool the vaue of the attribute ; defaults to false
-*/
-	 bool JDFAutoColorSpaceConversionOp::GetIgnoreEmbeddedICC() const {return GetBoolAttribute(atr_IgnoreEmbeddedICC,WString::emptyStr,false);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoColorSpaceConversionOp::ValidIgnoreEmbeddedICC(EnumValidationLevel level) const {
-		return ValidAttribute(atr_IgnoreEmbeddedICC,AttributeType_boolean,false);
-	};
 /**
 * Set attribute PreserveBlack
 *@param bool value: the value to set the attribute to
@@ -320,6 +303,23 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorSpaceConversionOp::ValidSourceObjects(EnumValidationLevel level) const {
 		return ValidEnumerationsAttribute(atr_SourceObjects,SourceObjectsString(),false);
+	};
+/**
+* Set attribute IgnoreEmbeddedICC
+*@param bool value: the value to set the attribute to
+*/
+	 void JDFAutoColorSpaceConversionOp::SetIgnoreEmbeddedICC(bool value){
+	SetAttribute(atr_IgnoreEmbeddedICC,WString::valueOf(value));
+};
+/**
+* Get bool attribute IgnoreEmbeddedICC
+* @return bool the vaue of the attribute 
+*/
+	 bool JDFAutoColorSpaceConversionOp::GetIgnoreEmbeddedICC() const {return GetBoolAttribute(atr_IgnoreEmbeddedICC,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorSpaceConversionOp::ValidIgnoreEmbeddedICC(EnumValidationLevel level) const {
+		return ValidAttribute(atr_IgnoreEmbeddedICC,AttributeType_boolean,false);
 	};
 /**
 * Set attribute ObjectTags

@@ -83,6 +83,7 @@
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFOCGControl;
+class JDFReferenceXObjParams;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -436,6 +437,24 @@ public:
 * Append element OCGControl
  */
 	JDFOCGControl AppendOCGControl();
+
+/** Get Element ReferenceXObjParams
+* 
+* @param int iSkip number of elements to skip
+* @return JDFReferenceXObjParams The element
+*/
+	JDFReferenceXObjParams GetCreateReferenceXObjParams(int iSkip=0);
+
+/**
+* const get element ReferenceXObjParams
+* @param int iSkip number of elements to skip
+* @return JDFReferenceXObjParams The element
+*/
+	JDFReferenceXObjParams GetReferenceXObjParams(int iSkip=0)const;
+/**
+* Append element ReferenceXObjParams
+ */
+	JDFReferenceXObjParams AppendReferenceXObjParams();
 
 /**
  definition of optional elements in the JDF namespace

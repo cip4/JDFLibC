@@ -118,7 +118,7 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 	+WString(L",OutputIntentColorSpace,OutputIntentStandard,PagesHaveSameOrientation,PDFXVersion,DocumentPDLType,PDLVersion,Producer,SeparationFlag,Subject,Title,TrappedKey,FillColorName,FillColorType,HasFillColor,EmbeddingRestrictionFlag,FontCorrupted,FontCreator,FontEmbedded,FontIsStandardLatin")
 	+WString(L",FontName,FontNotUsed,FontSubset,FontType,FontVendor,IsDoubleByteFont,IsFontScreenOnly,PSFontName,AlphaIsShape,AlternateColorSpace,BelongsToAnnotation,BlackGeneration,BlendMode,ColorSpace,EmbeddedPS,Flatness,HasSoftMask,HalfTone,HalfTonePhase")
 	+WString(L",HasColorLUT,NumberOfColorsInLUT,OverPrintFlag,OverPrintMode,RenderingIntent,Smoothness,TransferFunction,TransparencyFlag,UnderColorRemoval,AlternateImages,BitsPerSample,CompressionRatio,CompressionTypes,EffectiveResolution,EstimatedJPEGQuality,ImageFlipped,ImageMaskType,ImageRotation,ImageScalingRatio")
-	+WString(L",ImageSkew,OriginalResolution,PixelHeight,PixelWidth,Count,PageBoxType,BlankPage,BlendColorSpace,PageHasOptionalContent,PageHasUnknownObjects,PageScalingFactor,ReversePageNumber,PDLType,ExternalReferenceMissing,HasExternalReference,HasOPI,OPIMissing,OPIType,OPIVersion")
+	+WString(L",ImageSkew,OriginalResolution,PixelHeight,PixelWidth,Count,PageBoxType,BlankPage,BlendColorSpace,PageHasOptionalContent,PageHasUnknownObjects,PageScalingFactor,ReversePageNumber,PDLObjectType,ExternalReferenceMissing,HasExternalReference,HasOPI,OPIMissing,OPIType,OPIVersion")
 	+WString(L",ShadingType,HasStrokeColor,StrokeAlternateColorSpace,StrokeColorName,StrokeColorSpace,StrokeColorType,StrokeOverprintFlag,StrokeShadingType,StrokeThickness,CharacterProblem,MissingPrinterFont,MissingScreenFont,TextSize,UseArtificialTextEffect,NumberOfPathPoints");
 };
 
@@ -665,8 +665,8 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidPDLType(level)) {
-			vAtts.push_back(atr_PDLType);
+		if(!ValidPDLObjectType(level)) {
+			vAtts.push_back(atr_PDLObjectType);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -2860,22 +2860,22 @@ JDFAutoPRGroupOccurrenceBase& JDFAutoPRGroupOccurrenceBase::operator=(const KEle
 		return ValidAttribute(atr_ReversePageNumber,AttributeType_integer,false);
 	};
 /**
-* Set attribute PDLType
+* Set attribute PDLObjectType
 *@param WString value: the value to set the attribute to
 */
-	 void JDFAutoPRGroupOccurrenceBase::SetPDLType(const WString& value){
-	SetAttribute(atr_PDLType,value);
+	 void JDFAutoPRGroupOccurrenceBase::SetPDLObjectType(const WString& value){
+	SetAttribute(atr_PDLObjectType,value);
 };
 /**
-* Get string attribute PDLType
+* Get string attribute PDLObjectType
 * @return WString the vaue of the attribute 
 */
-	 WString JDFAutoPRGroupOccurrenceBase::GetPDLType() const {
-	return GetAttribute(atr_PDLType,WString::emptyStr);
+	 WString JDFAutoPRGroupOccurrenceBase::GetPDLObjectType() const {
+	return GetAttribute(atr_PDLObjectType,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPRGroupOccurrenceBase::ValidPDLType(EnumValidationLevel level) const {
-		return ValidAttribute(atr_PDLType,AttributeType_NMTOKEN,false);
+	bool JDFAutoPRGroupOccurrenceBase::ValidPDLObjectType(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PDLObjectType,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute ExternalReferenceMissing

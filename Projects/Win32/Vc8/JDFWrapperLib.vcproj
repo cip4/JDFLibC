@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="JDFWrapperLib"
 	ProjectGUID="{766A96F7-A4F7-45C1-BE16-AC8F96748B33}"
 	RootNamespace="JDFWrapperLib"
@@ -3807,6 +3807,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFReferenceXObjParams.cpp"
+							>
+						</File>
+						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFResourceParam.cpp"
 							>
 						</File>
@@ -4233,6 +4237,10 @@
 						</File>
 						<File
 							RelativePath="..\..\..\src\jdf\wrapper\JDFQualityMeasurement.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\..\src\jdf\wrapper\JDFReferenceXObjParams.h"
 							>
 						</File>
 						<File

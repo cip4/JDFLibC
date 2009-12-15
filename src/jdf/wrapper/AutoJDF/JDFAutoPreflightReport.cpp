@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPreflightReport.h"
+#include "jdf/wrapper/JDFFileSpec.h"
 #include "jdf/wrapper/JDFPreflightParams.h"
 #include "jdf/wrapper/JDFPreflightReportRulePool.h"
 #include "jdf/wrapper/JDFRunList.h"
@@ -129,17 +130,10 @@ bool JDFAutoPreflightReport::init(){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoPreflightReport::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",ErrorCount,WarningCount";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPreflightReport::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ErrorState");
+		return JDFResource::OptionalAttributes()+WString(L",ErrorCount,ErrorState,WarningCount");
 };
 
 /**
@@ -155,13 +149,13 @@ bool JDFAutoPreflightReport::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidWarningCount(level)) {
-			vAtts.push_back(atr_WarningCount);
+		if(!ValidErrorState(level)) {
+			vAtts.push_back(atr_ErrorState);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidErrorState(level)) {
-			vAtts.push_back(atr_ErrorState);
+		if(!ValidWarningCount(level)) {
+			vAtts.push_back(atr_WarningCount);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -184,25 +178,7 @@ bool JDFAutoPreflightReport::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPreflightReport::ValidErrorCount(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ErrorCount,AttributeType_integer,RequiredLevel(level));
-	};
-/**
-* Set attribute WarningCount
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoPreflightReport::SetWarningCount(int value){
-	SetAttribute(atr_WarningCount,WString::valueOf(value));
-};
-/**
-* Get integer attribute WarningCount
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoPreflightReport::GetWarningCount() const {
-	return GetIntAttribute(atr_WarningCount,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPreflightReport::ValidWarningCount(EnumValidationLevel level) const {
-		return ValidAttribute(atr_WarningCount,AttributeType_integer,RequiredLevel(level));
+		return ValidAttribute(atr_ErrorCount,AttributeType_integer,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -229,11 +205,54 @@ bool JDFAutoPreflightReport::init(){
 	bool JDFAutoPreflightReport::ValidErrorState(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_ErrorState,ErrorStateString(),false);
 	};
+/**
+* Set attribute WarningCount
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoPreflightReport::SetWarningCount(int value){
+	SetAttribute(atr_WarningCount,WString::valueOf(value));
+};
+/**
+* Get integer attribute WarningCount
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoPreflightReport::GetWarningCount() const {
+	return GetIntAttribute(atr_WarningCount,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPreflightReport::ValidWarningCount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_WarningCount,AttributeType_integer,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
+
+JDFFileSpec JDFAutoPreflightReport::GetFileSpec()const{
+	JDFFileSpec e=GetElement(elm_FileSpec);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoPreflightReport::GetCreateFileSpec(){
+	JDFFileSpec e=GetCreateElement(elm_FileSpec);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoPreflightReport::AppendFileSpec(){
+	JDFFileSpec e=AppendElementN(elm_FileSpec,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoPreflightReport::RefFileSpec(JDFFileSpec& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFPreflightParams JDFAutoPreflightReport::GetPreflightParams()const{
 	JDFPreflightParams e=GetElement(elm_PreflightParams);
@@ -340,6 +359,18 @@ JDFPRItem JDFAutoPreflightReport::AppendPRItem(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_FileSpec);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_FileSpec);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFileSpec().IsValid(level)) {
+				vElem.AppendUnique(elm_FileSpec);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_PreflightParams);
 		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
 		vElem.AppendUnique(elm_PreflightParams);
@@ -358,11 +389,6 @@ JDFPRItem JDFAutoPreflightReport::AppendPRItem(){
 			}
 		}
 		nElem=NumChildElements(elm_PreflightReportRulePool);
-		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
-		vElem.AppendUnique(elm_PreflightReportRulePool);
-			if (++n>=nMax)
-			return vElem;
-		}
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_PreflightReportRulePool);
 			if (++n>=nMax)
@@ -409,20 +435,20 @@ JDFPRItem JDFAutoPreflightReport::AppendPRItem(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoPreflightReport::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",PreflightParams,PreflightReportRulePool,RunList";
+		return JDFResource::UniqueElements()+L",FileSpec,PreflightParams,PreflightReportRulePool,RunList";
 	};
 
 /**
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoPreflightReport::RequiredElements()const{
-		return JDFResource::RequiredElements()+L",PreflightParams,PreflightReportRulePool,RunList";
+		return JDFResource::RequiredElements()+L",PreflightParams,RunList";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoPreflightReport::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",PRItem";
+		return JDFResource::OptionalElements()+L",FileSpec,PreflightReportRulePool,PRItem";
 	};
 }; // end namespace JDF

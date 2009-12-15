@@ -222,6 +222,22 @@ virtual bool init();
 */
 	virtual bool ValidDeliveryMode(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ModuleIndex
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetModuleIndex(int value);
+/**
+* Get integer attribute ModuleIndex
+* @return int the vaue of the attribute 
+*/
+	virtual int GetModuleIndex() const;
+/**
+* Typesafe attribute validation of ModuleIndex
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidModuleIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for SheetLay
 * @return const WString& comma separated list of enumerated string values 
 */
