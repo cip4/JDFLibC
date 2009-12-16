@@ -83,6 +83,37 @@ int main(int argC, char* argV[]){
 	// clean up
 	if(1)
 	{
+		JDFDoc doc(0);//JDF
+		WString filePath("O:\\JDFLibC\\tests\\TestFiles\\data\\partitioned_private_resources.jdf");
+		doc.Parse(filePath, false);
+
+		JDFNode myRoot              = doc.GetJDFRoot();
+		JDFResourcePool myResPool   = myRoot.GetResourcePool();
+		JDFResource myPreview       = (JDFResource)myResPool.GetElement("Preview", WString::emptyStr, 0);
+		JDFAttributeMap m;
+
+		m.put("Side", "Front");
+		m.put("Separation", "Black");
+		m.put("PreviewType", "Separation");
+
+		myPreview = myPreview.GetPartition(m, JDFResource::PartUsage_Explicit);
+		vElement vRes = myPreview.GetLeaves(false);
+
+		for (int i = 0; i < vRes.size(); i++)
+		{
+			JDFAttributeMap myMap = ((JDFResource) vRes.elementAt(i)).GetPartMap(); 
+			if (WString("Black").equals(myMap.GetValue("Separation")))
+			{				
+				assertEquals( WString("Front"),myMap.GetValue("Side") );
+				assertEquals( WString("Separation"),myMap.GetValue("PreviewType") );
+				assertTrue ( myMap.GetValue("SheetName").startsWith("Sheet ") ); // "Sheet 1" or "Sheet 2"
+				assertEquals( WString("Black"),myMap.GetValue("Separation") );
+			}
+		}
+
+	}
+	else if(0)
+	{
 		JDFDoc doc(1);//JMF
 		WString filePath("C:\\data\\jdf\\hp Olga\\JMFrespQueueAJob.jmf.xml");
 		cout<<filePath<<endl;

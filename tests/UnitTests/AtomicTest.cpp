@@ -101,7 +101,7 @@ const WString sm_dirTestData = L"data/";
 const WString sm_dirTestTemp = L"temp/";
 
 CPPUNIT_TEST_SUITE_REGISTRATION (AtomicTest);
-
+/*
 static JDFDoc creatXMDoc()
 {
 	JDFElement::setDefaultJDFVersion(JDFElement::Version_1_3);
@@ -174,6 +174,7 @@ static JDFDoc creatXMDoc()
 	comp.GetCreatePartition(mPart1,vs);	
 	return doc;
 }
+*/
 void AtomicTest::setUp()
 {
 	try	
@@ -193,83 +194,37 @@ void AtomicTest::testAtomic()
 {
 	try
 	{
-		JDFDoc d=creatXMDoc();
-		JDFNode n=d.GetJDFRoot();
-		n.RemoveNodeInfos();
-		JDFNodeInfo ni=n.GetCreateNodeInfo();
-		CPPUNIT_ASSERT( !ni.isNull() );
-		JDFComment comment=n.AppendComment();
-		comment.SetText("Comment 1");
-		JDFResourceLink l=n.GetMatchingLink(JDFNode::elm_NodeInfo,JDFNode::ProcessUsage_AnyInput);
-		l.SetPartition(JDFResource::PartIDKey_SignatureName,"Sig1");
-		vWString v;
-		v.add(JDFNode::elm_ExposedMedia);
-		vmAttribute vMap;
-		JDFAttributeMap map;
-		map.put("SignatureName","Sig1");
-		map.put("SheetName","S1");
-		vMap.push_back(map);
-		JDFResourceLink xmRL=n.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyInput,0);
-		xmRL.SetAmount(40,map);
-		xmRL.SetUsage(JDFResourceLink::Usage_Output);
-		xmRL.SetAttribute("foo:bar","a","www.foobar.com");
-		JDFSpawn spawn=JDFSpawn(n); // fudge to test output counting
-		JDFDoc spawnDoc=spawn.spawn("thisUrl","newURL",v,vMap,false,true,true,true);
-		JDFNode spawnedNode=spawnDoc.GetJDFRoot();
-		CPPUNIT_ASSERT( spawnedNode.ToString().indexOf(JDFNode::atr_SpawnStatus)<0 ); // no spawnstatus
-		JDFResourceLink rl = spawnedNode.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_Any);
-		JDFResourceAudit ra=spawnedNode.CloneResourceToModify(rl);
-		WString clonedResID=ra.GetOldLink().GetrRef();
+		WString strFileName = sm_dirTestData+"partitioned_private_resources.jdf";
+		JDFParser p;
+		p.Parse(strFileName, false);
+		JDFDoc myJDFDoc             = p.GetDocument();
+		JDFNode myRoot              = myJDFDoc.GetJDFRoot();
+		JDFResourcePool myResPool   = myRoot.GetResourcePool();
+		JDFResource myPreview       = (JDFResource)myResPool.GetElement("Preview", WString::emptyStr, 0);
+		JDFAttributeMap m;
 
-		n=d.GetJDFRoot();
-		JDFComment comment2=n.AppendComment();
-		comment2.SetText("Comment 2 after");
-		JDFComment comment3=spawnedNode.AppendComment();
-		comment3.SetText("Comment 3 spawned");
+		m.put("Side", "Front");
+		m.put("Separation", "Black");
+		m.put("PreviewType", "Separation");
 
-		JDFResourceLink xmRLspawn=spawnedNode.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyOutput);
-		xmRLspawn.SetActualAmount(42,map);
-		CPPUNIT_ASSERT_EQUAL( (WString)"a",xmRLspawn.GetAttribute("bar","www.foobar.com") );
-		CPPUNIT_ASSERT_EQUAL( 40.,xmRLspawn.GetAmount(map) ); // amount ok
-		CPPUNIT_ASSERT_EQUAL( 42.,xmRLspawn.GetActualAmount(map) ); // act amount ok
-		WString spawnID=spawnedNode.GetSpawnID(false);
+		myPreview = myPreview.GetPartition(m, JDFResource::PartUsage_Explicit);
+		vElement vRes = myPreview.GetLeaves(false);
 
-		JDFExposedMedia xmSpawn= xmRLspawn.GetTarget();
-		CPPUNIT_ASSERT(!xmSpawn.isNull());
-		CPPUNIT_ASSERT_EQUAL(spawnID, xmSpawn.GetAttribute("SpawnIDs"));
-		JDFAttributeMap mapXMSpawn=xmSpawn.GetPartMap();
-		JDFExposedMedia xmMain= n.GetMatchingResource("ExposedMedia", JDFNode::ProcessUsage_AnyOutput);
-		xmMain=xmMain.GetPartition(mapXMSpawn, false);
-		CPPUNIT_ASSERT(!xmMain.isNull());
-		CPPUNIT_ASSERT_EQUAL(spawnID, xmMain.GetAttribute("SpawnIDs"));
-
-		// n is fine up to here, then amount is misplaced
-		JDFMerge merge=JDFMerge(n);
-		JDFDoc docMerge=merge.mergeJDF(spawnedNode, "merged", JDFNode::CleanUpMerge_None, JDFResource::AmountMerge_UpdateLink);
-		JDFNode mergedNode=docMerge.GetJDFRoot();
-		xmRL=mergedNode.GetMatchingLink(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyOutput);
-		CPPUNIT_ASSERT_EQUAL( 1,(int)mergedNode.GetResourceLinkPool().GetPoolChildren("NodeInfoLink").size() ); // no spurious ni added
-		CPPUNIT_ASSERT_EQUAL( 3,(int)mergedNode.GetChildElementVector(JDFNode::elm_Comment,WString::emptyStr, mAttribute::emptyMap,true,99).size() ); // Comment size
-		CPPUNIT_ASSERT_EQUAL( 40.,xmRL.GetAmount(map) ); // merged amount ok
-		CPPUNIT_ASSERT_EQUAL( 42.,xmRL.GetActualAmount(map) ); // merged act amount
-		CPPUNIT_ASSERT_EQUAL( (WString)"a",xmRL.GetAttribute("bar","www.foobar.com") ); // did not overwrite rl attribute
-
-		JDFExposedMedia xm=(JDFExposedMedia) n.GetMatchingResource(JDFNode::elm_ExposedMedia,JDFNode::ProcessUsage_AnyOutput);
-		xm=(JDFExposedMedia) xm.GetPartition(map);
-		CPPUNIT_ASSERT_EQUAL( 42.,xm.GetAmount() ); // merged res amount ok
-		CPPUNIT_ASSERT_EQUAL( 42.,xm.GetAmountProduced() ); // merged res amountproduced ok
-
-		// test whether anything modified and tracked in a resource audit got correctly merged
-		JDFResourceAudit raMerge=(JDFResourceAudit) n.GetAuditPool().GetAudit(0, JDFAudit::AuditType_ResourceAudit);
-		CPPUNIT_ASSERT( !raMerge.isNull() ); // res audit merged
-		JDFResource rOld=raMerge.GetOldLink().GetTarget();
-		CPPUNIT_ASSERT( !rOld.isNull() ); // old res  merged
-		CPPUNIT_ASSERT_EQUAL( clonedResID,rOld.GetID() ); // old res ID
-		JDFResource rNew=raMerge.GetNewLink().GetTarget();
-		CPPUNIT_ASSERT( !rNew.isNull() ); // new res  merged
+		for (int i = 0; i < vRes.size(); i++)
+		{
+			JDFAttributeMap myMap = ((JDFResource) vRes.elementAt(i)).GetPartMap(); 
+			if (WString("Black").equals(myMap.GetValue("Separation")))
+			{				
+				CPPUNIT_ASSERT_EQUAL( WString("Front"),myMap.GetValue("Side") );
+				CPPUNIT_ASSERT_EQUAL( WString("Separation"),myMap.GetValue("PreviewType") );
+				CPPUNIT_ASSERT ( myMap.GetValue("SheetName").startsWith("Sheet ") ); // "Sheet 1" or "Sheet 2"
+				CPPUNIT_ASSERT_EQUAL( WString("Black"),myMap.GetValue("Separation") );
+			}
+		}
 	}
-	catch (JDFException& e)
+	catch (const JDFException& e)
 	{
 		CPPUNIT_FAIL( e.what() );
 	}
 }
+

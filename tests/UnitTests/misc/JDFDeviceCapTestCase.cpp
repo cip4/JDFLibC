@@ -124,7 +124,7 @@ void JDFDeviceCapTestCase::setUp()
 	dcs.SetRequired(true);
 	JDFDevCap dc = dcp.AppendDevCap();
 	dc.SetID("dc_AuditPool");
-	dcs.SetDevCapRef( "dc_AuditPool" );
+	dcs.SetDevCapRef( vWString("dc_AuditPool") );
 	dc=dc.AppendDevCap();
 	dc.SetName("Created");
 	dc.SetID("dc_Created");
@@ -168,7 +168,7 @@ void JDFDeviceCapTestCase::setUp()
 	dcs.SetName("JDF");
 	dc=dcp.AppendDevCap();
 	dc.SetID("dc_JDF");	
-	dcs.SetDevCapRef("dc_JDF");
+	dcs.SetDevCapRef(vWString(L"dc_JDF"));
 	/* parsing the file makes debugging in AtomicTest easier*/
 	//doc.Write2File(sm_dirTestTemp + "devCapDefaults.jdf");
 }

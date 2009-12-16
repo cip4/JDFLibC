@@ -1,7 +1,7 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// COPYRIGHT Heidelberger Druckmaschinen AG, 1999-2003
+// COPYRIGHT Heidelberger Druckmaschinen AG, 1999-2009
 //      ALL RIGHTS RESERVED 
 //
 //  Author: Dr. Rainer Prosi
@@ -92,7 +92,7 @@ public:
 					}else{
 						throw TException("WString::Escape radix out of range");
 					}
-					
+
 #endif
 					wcsupr(buf);  //capitalize hex stuff
 					if(escapeLen){ // prepad zeroes to a total of escapeLen
@@ -114,7 +114,7 @@ public:
 		}
 		theString.assign(escapedString);
 	}
-	
+
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -145,13 +145,13 @@ public:
 					resList.push_back(v[i].GetAttribute("name"));
 				}
 			}
-			
+
 		}
 		return resList;
 	}
-	
+
 	/////////////////////////////////////////////////////////////////////////7
-	
+
 	WString GetCTName(WString s="", bool bStrip=true, bool elmName=false){
 		if(s.empty()) 
 			s=GetAttribute("name");
@@ -168,12 +168,12 @@ public:
 				return se.GetCTName("",bStrip);
 			}
 		}
-		
+
 		WString base=GetXPathAttribute("xs:complexContent/xs:restriction@base");
 		if(base.empty())
 			base=GetXPathAttribute("xs:complexContent/xs:extension@base");
-		
-		
+
+
 		if((s.rightStr(3)=="_lr")||(s.rightStr(3)=="_lu")||(s.rightStr(2)=="_l")){
 			vWString v=s.Tokenize("_");
 			if(v.size()>=3){
@@ -189,20 +189,20 @@ public:
 				if(v[0]=="IDPrintingParams")
 					s="IDP"+s;
 			}else if(s.find("Preflight")!=s.npos){
-//				cout<<"\n**********************"<<s<<endl;
+				//				cout<<"\n**********************"<<s<<endl;
 			}else{
 				cout << "GetCTName: oops for reselements: "<<s<<endl;
 			}
 		}
-		
+
 		if(!bStrip) 
 			return s;
-		
+
 		if(s.leftStr(4)=="jdf:") 
 			s=s.rightStr(-4);
 		if(s.leftStr(7)=="jdftyp:") 
 			s=s.rightStr(-7);
-		
+
 		if(s.rightStr(2)=="__"){
 			s=s.leftStr(-2);
 		}else if(s.rightStr(12)=="ResLinkPool_"){
@@ -235,7 +235,7 @@ public:
 		}else if((s.leftStr(16)=="IDPrintingParams")&&(s.size()>16)){
 			s="IDP"+s.rightStr(-16);
 		}
-		
+
 		if(s=="JDF") {
 			if(!elmName)
 				s="Node";
@@ -272,16 +272,16 @@ public:
 			s="BoxArgument";
 		if(s=="Preflight_BoxToBoxDifference")
 			s="BoxToBoxDifference";
-		
-		
-		
+
+
+
 		if((s.size()>13)&&s.leftStr(13)=="BindingIntent")
 			s=s.rightStr(-13);
-		
-		
+
+
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	WString GetSpanName(){
 		WString cName="Span"+GetCTName();
@@ -300,7 +300,7 @@ public:
 		return cName;
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString GetCType(bool bAttrib, const WString& thisClass=WString::emptyStr, const WString& tt=WString::emptyStr,bool bEscape=true){
 		WString t;
 		WString tNoStrip;
@@ -319,14 +319,14 @@ public:
 			t=GetAttribute("ref");
 			if(!t.empty()) 
 				t=GetCTName(t);
-			
+
 		}
 		if(bEscape)
 			SchemaDoc::Escape(t,"-*+","_",-1);
-		
+
 		if((tNoStrip.find(L"IDPrintingParams_")!=tNoStrip.npos)&&(!t.startsWith(L"IDP")))
 			t=L"IDP"+t;
-		
+
 		if(t=="jdf:DevCapState") 
 			return "DevCap"; 		
 
@@ -336,17 +336,17 @@ public:
 			return ""; 		
 		if(t=="jdf:DevCap_State") 
 			return ""; 		
-		
+
 		if(t.rightStr(8)=="_Element") 
 			t=t.leftStr(-8);
-		
+
 		if(t.rightStr(4)=="Span") {
 			if(t=="EnumerationSpan"){
 				t=GetSpanName();
 			}
 			return "JDF"+t;
 		}
-		
+
 		if(t=="jdftyp:DoubleAndXYPair") 
 			return "double";
 
@@ -362,33 +362,7 @@ public:
 			return "int";
 		if(t=="LongInteger")
 			return "JDFInt64";
-		if(t=="xs:boolean") return "bool";
-		if(t=="boolean") return "bool";
-		if(t=="NMTOKEN") return "WString";
-		if(t=="xs:NMTOKEN") return "WString";
-		if(t=="jdftyp:NMTOKEN") return "WString";
-		if(t=="xs:IDREFS") return "vWString";
-		if(t=="xs:ID") return "WString";
-		if(t=="xs:IDREF") return "WString";
-		if(t=="string") return "WString";
-		if(t=="xs:string") return "WString";
-		if(t=="xs:token") return "WString";
-		if(t=="shortstring") return "WString";
-		if(t=="jdftyp:shortstring") return "WString";
-		if(t=="shortString") return "WString";
-		if(t=="jdftyp:shortString") return "WString";
-		if(t=="longString") return "WString";
-		if(t=="jdftyp:longString") return "WString";
-		
-		if(t=="jdftyp:token") return "WString";
-		if(t=="xs:normalizedString") return "WString";
-		if(t=="xs:dateTime") return "JDFDate";
-		if(t=="dateTime") return "JDFDate";
-		if(t=="xs:duration") return "JDFDuration";
-		if(t=="duration") return "JDFDuration";
-		if(t=="xs:gYearMonth") return "JDFDate";
-		if(t=="xs:language") return "WString";
-		
+
 		if(t=="LanguagesOrAll") 
 			return "vWString";
 		if(t=="languages") return "vWString";
@@ -409,7 +383,7 @@ public:
 		if(t=="IntegerIntent") return "JDFIntegerSpan";
 		if(t=="StringIntent") return "JDFStringSpan";
 		if(t=="TimeIntent") return "JDFTimeSpan";
-		
+
 		if(t=="Comment_Type") return "JDFComment";
 		if(t=="JDFProcessNode") 
 			return "JDFNode";
@@ -439,19 +413,52 @@ public:
 		if(t=="telem") return "JDFElement";
 		if(t=="ResponseTypeObj") 
 			return "JDFElement";
-		
-		
+
+
 		if(bAttrib){
 			WString name=GetCTName();
-			if(name=="Version")
-				return "WString";
+			// next three are hacks for preview schem hack
+			if(name=="NoOp")
+				return "";
+			if(name=="Class")
+				return "";
+			if(name=="PartUsage")
+				return "";
 			if(name=="PresentationDirection")
 				return "WString";
-			
+			if(name=="Version")
+				return "WString";
+			if(t=="xs:boolean") return "bool";
+			if(t=="boolean") return "bool";
+			if(t=="NMTOKEN") return "WString";
+			if(t=="xs:NMTOKEN") return "WString";
+			if(t=="jdftyp:NMTOKEN") return "WString";
+			if(t=="xs:IDREFS") return "vWString";
+			if(t=="xs:ID") return "WString";
+			if(t=="xs:IDREF") return "WString";
+			if(t=="string") return "WString";
+			if(t=="xs:string") return "WString";
+			if(t=="xs:token") return "WString";
+			if(t=="shortstring") return "WString";
+			if(t=="jdftyp:shortstring") return "WString";
+			if(t=="shortString") return "WString";
+			if(t=="jdftyp:shortString") return "WString";
+			if(t=="longString") return "WString";
+			if(t=="jdftyp:longString") return "WString";
+
+			if(t=="jdftyp:token") return "WString";
+			if(t=="xs:normalizedString") return "WString";
+			if(t=="xs:dateTime") return "JDFDate";
+			if(t=="dateTime") return "JDFDate";
+			if(t=="xs:duration") return "JDFDuration";
+			if(t=="duration") return "JDFDuration";
+			if(t=="xs:gYearMonth") return "JDFDate";
+			if(t=="xs:language") return "WString";
+
 			SchemaElement se=GetElement("xs:simpleType").GetChildWithAttribute("xs:restriction","base","","jdftyp:EnumerationBaseType");
 			if(!se.isNull()) 
 				return "enum";
-			
+
 			if(t.empty()){
 				t=GetElement(L"xs:simpleType").GetElement("xs:restriction").GetAttribute("base");
 				if(!t.empty()){
@@ -506,11 +513,11 @@ public:
 				return "enum";
 			if(t=="Orientation") 
 				return "enum";
-			
+
 			if(t=="xs:QName") 
 				return "WString";
-			
-			
+
+
 			if((t=="xs:NMTOKENS") || (t=="NMTOKENS")){
 				WString tokens=GetXPathAttribute("xs:annotation/xs:appinfo/Constraint@Tokens");
 				if(tokens.empty())
@@ -521,12 +528,12 @@ public:
 				return "vWString";
 			if(t.rightStr(7)=="Classes") 
 				return "vWString";
-			
+
 			if(tNoStrip.leftStr(4)=="jdf:")
 				tNoStrip=tNoStrip.rightStr(-4);
 			if(tNoStrip.leftStr(7)=="jdftyp:")
 				tNoStrip=tNoStrip.rightStr(-7);
-			
+
 			SchemaElement se2=GetDocRoot().GetChildWithAttribute("xs:simpleType","name","",tNoStrip);
 			if(!se2.isNull()){
 				WString tt=se2.GetElement("xs:restriction").GetAttribute("base");
@@ -535,9 +542,9 @@ public:
 				}
 			}
 			cout<<"GetCType attribute not found "<<t<<" --> ";//<<*this;
-			
+
 			return "WString";
-			
+
 		}else{ // if bAttrib
 			if(t.empty()){
 				t=GetCTName();
@@ -547,22 +554,22 @@ public:
 				t="Node";
 			if(t=="Shape")
 				t="ShapeElement";
-			
+
 			if(t.endsWith(L"ConstraintsPool"))
 				t="PreflightConstraintsPool";
 
 			if(t.endsWith(L"CommonConstraintPool"))
 				t="PreflightConstraintsPool";
-			
+
 			if(t.endsWith(L"CommonPool"))
 				t="PreflightResultsPool";
 
 			if(t.endsWith(L"ResultsPool"))
 				t="PreflightResultsPool";
-			
+
 			if(t=="ColorsUsed")
 				t="SeparationList";
-			
+
 			if(!thisClass.empty()){
 				if(t==(WString("JDF")+thisClass.rightStr(-7))){
 					t=WString("JDFAuto")+t.rightStr(-3);
@@ -576,11 +583,11 @@ public:
 			}
 			return t;
 		}
-		
+
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString GetAttributeEnumType(){
 		WString t=GetAttribute("type");
 		if(t.leftStr(4)=="jdf:")
@@ -593,8 +600,8 @@ public:
 		}
 
 		SchemaDoc::Escape(t,"-*+","_",-1);
-		
-		
+
+
 		if(t.leftStr(3)=="xs:")
 			t=t.rightStr(-3);
 		if(t.leftStr(3)=="JDF")
@@ -669,7 +676,7 @@ public:
 		t="AttributeType_"+t;
 		return t;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	SchemaElement GetRef(){
 		SchemaElement e;
@@ -687,12 +694,12 @@ public:
 		}
 		return e;
 	}
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString GetBase(){
-		
+
 		WString name=GetCTName();
 		if(name=="BaseElement") return "JDFElement";
 		if(name=="Comment_Type") return "JDFElement";
@@ -704,6 +711,7 @@ public:
 		if(name=="JMF") return "JDFPool";
 		if(name=="CustomerInfo") return "JDFResource";
 		if(name=="NodeInfo") return "JDFResource";
+		if(name=="Preview") return "JDFResource";
 		if(name=="Audit") return "JDFElement";
 		if(name=="Notification") return "JDFAudit";
 		if(name=="PRGroupOccurrence") 
@@ -728,20 +736,20 @@ public:
 		if((name.leftStr(3)=="JDF")&&(name.rightStr(4)=="Node"))
 			return "";
 		if(name.rightStr(13)=="ForcedComment") return "";
-		
+
 		if(name.rightStr(4)=="Pool") {
 			if(name=="ColorPool") 			return"JDFResource";
 			if(name=="TransferCurvePool") 			return"JDFResource";
 			if(name=="PreflightReportRulePool") 			return"JDFResource";
-			
+
 			return "JDFPool";
 		}
 
-		
+
 		WString base=GetElement("xs:complexContent").GetElement("xs:extension").GetAttribute("base");
 		if(base.empty())
 			base=GetElement("xs:complexContent").GetElement("xs:restriction").GetAttribute("base");
-		
+
 		if(base=="jdf:Layout_PlacedObject_lr") 
 			return "JDFElement";
 		if(base.startsWith("jdf:ParameterResource")) 
@@ -762,18 +770,18 @@ public:
 			return "JDFResource";
 		if(base.startsWith("jdf:ResourceElement") )
 			return "JDFElement";
-		
+
 		if(base=="jdf:AuditElement") return "JDFAudit";
 		if(base=="jdf:TransferCurve") return "";
 		if(base=="jdf:Message_")
 			return "JDFMessage";
-		
+
 		if(IsMessage()){
 			vWString vMesTypes=WString("Command Acknowledge Query Signal Response Registration").Tokenize(" ");
 			for(int i=0;i<vMesTypes.size();i++){
 				WString typ=vMesTypes[i];
 				if(name==typ) return "JDFMessage";
-				
+
 			}
 			if(base=="jdf:Command_m") return "JDFCommand";
 			if(base=="jdf:Response_m") return "JDFResponse";
@@ -788,25 +796,25 @@ public:
 			if(base=="jdf:JMFAbstractQuery_") return "JDFQuery";
 			if(base=="jdf:JMFAbstractSignal_") return "JDFSignal";
 			if(base=="jdf:JMFAbstractRegistration_") return "JDFRegistration";
-			
+
 			if(base=="jdf:ResponseBaseType") return "JDFResponse";
 			if(base=="jdf:CommandBaseType") return "JDFCommand";
 			if(base=="jdf:AcknowledgeBaseType") return "JDFAcknowledge";
 			if(base=="jdf:QueryBaseType") return "JDFQuery";
 			if(base=="jdf:SignalBaseType") return "JDFSignal";
 			if(base=="jdf:RegistrationBaseType") return "JDFRegistration";
-			
+
 			return "JDFMessageElement";
-			
+
 		}
-		
-//				cout<<"getbase unknown for "<<name<<endl;
-		
+
+		//				cout<<"getbase unknown for "<<name<<endl;
+
 		return "JDFElement";
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vElement GetAttVector(){
 		vElement v=GetChildrenByTagName("xs:attribute");
 		vElement vv=GetChildrenByTagName("xs:attributeGroup");
@@ -819,6 +827,7 @@ public:
 				continue;
 			v.AppendUnique(e.Group2Atts());
 		}
+
 		WString name=GetCTName();
 		if(name!="Part"){
 			for(int i=v.size()-1;i>=0;i--){
@@ -828,7 +837,7 @@ public:
 					locString=L" Location";
 				if(name!=L"PRGroupOccurrenceBase")
 					locString+=L" PageNumber";
-				if((locString+WString("BlockName DocCopies DocIndex DocRunIndex DocSheetIndex FountainNumber LayerIDs Option PartVersion PreviewType RibbonName Run RunIndex RunTags RunPage Separation SetIndex SheetIndex SheetName Side SignatureName TileID WebName")).HasToken(attName,L" ")){
+				if((locString+WString("Class BlockName DocCopies DocIndex DocRunIndex DocSheetIndex FountainNumber LayerIDs Option PartVersion PreviewType RibbonName Run RunIndex RunTags RunPage Separation SetIndex SheetIndex SheetName Side SignatureName TileID WebName")).HasToken(attName,L" ")){
 					if(name!=L"ScreenSelector")
 						v.erase(v.begin()+i);
 				}
@@ -836,9 +845,9 @@ public:
 		}
 		return v;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vElement Group2Atts(){
 		vElement v;
 		WString ref=GetAttribute("ref");
@@ -847,7 +856,7 @@ public:
 			ref=ref.leftStr(-1);
 		if(ref=="jdf:PartitionAttribs") return v; // handled by JDFPart			
 		if(ref=="jdf:PartResourceAttribs")  return v; // handled by JDFPart			
-		//		if(ref=="jdf:PartitionPartAttribs")  return v; // handled by JDFPart			
+		if(ref=="jdf:PartitionKeysAttribsForPreview")  return v; // handled by JDFPart			
 		if(ref=="jdf:PartPhysicalResourceAttribs")  return v; // handled by JDFPart			
 		if(ref=="jdf:ResourceAttribs")  return v; // handled by JDFPart			
 		if(ref=="jdf:PartResourceAttribs")  return v; // handled by JDFPart			
@@ -862,7 +871,7 @@ public:
 		if(ref=="jdf:PhysicalResourceAttribs")  return v; // handled by JDFPart			
 		if(ref=="jdf:IntentAttribs")  return v; // handled by JDFPart			
 		if(ref=="jdf:ResourcePartAttribs")  return v; // handled by JDFPart			
-		
+
 		ref=refLong;
 		SchemaElement se;
 		if(!ref.empty()){
@@ -884,9 +893,9 @@ public:
 		}
 		return v;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vWString EnumValues(WString name,bool bEscape, bool& bUnknown){
 		bUnknown=false;
 		SchemaElement se=GetElement("xs:simpleType").GetChildWithAttribute("xs:restriction","base","","xs:NMTOKEN");
@@ -925,7 +934,7 @@ public:
 			}
 			se=se2;
 		}
-		
+
 		vElement ve=se.GetChildrenByTagName("xs:enumeration");
 		for(int i=0;i<ve.size();i++){
 			WString s=ve[i].GetAttribute("value");
@@ -940,17 +949,17 @@ public:
 			if(bEscape)
 				SchemaDoc::Escape(s," -*.,","_",-1);
 			v.push_back(s);
-			
+
 		}
 		return v;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString EnumHeader(){
 		WString s;
 		WString cType=GetCType(true);
-		
+
 		WString name=GetCTName();
 		if(cType=="enum"){
 			// Status is in too many places -> code by hand
@@ -977,17 +986,17 @@ public:
 			s+="/**\n* Enumeration for attribute "+name+"\n*/\n";
 			s+="\n	enum Enum"+name+"{"+st+"};\n";
 		}
-		
+
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString AtrValid(){
 		WString cType=GetCType(true);
 		if(cType.empty()) return ""; // flag for skip
 		WString name=GetCTName("");
-		
+
 		WString rName=name;
 		if(rName==L"Attribute")
 			rName=L"AttributeAttribute";
@@ -996,14 +1005,14 @@ public:
 		s+="\t\t\tif(++n>=nMax)\n\t\t\t\treturn vAtts;\n\t\t};\n";
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool IsCore(const WString& in){
 		WString s=in;
 		if((s.leftStr(3)=="JDF")&&(s.size()>3)) 
 			s=s.rightStr(-3);
-		
+
 		if(s.rightStr(4)=="Span") {
 			return true;
 		}
@@ -1066,15 +1075,15 @@ public:
 			return true;
 		if(s.endsWith("ResourceElement")) 
 			return true;		
-		
+
 		return false;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	WString EnumString(const vWString &vs){
 		WString enums;
 		for(unsigned int i=0;i<vs.size();i+=10){
-			
+
 			int jmax=min(i+10u,vs.size());
 			vWString vs2;
 			for(int j=i;j<jmax;j++){
@@ -1089,13 +1098,13 @@ public:
 		}
 		return enums;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
 	SchemaElement GetRootConstraint(WString  thisClass, WString& thisPath){
-		
+
 		thisClass=StripJDF(thisClass);
-		
+
 		if(thisClass=="ApprovalPerson"){
 			thisClass="ApprovalParams";
 			thisPath="ApprovalPerson/"+thisPath;
@@ -1120,23 +1129,23 @@ public:
 		}else if(thisClass=="Icon"){
 			thisClass="Device";
 			thisPath="IconList/Icon/"+thisPath;
-			
+
 		}else if(thisClass=="EndSheet"){
 			thisClass="EndSheetGluingParams";
 			thisPath="EndSheet/"+thisPath;
-			
+
 		}else if(thisClass=="Glue"){
 			thisClass="GluingParams";
 			thisPath="Glue/"+thisPath;
-			
+
 		}else if(thisClass=="Cover"){
 			thisClass="IDPrintingParams";
 			thisPath="Cover/"+thisPath;
-			
+
 		}else if(thisClass=="Signature"){
 			thisClass="Layout";
 			thisPath="Signature/"+thisPath;
-			
+
 		}else if(thisClass=="PageCell"){
 			thisClass="LayoutPreparationParams";
 			thisPath="PageCell/"+thisPath;
@@ -1145,111 +1154,111 @@ public:
 			thisClass="Layout";
 			thisPath="Signature/"+thisPath;
 			*/
-			
+
 		}else if(thisClass=="MarkObject"){
 			thisClass="Surface";
 			thisPath="MarkObject/"+thisPath;
-			
+
 		}else if(thisClass=="PageCell"){
 			thisClass="LayoutPreparationParams";
 			thisPath="PageCell/"+thisPath;
-			
+
 		}else if(thisClass=="ArtDelivery"){
 			thisClass="ArtDeliveryIntent";
 			thisPath="ArtDelivery/"+thisPath;
-			
+
 		}else if(thisClass=="BindList"){
 			thisClass="BindingIntent";
 			thisPath="BindList/"+thisPath;
-			
+
 		}else if(thisClass=="BindItem"){
 			thisClass="BindingIntent";
 			thisPath="BindList/BindItem/"+thisPath;
-			
+
 		}else if(thisClass=="AdhesiveBinding"){
 			thisClass="BindingIntent";
 			thisPath="AdhesiveBinding/"+thisPath;
-			
+
 		}else if(thisClass=="BookCase"){
 			thisClass="BindingIntent";
 			thisPath="BookCase/"+thisPath;
-			
+
 		}else if(thisClass=="ChannelBinding"){
 			thisClass="BindingIntent";
 			thisPath="ChannelBinding/"+thisPath;
-			
+
 		}else if(thisClass=="CoilBinding"){
 			thisClass="BindingIntent";
 			thisPath="CoilBinding/"+thisPath;
-			
+
 		}else if(thisClass=="EdgeGluing"){
 			thisClass="BindingIntent";
 			thisPath="EdgeGluing/"+thisPath;
-			
+
 		}else if(thisClass=="HardCoverBinding"){
 			thisClass="BindingIntent";
 			thisPath="HardCoverBinding/"+thisPath;
-			
+
 		}else if(thisClass=="PlasticCombBinding"){
 			thisClass="BindingIntent";
 			thisPath="PlasticCombBinding/"+thisPath;
-			
+
 		}else if(thisClass=="RingBinding"){
 			thisClass="BindingIntent";
 			thisPath="RingBinding/"+thisPath;
-			
+
 		}else if(thisClass=="SaddleStitching"){
 			thisClass="BindingIntent";
 			thisPath="SaddleStitching/"+thisPath;
-			
+
 		}else if(thisClass=="SoftCoverBinding"){
 			thisClass="BindingIntent";
 			thisPath="SoftCoverBinding/"+thisPath;
-			
+
 		}else if(thisClass=="Tape"){
 			thisClass="BindingIntent";
 			thisPath="Tape/"+thisPath;
-			
+
 		}else if(thisClass=="Tabs"){
 			thisClass="BindingIntent";
 			thisPath="Tabs/"+thisPath;
-			
+
 		}else if(thisClass=="ThreadSewing"){
 			thisClass="BindingIntent";
 			thisPath="ThreadSewing/"+thisPath;
-			
+
 		}else if(thisClass=="WireCombBinding"){
 			thisClass="BindingIntent";
 			thisPath="WireCombBinding/"+thisPath;
-			
+
 		}else if(thisClass=="DropIntent"){
 			thisClass="DeliveryIntent";
 			thisPath="DropIntent/"+thisPath;
-			
+
 		}else if(thisClass=="DropItemIntent"){
 			thisClass="DeliveryIntent";
 			thisPath="DropIntent/DropItemIntent/"+thisPath;
-			
+
 		}else if(thisClass=="Pricing"){
 			thisClass="DeliveryIntent";
 			thisPath="Pricing/"+thisPath;
-			
+
 		}else if(thisClass=="EmbossingItem"){
 			thisClass="EmbossingIntent";
 			thisPath="EmbossingItem/"+thisPath;
-			
+
 		}else if(thisClass=="InsertList"){
 			thisClass="InsertingIntent";
 			thisPath="InsertList/"+thisPath;
-			
+
 		}else if(thisClass=="Insert"){
 			thisClass="InsertingIntent";
 			thisPath="InsertList/Insert/"+thisPath;
-			
+
 		}else if(thisClass=="NumberItem"){
 			thisClass="NumberingIntent";
 			thisPath="NumberItem/"+thisPath;
-			
+
 		}else if(thisClass=="PageData"){
 			thisClass="PageList";
 			thisPath="PageData/"+thisPath;
@@ -1261,31 +1270,31 @@ public:
 		}else if(thisClass=="ProofItem"){
 			thisClass="ProofingIntent";
 			thisPath="ProofItem/"+thisPath;
-			
+
 		}else if(thisClass=="ShapeCut"){
 			thisClass="ShapeCuttingIntent";
 			thisPath="ShapeCut/"+thisPath;
-			
+
 		}else if(thisClass=="PageCell"){
 			thisClass="LayoutPreparationParams";
 			thisPath="PageCell/"+thisPath;	
-		
+
 		}else if(thisClass=="Ancestor"){
 			thisClass="AncestorPool";
 			thisPath="Ancestor/"+thisPath;
 		}
-		
-		
+
+
 		SchemaElement se=GetRoot().GetChildWithAttribute("xs:element","name","",thisClass).GetXPathElement("xs:annotation/xs:appinfo");
-			return se;
+		return se;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	SchemaElement GetPathConstraint(const WString & thisClass, const WString & thisPathIn){
 		WString thisPath=thisPathIn;
 		SchemaElement se=GetRootConstraint(thisClass,thisPath);
 		vElement v=se.GetChildElementVector("Constraint");
-		
+
 		for(int i=0;i<v.size();i++){
 			SchemaElement e=v[i];
 			vWString vpath=e.GetAttribute("Path").Tokenize();
@@ -1294,14 +1303,14 @@ public:
 		}
 		return SchemaElement();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	WString StripJDF(const WString & thisClass)const{
 		if(thisClass.leftStr(7)=="JDFAuto")
 			return thisClass.rightStr(-7);
 		return thisClass;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	WString GetTokens(const WString &def=""){
 		return GetXPathAttribute("xs:annotation/xs:appinfo/Constraint@Tokens",def);
@@ -1325,13 +1334,13 @@ public:
 		}
 		return GetAttribute("minOccurs",WString::emptyStr,def);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	WString GetMaxOccurs(const WString & thisClass, const WString & thisPath, const WString &def="unbounded"){
 		SchemaElement e=GetPathConstraint(thisClass,thisPath);
 		if(!e.isNull())
 			return e.GetAttribute("maxOccurs",WString::emptyStr,def);
-		
+
 		SchemaElement parent=GetDeepParent("xs:sequence");
 		if(!parent.isNull()){
 			WString s=parent.GetAttribute("maxOccurs",WString::emptyStr,"foo");
@@ -1340,25 +1349,25 @@ public:
 		}
 		return GetAttribute("maxOccurs",WString::emptyStr,def);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString GetEnumType(WString enu){
 		vWString vEnu=enu.Tokenize(":");
 		if(vEnu.size()<=1)
 			return "Enum"+enu;
 		return vEnu[0]+"::Enum"+vEnu[1];
-		
+
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString AtrHeader(int iLoop, WString cName){
 		WString s;
 		if((iLoop==0)||(iLoop==2))
 			return s;
 		WString name=GetCTName("");
-		
-		
+
+
 		if(name.empty()) {
 			cout <<"AtrHeader: illegal name in :\n";//<<*this;
 			return "";
@@ -1366,30 +1375,30 @@ public:
 		WString cType=GetCType(true);
 		if(cType.empty()) 
 			return ""; // flag for skip
-		
+
 		WString xmlType=GetAttribute("type");
 		WString def=GetAttribute("default");
 		if(def.empty())
 			WString def=GetAttribute("fixed");
-		
+
 		// ancestor attributes have no defaults!
 		if(cType==L"Ancestor")
 			def="";
-		
+
 		WString defComment;
 		WString reqString="false";
 		WString NSString=",WString::emptyStr";
 		// used for incomplete validation
 		WString rName=name;
-		
+
 		allAtts.AppendUnique(name);
-		
+
 		if(rName==L"Attribute")
 			rName="AttributeAttribute";
 		if(GetUse()=="required")
 			reqString="RequiredLevel(level)";
-		
-		
+
+
 		if(cType=="enum"){
 			WString eType=name;
 			if(name=="EndStatus" || name=="NodeStatus") 
@@ -1408,7 +1417,7 @@ public:
 				eType="Orientation";
 			if(name=="FoldLay") 
 				eType="Orientation";
-			
+
 			if(!def.empty()) {
 				defComment="; defaults to "+def;
 				def=","+eType+"_"+def;
@@ -1418,13 +1427,13 @@ public:
 			if((name=="Type")&&(GetAttribute("type")=="xs:QName")){
 				enumType="eMessage_";
 			}
-			
+
 			if(iLoop==1){
 				bool bDummy;
 				vWString vEnums=EnumValues(enumType,true,bDummy);
 				if(vEnums.size()>1){
 					WString enums=EnumString(vEnums);
-					
+
 					if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="NodeStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
 						s+="/**\n* Enumeration strings for "+name+"\n* @return const WString& comma separated list of enumerated string values \n*/\n";
 						s+="\tstatic const WString& "+name+"String();\n";
@@ -1432,7 +1441,7 @@ public:
 						s+="\tstatic WString "+name+"String(Enum"+name+" value);\n";
 					}
 				}
-				
+
 				s+="/**\n* Set attribute "+name+"\n* @param "+GetEnumType(eType)+" value the value to set the attribute to\n*/\n";
 				s+="\tvirtual void Set"+rName+"( "+GetEnumType(eType)+" value);\n\n";
 				s+="/**\n* Typesafe enumerated attribute "+name+defComment+"\n* @return Enum"+name+"the enumeration value of the attribute\n*/\n";
@@ -1449,7 +1458,7 @@ public:
 
 				if(vEnums.size()>1){
 					WString enums=EnumString(vEnums);
-					
+
 					if((name!="Status" || bDoStatus)&&(name!="EndStatus")&&(name!="NodeStatus")&&(name!="UpdatedStatus")&&(name!="ModuleDrying")&&(eType!="NamedColor")&&(eType!="Orientation"||bDoOrientation)){
 						s+="///////////////////////////////////////////////////////////////////////\n\n";
 						s+="\tconst WString& "+cName+"::"+name+"String(){\n\t\tstatic const WString enums=WString(L\""+enums+"\");\n\t\treturn enums;\n\t};\n\n";
@@ -1457,7 +1466,7 @@ public:
 						s+="\tWString "+cName+"::"+name+"String(Enum"+name+" value){\n\t\treturn "+name+"String().Token(value,WString::comma);\n\t};\n\n";
 					}
 				}
-				
+
 				s+="/////////////////////////////////////////////////////////////////////////\n";
 				s+="\tvoid "+cName+"::Set"+rName+"( "+GetEnumType(eType)+" value){\n\tSetEnumAttribute(atr_"+name+",value,"+eType+"String()"+unknownString+");\n};\n";
 				s+="/////////////////////////////////////////////////////////////////////////\n";
@@ -1468,7 +1477,7 @@ public:
 				}
 				s+="/////////////////////////////////////////////////////////////////////////\n";
 				s+="\tbool "+cName+"::Valid"+rName+"(EnumValidationLevel level) const {\n\t\treturn ValidEnumAttribute(atr_"+name+","+eType+"String(),"+reqString+unknownString+");\n\t};\n";
-				
+
 			}
 		}
 		else if(cType.leftStr(5)=="enums")
@@ -1479,8 +1488,8 @@ public:
 			if(name=="ModuleDrying") 
 				eType="Drying";
 			if(!def.empty()) {
-//				cout << "****************\nattention evil defs in "<<name<<"\n*******************"<<endl;
-//				def="";
+				//				cout << "****************\nattention evil defs in "<<name<<"\n*******************"<<endl;
+				//				def="";
 				defComment="; defaults to "+def;
 				def=",(unsigned int)"+eType+"_"+def;
 				NSString=",WString::emptyStr";
@@ -1489,7 +1498,7 @@ public:
 			if((name=="Type")&&(GetAttribute("type")=="xs:QName")){
 				enumType="eMessage_";
 			}
-			
+
 			if(iLoop==1){
 				vWString vs=WString(cType.rightStr(-6)).Tokenize();
 				WString enums=EnumString(vs);
@@ -1521,7 +1530,7 @@ public:
 					s+="///////////////////////////////////////////////////////////////////////\n\n";
 					s+="\tWString "+cName+"::"+name+"String(Enum"+name+" value){\n\t\treturn "+name+"String().Token(value,WString::comma);\n\t};\n\n";
 				}
-				
+
 				s+="/////////////////////////////////////////////////////////////////////////\n";
 				s+="\tvint "+cName+"::Add"+rName+"( Enum"+eType+" value){\n\treturn AddEnumerationsAttribute(atr_"+name+",value,"+eType+"String());\n};\n";
 				s+="/////////////////////////////////////////////////////////////////////////\n";
@@ -1535,7 +1544,7 @@ public:
 				s+="/**\n* Typesafe attribute validation of "+name+"\n* @param EnumValidationLevel level element validation level \n* @return bool true if valid\n*/\n";
 				s+="/////////////////////////////////////////////////////////////////////////\n";
 				s+="\tbool "+cName+"::Valid"+rName+"(EnumValidationLevel level) const {\n\t\treturn ValidEnumerationsAttribute(atr_"+name+","+eType+"String(),"+reqString+");\n\t};\n";
-				
+
 			}
 		}else{
 			if(!def.empty()) {
@@ -1562,7 +1571,7 @@ public:
 					s+="/**\n* Set attribute "+name+"\n*@param "+cType+" value: the value to set the attribute to\n*/\n";
 					s+="\tvirtual void Set"+rName+"("+cType+" value);\n";
 				}
-				
+
 				if(cType=="int"){
 					s+="/**\n* Get integer attribute "+name+"\n* @return "+cType+" the vaue of the attribute "+defComment+"\n*/\n";
 					if(!def.empty()) def=","+def;
@@ -1591,8 +1600,8 @@ public:
 				}
 				s+="/**\n* Typesafe attribute validation of "+name+"\n* @param EnumValidationLevel level of attribute validation \n* @return bool true if valid\n*/\n";
 				s+="\tvirtual bool Valid"+rName+"(EnumValidationLevel level=ValidationLevel_Complete) const;\n";
-			
-			
+
+
 			}else if(iLoop==3){
 				if(cType.find(WString("Range"))!=cType.npos){
 					s+="/**\n* Set attribute "+name+"\n*@param "+cType+" value: the value to set the attribute to\n*/\n";
@@ -1613,7 +1622,7 @@ public:
 					s+="/**\n* Set attribute "+name+"\n*@param "+cType+" value: the value to set the attribute to\n*/\n";
 					s+="\t void "+cName+"::Set"+rName+"("+cType+" value){\n\tSetAttribute(atr_"+name+",WString::valueOf(value));\n};\n";
 				}
-				
+
 				if(cType=="int"){
 					s+="/**\n* Get integer attribute "+name+"\n* @return "+cType+" the vaue of the attribute "+defComment+"\n*/\n";
 					if(!def.empty()) def=","+def;
@@ -1644,18 +1653,18 @@ public:
 				s+="\tbool "+cName+"::Valid"+rName+"(EnumValidationLevel level) const {\n\t\treturn ValidAttribute(atr_"+name+","+GetAttributeEnumType()+","+reqString+");\n\t};\n";
 			}
 		}
-		
-		
+
+
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString PPHeader(WString thisClass, int iLoop){ // fill preprocessor
 		WString s;
 		WString cType=GetCType(false,thisClass);
-//			cout <<thisClass<<" "<<cType<<"\n"<<*this;
-		
+		//			cout <<thisClass<<" "<<cType<<"\n"<<*this;
+
 		bool bCore=false;
 		if (IsCore(cType)){
 			bCore=true;
@@ -1672,7 +1681,7 @@ public:
 		if(cType.rightStr(4)=="Span") return "";
 		if(cType.leftStr(7)=="JDFSpan") return "";
 		if(cType=="JDFElement") return "";
-		
+
 		if(cType.empty()){
 			cType=GetCType(false);
 			if(cType=="JDFJDF") return "";
@@ -1682,13 +1691,13 @@ public:
 			s+="#include \"jdf/wrapper/"+cType+".h\"\n";
 		}else if(iLoop==1){
 			s+="class "+cType+";\n";
-			
+
 		}
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool IsResource(){
 		if(isNull()) return false;
 		WString type=GetAttribute("type");
@@ -1732,12 +1741,12 @@ public:
 			//			cout<<"part :"<<name<<endl;
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool IsIntent(WString name){
 		if(name.leftStr(7)=="JDFAuto") name=name.leftStr(-7);
 		if(name.leftStr(3)=="JDF") name=name.leftStr(-3);
@@ -1745,7 +1754,7 @@ public:
 		return false;
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool IsMessageElement(){
 		WString base=GetElement("xs:complexContent").GetElement("xs:extension").GetAttribute("base");
 		if(base.empty())
@@ -1765,11 +1774,11 @@ public:
 		if(base=="jdf:AcknowledgeBaseType") return true;
 		if(base=="jdf:QueryBaseType") return true;
 		if(base=="jdf:SignalBaseType") return true;
-		
+
 		return false;
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool IsMessage(){
 		WString type=GetAttribute("type");
 		if(!type.empty()) {
@@ -1796,12 +1805,12 @@ public:
 		if(name=="SignalBaseType") return true; // base  
 		if(name=="RegistrationBaseType") return true; // base  
 		if(name.rightStr(2)=="_m") return true;
-		
+
 		return IsMessageElement();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString ElmHeader(WString thisClass,int iDataTyp, int iLoop){
 		WString s;
 		WString name=GetCTName("");
@@ -1822,9 +1831,9 @@ public:
 		WString cType=GetCType(false,thisClass);
 		if(cType.empty()) 
 			return "";
-		
+
 		WString mo=GetMaxOccurs(thisClass,name);
-		
+
 		if(iLoop==1){ // autoh
 			s+="\n/** Get Element "+name+"\n* \n";
 			allElms.AppendUnique(name);
@@ -1846,13 +1855,13 @@ public:
 				s+="* @param int iSkip number of elements to skip\n";
 				s+="* @return "+cType+" The element\n*/\n";
 				s+="\t"+cType+" GetCreate"+namTyp+"(int iSkip=0);\n\n";
-				
+
 				s+="/**\n* const get element "+name+"\n";
 				s+="* @param int iSkip number of elements to skip\n";
 				s+="* @return "+cType+" The element\n*/\n";
 				s+="\t"+cType+" Get"+namTyp+"(int iSkip=0)const;\n";				
-				
-				
+
+
 				s+="/**\n* Append element "+name+"\n */\n";
 				s+="\t"+cType+" Append"+namTyp+"();\n";
 				if(name=="Part"){ 
@@ -1906,12 +1915,12 @@ public:
 				s+="/////////////////////////////////////////////////////////////////////\n";
 			}
 		}
-		
+
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString ElmValid(WString thisClass){
 		WString name=GetCTName("");
 		if(name.empty()) {
@@ -1920,7 +1929,7 @@ public:
 		}
 		WString cType=GetCType(false,thisClass);
 		if(cType.empty()) return "";
-		
+
 		int iMin=GetMinOccurs(thisClass,name,"0");
 		WString s=GetMaxOccurs(thisClass,name,"unbounded");
 		if(s.empty()){
@@ -1928,7 +1937,7 @@ public:
 				s=GetParentNode().GetAttribute("maxOccurs","","");
 			}
 		}
-		
+
 		bool unbound=(s=="unbounded");
 		int iMax=-1;
 		if(!unbound) {
@@ -1959,11 +1968,11 @@ public:
 			s+="else if(nElem==1){\n\t\t\tif(!Get"+namTyp+"().IsValid(level)) {\n\t\t\t\tvElem.AppendUnique(elm_"+name+");\n\t\t\t\tif (++n>=nMax)\n\t\t\t\t\treturn vElem;\n\t\t\t}\n\t\t}\n";
 		}
 		return s;
-		
+
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool IsAbstract(WString &name){
 		if(IsCore(name)) return true;
 		if(name=="Resource") return true;
@@ -1977,10 +1986,10 @@ public:
 		if(name=="PRGroupOccurrenceBase") 
 			return true;
 		return false;
-		
+
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void LicOpen(WString hName, ofstream &h){
 		unlink(hName.peekBytes());
 		h.open(hName.peekBytes(),ios::out);
@@ -1994,16 +2003,16 @@ public:
 				if(i<=0) break;
 				h.write(b,i);
 			}
-			
+
 		}
-		
+
 		h<<"//EndCopyRight\n";
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	void ToCode(WString schemaFileName){
-		
-		
+
+
 		SchemaElement content=GetElement("xs:complexContent");
 		if(content.isNull()) content=GetElement("xs:simpleContent");
 		SchemaElement extension=content.GetElement("xs:extension");
@@ -2011,18 +2020,18 @@ public:
 			extension=content.GetElement("xs:restriction");
 		if(extension.isNull()) 
 			extension=*this; // for base elements it's inlined
-		
+
 		SchemaElement elmseq=extension.GetElement("xs:sequence");
 		int iDataTyp=0;
 		if(IsMessage()) 
 			iDataTyp=1;
 		WString baseName=GetBase();
 		if(baseName=="JDFAudit") iDataTyp=2; // audits
-		
+
 		WString schemaName=GetCTName();
 		if(schemaName=="Shape") 
 			schemaName="ShapeElement";
-		
+
 		for(int loop=0;loop<4;loop++){
 			WString cName;
 			WString superName;
@@ -2079,12 +2088,12 @@ public:
 					vElm1.push_back(v[i]);
 					if((ref!=L"NotificationList")&&ref!=(L"PhysicalResourceList"))
 						v[i].SetAttribute("maxOccurs","unbounded");
-					
-//					cout<<ref<<" "<<v[i].GetAttribute("name")<<endl;
+
+					//					cout<<ref<<" "<<v[i].GetAttribute("name")<<endl;
 				}
-				
+
 			}
-			
+
 			vElement vElm;
 			// fix for graham
 			for(int ee=0;ee<vElm1.size();ee++){
@@ -2116,13 +2125,13 @@ public:
 					continue;
 				if(elmName==L"ResourceLink")
 					continue;
-				
+
 				if(elmName==L"NotificationDetails"){
 					vElement vvelm=GetRoot().GetChildrenWithAttribute("xs:element","substitutionGroup","","jdf:NotificationDetails");
 					for(int iii=0;iii<vvelm.size();iii++){
 						vElm.push_back(vvelm[iii]);
 					}
-					
+
 					continue;
 				}
 				if(elmName==L"AbstractTerms"){
@@ -2130,7 +2139,7 @@ public:
 					for(int iii=0;iii<vvelm.size();iii++){
 						vElm.push_back(vvelm[iii]);
 					}
-					
+
 					continue;
 				}
 				if(elmName==L"AbstractStates"){
@@ -2138,10 +2147,10 @@ public:
 					for(int iii=0;iii<vvelm.size();iii++){
 						vElm.push_back(vvelm[iii]);
 					}
-					
+
 					continue;
 				}
-				
+
 				if(IsResource()){
 					if((elmName=="Contact")&&(schemaName!="Company")&&(schemaName!="DigitalDeliveryParams")&&(schemaName!="DeliveryParams")&&(schemaName!="ArtDeliveryIntent")&&(schemaName!="DeliveryIntent")&&(schemaName!="ApprovalSuccess")&&(schemaName!="ApprovalPerson"))
 						continue;
@@ -2151,8 +2160,8 @@ public:
 						continue;
 					if((elmName=="IdentificationField")&&((schemaName!="DigitalPrintingParams")&&(schemaName!="MarkObject")))
 						continue;
-				if(elmName=="FoldOperation")
-					continue;
+					if(elmName=="FoldOperation")
+						continue;
 				}
 				if(elmName=="SourceResource")
 					continue;
@@ -2160,7 +2169,7 @@ public:
 					continue;
 				vElm.push_back(se);
 			}
-			
+
 			if(loop>=2){
 				if(loop==2){
 					h<<"#include \"jdf/wrapper/"<<cName<<".h\"\n";
@@ -2211,7 +2220,7 @@ public:
 					h<<"#include \"jdf/wrapper/JDFXYPairState.h\"\n";
 				}
 			}
-			
+
 			if(loop==3){
 				for(int ele=0;ele<vElm.size();ele++){
 					SchemaElement elm=vElm[ele];
@@ -2223,9 +2232,9 @@ public:
 			if((loop==1)&&((cName=="JDFAutoPipeParams")||(cName=="JDFAutoResourceInfo"))){
 				h<<"#include \"jdf/wrapper/JDFResource.h\"\n";
 			}
-			
+
 			h<<"namespace JDF{\n";
-			
+
 			if(loop==1){
 				for(int ele=0;ele<vElm.size();ele++){
 					SchemaElement elm=vElm[ele];
@@ -2235,12 +2244,12 @@ public:
 					h<<"class JDFRefElement;\n";
 				}
 			}
-			
+
 			h<<"/*\n*********************************************************************\n";
 			h<<"class "<<cName<<" : public "<<superName<<"\n\n*********************************************************************\n*/\n";
-			
+
 			if(loop<=1){ // any header
-				
+
 				WString checkName="if(!IsValid(ValidationLevel_Construct)) throw JDFException(L\"Invalid constructor for "+cName+": \"+other.GetNodeName());";
 				if(iDataTyp==1) checkName=""; // don't check audits - yet
 				if(schemaName=="RefElement") checkName="";
@@ -2261,10 +2270,10 @@ public:
 			}
 			if(loop==1){
 				h<<"public:\n";
-				
+
 				// h<<"\n/**\n* typesafe validator\n* @param EnumValidationLevel level validation level\n* @return bool true if this is valid\n*/";
 				// h<<"\n\tvirtual bool IsValid(EnumValidationLevel level=ValidationLevel_Complete)const;\n";
-				
+
 				h<<"\n/**\n* typesafe validator utility\n* @param EnumValidationLevel level validation level\n* @param bool bIgnorePrivate ignore objects in foreign namespaces\n* @param int nMax size of the returned vector\n* @return vWString vector of invalid attribute names\n*/";
 				h<<"\n\tvirtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;\n";
 				if(vElm.size()>0){
@@ -2278,12 +2287,12 @@ public:
 					h<<"/** \n * Typesafe initialization\n * @return true if succcessful\n*/\n";
 					h<<"virtual bool init();\n\n";
 				}
-				
+
 				if(!IsAbstract(schemaName)){
 					h<<"\n/**\n* Checks if the node is abstract, i.e. is not completely described\n* utility used by GetUnknownElements, GetUnknownAttributes\n* @return boolean: true, if the node is abstract\n*/\n";
 					h<<"\tvirtual bool IsAbstract()const;\n\n";
 				}
-				
+
 				WString reqAtts="\tvirtual WString RequiredAttributes()const;\n";
 				WString optAtts="\tvirtual WString OptionalAttributes()const;\n";
 				WString unqElms="\tvirtual WString UniqueElements()const;\n";
@@ -2297,7 +2306,7 @@ public:
 					h<<"/** \n * Typesafe initialization\n * @return true if succcessful\n*/\n";
 					h<<"virtual bool init();\n\n";
 				}
-				
+
 				int ireqatts=0;
 				int ioptatts=0;
 				int att;
@@ -2309,23 +2318,23 @@ public:
 					}else{
 						ioptatts++;
 					}
-					
+
 				}
-				
+
 				if(ireqatts) 
 					h<<"\n/**\n * definition of required attributes in the JDF namespace\n*/\n"<<reqAtts;
 				if(ioptatts) 
 					h<<"\n/**\n * definition of optional attributes in the JDF namespace\n*/\n"<<optAtts<<"\n";
-				
+
 				for(att=0;att<vAtts.size();att++){
 					SchemaElement atr=vAtts[att];
 					h<<atr.AtrHeader(1,cName);
 				}
-				
-				
+
+
 				h<<"\n/* ******************************************************\n// Element Getter / Setter\n**************************************************************** */\n\n";
-				
-				
+
+
 				vWString vDone;
 				vDone.clear();
 				int iunqelms=0;
@@ -2337,7 +2346,7 @@ public:
 					if (vDone.hasString(elmName)) 
 						continue;
 					vDone.push_back(elmName);
-					
+
 					h<<elm.ElmHeader(cName,iDataTyp,loop);
 					if(elm.GetMaxOccurs(cName,elmName,"unbounded")=="1"){
 						iunqelms++;
@@ -2347,12 +2356,12 @@ public:
 					}else{
 						ioptelms++;
 					}
-					
+
 				}
-				
+
 				//				isValid+="\t\tif(HasUnknownAttributes(KnownAttributes().Tokenize(WString::comma),WString(L\":JDF\").Tokenize(L\":\"))) return false;\n";
-				
-				
+
+
 				if(iunqelms) 
 					h<<"\n/**\n definition of unique elements in the JDF namespace\n*/\n"<<unqElms;
 				if(ireqelms) 
@@ -2360,8 +2369,8 @@ public:
 				if(ioptelms) 
 					h<<"\n/**\n definition of optional elements in the JDF namespace\n*/\n"<<optElms;
 			}
-			
-			
+
+
 			if((loop==3)){
 				WString checkName="\tif(!IsValid(ValidationLevel_Construct))\n\t\tthrow JDFException(L\"Invalid constructor for "+cName+": \"+other.GetNodeName());\n";
 				if(iDataTyp==1) 
@@ -2369,21 +2378,21 @@ public:
 				if(schemaName=="RefElement") 
 					checkName="";
 				h<<"/**\n* copy equivalance operator\n*/\n"<<cName<<"& "<<cName<<"::operator=(const KElement& other){\n\tKElement::operator=(other);\n"+checkName+"\treturn *this;\n};\n";
-				
+
 				WString isValid;
 				isValid+="\n/**\n typesafe validator\n*/\n\tvWString "+cName+"::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {\n";
 				isValid+="\t\tvWString vAtts="+superName+"::GetInvalidAttributes(level,bIgnorePrivate,nMax);\n";
 				isValid+="\t\tint n=vAtts.size();\n\t\tif(n>=nMax)\n\t\t\treturn vAtts;\n";
-				
-				
+
+
 				if(!IsAbstract(schemaName)){
 					h<<"\n/////////////////////////////////////////////////////\n";
 					h<<"\tbool "+cName+"::IsAbstract()const{\n\t\treturn false;\n\t}\n";
 				}
-				
-				
+
+
 				vElement vAtts=extension.GetAttVector();
-				
+
 				if(!IsMessageElement()){
 					h<<"\n/**\n* typesafe validator utility - list of valid node names for this class \n * @return WString& comma separated list of valid node names\n */\n";
 					if(schemaName=="PlacedObject"){
@@ -2405,14 +2414,14 @@ public:
 						if(it==classMap.end()){
 							cout <<"missing class for "<<cName<<endl;
 						}else{
-							
+
 							getClass+="\treturn GetClass()=="+it->second()+";\n};\n\n";
 							h<<getClass;
 							h<<"bool "+cName+"::init(){\n";
 							h<<"\tbool bRet="+superName+"::init();\n";
 							h<<"\tSetClass("+it->second()+");\n";
 							h<<"\treturn bRet;\n};\n";
-							
+
 						}				
 					}
 				}else{
@@ -2423,7 +2432,7 @@ public:
 					}
 					h<<"\treturn bRet;\n};\n";
 				}
-				
+
 				WString reqAtts="\tWString "+cName+"::RequiredAttributes()const{\n\t\treturn "+superName+"::RequiredAttributes()+L\"";
 				WString optAtts="\tWString "+cName+"::OptionalAttributes()const{\n\t\treturn "+superName+"::OptionalAttributes()+WString(L\"";
 				WString unqElms="\tWString "+cName+"::UniqueElements()const{\n\t\treturn "+superName+"::UniqueElements()+L\"";
@@ -2435,7 +2444,7 @@ public:
 				int att;
 				for(att=0;att<vAtts.size();att++){
 					SchemaElement atr=vAtts[att];
-//					if((atr.GetUse()=="required")||(atr.HasAttribute("fixed"))){
+					//					if((atr.GetUse()=="required")||(atr.HasAttribute("fixed"))){
 					if(atr.GetUse()=="required"){
 						reqAtts+=","+atr.GetCTName("");
 						ireqatts++;
@@ -2446,34 +2455,34 @@ public:
 							optAtts+=L"\")\n\t+WString(L\"";
 						}
 					}
-					
+
 				}
-				
+
 				if(ireqatts) h<<"\n/**\n definition of required attributes in the JDF namespace\n*/\n"<<reqAtts+"\";\n};\n";
 				if(ioptatts) h<<"\n/**\n definition of optional attributes in the JDF namespace\n*/\n"<<optAtts+"\");\n};\n";
-				
-				
-				
+
+
+
 				for( att=0;att<vAtts.size();att++){
 					SchemaElement atr=vAtts[att];
 					isValid+=atr.AtrValid();
 				}
-				
+
 				isValid+="\t\treturn vAtts;\n\t};\n\n";
-				
+
 				h<<isValid;
-				
+
 				for(att=0;att<vAtts.size();att++){
 					SchemaElement atr=vAtts[att];
 					h<<atr.AtrHeader(3,cName);
 				}
-				
+
 				int ele;
 				vWString vDone;
 				isValid="";
 				if(vElm.size()>0){
 					h<<"\n/* ******************************************************\n// Element Getter / Setter\n**************************************************************** */\n\n";
-					
+
 					isValid="\n/**\n typesafe validator\n*/\n\tvWString "+cName+"::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{\n";
 					isValid+="\t\tint nElem=0;\n\t\tint i=0;\n\t\tvWString vElem="+superName+"::GetInvalidElements(level, bIgnorePrivate, nMax);\n";
 					isValid+="\t\tint n=vElem.size();\n";
@@ -2484,28 +2493,28 @@ public:
 						WString elmName=elm.GetCTName("");
 						if (vDone.hasString(elmName)) 
 							continue;
-						
+
 						vDone.push_back(elmName);
-						
+
 						h<<elm.ElmHeader(cName,iDataTyp,loop);
-						
+
 						if(!elmName.endsWith("State")&&IsAbstract(elmName))
 							continue;
 
 						isValid+=elm.ElmValid(cName);
-						
+
 					}
-					
+
 					//				isValid+="\t\tif(HasUnknownAttributes(KnownAttributes().Tokenize(WString::comma),WString(L\":JDF\").Tokenize(L\":\"))) return false;\n";
-					
+
 					//					isValid+="\t\tif(level>=ValidationLevel_Complete)vElem.AppendUnique(GetMissingElements(nMax));\n";
 					//					if(!IsAbstract(schemaName)) isValid+="\t\tvElem.AppendUnique(GetUnknownElements(bIgnorePrivate,nMax));\n";
 					isValid+="\t\treturn vElem;\n\t};\n\n";
 				}				
-				
+
 				h<<isValid;
-				
-				
+
+
 				vDone.clear();
 				int iunqelms=0;
 				int ireqelms=0;
@@ -2527,15 +2536,15 @@ public:
 						optElms+=","+elm.GetCTName("",true,true);
 						ioptelms++;
 					}
-					
+
 				}
 				if(iunqelms) h<<"\n/**\n definition of required elements in the JDF namespace\n*/\n"<<unqElms+"\";\n\t};\n";
 				if(ireqelms) h<<"\n/**\n definition of required elements in the JDF namespace\n*/\n"<<reqElms+"\";\n\t};\n";
 				if(ioptelms) h<<"\n/**\n definition of optional elements in the JDF namespace\n*/\n"<<optElms+"\";\n\t};\n";
 			}
-			
-			
-			
+
+
+
 			if(loop<=1){
 				h<<"}; // end" <<cName<<"\n\n// ******************************************************\n";
 			}
@@ -2545,9 +2554,9 @@ public:
 			}
 			h.close();
 		}
-		
+
 	};
-	
+
 	///////////////////////////////////////////////////////////////////////
 	vWString ToEnumerationSpan(){
 		vWString v;
@@ -2556,9 +2565,9 @@ public:
 		v.push_back(cName);
 		WString superName="JDFEnumerationSpan";
 		WString checkName="if(!IsValid(ValidationLevel_Construct)) throw JDFException(L\"Invalid constructor for "+cName+": \"+other.GetNodeName());";
-		
+
 		vWString vTokens;
-		
+
 		WString tokens;
 		s+"/**\n* EnumerationSpan class "+cName+"\n*/\n";
 		s+="class JDFTOOLS_EXPORT "+cName+" : public "+superName+"{\npublic:\n";
@@ -2567,12 +2576,12 @@ public:
 		s+="/**\n* copy ctor\n*/\n\tinline "+cName+"(const KElement & other):"+superName+"(){\n\t*this=other;\n};\n";
 		s+="/**\n* copy equivalance operator\n*/\n\tinline "+cName+" &operator =(const KElement& other){KElement::operator=(other);"+checkName+" return *this;};\n";
 		s+="/**\n* dtor\n*/\n\tvirtual ~"+cName+"(){};\n";
-		
-		
+
+
 		if((cName=="JDFSpanNamedColor")||(cName=="Orientation")||(cName=="JDFSpanHoleType")){
 			// nop - take what we have
 		}else{
-//			vTokens.push_back("Unknown");
+			//			vTokens.push_back("Unknown");
 			bool bDummy;
 			vWString vTokenss=EnumValues(cName.rightStr(-7),true,bDummy);
 			vTokens.insert(vTokens.end(),vTokenss.begin(),vTokenss.end());
@@ -2581,13 +2590,13 @@ public:
 			tokens.SetvString(vTokens,","+name+"_",name+"_");
 			s+="enum Enum"+name+"{"+tokens+"};\n\n";
 		}
-		
-		
+
+
 		s+="public:\n/**\n* Returns the list of valid strings\n*/\n";
 		s+="\t virtual WString AllowedValues()const;\n};\n\n";
 		s+="///////////////////////////////////////////////////////////////\n\n";
 		v.push_back(s);
-		
+
 		s="\n\n///////////////////////////////////////////////////////////////\n";
 		s+="\t WString "+cName+"::AllowedValues()const{\n";
 		if(cName=="JDFSpanNamedColor"){
@@ -2600,9 +2609,9 @@ public:
 		}
 		s+="\t}\n";
 		v.push_back(s);
-		
+
 		return v;
-		
+
 	}
 	///////////////////////////////////////////////////////////////////////
 };
@@ -2610,7 +2619,7 @@ public:
 ///////////////////////////////////////////////////////////////////////
 
 int main(int argC, char* argV[]){
-	
+
 	// Initialize the JDFTools system
 	try	{
 		JDF::PlatformUtils::Initialize();
@@ -2621,17 +2630,17 @@ int main(int argC, char* argV[]){
 	MyArgs args(argC,argV,"psf","c");
 	WString fn=args.Argument();
 	WString classString=args.ParameterString('c').c_str();
-    // Watch for special case help request
+	// Watch for special case help request
 	WString usage="JDFSchema <arg>\nschema .xsd file is input argument\n";
 	usage+="-c<class> class to generate\n";
 	usage+="-p generate processes\n";
 	usage+="-s strip the schema\n";
 	usage+="-f ???\n";
-    if ((argC>1)&&(strcmp(argV[1], "-?") == 0)){
+	if ((argC>1)&&(strcmp(argV[1], "-?") == 0)){
 		std::cerr<< args.Usage(usage).c_str();
-        return 0;
-    }
-	
+		return 0;
+	}
+
 	SchemaDoc doc;
 	if(fn.empty()){
 		doc.Parse("JDFCore.xsd",false,true);
@@ -2645,10 +2654,10 @@ int main(int argC, char* argV[]){
 		doc.MergeDoc(d2);
 		d2.Parse("JDFCapability.xsd",false,true);
 		doc.MergeDoc(d2);
-		
+
 	}else{
-	doc.Parse(fn,false,true);
-	doc.schemaFileName=fn;
+		doc.Parse(fn,false,true);
+		doc.schemaFileName=fn;
 	}
 
 #if 1	
@@ -2672,7 +2681,7 @@ int main(int argC, char* argV[]){
 	XMLIndent(2,true);
 	doc.Write2File("outSchema.doc");
 #endif
-	
+
 	return 0;
 }
 
@@ -2683,7 +2692,7 @@ void SchemaDoc::MergeRes(const WString &name,WString nameNoStrip){
 		nameNoStrip=nameNoStrip.rightStr(-7);		
 		//			cout<<"generic 2 "<<nameNoStrip<<endl;
 	}
-	
+
 	vWString vExt=WString("_lr __ _re _r _rp BaseType").Tokenize();
 	SchemaElement content=se.GetElement("xs:complexContent");
 	SchemaElement extension=content.GetElement("xs:extension");
@@ -2694,11 +2703,11 @@ void SchemaDoc::MergeRes(const WString &name,WString nameNoStrip){
 	//	cout<<extension;
 	vElement vAtts=extension.GetAttVector();
 	for(int i=0;i<vExt.size();i++){
-		
+
 		if(name+vExt[i]==nameNoStrip){
 			continue;
 		}
-		
+
 		SchemaElement se_=GetRoot().GetChildWithAttribute("xs:complexType","name","",name+vExt[i],0,false);
 		if(se.isNull()) 
 			continue;
@@ -2726,7 +2735,7 @@ void SchemaDoc::MergeRes(const WString &name,WString nameNoStrip){
 				vElm.AppendUnique(vElm_[i1]);
 			}
 		}
-		
+
 		vElement vAtts_=extension_.GetAttVector();
 		for(i1=0;i1<vAtts_.size();i1++){
 			WString name=vAtts_[i1].GetAttribute("name");
@@ -2745,9 +2754,9 @@ void SchemaDoc::MergeRes(const WString &name,WString nameNoStrip){
 				vAtts.AppendUnique(vAtts_[i1]);
 			}
 		}
-		
+
 	}
-	
+
 }
 //////////////////////////////////////////////////////////////////////
 
@@ -2756,15 +2765,15 @@ int SchemaDoc::Strip(){
 	vElement inAtts=GetRoot().GetChildrenByTagName("xs:attribute", WString::emptyStr, mAttribute(),false);
 	for(i=0;i<inAtts.size();i++){
 		inAtts[i].RemoveAttribute("jdfP:use");
-		
+
 	}
 	inAtts=GetRoot().GetChildrenByTagName("xs:element", WString::emptyStr, mAttribute(),false);
 	for(i=0;i<inAtts.size();i++){
 		inAtts[i].RemoveAttribute("jdfP:Tokens");
 	}
-	
+
 	return 0;	
-	
+
 }
 //////////////////////////////////////////////////////////////////////
 
@@ -2783,7 +2792,7 @@ int SchemaDoc::MoveJDF(SchemaDoc inDoc){
 			myAtts[j].CopyAttribute("jdfP:use",inAtts[i]);
 			myAtts[j].SetAttribute("use","optional");
 		}
-		
+
 	}
 	inAtts=inDoc.GetRoot().GetChildrenByTagName("xs:element", WString::emptyStr, mAttribute(),false);
 	for(i=0;i<inAtts.size();i++){
@@ -2798,9 +2807,9 @@ int SchemaDoc::MoveJDF(SchemaDoc inDoc){
 				myAtts[j].CopyAttribute("jdfP:Tokens",inAtts[i]);
 			}
 		}
-		
+
 	}
-	
+
 	return 0;	
 }
 
@@ -2813,7 +2822,7 @@ int SchemaDoc::ToProcCode2(const WString & typeName,vWString vName,vWString vInf
 	typeNames+=L",Type_"+typeName;
 	if(!(n%10)){
 		typeNameString+="\")\n+WString(L\"";
-	cout<<typeNames<<endl<<endl;
+		cout<<typeNames<<endl<<endl;
 	}
 	typeNameString+=L","+typeName;
 	linkNames+=L"case Type_"+typeName+":{\n\t\treturn GenericLinkNames()+L\""+vName.GetString(",",",")+"\";\nbreak;\n};\n";
@@ -2827,11 +2836,11 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 	WString procType=schemaName.rightStr(-4);
 	//	cout<<"if(typ==L\""<<procType<<"\")\nreturn new JDFNode"<<procType<<"(part);\n"<<endl;
 	cout<<procType<<",";
-	
+
 	WString baseName="JDFNode";
 	if(schemaName=="NodeProduct")
 		baseName="JDFNodeProcessGroup";
-	
+
 	for(int loop=0;loop<4;loop++){
 		WString cName;
 		WString superName;
@@ -2864,7 +2873,7 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 		if(loop==2) hName="C/"+hName;
 		if(loop==3) hName="AutoC/"+hName;
 		ofstream h;
-		
+
 		SchemaElement().LicOpen(hName,h);			
 		h<<"\n\n";
 		WString saver="_"+cName+"_H_";
@@ -2878,7 +2887,7 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 			h<<"#if !defined "<<saver<<"\n#define "<<saver<<"\n#if _MSC_VER >= 1000\n#pragma once\n#endif // _MSC_VER >= 1000\n\n";
 			h<<"#include \""<<superPath<<superName<<".h\"\n";
 		}
-		
+
 		if(loop==3){
 			h<<"#include \""<<superPath<<"JDFResourceLink.h\"\n";
 			for(int ele=0;ele<vName.size();ele++){
@@ -2898,11 +2907,11 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 		}
 		h<<"/*\n*********************************************************************\n";
 		h<<"class "<<cName<<" : public "<<superName<<"\n\n*********************************************************************\n*/\n";
-		
-		
-		
+
+
+
 		if(loop<=1){ // any header
-			
+
 			WString checkName="if(!IsValid(ValidationLevel_Construct)) throw JDFException(L\"Invalid constructor for "+cName+": \"+other.GetNodeName());";
 			if(loop==1){
 				h<<"/**\n* automatically generated header for "<<cName<<" class\n* \n* Warning! Do not edit! This file may be regenerated\n* The child Class: @see "<<cName.leftStr(3)+cName.rightStr(-7)<<" should be edited instead\n*/\n";
@@ -2921,15 +2930,15 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 			if(loop==1){
 				h<<"public:\n";
 			}
-			
+
 		}
-		
-		
+
+
 		if(loop==1){
-			
-			
+
+
 			h<<"\n/* ******************************************************\n// Resource (Link) Getter / Setter\n**************************************************************** */\n\n";
-			
+
 			h<<"\n/**\n * definition of resource link names in the JDF namespace\n";
 			h<<" * @return WString list of resource names that may be linked\n*/\n";
 			h<<"\tvirtual WString LinkNames()const;\n";
@@ -2940,12 +2949,12 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 			h<<"virtual int GetLinksLength()const;\n";
 			h<<"/**\n * Node types to initialize the node\n * @return WString the string of valid node types\n */\n";
 			h<<"virtual WString TypeString()const;\n\n";
-			
+
 			for(int nu=0;nu<vName.size();nu++){
 				WString nam=vName[nu];
 				if(nam==L"*")
 					continue;
-				
+
 				int maxLinks=0;
 				vWString namProcs=WString("Unknown AnyInput AnyOutput Any").Tokenize();
 				bool hasInput=false;
@@ -2966,20 +2975,20 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 					}
 				}
 				bool bHasEnum=ioFlag>2;
-				
-				
+
+
 				h<<"/* Resource Link "<<nam<<" */\n";
-				
+
 				WString eType="EnumProcessUsage";
-				
+
 				if(namProcs.size()>4){
 					hasPU=true;
 					eType="Enum"+nam+"ProcessUsage";
 					h<<"/**\n* Enumeration for accessing typesafe "<<nam<<"\n*/\n";
 					h<<"enum "+eType+"{"+namProcs.GetString(","+nam+L"ProcessUsage_",nam+L"ProcessUsage_")+"};\n";
-					
+
 				}
-				
+
 				WString headerGet="/**\n* TypeSafe Resource getter for "+nam+"\n";
 				headerGet+="* @param "+eType+" usage process usage of the link to get\n";
 				WString headerGetLink="/**\n* TypeSafe ResourceLink getter for "+nam+"\n";
@@ -2990,23 +2999,23 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 				headerApp+="* @param "+eType+" usage process usage of the link to append\n";
 				WString headerLink="/**\n* TypeSafe Resource Link for "+nam+"\n";
 				headerLink+="* @param "+eType+" usage process usage of the link to append\n";
-				
+
 				if(nMax>1){
 					headerGetLink+="* @param int iSkip number of matching links to skip\n";
 					headerGet+="* @param int iSkip number of matching links to skip\n";
 					headerRem+="* @param int iSkip number of matching links to skip\n";
 				}
-				
+
 				headerRem+="* @param bool bRemoveResource remove the resource if it is legal to do so\n";
 				headerApp+="* @param JDFNode resourceRoot the node where the resource should be stored\n";
 				headerLink+="* @param JDF"+nam+" resource the resource to link to\n";
-				
+
 				headerGet+="* @return JDF"+nam+" the resource that is linked by this\n*/\n";
 				headerGetLink+="* @return JDFResourceLink the resource link that defined by this\n*/\n";
 				headerRem+="* @return bool true if successful\n*/\n";
 				headerApp+="* @return JDF"+nam+"the appended resource\n*/\n";
 				headerLink+="* @return JDFResource the newly created resource link null if unsuccessful\n*/\n";
-				
+
 				WString eTypeUse=eType;
 				if(bHasEnum){
 					eTypeUse+=L" usage";
@@ -3026,23 +3035,23 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 				headerApp+=", const JDFNode &resourceRoot=JDFNode());\n";
 				headerLink +="JDFResourceLink Link"+nam+"(const JDF"+nam+"& resource,"+eTypeUse;
 				headerLink +=", const mAttribute &partMap=::emptyMap);\n";
-				
+
 				if(nMax>1){
 					headerGet+=", int iSkip=0";
 					headerGetLink+=", int iSkip=0";
 					headerRem+=", int iSkip=0";
 				}
-				
+
 				headerGet+=")const;\n";
 				headerGetLink+=")const;\n";
 				headerRem+=");\n";
-				
+
 				h<<headerGet;
 				h<<headerGetLink;
 				h<<headerApp;
 				h<<headerRem;
 				h<<headerLink;
-				
+
 				h<<"/**\n* TypeSafe Resource Check for "+nam+"\n*/\n";
 				h<<"inline bool Has"+nam+"("+eTypeUse+"){\n";
 				h<<"\treturn NumMatchingLinks(GetGenericLinksLength()+"+WString::valueOf(nu)+",false,(int)usage)>0;\n};\n";
@@ -3051,10 +3060,10 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 				h<<"\treturn NumMatchingLinks(GetGenericLinksLength()+"+WString::valueOf(nu)+",false,(int)usage);\n};\n";
 			}
 		}
-		
-		
+
+
 		if(loop==3){
-			
+
 			h<<"\tWString "+cName+L"::LinkNames()const{\n\t\treturn "+superName+L"::LinkNames()+L\""+vName.GetString(",",",")+"\";\n};\n";
 			h<<"\n/////////////////////////////////////////////////////////////////////////\n\n";
 			h<<"\tWString "+cName+L"::LinkInfo()const{\n\t\treturn "+superName+L"::LinkInfo()+L\""+vInfo.GetString(",",",")+"\";\n};\n";
@@ -3063,12 +3072,12 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 			h<<"\n/////////////////////////////////////////////////////////////////////////\n\n";
 			h<<" WString "+cName+L"::TypeString()const{\n\treturn L\""+procType+"\";\n};\n";
 			h<<"\n/////////////////////////////////////////////////////////////////////////\n\n";
-			
+
 			for(int nu=0;nu<vName.size();nu++){
 				WString nam=vName[nu];
 				if(nam==L"*")
 					continue;
-				
+
 				int maxLinks=0;
 				vWString namProcs=WString("Unknown AnyInput AnyOutput Any").Tokenize();
 				bool hasInput=false;
@@ -3089,12 +3098,12 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 					}
 				}
 				bool bHasEnum=ioFlag>2;
-				
-				
+
+
 				h<<"/* Resource Link "<<nam<<" */\n";
-				
+
 				WString eType="EnumProcessUsage";
-				
+
 				if(namProcs.size()>4){
 					hasPU=true;
 					eType="Enum"+nam+"ProcessUsage";
@@ -3104,16 +3113,16 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 				WString headerRem="/////////////////////////////////////////////////////////\n\n";
 				WString headerApp="/////////////////////////////////////////////////////////\n\n";
 				WString headerLink="/////////////////////////////////////////////////////////\n\n";
-				
+
 				WString eTypeUse=eType;
 				eTypeUse+=L" usage";
-				
+
 				headerGet +="JDF"+nam+" "+cName+"::Get"+nam+"("+eTypeUse+", const mAttribute &partMap";
 				headerGetLink +="JDFResourceLink "+cName+"::Get"+nam+"Link("+eTypeUse;
 				headerRem +="bool "+cName+"::Remove"+nam+"("+eTypeUse+", bool bRemoveResource";
 				headerApp +="JDF"+nam+" "+cName+"::Append"+nam+"("+eTypeUse+", const JDFNode &resourceRoot";
 				headerLink +="JDFResourceLink "+cName+"::Link"+nam+"(const JDF"+nam+"& resource, "+eTypeUse;
-				
+
 				if(nMax>1){
 					headerGet+=", int iSkip";
 					headerGetLink+=", int iSkip";
@@ -3132,7 +3141,7 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 				}else{
 					headerGet+=",0";
 				}
-				
+
 				headerGet+=");\n};\n";
 				headerGetLink+=");\n};\n";
 				headerRem+=");\n};\n";
@@ -3146,9 +3155,9 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 				h<<"\n////////////////////////////////////////////////////////////////////////\n";
 			}
 		}
-		
-		
-		
+
+
+
 		if(loop<=1){
 			h<<"}; // end" <<cName<<"\n\n// ******************************************************\n";
 		}
@@ -3157,8 +3166,8 @@ int SchemaDoc::ToProcCode(const WString & schemaName,vWString vName,vWString vIn
 			h<<"#endif //"<<saver<<endl;
 		}
 		h.close();
-		
-		
+
+
 	}
 	return 0;
 }
@@ -3170,7 +3179,7 @@ int SchemaDoc::MakeCProc(){
 	vWString doneList;
 	vWString names;
 	vElement vPools;
-	
+
 	typeNames = "enum EnumType{Type_Unknown"; 
 	typeNameString = "const WString TypeString(){\nWString s=L\"Type_Unknown" ;
 	linkNames = "WString JDFNode::LinkNames(EnumType typeNum){\nswitch(typeNum):\n{\n"; 
@@ -3180,12 +3189,12 @@ int SchemaDoc::MakeCProc(){
 		SchemaElement seProc=e[i];
 		if (e[i].GetXPathAttribute("xs:complexContent/xs:extension@base")!="jdf:JDFAbstractNode")
 			continue;
-		
+
 		WString name=seProc.GetCTName("",true);
 		cout<<name<<endl;
-		
+
 		//		if(name!=L"PreviewGeneration")			continue;
-		
+
 		names.push_back(name);
 		vWString vName;
 		vWString vInfo;
@@ -3200,12 +3209,12 @@ int SchemaDoc::MakeCProc(){
 
 		vElement vE=se.GetXPathElement("xs:complexContent/xs:extension/xs:sequence").GetChildElementVector("xs:element");
 		vElement vAppInfo=r.GetChildWithAttribute("xs:complexType","name","",name).GetXPathElement("xs:annotation/xs:appinfo").GetChildElementVector("Constraint");
-//		cout<<r.GetChildWithAttribute("xs:complexType","name","",name)<<endl;
+		//		cout<<r.GetChildWithAttribute("xs:complexType","name","",name)<<endl;
 		vWString vResName;
 		vWString vResTyp;
 		if(vE.size()==1){
 			SchemaElement s=vE[0];
-			
+
 			WString resName=s.GetAttribute("name");
 			if(resName.empty()&&s.GetAttribute("ref")=="jdf:ResourceLink"){
 				for(int jj=vAppInfo.size()-1;jj>=0;jj--){
@@ -3217,20 +3226,20 @@ int SchemaDoc::MakeCProc(){
 						if(constraint.GetAttribute("Usage")=="Input")
 							continue;
 					}
-					
+
 					vResName.AppendUnique(resName2);
-										vResTyp.push_back("ResourceLink");
-					
+					vResTyp.push_back("ResourceLink");
+
 				}
-				
+
 			}
-			
-			
+
+
 		}else{
 			for(int j=0;j<vE.size();j++){
 				SchemaElement s=vE[j];
 				WString resName=s.GetAttribute("name");
-				
+
 				if(resName.empty()){
 					resName=s.GetAttribute("ref");
 					if(resName=="jdf:ResourceLink"){
@@ -3242,18 +3251,18 @@ int SchemaDoc::MakeCProc(){
 
 				if(resName.empty()&&s.GetAttribute("ref")=="jdf:ResourceLink")
 					resName="*";
-				
-				
+
+
 				vResName.push_back(resName);
 				vResTyp.push_back(s.GetAttribute("type"));
 			}
 		}
-		
+
 		for(int j=0;j<vResName.size();j++){
 			vWString vType;
 			WString resName=vResName[j];
-			
-			
+
+
 			bool hasConstraint=false;
 			for(int jj=vAppInfo.size()-1;jj>=0;jj--){
 				SchemaElement constraint=vAppInfo[jj];
@@ -3261,7 +3270,7 @@ int SchemaDoc::MakeCProc(){
 				WString resName2=constraint.GetAttribute("Path");
 				if(resName2!="ResourceLinkPool/"+resName)
 					continue;
-				
+
 				hasConstraint=true;
 				WString myType=(constraint.GetAttribute("Usage")=="Input")?"i":"o";
 				WString mino=constraint.GetAttribute("minOccurs","",0);
@@ -3304,10 +3313,10 @@ int SchemaDoc::MakeCProc(){
 					cout <<endl << "No constraint for node "<<name<<" link: "<<resName<<endl;
 					vInfo.push_back("i? o?");
 				}
-				
+
 			}
 		}
-		
+
 		if(vAppInfo.size()){
 			for(int i=0;i<vAppInfo.size();i++){
 				SchemaElement constraint=vAppInfo[i];
@@ -3318,14 +3327,14 @@ int SchemaDoc::MakeCProc(){
 				//				cout<<"--> "<<vAppInfo[i]<<endl;
 			}
 		}
-//		ToProcCode("Node"+name,vName,vInfo,schemaFileName);
+		//		ToProcCode("Node"+name,vName,vInfo,schemaFileName);
 		ToProcCode2(name,vName,vInfo,schemaFileName);
 	}
-		linkNames+="}\n return GenericLinkNames();\n}\n";
-		linkInfo+="}\n return GenericLinkInfo();\n}\n";
+	linkNames+="}\n return GenericLinkNames();\n}\n";
+	linkInfo+="}\n return GenericLinkInfo();\n}\n";
 	typeNames+="}\n";
 	typeNameString+="\");\nreturn s;\n}\n";
-		
+
 	ofstream procList("ProcList.txt");
 	WString pus="enum EnumProcessUsage{ProcessUsage_Unknown,ProcessUsage_AnyInput,ProcessUsage_AnyOutput,ProcessUsage_Any";
 	WString pustr="WString ProcessUsageString=L\"Unknown,AnyInput,AnyOutput,Any";
@@ -3362,18 +3371,18 @@ int SchemaDoc::MakeC(const WString& classString){
 	vWString names;
 	WString AllResStringsC;
 	WString AllResStringsH;
-	
+
 	int i;
 	for(i=0;i<e.size();i++){
 		SchemaElement se=e[i];
 		WString nameNoStrip=se.GetCTName("",false);
 		names.push_back(nameNoStrip);
-		
+
 		if(nameNoStrip.rightStr(2)=="_r"||nameNoStrip.rightStr(3)=="_re"){
 			WString name=se.GetCTName();
 			if(name=="Shape") 
 				name="ShapeElement";
-			
+
 			KElement e=r.GetChildWithAttribute("xs:complexType","name","",nameNoStrip);
 			vElement v=e.GetChildrenWithAttribute("xs:attributeGroup","ref","","*",false);
 			bool bFound=false;
@@ -3404,9 +3413,9 @@ int SchemaDoc::MakeC(const WString& classString){
 					// do nothing!
 					bFound=true;
 				}
-				
-				
-				
+
+
+
 				if(names.hasString(nameNoStrip.leftStr(-1)+"_")) 
 					continue;
 				if(names.hasString(nameNoStrip+"p")) 
@@ -3452,20 +3461,20 @@ int SchemaDoc::MakeC(const WString& classString){
 			}
 		}
 	}
-	
-	
+
+
 	for(i=0;i<e.size();i++){
 		SchemaElement se=e[i];
 		WString name=se.GetCTName();
 		WString _type=se.GetAttribute("type");
 		if(name=="Shape") 
 			name="ShapeElement";
-		
+
 		if(name.find(classString)==name.npos) 
 			continue;
 		if(name=="NotificationDetails")
 			continue;
-		
+
 		//			if(name==L"SeparationList")
 		//			continue;
 		if(name.find(L"ResultsPool")!=name.npos)
@@ -3474,15 +3483,15 @@ int SchemaDoc::MakeC(const WString& classString){
 			continue;
 		if(name.find("PartAmount")!=name.npos) 
 			continue;
-		
+
 		if(name.find(L"PreflightCommon")!=_type.npos)
 			continue;
 		if(name.endsWith(L"Evaluation"))
 			continue;
-			/*
-			if(_type.find(L"Preflight")!=_type.npos)
-			continue;
-			*/
+		/*
+		if(_type.find(L"Preflight")!=_type.npos)
+		continue;
+		*/
 		WString nameNoStrip=se.GetCTName("",false);
 		if(nameNoStrip=="NodeInfo_" || nameNoStrip=="CustomerInfo_")
 			continue; // take resources, not the deprecated sub elements
@@ -3497,7 +3506,7 @@ int SchemaDoc::MakeC(const WString& classString){
 			continue;
 		if(nameNoStrip.rightStr(3)=="_me") 
 			continue;
-		
+
 		if(nameNoStrip.rightStr(3)=="_rp"){
 			if(names.hasString(nameNoStrip.leftStr(-2)+"re")) 
 				continue;
@@ -3525,7 +3534,7 @@ int SchemaDoc::MakeC(const WString& classString){
 			continue;
 		if(base=="JDFSignal"||base=="JDFCommand"||base=="JDFQuery"||base=="JDFResponse"||base=="JDFAcknowledge"||base=="JDFRegistration")
 			continue;
-		
+
 		if (doneList.hasString(name)){
 			cout<<" done name: "<<name<< " not done: "<<nameNoStrip<<endl;
 			//			cout<<se;
@@ -3539,11 +3548,11 @@ int SchemaDoc::MakeC(const WString& classString){
 			continue;  // all dead!
 		cout<<">>>>>>>>>>>>>>> JDF "<<name<<endl;
 		doneList.AppendUnique(name);
-		
+
 		if((name=="MarkObject")||(name=="ContentObject")){
 			MergeRes("Layout_PlacedObject","Layout_"+name+"_lr");
 		}
-		
+
 		se.ToCode(schemaFileName);
 		//		if(base=="JDFResource"){
 		allElms.AppendUnique(name);
@@ -3562,14 +3571,14 @@ int SchemaDoc::MakeC(const WString& classString){
 		AllResStringsC+=L"const WString JDFElement::atr_"+name+L"=L\""+name+L"\";\n";
 		AllResStringsH+=L"static const WString atr_"+name+L";\n";
 	}
-	
+
 	ofstream resList("ResList.txt"); 
 	resList<<AllResStringsC;
 	resList<<endl<<"*************************************\n\n"<<AllResStringsH;
 	resList.close();
-	
-	
-/**	// create typesafe enumerationspans
+
+
+	/**	// create typesafe enumerationspans
 	e=r.GetChildrenWithAttribute("xs:element", "type", WString::emptyStr, "jdf:EnumerationSpan", false);
 	SchemaElement se;
 	ofstream h;
@@ -3580,14 +3589,14 @@ int SchemaDoc::MakeC(const WString& classString){
 	hc<<"#include \"JDFAutoEnumerationSpan.h\"\n#include \"JDFHoleMakingParams.h\"\nnamespace JDF{\n";
 	doneList.clear();
 	for(i=0;i<e.size();i++){
-		SchemaElement se=e[i];
-		vWString v=se.ToEnumerationSpan();
-		if(doneList.hasString(v[0])) 
-			continue;
-		doneList.AppendUnique(v[0]);
-		cout<<" ToEnumerationSpan "<<v[0]<<endl;
-		h<<v[1];
-		hc<<v[2];
+	SchemaElement se=e[i];
+	vWString v=se.ToEnumerationSpan();
+	if(doneList.hasString(v[0])) 
+	continue;
+	doneList.AppendUnique(v[0]);
+	cout<<" ToEnumerationSpan "<<v[0]<<endl;
+	h<<v[1];
+	hc<<v[2];
 	}
 	h<<"}\n#endif //_JDFAutoEnumerationSpan_H_\n";
 	h.close();
@@ -3628,12 +3637,12 @@ int SchemaDoc::MakeCC(){
 				//				cout<<"\tstatic JDF"<<name<<" member"<<i<<";"<<endl;
 			}else{
 				cout<<"if(resName==elm_"+name+"){\n\treturn new JDF"<<name<<"(part);\n};\n";			
-				
+
 			}
 		}
 	}
 	vWString SpanTypes=WString("IntegerSpan NameSpan NumberSpan OptionSpan XYPairSpan StringSpan TimeSpan ShapeSpan DurationSpan").Tokenize();
-	
+
 	for(int ss=0;ss<SpanTypes.size();ss++){
 		e=r.GetChildrenWithAttribute("xs:element","type","","jdf:"+SpanTypes[ss],false);
 		vWString v;
