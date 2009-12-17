@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -179,6 +179,7 @@
 #include "JDFQueueEntryPriParams.h"
 #include "JDFQueueSubmissionParams.h"
 
+#include "JDFReferenceXObjParams.h"
 #include "JDFRequestQueueEntryParams.h"
 #include "JDFRenderingParams.h"
 #include "JDFResourceCmdParams.h"
@@ -730,6 +731,9 @@ namespace JDF{
 
 	JDFElement* JDFFactory::initParamsR(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
+		if(!wcscmp(pcResName,JDFElement::elm_ReferenceXObjParams.c_str())){
+			return new JDFReferenceXObjParams(part);
+		};
 		if(!wcscmp(pcResName,JDFElement::elm_RequestQueueEntryParams.c_str())){
 			return new JDFRequestQueueEntryParams(part);
 		};
