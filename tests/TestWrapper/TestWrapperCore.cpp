@@ -17,6 +17,7 @@
 #include <jdf/WrapperCore/XMLDocUserData.h>
 #include <jdf/mime/MIMEMessage.h>
 #include <jdf/io/FileOutputStream.h>
+#include <jdf/io/FileInputStream.h>
 #include <jdf/io/BufferedOutputStream.h>
 #include <jdf/io/ByteArrayOutputStream.h>
 #include <jdf/io/File.h>
@@ -25,6 +26,8 @@
 #include <jdf/net/HTTPClient.h>
 
 #include "jdf/util/MyWalker.h"
+
+#include "jdf/png/PNGFile.h"
 
 //#include "DebugTrace.h"
 #include <iterator>
@@ -59,7 +62,12 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...	else if(1)
 
 	if(true)
-	{
+	{	
+		PNGFile pFile;
+		FileInputStream fis("C:\\data\\png\\test.png");
+		pFile.open(fis);
+		PNGInfo pi=pFile.getInfo();
+		
 		HttpClient::setHttpSystemKeepAlive(true);
 		XMLDoc doc("abc");
 		long t0=clock();

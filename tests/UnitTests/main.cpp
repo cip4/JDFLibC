@@ -1,11 +1,13 @@
+
 #include <cppunit/BriefTestProgressListener.h>
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
-#include "time.h"
 
+#include "time.h"
+#include <iostream>
 using namespace std;
 
 
@@ -36,7 +38,6 @@ int main(int argC, char* argV[]){
   clock_t finish = clock();
   double duration = (double)(finish - start) / CLOCKS_PER_SEC;
   cout << endl << "total time: " << duration << " sec" << endl;
-
-  return result.wasSuccessful() ? 0 : 1;
+   return result.wasSuccessful() ? 0 : 1;
 }
 

@@ -63,15 +63,6 @@ CDemoApp theApp;
 
 BOOL CDemoApp::InitInstance()
 {
-	  // Initialize the XML4C2 system
-    try
-	{
-        XMLPlatformUtils::Initialize();
-    }
-	catch(const XMLException&)
-	{
-        return 1;
-    }
 	
 	// Initialize the JDFTools system
 	try
