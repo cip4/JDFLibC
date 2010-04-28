@@ -31,7 +31,7 @@ int AppendCommand(const WString& command, JDFDoc d){
 
 	int iMess=0;
 	JDFJMF jmf=d.GetJMFRoot();
-	
+
 	if(command=="HoldQueue"){
 		iMess++;
 		jmf.AppendCommand(JDFCommand::Type_HoldQueue);
@@ -61,7 +61,7 @@ int AppendQuery(const WString& query, JDFDoc d){
 
 	int iMess=0;
 	JDFJMF jmf=d.GetJMFRoot();
-	
+
 	if(query=="KnownMessages"){
 		iMess++;
 		jmf.AppendQuery(JDF::JDFQuery::Type_KnownMessages);
@@ -83,7 +83,7 @@ int AppendSignal(const WString& signal, JDFDoc d){
 
 	int iMess=0;
 	JDFJMF jmf=d.GetJMFRoot();
-	
+
 	if(signal=="KnownMessages"){
 		iMess++;
 		jmf.AppendSignal(JDFSignal::Type_KnownMessages);
@@ -100,10 +100,10 @@ int main(int argC, char* argV[]){
 	} catch (const JDF::Exception&)	{
 		return 1;
 	}
-	
+
 	// trivial argument handling
-	MyArgs args(argC,argV,"","chiIlnopqsu");
-	
+	MyArgs args(argC,argV,"v","chiIlnopqsu");
+
 	// Watch for special case help request
 	WString usage="JDFMessenger; example usages of the JDF Library for sending messages.\nArguments: -u: URL to send to \n";
 	usage.append("-i input xml file to send; if -i is specified no other switches except\n");
@@ -119,8 +119,8 @@ int main(int argC, char* argV[]){
 	if(!schemaLocation.empty()){
 		schemaLocation="http://www.CIP4.org/JDFSchema_1_1 "+schemaLocation;
 		bValidate=true;
-
 	}
+	bool bVerbose=args.BoolParameter('v');
 	WString proxyHost = args.ParameterString('h');
 	WString proxyPort = args.ParameterString('p');
 	if(!proxyHost.empty()){
@@ -140,33 +140,33 @@ int main(int argC, char* argV[]){
 	WString inFile=args.ParameterString('i');
 
 	{
-		
+
 		JDFDoc messageDoc(1);
 		int msgs=0;
-		
+
 		if(inFile.empty()){
 			JDFJMF jmf=messageDoc.GetJMFRoot();
 			jmf.init();
 			jmf.SetSenderID(L"CIP4JDFMessengerTestApp");
-			
+
 			WString command=args.ParameterString('c');
 			msgs+=AppendCommand(command,messageDoc);
-			
+
 			WString query=args.ParameterString('q');
 			msgs+=AppendQuery(query,messageDoc);
-			
+
 			WString signal=args.ParameterString('s');
 			msgs+=AppendSignal(signal,messageDoc);
 		}else{
 			try{
 				if(messageDoc.Parse(inFile.c_str(),true,true,true,0,schemaLocation.c_str()))
-				msgs=1;
+					msgs=1;
 			}catch(JDFException x){
 				cout <<"error parsing :"+inFile<<endl;
 			}
 		}
 		int nReps=args.IntParameter('n',1);
-		
+
 		WString outFile=args.ParameterString('o');
 		WString inCopyFile=args.ParameterString('I');
 		if(!inCopyFile.empty()){
@@ -175,6 +175,10 @@ int main(int argC, char* argV[]){
 		if(msgs){
 			for(int i=0;i<nReps;i++){
 				JDFDoc response;
+				if(bVerbose)
+				{
+					cout<<"Writing "<<i+1<<" of "<<nReps<<endl;
+				}
 				try{
 					response=messageDoc.Write2URL(URL,schemaLocation);
 				}catch(JDFException x){
@@ -183,7 +187,10 @@ int main(int argC, char* argV[]){
 					continue;
 				}
 				if(outFile.empty()){
-					cout<<response<<endl;
+					if(bVerbose)
+					{
+						cout<<"Response:\n"<<response<<endl;
+					}
 				}else{
 					if(i){
 						response.Write2File(outFile+L'_'+WString::valueOf(i));
