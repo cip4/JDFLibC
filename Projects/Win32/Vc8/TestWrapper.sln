@@ -38,6 +38,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMIMEParser", "TestMIMEP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMIMEMultiPart", "TestMIMEMultiPart\TestMIMEMultiPart.vcproj", "{B61B2963-8799-4089-B195-50523720A8D5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "URLStreamer", "TestWrapper\URLStreamer.vcproj", "{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug DLL|Win32 = Debug DLL|Win32
@@ -264,6 +266,18 @@ Global
 		{B61B2963-8799-4089-B195-50523720A8D5}.Release|Win32.Build.0 = Release|Win32
 		{B61B2963-8799-4089-B195-50523720A8D5}.ReleaseDLL|Win32.ActiveCfg = ReleaseDLL|Win32
 		{B61B2963-8799-4089-B195-50523720A8D5}.ReleaseDLL|Win32.Build.0 = ReleaseDLL|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Debug DLL|Win32.ActiveCfg = Debug DLL|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Debug DLL|Win32.Build.0 = Debug DLL|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Debug|Win32.Build.0 = Debug|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.DebugDLL|Win32.ActiveCfg = Debug|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.DebugDLL|Win32.Build.0 = Debug|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Release DLL|Win32.ActiveCfg = Release DLL|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Release DLL|Win32.Build.0 = Release DLL|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Release|Win32.ActiveCfg = Release|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.Release|Win32.Build.0 = Release|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.ReleaseDLL|Win32.ActiveCfg = Release|Win32
+		{4E7539E5-6F5A-4E84-B488-25B133C8EC5D}.ReleaseDLL|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -713,7 +713,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\..\Build\Win32\Vc8\Debug\JDFWrapperCoreLib_D.lib"
+				RelativePath="..\..\..\..\Build\Win32\VC8\Debug\JDFWrapperCoreLib_D.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -770,6 +770,13 @@
 			<File
 				RelativePath="..\..\..\..\external\xerces\lib\xerces-c_2D.lib"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug DLL|Win32"
 					>
