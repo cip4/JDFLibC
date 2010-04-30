@@ -33,14 +33,14 @@ int main(int argC, char* argV[]){
 	}
 
 	// trivial argument handling
-	MyArgs args(argC,argV,"v","fhiprtu");
+	MyArgs args(argC,argV,"v","fhioptu");
 
 	// Watch for special case help request
 	WString usage="URLStreamer; Send a file stream to a URL\nArguments:\n";
 	usage.append("-u: url to send to \n");
 	usage.append("-f: File to be opaquely sent\n");
 	usage.append("-t: content type of the file to be sent (default=text/plain);\n");
-	usage.append("-r: output file name\n");
+	usage.append("-o: output file name\n");
 	usage.append("-h: proxy host name\n-p: proxy port name\n");
 	usage.append("-v: flag for verbose output\n");
 	if ((argC>1)&&(strcmp(argV[1], "-?") == 0)){
@@ -116,7 +116,7 @@ int main(int argC, char* argV[]){
 		std::cout<<"bytes read from file: "<<n<<std::endl;
 	InputStream& urlIS=pURLConnection->getInputStream();
 
-	WString outFile=args.ParameterString('r');
+	WString outFile=args.ParameterString('o');
 	if(!outFile.empty())
 	{
 		n=0;
@@ -143,7 +143,10 @@ int main(int argC, char* argV[]){
 			}
 			if(bVerbose)
 				std::cout<<"bytes read from URL: "<<n<<std::endl;
-
+		}
+		else
+		{
+			cerr<<"Warn: cannot Write to file: "<<of.getAbsolutePath()<<endl;
 		}
 	}
 
