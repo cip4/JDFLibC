@@ -1737,7 +1737,7 @@ namespace JDF{
 	bool JDFElement::HasPartMap(const mAttribute & mPart){
 		vElement vE=KElement::GetChildElementVector(elm_Part);
 		for(int i=0;i<vE.size();i++){
-			if(GetAttributeMap().SubMap(mPart)) 
+			if(vE[i].GetAttributeMap().SubMap(mPart)) 
 				return true;
 		}
 		return false;

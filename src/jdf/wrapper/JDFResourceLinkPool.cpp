@@ -177,8 +177,12 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	
 	vElement JDFResourceLinkPool::getInOutLinks(JDFResourceLink::EnumUsage usage, bool bLink, const WString& resName, const WString& resProcUsage)const{
-		WString io=JDFResourceLink::UsageString(usage);
-		mAttribute mA(atr_Usage,io);
+		mAttribute mA;
+		if(usage!=JDFResourceLink::Usage_Unknown)
+		{
+			WString io=JDFResourceLink::UsageString(usage);
+			mA.AddPair(atr_Usage,io);
+		}
 		vElement v=GetPoolChildren(WString::emptyStr,mA);
 		bool bResNameWildCard=IsWildcard(resName.c_str());
 		bool bResProcUsageWildcard=IsWildcard(resProcUsage.c_str());
