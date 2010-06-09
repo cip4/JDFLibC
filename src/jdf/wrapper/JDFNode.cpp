@@ -5291,7 +5291,12 @@ namespace JDF{
 		}
 		if(matchingPartIDKeys.empty()){
 			// grab output link and partition nodeinfo accordingly
-			vElement vRes=GetResourceLinkPool().GetInOutLinks(false,false);
+			vElement vRes=GetResourceLinkPool().GetInOutLinks(false,true);
+					for (int i = 0; i < vRes.size(); i++)
+					{
+						JDFResourceLink rl = (JDFResourceLink) vRes.at(i);
+						vRes[i]=rl.GetLinkRoot();
+					}
 
 			// get heuristic list of partidkeys from the output
 			vWString partIDKeys;

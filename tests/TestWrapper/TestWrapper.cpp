@@ -83,13 +83,13 @@ int main(int argC, char* argV[]){
 	// clean up
 	if(1)
 	{
-		JDFDoc doc(0);
-		JDFNode n=doc.GetJDFRoot();
-		JDFResource r=n.addResource("RunList",JDFResource::Class_Parameter,JDFResourceLink::Usage_Input);
-		cout<<n<<endl;
-		JDFResourceLink rl=n.getLink(r);
-		rl.SetPartMap(JDFAttributeMap("Run","r1"));
-		assertTrue(rl.HasPartMap(JDFAttributeMap("Run","r1")));
+		JDFDoc d;
+		d.Parse("O:\\JDFLibJ\\test\\data\\evilParts.jdf");
+		JDFNode n = d.GetJDFRoot();
+		cout<<"foo"<<endl;
+		VString v = n.GetPartIDKeys();
+		cout<<"foo"<<endl;
+
 	}
 	else if(1)
 	{
