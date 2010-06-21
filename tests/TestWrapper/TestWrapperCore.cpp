@@ -60,8 +60,15 @@ int main(int argc, char* argv[]){
 	MyWalker walker;
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...	else if(1)
-
-	if(true)
+	if(1)
+	{
+		JDFDoc d;
+		d.Write2File("C:\\data\\jdf\\empty.jdf");
+		JDFDoc d2;
+d2.Parse("C:\\data\\jdf\\empty.jdf");
+		d2.Write2File("C:\\data\\jdf\\empty2.jdf");
+	}
+	else if(true)
 	{	
 		PNGFile pFile;
 		FileInputStream fis("C:\\data\\png\\test.png");

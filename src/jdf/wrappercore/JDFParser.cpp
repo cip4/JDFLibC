@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -121,8 +121,7 @@ namespace JDF{
 			// print out all parser errors except undefined variables for non-JDF stuff
 			WString er(exception.getMessage());
 			// this works with xerces 1.7, must check for higher versions
-			if ((er.find(L"http://www.CIP4.org/JDFSchema") != er.npos) ||
-				(er.find(L" is not declared for") == er.npos))
+			if (er.toLowerCase().find(L"unknown") == er.npos) 
 				std::cout <<"error " << er <<std::endl;
 		}
 		virtual void fatalError(const SAXParseException& exception){
