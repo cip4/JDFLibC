@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -461,7 +461,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended BooleanState
 		* @return JDFBooleanState the existing or newly appended BooleanState
 		*/
-		JDFBooleanState GetCreateBooleanState(WString name = "");
+		JDFBooleanState GetCreateBooleanState(WString name);
 		
 		/**
 		* const get element BooleanState
@@ -475,7 +475,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended BooleanState
 		* @return JDFBooleanState the existing BooleanState
 		*/
-		JDFBooleanState GetBooleanState(WString name = "");
+		JDFBooleanState GetBooleanState(WString name);
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -503,7 +503,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended DateTimeState
 		* @return JDFDateTimeState the existing or newly appended DateTimeState
 		*/
-		JDFDateTimeState GetCreateDateTimeState(WString name = "");
+		JDFDateTimeState GetCreateDateTimeState(WString name);
 		
 		/**
 		* const get element DateTimeState
@@ -517,7 +517,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended DateTimeState
 		* @return JDFDateTimeState the existing DateTimeState
 		*/
-		JDFDateTimeState GetDateTimeState(WString name = "");
+		JDFDateTimeState GetDateTimeState(WString name );
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -544,7 +544,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended DurationState
 		* @return JDFDurationState the existing or newly appended DurationState
 		*/
-		JDFDurationState GetCreateDurationState(WString name = "");
+		JDFDurationState GetCreateDurationState(WString name );
 	
 		/**
 		* const get element DurationState
@@ -558,7 +558,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended DurationState
 		* @return JDFDurationState the existing DurationState
 		*/
-		JDFDurationState GetDurationState(WString name = "");
+		JDFDurationState GetDurationState(WString name );
 	
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -584,7 +584,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended EnumerationState
 		* @return JDFEnumerationState the existing or newly appended EnumerationState
 		*/
-		JDFEnumerationState GetCreateEnumerationState(WString name = "");
+		JDFEnumerationState GetCreateEnumerationState(WString name );
 		
 		/**
 		* const get element EnumerationState
@@ -611,7 +611,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended EnumerationState
 		* @return JDFEnumerationState the existing EnumerationState
 		*/
-		JDFEnumerationState GetEnumerationState(WString name = "");
+		JDFEnumerationState GetEnumerationState(WString name );
 		
 						
 		/** Get Element IntegerState
@@ -626,7 +626,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended IntegerState
 		* @return JDFIntegerState the existing or newly appended IntegerState
 		*/
-		JDFIntegerState GetCreateIntegerState(WString name = "");
+		JDFIntegerState GetCreateIntegerState(WString name );
 		
 		/**
 		* const get element IntegerState
@@ -640,7 +640,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended IntegerState
 		* @return JDFIntegerState the existing IntegerState
 		*/
-		JDFIntegerState GetIntegerState(WString name = "");
+		JDFIntegerState GetIntegerState(WString name );
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -668,7 +668,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended MatrixState
 		* @return JDFMatrixState the existing or newly appended MatrixState
 		*/
-		JDFMatrixState GetCreateMatrixState(WString name = "");
+		JDFMatrixState GetCreateMatrixState(WString name );
 		
 		/**
 		* const get element MatrixState
@@ -682,7 +682,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended MatrixState
 		* @return JDFMatrixState the existing MatrixState
 		*/
-		JDFMatrixState GetMatrixState(WString name = "");
+		JDFMatrixState GetMatrixState(WString name );
 
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -710,7 +710,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended NameState
 		* @return JDFNameState the existing or newly appended NameState
 		*/
-		JDFNameState GetCreateNameState(WString name = "");
+		JDFNameState GetCreateNameState(WString name );
 		
 		/**
 		* const get element NameState
@@ -724,7 +724,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended NameState
 		* @return JDFNameState the existing NameState
 		*/
-		JDFNameState GetNameState(WString name = "");
+		JDFNameState GetNameState(WString name );
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -752,7 +752,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended NumberState
 		* @return JDFNumberState the existing or newly appended NumberState
 		*/
-		JDFNumberState GetCreateNumberState(WString name = "");
+		JDFNumberState GetCreateNumberState(WString name );
 		
 		/**
 		* const get element NumberState
@@ -766,7 +766,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended NumberState
 		* @return JDFNumberState the existing NumberState
 		*/
-		JDFNumberState GetNumberState(WString name = "");
+		JDFNumberState GetNumberState(WString name );
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -794,7 +794,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended PDFPathState
 		* @return JDFPDFPathState the existing or newly appended PDFPathState
 		*/
-		JDFPDFPathState GetCreatePDFPathState(WString name = "");
+		JDFPDFPathState GetCreatePDFPathState(WString name );
 		
 		/**
 		* const get element PDFPathState
@@ -808,7 +808,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended PDFPathState
 		* @return JDFPDFPathState the existing PDFPathState
 		*/
-		JDFPDFPathState GetPDFPathState(WString name = "");
+		JDFPDFPathState GetPDFPathState(WString name );
 	
 		/**
 		* Append element PDFPathState
@@ -836,7 +836,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended RectangleState
 		* @return JDFRectangleState the existing or newly appended RectangleState
 		*/
-		JDFRectangleState GetCreateRectangleState(WString name = "");
+		JDFRectangleState GetCreateRectangleState(WString name);
 		
 		/**
 		* const get element RectangleState
@@ -850,7 +850,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended RectangleState
 		* @return JDFRectangleState the existing RectangleState
 		*/
-		JDFRectangleState GetRectangleState(WString name = "");
+		JDFRectangleState GetRectangleState(WString name);
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -877,7 +877,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended ShapeState
 		* @return JDFShapeState the existing or newly appended ShapeState
 		*/
-		JDFShapeState GetCreateShapeState(WString name = "");
+		JDFShapeState GetCreateShapeState(WString name );
 		
 		/**
 		* const get element ShapeState
@@ -892,7 +892,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended ShapeState
 		* @return JDFShapeState the existing ShapeState
 		*/
-		JDFShapeState GetShapeState(WString name = "");
+		JDFShapeState GetShapeState(WString name );
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -921,7 +921,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended StringState
 		* @return JDFStringState the existing or newly appended StringState
 		*/
-		JDFStringState GetCreateStringState(WString name = "");
+		JDFStringState GetCreateStringState(WString name );
 		
 		/**
 		* const get element StringState
@@ -935,7 +935,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended StringState
 		* @return JDFStringState the existing StringState
 		*/
-		JDFStringState GetStringState(WString name = "");
+		JDFStringState GetStringState(WString name );
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
@@ -963,7 +963,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended XYPairState
 		* @return JDFXYPairState the existing or newly appended XYPairState
 		*/
-		JDFXYPairState GetCreateXYPairState(WString name = "");
+		JDFXYPairState GetCreateXYPairState(WString name );
 		
 		/**
 		* const get element XYPairState
@@ -977,7 +977,7 @@ namespace JDF{
 		* @param name the Name attribute of the newly appended XYPairState
 		* @return JDFXYPairState the existing XYPairState
 		*/
-		JDFXYPairState GetXYPairState(WString name = "");
+		JDFXYPairState GetXYPairState(WString name );
 		
 		/**
 		* @deprecated use method with parameter (WString) instead
