@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug DLL|Win32">
+      <Configuration>Debug DLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release DLL|Win32">
+      <Configuration>Release DLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{97EAFFBD-4EBF-41E6-B909-B2EF62C24873}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\Build\Win32\VC10\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\Build\Win32\VC10\Release\obj\JDFToolsLib\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\Build\Win32\VC10\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\Build\Win32\VC10\Debug\obj\JDFToolsLib\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\Build\Win32\VC10\ReleaseDLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\JDFToolsDLL\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">.\..\..\..\Build\Win32\VC10\DebugDLL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">.\..\..\..\Build\Win32\VC10\DebugDLL\obj\JDFToolsDLL\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">JDFToolsDLL</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>JDF_TOOLS_LIB;WIN32;NDEBUG;_LIB;UNICODE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\..\..\..\Build\Win32\VC10\Release\obj\JDFToolsLib/JDFToolsLib.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\Build\Win32\VC10\Release\obj\JDFToolsLib/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\Build\Win32\VC10\Release\obj\JDFToolsLib/</ObjectFileName>
+      <ProgramDataBaseFileName>..\..\..\Build\Win32\VC10\Release\JDFToolsLib</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0813</Culture>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\..\..\..\Build\Win32\VC10\Release\JDFToolsLib.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;JDF_TOOLS_LIB;UNICODE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\..\..\..\Build\Win32\VC10\Debug\obj\JDFToolsLib/JDFToolsLib.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\Build\Win32\VC10\Debug\obj\JDFToolsLib/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\Build\Win32\VC10\Debug\obj\JDFToolsLib/</ObjectFileName>
+      <ProgramDataBaseFileName>..\..\..\Build\Win32\VC10\Debug\JDFToolsLib</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level1</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\..\..\Build\Win32\VC10\Debug\jdftoolslib_D.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\..\..\..\Build\Win32\VC10\ReleaseDLL/JDFToolsLib.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TYPESAFE;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE;JDF_TOOLS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderOutputFile>.\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\JDFToolsDLL/JDFToolsLib.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\JDFToolsDLL/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\JDFToolsDLL/</ObjectFileName>
+      <ProgramDataBaseFileName>..\..\..\Build\Win32\VC10\ReleaseDLL\JDFToolsDLL</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>Default</CompileAs>
+      <MinimalRebuild>false</MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\..\..\Build\Win32\VC10\ReleaseDLL/JDFToolsDLL.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;libcpmt.lib;libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\..\..\..\Build\Win32\VC10\ReleaseDLL/JDFToolsDLL.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName>.\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\JDFToolsDLL/JDFToolsDLL.map</MapFileName>
+      <ImportLibrary>.\..\..\..\Build\Win32\VC10\ReleaseDLL/JDFToolsDLL.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\..\..\..\Build\Win32\VC10\DebugDLL/JDFToolsLib.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;JDF_TOOLS;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\..\..\..\Build\Win32\VC10\DebugDLL\obj\JDFToolsDLL/JDFToolsLib.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\Build\Win32\VC10\DebugDLL\obj\JDFToolsDLL/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\Build\Win32\VC10\DebugDLL\obj\JDFToolsDLL/</ObjectFileName>
+      <ProgramDataBaseFileName>..\..\..\Build\Win32\VC10\DebugDLL\JDFToolsDLL</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\..\..\Build\Win32\VC10\DebugDLL/JDFToolsDLLd.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib;libcpmtd.lib;libcd.lib;libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\..\..\..\Build\Win32\VC10\DebugDLL/JDFToolsDLLd.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>.\..\..\..\Build\Win32\VC10\DebugDLL\obj\JDFToolsDLL/JDFToolsDLLd.map</MapFileName>
+      <ImportLibrary>.\..\..\..\Build\Win32\VC10\DebugDLL/JDFToolsDLLd.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\jdf\io\BASE64Decoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\BASE64Encoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\BufferedInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\BufferedOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\ByteArrayInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\ByteArrayOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\CharacterDecoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\CharacterEncoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\File.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\FileInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\FileOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\FileSystem.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\FilterInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\FilterOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\InputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\OutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\PrintStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\PushbackInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\QPDecoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\QPEncoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\RandomAccessInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\RandomAccessOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\StreamBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\Platforms\Win32\Win32FileSystem.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\io\Platforms\Win32\Win32Shortcut.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\HeaderParser.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\InetAddress.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\InetAddressCachePolicy.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\InetAddressImpl.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\KeepAliveCache.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\KeepAliveInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\md5.c" />
+    <ClCompile Include="..\..\..\src\jdf\net\MessageHeader.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\MeteredInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\NetworkClient.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\ParseUtil.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\ServerSocket.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Socket.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\SocketImpl.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\SocketOptions.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\SSLSocket.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\SSLSocketInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\SSLSocketOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\URI.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\URL.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\URLConnection.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\URLDecoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\URLEncoder.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\URLStreamHandler.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\WWWURLConnection.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Platforms\Win32\Win32InetAddressImpl.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketFactoryService.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImpl.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImplFactory.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImplInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImplOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketInit.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\PlainURLStreamHandlerFactory.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\FileURLConnection.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\FileURLStreamHandler.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\AuthenticationInfo.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\Authenticator.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\BasicAuthentication.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\ChunkedInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\DigestAuthentication.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\HttpClient.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\HttpURLConnection.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\HttpURLStreamHandler.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\PlainHttpOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\PlainHttpURLConnection.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\HttpsClient.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\HttpsURLStreamHandler.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\PlainHttpsURLConnection.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\net\CidURLStreamHandler.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\dtoa.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\myuti.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\MyWalker.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\PlatformUtils.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\Random.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\Regexp.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\RegexpPool.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\StringTokenizer.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\Unicode.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Stackwalker.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Win32PlatformUtils.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessOutputStream.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\FileMIMEType.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEBasicPart.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEBodyPart.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEHeader.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMELocalResource.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMELocalResourceFactory.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEMemResource.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEMemResourceFactory.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEMessage.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEMessagePart.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEMultiPart.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MIMEParser.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\mime\MimeTableFileNameMap.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\AutoPtr.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\BoolJanitor.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\ByteBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\CharBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\Integer.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\Integer64.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\mapWString.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\Mutex.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\SetWString.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\Synchronized.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\Throwable.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\vdouble.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\vint.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\vMapWString.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\VoidSet.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\vWString.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\lang\WString.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\jdf\io\BASE64Decoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\BASE64Encoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\BufferedInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\BufferedOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\ByteArrayInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\ByteArrayOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\CharacterDecoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\CharacterEncoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\Exception.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\File.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\FileFilter.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\FileInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\FileNameFilter.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\FileOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\FileSystem.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\FilterInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\FilterOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\InputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\OutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\PrintStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\PushbackInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\QPDecoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\QPEncoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\RandomAccessInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\RandomAccessOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\StreamBuffer.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\Platforms\Win32\Win32FileSystem.h" />
+    <ClInclude Include="..\..\..\src\jdf\io\Platforms\Win32\Win32Shortcut.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Exception.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\HeaderParser.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\InetAddress.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\InetAddressCachePolicy.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\InetAddressImpl.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\KeepAliveCache.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\KeepAliveInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\md5.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\MessageHeader.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\MeteredInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\NetworkClient.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\ParseUtil.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\PasswordAuthentication.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\ProgressEntry.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\ServerSocket.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Socket.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SocketFactoryService.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SocketImpl.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SocketImplFactory.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SocketInit.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SocketOptions.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SSLSocket.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SSLSocketInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\SSLSocketOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\URI.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\URL.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\URLConnection.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\URLDecoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\URLEncoder.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\URLStreamHandler.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\URLStreamHandlerFactory.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\WWWURLConnection.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Platforms\Win32\Win32InetAddressImpl.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketFactoryService.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImpl.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImplFactory.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImplInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketImplOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Platforms\Win32\Win32SocketInit.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\PlainURLStreamHandlerFactory.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\FileURLConnection.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\FileURLStreamHandler.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\AuthenticationInfo.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\Authenticator.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\BasicAuthentication.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\ChunkedInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\DigestAuthentication.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\HttpClient.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\HttpURLConnection.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\HttpURLStreamHandler.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\PlainHttpOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\PlainHttpURLConnection.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\HttpsClient.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\HttpsURLStreamHandler.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\PlainHttpsURLConnection.h" />
+    <ClInclude Include="..\..\..\src\jdf\net\CidURLStreamHandler.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Cache.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\dtoa.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Exception.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\hashfun.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\hmap.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\JDFLibVersion.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\myuti.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\MyWalker.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\PlatformUtils.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Random.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\RegExp.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\RegexpPool.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\slist.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\StringTokenizer.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Unicode.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Stackwalker.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Win32PlatformUtils.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessInputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessOutputStream.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\Exception.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\FileMIMEType.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\FileNameMap.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEBasicPart.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEBodyPart.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEComponent.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEHeader.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMELocalResource.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMELocalResourceFactory.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEMemResource.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEMemResourceFactory.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEMessage.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEMessagePart.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEMultiPart.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEParser.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEResource.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MIMEResourceFactory.h" />
+    <ClInclude Include="..\..\..\src\jdf\mime\MimeTableFileNameMap.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\AutoPtr.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\BoolJanitor.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\ByteBuffer.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\CharBuffer.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\Exception.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\Integer.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\Integer64.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\Janitor.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\JDFToolsDefs.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\KString.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\mapWString.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\Mutex.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\SetWString.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\Synchronized.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\Throwable.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\vdouble.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\vint.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\vMapWString.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\VoidSet.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\vWString.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\WString.h" />
+    <ClInclude Include="..\..\..\src\jdf\lang\WStringBase.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release_HD\libpng.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10_HD\release\xerces-c_2.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10_HD\debug\xerces-c_2D.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release_HD\libpng.lib" />
+    <Library Include="..\..\..\external\xerces\lib\VC10_HD\release\xerces-c_2.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

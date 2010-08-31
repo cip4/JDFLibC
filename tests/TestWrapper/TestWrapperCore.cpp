@@ -62,11 +62,10 @@ int main(int argc, char* argv[]){
 	// these braces are important due to scoping of doc and terminate...	else if(1)
 	if(1)
 	{
-		JDFDoc d;
-		d.Write2File("C:\\data\\jdf\\empty.jdf");
-		JDFDoc d2;
-d2.Parse("C:\\data\\jdf\\empty.jdf");
-		d2.Write2File("C:\\data\\jdf\\empty2.jdf");
+		JDFDate d;
+		WString dd(d.DateTimeISO());
+		cout<<dd<<endl;
+
 	}
 	else if(true)
 	{	

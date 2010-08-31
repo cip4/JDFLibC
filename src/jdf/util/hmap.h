@@ -90,20 +90,27 @@
 #endif
 
 #if (__GNUC__ >= 3)
-namespace std
-{
-	template <class _Tp, class _Distance>
-		struct bidirectional_iterator : public iterator<bidirectional_iterator_tag, _Tp, _Distance, _Tp*, _Tp&> {};
-}
+    namespace std
+    {
+	    template <class _Tp, class _Distance>
+		    struct bidirectional_iterator : public iterator<bidirectional_iterator_tag, _Tp, _Distance, _Tp*, _Tp&> {};
+    }
 #endif
 
 #ifdef __MWERKS__
-#include <iterator>
-namespace std
-{
-	template <class _Tp, class _Distance>
-		struct bidirectional_iterator : public iterator<_Tp, _Distance, _Tp*, _Tp&, bidirectional_iterator_tag> {};
-}
+    #include <iterator>
+    namespace std
+    {
+	    template <class _Tp, class _Distance>
+		    struct bidirectional_iterator : public iterator<_Tp, _Distance, _Tp*, _Tp&, bidirectional_iterator_tag> {};
+    }
+#elif  (_CPPLIB_VER >= 520)	// Visual Studio 2010
+    #include <iterator>
+    namespace std
+    {
+        template <class _Tp, class _Distance>
+	    struct bidirectional_iterator : public iterator<bidirectional_iterator_tag, _Tp, _Distance, _Tp*, _Tp&> {};
+    }
 #endif
 
 // hash map class
@@ -151,6 +158,8 @@ namespace JDF
 	 
 	 class iterator : public
 #ifdef __APPLE_CC__	//AXEL20020906, DM20060714
+		 std::bidirectional_iterator<value_type, size_type>
+#elif  (_CPPLIB_VER >= 520)	// Visual Studio 2010
 		 std::bidirectional_iterator<value_type, size_type>
 #elif defined(_CPPLIB_VER) && ! defined(STLPORT)  // Native VC7 STL
 		 std:: _Bidit<value_type, size_type, value_type, value_type>

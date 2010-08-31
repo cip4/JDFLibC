@@ -454,7 +454,8 @@ std::pair<char*,int> MIMEHelper::decodeBase64Vector(std::vector<std::string>& v,
 	
 	// invalid range
 	if ( nStart == -1 || nEnd == -1 )
-		return std::pair<char*,int>(NULL,0);
+		return std::pair<char*,int>((char *) NULL,0); // should be nullptr for VS2010
+
 	
 	// get message len
 	for ( j = nStart; j <= nEnd; j++ )
@@ -521,7 +522,7 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 	int lineLength;
 	
 	if ( nStart == -1 || nEnd == -1 )
-		return std::pair<char*,int>(NULL,0);
+		return std::pair<char*,int>((char *) NULL,0); // should be nullptr for VS2010
 	
 	nNoOfLeftOverBytes = param[0];
 	
@@ -669,7 +670,7 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 	delete buffer;
 	buffer=0;
 	param[1] = 0;
-	return std::pair<char*,int>(NULL,0);
+	return std::pair<char*,int>((char *) NULL,0); // should be nullptr for VS2010
 }
 
 
