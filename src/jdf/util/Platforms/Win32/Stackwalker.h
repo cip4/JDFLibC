@@ -26,7 +26,7 @@
 #endif
 
 // Only MS VC++ 5 to 9
-#if (_MSC_VER < 1100) || (_MSC_VER > 1500)
+#if (_MSC_VER < 1100) || (_MSC_VER > 1600)
 #error Only MS VC++ 5/6/7/7.1/8/9 supported. Check if the '_CrtMemBlockHeader' has not changed with this compiler!
 #endif
 
