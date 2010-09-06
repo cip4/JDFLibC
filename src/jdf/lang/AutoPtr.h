@@ -325,18 +325,18 @@ template <class T> T& AutoPtr<T>::operator[](int x) const
 
 template <class T> AutoPtr<T>::AutoPtr(T* ptr) : SharedItem(new AutoEntity<T>)
 {
-	XMLPlatformUtils::compareAndSwap((void **)&SharedItem->RealPtr, ptr,SharedItem->RealPtr);
+	AutoPtrAtomicOperation::compareAndSwap((void **)&SharedItem->RealPtr, ptr,SharedItem->RealPtr);
 }
 
 template <class T> AutoPtr<T>::AutoPtr(const AutoPtr<T>& parent) :
 	SharedItem(parent.SharedItem)
 {
-	XMLPlatformUtils::atomicIncrement(SharedItem->RefCount);
+	atomicIncrement(SharedItem->RefCount);
 }
 
 template <class T> AutoPtr<T>::~AutoPtr()
 {
-	if(!XMLPlatformUtils::atomicDecrement(SharedItem->RefCount))
+	if(!AutoPtrAtomicOperation::atomicDecrement(SharedItem->RefCount))
 	{
 		delete SharedItem;
 		SharedItem = 0;
@@ -348,14 +348,14 @@ template <class T> AutoPtr<T>& AutoPtr<T>::operator=(const AutoPtr<T>& parent)
 	if (SharedItem == parent.SharedItem)
 		return *this;
 
-	if(!XMLPlatformUtils::atomicDecrement(SharedItem->RefCount))
+	if(!AutoPtrAtomicOperation::atomicDecrement(SharedItem->RefCount))
 	{
 		delete SharedItem;
 		SharedItem = 0;
 	}
 
-	XMLPlatformUtils::compareAndSwap((void **)&SharedItem, parent.SharedItem,SharedItem);
-	XMLPlatformUtils::atomicIncrement(SharedItem->RefCount);
+	AutoPtrAtomicOperation::compareAndSwap((void **)&SharedItem, parent.SharedItem,SharedItem);
+	AutoPtrAtomicOperation::atomicIncrement(SharedItem->RefCount);
 
 	return *this;
 }
@@ -365,14 +365,14 @@ template <class T> AutoPtr<T>& AutoPtr<T>::operator=(T* ptr)
 	if (SharedItem->RealPtr == ptr)
 		return *this;
 
-	if(!XMLPlatformUtils::atomicDecrement(SharedItem->RefCount))
+	if(!AutoPtrAtomicOperation::atomicDecrement(SharedItem->RefCount))
 	{
 		delete SharedItem;
 		SharedItem = 0;
 	}
 
-	XMLPlatformUtils::compareAndSwap((void **)&SharedItem, new AutoEntity<T>,SharedItem);
-	XMLPlatformUtils::compareAndSwap((void **)&SharedItem->RealPtr, ptr,SharedItem->RealPtr);
+	AutoPtrAtomicOperation::compareAndSwap((void **)&SharedItem, new AutoEntity<T>,SharedItem);
+	AutoPtrAtomicOperation::compareAndSwap((void **)&SharedItem->RealPtr, ptr,SharedItem->RealPtr);
 	return *this;
 }
 

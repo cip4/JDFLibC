@@ -65,6 +65,23 @@ int main(int argc, char* argv[]){
 		JDFDate d;
 		WString dd(d.DateTimeISO());
 		cout<<dd<<endl;
+		XMLDoc doc("abc");
+		cout<<doc<<endl;
+		KElement root=doc.GetRoot();
+		cout<<root<<endl;
+		root.GetCreateXPathElement("a/b/c");
+		root.SetAttribute("foo","bar");
+		cout<<root<<endl;
+		root.EraseEmptyNodes();
+		cout<<root<<endl;
+		WString s;
+		doc.Write2String(s);
+		JDFParser p;
+		p.StringParse(s);
+		XMLDoc d2=p.GetDocument();
+		cout<<d2<<endl;
+		cout<<d2.GetRoot()<<endl;
+
 
 	}
 	else if(true)

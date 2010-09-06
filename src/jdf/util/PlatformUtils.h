@@ -363,7 +363,7 @@ namespace JDF
 		*
 		* @param theFile The file handle that you want to reset
 		*/
-		static void resetFile(FileHandle theFile);
+		static void resetFile(JDFFileHandle theFile);
 
 		/**
 		* Gets the JDF system property indicated by the specified key.

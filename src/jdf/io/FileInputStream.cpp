@@ -273,7 +273,7 @@ JDFUInt64 FileInputStream::length()
 
 JDFUInt64 FileInputStream::seek(JDFUInt64 pos, int moveMethod)
 {
-	PlatformUtils::seekFile(m_handle,pos,moveMethod);
+	PlatformUtils::seekFile(m_handle,(int)pos,moveMethod);
 	return PlatformUtils::curFilePos(m_handle);
 }
 

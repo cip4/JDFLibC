@@ -1167,10 +1167,10 @@ namespace JDF
 		size_type posBeg = 0;
 		size_type posEnd = ps->length();
 
-		while ((posBeg < posEnd) && XMLPlatformUtils::fgTransService->isSpace(ps->at(posBeg)) )
+		while ((posBeg < posEnd) && isspace(ps->at(posBeg)) )
 			posBeg++;
 
-		while ((posEnd > posBeg) && XMLPlatformUtils::fgTransService->isSpace(ps->at(posEnd-1)) )
+		while ((posEnd > posBeg) && isspace(ps->at(posEnd-1)) )
 			posEnd--;
 
 		if (posBeg < posEnd)
@@ -1187,7 +1187,7 @@ namespace JDF
 		WString s(*this);
 		WStringBaseJDF* ps=(WStringBaseJDF*)(s.pBase);
 		size_type posEnd = ps->length();
-		while ((posEnd > 0) &&  XMLPlatformUtils::fgTransService->isSpace(ps->at(posEnd-1)) )
+		while ((posEnd > 0) &&  isspace(ps->at(posEnd-1)) )
 			posEnd--;
 		ps->resize(posEnd);
 		return s; 
@@ -1201,7 +1201,7 @@ namespace JDF
 
 		size_type posBeg = 0;
 		size_type posEnd = ps->length();
-		while ((posBeg < posEnd) && XMLPlatformUtils::fgTransService->isSpace(ps->at(posBeg)) )
+		while ((posBeg < posEnd) && isspace(ps->at(posBeg)) )
 			posBeg++;
 		ps->assign(ps->substr(posBeg));
 		return s; 
@@ -1459,7 +1459,7 @@ namespace JDF
 		//
 		const JDFCh*    srcPtr = PBASE->data();
 		const JDFCh*    endPtr = PBASE->data() + PBASE->length();
-		unsigned int    charsEaten;
+		XMLSize_t    charsEaten;
 		//
 		//  Just do a whole buffer at a time into the temp buffer, cap it
 		//  off, and send it to the target.
@@ -1539,7 +1539,7 @@ namespace JDF
 			//  If we don't have any escape flags set, then we can do the most
 			//  efficient loop, else we have to do it the hard way.
 			//
-			unsigned int    charsEaten;
+			XMLSize_t    charsEaten;
 			//
 
 			const unsigned int outBytes = fXCoder->transcodeFrom(
@@ -2352,7 +2352,7 @@ namespace JDF
 
 		while (srcPtr < endPtr)
 		{
-			unsigned int    charsEaten;
+			XMLSize_t   charsEaten;
 			const unsigned int srcCount = endPtr - srcPtr;
 
 			unsigned int outBytes;
@@ -2420,7 +2420,7 @@ namespace JDF
 
 		while (srcPtr < endPtr)
 		{
-			unsigned int    charsEaten;
+			XMLSize_t   charsEaten;
 			const unsigned int srcCount = endPtr - srcPtr;			
 			const unsigned int outBytes = gUTF8Transcoder->transcodeTo(srcPtr	, srcCount, tmpBuf, maxLenUTF8-allOut, charsEaten, XMLTranscoder::UnRep_RepChar);
 

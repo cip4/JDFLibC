@@ -237,7 +237,7 @@ namespace JDF
 	JDFFileHandle PlatformUtils::createFile(const char* const fileName)
 	{
 		int oldMode = SetErrorMode(SEM_FAILCRITICALERRORS);
-		FileHandle retVal = ::CreateFileA
+		JDFFileHandle retVal = ::CreateFileA
 			(
 			fileName
 			, GENERIC_WRITE
@@ -260,7 +260,7 @@ namespace JDF
 
 		int oldMode = SetErrorMode(SEM_FAILCRITICALERRORS);
 
-		FileHandle retVal = 0;
+		JDFFileHandle retVal = 0;
 		if (gOnNT)
 		{
 
@@ -384,7 +384,7 @@ namespace JDF
 		return (unsigned int)bytesWritten;
 	}
 
-	void PlatformUtils::resetFile(FileHandle theFile)
+	void PlatformUtils::resetFile(JDFFileHandle theFile)
 	{
 		try
 		{

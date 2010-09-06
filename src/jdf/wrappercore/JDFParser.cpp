@@ -144,21 +144,28 @@ namespace JDF{
 		   }
 		   virtual ~BinInputStreamAdapter() {}
 
-		   virtual unsigned int curPos() const;
-		   virtual unsigned int readBytes
+		   virtual XMLFilePos curPos() const;
+		   virtual XMLSize_t readBytes
 			   (
 			   XMLByte* const  toFill
-			   , const unsigned int    maxToRead
+			   , const XMLSize_t    maxToRead
 			   );
+
+		    virtual const XMLCh* getContentType() const;
+
 
 	private :
 
 		JDF::InputStream* mStream;
-		unsigned int    fCurIndex;
+		XMLFilePos    fCurIndex;
 	};
 
+		    inline const XMLCh* BinInputStreamAdapter::getContentType() const
+			{
+				return 0;
+			}
 
-	inline unsigned int BinInputStreamAdapter::curPos() const
+	inline XMLFilePos BinInputStreamAdapter::curPos() const
 	{
 		return fCurIndex;
 	}
@@ -196,8 +203,8 @@ namespace JDF{
 	// ---------------------------------------------------------------------------
 	//  MemBinInputStream: Implementation of the input stream interface
 	// ---------------------------------------------------------------------------
-	unsigned int BinInputStreamAdapter::readBytes(          XMLByte* const  toFill
-		, const unsigned int    maxToRead)
+	XMLSize_t BinInputStreamAdapter::readBytes(          XMLByte* const  toFill
+		, const XMLSize_t  maxToRead)
 	{
 		try
 		{
@@ -487,7 +494,7 @@ namespace JDF{
 
 	void JDFParser::initParser(const WString& schemaLocation, bool bValidate)
 	{
-		xercesDOMParser->setDoValidation(bValidate);
+		// xercesDOMParser->setDoValidation(bValidate);
 		//		xercesDOMParser->setDoNamespaces(true);
 		xercesDOMParser->setDoSchema(bValidate);
 	}

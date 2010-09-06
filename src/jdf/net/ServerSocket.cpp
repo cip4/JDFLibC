@@ -78,6 +78,7 @@
 #include <assert.h>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <jdf/lang/JDFToolsDefs.h>
+#include <jdf/lang/AutoPtr.h>
 #include <jdf/lang/Synchronized.h>
 #include <jdf/lang/Exception.h>
 #include <jdf/net/Socket.h>
@@ -102,7 +103,7 @@ namespace JDF
 		if (!serverSocketMutex)
 		{
 			Mutex* tmpMutex = new Mutex;
-			if (XMLPlatformUtils::compareAndSwap((void**)&serverSocketMutex, tmpMutex, 0))
+			if (AutoPtrAtomicOperation::compareAndSwap((void**)&serverSocketMutex, tmpMutex, 0))
 			{
 				// Some other thread beat us to it, so let's clean up ours.
 				delete tmpMutex;

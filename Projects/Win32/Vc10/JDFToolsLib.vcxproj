@@ -66,8 +66,8 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\Build\Win32\VC10\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\Build\Win32\VC10\Release\obj\JDFToolsLib\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\Build\Win32\VC10\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\Build\Win32\VC10\Debug\obj\JDFToolsLib\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\Build\Win32\VC10\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\Build\Win32\VC10\Debug\obj\JDFToolsLib\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\Build\Win32\VC10\ReleaseDLL\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\JDFToolsDLL\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">false</LinkIncremental>
@@ -91,7 +91,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\external\zlib;..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>JDF_TOOLS_LIB;WIN32;NDEBUG;_LIB;UNICODE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -119,7 +119,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\external\zlib;..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;JDF_TOOLS_LIB;UNICODE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -155,7 +155,7 @@
     </Midl>
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\external\zlib;..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TYPESAFE;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE;JDF_TOOLS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -201,7 +201,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\external\zlib;..\..\..\external;..\..\..\src;..\..\..\external\xerces\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;JDF_TOOLS;_CRT_SECURE_NO_DEPRECATE;_REENTRANT;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -310,6 +310,9 @@
     <ClCompile Include="..\..\..\src\jdf\net\HttpsURLStreamHandler.cpp" />
     <ClCompile Include="..\..\..\src\jdf\net\PlainHttpsURLConnection.cpp" />
     <ClCompile Include="..\..\..\src\jdf\net\CidURLStreamHandler.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\png\PNGFile.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\png\PNGFileImpl.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\png\PNGInfo.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\dtoa.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\myuti.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\MyWalker.cpp" />
@@ -439,6 +442,9 @@
     <ClInclude Include="..\..\..\src\jdf\net\HttpsURLStreamHandler.h" />
     <ClInclude Include="..\..\..\src\jdf\net\PlainHttpsURLConnection.h" />
     <ClInclude Include="..\..\..\src\jdf\net\CidURLStreamHandler.h" />
+    <ClInclude Include="..\..\..\src\jdf\png\PNGFile.h" />
+    <ClInclude Include="..\..\..\src\jdf\png\PNGFileImpl.h" />
+    <ClInclude Include="..\..\..\src\jdf\png\PNGInfo.h" />
     <ClInclude Include="..\..\..\src\jdf\util\Cache.h" />
     <ClInclude Include="..\..\..\src\jdf\util\dtoa.h" />
     <ClInclude Include="..\..\..\src\jdf\util\Exception.h" />
@@ -505,13 +511,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </CustomBuildStep>
-    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10_HD\release\xerces-c_2.lib">
+    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10\release\xerces-c_2.lib">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </CustomBuildStep>
-    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10_HD\debug\xerces-c_2D.lib">
+    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10\debug\xerces-c_2D.lib">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
@@ -519,8 +525,25 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release_HD\libpng.lib" />
-    <Library Include="..\..\..\external\xerces\lib\VC10_HD\release\xerces-c_2.lib" />
+    <Library Include="..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release\ZLib\zlib.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release_HD\libpng.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\external\xerces\lib\Win32\VC10\Debug\xerces-c_3D.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\external\xerces\lib\Win32\VC10\Release\xerces-c_3.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

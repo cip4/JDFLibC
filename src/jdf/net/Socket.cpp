@@ -88,6 +88,7 @@
 #include <jdf/lang/Exception.h>
 
 #include <xercesc/util/PlatformUtils.hpp>
+#include <jdf/lang/AutoPtr.h>
 
 
 XERCES_CPP_NAMESPACE_USE
@@ -133,7 +134,7 @@ namespace JDF
 		if (!socketMutex)
 		{
 			Mutex* tmpMutex = new Mutex;
-			if (XMLPlatformUtils::compareAndSwap((void**)&socketMutex, tmpMutex, 0))
+			if (AutoPtrAtomicOperation::compareAndSwap((void**)&socketMutex, tmpMutex, 0))
 			{
 				// Some other thread beat us to it, so let's clean up ours.
 				delete tmpMutex;

@@ -123,7 +123,7 @@ namespace JDF
 class JDFTOOLS_EXPORT PNGInfo 
 {
 public:
-	class png_time_class 
+	class JDFTOOLS_EXPORT png_time_class 
 	{
 	public:
 		png_time_class();

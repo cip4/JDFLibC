@@ -191,7 +191,7 @@ namespace JDF
 
 		systemProperties = new Properties;
 
-		XMLLCPTranscoder* defXCode = XMLPlatformUtils::fgTransService->makeNewLCPTranscoder();
+		XMLLCPTranscoder* defXCode = XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XMLPlatformUtils::fgMemoryManager);
 		if (!defXCode)
 			return;
 		WString::initString(defXCode);
@@ -261,7 +261,7 @@ namespace JDF
 		if (!singletonMutex)
 		{
 			Mutex* tmpMutex = new Mutex;
-			if (XMLPlatformUtils::compareAndSwap((void**)&singletonMutex, tmpMutex, 0))
+			if (AutoPtrAtomicOperation::compareAndSwap((void**)&singletonMutex, tmpMutex, 0))
 			{
 				// Some other thread beat us to it, so let's clean up ours.
 				delete tmpMutex;

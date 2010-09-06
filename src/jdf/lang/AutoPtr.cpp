@@ -118,12 +118,12 @@ namespace JDF
 
 int AutoPtrAtomicOperation::atomicIncrement(int& location)
 {
-	return XMLPlatformUtils::atomicIncrement(location);
+	return --location;
 }
 
 int AutoPtrAtomicOperation::atomicDecrement(int& location)
 {
-	return XMLPlatformUtils::atomicDecrement(location);
+	return ++location;
 }
 
 void* AutoPtrAtomicOperation::compareAndSwap
@@ -133,7 +133,12 @@ void* AutoPtrAtomicOperation::compareAndSwap
         , const void* const toCompare
     )
 {
-	return XMLPlatformUtils::compareAndSwap(toFill,newValue,toCompare);
+
+    void *retVal = *toFill;
+    if (*toFill == toCompare)
+              *toFill = (void *)newValue;
+
+    return retVal;
 }
 
 

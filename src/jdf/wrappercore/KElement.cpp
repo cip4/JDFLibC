@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -133,6 +133,8 @@ namespace JDF{
 	//	const int XML_DECL_NODE								=DOMNode::XML_DECL_NODE;
 
 	const KElement KElement::DefKElement=KElement();
+
+	const WString comment=L"Comment";
 
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
@@ -1316,7 +1318,6 @@ namespace JDF{
 	*/
 
 	int KElement::EraseEmptyNodes(bool bTrimWhite){
-		const static WString comment=L"Comment";
 		int nRemove=0;
 
 		if(throwNull()) 

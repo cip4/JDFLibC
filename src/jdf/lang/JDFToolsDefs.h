@@ -113,6 +113,9 @@
 
 typedef unsigned char       JDFByte;
 typedef XMLCh				JDFCh;
+
+// need to inline xerces definition
+typedef void* FileHandle; 
 typedef FileHandle			JDFFileHandle;
 
 // ---------------------------------------------------------------------------
@@ -142,6 +145,14 @@ typedef __int64 JDFInt64;
 
 
 #define JDFStrL(str)  XMLStrL(str)
+
+#ifndef PLATFORM_EXPORT
+#define PLATFORM_EXPORT XERCES_PLATFORM_EXPORT
+#endif
+
+#ifndef PLATFORM_IMPORT
+#define PLATFORM_IMPORT XERCES_PLATFORM_IMPORT
+#endif
 
 //@vigo
 #if defined JDF_TOOLS

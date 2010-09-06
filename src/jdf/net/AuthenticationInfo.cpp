@@ -142,7 +142,7 @@ static AuthenticationInfoCache& gAuthenticationInfoCache()
     if (!cache)
     {
         AuthenticationInfoCache* tmpCache = new AuthenticationInfoCache(20);
-        if (XMLPlatformUtils::compareAndSwap((void**)&cache, tmpCache, 0))
+        if (AutoPtrAtomicOperation::compareAndSwap((void**)&cache, tmpCache, 0))
         {
             // Some other thread beat us to it, so let's clean up ours.
             delete tmpCache;
@@ -160,7 +160,7 @@ static Mutex& gAuthenticationInfoCacheMutex()
     if (!authenticationInfoMutex)
     {
         Mutex* tmpMutex = new Mutex;
-        if (XMLPlatformUtils::compareAndSwap((void**)&authenticationInfoMutex, tmpMutex, 0))
+        if (AutoPtrAtomicOperation::compareAndSwap((void**)&authenticationInfoMutex, tmpMutex, 0))
         {
             // Some other thread beat us to it, so let's clean up ours.
             delete tmpMutex;

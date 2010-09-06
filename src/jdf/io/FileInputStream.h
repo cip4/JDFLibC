@@ -291,7 +291,7 @@ public:
 
 private:
 
-	FileHandle m_handle;
+	JDFFileHandle m_handle;
 	unsigned int mMarkPosition;
 
 };

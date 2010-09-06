@@ -152,7 +152,7 @@ float Integer64::floatValue()
 
 int Integer64::intValue()
 {
-	return iValue;
+	return (int) iValue;
 }
 
 JDFInt64 Integer64::int64Value()
