@@ -192,7 +192,10 @@ namespace JDF
 		}
 	}
 
+	URL::~URL()
+	{ 
 
+	}
 
 	void URL::setURL(const WString& url)
 	{

@@ -356,12 +356,24 @@ namespace JDF{
 
 	///////////////////////////////////////////////////////////////////
 
-	WString  JDFDate::TimeHHMMSS() const {
+	WString  JDFDate::TimeHHMMSS() const 
+	{
 		int hour=sTim.tm_hour;
 		int minute=sTim.tm_min;
 		int sec=sTim.tm_sec;
 		char buf[256];
 		sprintf(buf,"%.2i%.2i%.2i",hour,minute,sec);
+		return buf;
+	}
+
+	WString  JDFDate::TimeHHMMSSsss() const 
+	{
+		int hour=sTim.tm_hour;
+		int minute=sTim.tm_min;
+		int sec=sTim.tm_sec;
+		int msec=(clock()/(CLOCKS_PER_SEC/1000))%1000;
+		char buf[256];
+		sprintf(buf,"%.2i%.2i%.2i.%.3i",hour,minute,sec,msec);
 		return buf;
 	}
 

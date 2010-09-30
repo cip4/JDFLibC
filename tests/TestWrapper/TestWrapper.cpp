@@ -84,15 +84,7 @@ int main(int argC, char* argV[]){
 	if(1)
 	{
 		JDFDoc d;
-		d.GetRoot().AppendElement("foo").SetText("   ");
-		d.Write2File("C:\\data\\jdf\\empty.jdf");
-		JDFDoc d2;
-d2.Parse("C:\\data\\jdf\\empty.jdf");
-KElement r=d2.GetRoot().GetElement("foo");
-cout<<"|"<<r.GetText()<<"|"<<endl;
-d2.GetRoot().EraseEmptyNodes();
-cout<<"|"<<r.GetText()<<"|"<<endl;
-d2.Write2File("C:\\data\\jdf\\bad.jdf");
+		cout<<d.GetJDFRoot().GetID();
 	}
 	else if(true)
 	{

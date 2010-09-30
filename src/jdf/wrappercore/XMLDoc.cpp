@@ -345,6 +345,7 @@ XERCES_CPP_NAMESPACE_USE
 			bool bValidate=!schemaLocation.empty();	
 			try
 			{
+				
 				JDF::URL url;
 
 				url.setURL(strURL);

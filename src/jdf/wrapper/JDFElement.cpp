@@ -1008,10 +1008,10 @@ namespace JDF{
 		if(s.empty())
 		{
 			JDFDate md;
-			s= md.DateYYYYMMDD()+md.TimeHHMMSS();
+			s= md.DateYYYYMMDD()+md.TimeHHMMSSsss();
 			// for the beginning, use a readable but not so unique id
 			// RP 280604 made longer but more unique by retaining the date
-			s=s.substr(2,15);
+			s=s.substr(2);
 		}
 		s+=(char*)buf;
 		return s;

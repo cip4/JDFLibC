@@ -59,8 +59,21 @@ int main(int argc, char* argv[]){
 
 	MyWalker walker;
 	MyTime t("total");
-	// these braces are important due to scoping of doc and terminate...	else if(1)
+	// these braces are important due to scoping of doc and terminate...	else 
 	if(1)
+	{
+		assertTrue(KElement::IsWildcard(L"*"));
+		assertTrue(KElement::IsWildcard(L""));
+		assertTrue(KElement::IsWildcard(0));
+		assertFalse(KElement::IsWildcard(L"*a"));
+		assertTrue(KElement::IsWildcard(L"*Sonnenschein"));
+		assertFalse(KElement::IsWildcard(L"a"));
+
+		JDFDate dd;
+		for(int i=1;i<100;i++)
+			cout<<dd.TimeHHMMSSsss()<<" "<<clock()<<" "<<CLOCKS_PER_SEC<<endl;
+	}
+	else if(0)
 	{
 		JDFDate d;
 		WString dd(d.DateTimeISO());
@@ -69,7 +82,12 @@ int main(int argc, char* argv[]){
 		cout<<doc<<endl;
 		KElement root=doc.GetRoot();
 		cout<<root<<endl;
-		root.GetCreateXPathElement("a/b/c");
+		KElement rr=root.GetCreateXPathElement("a/b/c");
+		for(int i=0;i<1000;i++)
+		{
+			KElement rr2=rr.AppendElement("fff");
+			rr2.GetCreateXPathElement("a/b/c");
+		}
 		root.SetAttribute("foo","bar");
 		cout<<root<<endl;
 		root.EraseEmptyNodes();
@@ -86,20 +104,16 @@ int main(int argc, char* argv[]){
 	}
 	else if(true)
 	{	
-		PNGFile pFile;
-		FileInputStream fis("C:\\data\\png\\test.png");
-		pFile.open(fis);
-		PNGInfo pi=pFile.getInfo();
-		
 		HttpClient::setHttpSystemKeepAlive(true);
 		XMLDoc doc("abc");
 		long t0=clock();
 		for(int i=0;true;i++)
 		{
-//			if((i%100)==0)
+			if((i%10)==0)
 			std::cout<<i<<"   "<<1000*(clock()-t0)/(i+1)<<endl;
-		doc.Write2URL("http://10.51.201.7:8080/httpdump/testXMLDoc?nodump=true");
-//		doc.Write2URL("http://localhost:8080/httpdump/testXMLDoc?nodump=true");
+//		doc.Write2URL("http://10.51.201.7:8080/httpdump/testXMLDoc?nodump=true");
+	doc.Write2URL(L"http://localhost:8080/httpdump/testXMLDoc?nodump=true");
+//			doc.Write2File(WString(L"C:\\data\\foo")+WString(i%100)+WString(".jdf"));
 //		PlatformUtils::sleep(2);
 		}
 

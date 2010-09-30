@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2010 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -147,6 +147,7 @@ public:
      */
 
 	HttpURLConnection(const URL& url);
+	virtual ~HttpURLConnection();
 /*@}*/ 
     /**
      * Sets whether HTTP redirects  (requests with response code 3xx) should 
@@ -518,16 +519,7 @@ protected:
 
 
 private:
-
-    /* static variables */
-
-    /**
-	 * valid HTTP methods 
-	 * GET POST HEAD OPTIONS PUT DELETE TRACE
-	 */
-    
-	static const char*  methods[];
-
+ 
     /**
 	 * do we automatically follow redirects? The default is true. 
 	 */

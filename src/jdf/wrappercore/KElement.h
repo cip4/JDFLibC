@@ -245,6 +245,16 @@ namespace JDF {
 		virtual ~KElement() { }
 		//@}
 
+		/**
+		* Tests whether an argument is a wildcard i.e empty or *  
+		*
+		* @param JDFCh* nodeName: the argument to test
+		* @return bool: true if the name is wildcard
+		*/
+		inline static bool IsWildcard(const JDFCh* nodeName){
+			return (nodeName==0) || ((*nodeName)==0) || ((*nodeName)==L'*'&&!*(nodeName+1));
+		}
+
 		static const int ANY_NODE;
 		static const int ELEMENT_NODE;
 		static const int ATTRIBUTE_NODE;
@@ -1975,16 +1985,6 @@ namespace JDF {
 		* @return vWString: vector of strings that contains insertable element names
 		*/
 		vWString GetInsertElementVector(const vWString& vKnownKeys, const vWString& vUnique)const;
-
-		/**
-		* Tests whether an argument is a wildcard i.e empty or *  
-		*
-		* @param JDFCh* nodeName: the argument to test
-		* @return bool: true if the name is wildcard
-		*/
-		inline static bool IsWildcard(const JDFCh* nodeName){
-			return (nodeName==0) || ((*nodeName)==0) || ((*nodeName)==L'*');
-		}
 
 		/**
 		* Tests whether the specified nodename and namespace fits the nodename and namespace of 'this'

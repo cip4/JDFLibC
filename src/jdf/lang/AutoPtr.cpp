@@ -118,12 +118,12 @@ namespace JDF
 
 int AutoPtrAtomicOperation::atomicIncrement(int& location)
 {
-	return --location;
+	return ++location;
 }
 
 int AutoPtrAtomicOperation::atomicDecrement(int& location)
 {
-	return ++location;
+	return --location;
 }
 
 void* AutoPtrAtomicOperation::compareAndSwap

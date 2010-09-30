@@ -249,6 +249,12 @@ namespace JDF {
 		WString  TimeHHMMSS()  const;
 
 		/** 
+		* the time in HHMMSS format
+		* @return WString: the time in HHMMSSsss format including msec
+		*/
+
+		WString  JDFDate::TimeHHMMSSsss() const ;
+		/** 
 		* the date + time in YYYYMMDDHHMMSS format
 		* @return WString: the date + time in YYYYMMDDHHMMSS format
 		*/

@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -147,12 +147,13 @@ void Win32SocketImplOutputStream::write(const char* cb, int blen)
 			mSocketImpl->doWait(mSocketImpl->getOption(SocketOptions::SO_TIMEOUT_OPT),  Win32SocketImpl::WAITFORWRITE);
 			if ((nrBytesSend = SocketProxy::sysSend(mSocketImpl->getFileDescriptor(), b, bytesToSend,0))  == SOCKET_ERROR) 
 			{
-				if (SocketProxy::sysWSAGetLastError() == WSAEWOULDBLOCK) 
+				int error=SocketProxy::sysWSAGetLastError();
+				if ( error == WSAEWOULDBLOCK) 
 				{
 					// retry								
 				}
 				else
-					throw IOException("failed to write to socket");
+					throw IOException(L"failed to write to socket - Windows socket error#: "+WString(error));
 			}
 			else
 			{

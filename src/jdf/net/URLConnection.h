@@ -227,7 +227,7 @@ protected:
      * Constructs a URL connection to the specified URL. A connection to 
      * the object referenced by the URL is not created. 
      *
-     * @param url the specified URL.
+     * @param url the specified URL. - note we do not use a reference due to ref count restrictions!
      */
 
 	URLConnection(const URL& url);

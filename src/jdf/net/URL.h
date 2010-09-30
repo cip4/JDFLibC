@@ -409,6 +409,8 @@ public:
 
 	URL(WString protocol, WString host, WString file);
 
+	virtual ~URL();
+
 /*@}*/ 
 
 /** 

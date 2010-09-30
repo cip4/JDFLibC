@@ -528,15 +528,18 @@
     <Library Include="..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release\ZLib\zlib.lib">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release_HD\libpng.lib">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\..\..\external\xerces\lib\Win32\VC10\Debug\xerces-c_3D.lib">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\..\..\external\xerces\lib\Win32\VC10\Release\xerces-c_3.lib">
       <FileType>Document</FileType>

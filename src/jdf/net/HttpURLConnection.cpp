@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -159,18 +159,20 @@ namespace JDF
 	const int HttpURLConnection::HTTP_GATEWAY_TIMEOUT = 504;
 	const int HttpURLConnection::HTTP_VERSION = 505;
 
-	const char* HttpURLConnection::methods[] = {"GET", "POST", "HEAD", "OPTIONS", "PUT", "DELETE", "TRACE"};
-	static const int nrMethods = 7;
-
 	bool HttpURLConnection::followRedirects = true;
 
-	HttpURLConnection::	HttpURLConnection(const URL& u) :
+	HttpURLConnection::HttpURLConnection(const URL& u) :
 	URLConnection(u)
 	{
-		method          = "GET";
+		method          = L"GET";
 		responseCode    = -1;
 		followRedirects = true;
 		instanceFollowRedirects = followRedirects;
+	}
+
+	HttpURLConnection::~HttpURLConnection()
+	{
+
 	}
 
 	void HttpURLConnection::setFollowRedirects(bool set) 
@@ -203,6 +205,8 @@ namespace JDF
 		// experiment w/ new HTTP methods.  But it should 
 		// be placed for security - the request String could be
 		// arbitrarily long.
+		const char* methods[] = {"GET", "POST", "HEAD", "OPTIONS", "PUT", "DELETE", "TRACE"};
+		const int nrMethods = 7;
 
 		for (int i = 0; i < nrMethods; i++) 
 		{
