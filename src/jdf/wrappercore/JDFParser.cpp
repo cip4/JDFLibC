@@ -145,13 +145,8 @@ namespace JDF{
 		   virtual ~BinInputStreamAdapter() {}
 
 		   virtual XMLFilePos curPos() const;
-		   virtual XMLSize_t readBytes
-			   (
-			   XMLByte* const  toFill
-			   , const XMLSize_t    maxToRead
-			   );
-
-		    virtual const XMLCh* getContentType() const;
+		   virtual XMLSize_t readBytes(XMLByte* const  toFill, const XMLSize_t maxToRead);
+		   virtual const XMLCh* getContentType() const;
 
 
 	private :
@@ -160,10 +155,10 @@ namespace JDF{
 		XMLFilePos    fCurIndex;
 	};
 
-		    inline const XMLCh* BinInputStreamAdapter::getContentType() const
-			{
-				return 0;
-			}
+	inline const XMLCh* BinInputStreamAdapter::getContentType() const
+	{
+		return 0;
+	}
 
 	inline XMLFilePos BinInputStreamAdapter::curPos() const
 	{
@@ -203,30 +198,15 @@ namespace JDF{
 	// ---------------------------------------------------------------------------
 	//  MemBinInputStream: Implementation of the input stream interface
 	// ---------------------------------------------------------------------------
-	XMLSize_t BinInputStreamAdapter::readBytes(          XMLByte* const  toFill
-		, const XMLSize_t  maxToRead)
+	XMLSize_t BinInputStreamAdapter::readBytes(XMLByte* const  toFill, const XMLSize_t  maxToRead)
 	{
 		try
 		{
-			/*
-			if((fCurIndex%maxToRead)==0){
-			const unsigned int bytesRead = mStream->read((char*)toFill,maxToRead);
-			if (bytesRead == -1)
-			return 0;
-			fCurIndex += bytesRead;
-			return bytesRead;
-			}else{
-			return 0;
-			}
-			*/
-
 			const int bytesRead = mStream->read((char*)toFill,maxToRead);
 			if (bytesRead == -1)
 				return 0;
 			fCurIndex += bytesRead;
 			return bytesRead;
-
-
 		}
 		catch (JDF::IOException&)
 		{

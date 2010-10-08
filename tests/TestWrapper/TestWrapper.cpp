@@ -83,8 +83,11 @@ int main(int argC, char* argV[]){
 	// clean up
 	if(1)
 	{
-		JDFDoc d;
-		cout<<d.GetJDFRoot().GetID();
+		JDFDoc d(1);
+		JDFJMF j=d.GetJMFRoot();
+		j.AppendSignal(JDFMessage::Type_AbortQueueEntry).SetTime(0);
+		j.AppendSignal(JDFMessage::Type_AbortQueueEntry).SetTime(-1);
+		cout<<d;
 	}
 	else if(true)
 	{

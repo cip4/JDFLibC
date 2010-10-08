@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -102,7 +102,6 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/TransService.hpp>
 
-
 XERCES_CPP_NAMESPACE_USE
 
 namespace JDF
@@ -190,8 +189,11 @@ namespace JDF
 		gJDFCleanupListMutex = new Mutex;
 
 		systemProperties = new Properties;
-
+#ifdef JDF_NEW_XERCES
 		XMLLCPTranscoder* defXCode = XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XMLPlatformUtils::fgMemoryManager);
+#else
+		XMLLCPTranscoder* defXCode = XMLPlatformUtils::fgTransService->makeNewLCPTranscoder();
+#endif
 		if (!defXCode)
 			return;
 		WString::initString(defXCode);

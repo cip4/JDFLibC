@@ -4,7 +4,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2010 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -177,6 +177,16 @@ typedef __int64 JDFInt64;
 #if defined(XERCES_TMPLSINC)
 #define JDF_TMPLSINC
 #endif
+
+#if XERCES_VERSION_MAJOR > 2
+#define JDF_NEW_XERCES
+#else
+// some forward definitions from xerces 3
+#undef XMLSize_t
+#define XMLSize_t unsigned int
+#define XMLFilePos unsigned int
+#endif
+
 
 /******************************************************************************
  *	Classes
