@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2003 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -77,8 +77,8 @@
 #include "JDFResourceCmdParams.h"
 #include "JDFResource.h"
 namespace JDF{
-/**
-* copy equivalance operator
+	/**
+	* copy equivalance operator
 	*/
 	JDFResourceCmdParams& JDFResourceCmdParams::operator=(const KElement& other){
 		KElement::operator=(other);
@@ -86,62 +86,70 @@ namespace JDF{
 			throw JDFException(L"Invalid constructor for JDFResourceCmdParams: "+other.GetNodeName());
 		return *this;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-		
+
 	vWString JDFResourceCmdParams::GetUnknownElements(bool bIgnorePrivate,int nMax)const{
 		return GetUnknownPoolElements(PoolType_ResourcePool,bIgnorePrivate,nMax,KnownElements().Tokenize(WString::comma));
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	JDFResource JDFResourceCmdParams::GetResource(const WString &resName)const{
 		JDFResource e=GetElement(resName,WString::emptyStr);
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
-	
+
 	JDFResource JDFResourceCmdParams::GetCreateResource(const WString &resName){
 		JDFResource e=GetCreateElement(resName,WString::emptyStr);
 		e.init();
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
-	
+
 	JDFResource JDFResourceCmdParams::AppendResource(const WString &resName){
 		JDFResource e=AppendElement(resName);
 		e.init();
 		return e;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	vmAttribute JDFResourceCmdParams::GetPartMapVector()const{
 		return JDFElement::GetPartMapVector();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceCmdParams::SetPartMapVector(const vmAttribute & vParts){
 		JDFElement::SetPartMapVector(vParts);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceCmdParams::SetPartMap(const mAttribute & mPart){
 		JDFElement::SetPartMap(mPart);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	void JDFResourceCmdParams::RemovePartMap(const mAttribute & mPart){
 		JDFElement::RemovePartMap(mPart);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceCmdParams::HasPartMap(const mAttribute & mPart){
 		return JDFElement::HasPartMap(mPart);
 	}
 
 	//////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////
+	void JDFResourceCmdParams::SetResStatus( JDFResource::EnumStatus value){
+		SetEnumAttribute(atr_Status,value,StatusString());
+	};
+	/////////////////////////////////////////////////////////////////////////
+	JDFResource::EnumStatus JDFResourceCmdParams:: GetResStatus() const {
+		return (JDFResource::EnumStatus) GetEnumAttribute(atr_Status,StatusString(),WString::emptyStr);
+	};
 	//////////////////////////////////////////////////////////////////////
 
 }; // namespace JDF

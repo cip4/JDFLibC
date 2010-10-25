@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2003 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -81,6 +81,7 @@
 #endif // _MSC_VER >= 1000
 
 #include "AutoJDF/JDFAutoResourceCmdParams.h"
+#include "JDFResource.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -182,6 +183,17 @@ class JDFResourceCmdParams : public JDFAutoResourceCmdParams
 		*/
 		bool HasPartMap(const mAttribute & mPart);
 		//@}
+/**
+* Set attribute Status
+* @param EnumStatus value the value to set the attribute to
+*/
+		virtual void SetResStatus(JDFResource::EnumStatus value);
+
+/**
+* Typesafe enumerated attribute Status
+* @return EnumStatusthe enumeration value of the attribute
+*/
+	virtual JDFResource::EnumStatus GetResStatus() const;
 
 	}; // endJDFResourceCmdParams
 	
