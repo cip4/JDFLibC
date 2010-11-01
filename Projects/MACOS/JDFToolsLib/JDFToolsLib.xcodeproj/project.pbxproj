@@ -1081,6 +1081,7 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "JDFToolsLib" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -1109,6 +1110,7 @@
 			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* JDFToolsLib */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				D2AAC045055464E500DB518D /* JDFToolsLib */,
 			);
@@ -1242,8 +1244,11 @@
 /* Begin XCBuildConfiguration section */
 		1DEB91EC08733DB70010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 044EAB4D0C5E334E0043EDC6 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = 4.0;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				XERCESC_HDR_PATH = "\"../../../external/xerces/include/**\"";
 			};
 			name = Debug;
 		};
@@ -1258,6 +1263,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 044EAB4D0C5E334E0043EDC6 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = 4.0;
+				XERCESC_HDR_PATH = "\"../../../external/xerces/include/**\"";
 			};
 			name = Debug;
 		};

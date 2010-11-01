@@ -8428,9 +8428,11 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "JDFWrapperLib" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* JDFWrapperLib */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				D2AAC045055464E500DB518D /* JDFWrapperLib */,
 			);
@@ -9610,6 +9612,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0472BB720C5E132A0008CE94 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 			};
 			name = Debug;
 		};
