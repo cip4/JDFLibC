@@ -178,30 +178,23 @@ bool JDFAutoPreview::init(){
 		return vAtts;
 	};
 
-///////////////////////////////////////////////////////////////////////
-
-	const WString& JDFAutoPreview::PreviewFileTypeString(){
-		static const WString enums=WString(L"Unknown,PNG,CIP3Multiple,CIP3Single");
-		return enums;
-	};
-
-///////////////////////////////////////////////////////////////////////
-
-	WString JDFAutoPreview::PreviewFileTypeString(EnumPreviewFileType value){
-		return PreviewFileTypeString().Token(value,WString::comma);
-	};
-
-/////////////////////////////////////////////////////////////////////////
-	void JDFAutoPreview::SetPreviewFileType( EnumPreviewFileType value){
-	SetEnumAttribute(atr_PreviewFileType,value,PreviewFileTypeString());
+/**
+* Set attribute PreviewFileType
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPreview::SetPreviewFileType(const WString& value){
+	SetAttribute(atr_PreviewFileType,value);
 };
-/////////////////////////////////////////////////////////////////////////
-	 JDFAutoPreview::EnumPreviewFileType JDFAutoPreview:: GetPreviewFileType() const {
-	return (EnumPreviewFileType) GetEnumAttribute(atr_PreviewFileType,PreviewFileTypeString(),WString::emptyStr,PreviewFileType_PNG);
+/**
+* Get string attribute PreviewFileType
+* @return WString the vaue of the attribute ; defaults to PNG
+*/
+	 WString JDFAutoPreview::GetPreviewFileType() const {
+	return GetAttribute(atr_PreviewFileType,WString::emptyStr,L"PNG");
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPreview::ValidPreviewFileType(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_PreviewFileType,PreviewFileTypeString(),false);
+		return ValidAttribute(atr_PreviewFileType,AttributeType_string,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

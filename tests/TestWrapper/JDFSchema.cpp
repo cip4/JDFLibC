@@ -420,7 +420,7 @@ public:
 			// next three are hacks for preview schem hack
 			if(name=="NoOp")
 				return "";
-			if(name=="Class")
+			if(name=="Class" &&(t!="eNotificationClass"))
 				return "";
 			if(name=="PartUsage")
 				return "";

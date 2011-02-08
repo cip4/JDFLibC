@@ -74,30 +74,29 @@
 ///////////////////////////////////////////////////////////////////
 
  
-#if !defined _JDFAutoPageCondition_H_
-#define _JDFAutoPageCondition_H_
+#if !defined _JDFAutoLogicalStackParams_H_
+#define _JDFAutoLogicalStackParams_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
-class JDFRunList;
-class JDFPart;
+class JDFStack;
 class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoPageCondition : public JDFElement
+class JDFAutoLogicalStackParams : public JDFElement
 
 *********************************************************************
 */
 /**
-* automatically generated header for JDFAutoPageCondition class
+* automatically generated header for JDFAutoLogicalStackParams class
 * 
 * Warning! Do not edit! This file may be regenerated
-* The child Class: @see JDFPageCondition should be edited instead
+* The child Class: @see JDFLogicalStackParams should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoPageCondition : public JDFElement{
+class JDF_WRAPPERCORE_EXPORT JDFAutoLogicalStackParams : public JDFElement{
 public:
 
 
@@ -108,21 +107,21 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoPageCondition():JDFElement(){};
+	inline JDFAutoLogicalStackParams():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoPageCondition(const KElement & other):JDFElement(){
+	inline JDFAutoLogicalStackParams(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
 * copy equivalance operator
 */
-	JDFAutoPageCondition &operator =(const KElement& other);
+	JDFAutoLogicalStackParams &operator =(const KElement& other);
 /**
 * dtor
 */
-	virtual ~JDFAutoPageCondition(){};
+	virtual ~JDFAutoLogicalStackParams(){};
 public:
 
 /**
@@ -165,15 +164,10 @@ public:
 ****************************************************** */
 
 /**
-* Enumeration for attribute Condition
+* Enumeration for attribute Restrictions
 */
 
-	enum EnumCondition{Condition_Unknown,Condition_PagePoolStart,Condition_PagePoolListStart,Condition_PagePoolListEnd,Condition_PagePoolEnd};
-
-/**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
+	enum EnumRestrictions{Restrictions_Unknown,Restrictions_None,Restrictions_WithinImposedSheetSet,Restrictions_WithinLogicalStack};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -181,133 +175,80 @@ public:
 	virtual WString OptionalAttributes()const;
 
 /**
-* Set attribute RestrictedContentObjects
-*@param JDFIntegerList value: the value to set the attribute to
+* Set attribute MaxStackDepth
+*@param int value: the value to set the attribute to
 */
-	virtual void SetRestrictedContentObjects(const JDFIntegerList& value);
+	virtual void SetMaxStackDepth(int value);
 /**
-* Get string attribute RestrictedContentObjects
-* @return JDFIntegerList the vaue of the attribute 
+* Get integer attribute MaxStackDepth
+* @return int the vaue of the attribute 
 */
-	virtual JDFIntegerList GetRestrictedContentObjects() const;
+	virtual int GetMaxStackDepth() const;
 /**
-* Typesafe attribute validation of RestrictedContentObjects
+* Typesafe attribute validation of MaxStackDepth
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidRestrictedContentObjects(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidMaxStackDepth(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Enumeration strings for Condition
+* Enumeration strings for Restrictions
 * @return const WString& comma separated list of enumerated string values 
 */
-	static const WString& ConditionString();
+	static const WString& RestrictionsString();
 /**
 * Enumeration string for enum value
-* @param EnumCondition value the enumeration to translate
+* @param EnumRestrictions value the enumeration to translate
 * @return WString the string representation of the enumeration
 */
-	static WString ConditionString(EnumCondition value);
+	static WString RestrictionsString(EnumRestrictions value);
 /**
-* Set attribute Condition
-* @param EnumCondition value the value to set the attribute to
+* Set attribute Restrictions
+* @param EnumRestrictions value the value to set the attribute to
 */
-	virtual void SetCondition( EnumCondition value);
+	virtual void SetRestrictions( EnumRestrictions value);
 
 /**
-* Typesafe enumerated attribute Condition
-* @return EnumConditionthe enumeration value of the attribute
+* Typesafe enumerated attribute Restrictions; defaults to None
+* @return EnumRestrictionsthe enumeration value of the attribute
 */
-	virtual EnumCondition GetCondition() const;
+	virtual EnumRestrictions GetRestrictions() const;
 
 /**
-* Typesafe attribute validation of Condition
+* Typesafe attribute validation of Restrictions
 * @param EnumValidationLevel level element validation level 
 * @return bool true if valid
 */
-	virtual bool ValidCondition(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidRestrictions(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
 
-/** Get Element RunList
+/** Get Element Stack
 * 
 * @param int iSkip number of elements to skip
-* @return JDFRunList The element
+* @return JDFStack The element
 */
-	JDFRunList GetCreateRunList(int iSkip=0);
+	JDFStack GetCreateStack(int iSkip=0);
 
 /**
-* const get element RunList
+* const get element Stack
 * @param int iSkip number of elements to skip
-* @return JDFRunList The element
+* @return JDFStack The element
 */
-	JDFRunList GetRunList(int iSkip=0)const;
+	JDFStack GetStack(int iSkip=0)const;
 /**
-* Append element RunList
+* Append element Stack
  */
-	JDFRunList AppendRunList();
-/**
-* create inter-resource link to refTarget
-* @param JDFRunList& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefRunList(JDFRunList& refTarget);
-
-/** Get Element Part
-* 
-* @param int iSkip number of elements to skip
-* @return JDFPart The element
-*/
-	JDFPart GetCreatePart(int iSkip=0);
+	JDFStack AppendStack();
 
 /**
-* const get element Part
-* @param int iSkip number of elements to skip
-* @return JDFPart The element
+ definition of required elements in the JDF namespace
 */
-	JDFPart GetPart(int iSkip=0)const;
-/**
-* Append element Part
- */
-	JDFPart AppendPart();
-//@{
-		/**
-		* get part map vector
-		* @return vector of mAttribute, one for each part
-		*/
-		vmAttribute GetPartMapVector()const;
-		
-		        /**
-		* set all parts to those define in vParts
-		* @param vmAttribute& vParts vector of attribute maps for the parts
-		*/
-		void SetPartMapVector(const vmAttribute & vParts);
-		/**
-		* set part to mPart
-		* @param mAttribute& mPart attribute map for the part to set
-		*/
-	void SetPartMap(const mAttribute & mPart);
-		/**
-		* remove the part defined in mPart
-		* @param mAttribute& mPart attribute map for the part to remove
-		*/
-		void RemovePartMap(const mAttribute & mPart);
-		/**
-		* check whether the part defined in mPart is included
-		* @param mAttribute& mPart attribute map for the part to remove
-		* @return bool if the part exists
-		*/
-		bool HasPartMap(const mAttribute & mPart);
-		//@}
-
-/**
- definition of optional elements in the JDF namespace
-*/
-	virtual WString OptionalElements()const;
-}; // endJDFAutoPageCondition
+	virtual WString RequiredElements()const;
+}; // endJDFAutoLogicalStackParams
 
 // ******************************************************
 }; // end namespace JDF
-#endif //_JDFAutoPageCondition_H_
+#endif //_JDFAutoLogicalStackParams_H_

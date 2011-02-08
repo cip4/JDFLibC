@@ -210,14 +210,14 @@ public:
 	virtual bool ValidBinderySignatureName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute BinderySignaturePaginationIndex
-*@param WString value: the value to set the attribute to
+*@param JDFIntegerRangeList value: the value to set the attribute to
 */
-	virtual void SetBinderySignaturePaginationIndex(const WString& value);
+	virtual void SetBinderySignaturePaginationIndex(const JDFIntegerRangeList& value);
 /**
-* Get string attribute BinderySignaturePaginationIndex
-* @return WString the vaue of the attribute 
+* Get range attribute BinderySignaturePaginationIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
 */
-	virtual WString GetBinderySignaturePaginationIndex() const;
+	virtual JDFIntegerRangeList GetBinderySignaturePaginationIndex() const;
 /**
 * Typesafe attribute validation of BinderySignaturePaginationIndex
 * @param EnumValidationLevel level of attribute validation 

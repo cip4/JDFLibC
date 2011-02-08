@@ -74,26 +74,26 @@
 ///////////////////////////////////////////////////////////////////
 
  
-#include "jdf/wrapper/AutoJDF/JDFAutoVarnishingParams.h"
+#include "jdf/wrapper/AutoJDF/JDFAutoStack.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoVarnishingParams : public JDFResource
+class JDFAutoStack : public JDFElement
 
 *********************************************************************
 */
 /**
 * copy equivalance operator
 */
-JDFAutoVarnishingParams& JDFAutoVarnishingParams::operator=(const KElement& other){
+JDFAutoStack& JDFAutoStack::operator=(const KElement& other){
 	KElement::operator=(other);
 	if(!IsValid(ValidationLevel_Construct))
-		throw JDFException(L"Invalid constructor for JDFAutoVarnishingParams: "+other.GetNodeName());
+		throw JDFException(L"Invalid constructor for JDFAutoStack: "+other.GetNodeName());
 	return *this;
 };
 
 /////////////////////////////////////////////////////
-	bool JDFAutoVarnishingParams::IsAbstract()const{
+	bool JDFAutoStack::IsAbstract()const{
 		return false;
 	}
 
@@ -102,21 +102,10 @@ JDFAutoVarnishingParams& JDFAutoVarnishingParams::operator=(const KElement& othe
  * @return WString& comma separated list of valid node names
  */
 
-	WString JDFAutoVarnishingParams::ValidNodeNames()const{
-	return L"*:,VarnishingParams";
+	WString JDFAutoStack::ValidNodeNames()const{
+	return L"*:,Stack";
 };
 
-bool JDFAutoVarnishingParams::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoVarnishingParams::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -124,37 +113,34 @@ bool JDFAutoVarnishingParams::init(){
 
 
 /**
+ definition of required attributes in the JDF namespace
+*/
+	WString JDFAutoStack::RequiredAttributes()const{
+		return JDFElement::RequiredAttributes()+L",LogicalStackOrd";
+};
+
+/**
  definition of optional attributes in the JDF namespace
 */
-	WString JDFAutoVarnishingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ModuleIndex,ModuleType,VarnishArea,VarnishMethod");
+	WString JDFAutoStack::OptionalAttributes()const{
+		return JDFElement::OptionalAttributes()+WString(L",LogicalStackSequence");
 };
 
 /**
  typesafe validator
 */
-	vWString JDFAutoVarnishingParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+	vWString JDFAutoStack::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidModuleIndex(level)) {
-			vAtts.push_back(atr_ModuleIndex);
+		if(!ValidLogicalStackOrd(level)) {
+			vAtts.push_back(atr_LogicalStackOrd);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidModuleType(level)) {
-			vAtts.push_back(atr_ModuleType);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidVarnishArea(level)) {
-			vAtts.push_back(atr_VarnishArea);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidVarnishMethod(level)) {
-			vAtts.push_back(atr_VarnishMethod);
+		if(!ValidLogicalStackSequence(level)) {
+			vAtts.push_back(atr_LogicalStackSequence);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -162,89 +148,46 @@ bool JDFAutoVarnishingParams::init(){
 	};
 
 /**
-* Set attribute ModuleIndex
+* Set attribute LogicalStackOrd
 *@param int value: the value to set the attribute to
 */
-	 void JDFAutoVarnishingParams::SetModuleIndex(int value){
-	SetAttribute(atr_ModuleIndex,WString::valueOf(value));
+	 void JDFAutoStack::SetLogicalStackOrd(int value){
+	SetAttribute(atr_LogicalStackOrd,WString::valueOf(value));
 };
 /**
-* Get integer attribute ModuleIndex
+* Get integer attribute LogicalStackOrd
 * @return int the vaue of the attribute 
 */
-	 int JDFAutoVarnishingParams::GetModuleIndex() const {
-	return GetIntAttribute(atr_ModuleIndex,WString::emptyStr);
+	 int JDFAutoStack::GetLogicalStackOrd() const {
+	return GetIntAttribute(atr_LogicalStackOrd,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoVarnishingParams::ValidModuleIndex(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ModuleIndex,AttributeType_integer,false);
-	};
-/**
-* Set attribute ModuleType
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoVarnishingParams::SetModuleType(const WString& value){
-	SetAttribute(atr_ModuleType,value);
-};
-/**
-* Get string attribute ModuleType
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoVarnishingParams::GetModuleType() const {
-	return GetAttribute(atr_ModuleType,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoVarnishingParams::ValidModuleType(EnumValidationLevel level) const {
-		return ValidAttribute(atr_ModuleType,AttributeType_NMTOKEN,false);
+	bool JDFAutoStack::ValidLogicalStackOrd(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LogicalStackOrd,AttributeType_integer,RequiredLevel(level));
 	};
 ///////////////////////////////////////////////////////////////////////
 
-	const WString& JDFAutoVarnishingParams::VarnishAreaString(){
-		static const WString enums=WString(L"Unknown,Full,Spot");
+	const WString& JDFAutoStack::LogicalStackSequenceString(){
+		static const WString enums=WString(L"Unknown,SheetIndex,DescendingSheetIndex");
 		return enums;
 	};
 
 ///////////////////////////////////////////////////////////////////////
 
-	WString JDFAutoVarnishingParams::VarnishAreaString(EnumVarnishArea value){
-		return VarnishAreaString().Token(value,WString::comma);
+	WString JDFAutoStack::LogicalStackSequenceString(EnumLogicalStackSequence value){
+		return LogicalStackSequenceString().Token(value,WString::comma);
 	};
 
 /////////////////////////////////////////////////////////////////////////
-	void JDFAutoVarnishingParams::SetVarnishArea( EnumVarnishArea value){
-	SetEnumAttribute(atr_VarnishArea,value,VarnishAreaString());
+	void JDFAutoStack::SetLogicalStackSequence( EnumLogicalStackSequence value){
+	SetEnumAttribute(atr_LogicalStackSequence,value,LogicalStackSequenceString());
 };
 /////////////////////////////////////////////////////////////////////////
-	 JDFAutoVarnishingParams::EnumVarnishArea JDFAutoVarnishingParams:: GetVarnishArea() const {
-	return (EnumVarnishArea) GetEnumAttribute(atr_VarnishArea,VarnishAreaString(),WString::emptyStr);
+	 JDFAutoStack::EnumLogicalStackSequence JDFAutoStack:: GetLogicalStackSequence() const {
+	return (EnumLogicalStackSequence) GetEnumAttribute(atr_LogicalStackSequence,LogicalStackSequenceString(),WString::emptyStr,LogicalStackSequence_SheetIndex);
 };
 /////////////////////////////////////////////////////////////////////////
-	bool JDFAutoVarnishingParams::ValidVarnishArea(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_VarnishArea,VarnishAreaString(),false);
-	};
-///////////////////////////////////////////////////////////////////////
-
-	const WString& JDFAutoVarnishingParams::VarnishMethodString(){
-		static const WString enums=WString(L"Unknown,Blanket,Plate,Method");
-		return enums;
-	};
-
-///////////////////////////////////////////////////////////////////////
-
-	WString JDFAutoVarnishingParams::VarnishMethodString(EnumVarnishMethod value){
-		return VarnishMethodString().Token(value,WString::comma);
-	};
-
-/////////////////////////////////////////////////////////////////////////
-	void JDFAutoVarnishingParams::SetVarnishMethod( EnumVarnishMethod value){
-	SetEnumAttribute(atr_VarnishMethod,value,VarnishMethodString());
-};
-/////////////////////////////////////////////////////////////////////////
-	 JDFAutoVarnishingParams::EnumVarnishMethod JDFAutoVarnishingParams:: GetVarnishMethod() const {
-	return (EnumVarnishMethod) GetEnumAttribute(atr_VarnishMethod,VarnishMethodString(),WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoVarnishingParams::ValidVarnishMethod(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_VarnishMethod,VarnishMethodString(),false);
+	bool JDFAutoStack::ValidLogicalStackSequence(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_LogicalStackSequence,LogicalStackSequenceString(),false);
 	};
 }; // end namespace JDF

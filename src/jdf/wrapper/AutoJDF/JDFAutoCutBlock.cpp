@@ -127,7 +127,7 @@ bool JDFAutoCutBlock::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoCutBlock::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",BlockName,BlockSize,BlockType";
+		return JDFResource::RequiredAttributes()+L",BlockSize,BlockType";
 };
 
 /**
@@ -145,11 +145,6 @@ bool JDFAutoCutBlock::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidBlockName(level)) {
-			vAtts.push_back(atr_BlockName);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidBlockSize(level)) {
 			vAtts.push_back(atr_BlockSize);
 			if(++n>=nMax)
@@ -193,24 +188,6 @@ bool JDFAutoCutBlock::init(){
 		return vAtts;
 	};
 
-/**
-* Set attribute BlockName
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoCutBlock::SetBlockName(const WString& value){
-	SetAttribute(atr_BlockName,value);
-};
-/**
-* Get string attribute BlockName
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoCutBlock::GetBlockName() const {
-	return GetAttribute(atr_BlockName,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoCutBlock::ValidBlockName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_BlockName,AttributeType_NMTOKEN,RequiredLevel(level));
-	};
 /**
 * Set attribute BlockSize
 *@param JDFXYPair value: the value to set the attribute to

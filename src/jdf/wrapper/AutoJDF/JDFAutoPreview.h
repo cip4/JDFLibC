@@ -176,11 +176,6 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 virtual bool init();
 
 /**
-* Enumeration for attribute PreviewFileType
-*/
-
-	enum EnumPreviewFileType{PreviewFileType_Unknown,PreviewFileType_PNG,PreviewFileType_CIP3Multiple,PreviewFileType_CIP3Single};
-/**
 * Enumeration for attribute PreviewUsage
 */
 
@@ -197,31 +192,18 @@ virtual bool init();
 	virtual WString OptionalAttributes()const;
 
 /**
-* Enumeration strings for PreviewFileType
-* @return const WString& comma separated list of enumerated string values 
-*/
-	static const WString& PreviewFileTypeString();
-/**
-* Enumeration string for enum value
-* @param EnumPreviewFileType value the enumeration to translate
-* @return WString the string representation of the enumeration
-*/
-	static WString PreviewFileTypeString(EnumPreviewFileType value);
-/**
 * Set attribute PreviewFileType
-* @param EnumPreviewFileType value the value to set the attribute to
+*@param WString value: the value to set the attribute to
 */
-	virtual void SetPreviewFileType( EnumPreviewFileType value);
-
+	virtual void SetPreviewFileType(const WString& value);
 /**
-* Typesafe enumerated attribute PreviewFileType; defaults to PNG
-* @return EnumPreviewFileTypethe enumeration value of the attribute
+* Get string attribute PreviewFileType
+* @return WString the vaue of the attribute ; defaults to PNG
 */
-	virtual EnumPreviewFileType GetPreviewFileType() const;
-
+	virtual WString GetPreviewFileType() const;
 /**
 * Typesafe attribute validation of PreviewFileType
-* @param EnumValidationLevel level element validation level 
+* @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
 	virtual bool ValidPreviewFileType(EnumValidationLevel level=ValidationLevel_Complete) const;

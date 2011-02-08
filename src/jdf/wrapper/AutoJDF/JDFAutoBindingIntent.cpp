@@ -158,7 +158,7 @@ JDFAutoBindingIntent& JDFAutoBindingIntent::operator=(const KElement& other){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoBindingIntent::BindingOrderString(){
-		static const WString enums=WString(L"Unknown,Collecting,Gathering,List");
+		static const WString enums=WString(L"Unknown,Collecting,Gathering,List,None");
 		return enums;
 	};
 

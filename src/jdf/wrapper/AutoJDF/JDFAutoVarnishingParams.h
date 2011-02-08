@@ -165,10 +165,10 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 virtual bool init();
 
 /**
-* Enumeration for attribute Anchor
+* Enumeration for attribute VarnishArea
 */
 
-	enum EnumAnchor{Anchor_Unknown,Anchor_Full,Anchor_Spot};
+	enum EnumVarnishArea{VarnishArea_Unknown,VarnishArea_Full,VarnishArea_Spot};
 /**
 * Enumeration for attribute VarnishMethod
 */
@@ -197,50 +197,50 @@ virtual bool init();
 */
 	virtual bool ValidModuleIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute AbsoluteWidth
+* Set attribute ModuleType
 *@param WString value: the value to set the attribute to
 */
-	virtual void SetAbsoluteWidth(const WString& value);
+	virtual void SetModuleType(const WString& value);
 /**
-* Get string attribute AbsoluteWidth
+* Get string attribute ModuleType
 * @return WString the vaue of the attribute 
 */
-	virtual WString GetAbsoluteWidth() const;
+	virtual WString GetModuleType() const;
 /**
-* Typesafe attribute validation of AbsoluteWidth
+* Typesafe attribute validation of ModuleType
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidAbsoluteWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidModuleType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Enumeration strings for Anchor
+* Enumeration strings for VarnishArea
 * @return const WString& comma separated list of enumerated string values 
 */
-	static const WString& AnchorString();
+	static const WString& VarnishAreaString();
 /**
 * Enumeration string for enum value
-* @param EnumAnchor value the enumeration to translate
+* @param EnumVarnishArea value the enumeration to translate
 * @return WString the string representation of the enumeration
 */
-	static WString AnchorString(EnumAnchor value);
+	static WString VarnishAreaString(EnumVarnishArea value);
 /**
-* Set attribute Anchor
-* @param EnumAnchor value the value to set the attribute to
+* Set attribute VarnishArea
+* @param EnumVarnishArea value the value to set the attribute to
 */
-	virtual void SetAnchor( EnumAnchor value);
+	virtual void SetVarnishArea( EnumVarnishArea value);
 
 /**
-* Typesafe enumerated attribute Anchor
-* @return EnumAnchorthe enumeration value of the attribute
+* Typesafe enumerated attribute VarnishArea
+* @return EnumVarnishAreathe enumeration value of the attribute
 */
-	virtual EnumAnchor GetAnchor() const;
+	virtual EnumVarnishArea GetVarnishArea() const;
 
 /**
-* Typesafe attribute validation of Anchor
+* Typesafe attribute validation of VarnishArea
 * @param EnumValidationLevel level element validation level 
 * @return bool true if valid
 */
-	virtual bool ValidAnchor(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidVarnishArea(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for VarnishMethod
 * @return const WString& comma separated list of enumerated string values 

@@ -145,21 +145,21 @@ bool JDFAutoLayoutElementProductionParams::init(){
 **************************************************************** */
 
 
-JDFActionPool JDFAutoLayoutElementProductionParams::GetActionPool(int iSkip)const{
-	JDFActionPool e=GetElement(elm_ActionPool,WString::emptyStr,iSkip);
+JDFActionPool JDFAutoLayoutElementProductionParams::GetActionPool()const{
+	JDFActionPool e=GetElement(elm_ActionPool);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFActionPool JDFAutoLayoutElementProductionParams::GetCreateActionPool(int iSkip){
-	JDFActionPool e=GetCreateElement(elm_ActionPool,WString::emptyStr,iSkip);
+JDFActionPool JDFAutoLayoutElementProductionParams::GetCreateActionPool(){
+	JDFActionPool e=GetCreateElement(elm_ActionPool);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFActionPool JDFAutoLayoutElementProductionParams::AppendActionPool(){
-	JDFActionPool e=AppendElement(elm_ActionPool);
+	JDFActionPool e=AppendElementN(elm_ActionPool,1);
 	e.init();
 	return e;
 };
@@ -210,21 +210,21 @@ JDFRefElement JDFAutoLayoutElementProductionParams::RefShapeDef(JDFShapeDef& ref
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFTestPool JDFAutoLayoutElementProductionParams::GetTestPool(int iSkip)const{
-	JDFTestPool e=GetElement(elm_TestPool,WString::emptyStr,iSkip);
+JDFTestPool JDFAutoLayoutElementProductionParams::GetTestPool()const{
+	JDFTestPool e=GetElement(elm_TestPool);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFTestPool JDFAutoLayoutElementProductionParams::GetCreateTestPool(int iSkip){
-	JDFTestPool e=GetCreateElement(elm_TestPool,WString::emptyStr,iSkip);
+JDFTestPool JDFAutoLayoutElementProductionParams::GetCreateTestPool(){
+	JDFTestPool e=GetCreateElement(elm_TestPool);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFTestPool JDFAutoLayoutElementProductionParams::AppendTestPool(){
-	JDFTestPool e=AppendElement(elm_TestPool);
+	JDFTestPool e=AppendElementN(elm_TestPool,1);
 	e.init();
 	return e;
 };
@@ -241,7 +241,7 @@ JDFTestPool JDFAutoLayoutElementProductionParams::AppendTestPool(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_ActionPool);
-		if(nElem>0){ //bound error
+		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_ActionPool);
 			if (++n>=nMax)
 				return vElem;
@@ -275,7 +275,7 @@ JDFTestPool JDFAutoLayoutElementProductionParams::AppendTestPool(){
 			}
 		}
 		nElem=NumChildElements(elm_TestPool);
-		if(nElem>0){ //bound error
+		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_TestPool);
 			if (++n>=nMax)
 				return vElem;
@@ -294,7 +294,7 @@ JDFTestPool JDFAutoLayoutElementProductionParams::AppendTestPool(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoLayoutElementProductionParams::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",ShapeDef";
+		return JDFResource::UniqueElements()+L",ActionPool,ShapeDef,TestPool";
 	};
 
 /**

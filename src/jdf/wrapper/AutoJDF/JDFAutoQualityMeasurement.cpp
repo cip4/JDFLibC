@@ -75,7 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoQualityMeasurement.h"
-#include "jdf/wrapper/JDFBindingQualityParams.h"
+#include "jdf/wrapper/JDFBindingQualityMeasurement.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -253,21 +253,21 @@ JDFAutoQualityMeasurement& JDFAutoQualityMeasurement::operator=(const KElement& 
 **************************************************************** */
 
 
-JDFBindingQualityParams JDFAutoQualityMeasurement::GetBindingQualityMeasurement(int iSkip)const{
-	JDFBindingQualityParams e=GetElement(elm_BindingQualityMeasurement,WString::emptyStr,iSkip);
+JDFBindingQualityMeasurement JDFAutoQualityMeasurement::GetBindingQualityMeasurement(int iSkip)const{
+	JDFBindingQualityMeasurement e=GetElement(elm_BindingQualityMeasurement,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFBindingQualityParams JDFAutoQualityMeasurement::GetCreateBindingQualityMeasurement(int iSkip){
-	JDFBindingQualityParams e=GetCreateElement(elm_BindingQualityMeasurement,WString::emptyStr,iSkip);
+JDFBindingQualityMeasurement JDFAutoQualityMeasurement::GetCreateBindingQualityMeasurement(int iSkip){
+	JDFBindingQualityMeasurement e=GetCreateElement(elm_BindingQualityMeasurement,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFBindingQualityParams JDFAutoQualityMeasurement::AppendBindingQualityMeasurement(){
-	JDFBindingQualityParams e=AppendElement(elm_BindingQualityMeasurement);
+JDFBindingQualityMeasurement JDFAutoQualityMeasurement::AppendBindingQualityMeasurement(){
+	JDFBindingQualityMeasurement e=AppendElement(elm_BindingQualityMeasurement);
 	e.init();
 	return e;
 };

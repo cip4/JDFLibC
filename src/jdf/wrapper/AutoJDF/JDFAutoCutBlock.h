@@ -186,22 +186,6 @@ virtual bool init();
 	virtual WString OptionalAttributes()const;
 
 /**
-* Set attribute BlockName
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetBlockName(const WString& value);
-/**
-* Get string attribute BlockName
-* @return WString the vaue of the attribute 
-*/
-	virtual WString GetBlockName() const;
-/**
-* Typesafe attribute validation of BlockName
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidBlockName(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute BlockSize
 *@param JDFXYPair value: the value to set the attribute to
 */

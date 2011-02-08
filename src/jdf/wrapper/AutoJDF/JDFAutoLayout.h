@@ -85,6 +85,7 @@ namespace JDF{
 class JDFContentObject;
 class JDFInsertSheet;
 class JDFLayerList;
+class JDFLogicalStackParams;
 class JDFMarkObject;
 class JDFMedia;
 class JDFMediaSource;
@@ -597,6 +598,23 @@ virtual bool init();
  * 
 */
 	JDFLayerList AppendLayerList();
+
+/** Get Element LogicalStackParams
+* 
+* @return JDFLogicalStackParams The element
+*/
+	JDFLogicalStackParams GetCreateLogicalStackParams();
+
+/**
+* const get element LogicalStackParams
+*@return  JDFLogicalStackParams The element
+*/
+	JDFLogicalStackParams GetLogicalStackParams()const;
+/**
+* Append element LogicalStackParams
+ * 
+*/
+	JDFLogicalStackParams AppendLogicalStackParams();
 
 /** Get Element MarkObject
 * 

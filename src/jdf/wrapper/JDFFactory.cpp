@@ -100,6 +100,7 @@
 #include "JDFBasicPreflightTest.h"
 #include "JDFBindItem.h"
 #include "JDFBindList.h"
+#include "JDFBindingQualityMeasurement.h"
 #include "JDFBinderySignature.h"
 #include "JDFBooleanEvaluation.h"
 #include "JDFBooleanState.h"
@@ -262,6 +263,7 @@
 #include "JDFLayoutShift.h"
 #include "JDFLoc.h"
 #include "JDFLocation.h"
+#include "JDFLogicalStackParams.h"
 #include "JDFLongFold.h"
 #include "JDFLongGlue.h"
 #include "JDFLongPerforate.h"
@@ -417,6 +419,7 @@
 #include "JDFSignatureCell.h"
 #include "JDFSoftCoverBinding.h"
 #include "JDFSpawned.h"
+#include "JDFStack.h"
 #include "JDFState.h"
 #include "JDFStaticBlockingParams.h"
 #include "JDFStrap.h"
@@ -486,9 +489,9 @@ namespace JDF{
 	//
 	//
 	//////////////////////////////////////////////////////////////////////
-	
-	
-	
+
+
+
 	/// default ctor
 	JDFFactory::JDFFactory(){
 		pE=0;
@@ -497,7 +500,7 @@ namespace JDF{
 	JDFFactory::~JDFFactory(){
 		delete pE;
 	};
-	
+
 	/// copy ctor
 	JDFFactory::JDFFactory(const JDFElement & other){
 		pE=init(other);
@@ -524,11 +527,11 @@ namespace JDF{
 			pE=init(*(other.pE));
 		return *this;
 	}
-	
+
 	JDFElement* JDFFactory::init(const JDFElement &part){
 		if(part.isNull()) 
 			return new JDFElement();
-		
+
 		if(part.IsRefElement()){
 			JDFRefElement re=part;
 			KElement target=re.GetTarget();
@@ -546,168 +549,168 @@ namespace JDF{
 		}
 		return init(resName,typ, part);
 	}
-	
-	
-		
-		
+
+
+
+
 	JDFElement* JDFFactory::initRest(const WString &resName, const WString &typ, const JDFElement &part){
-		
-		
+
+
 		if(resName.empty())
 			return 0;
-		
+
 		const JDFCh* pcResName=resName.c_str();
 		JDFCh c=*pcResName;
-		
+
 		JDFElement*pE=0;
-		
+
 		if(c==L'A'||c==L'a'){
-			
+
 			pE=initRestA(pcResName,typ,part);
-			
+
 		}else if (c==L'B'||c==L'b'){
-			
+
 			pE=initRestB(pcResName,typ,part);
-			
+
 		}else if (c==L'C'||c==L'c'){
-			
+
 			pE=initRestC(pcResName,typ,part);
-		
+
 		}else if (c==L'D'){
 
 			pE=initRestD(pcResName,typ,part);
-			
+
 		}else if (c==L'E'){
-			
+
 			pE=initRestE(pcResName,typ,part);
-			
+
 		}else if (c==L'F'){
 
 			pE=initRestF(pcResName,typ,part);
 
 		}else if (c==L'G'){
-			
+
 			pE=initRestG(pcResName,typ,part);
-			
+
 		}else if (c==L'H'){
-			
+
 			pE=initRestH(pcResName,typ,part);
-			
+
 		}else if (c==L'I'){
-			
+
 			pE=initRestI(pcResName,typ,part);
-			
+
 		}else if (c==L'J'){
-			
+
 			pE=initRestJ(pcResName,typ,part);
-			
+
 		}else if (c==L'K'){
-			
-			
+
+
 		}else if (c==L'L'){
-			
+
 			pE=initRestL(pcResName,typ,part);
-			
+
 		}else if (c==L'm'||c==L'M'){
 
 			pE=initRestM(pcResName,typ,part);
-		
+
 		}else if (c==L'n'||c==L'N'){
-			
+
 			pE=initRestN(pcResName,typ,part);
-			
+
 		}else if (c==L'o'||c==L'O'){
-			
+
 			pE=initRestO(pcResName,typ,part);
-			
+
 		}else if (c==L'P'){
 
 			pE=initRestP(pcResName,typ,part);
 
 		}else if (c==L'Q'){
-			
+
 			pE=initRestQ(pcResName,typ,part);
 
 		}else if (c==L'R'){
 
 			pE=initRestR(pcResName,typ,part);
-			
+
 		}else if (c==L's'||c==L'S'){	
 
 			pE=initRestS(pcResName,typ,part);
-			
+
 		}else if (c==L'T'){
 
 			pE=initRestT(pcResName,typ,part);
-			
+
 		}else if (c==L'U'){
-			
+
 		}else if (c==L'V'){
 
 			pE=initRestV(pcResName,typ,part);
-	
+
 		}else if (c==L'w'||c==L'W'){
 
 			pE=initRestW(pcResName,typ,part);
 
 		}else if (c==L'x'||c==L'X'){
-			
+
 			pE=initRestX(pcResName,typ,part);
-			
+
 		}else if (c==L'Y'){
-			
+
 		}else if (c==L'Z'){
 		}
-		
-		
-			
+
+
+
 		// found something in a-z
 		if(pE){
 			if(!pE->isNull())
 				return pE;
 		}
-		
-		
+
+
 		// tbd define a generic text element class
 		if(WString(L"ExtendedAddress,OrganizationalUnit").HasToken(resName,WString::comma)){
 			return new JDFElement(part);
 		};
-		
+
 		if(WString(L"ColorsUsed,ColorantOrder,DeviceColorantOrder,ColorantParams").HasToken(resName,WString::comma)){
 			return new JDFSeparationList(part);
 		};
-		
+
 		return initSpan(resName,typ,part);
-		
+
 	};
 
-		JDFElement* JDFFactory::initRestA(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
+	JDFElement* JDFFactory::initRestA(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 
 		if(!wcscmp(pcResName,JDFElement::elm_Acknowledge.c_str())){
 			return new JDFAcknowledge(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Action.c_str())){
 			return new JDFAction(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Added.c_str())){
 			return new JDFAdded(part);				
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Address.c_str())){
 			return new JDFAddress(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_AdhesiveBinding.c_str())){
 			return new JDFAdhesiveBinding(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Ancestor.c_str())){
 			return new JDFAncestor(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_and.c_str())){
 			return new JDFand(part);
 		};
@@ -715,23 +718,23 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_ApprovalPerson.c_str())){
 			return new JDFApprovalPerson(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ApprovalDetails.c_str())){
 			return new JDFApprovalDetails(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ApprovalSuccess.c_str())){
 			return new JDFApprovalSuccess(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ArgumentValue.c_str())){
 			return new JDFArgumentValue(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ArtDelivery.c_str())){
 			return new JDFArtDelivery(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Assembly.c_str())){
 			return new JDFAssembly(part);
 		};
@@ -749,10 +752,10 @@ namespace JDF{
 		return 0; 
 	}
 
-		
+
 	JDFElement* JDFFactory::initRestB(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Band.c_str())){
 			return new JDFBand(part);
 		};
@@ -760,11 +763,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Barcode.c_str())){
 			return new JDFBarcode(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BarcodeDetails.c_str())){
 			return new JDFBarcodeDetails(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BasicPreflightTest.c_str())){
 			return new JDFBasicPreflightTest(part);
 		};
@@ -772,13 +775,16 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_BindItem.c_str())){
 			return new JDFBindItem(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BindList.c_str())){
 			return new JDFBindList(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BinderySignature.c_str())){
 			return new JDFBinderySignature(part);
+		};
+		if(!wcscmp(pcResName,JDFElement::elm_BindingQualityMeasurement.c_str())){
+			return new JDFBindingQualityMeasurement(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_BookCase.c_str())){
@@ -788,7 +794,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_BooleanEvaluation.c_str())){
 			return new JDFBooleanEvaluation(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BooleanState.c_str())){
 			return new JDFBooleanState(part);
 		};
@@ -796,15 +802,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_BoxApplication.c_str())){
 			return new JDFBoxApplication(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BoxArgument.c_str())){
 			return new JDFBoxArgument(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BoxFoldAction.c_str())){
 			return new JDFBoxFoldAction(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BoxToBoxDifference.c_str())){
 			return new JDFBoxToBoxDifference(part);
 		};
@@ -812,11 +818,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Bundle.c_str())){
 			return new JDFBundle(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_BusinessInfo.c_str())){
 			return new JDFBusinessInfo(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ByteMap.c_str())){
 			return new JDFByteMap(part);
 		};
@@ -824,7 +830,7 @@ namespace JDF{
 		return 0; 
 	}
 
-	
+
 	JDFElement* JDFFactory::initRestC(const  JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 		if(!wcscmp(pcResName,JDFElement::elm_call.c_str())){
@@ -834,11 +840,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_ChangedAttribute.c_str())){
 			return new JDFChangedAttribute(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ChannelBinding.c_str())){
 			return new JDFChannelBinding(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_choice.c_str())){
 			return new JDFchoice(part);
 		};
@@ -846,11 +852,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_CIELABMeasuringField.c_str())){
 			return new JDFCIELABMeasuringField(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_CoilBinding.c_str())){
 			return new JDFCoilBinding(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_CollatingItem.c_str())){
 			return new JDFCollatingItem(part);
 		};
@@ -858,7 +864,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Color.c_str())){
 			return new JDFColor(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorantAlias.c_str())){
 			return new JDFColorantAlias(part);
 		};
@@ -866,31 +872,31 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_ColorantControl.c_str())){
 			return new JDFColorantControl(part);
 		};
-				
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorantZoneDetails.c_str())){
 			return new JDFColorantZoneDetails(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorControlStrip.c_str())){
 			return new JDFColorControlStrip(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorCorrectionOp.c_str())){
 			return new JDFColorCorrectionOp(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorMeasurementConditions.c_str())){
 			return new JDFColorMeasurementConditions(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorSpaceConversionOp.c_str())){
 			return new JDFColorSpaceConversionOp(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorSpaceSubstitute.c_str())){
 			return new JDFColorSpaceSubstitute(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ColorsUsed.c_str())){
 			return new JDFColorsUsed(part);
 		};
@@ -898,28 +904,28 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_ComChannel.c_str())){
 			return new JDFComChannel(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Command.c_str())){
 			return new JDFCommand(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Comment.c_str())){
 			return new JDFComment(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Company.c_str())){
 			return new JDFCompany(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Component.c_str())){
 			return new JDFComponent(part);
 		};
-		
+
 		// ConstraintValue elements are arbitrarily void, therefore use only JDFElement
 		if(!wcscmp(pcResName,JDFElement::elm_ConstraintValue.c_str())){
 			return new JDFElement(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Contact.c_str())){
 			return new JDFContact(part);
 		};
@@ -927,23 +933,23 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Container.c_str())){
 			return new JDFContainer(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ContentList.c_str())){
 			return new JDFContentList(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ContentData.c_str())){
 			return new JDFContentData(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ContentMetaData.c_str())){
 			return new JDFContentMetaData(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ContentObject.c_str())){
 			return new JDFContentObject(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ControllerFilter.c_str())){
 			return new JDFControllerFilter(part);
 		};
@@ -955,8 +961,8 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_CostCenter.c_str())){
 			return new JDFCostCenter(part);
 		};
-		
-		
+
+
 		if(!wcscmp(pcResName,JDFElement::elm_Cover.c_str())){
 			if(part.GetParentNode().GetLocalName()==JDFElement::elm_ChannelBinding.c_str()){
 				return new JDFOptionSpan(part);
@@ -964,23 +970,23 @@ namespace JDF{
 				return new JDFIDPCover(part);
 			}
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_CounterReset.c_str())){
 			return new JDFCounterReset(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Crease.c_str())){
 			return new JDFCrease(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Created.c_str())){
 			return new JDFCreated(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_CreateResource.c_str())){
 			return new JDFCreateResource(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_CreditCard.c_str())){
 			return new JDFCreditCard(part);
 		};
@@ -988,11 +994,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_CustomerInfo.c_str())){
 			return new JDFCustomerInfo(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Cut.c_str())){
 			return new JDFCut(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_CutBlock.c_str())){
 			return new JDFCutBlock(part);
 		};
@@ -1011,9 +1017,9 @@ namespace JDF{
 
 	JDFElement* JDFFactory::initRestD(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DateTimeEvaluation.c_str())){
-	//		return new JDFDateTimeEvaluation(part);
+			//		return new JDFDateTimeEvaluation(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_DateTimeState.c_str())){
@@ -1023,15 +1029,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_DBRules.c_str())){
 			return new JDFDBRules(part);
 		};
-			
+
 		if(!wcscmp(pcResName,JDFElement::elm_DBSchema.c_str())){
 			return new JDFDBSchema(part);
 		};
-			
+
 		if(!wcscmp(pcResName,JDFElement::elm_DBSelection.c_str())){
 			return new JDFDBSelection(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Deleted.c_str())){
 			return new JDFDeleted(part);
 		};
@@ -1047,7 +1053,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_DevCap.c_str())){
 			return new JDFDevCap(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DevCapPool.c_str())){
 			return new JDFDevCapPool(part);
 		};
@@ -1055,23 +1061,23 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_DevCaps.c_str())){
 			return new JDFDevCaps(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Device.c_str())){
 			return new JDFDevice(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DeviceCap.c_str())){
 			return new JDFDeviceCap(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DeviceFilter.c_str())){
 			return new JDFDeviceFilter(part);				
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DeviceInfo.c_str())){
 			return new JDFDeviceInfo(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DeviceList.c_str())){
 			return new JDFDeviceList(part);
 		};
@@ -1079,11 +1085,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_DeviceMark.c_str())){
 			return new JDFDeviceMark(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DeviceNColor.c_str())){
 			return new JDFDeviceNColor(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DeviceNSpace.c_str())){
 			return new JDFDeviceNSpace(part);
 		};			
@@ -1091,15 +1097,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_DieLayout.c_str())){
 			return new JDFDieLayout(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DigitalMedia.c_str())){
 			return new JDFDigitalMedia(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Disjointing.c_str())){
 			return new JDFDisjointing(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DisplayGroup.c_str())){
 			return new JDFDisplayGroup(part);
 		};
@@ -1107,15 +1113,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Disposition.c_str())){
 			return new JDFDisposition(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Drop.c_str())){
 			return new JDFDrop(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DropItem.c_str())){
 			return new JDFDropItem(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DurationEvaluation.c_str())){
 			return new JDFDurationEvaluation(part);
 		};
@@ -1127,7 +1133,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_DynamicField.c_str())){
 			return new JDFDynamicField(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_DynamicInput.c_str())){
 			return new JDFDynamicInput(part);
 		};
@@ -1141,23 +1147,23 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_EdgeGluing.c_str())){
 			return new JDFEdgeGluing(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Emboss.c_str())){
 			return new JDFEmboss(part);
 		};
-					
+
 		if(!wcscmp(pcResName,JDFElement::elm_EmbossingItem.c_str())){
 			return new JDFEmbossingItem(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Employee.c_str())){
 			return new JDFEmployee(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_EmployeeDef.c_str())){
 			return new JDFEmployeeDef(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_EndSheet.c_str())){
 			return new JDFEndSheet(part);
 		};
@@ -1173,7 +1179,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Error.c_str())){
 			return new JDFError(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ExposedMedia.c_str())){
 			return new JDFExposedMedia(part);
 		};
@@ -1192,31 +1198,31 @@ namespace JDF{
 
 	JDFElement* JDFFactory::initRestF(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FCNKey.c_str())){
 			return new JDFFCNKey(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FeatureAttribute.c_str())){
 			return new JDFFeatureAttribute(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Feeder.c_str())){
 			return new JDFFeeder(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FileAlias.c_str())){
 			return new JDFFileAlias(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FileSpec.c_str())){
 			return new JDFFileSpec(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FitPolicy.c_str())){
 			return new JDFFitPolicy(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FlushedResources.c_str())){
 			return new JDFFlushedResources(part);
 		};
@@ -1224,15 +1230,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Fold.c_str())){
 			return new JDFFold(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FolderProduction.c_str())){
 			return new JDFFolderProduction(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_FontPolicy.c_str())){
 			return new JDFFontPolicy(part);
 		};
-	
+
 		return 0;
 	}
 
@@ -1261,7 +1267,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_GangQuFilter.c_str())){
 			return new JDFGangQuFilter(part);
 		};
-		
+
 		return 0;
 	}	
 
@@ -1275,11 +1281,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Hole.c_str())){
 			return new JDFHole(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_HoleLine.c_str())){
 			return new JDFHoleLine(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_HoleList.c_str())){
 			return new JDFHoleList(part);
 		};
@@ -1290,7 +1296,7 @@ namespace JDF{
 
 	JDFElement* JDFFactory::initRestI(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Icon.c_str())){
 			return new JDFIcon(part);
 		};
@@ -1298,15 +1304,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_IconList.c_str())){
 			return new JDFIconList(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_IdentificationField.c_str())){
 			return new JDFIdentificationField(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_IDInfo.c_str())){
 			return new JDFIDInfo(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_IDPFinishing.c_str())){
 			return new JDFIDPFinishing(part);
 		};
@@ -1330,19 +1336,19 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_IDPTrimming.c_str())){
 			return new JDFIDPTrimming(part);
 		};
-	
+
 		if(!wcscmp(pcResName,JDFElement::elm_ImageCompression.c_str())){
 			return new JDFImageCompression(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ImageShift.c_str())){
 			return new JDFImageShift(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Ink.c_str())){
 			return new JDFInk(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_InkZoneProfile.c_str())){
 			return new JDFInkZoneProfile(part);
 		};
@@ -1350,15 +1356,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Insert.c_str())){
 			return new JDFInsert(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_InsertList.c_str())){
 			return new JDFInsertList(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_InsertSheet.c_str())){
 			return new JDFInsertSheet(part);
 		};
-					
+
 		if(!wcscmp(pcResName,JDFElement::elm_IntegerEvaluation.c_str())){
 			return new JDFIntegerEvaluation(part);
 		};
@@ -1366,11 +1372,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_IntegerState.c_str())){
 			return new JDFIntegerState(part);
 		};
-					
+
 		if(!wcscmp(pcResName,JDFElement::elm_InterpretedPDLData.c_str())){
 			return new JDFInterpretedPDLData(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_IsPresentEvaluation.c_str())){
 			return new JDFIsPresentEvaluation(part);
 		};
@@ -1384,22 +1390,22 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_JDFController.c_str())){
 			return new JDFJDFController(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_JDFService.c_str())){
 			return new JDFJDFService(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_JDFSystemTimeSet.c_str())){
 			return new JDFSystemTimeSet(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_JobField.c_str())){
 			return new JDFJobField(part);
 		};
 		if(!wcscmp(pcResName,JDFElement::elm_JobPhase.c_str())){
 			return new JDFJobPhase(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_JobSheet.c_str())){
 			return new JDFIDPJobSheet(part);
 		};
@@ -1413,27 +1419,27 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_LayerDetails.c_str())){
 			return new JDFLayerDetails(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_LayerList.c_str())){
 			return new JDFLayerList(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Layout.c_str())){
 			return new JDFLayout(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_LayoutElement.c_str())){
 			return new JDFLayoutElement(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_LayoutElementPart.c_str())){
 			return new JDFLayoutElementPart(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_LayoutShift.c_str())){
 			return new JDFLayoutShift(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Loc.c_str())){
 			return new JDFLoc(part);
 		};
@@ -1441,23 +1447,26 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Location.c_str())){
 			return new JDFLocation(part);
 		};
-		
+		if(!wcscmp(pcResName,JDFElement::elm_LogicalStackParams.c_str())){
+			return new JDFLogicalStackParams(part);
+		};
+
 		if(!wcscmp(pcResName,JDFElement::elm_LongFold.c_str())){
 			return new JDFLongFold(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_LongGlue.c_str())){
 			return new JDFLongGlue(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_LongPerforate.c_str())){
 			return new JDFLongPerforate(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_LongSlit.c_str())){
 			return new JDFLongSlit(part);
 		};
-		
+
 
 		return 0;
 	}
@@ -1472,11 +1481,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_MarkObject.c_str())){
 			return new JDFMarkObject(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MarkActivation.c_str())){
 			return new JDFMarkActivation(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MatrixEvaluation.c_str())){
 			return new JDFMatrixEvaluation(part);
 		};
@@ -1488,51 +1497,51 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Media.c_str())){
 			return new JDFMedia(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MediaLayers.c_str())){
 			return new JDFMediaLayers(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MediaSource.c_str())){
 			return new JDFMediaSource(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Merged.c_str())){
 			return new JDFMerged(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MetadataMap.c_str())){
 			return new JDFMetadataMap(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MessageService.c_str())){
 			return new JDFMessageService(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Milestone.c_str())){
 			return new JDFMilestone(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MISDetails.c_str())){
 			return new JDFMISDetails(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Modified.c_str())){
 			return new JDFModified(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Module.c_str())){
 			return new JDFModule(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ModuleCap.c_str())){
 			return new JDFModuleCap(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ModulePhase.c_str())){
 			return new JDFModulePhase(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ModulePool.c_str())){
 			return new JDFModulePool(part);
 		};
@@ -1540,11 +1549,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_ModuleStatus.c_str())){
 			return new JDFModuleStatus(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MoveResource.c_str())){
 			return new JDFMoveResource(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_MsgFilter.c_str())){
 			return new JDFMsgFilter(part);
 		};
@@ -1575,23 +1584,23 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_NodeInfo.c_str())){
 			return new JDFNodeInfo(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_NodeInfoResp.c_str())){
 			return new JDFNodeInfoResp(part);
 		};
-	
+
 		if(!wcscmp(pcResName,JDFElement::elm_Notification.c_str())){
 			return new JDFNotification(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_NotificationDef.c_str())){
 			return new JDFNotificationDef(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_NotificationFilter.c_str())){
 			return new JDFNotificationFilter(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_NumberEvaluation.c_str())){
 			return new JDFNumberEvaluation(part);
 		};
@@ -1603,15 +1612,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_NumberingParam.c_str())){
 			return new JDFNumberingParam(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_NumberItem.c_str())){
 			return new JDFNumberItem(part);
 		};
-		
+
 		return 0;
 	}
 
-// OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	// OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 	JDFElement* JDFFactory::initRestO(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
@@ -1622,19 +1631,19 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_otherwise.c_str())){
 			return new JDFotherwise(part);
 		};
-	
+
 		if(!wcscmp(pcResName,JDFElement::elm_ObjectResolution.c_str())){
 			return new JDFObjectResolution(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ObjectModel.c_str())){
 			return new JDFObjectModel(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ObservationTarget.c_str())){
 			return new JDFObservationTarget(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Occupation.c_str())){
 			return new JDFOccupation(part);
 		};
@@ -1657,43 +1666,43 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_PageAssignedList.c_str())){
 			return new JDFPageAssignedList(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PageList.c_str())){
 			return new JDFPageList(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PageCell.c_str())){
 			return new JDFPageCell(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PageCondition.c_str())){
 			return new JDFPageCondition(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PageData.c_str())){
 			return new JDFPageData(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PageElement.c_str())){
 			return new JDFPageElement(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Pallet.c_str())){
 			return new JDFPallet(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Part.c_str())){
 			return new JDFPart(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PartAmount.c_str())){
 			return new JDFPartAmount(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PartStatus.c_str())){
 			return new JDFPartStatus(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Path.c_str())){
 			return new JDFProductionSubPath(part);
 		};
@@ -1717,11 +1726,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_PDLResourceAlias.c_str())){
 			return new JDFPDLResourceAlias(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Perforate.c_str())){
 			return new JDFPerforate(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Performance.c_str())){
 			return new JDFPerformance(part);
 		};
@@ -1729,15 +1738,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Person.c_str())){
 			return new JDFPerson(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PhaseTime.c_str())){
 			return new JDFPhaseTime(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PixelColorant.c_str())){
 			return new JDFPixelColorant(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PlaceHolderResource.c_str())){
 			return new JDFPlaceHolderResource(part);
 		};
@@ -1745,7 +1754,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_PlasticCombBinding.c_str())){
 			return new JDFPlasticCombBinding(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Position.c_str())){
 			return new JDFPosition(part);
 		};
@@ -1757,7 +1766,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_PreflightAction.c_str())){
 			return new JDFPreflightAction(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PreflightAnalysis.c_str())){
 			return new JDFPreflightAnalysis(part);
 		};
@@ -1797,7 +1806,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_PreflightReport.c_str())){
 			return new JDFPreflightReport(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PreflightReportRulePool.c_str())){
 			return new JDFPreflightReportRulePool(part);
 		};
@@ -1809,7 +1818,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_PreflightValue.c_str())){
 			return new JDFPreflightValue(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PRError.c_str())){
 			return new JDFPRError(part);
 		};
@@ -1817,7 +1826,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Preview.c_str())){
 			return new JDFPreview(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Pricing.c_str())){
 			return new JDFPricing(part);
 		};
@@ -1833,7 +1842,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_PRGroupOccurrence.c_str())){
 			return new JDFPRGroupOccurrence(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PROccurrence.c_str())){
 			return new JDFPROccurrence(part);
 		};
@@ -1845,11 +1854,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_ProductionPath.c_str())){
 			return new JDFProductionPath(part);
 		};
-					
+
 		if(!wcscmp(pcResName,JDFElement::elm_ProofItem.c_str())){
 			return new JDFProofItem(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_PRRule.c_str())){
 			return new JDFPRRule(part);
 		};
@@ -1871,11 +1880,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_QualityMeasurement.c_str())){
 			return new JDFQualityMeasurement(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Query.c_str())){
 			return new JDFQuery(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Queue.c_str())){
 			return new JDFQueue(part);
 		};
@@ -1883,7 +1892,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_QueueEntry.c_str())){
 			return new JDFQueueEntry(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_QueueEntryDef.c_str())){
 			return new JDFQueueEntryDef(part);
 		};
@@ -1895,7 +1904,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_QueueFilter.c_str())){
 			return new JDFQueueFilter(part);
 		};
-		
+
 		return 0;
 	}
 
@@ -1917,27 +1926,27 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_RegisterRibbon.c_str())){
 			return new JDFRegisterRibbon(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_RegisterMark.c_str())){
 			return new JDFRegisterMark(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Removed.c_str())){
 			return new JDFRemoved(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_RepeatDesc.c_str())){
 			return new JDFRepeatDesc(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ResourceAudit.c_str())){
 			return new JDFResourceAudit(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ResourceInfo.c_str())){
 			return new JDFResourceInfo(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ResourceParam.c_str())){
 			return new JDFResourceParam(part);
 		};
@@ -1945,7 +1954,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Response.c_str())){
 			return new JDFResponse(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_RingBinding.c_str())){
 			return new JDFRingBinding(part);
 		};
@@ -1961,7 +1970,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_RunList.c_str())){
 			return new JDFRunList(part);
 		};
-	
+
 		return 0;
 	}
 
@@ -1975,15 +1984,15 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_SaddleStitching.c_str())){
 			return new JDFSaddleStitching(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ScavengerArea.c_str())){
 			return new JDFScavengerArea(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Score.c_str())){
 			return new JDFScore(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ScreenSelector.c_str())){
 			return new JDFScreenSelector(part);
 		};
@@ -1991,19 +2000,19 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_SeparationSpec.c_str())){
 			return new JDFSeparationSpec(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ShapeCut.c_str())){
 			return new JDFShapeCut(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ShapeDef.c_str())){
 			return new JDFShapeDef(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ShapeElement.c_str())){
 			return new JDFShapeElement(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ShapeEvaluation.c_str())){
 			return new JDFShapeEvaluation(part);
 		};
@@ -2019,19 +2028,19 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Sheet.c_str())){
 			return new JDFSheet(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_ShiftPoint.c_str())){
 			return new JDFShiftPoint(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_SideSewing.c_str())){
 			return new JDFSideSewing(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_SideStitching.c_str())){
 			return new JDFSideStitching(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Signal.c_str())){
 			return new JDFSignal(part);
 		};
@@ -2039,7 +2048,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Signature.c_str())){
 			return new JDFSignature(part);
 		};
-			
+
 		if(!wcscmp(pcResName,JDFElement::elm_SignatureCell.c_str())){
 			return new JDFSignatureCell(part);
 		};
@@ -2051,23 +2060,26 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Spawned.c_str())){
 			return new JDFSpawned(part);
 		};
-		
+
+		if(!wcscmp(pcResName,JDFElement::elm_Stack.c_str())){
+			return new JDFStack(part);
+		};
 		if(!wcscmp(pcResName,JDFElement::elm_StaticBlockingParams.c_str())){
 			return new JDFStaticBlockingParams(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Station.c_str())){
 			return new JDFStation(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Strap.c_str())){
 			return new JDFStrap(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_StripMark.c_str())){
 			return new JDFStripMark(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_StringEvaluation.c_str())){
 			return new JDFStringEvaluation(part);
 		};
@@ -2083,23 +2095,23 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_StripBinding.c_str())){
 			return new JDFStripBinding(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_SubmissionMethods.c_str())){
 			return new JDFSubmissionMethods(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Subscription.c_str())){
 			return new JDFSubscription(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_SubscriptionFilter.c_str())){
 			return new JDFSubscriptionFilter(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_SubscriptionInfo.c_str())){
 			return new JDFSubscriptionInfo(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Surface.c_str())){
 			return new JDFSurface(part);
 		};
@@ -2114,11 +2126,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_TabDimensions.c_str())){
 			return new JDFTabDimensions(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Tabs.c_str())){
 			return new JDFTabs(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Tape.c_str())){
 			return new JDFTape(part);
 		};
@@ -2126,7 +2138,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_Test.c_str())){
 			return new JDFTest(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TestRef.c_str())){
 			return new JDFTestRef(part);
 		};
@@ -2137,7 +2149,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_ThreadSewing.c_str())){
 			return new JDFThreadSewing(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TIFFEmbeddedFile.c_str())){
 			return new JDFTIFFEmbeddedFile(part);
 		};
@@ -2145,51 +2157,51 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_TIFFtag.c_str())){
 			return new JDFTIFFtag(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Tile.c_str())){
 			return new JDFTile(part);
 		};
-					
+
 		if(!wcscmp(pcResName,JDFElement::elm_Tool.c_str())){
 			return new JDFTool(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TrackFilter.c_str())){
 			return new JDFTrackFilter(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TrackResult.c_str())){
 			return new JDFTrackResult(part);
 		};
-					
+
 		if(!wcscmp(pcResName,JDFElement::elm_TransferCurve.c_str())){
 			return new JDFTransferCurve(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TransferCurveSet.c_str())){
 			return new JDFTransferCurveSet(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TransferFunctionControl.c_str())){
 			return new JDFTransferFunctionControl(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TrappingDetails.c_str())){
 			return new JDFTrappingDetails(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TrappingOrder.c_str())){
 			return new JDFTrappingOrder(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_TrapRegion.c_str())){
 			return new JDFTrapRegion(part);
 		};
-		
+
 		if(!wcscmp(pcResName,JDFElement::elm_Trigger.c_str())){
 			return new JDFTrigger(part);
 		};
-		
+
 		return 0;
 	}
 
@@ -2215,7 +2227,7 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_when.c_str())){
 			return new JDFwhen(part);
 		};
-					
+
 		if(!wcscmp(pcResName,JDFElement::elm_WireCombBinding.c_str())){
 			return new JDFWireCombBinding(part);
 		};
@@ -2227,11 +2239,11 @@ namespace JDF{
 
 	JDFElement* JDFFactory::initRestX(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
-			
+
 		if(!wcscmp(pcResName,JDFElement::elm_xor.c_str())){
 			return new JDFxor(part);
 		};
-	
+
 		if(!wcscmp(pcResName,JDFElement::elm_XYPairEvaluation.c_str())){
 			return new JDFXYPairEvaluation(part);
 		};

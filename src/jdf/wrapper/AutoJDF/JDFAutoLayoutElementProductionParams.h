@@ -186,20 +186,19 @@ virtual bool init();
 
 /** Get Element ActionPool
 * 
-* @param int iSkip number of elements to skip
 * @return JDFActionPool The element
 */
-	JDFActionPool GetCreateActionPool(int iSkip=0);
+	JDFActionPool GetCreateActionPool();
 
 /**
 * const get element ActionPool
-* @param int iSkip number of elements to skip
-* @return JDFActionPool The element
+*@return  JDFActionPool The element
 */
-	JDFActionPool GetActionPool(int iSkip=0)const;
+	JDFActionPool GetActionPool()const;
 /**
 * Append element ActionPool
- */
+ * 
+*/
 	JDFActionPool AppendActionPool();
 
 /** Get Element LayoutElementPart
@@ -245,20 +244,19 @@ virtual bool init();
 
 /** Get Element TestPool
 * 
-* @param int iSkip number of elements to skip
 * @return JDFTestPool The element
 */
-	JDFTestPool GetCreateTestPool(int iSkip=0);
+	JDFTestPool GetCreateTestPool();
 
 /**
 * const get element TestPool
-* @param int iSkip number of elements to skip
-* @return JDFTestPool The element
+*@return  JDFTestPool The element
 */
-	JDFTestPool GetTestPool(int iSkip=0)const;
+	JDFTestPool GetTestPool()const;
 /**
 * Append element TestPool
- */
+ * 
+*/
 	JDFTestPool AppendTestPool();
 
 /**

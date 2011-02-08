@@ -174,6 +174,11 @@ public:
 */
 
 	enum EnumUpdateMethod{UpdateMethod_Unknown,UpdateMethod_Complete,UpdateMethod_Incremental,UpdateMethod_Remove};
+/**
+* Enumeration for attribute Usage
+*/
+
+	enum EnumUsage{Usage_Unknown,Usage_Input,Usage_Output};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -416,6 +421,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidUpdateMethod(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for Usage
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& UsageString();
+/**
+* Enumeration string for enum value
+* @param EnumUsage value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString UsageString(EnumUsage value);
+/**
+* Set attribute Usage
+* @param EnumUsage value the value to set the attribute to
+*/
+	virtual void SetUsage( EnumUsage value);
+
+/**
+* Typesafe enumerated attribute Usage
+* @return EnumUsagethe enumeration value of the attribute
+*/
+	virtual EnumUsage GetUsage() const;
+
+/**
+* Typesafe attribute validation of Usage
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidUsage(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

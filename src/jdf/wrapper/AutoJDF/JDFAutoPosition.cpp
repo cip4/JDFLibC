@@ -116,7 +116,7 @@ JDFAutoPosition& JDFAutoPosition::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPosition::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",AbsoluteBox,BlockName,MarginBottom,MarginTop,MarginLeft,MarginRight,Orientation,RelativeBox");
+		return JDFElement::OptionalAttributes()+WString(L",AbsoluteBox,MarginBottom,MarginTop,MarginLeft,MarginRight,Orientation,RelativeBox");
 };
 
 /**
@@ -129,11 +129,6 @@ JDFAutoPosition& JDFAutoPosition::operator=(const KElement& other){
 			return vAtts;
 		if(!ValidAbsoluteBox(level)) {
 			vAtts.push_back(atr_AbsoluteBox);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidBlockName(level)) {
-			vAtts.push_back(atr_BlockName);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -187,24 +182,6 @@ JDFAutoPosition& JDFAutoPosition::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPosition::ValidAbsoluteBox(EnumValidationLevel level) const {
 		return ValidAttribute(atr_AbsoluteBox,AttributeType_rectangle,false);
-	};
-/**
-* Set attribute BlockName
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoPosition::SetBlockName(const WString& value){
-	SetAttribute(atr_BlockName,value);
-};
-/**
-* Get string attribute BlockName
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoPosition::GetBlockName() const {
-	return GetAttribute(atr_BlockName,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPosition::ValidBlockName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_BlockName,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute MarginBottom

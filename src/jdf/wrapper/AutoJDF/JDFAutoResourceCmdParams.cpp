@@ -119,7 +119,7 @@ JDFAutoResourceCmdParams& JDFAutoResourceCmdParams::operator=(const KElement& ot
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoResourceCmdParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Activation,Exact,JobID,JobPartID,ProcessUsage,ProductID,ProductionAmount,QueueEntryID,ResourceName,ResourceID,Status,UpdateIDs,UpdateMethod");
+		return JDFElement::OptionalAttributes()+WString(L",Activation,Exact,JobID,JobPartID,ProcessUsage,ProductID,ProductionAmount,QueueEntryID,ResourceName,ResourceID,Status,UpdateIDs,UpdateMethod,Usage");
 };
 
 /**
@@ -192,6 +192,11 @@ JDFAutoResourceCmdParams& JDFAutoResourceCmdParams::operator=(const KElement& ot
 		};
 		if(!ValidUpdateMethod(level)) {
 			vAtts.push_back(atr_UpdateMethod);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidUsage(level)) {
+			vAtts.push_back(atr_Usage);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -438,6 +443,31 @@ JDFAutoResourceCmdParams& JDFAutoResourceCmdParams::operator=(const KElement& ot
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoResourceCmdParams::ValidUpdateMethod(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_UpdateMethod,UpdateMethodString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoResourceCmdParams::UsageString(){
+		static const WString enums=WString(L"Unknown,Input,Output");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoResourceCmdParams::UsageString(EnumUsage value){
+		return UsageString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoResourceCmdParams::SetUsage( EnumUsage value){
+	SetEnumAttribute(atr_Usage,value,UsageString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoResourceCmdParams::EnumUsage JDFAutoResourceCmdParams:: GetUsage() const {
+	return (EnumUsage) GetEnumAttribute(atr_Usage,UsageString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceCmdParams::ValidUsage(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Usage,UsageString(),false);
 	};
 
 /* ******************************************************

@@ -186,7 +186,7 @@ public:
 * Enumeration for attribute BindingOrder
 */
 
-	enum EnumBindingOrder{BindingOrder_Unknown,BindingOrder_Collecting,BindingOrder_Gathering,BindingOrder_List};
+	enum EnumBindingOrder{BindingOrder_Unknown,BindingOrder_Collecting,BindingOrder_Gathering,BindingOrder_List,BindingOrder_None};
 
 /**
  * definition of optional attributes in the JDF namespace

@@ -82,7 +82,7 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
-class JDFBindingQualityParams;
+class JDFBindingQualityMeasurement;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -258,20 +258,20 @@ public:
 /** Get Element BindingQualityMeasurement
 * 
 * @param int iSkip number of elements to skip
-* @return JDFBindingQualityParams The element
+* @return JDFBindingQualityMeasurement The element
 */
-	JDFBindingQualityParams GetCreateBindingQualityMeasurement(int iSkip=0);
+	JDFBindingQualityMeasurement GetCreateBindingQualityMeasurement(int iSkip=0);
 
 /**
 * const get element BindingQualityMeasurement
 * @param int iSkip number of elements to skip
-* @return JDFBindingQualityParams The element
+* @return JDFBindingQualityMeasurement The element
 */
-	JDFBindingQualityParams GetBindingQualityMeasurement(int iSkip=0)const;
+	JDFBindingQualityMeasurement GetBindingQualityMeasurement(int iSkip=0)const;
 /**
 * Append element BindingQualityMeasurement
  */
-	JDFBindingQualityParams AppendBindingQualityMeasurement();
+	JDFBindingQualityMeasurement AppendBindingQualityMeasurement();
 
 /**
  definition of optional elements in the JDF namespace

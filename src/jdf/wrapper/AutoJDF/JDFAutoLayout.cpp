@@ -78,6 +78,7 @@
 #include "jdf/wrapper/JDFContentObject.h"
 #include "jdf/wrapper/JDFInsertSheet.h"
 #include "jdf/wrapper/JDFLayerList.h"
+#include "jdf/wrapper/JDFLogicalStackParams.h"
 #include "jdf/wrapper/JDFMarkObject.h"
 #include "jdf/wrapper/JDFMedia.h"
 #include "jdf/wrapper/JDFMediaSource.h"
@@ -639,6 +640,26 @@ JDFLayerList JDFAutoLayout::AppendLayerList(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFLogicalStackParams JDFAutoLayout::GetLogicalStackParams()const{
+	JDFLogicalStackParams e=GetElement(elm_LogicalStackParams);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFLogicalStackParams JDFAutoLayout::GetCreateLogicalStackParams(){
+	JDFLogicalStackParams e=GetCreateElement(elm_LogicalStackParams);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFLogicalStackParams JDFAutoLayout::AppendLogicalStackParams(){
+	JDFLogicalStackParams e=AppendElementN(elm_LogicalStackParams,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFMarkObject JDFAutoLayout::GetMarkObject(int iSkip)const{
 	JDFMarkObject e=GetElement(elm_MarkObject,WString::emptyStr,iSkip);
 	return e;
@@ -816,6 +837,18 @@ JDFRefElement JDFAutoLayout::RefTransferCurvePool(JDFTransferCurvePool& refTarge
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_LogicalStackParams);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_LogicalStackParams);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetLogicalStackParams().IsValid(level)) {
+				vElem.AppendUnique(elm_LogicalStackParams);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_MarkObject);
 
 		for(i=0;i<nElem;i++){
@@ -888,13 +921,13 @@ JDFRefElement JDFAutoLayout::RefTransferCurvePool(JDFTransferCurvePool& refTarge
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoLayout::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",LayerList,MediaSource,TransferCurvePool";
+		return JDFResource::UniqueElements()+L",LayerList,LogicalStackParams,MediaSource,TransferCurvePool";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayout::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ContentObject,InsertSheet,LayerList,MarkObject,Media,MediaSource,PageCondition,Signature,TransferCurvePool";
+		return JDFResource::OptionalElements()+L",ContentObject,InsertSheet,LayerList,LogicalStackParams,MarkObject,Media,MediaSource,PageCondition,Signature,TransferCurvePool";
 	};
 }; // end namespace JDF

@@ -4789,6 +4789,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoBindingQualityMeasurement.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoBindingQualityMeasurement.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoBoxApplication.cpp"
 					>
 				</File>
@@ -5030,6 +5038,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.h"
 					>
 				</File>
 				<File
@@ -5286,6 +5302,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShiftPoint.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStack.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStack.h"
 					>
 				</File>
 				<File
@@ -9005,6 +9029,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFBindingQualityMeasurement.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFBindingQualityMeasurement.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\JDFContentMetaData.cpp"
 					>
 				</File>
@@ -9042,6 +9074,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\JDFLayoutShift.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFLogicalStackParams.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFLogicalStackParams.h"
 					>
 				</File>
 				<File
@@ -9146,6 +9186,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\jdf\wrapper\JDFShiftPoint.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFStack.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFStack.h"
 					>
 				</File>
 				<File

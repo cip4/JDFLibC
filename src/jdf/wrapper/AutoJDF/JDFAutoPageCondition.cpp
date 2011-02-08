@@ -171,7 +171,7 @@ JDFAutoPageCondition& JDFAutoPageCondition::operator=(const KElement& other){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoPageCondition::ConditionString(){
-		static const WString enums=WString(L"Unknown,PagePoolStart,PagePoolListStart,PagePoolListEnd");
+		static const WString enums=WString(L"Unknown,PagePoolStart,PagePoolListStart,PagePoolListEnd,PagePoolEnd");
 		return enums;
 	};
 

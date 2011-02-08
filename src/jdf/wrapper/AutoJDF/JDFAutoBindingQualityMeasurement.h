@@ -74,30 +74,27 @@
 ///////////////////////////////////////////////////////////////////
 
  
-#if !defined _JDFAutoPageCondition_H_
-#define _JDFAutoPageCondition_H_
+#if !defined _JDFAutoBindingQualityMeasurement_H_
+#define _JDFAutoBindingQualityMeasurement_H_
 #if _MSC_VER >= 1000
 #pragma once
 #endif // _MSC_VER >= 1000
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
-class JDFRunList;
-class JDFPart;
-class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoPageCondition : public JDFElement
+class JDFAutoBindingQualityMeasurement : public JDFElement
 
 *********************************************************************
 */
 /**
-* automatically generated header for JDFAutoPageCondition class
+* automatically generated header for JDFAutoBindingQualityMeasurement class
 * 
 * Warning! Do not edit! This file may be regenerated
-* The child Class: @see JDFPageCondition should be edited instead
+* The child Class: @see JDFBindingQualityMeasurement should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoPageCondition : public JDFElement{
+class JDF_WRAPPERCORE_EXPORT JDFAutoBindingQualityMeasurement : public JDFElement{
 public:
 
 
@@ -108,21 +105,21 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoPageCondition():JDFElement(){};
+	inline JDFAutoBindingQualityMeasurement():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoPageCondition(const KElement & other):JDFElement(){
+	inline JDFAutoBindingQualityMeasurement(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
 * copy equivalance operator
 */
-	JDFAutoPageCondition &operator =(const KElement& other);
+	JDFAutoBindingQualityMeasurement &operator =(const KElement& other);
 /**
 * dtor
 */
-	virtual ~JDFAutoPageCondition(){};
+	virtual ~JDFAutoBindingQualityMeasurement(){};
 public:
 
 /**
@@ -133,15 +130,6 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
-
-/**
-* typesafe validator utility
-* @param EnumValidationLevel level validation level
-* @param bool bIgnorePrivate ignore objects in foreign namespaces
-* @param int nMax size of the returned vector
-* @return vWString vector of invalid element names
-*/
-	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -164,16 +152,6 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
-/**
-* Enumeration for attribute Condition
-*/
-
-	enum EnumCondition{Condition_Unknown,Condition_PagePoolStart,Condition_PagePoolListStart,Condition_PagePoolListEnd,Condition_PagePoolEnd};
-
-/**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -181,133 +159,44 @@ public:
 	virtual WString OptionalAttributes()const;
 
 /**
-* Set attribute RestrictedContentObjects
-*@param JDFIntegerList value: the value to set the attribute to
+* Set attribute FlexValue
+*@param double value: the value to set the attribute to
 */
-	virtual void SetRestrictedContentObjects(const JDFIntegerList& value);
+	virtual void SetFlexValue(double value);
 /**
-* Get string attribute RestrictedContentObjects
-* @return JDFIntegerList the vaue of the attribute 
+* Get double attribute FlexValue
+* @return double the vaue of the attribute 
 */
-	virtual JDFIntegerList GetRestrictedContentObjects() const;
+	virtual double GetFlexValue() const;
 /**
-* Typesafe attribute validation of RestrictedContentObjects
+* Typesafe attribute validation of FlexValue
 * @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidRestrictedContentObjects(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidFlexValue(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Enumeration strings for Condition
-* @return const WString& comma separated list of enumerated string values 
+* Set attribute PullOutValue
+*@param double value: the value to set the attribute to
 */
-	static const WString& ConditionString();
+	virtual void SetPullOutValue(double value);
 /**
-* Enumeration string for enum value
-* @param EnumCondition value the enumeration to translate
-* @return WString the string representation of the enumeration
+* Get double attribute PullOutValue
+* @return double the vaue of the attribute 
 */
-	static WString ConditionString(EnumCondition value);
+	virtual double GetPullOutValue() const;
 /**
-* Set attribute Condition
-* @param EnumCondition value the value to set the attribute to
-*/
-	virtual void SetCondition( EnumCondition value);
-
-/**
-* Typesafe enumerated attribute Condition
-* @return EnumConditionthe enumeration value of the attribute
-*/
-	virtual EnumCondition GetCondition() const;
-
-/**
-* Typesafe attribute validation of Condition
-* @param EnumValidationLevel level element validation level 
+* Typesafe attribute validation of PullOutValue
+* @param EnumValidationLevel level of attribute validation 
 * @return bool true if valid
 */
-	virtual bool ValidCondition(EnumValidationLevel level=ValidationLevel_Complete) const;
+	virtual bool ValidPullOutValue(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
-
-/** Get Element RunList
-* 
-* @param int iSkip number of elements to skip
-* @return JDFRunList The element
-*/
-	JDFRunList GetCreateRunList(int iSkip=0);
-
-/**
-* const get element RunList
-* @param int iSkip number of elements to skip
-* @return JDFRunList The element
-*/
-	JDFRunList GetRunList(int iSkip=0)const;
-/**
-* Append element RunList
- */
-	JDFRunList AppendRunList();
-/**
-* create inter-resource link to refTarget
-* @param JDFRunList& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefRunList(JDFRunList& refTarget);
-
-/** Get Element Part
-* 
-* @param int iSkip number of elements to skip
-* @return JDFPart The element
-*/
-	JDFPart GetCreatePart(int iSkip=0);
-
-/**
-* const get element Part
-* @param int iSkip number of elements to skip
-* @return JDFPart The element
-*/
-	JDFPart GetPart(int iSkip=0)const;
-/**
-* Append element Part
- */
-	JDFPart AppendPart();
-//@{
-		/**
-		* get part map vector
-		* @return vector of mAttribute, one for each part
-		*/
-		vmAttribute GetPartMapVector()const;
-		
-		        /**
-		* set all parts to those define in vParts
-		* @param vmAttribute& vParts vector of attribute maps for the parts
-		*/
-		void SetPartMapVector(const vmAttribute & vParts);
-		/**
-		* set part to mPart
-		* @param mAttribute& mPart attribute map for the part to set
-		*/
-	void SetPartMap(const mAttribute & mPart);
-		/**
-		* remove the part defined in mPart
-		* @param mAttribute& mPart attribute map for the part to remove
-		*/
-		void RemovePartMap(const mAttribute & mPart);
-		/**
-		* check whether the part defined in mPart is included
-		* @param mAttribute& mPart attribute map for the part to remove
-		* @return bool if the part exists
-		*/
-		bool HasPartMap(const mAttribute & mPart);
-		//@}
-
-/**
- definition of optional elements in the JDF namespace
-*/
-	virtual WString OptionalElements()const;
-}; // endJDFAutoPageCondition
+}; // endJDFAutoBindingQualityMeasurement
 
 // ******************************************************
 }; // end namespace JDF
-#endif //_JDFAutoPageCondition_H_
+#endif //_JDFAutoBindingQualityMeasurement_H_

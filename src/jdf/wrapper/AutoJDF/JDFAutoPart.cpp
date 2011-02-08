@@ -533,21 +533,21 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 	};
 /**
 * Set attribute BinderySignaturePaginationIndex
-*@param WString value: the value to set the attribute to
+*@param JDFIntegerRangeList value: the value to set the attribute to
 */
-	 void JDFAutoPart::SetBinderySignaturePaginationIndex(const WString& value){
-	SetAttribute(atr_BinderySignaturePaginationIndex,value);
+	 void JDFAutoPart::SetBinderySignaturePaginationIndex(const JDFIntegerRangeList& value){
+	SetAttribute(atr_BinderySignaturePaginationIndex,value.GetString());
 };
 /**
-* Get string attribute BinderySignaturePaginationIndex
-* @return WString the vaue of the attribute 
+* Get range attribute BinderySignaturePaginationIndex
+* @return JDFIntegerRangeList the vaue of the attribute 
 */
-	 WString JDFAutoPart::GetBinderySignaturePaginationIndex() const {
+	 JDFIntegerRangeList JDFAutoPart::GetBinderySignaturePaginationIndex() const {
 	return GetAttribute(atr_BinderySignaturePaginationIndex,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidBinderySignaturePaginationIndex(EnumValidationLevel level) const {
-		return ValidAttribute(atr_BinderySignaturePaginationIndex,AttributeType_string,false);
+		return ValidAttribute(atr_BinderySignaturePaginationIndex,AttributeType_IntegerRangeList,false);
 	};
 /**
 * Set attribute BlockName

@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2011 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -502,6 +502,7 @@ namespace JDF{
 		static const WString elm_Level;
 		static const WString elm_Loc;
 		static const WString elm_Location;
+		static const WString elm_LogicalStackParams;
 		static const WString elm_LongFold;
 		static const WString elm_LongGlue;
 		static const WString elm_LongitudinalRibbonOperationParams;
@@ -789,6 +790,7 @@ namespace JDF{
 		static const WString elm_SpineSanding;
 		static const WString elm_SpineShredding;
 		static const WString elm_SpineTapingParams;
+		static const WString elm_Stack;
 		static const WString elm_StackingParams;
 		static const WString elm_State;
 		static const WString elm_Station;
@@ -1800,6 +1802,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_LogicalPage;
 		static const WString atr_LogicalPrinterSection;
 	static const WString atr_LogicalStackOrd;
+	static const WString atr_LogicalStackSequence;
 		static const WString atr_LogErrors;
 		static const WString atr_LotControl;
 		static const WString atr_LotID;
@@ -1846,6 +1849,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_MaxSearchRecursion;
 		static const WString atr_MaxSetOrd;
 		static const WString atr_MaxSetup;
+		static const WString atr_MaxStackDepth;
 		static const WString atr_MaxSubsetPct;
 		static const WString atr_MaxVersion;
 		static const WString atr_MaxWeight;
@@ -2260,6 +2264,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_ResourceWeight;
 		static const WString atr_RestoreTime;
 		static const WString atr_RestTime;
+		static const WString atr_Restrictions;
 
 		static const WString atr_Retention;
 		static const WString atr_ReturnCode;
@@ -2620,6 +2625,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_ValueRange;
 		static const WString atr_ValueTemplate;
 		static const WString atr_ValueUsage;
+		static const WString atr_VarnishArea;
 		static const WString atr_Version;
 		static const WString atr_VerticalCreep;
 		static const WString atr_ViewBinder;
