@@ -247,6 +247,7 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.cpp" />
@@ -261,6 +262,7 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShiftPoint.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStack.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStaticBlockingParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionFilter.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.cpp" />
@@ -292,6 +294,7 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFFCNKey.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLayoutShift.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLocation.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLogicalStackParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLot.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFMarkActivation.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFMerge.cpp" />
@@ -325,6 +328,7 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFShiftPoint.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSpawn.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSpawned.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFStack.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFStaticBlockingParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFStatusPool.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSubscriptionFilter.cpp" />
@@ -1343,6 +1347,7 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.h" />
@@ -1357,6 +1362,7 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShiftPoint.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStack.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStaticBlockingParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionFilter.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.h" />
@@ -1388,6 +1394,7 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFFCNKey.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLayoutShift.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLocation.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLogicalStackParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLot.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFMarkActivation.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFMerge.h" />
@@ -1421,6 +1428,7 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFShiftPoint.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSpawn.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSpawned.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFStack.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFStaticBlockingParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFStatusPool.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSubscriptionFilter.h" />
