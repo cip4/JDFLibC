@@ -348,6 +348,7 @@ namespace JDF{
 		static const WString elm_ExposedMedia;
 		static const WString elm_ExtendedAddress;
 		static const WString elm_ExternalImpositionTemplate;
+		static const WString elm_ExtraValues;
 
 //FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 		
@@ -2500,6 +2501,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_Temperature;
 		static const WString atr_Template;
 		static const WString atr_TemplateID;
+		static const WString atr_TemplateType;
 		static const WString atr_TemplateVersion;
 		static const WString atr_TestRef;
 		static const WString atr_TextBlackLevel;

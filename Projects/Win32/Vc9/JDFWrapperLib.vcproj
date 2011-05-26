@@ -9069,6 +9069,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFExtraValues.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\jdf\wrapper\JDFExtraValues.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\jdf\wrapper\JDFLayoutShift.cpp"
 					>
 				</File>

@@ -138,7 +138,7 @@ bool JDFAutoLayout::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoLayout::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Automated,LockOrigins,MaxDocOrd,MaxSetOrd,OrdReset,SheetCountReset,Name,BaseOrdReset,MaxCollect,MaxOrd,MinCollect,OrdsConsumed,SheetNameFormat,SheetNameTemplate,SourceWorkStyle,StackDepth,SurfaceContentsBox");
+		return JDFResource::OptionalAttributes()+WString(L",Automated,LockOrigins,MaxDocOrd,MaxSetOrd,OrdReset,SheetCountReset,Name,BaseOrdReset,MaxCollect,MaxOrd,MinCollect,OrdsConsumed,SheetNameFormat,SheetNameTemplate,SourceWorkStyle,SurfaceContentsBox,TemplateType");
 };
 
 /**
@@ -224,13 +224,13 @@ bool JDFAutoLayout::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidStackDepth(level)) {
-			vAtts.push_back(atr_StackDepth);
+		if(!ValidSurfaceContentsBox(level)) {
+			vAtts.push_back(atr_SurfaceContentsBox);
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidSurfaceContentsBox(level)) {
-			vAtts.push_back(atr_SurfaceContentsBox);
+		if(!ValidTemplateType(level)) {
+			vAtts.push_back(atr_TemplateType);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -534,24 +534,6 @@ bool JDFAutoLayout::init(){
 		return ValidEnumAttribute(atr_SourceWorkStyle,SourceWorkStyleString(),false);
 	};
 /**
-* Set attribute StackDepth
-*@param int value: the value to set the attribute to
-*/
-	 void JDFAutoLayout::SetStackDepth(int value){
-	SetAttribute(atr_StackDepth,WString::valueOf(value));
-};
-/**
-* Get integer attribute StackDepth
-* @return int the vaue of the attribute 
-*/
-	 int JDFAutoLayout::GetStackDepth() const {
-	return GetIntAttribute(atr_StackDepth,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoLayout::ValidStackDepth(EnumValidationLevel level) const {
-		return ValidAttribute(atr_StackDepth,AttributeType_integer,false);
-	};
-/**
 * Set attribute SurfaceContentsBox
 *@param JDFRectangle value: the value to set the attribute to
 */
@@ -568,6 +550,31 @@ bool JDFAutoLayout::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLayout::ValidSurfaceContentsBox(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SurfaceContentsBox,AttributeType_rectangle,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoLayout::TemplateTypeString(){
+		static const WString enums=WString(L"Unknown,Normal,ConditionalSheets");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoLayout::TemplateTypeString(EnumTemplateType value){
+		return TemplateTypeString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoLayout::SetTemplateType( EnumTemplateType value){
+	SetEnumAttribute(atr_TemplateType,value,TemplateTypeString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoLayout::EnumTemplateType JDFAutoLayout:: GetTemplateType() const {
+	return (EnumTemplateType) GetEnumAttribute(atr_TemplateType,TemplateTypeString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoLayout::ValidTemplateType(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_TemplateType,TemplateTypeString(),false);
 	};
 
 /* ******************************************************

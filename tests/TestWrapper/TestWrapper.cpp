@@ -81,7 +81,7 @@ int main(int argC, char* argV[]){
 	// create a JDF Doc
 	// use TestDoc as a container that holds the various example routines
 	// clean up
-	if(1)
+	if(0)
 	{
 		JDFDoc d(1);
 		JDFJMF j=d.GetJMFRoot();
@@ -89,7 +89,18 @@ int main(int argC, char* argV[]){
 		j.AppendSignal(JDFMessage::Type_AbortQueueEntry).SetTime(-1);
 		cout<<d;
 	}
-	else if(true)
+else if(1)
+{
+		JDFDoc doc;
+		doc.Parse("c:\\data\\ulf1.jdf",false);
+		JDFNode n=doc.GetJDFRoot();
+		JDFResource rl=n.GetMatchingResource(L"ColorantControl");
+		rl.Collapse(true);
+		cout<<rl<<endl;
+
+		doc.Write2File("c:\\data\\ulf2.jdf");
+}
+else if(true)
 	{
 		JDFDoc d;
 		d.Parse("O:\\JDFLibJ\\test\\data\\evilParts.jdf");
@@ -294,22 +305,6 @@ int main(int argC, char* argV[]){
 		JDFNode n=d.GetJDFRoot();         
 		n.SetType("fnarf");
 		cout<<n<<endl;
-
-	}else if(0){
-		JDFDoc doc;
-		doc.Parse(inFile,false);
-		JDFNode n=doc.GetJDFRoot();
-		JDFRunList rl=n.GetMatchingResource(L"RunList");
-		mAttribute ma;
-		ma.AddPair("SignatureName","Sig1");
-		ma.AddPair("SheetName","Sig1_Sheet1");
-		ma.AddPair("Side","Front");
-
-		JDFRunList rlp=rl.GetPartition(ma);
-		rlp.Collapse();
-		cout<<rl<<endl;
-
-		doc.Write2File(outFile);
 	}else if(0){
 		cout <<endl<<JDFResource::PartIDKeyString(JDFResource::PartIDKey_WebProduct)<<endl;
 

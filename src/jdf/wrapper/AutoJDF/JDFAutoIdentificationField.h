@@ -82,6 +82,9 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFBarcodeDetails;
+class JDFExtraValues;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoIdentificationField : public JDFResource
@@ -130,6 +133,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -426,6 +438,50 @@ virtual bool init();
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element BarcodeDetails
+* 
+* @return JDFBarcodeDetails The element
+*/
+	JDFBarcodeDetails GetCreateBarcodeDetails();
+
+/**
+* const get element BarcodeDetails
+*@return  JDFBarcodeDetails The element
+*/
+	JDFBarcodeDetails GetBarcodeDetails()const;
+/**
+* Append element BarcodeDetails
+ * 
+*/
+	JDFBarcodeDetails AppendBarcodeDetails();
+
+/** Get Element ExtraValues
+* 
+* @return JDFExtraValues The element
+*/
+	JDFExtraValues GetCreateExtraValues();
+
+/**
+* const get element ExtraValues
+*@return  JDFExtraValues The element
+*/
+	JDFExtraValues GetExtraValues()const;
+/**
+* Append element ExtraValues
+ * 
+*/
+	JDFExtraValues AppendExtraValues();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoIdentificationField
 
 // ******************************************************

@@ -333,6 +333,7 @@ namespace JDF{
 	const WString JDFStrings::elm_ExposedMedia=L"ExposedMedia";
 	const WString JDFStrings::elm_ExtendedAddress=L"ExtendedAddress";
 	const WString JDFStrings::elm_ExternalImpositionTemplate=L"ExternalImpositionTemplate";
+	const WString JDFStrings::elm_ExtraValues=L"ExtraValues";
 
 	// FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
@@ -2442,6 +2443,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Temperature=L"Temperature";
 	const WString JDFStrings::atr_Template=L"Template";
 	const WString JDFStrings::atr_TemplateID=L"TemplateID";
+	const WString JDFStrings::atr_TemplateType=L"TemplateType";
 	const WString JDFStrings::atr_TemplateVersion=L"TemplateVersion";
 	const WString JDFStrings::atr_TestRef=L"TestRef";
 	const WString JDFStrings::atr_TextBlackLevel=L"TextBlackLevel";

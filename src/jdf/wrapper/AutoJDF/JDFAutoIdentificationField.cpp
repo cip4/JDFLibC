@@ -75,6 +75,9 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoIdentificationField.h"
+#include "jdf/wrapper/JDFBarcodeDetails.h"
+#include "jdf/wrapper/JDFExtraValues.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -445,5 +448,102 @@ bool JDFAutoIdentificationField::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoIdentificationField::ValidValueTemplate(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ValueTemplate,AttributeType_string,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFBarcodeDetails JDFAutoIdentificationField::GetBarcodeDetails()const{
+	JDFBarcodeDetails e=GetElement(elm_BarcodeDetails);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFBarcodeDetails JDFAutoIdentificationField::GetCreateBarcodeDetails(){
+	JDFBarcodeDetails e=GetCreateElement(elm_BarcodeDetails);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFBarcodeDetails JDFAutoIdentificationField::AppendBarcodeDetails(){
+	JDFBarcodeDetails e=AppendElementN(elm_BarcodeDetails,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFExtraValues JDFAutoIdentificationField::GetExtraValues()const{
+	JDFExtraValues e=GetElement(elm_ExtraValues);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFExtraValues JDFAutoIdentificationField::GetCreateExtraValues(){
+	JDFExtraValues e=GetCreateElement(elm_ExtraValues);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFExtraValues JDFAutoIdentificationField::AppendExtraValues(){
+	JDFExtraValues e=AppendElementN(elm_ExtraValues,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoIdentificationField::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_BarcodeDetails);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_BarcodeDetails);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetBarcodeDetails().IsValid(level)) {
+				vElem.AppendUnique(elm_BarcodeDetails);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_ExtraValues);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ExtraValues);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetExtraValues().IsValid(level)) {
+				vElem.AppendUnique(elm_ExtraValues);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoIdentificationField::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",BarcodeDetails,ExtraValues";
+	};
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoIdentificationField::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",BarcodeDetails,ExtraValues";
 	};
 }; // end namespace JDF

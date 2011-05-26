@@ -204,6 +204,11 @@ virtual bool init();
 */
 
 	enum EnumSourceWorkStyle{SourceWorkStyle_Unknown,SourceWorkStyle_Simplex,SourceWorkStyle_Perfecting,SourceWorkStyle_WorkAndBack,SourceWorkStyle_WorkAndTurn,SourceWorkStyle_WorkAndTumble,SourceWorkStyle_WorkAndTwist};
+/**
+* Enumeration for attribute TemplateType
+*/
+
+	enum EnumTemplateType{TemplateType_Unknown,TemplateType_Normal,TemplateType_ConditionalSheets};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -503,22 +508,6 @@ virtual bool init();
 */
 	virtual bool ValidSourceWorkStyle(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute StackDepth
-*@param int value: the value to set the attribute to
-*/
-	virtual void SetStackDepth(int value);
-/**
-* Get integer attribute StackDepth
-* @return int the vaue of the attribute 
-*/
-	virtual int GetStackDepth() const;
-/**
-* Typesafe attribute validation of StackDepth
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidStackDepth(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute SurfaceContentsBox
 *@param JDFRectangle value: the value to set the attribute to
 */
@@ -534,6 +523,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSurfaceContentsBox(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for TemplateType
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& TemplateTypeString();
+/**
+* Enumeration string for enum value
+* @param EnumTemplateType value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString TemplateTypeString(EnumTemplateType value);
+/**
+* Set attribute TemplateType
+* @param EnumTemplateType value the value to set the attribute to
+*/
+	virtual void SetTemplateType( EnumTemplateType value);
+
+/**
+* Typesafe enumerated attribute TemplateType
+* @return EnumTemplateTypethe enumeration value of the attribute
+*/
+	virtual EnumTemplateType GetTemplateType() const;
+
+/**
+* Typesafe attribute validation of TemplateType
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidTemplateType(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
