@@ -291,6 +291,7 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFError.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFErrorData.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFEvent.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFExtraValues.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFFCNKey.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLayoutShift.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLocation.cpp" />
@@ -1391,6 +1392,7 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFError.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFErrorData.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFEvent.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFExtraValues.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFFCNKey.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLayoutShift.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLocation.h" />
