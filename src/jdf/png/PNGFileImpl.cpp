@@ -183,7 +183,9 @@ bool PNGFileImpl::init_read()
         
         // get width, height, bit-depth and color-type
 	    int ColorType;
-        png_get_IHDR(png_ptr, info_ptr, &pngInfo.m_imageWidth, &pngInfo.m_imageHeight, (int*) &pngInfo.m_bitDepth,
+        unsigned long* width = &pngInfo.m_imageWidth;
+        unsigned long* height = &pngInfo.m_imageHeight;
+        png_get_IHDR(png_ptr, info_ptr, (png_uint_32*) width, (png_uint_32*) height, (int*) &pngInfo.m_bitDepth,
             &ColorType, NULL, NULL, NULL);
         
 		if (ColorType != PNG_COLOR_TYPE_GRAY)

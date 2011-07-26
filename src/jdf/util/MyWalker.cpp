@@ -14,10 +14,12 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "MyWalker.h"
+#ifdef _x86_
 #ifdef WIN32
 #ifdef _DEBUG
 #include <windows.h>
 #include "Platforms/Win32/StackWalker.h"
+#endif
 #endif
 #endif
 //////////////////////////////////////////////////////////////////////
@@ -26,9 +28,11 @@
 
 MyWalker::MyWalker()
 {
+#ifdef _x86_
 #ifdef WIN32
 #ifdef _DEBUG
 	InitAllocCheck (ACOutput_XML);
+#endif
 #endif
 #endif
 }
@@ -37,9 +41,11 @@ MyWalker::MyWalker()
 
 MyWalker::~MyWalker()
 {
+#ifdef _x86_
 #ifdef WIN32
 #ifdef _DEBUG
 	DeInitAllocCheck ();
+#endif
 #endif
 #endif
 }
