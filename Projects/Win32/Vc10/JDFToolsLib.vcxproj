@@ -248,7 +248,7 @@
     </ResourceCompile>
     <Lib>
       <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\jdftoolslib_D.lib</OutputFile>
+      <OutputFile>..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\JDFToolsLib_D.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
   </ItemDefinitionGroup>
@@ -278,7 +278,7 @@
     </ResourceCompile>
     <Lib>
       <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\jdftoolslib_D.lib</OutputFile>
+      <OutputFile>..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\JDFToolsLib_D.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetMachine>MachineX64</TargetMachine>
     </Lib>
