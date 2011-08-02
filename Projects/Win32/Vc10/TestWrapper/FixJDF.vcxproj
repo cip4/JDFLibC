@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug DLL|Win32">
@@ -116,28 +116,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\..\Build\Win32\VC10\Release\FixJDF.exe\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\..\Build\Win32\VC10\Release\FixJDF.exe\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\..\Build\Win32\VC10\Release\obj\test\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\..\Build\Win32\VC10\Release\obj\test\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\Build\Win32\VC10\Debug\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\..\Build\Win32\VC10\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\Build\Win32\VC10\Debug\obj\test\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\..\Build\Win32\VC10\Debug\obj\test\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">.\..\..\..\..\Build\Win32\VC10\DebugDLL\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">.\..\..\..\..\Build\Win32\VC10\DebugDLL\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
@@ -167,7 +167,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\Release\FixJDF.exe/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -181,13 +181,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -195,7 +196,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\..\Build\Win32\VC10\Release\FixJDF.exe</OutputFile>
+      <OutputFile>..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -208,7 +209,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\Release\FixJDF.exe/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -222,13 +223,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\Release\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -236,7 +238,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\..\Build\Win32\VC10\Release\FixJDF.exe</OutputFile>
+      <OutputFile>..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -248,7 +250,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\ReleaseDLL/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -262,13 +264,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -276,7 +279,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL/FixJDF.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -289,7 +292,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\ReleaseDLL/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -303,13 +306,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -317,7 +321,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win32\VC10\ReleaseDLL/FixJDF.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -329,7 +333,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\Debug/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -341,15 +345,16 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PrecompiledHeaderFile>jdf.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -357,12 +362,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win32\VC10\Debug/FixJDF.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\..\Build\Win32\VC10\Debug/FixJDF.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
@@ -372,7 +377,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\Debug/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -384,15 +389,16 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PrecompiledHeaderFile>jdf.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\Debug\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -400,12 +406,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win32\VC10\Debug/FixJDF.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\..\Build\Win32\VC10\Debug/FixJDF.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
@@ -414,7 +420,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\DebugDLL/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -426,15 +432,16 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PrecompiledHeaderFile>jdf.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -442,12 +449,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win32\VC10\DebugDLL/FixJDF.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\..\Build\Win32\VC10\DebugDLL/FixJDF.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
@@ -457,7 +464,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">
     <Midl>
-      <TypeLibraryName>.\..\..\..\..\Build\Win32\VC6\DebugDLL/FixJDF.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -469,15 +476,16 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PrecompiledHeaderFile>jdf.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win32\VC10\DebugDLL\obj\test/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/FixJDF.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</AssemblerListingLocation>
+      <ObjectFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)\obj\test/</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -485,12 +493,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win32\VC10\DebugDLL/FixJDF.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\..\Build\Win32\VC10\DebugDLL/FixJDF.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/FixJDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
@@ -686,68 +694,148 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\Build\Win32\VC10\DebugDLL\JDFToolsDLLd.lib">
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Debug DLL\JDFToolsDLLd.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\..\Build\Win32\VC10\DebugDLL\JDFWrapperDLLd.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\..\Build\Win32\VC10\Debug\jdftoolslib_D.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="..\..\..\..\Build\Win32\VC10\Debug\JDFWrapperLib_D.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Debug DLL\JDFWrapperDLLd.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="..\..\..\..\Build\Win32\VC10\ReleaseDLL\JDFToolsDLL.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Debug\JDFToolsLib_D.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\..\Build\Win32\VC10\ReleaseDLL\JDFWrapperDLL.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\..\Build\Win32\VC10\Release\JDFToolsLib.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="..\..\..\..\Build\Win32\VC10\Release\JDFWrapperLib.lib">
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Debug\JDFWrapperLib_D.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Release DLL\JDFToolsDLL.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Release DLL\JDFWrapperDLL.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Release\JDFToolsLib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Release\JDFWrapperLib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Debug DLL\JDFToolsDLLd.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Debug DLL\JDFWrapperDLLd.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Debug\JDFToolsLib_D.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Debug\JDFWrapperLib_D.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Release DLL\JDFToolsDLL.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Release DLL\JDFWrapperDLL.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Release\JDFToolsLib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\x64\Release\JDFWrapperLib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release\libpng.lib">
@@ -755,12 +843,56 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\..\..\..\external\libpng\projects\visualc10\Win32_LIB_Release\ZLib\zlib.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\external\xerces3\lib\VC10\Win32\Debug\xerces-c_3D.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\external\xerces3\lib\VC10\Win32\Release\xerces-c_3.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\external\xerces3\lib\VC10\x64\Debug\xerces-c_3D.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\..\external\xerces3\lib\VC10\x64\Release\xerces-c_3.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
     </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
