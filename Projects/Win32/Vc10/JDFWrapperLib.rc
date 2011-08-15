@@ -41,14 +41,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" /* Language type = U.S English(0x0409) and Character Set = Windows, Multilingual(0x04E4) */
         BEGIN
-            VALUE "CompanyName", "TODO: www.cip4.org"
-            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "CompanyName", "www.cip4.org"
+            VALUE "FileDescription", JDFLIB_FILE_DESCRIPTION_STRING "\000"
             VALUE "FileVersion", JDFLIB_VER_STRING "\000"
             VALUE "InternalName", "JDFWrapperDLL.dll"
-            VALUE "LegalCopyright", "\251 2011 CIP4\000"
+            VALUE "LegalCopyright", JDFLIB_COPYRIGHT_STRING "\000"
             VALUE "OriginalFilename", "JDFWrapperDLL.dll"
-            VALUE "ProductName", "TODO: <Product name>"
-            VALUE "ProductVersion", "1.0.0.1"
+            VALUE "ProductName", JDFLIB_PRODUCT_NAME_STRING "\000"
+            VALUE "ProductVersion", JDFLIB_VER_STRING "\000"
         END
     END
     BLOCK "VarFileInfo"
