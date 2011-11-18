@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2011 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1129,9 +1129,9 @@ namespace JDF
 					return false;
 			}
 
-			if (WString::isDigit(tmpAddr[lastPeriodPos + 1]))
+			if (WString::isDigit(tmpAddr[lastPeriodPos + 1]) && isWellFormedIPv4Address(tmpAddr.c_str(), addrStrLen))
 			{
-				return isWellFormedIPv4Address(tmpAddr.c_str(), addrStrLen);
+				return true;
 			} // end of IPv4address
 			else
 			{

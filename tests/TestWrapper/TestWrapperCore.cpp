@@ -24,6 +24,7 @@
 #include <jdf/net/URI.h>
 #include <jdf/net/URL.h>
 #include <jdf/net/HTTPClient.h>
+#include "xercesc/util/regx/RegularExpression.hpp"
 
 #include "jdf/util/MyWalker.h"
 
@@ -60,18 +61,32 @@ int main(int argc, char* argv[]){
 	MyWalker walker;
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...	else 
-	if(1)
+	if(0)
 	{
 		assertTrue(KElement::IsWildcard(L"*"));
 		assertTrue(KElement::IsWildcard(L""));
 		assertTrue(KElement::IsWildcard(0));
 		assertFalse(KElement::IsWildcard(L"*a"));
-		assertTrue(KElement::IsWildcard(L"*Sonnenschein"));
+		assertFalse(KElement::IsWildcard(L"*Sonnenschein"));
 		assertFalse(KElement::IsWildcard(L"a"));
 
-		JDFDate dd;
-		for(int i=1;i<100;i++)
-			cout<<dd.TimeHHMMSSsss()<<" "<<clock()<<" "<<CLOCKS_PER_SEC<<endl;
+		XMLDoc doc("abc");
+		KElement f00=doc.GetRoot().GetElement("Bar");
+		assertFalse(f00.HasAttribute("fluf"));
+	}
+	else if(1)
+	{
+			RegularExpression re(L"(19|20)\\d\\d");
+			RegularExpression re4(L"(19|20)\\d\\d(-)");
+			RegularExpression re5(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])");
+			RegularExpression re6(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T]");
+			RegularExpression re1(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])(:)([0-5][0-9])(:)");
+			RegularExpression re2(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])(:)([0-5][0-9])(:)([0-5][0-9])([.](\\d)*)?");
+			RegularExpression re3(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])(:)([0-5][0-9])(:)([0-5][0-9])([.](\\d)*)?(([+-](0[0-9]|1[0-9]|2[0123])(:)(00))|[a-zA-Z])");
+		JDFDate d;
+		WString dd(d.DateTimeISO());
+		JDFDate das(dd);
+assertEquals(d.DateTimeISO(),das.DateTimeISO());
 	}
 	else if(0)
 	{

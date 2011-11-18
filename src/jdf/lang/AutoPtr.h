@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2011 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -120,7 +120,10 @@ public:
 
 	AutoEntity() : RealPtr(0), RefCount(1), Owned(1) { }
 
-	~AutoEntity() { if (Owned) delete RealPtr; }
+	~AutoEntity() { 
+		if (Owned) 
+			delete RealPtr;
+	}
 };
 
 class JDFTOOLS_EXPORT AutoPtrAtomicOperation
@@ -331,7 +334,7 @@ template <class T> AutoPtr<T>::AutoPtr(T* ptr) : SharedItem(new AutoEntity<T>)
 template <class T> AutoPtr<T>::AutoPtr(const AutoPtr<T>& parent) :
 	SharedItem(parent.SharedItem)
 {
-	atomicIncrement(SharedItem->RefCount);
+	AutoPtrAtomicOperation::atomicIncrement(SharedItem->RefCount);
 }
 
 template <class T> AutoPtr<T>::~AutoPtr()
@@ -424,7 +427,7 @@ template <class T> bool AutoPtr<T>::operator !=(const AutoPtr<T>& rhs) const
 template <class T> T* AutoPtr<T>::release()
 {
 	int* tmp = &SharedItem->Owned;
-	XMLPlatformUtils::compareAndSwap((void **)&tmp, 0,tmp);
+	AutoPtrAtomicOperation::compareAndSwap((void **)&tmp, 0,tmp);
 	return SharedItem->RealPtr;
 }
 

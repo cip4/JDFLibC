@@ -1,5 +1,4 @@
 #include <jdf/util/PlatformUtils.h>
-
 #include "jdf/wrapper/JDF.h"
 #include "jdf/wrapper/JDFDoc.h"
 #include "jdf/net/URLEncoder.h"
@@ -14,6 +13,9 @@
 #include "JDFSimulator.h"
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/dom/DOMElement.hpp>
+
+
+
 
 
 #include "MyTime.h"
@@ -81,24 +83,25 @@ int main(int argC, char* argV[]){
 	// create a JDF Doc
 	// use TestDoc as a container that holds the various example routines
 	// clean up
-	if(1)
+	if(0)
 	{
-		JDFDoc d(1);
-		JDFJMF j=d.GetJMFRoot();
-		j.AppendSignal(JDFMessage::Type_AbortQueueEntry).SetTime(0);
-		j.AppendSignal(JDFMessage::Type_AbortQueueEntry).SetTime(-1);
-		cout<<d;
+		JDFDoc d(0);
+		JDFNode n=d.GetRoot();
+		JDFResource r=n.GetResourcePool().GetResource("Foo");
+		assertFalse(r.HasAttribute("fluf"));
+
 	}
 else if(1)
 {
 		JDFDoc doc;
-		doc.Parse("c:\\data\\ulf1.jdf",false);
 		JDFNode n=doc.GetJDFRoot();
-		JDFResource rl=n.GetMatchingResource(L"ColorantControl");
-		rl.Collapse(true);
-		cout<<rl<<endl;
-
-		doc.Write2File("c:\\data\\ulf2.jdf");
+		JDFResource dev=n.AddResource("Device",JDF::JDFResource::Class_Implementation,true);
+		JDFResourceLink rl=n.GetLink(dev);
+		rl.SetPartMap(mAttribute("Run","R1"));
+		assertEquals(rl.GetTarget(),0);
+		JDFResource::setUnpartitiondImplicit(true);
+		assertEquals(rl.GetTarget(),dev);
+		doc.Write2File("c:\\data\\dummy.jdf");
 }
 else if(true)
 	{

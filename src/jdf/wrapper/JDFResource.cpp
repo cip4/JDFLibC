@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2011 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -108,7 +108,7 @@ using namespace std;
 
 namespace JDF{
 	//////////////////////////////////////////////////////////////////////
-
+	bool JDFResource::bUnpartitiondImplicit=false;
 	const JDFResource JDFResource::DefJDFResource=JDFResource();
 
 	//////////////////////////////////////////////////////////////////////
@@ -1734,6 +1734,8 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFResource::HasAttribute(const WString & attrib, const WString & nameSpaceURI,bool bInherit)const{ 
+		if(throwNull()) 
+			return false;
 		if(bInherit){
 			return GetInheritedAttribute(attrib,nameSpaceURI,WString::quote).compare(WString::quote)!=0;
 		}else{
@@ -3023,14 +3025,16 @@ namespace JDF{
 	///////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 
-	const WString& JDFResource::ValidParentNodeNames(){
-		static const WString nodeNames=ValidRootParentNodeNames()+L",Ancestor,DropItemIntent,DropItem,ProductionIntent,CustomerInfo,NodeInfo,DeviceInfo,PhaseTime";
+	const WString& JDFResource::ValidParentNodeNames()
+	{
+		static const WString nodeNames(L"ResourcePool,PipeParams,ResourceCmdParams,ResourceInfo,Ancestor,DropItemIntent,DropItem,ProductionIntent,CustomerInfo,NodeInfo,DeviceInfo,PhaseTime");
 		return nodeNames;
 	}
-
+	// note: any changes to ValidRootParentNodeNames must also be copied to ValidParentNodeNames 
 	///////////////////////////////////////////////////////////////////////
-	const WString& JDFResource::ValidRootParentNodeNames(){
-		static const WString nodeNames=L"ResourcePool,PipeParams,ResourceCmdParams,ResourceInfo";
+	const WString& JDFResource::ValidRootParentNodeNames()
+	{
+		static const WString nodeNames(L"ResourcePool,PipeParams,ResourceCmdParams,ResourceInfo");
 		return nodeNames;
 	}
 
@@ -3642,8 +3646,29 @@ namespace JDF{
 		SetEnumAttribute(atr_PartUsage,value,PartUsageString());
 	};
 	//////////////////////////////////////////////////////////////////////////////////
+
 	JDFResource::EnumPartUsage JDFResource::GetPartUsage() const {
-		return (EnumPartUsage) GetEnumAttribute(atr_PartUsage,PartUsageString(),WString::emptyStr,PartUsage_Explicit);
+		WString partUsage = GetAttribute(atr_PartUsage);
+		if (partUsage == WString::emptyStr)
+		{
+			if (!bUnpartitiondImplicit || GetResourceRoot().HasAttribute(atr_PartIDKeys))
+			{
+				return PartUsage_Explicit;
+			}
+			else
+			{
+				return PartUsage_Implicit;
+			}
+		}
+		else
+		{
+			int enumIndex=PartUsageString().PosOfToken(partUsage,WString::comma);
+
+			// unknown or illegal - default explicit
+			if(enumIndex<0)
+				return PartUsage_Explicit;
+			return (EnumPartUsage)enumIndex; 
+		}
 	};
 	//////////////////////////////////////////////////////////////////////////////////
 	void JDFResource::SetPipeProtocol(const WString& value){
@@ -4422,15 +4447,14 @@ namespace JDF{
 
 	///////////////////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
+	/**
+	* if set to true, the default @PartUsage of unpartitioned resources is Implicit.
+	* Note: this is NOT according to the specification since the Specification defaults PartUsage to Explicit for all Resources.
+	* 
+	* @param bUnpartitiondImplicit the bUnpartitiondImplicit to set
+	*/
+	void JDFResource::setUnpartitiondImplicit(bool unpartitiondImplicit)
+	{
+		JDFResource::bUnpartitiondImplicit = unpartitiondImplicit;
+	}
 } // namespace jdf
