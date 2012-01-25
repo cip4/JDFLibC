@@ -673,7 +673,8 @@ namespace JDF
 			}
 		}
 //		090715 RP if keepalive we must have a keepalivestream, even if cl==0, else we run into a blocking socket read
-		if (cl > 0 || keepingAlive)
+//		120125 RP the above fix was a BAD idea since we never continue reading in chunked mode - undo
+		if (cl > 0)
 		{
 
 			ProgressEntry *pe=new ProgressEntry();
