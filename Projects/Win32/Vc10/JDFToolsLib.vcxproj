@@ -548,12 +548,7 @@
     <ClCompile Include="..\..\..\src\jdf\util\RegexpPool.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\StringTokenizer.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\Unicode.cpp" />
-    <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Stackwalker.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Stackwalker.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Win32PlatformUtils.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessInputStream.cpp" />
     <ClCompile Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessOutputStream.cpp" />
@@ -691,12 +686,7 @@
     <ClInclude Include="..\..\..\src\jdf\util\slist.h" />
     <ClInclude Include="..\..\..\src\jdf\util\StringTokenizer.h" />
     <ClInclude Include="..\..\..\src\jdf\util\Unicode.h" />
-    <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Stackwalker.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Stackwalker.h" />
     <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Win32PlatformUtils.h" />
     <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessInputStream.h" />
     <ClInclude Include="..\..\..\src\jdf\util\Platforms\Win32\Win32ProcessOutputStream.h" />

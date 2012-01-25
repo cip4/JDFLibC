@@ -84,13 +84,14 @@ int main(int argC, char* argV[]){
 	// use TestDoc as a container that holds the various example routines
 	// clean up
 	if(0)
-	{
-		JDFDoc d(0);
-		JDFNode n=d.GetRoot();
-		JDFResource r=n.GetResourcePool().GetResource("Foo");
-		assertFalse(r.HasAttribute("fluf"));
+{		
+	JDFDoc doc(1);
+	JDFJMF root=doc.GetJMFRoot();
+	root.SetXPathAttribute("Command/@Type","getVersion");
 
-	}
+	XMLDoc d2=doc.Write2URL(L"http://kie-shielke-nb:6311/StorageService-J/Storage");
+	cout<<d2<<endl;
+}
 else if(1)
 {
 		JDFDoc doc;

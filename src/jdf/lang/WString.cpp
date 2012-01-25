@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -440,36 +440,13 @@ namespace JDF
 			}
 			catch(...)
 			{
-				/*
-				time_t ltime;
-				char strTime[64];
-				char strFileName[256];
-
-				time( &ltime );
-				sprintf(strTime, "%ld", ltime);
-				//
-				_mkdir("c:\\prosirai");
-				strcpy( strFileName, "c:\\prosirai\\prosit");
-				strcat(strFileName, strTime);
-
-				FILE* fp  = fopen(strFileName, "wb");
-				if(fp != NULL)
-				{
-				fwrite(str, count, 1, fp);
-				fprintf(fp, "count=%d", count);
-				fclose(fp);
-				}
-
-				*/
-				throw IllegalArgumentException(L"WString::WString, TRANSCODER error");
 				// clean up
 				delete [] pInBuf;
 				delete [] pBuf;
+				throw IllegalArgumentException(L"WString::WString, TRANSCODER error");
 			}
-
 			delete[]pBuf;
 		}
-
 		DATAPOINT
 	}
 
@@ -1532,10 +1509,11 @@ namespace JDF
 #endif
 				);
 
-			if (fXCoder == NULL)
+			if (fXCoder == NULL){
+				delete[] buf;
+				delete[] charSizes;
 				throw IllegalArgumentException(WString(L"WString::putBytes illegal transcoder: ")+encoding);
-
-
+			}
 			//  If we don't have any escape flags set, then we can do the most
 			//  efficient loop, else we have to do it the hard way.
 			//

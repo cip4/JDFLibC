@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -484,7 +484,7 @@ long long _wtoi64(const wchar_t* str){
 	char* t = new char[s+1];
 	for ( size_t z = 0; z <=s; z++) *(t+z)=(char)*(str+z);
 	sscanf(t,"%I64d",&retVal);
-	delete (t);
+	delete[]t;
 	return retVal;
 }
 #endif
@@ -496,7 +496,7 @@ int _wtoi(const wchar_t* str){
 	char* t = new char[s+1];
 	for ( size_t z = 0; z <=s; z++) *(t+z)=(char)*(str+z);
 	sscanf(t,"%d",&retVal);
-	delete (t);
+	delete [] t;
 	return retVal;
 }
 #endif

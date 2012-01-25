@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -593,7 +593,7 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 			{
 				retbuf = new char [written];
 				memcpy(retbuf,buffer,written);
-				delete buffer;
+				delete [] buffer;
 				buffer=0;
 				param[1] = written;
 				return std::pair<char*,int>(retbuf,written);
@@ -661,13 +661,13 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 	{
 		retbuf = new char [written];
 		memcpy(retbuf,buffer,written);
-		delete buffer;
+		delete [] buffer;
 		buffer=0;
 		param[1] = written;
 		return std::pair<char*,int>(retbuf,written);
 	}
 	
-	delete buffer;
+	delete[] buffer;
 	buffer=0;
 	param[1] = 0;
 	return std::pair<char*,int>((char *) NULL,0); // should be nullptr for VS2010

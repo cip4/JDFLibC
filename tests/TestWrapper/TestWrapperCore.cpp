@@ -87,6 +87,22 @@ int main(int argc, char* argv[]){
 		WString dd(d.DateTimeISO());
 		JDFDate das(dd);
 assertEquals(d.DateTimeISO(),das.DateTimeISO());
+
+{		XMLDoc doc("abc");
+	XMLDoc d2=doc.Write2URL(L"http://kie-prosirai-lg:18081/getPreflight?JobID=J-B");
+	cout<<d2<<endl;
+}
+	
+{		
+	XMLDoc doc("JMF");
+	KElement root=doc.GetRoot();
+	root.SetXPathAttribute("Command/@Type","getVersion");
+
+	XMLDoc d2=doc.Write2URL(L"http://kie-schielke-nb:6311/StorageService-J/Storage");
+	cout<<d2<<endl;
+}
+
+
 	}
 	else if(0)
 	{

@@ -16,6 +16,8 @@
  *    Jochen Kalmbach
  *
  *////////////////////////////////////////////////////////////////////////////
+#ifdef _WIN32
+#ifndef _WIN64
 
 #ifndef __STACKWALKER_H__
 #define __STACKWALKER_H__
@@ -55,3 +57,5 @@ extern void OnlyInstallUnhandeldExceptionFilter(eAllocCheckOutput eOutput = ACOu
 #endif
 
 #endif  // __STACKWALKER_H__
+#endif
+#endif

@@ -43,7 +43,9 @@
  *//////////////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"  // should be uncommented for precompiled headers
-
+#ifdef _WIN32
+#ifndef _WIN64
+#ifdef _DEBUG
 #include <windows.h>
 #include <string>
 #include <vector>
@@ -2553,3 +2555,7 @@ cleanup:
   LeaveCriticalSection(&g_csFileOpenClose);
 // Critical section end...
 }  // ShowStackRM
+#endif
+#endif
+#endif
+
