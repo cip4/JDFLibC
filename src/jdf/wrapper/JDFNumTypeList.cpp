@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -800,7 +800,13 @@ namespace JDF{
 		return *this;
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////
-	bool JDFShape::IsValid(){
+	/**
+	* also fix in case of 2 dim
+	*/
+	bool JDFShape::IsValid()
+	{
+		while(size()<=2)
+			push_back(0);
 		return size()==3;
 	};
 
