@@ -97,33 +97,33 @@
 
 using namespace std;
 namespace JDF{
-	
+
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFResourceLink& JDFResourceLink::operator =(const KElement& other){
 		KElement::operator=(other);
 		if(!IsValid(ValidationLevel_Construct)) 
 			throw JDFException(L"Invalid constructor for JDFResourceLink: "+other.GetNodeName()); 
 		return *this;
 	};
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::IsAbstract()const{
 		return false;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::init()
 	{
 		return true;
 	}
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::SetTarget(const JDFResource& partLeaf)
 	{
 		if(partLeaf.IsResourceElement())
@@ -140,8 +140,8 @@ namespace JDF{
 		}
 		return true;
 	}
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
 
 	bool JDFResourceLink::HasAmountPoolAttribute(const WString & attrib,const WString & nameSpaceURI, const mAttribute& mPart)const{
@@ -152,35 +152,35 @@ namespace JDF{
 		}
 	}
 
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString JDFResourceLink::GetAmountPoolAttribute(const WString & attrib,const WString & nameSpaceURI, const mAttribute& mPart)const{
 		if(mPart.empty()||!HasChildElement(elm_AmountPool)){
 			return GetAttribute(attrib,nameSpaceURI);
 		}
-        //want a map but already in a partamount - snafu 
-        if(GetLocalName()==elm_PartAmount)
-        {
-            throw new JDFException(L"JDFResourceLinkPool.getAmountPoolAttribute: calling method on PartAmount object");
-        }
-        // default to attribute if no amountpool
-        JDFAmountPool amountPool = GetAmountPool();
+		//want a map but already in a partamount - snafu 
+		if(GetLocalName()==elm_PartAmount)
+		{
+			throw new JDFException(L"JDFResourceLinkPool.getAmountPoolAttribute: calling method on PartAmount object");
+		}
+		// default to attribute if no amountpool
+		JDFAmountPool amountPool = GetAmountPool();
 		if (amountPool.isNull())
-        {
-            return GetAttribute(attrib, nameSpaceURI);
-        }
-        JDFPartAmount pa = amountPool.GetPartAmount(mPart);
+		{
+			return GetAttribute(attrib, nameSpaceURI);
+		}
+		JDFPartAmount pa = amountPool.GetPartAmount(mPart);
 		WString ret = WString::emptyStr;
-        if(!pa.isNull())
+		if(!pa.isNull())
 			ret = pa.GetAttribute(attrib, nameSpaceURI);
 		if (ret.empty())
 			return GetAttribute(attrib, nameSpaceURI);
 		return ret;
-		
+
 	}
 	//////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetAmountPoolAttribute(const WString & attrib,const WString & value,const WString & nameSpaceURI, const mAttribute& mPart){
 		// ideally the method would be hidden in PartAmount
 		if(mPart.isEmpty())
@@ -197,9 +197,9 @@ namespace JDF{
 		v.push_back(mPart);
 		SetAmountPoolAttribute(attrib, value, nameSpaceURI, v);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetAmountPoolAttribute(const WString & attrib,const WString & value,const WString & nameSpaceURI, const vmAttribute& vPart)
 	{
 		// ideally the method would be hidden in PartAmount
@@ -209,64 +209,64 @@ namespace JDF{
 			return;
 		}
 		RemoveAttribute(attrib, nameSpaceURI); // either in the pool or the link, not both
-        JDFAmountPool ap=GetCreateAmountPool();
-        JDFPartAmount pa0=JDFPartAmount();
-        for(int i=0;i<vPart.size();i++)
-        {
-            JDFAttributeMap map = vPart[i];
+		JDFAmountPool ap=GetCreateAmountPool();
+		JDFPartAmount pa0=JDFPartAmount();
+		for(int i=0;i<vPart.size();i++)
+		{
+			JDFAttributeMap map = vPart[i];
 			JDFPartAmount pa=ap.GetPartAmount(map);
 			if(!pa.isNull())
-            {
-                if(!pa0.isNull() && pa!=pa0)
-                    throw JDFException("inconsistent partamounts");
-                pa0=pa;
-            }
-        }
-        if(pa0.isNull())
+			{
+				if(!pa0.isNull() && pa!=pa0)
+					throw JDFException("inconsistent partamounts");
+				pa0=pa;
+			}
+		}
+		if(pa0.isNull())
 			pa0=ap.AppendPartAmount(vPart);
-        pa0.SetPartMapVector(vPart);    
+		pa0.SetPartMapVector(vPart);    
 		pa0.SetAttribute(attrib, value, nameSpaceURI);
 	}
 
 	//////////////////////////////////////////////////////////////////////
 
 	JDFResource JDFResourceLink::GetLinkRoot()const{
-		
-    	if(GetLocalName()==elm_PartAmount)
+
+		if(GetLocalName()==elm_PartAmount)
 			return JDFResource::DefJDFResource;
 		JDFResource r=JDFElement::GetLinkRoot();
 		if(r.GetNodeName()!=GetLinkedResourceName())
 			return JDFResource::DefJDFResource;
 		return r;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFResource JDFResourceLink::GetTarget()const{
 		vElement v=GetTargetVector();
 		return v.GetCommonAncestor();		
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vElement JDFResourceLink::GetTargetVector(int nMax)const{
 		vElement v;
 		if(throwNull())
 			return v;
-		
+
 		// split it into leaves 
 		// 150802 changed GetResourcePartMapVector to GetPartMapVector
 		vmAttribute vmParts=GetPartMapVector();
 		return GetMapTargetVector(vmParts,nMax);
 	}
 	//////////////////////////////////////////////////////////////////////
-	 
+
 	vElement JDFResourceLink::getLeafVector()const
 	{
 		vElement v;
 		if(throwNull())
 			return v;
-		
+
 		// split it into leaves 
 		// 150802 changed GetResourcePartMapVector to GetPartMapVector
 		vmAttribute vmParts=GetPartMapVector();
@@ -300,10 +300,10 @@ namespace JDF{
 		}
 		return v;
 	}
-	 
-	
+
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vElement JDFResourceLink::GetMapTargetVector(vmAttribute vmParts, int nMax)const{
 		vElement v;
 		// get the resource root
@@ -324,7 +324,7 @@ namespace JDF{
 		if(partUsage==JDFResource::PartUsage_Implicit){
 			vmParts.ReduceKey(resRoot.GetPartIDKeys());
 		}
-		
+
 		if(vmParts.empty()){
 			v.push_back(resRoot);
 		}else{
@@ -341,20 +341,20 @@ namespace JDF{
 		}		
 		return v;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::ReduceParts(){
 		vmAttribute vParts=GetPartMapVector();
 		if(vParts.empty()) // nothing to do
 			return;
-		
+
 		vmAttribute vReducedParts=GetLinkRoot().ReducePartVector(vParts);
-		
+
 		if(vParts!=vReducedParts){
 			SetPartMapVector(vReducedParts);
 		}
-		
+
 	}
 	//////////////////////////////////////////////////////////////////////
 
@@ -377,32 +377,32 @@ namespace JDF{
 		}
 
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::IsResourceSelected (const JDFResource &ResourceToCheck)const{
 		// For the decision, compare the leaves of the Resource with the Leaves pointed to by the 
 		// resource link. If all leaves of the Resource are pointed to by the ResourceLink, then the 
 		// ResourceLink selects the Resource (partition). This method checks if the leaves represented by the
 		// Resource are a subset of the leaves represented by the ResourceLink
 		bool b_ResurceIsSelected = false;
-		
+
 		// Get the resource leaves from resource and resource link
 		JDF::vElement ResourceLeavesFromResource  = ResourceToCheck.GetLeaves();
 		JDF::vElement ResourceLeavesFromLink      = GetTargetVector();
-		
+
 		// number of resources found
 		const int i_NoResourceLeavesFromResource  = ResourceLeavesFromResource.size();
 		const int i_NoResourceLeavesFromLink      = ResourceLeavesFromLink.size();
-		
+
 		// compare Resource Vectors if they contain the same Resources (here ResourceLeaves) Ordering
 		// of verctors is not important
 		// Note: a method vElement::IsSubSet(vElement) would help here; the following is an implementation
 		// for this
-		
+
 		int i_CurrentLeafFromResource = 0;
 		int i_CurrentLeafFromLink = 0;
-		
+
 		// look if every Resource leaf from the ResourceLeavesFromResource is in the ResourceLeavesFromLink
 		// vector
 		bool b_SelectionIsPossible = true;
@@ -410,7 +410,7 @@ namespace JDF{
 		{
 			// Get ResourceLeaf from Resource Vector to compare
 			JDF::JDFResource currentLeafFromResource = ResourceLeavesFromResource[i_CurrentLeafFromResource];
-			
+
 			// compare with ResourceLeaf in ResourceLink vector till the Resource is found
 			// iterate the vector with leaves from ResourceLinks
 			bool b_ResourceFoundInLink = false;
@@ -420,19 +420,19 @@ namespace JDF{
 				b_ResourceFoundInLink = (currentLeafFromResource == currentLeafFromLink);
 				i_CurrentLeafFromLink++;
 			};
-			
+
 			// if value is false, one partition is not selected => whole resource is not selected
 			b_SelectionIsPossible = b_ResourceFoundInLink;
 			i_CurrentLeafFromResource++;
 		}
-		
+
 		b_ResurceIsSelected = b_SelectionIsPossible;
-		
+
 		return b_ResurceIsSelected;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vmAttribute JDFResourceLink::GetResourcePartMapVector()const{
 		vmAttribute vMap;
 		vResource v=GetTargetVector();
@@ -441,19 +441,19 @@ namespace JDF{
 		}
 		return vMap;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
-	
+
+
 	bool JDFResourceLink::IsValid(EnumValidationLevel level)const{
 		if(level<=ValidationLevel_Construct) {
 			if(level<=ValidationLevel_None) 
 				return true;
-			
+
 			if(isNull()) 
 				return true;
 		}
-		
+
 		bool b=JDFElement::IsValid(level);
 		if(!b) 
 			return false;
@@ -463,7 +463,7 @@ namespace JDF{
 		}
 		if((level!=ValidationLevel_Complete) && (level!=ValidationLevel_RecursiveComplete) && (level!=ValidationLevel_RecursiveIncomplete))
 			return true;
-		
+
 		if(!ValidResourcePosition())
 			return false;
 
@@ -476,14 +476,14 @@ namespace JDF{
 		for(int iRes=0;iRes<vRes.size();iRes++){
 			JDFResource r=vRes.at(iRes);
 			// reslinks that point to nothing may be valid
-			
+
 			// but they certainly aren't valid if they point to the wrong resource
 			if(GetNodeName()!=r.GetLinkString()) 
 				return false;
-									
+
 			if(level>=ValidationLevel_RecursiveIncomplete){
 				EnumValidationLevel valDown=(level==ValidationLevel_RecursiveIncomplete) ? ValidationLevel_Incomplete : ValidationLevel_Complete;
-				
+
 				JDFFactory factory(r);
 				JDFElement & refR=factory.GetRef();
 				if(!refR.IsValid(valDown))
@@ -499,42 +499,42 @@ namespace JDF{
 		return JDFElement::ValidResourcePosition(GetLinkRoot());
 	}
 
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::IsLocal()const{
 		JDFElement linkParent=GetParentJDF();
 		JDFElement resParent=GetTarget().GetParentJDF();
 		return resParent==linkParent;
 	}
 	//////////////////////////////////////////////////////////////////////
-	
-	
+
+
 	vElement JDFResourceLink::GetParts()const{
 		return GetChildElementVector(elm_Part);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetPartition(JDFResource::EnumPartIDKey key, const WString& value){
 		while(HasChildElement(elm_Part))
 			RemoveChild(elm_Part);
 		JDFPart part=GetCreatePart();
 		part.SetAttribute(JDFResource::PartIDKeyString(key),value);
-		
+
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::IsExecutable(const mAttribute& partMap,bool bCheckChildren)const{
 		if(!HasResourcePartMap(partMap)) 
 			return false;
-		
+
 		vElement leaves;
-		
-		
+
+
 		bool bExec=false;
-		
+
 		if(bCheckChildren){ // check for all child partitions of a resource and calculate availability from those
 			vElement leaves2=GetTargetVector();
 			for(int i=0;i<leaves2.size();i++){
@@ -547,7 +547,7 @@ namespace JDF{
 		}else{ // calculate availability directly
 			leaves=GetTargetVector();
 		}
-		
+
 		for(int i=0;i<leaves.size();i++){
 			JDFResource leaf=leaves[i];
 			if(!partMap.empty()){
@@ -557,7 +557,7 @@ namespace JDF{
 			JDFResource::EnumStatus status=leaf.GetStatus(true);
 			if(status==JDFResource::Status_InUse) 
 				return false;
-			
+
 			if(GetUsage()==Usage_Input){
 				if(GetDraftOK()){
 					bExec=((status==JDFResource::Status_Available)||(status==JDFResource::Status_Draft));
@@ -576,92 +576,92 @@ namespace JDF{
 		}		
 		return true;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////	
-	
+
 	bool JDFResourceLink::HasResourcePartMap(const mAttribute& partMap,bool bCheckResource)const
 	{
-       //TODO remove implicit partitions
-        // Attention !!!
-        // Don't change this method without checking if routing is still working !
-        // The C++ method is different and is not used, the java method is used for routing.
-        JDFResource linkRoot = GetLinkRoot();
-        if(linkRoot.isNull())
-            return false;
+		//TODO remove implicit partitions
+		// Attention !!!
+		// Don't change this method without checking if routing is still working !
+		// The C++ method is different and is not used, the java method is used for routing.
+		JDFResource linkRoot = GetLinkRoot();
+		if(linkRoot.isNull())
+			return false;
 
 
-        vMapWString vPart;
+		vMapWString vPart;
 		JDFResource::EnumPartUsage partUsage = linkRoot.GetPartUsage();
 		bool bImplicit = JDFResource::PartUsage_Implicit==partUsage;
-        if (bCheckResource)
-        {
-            if(partMap.isEmpty())
-            {
-                return true;
-            }
-            JDFResource partition = linkRoot.GetPartition(partMap, partUsage);
-            if (!partition.isNull() && partition != linkRoot)
-            {
-                return true;
-            }
-            else if(bImplicit)
-            {
-                KElement childByTagName = linkRoot.GetElement(linkRoot.GetNodeName());
-                if (childByTagName.isNull())
-                {
-                    // there is no partition
-                    return true;
-                }
-            }
-        }
-        else
-        {
-            vPart = GetPartMapVector();
-            if (partMap.isEmpty() && vPart.empty())
-            {
-                return true;
-            }
+		if (bCheckResource)
+		{
+			if(partMap.isEmpty())
+			{
+				return true;
+			}
+			JDFResource partition = linkRoot.GetPartition(partMap, partUsage);
+			if (!partition.isNull() && partition != linkRoot)
+			{
+				return true;
+			}
+			else if(bImplicit)
+			{
+				KElement childByTagName = linkRoot.GetElement(linkRoot.GetNodeName());
+				if (childByTagName.isNull())
+				{
+					// there is no partition
+					return true;
+				}
+			}
+		}
+		else
+		{
+			vPart = GetPartMapVector();
+			if (partMap.isEmpty() && vPart.empty())
+			{
+				return true;
+			}
 
-            int siz = vPart.size();        
-            if (bImplicit)
-            {
-                if (siz == 0)
-                {
-                    return true;
-                }
-                for (int i = 0; i < siz; i++)
-                {
-                    if (vPart.elementAt(i).OverlapMap(partMap))
-                        return true;
-                }
-            }
-            else
-            { // explicit
-                if (siz == 0 && !bCheckResource)
-                {
-                    return true;
-                }
+			int siz = vPart.size();        
+			if (bImplicit)
+			{
+				if (siz == 0)
+				{
+					return true;
+				}
+				for (int i = 0; i < siz; i++)
+				{
+					if (vPart.elementAt(i).OverlapMap(partMap))
+						return true;
+				}
+			}
+			else
+			{ // explicit
+				if (siz == 0 && !bCheckResource)
+				{
+					return true;
+				}
 
-                for (int i = 0; i < siz; i++)
-                {
-                    JDFAttributeMap part = vPart.elementAt(i);
-                    if(part.size()==0)
-                        return true;
+				for (int i = 0; i < siz; i++)
+				{
+					JDFAttributeMap part = vPart.elementAt(i);
+					if(part.size()==0)
+						return true;
 
-                    // RP 050120 swap of vPart[i] and partmap
-                    // RP 070511 swap back of vPart[i] and partmap
-                    if (part.SubMap(partMap))
-                        return true;
-                }
-            }
-        }
+					// RP 050120 swap of vPart[i] and partmap
+					// RP 070511 swap back of vPart[i] and partmap
+					if (part.SubMap(partMap))
+						return true;
+				}
+			}
+		}
 
 
-        return false;
+		return false;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString JDFResourceLink::GetProcessUsage()const{
 		return GetAttribute(atr_ProcessUsage);
 	}
@@ -680,33 +680,33 @@ namespace JDF{
 		s=GetLinkedResourceName()+WString::colon+s;
 		return s;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetProcessUsage(const WString &value){
 		if (value != "Unknown")
 			SetAttribute(atr_ProcessUsage,value);
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::IsPhysical() const{
 		if(JDFResource::PhysicalResources().HasToken(GetLinkedResourceName(),WString::comma))
 			return true;
 		return GetLinkRoot().IsPhysical();
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vWString JDFResourceLink::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		
+
 		vWString vAtts=JDFElement::GetInvalidAttributes(level, bIgnorePrivate, nMax);
-		
+
 		int n=vAtts.size();
-		
+
 		if(n>=nMax) 
 			return vAtts;
-		
+
 		if(!ValidCombinedProcessType(level)) {
 			vAtts.push_back(atr_CombinedProcessType);
 			if(++n>=nMax) 
@@ -762,8 +762,8 @@ namespace JDF{
 			if(++n>=nMax) 
 				return vAtts;
 		};
-		
-		
+
+
 		if(IsPhysical() || (GetLocalName()==elm_PartAmount)){
 			if(!ValidAmount(level)) {
 				vAtts.push_back(atr_Amount);
@@ -839,21 +839,21 @@ namespace JDF{
 					return vAtts;
 			}
 		}
-		
+
 		return vAtts;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	vWString JDFResourceLink::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
 		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
-		
+
 		int n=vElem.size();
 		if(n>=nMax) 
 			return vElem;
-		
+
 		nElem=NumChildElements(elm_Part);
 		for(i=0;i<nElem;i++){
 			JDFPart child=GetElement(elm_Part,WString::emptyStr,i);
@@ -863,14 +863,14 @@ namespace JDF{
 					return vElem;
 			};
 		}
-		
+
 		nElem=NumChildElements(elm_AmountPool);
 		if(nElem>1){
 			vElem.push_back(elm_AmountPool);
 			if (++n>=nMax) 
 				return vElem;
 		}
-		
+
 		for(i=0;i<nElem;i++){
 			JDFAmountPool child=GetElement(elm_AmountPool,WString::emptyStr,i);
 			if (!child.IsValid(level)) {
@@ -879,61 +879,61 @@ namespace JDF{
 					return vElem;
 			};
 		}
-		
+
 		return vElem;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFResourceLinkPool JDFResourceLink::GetPool() const{
 		return GetParentNode();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFResourceLinkPool JDFResourceLink::GetResourceLinkPool() const{
 		return GetParentNode();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFPart JDFResourceLink::AppendLot(){
 		JDFPart e=AppendElement(elm_Lot);
 		e.init();
 		return e;
 	};
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFPart JDFResourceLink::GetCreateLot(int iSkip){
 		JDFPart e=GetCreateElement(elm_Lot,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
-	
+
 	///////////////////////////////////////////////////////////////////////
 	JDFPart JDFResourceLink::GetLot( int iSkip)const{
 		return GetElement(elm_Lot,WString::emptyStr,iSkip);
 	};
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFPart JDFResourceLink::AppendPart(){
 		JDFPart e=AppendElement(elm_Part);
 		e.init();
 		return e;
 	};
 	//////////////////////////////////////////////////////////////////////
-	
+
 	JDFPart JDFResourceLink::GetCreatePart(int iSkip){
 		JDFPart e=GetCreateElement(elm_Part,WString::emptyStr,iSkip);
 		e.init();
 		return e;
 	};
-	
+
 	///////////////////////////////////////////////////////////////////////
 	JDFPart JDFResourceLink::GetPart( int iSkip)const{
 		return GetElement(elm_Part,WString::emptyStr,iSkip);
 	};
-	
+
 	///////////////////////////////////////////////////////////////////////
 	JDFAmountPool  JDFResourceLink::GetCreateAmountPool (){
 		JDFAmountPool  e=GetCreateElement(elm_AmountPool);
@@ -941,78 +941,78 @@ namespace JDF{
 		return e;
 	};
 	/////////////////////////////////////////////////////////////////////
-	
+
 	JDFAmountPool  JDFResourceLink::AppendAmountPool (){
 		JDFAmountPool  e=GetCreateElement(elm_AmountPool);
 		e.init();
 		return e;
 	};
-	
+
 	///////////////////////////////////////////////////////////////////////
-	
+
 	JDFAmountPool  JDFResourceLink::GetAmountPool()const {
 		return GetElement(elm_AmountPool);
 	}
-	
+
 	///////////////////////////////////////////////////////////////////////
-	
+
 	vmAttribute JDFResourceLink::GetPartMapVector()const{
 		return JDFElement::GetPartMapVector();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetPartMapVector(const vmAttribute & vParts){
 		JDFElement::SetPartMapVector(vParts);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetPartMap(const mAttribute & mPart){
 		JDFElement::SetPartMap(mPart);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
 	void JDFResourceLink::RemovePartMap(const mAttribute & mPart){
 		JDFElement::RemovePartMap(mPart);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::HasPartMap(const mAttribute & mPart){
 		return JDFElement::HasPartMap(mPart);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString JDFResourceLink::OptionalAttributes()const{
-		
+
 		WString atts=JDFElement::OptionalAttributes()+L",CombinedProcessIndex,CombinedProcessType,DraftOK,MinStatus,MinLateStatus,PipeProtocol,PipeURL,ProcessUsage,rSubRef,PipePartIDKeys";
-		
+
 		if(IsPhysical()){
 			atts+=",Amount,MinAmount,MaxAmount,ActualAmount,Transformation,Orientation,PipePause,PipeResume,RemotePipeEndPause,RemotePipeEndResume";
 		}else if(GetLinkRoot().GetClass()==JDFResource::Class_Implementation){
 			atts+=",Recommendation,Start,StartOffset,Duration";
 		}
-		
+
 		return atts;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString JDFResourceLink::RequiredAttributes()const{
 		return JDFElement::RequiredAttributes()+L",rRef,Usage";
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	WString JDFResourceLink::OptionalElements()const{
 		return JDFElement::OptionalElements()+L",AmountPool,Part";
 	}
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidCombinedProcessIndex(EnumValidationLevel level) const {
 		if(!HasAttribute(atr_CombinedProcessIndex))
 			return true;
@@ -1031,23 +1031,23 @@ namespace JDF{
 		}
 		return b;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidCombinedProcessType(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CombinedProcessType,AttributeType_NMTOKEN,false);
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	bool JDFResourceLink::ValidDraftOK(EnumValidationLevel level) const {
 		return ValidAttribute(atr_DraftOK,AttributeType_boolean,false);
 	};
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidDuration(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Duration,AttributeType_duration,false);
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	bool JDFResourceLink::ValidMinStatus(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_MinStatus,JDFResource::StatusString(),false);
@@ -1083,46 +1083,44 @@ namespace JDF{
 		b=b && ExclusiveOneOfAttribute(ValidationLevel_Incomplete,atr_Orientation,atr_Transformation);
 		return b;
 	};
-	
+
 	/////////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidTransformation(EnumValidationLevel level) const {
 		bool b=ValidAttribute(atr_Transformation,AttributeType_matrix,false);
 		b=b && ExclusiveOneOfAttribute(ValidationLevel_Incomplete,atr_Orientation,atr_Transformation);
 		return b;	
 	};
-	
+
 	/////////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidrSubRef(EnumValidationLevel level) const {
 		return ValidAttribute(atr_rSubRef,AttributeType_Any,false);
 	};
-	
+
 	/////////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidAmount(EnumValidationLevel level) const {
 		if(HasChildElement(elm_AmountPool)&&HasAttribute(atr_Amount))
-			return false;
-
-		WString amount=GetAmountPoolAttribute(atr_Amount,WString::emptyStr,mAttribute::emptyMap);
-		if(amount.empty())
-			return true;
-
+		{
+			WString amount=GetAmountPoolAttribute(atr_Amount,WString::emptyStr,mAttribute::emptyMap);
+			if(!amount.empty())
+				return false;
+		}
 		bool bRet=ValidAttribute(atr_Amount,AttributeType_double,false);
 		if(!bRet)
 			return false;
 		return GetAmount()>=0;
-	};
+	}
 	/////////////////////////////////////////////////////////////////////////
 
 	bool JDFResourceLink::ValidMinAmount(EnumValidationLevel level) const {
 		if(HasChildElement(elm_AmountPool)&&HasAttribute(atr_MinAmount))
-			return false;
-
-		WString amount=GetAmountPoolAttribute(atr_MinAmount,WString::emptyStr,mAttribute::emptyMap);
-		if(amount.empty())
-			return true;
-
+		{
+			WString amount=GetAmountPoolAttribute(atr_MinAmount,WString::emptyStr,mAttribute::emptyMap);
+			if(!amount.empty())
+				return false;
+		}
 		bool bRet=ValidAttribute(atr_MinAmount,AttributeType_double,false);
 		if(!bRet)
 			return false;
@@ -1132,36 +1130,32 @@ namespace JDF{
 
 	bool JDFResourceLink::ValidMaxAmount(EnumValidationLevel level) const {
 		if(HasChildElement(elm_AmountPool)&&HasAttribute(atr_MaxAmount))
-			return false;
-
-		WString amount=GetAmountPoolAttribute(atr_MaxAmount,WString::emptyStr,mAttribute::emptyMap);
-		if(amount.empty())
-			return true;
-
+		{
+			WString amount=GetAmountPoolAttribute(atr_MaxAmount,WString::emptyStr,mAttribute::emptyMap);
+			if(!amount.empty())
+				return false;
+		}
 		bool bRet=ValidAttribute(atr_MaxAmount,AttributeType_double,false);
 		if(!bRet)
 			return false;
 		return GetMaxAmount()>=0;
 	};
 	/////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidActualAmount(EnumValidationLevel level) const {
 		if(HasChildElement(elm_AmountPool)&&HasAttribute(atr_ActualAmount))
-			return false;
-
-		WString amount=GetAmountPoolAttribute(atr_ActualAmount,WString::emptyStr,mAttribute::emptyMap);
-		if(amount.empty())
-			return true;
+		{
+			WString amount=GetAmountPoolAttribute(atr_ActualAmount,WString::emptyStr,mAttribute::emptyMap);
+			if(!amount.empty())
+				return false;
+		}
 
 		bool bRet=ValidAttribute(atr_ActualAmount,AttributeType_double,false);
 		if(!bRet)
 			return false;
 		return GetActualAmount()>=0;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	bool JDFResourceLink::ValidPipePause(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PipePause,AttributeType_double,false);
@@ -1170,7 +1164,7 @@ namespace JDF{
 	bool JDFResourceLink::ValidPipeResume(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PipeResume,AttributeType_double,false);
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	bool JDFResourceLink::ValidRecommendation(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Recommendation,AttributeType_boolean,false);
@@ -1184,17 +1178,17 @@ namespace JDF{
 		return ValidAttribute(atr_RemotePipeEndResume,AttributeType_double,false);
 	};
 	//////////////////////////////////////////////////////////////////////
-	
-	
+
+
 	bool JDFResourceLink::ValidStart(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Start,AttributeType_dateTime,false);
 	};
 	//////////////////////////////////////////////////////////////////////
-	
+
 	bool JDFResourceLink::ValidStartOffset(EnumValidationLevel level) const {
 		return ValidAttribute(atr_StartOffset,AttributeType_duration,false);
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	const WString& JDFResourceLink::UsageString(){
 		static const WString enums=L"Unknown,Input,Output"; 
@@ -1204,39 +1198,39 @@ namespace JDF{
 	WString JDFResourceLink::UsageString(EnumUsage value){
 		return UsageString().Token(value,WString::comma);
 	};
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////
 
 	JDFResource::EnumStatus JDFResourceLink::GetStatus()const{
 		return GetTarget().GetStatus();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetStatus(JDFResource::EnumStatus s)const{
 		vElement targets=GetTargetVector();
 		for(int i=0;i<targets.size();i++){
 			JDFResource(targets.at(i)).SetStatus(s);
 		}
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	void JDFResourceLink::SetUsage(EnumUsage value){
 		SetEnumAttribute(atr_Usage,value,UsageString());
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	JDFResourceLink::EnumUsage JDFResourceLink::GetUsage() const {
 		return (JDFResourceLink::EnumUsage) GetEnumAttribute(atr_Usage,UsageString());
 	};
 	//////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetAmount(double value,const mAttribute&mPart){
 		SetAmountPoolAttribute(atr_Amount,value,WString::emptyStr,mPart);
 	};
 	/////////////////////////////////////////////////////////////////////////
-	
+
 	double JDFResourceLink::GetAmount(const mAttribute&mPart) const {
 		WString w= GetAmountPoolAttribute(atr_Amount,WString::emptyStr,mPart);
 		if(w.empty())
@@ -1254,7 +1248,7 @@ namespace JDF{
 
 		return -1;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 
 	void JDFResourceLink::SetMinAmount(double value,const mAttribute&mPart){
@@ -1284,19 +1278,19 @@ namespace JDF{
 	};
 
 	/////////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetActualAmount(double value,const mAttribute&mPart){
 		SetAmountPoolAttribute(atr_ActualAmount,value,WString::emptyStr,mPart);
 	};
 	/////////////////////////////////////////////////////////////////////////
-	
+
 	double JDFResourceLink::GetActualAmount(const mAttribute&mPart) const {
 		WString w=GetAmountPoolAttribute(atr_ActualAmount,WString::emptyStr,mPart);
 		if(w.empty())
 			return -1;
 		return w;
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	void JDFResourceLink::SetCombinedProcessIndex(const JDFIntegerList& value){
 		SetAttribute(atr_CombinedProcessIndex,value.GetString());
@@ -1304,14 +1298,14 @@ namespace JDF{
 	//////////////////////////////////////////////////////////////////////
 	JDFIntegerList JDFResourceLink::GetCombinedProcessIndex() const {
 		return GetAttribute(atr_CombinedProcessIndex);
-		
+
 	};
 	//////////////////////////////////////////////////////////////////////
 
 	void JDFResourceLink::SetCombinedProcessType(const WString& value){
 		SetAttribute(atr_CombinedProcessType,value);
 	}
-	
+
 	WString JDFResourceLink::GetCombinedProcessType() const {
 		return GetAttribute(atr_CombinedProcessType);
 	}
@@ -1324,16 +1318,16 @@ namespace JDF{
 		{
 			SetAttribute(atr_DraftOK,value);
 		}
-        else if(value) // 1.3 DraftOK=true
-        {
+		else if(value) // 1.3 DraftOK=true
+		{
 			SetMinStatus(JDFResource::Status_Draft);
-        }
-        else // 1.3 DraftOK=false
-        {
+		}
+		else // 1.3 DraftOK=false
+		{
 			SetMinStatus(GetUsage()==Usage_Output ? JDFResource::Status_Unavailable :JDFResource::Status_Available);            
-        }
+		}
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	bool JDFResourceLink::GetDraftOK() const {
@@ -1387,56 +1381,56 @@ namespace JDF{
 	};
 
 	//////////////////////////////////////////////////////////////////////////////
-	
+
 	void JDFResourceLink::SetDuration(JDFDuration value){
 		SetAttribute(atr_Duration,value.DurationISO());
 	}
-	
+
 	JDFDuration JDFResourceLink::GetDuration() const {
 		return GetAttribute(atr_Duration,WString::emptyStr);
 	}
-	
+
 	void JDFResourceLink::SetPipeProtocol(const WString& value){
 		SetAttribute(atr_PipeProtocol,value);
 	}
-	
+
 	WString JDFResourceLink::GetPipeProtocol() const {
 		if (!HasAttribute(atr_PipeProtocol))
 			return GetTarget().GetPipeProtocol();
 		return GetAttribute(atr_PipeProtocol);
 	}
-	
+
 	void JDFResourceLink::SetPipeURL(const WString& value){
 		SetAttribute(atr_PipeURL,value);
 	};
-	
+
 	WString JDFResourceLink::GetPipeURL() const {
 		if (!HasAttribute(atr_PipeURL))
 			return GetTarget().GetPipeURL();
 		return GetAttribute(atr_PipeURL);
 	};
-	
+
 	void JDFResourceLink::SetrRef(const WString& value){
 		SetAttribute(atr_rRef,value);
 	}
-	
+
 	WString JDFResourceLink::GetrRef() const {
 		return GetAttribute(atr_rRef);
 	}
-	
+
 	void JDFResourceLink::SetrSubRef(const WString& value){
 		SetAttribute(atr_rSubRef,value);
 	}
-	
+
 	WString JDFResourceLink::GetrSubRef() const {
 		return GetAttribute(atr_rSubRef);
 	}
-	
-			
+
+
 	void JDFResourceLink::SetTransformation(JDFMatrix value){
 		SetAttribute(atr_Transformation,value);
 	}
-	
+
 	JDFMatrix JDFResourceLink::GetTransformation() const {
 		return GetAttribute(atr_Transformation,WString::emptyStr);
 	}
@@ -1444,7 +1438,7 @@ namespace JDF{
 	void JDFResourceLink::SetOrientation(JDFElement::EnumOrientation value){
 		SetEnumAttribute(atr_Orientation,value,OrientationString());
 	};
-	
+
 	JDFElement::EnumOrientation JDFResourceLink::GetOrientation() const {
 		return (JDFElement::EnumOrientation) GetEnumAttribute(atr_Orientation,OrientationString());
 	};
@@ -1452,7 +1446,7 @@ namespace JDF{
 	void JDFResourceLink::SetPipePause(double value){
 		SetAttribute(atr_PipePause,value);
 	}
-	
+
 	double JDFResourceLink::GetPipePause() const {
 		return GetRealAttribute(atr_PipePause);
 	}
@@ -1464,15 +1458,15 @@ namespace JDF{
 	double JDFResourceLink::GetPipeResume() const {
 		return GetRealAttribute(atr_PipeResume);
 	}				
-	
+
 	void JDFResourceLink::SetRecommendation(bool value){
 		SetAttribute(atr_Recommendation,value);
 	}
-	
+
 	bool JDFResourceLink::GetRecommendation() const {
 		return GetBoolAttribute(atr_Recommendation,WString::emptyStr,false);
 	}
-			
+
 	void JDFResourceLink::SetRemotePipeEndPause(double value){
 		SetAttribute(atr_RemotePipeEndPause,value);
 	}
@@ -1492,8 +1486,8 @@ namespace JDF{
 	void JDFResourceLink::SetStart(JDFDate value){
 		SetAttribute(atr_Start,value.DateTimeISO());
 	}
-	
-    JDFDate JDFResourceLink::GetStart() const {
+
+	JDFDate JDFResourceLink::GetStart() const {
 		return GetAttribute(atr_Start,WString::emptyStr);
 	}
 
@@ -1532,26 +1526,26 @@ namespace JDF{
 	bool JDFResourceLink::overlapsResourcePartMap(JDFAttributeMap partMap)
 	{
 		if (partMap.isEmpty())
-        {
-            return true; // speed up...
-        }
-        
+		{
+			return true; // speed up...
+		}
+
 		vmAttribute vPart = GetPartMapVector();
-        
-        int siz = vPart.empty() ? 0 : vPart.size();
-        // if no part, any resource that is linked is valid
-        if (siz == 0)
-        {
-            return true;
-        }
-        
-        for (int i = 0; i < siz; i++)
-        {
-            if (vPart[i].OverlapMap(partMap))
-                return true;
-        }
-        
-        return false;
+
+		int siz = vPart.empty() ? 0 : vPart.size();
+		// if no part, any resource that is linked is valid
+		if (siz == 0)
+		{
+			return true;
+		}
+
+		for (int i = 0; i < siz; i++)
+		{
+			if (vPart[i].OverlapMap(partMap))
+				return true;
+		}
+
+		return false;
 	}
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
