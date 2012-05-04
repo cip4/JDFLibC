@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -176,7 +176,7 @@ JDFAutoDCTParams& JDFAutoDCTParams::operator=(const KElement& other){
 
 	const WString& JDFAutoDCTParams::SourceCSsString(){
 		static const WString enums=WString(L"Unknown,CalGray,CalRGB,Calibrated,CIEBased,CMYK,DeviceN,DevIndep,RGB,Gray")
-	+WString(L",ICCBased,ICCCMYK,ICCGray,ICCLAB,ICCRGB,Lab,Separtation,YUV,All");
+	+WString(L",ICCBased,ICCCMYK,ICCGray,ICCLAB,ICCRGB,Lab,Separation,YUV,All");
 		return enums;
 	};
 

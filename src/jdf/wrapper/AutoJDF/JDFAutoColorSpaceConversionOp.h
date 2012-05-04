@@ -185,7 +185,7 @@ public:
 * Enumeration for attribute SourceCS
 */
 
-	enum EnumSourceCS{SourceCS_Unknown,SourceCS_CalGray,SourceCS_CalRGB,SourceCS_Calibrated,SourceCS_CIEBased,SourceCS_CMYK,SourceCS_DeviceN,SourceCS_DevIndep,SourceCS_RGB,SourceCS_Gray,SourceCS_ICCBased,SourceCS_ICCCMYK,SourceCS_ICCGray,SourceCS_ICCLAB,SourceCS_ICCRGB,SourceCS_Lab,SourceCS_Separtation,SourceCS_YUV,SourceCS_All};
+	enum EnumSourceCS{SourceCS_Unknown,SourceCS_CalGray,SourceCS_CalRGB,SourceCS_Calibrated,SourceCS_CIEBased,SourceCS_CMYK,SourceCS_DeviceN,SourceCS_DevIndep,SourceCS_RGB,SourceCS_Gray,SourceCS_ICCBased,SourceCS_ICCCMYK,SourceCS_ICCGray,SourceCS_ICCLAB,SourceCS_ICCRGB,SourceCS_Lab,SourceCS_Separation,SourceCS_YUV,SourceCS_All};
 /**
 * Enumeration for attribute SourceRenderingIntent
 */

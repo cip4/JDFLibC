@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -156,7 +156,7 @@ public:
 * Enumeration for attribute SourceCSs
 */
 
-	enum EnumSourceCSs{SourceCSs_Unknown,SourceCSs_CalGray,SourceCSs_CalRGB,SourceCSs_Calibrated,SourceCSs_CIEBased,SourceCSs_CMYK,SourceCSs_DeviceN,SourceCSs_DevIndep,SourceCSs_RGB,SourceCSs_Gray,SourceCSs_ICCBased,SourceCSs_ICCCMYK,SourceCSs_ICCGray,SourceCSs_ICCLAB,SourceCSs_ICCRGB,SourceCSs_Lab,SourceCSs_Separtation,SourceCSs_YUV,SourceCSs_All};
+	enum EnumSourceCSs{SourceCSs_Unknown,SourceCSs_CalGray,SourceCSs_CalRGB,SourceCSs_Calibrated,SourceCSs_CIEBased,SourceCSs_CMYK,SourceCSs_DeviceN,SourceCSs_DevIndep,SourceCSs_RGB,SourceCSs_Gray,SourceCSs_ICCBased,SourceCSs_ICCCMYK,SourceCSs_ICCGray,SourceCSs_ICCLAB,SourceCSs_ICCRGB,SourceCSs_Lab,SourceCSs_Separation,SourceCSs_YUV,SourceCSs_All};
 /**
 * Enumeration for attribute ColorTransform
 */

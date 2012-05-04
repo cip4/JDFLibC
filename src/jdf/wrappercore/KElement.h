@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1735,10 +1735,10 @@ namespace JDF {
 		/**
 		* Checks, whether 'this' is null or not
 		* 
-		* @return bool: true, if 'this' points at an element in the DOM tree
+		* @return bool: true, if 'this' does not point at an element in the DOM tree
 		*/
 		inline bool isNull()const{
-			return domElement==0;
+			return this==0 || domElement==0;
 		}
 
 		/**
