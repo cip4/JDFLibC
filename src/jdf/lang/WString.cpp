@@ -249,7 +249,7 @@ namespace JDF
 	const WString WString::backSlash=L"\\";
 	const WString WString::quote=L"\"";
 	const WString WString::slash=L"/";
-	const WString WString::regExp_duration = L"([-])?[P](((\\d)*)[Y])?((\\d)*[M])?((\\d)*[D])?([T]((\\d)*[H])?((\\d)*[M])?((\\d)*([.](\\d)*)?[S])?)?";
+	const WString WString::regExp_duration = L"(-)?[P](((\\d)*)[Y])?((\\d)*[M])?((\\d)*[D])?([T]((\\d)*[H])?((\\d)*[M])?((\\d)*([.](\\d)*)?[S])?)?";
 	const WString WString::regExp_datetime =L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])(:)([0-5][0-9])(:)([0-5][0-9])((.)(\\d)*)?(([+-](0[0-9]|1[0-9]|2[0123])(:)(00))|[a-zA-Z])";
 	const WString WString::regExp_hexbinary = L"([0-9a-fA-F]{2})+";
 
