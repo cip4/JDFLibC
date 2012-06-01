@@ -129,7 +129,7 @@ namespace JDF
 	class JDFTOOLS_EXPORT vWString{
 
 	public:
-		typedef  unsigned int size_type;
+		typedef size_t size_type;
 		typedef vWStringIterator iterator;
 		typedef vWStringIterator const_iterator;
 		typedef WString& reference;

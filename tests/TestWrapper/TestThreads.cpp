@@ -92,7 +92,10 @@ unsigned __stdcall threadproc1 (void* p)
 
     current_time = start_time;
 	JDFDoc d;
-	d.Parse("C:/local/bin/merge.jdf",false);    
+	d.Parse("c:\\data\\JDF\\spawn.jdf",false);    
+		JDFNode n=d.GetJDFRoot();
+		JDFResource rl=n.GetXPathElement("ResourcePool/NodeInfo");	
+		cout<<rl.GetPartIDKeys()<<rl<<endl;
 	cout<<11<<endl;
 	while (current_time - start_time <= duration)
     {
@@ -132,8 +135,11 @@ unsigned __stdcall threadproc2 (void* p)
 
     current_time = start_time;
 	JDFDoc d;
-	d.Parse("C:/local/bin/merge.jdf",false);    
-    cout<<21<<endl;
+	d.Parse("c:\\data\\JDF\\spawn.jdf",false);    
+ 		JDFNode n=d.GetJDFRoot();
+		JDFResource rl=n.GetXPathElement("ResourcePool/NodeInfo");	
+		cout<<rl.GetPartIDKeys()<<rl<<endl;
+   cout<<21<<endl;
 
 		WString w="aa,*,ab,bc,*";
 		int j=0;
@@ -174,7 +180,10 @@ unsigned __stdcall threadproc3 (void* p)
 
     current_time = start_time;
 	JDFDoc d;
-	d.Parse("C:/local/bin/merge.jdf",false);    
+	d.Parse("c:\\data\\JDF\\spawn.jdf",false);    
+		JDFNode n=d.GetJDFRoot();
+		JDFResource rl=n.GetXPathElement("ResourcePool/NodeInfo");	
+		cout<<rl.GetPartIDKeys()<<rl<<endl;
     cout<<31<<endl;
 
     while (current_time - start_time <= duration)
@@ -213,7 +222,10 @@ unsigned __stdcall threadproc4 (void* p)
 
 	current_time = start_time;
 	JDFDoc d;
-	d.Parse("C:/local/bin/merge.jdf",false);    
+	d.Parse("c:\\data\\JDF\\spawn.jdf",false);    
+		JDFNode n=d.GetJDFRoot();
+		JDFResource rl=n.GetXPathElement("ResourcePool/NodeInfo");	
+		cout<<rl.GetPartIDKeys()<<rl<<endl;
 	cout<<41<<endl;
 	WString www;
 	while (current_time - start_time <= duration)

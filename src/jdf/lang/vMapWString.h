@@ -117,7 +117,7 @@ namespace JDF
 	*/
 	class JDFTOOLS_EXPORT vMapWString {
 	public:
-		typedef  unsigned int size_type;
+		typedef size_t size_type;
 		typedef vMapWStringIterator iterator;
 		typedef vMapWStringIterator const_iterator;
 		typedef MapWString& reference;

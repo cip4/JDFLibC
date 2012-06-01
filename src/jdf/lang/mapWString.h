@@ -125,7 +125,7 @@ namespace JDF
 	public: 
 		
 		
-		typedef  unsigned int size_type;
+		typedef size_t size_type;
 		typedef MapWStringIterator iterator;
 		typedef MapWStringIterator const_iterator;
 		//		typedef MapWStringIterator& reference;

@@ -116,7 +116,7 @@ namespace JDF
 	*/
 	class JDFTOOLS_EXPORT vint{
 	public:
-		typedef  unsigned int size_type;
+		typedef size_t size_type;
 		typedef vintIterator iterator;
 		typedef vintIterator const_iterator;
 		typedef int& reference;

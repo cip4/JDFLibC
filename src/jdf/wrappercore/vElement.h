@@ -104,7 +104,7 @@ namespace JDF{
 	class JDF_WRAPPERCORE_EXPORT vElement{
 
 	public:
-		typedef  unsigned int size_type;
+		typedef size_t size_type;
 		typedef vElementIterator iterator;
 		typedef vElementIterator const_iterator;
 		typedef KElement& reference;

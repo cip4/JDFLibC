@@ -73,36 +73,16 @@ int main(int argc, char* argv[]){
 		XMLDoc doc("abc");
 		KElement f00=doc.GetRoot().GetElement("Bar");
 		assertFalse(f00.HasAttribute("fluf"));
+		JDFDate dd(0);
+		cout<<dd.DateTimeISO()<<endl;
+		JDFDate ddd(0);
+		cout<<ddd.DateTimeISO()<<endl;
+
 	}
 	else if(1)
 	{
-			RegularExpression re(L"(19|20)\\d\\d");
-			RegularExpression re4(L"(19|20)\\d\\d(-)");
-			RegularExpression re5(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])");
-			RegularExpression re6(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T]");
-			RegularExpression re1(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])(:)([0-5][0-9])(:)");
-			RegularExpression re2(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])(:)([0-5][0-9])(:)([0-5][0-9])([.](\\d)*)?");
-			RegularExpression re3(L"(19|20)\\d\\d(-)(0[1-9]|1[012])(-)(0[1-9]|[12][0-9]|3[01])[T](0[0-9]|1[0-9]|2[0123])(:)([0-5][0-9])(:)([0-5][0-9])([.](\\d)*)?(([+-](0[0-9]|1[0-9]|2[0123])(:)(00))|[a-zA-Z])");
-		JDFDate d;
-		WString dd(d.DateTimeISO());
-		JDFDate das(dd);
-assertEquals(d.DateTimeISO(),das.DateTimeISO());
-
-{		XMLDoc doc("abc");
-	XMLDoc d2=doc.Write2URL(L"http://kie-prosirai-lg:18081/getPreflight?JobID=J-B");
-	cout<<d2<<endl;
-}
-	
-{		
-	XMLDoc doc("JMF");
-	KElement root=doc.GetRoot();
-	root.SetXPathAttribute("Command/@Type","getVersion");
-
-	XMLDoc d2=doc.Write2URL(L"http://kie-schielke-nb:6311/StorageService-J/Storage");
-	cout<<d2<<endl;
-}
-
-
+		JDFDuration d("PT1M");
+		cout<<d.DurationISO()<<endl;
 	}
 	else if(0)
 	{

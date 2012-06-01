@@ -232,8 +232,8 @@ namespace JDF
 		//@}
 
 	public:
-		typedef  unsigned int size_type;
-		static const int npos;
+		typedef size_t size_type;
+		static const size_t npos;
 		typedef WStringIterator iterator;                              // RN20060320
 		typedef const WStringIterator const_iterator;                  // RN20060320
 		typedef JDFCh& reference;
