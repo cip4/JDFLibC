@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1336,7 +1336,7 @@ namespace JDF{
                 r.SetAttribute("XPath", dc.GetNamePath(true));
                 r.SetAttribute("FitsMinMaxOccurs", false);
                 r.SetAttribute("AllowedMaxOccurs", dc.GetMaxOccurs()); // MaxOccurs
-                r.SetAttribute("FoundElements", vElem.size());
+                r.SetAttribute("FoundElements", (int)vElem.size());
                 for (int i=0; i < vElem.size(); i++) 
                 {
                     KElement ie = r.AppendElement("InvalidElement");
@@ -1349,7 +1349,7 @@ namespace JDF{
                 r.SetAttribute("XPath", dc.GetNamePath(true));
                 r.SetAttribute("FitsMinMaxOccurs", false);
                 r.SetAttribute("AllowedMinOccurs", dc.GetMinOccurs()); // MinOccurs
-                r.SetAttribute("FoundElements", vElem.size());
+                r.SetAttribute("FoundElements", (int)vElem.size());
                 for (int i=0; i < vElem.size(); i++) 
                 {
                     KElement ie = r.AppendElement("InvalidElement");
