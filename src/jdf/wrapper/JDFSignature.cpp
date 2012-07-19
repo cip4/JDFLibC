@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -100,18 +100,16 @@ namespace JDF{
 
 	JDFLayout JDFSignature::appendLayoutElement(JDFResource &layout, const WString &elementName, const JDF::WString &partitionKeyName)
 	{
-		WString strLo = layout.ToString(); // TODO remove after debugging
-		JDFLayout s;
 		if(JDFLayout::isNewLayout(layout))
         {
             int n=1+numLayoutElements(layout,elementName,partitionKeyName);
-			s= layout.AddPartition(JDFResource::GetPartIDKeyEnum(partitionKeyName),partitionKeyName+WString::valueOf(n));
+			return layout.AddPartition(JDFResource::GetPartIDKeyEnum(partitionKeyName),partitionKeyName+WString::valueOf(n));
         }
-        else{
-            s= layout.AppendElement(elementName);
+        else
+		{
+            return layout.AppendElement(elementName);
         }
-        return s;
-	}
+  	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
