@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -2017,8 +2017,8 @@ namespace JDF{
 
 
 	JDFResource JDFResource::GetAttributePart(const WString &key)const{
-		// tbd check whether this calls the correct virtual function
-		if(((JDFElement*)this)->HasAttribute(key)) 
+		JDFElement e=*this;
+		if(e.HasAttribute(key)) 
 			return *this;
 		JDFResource n=GetParentNode();
 		if(n.throwNull()) 
