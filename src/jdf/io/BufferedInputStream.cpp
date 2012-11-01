@@ -339,8 +339,8 @@ void BufferedInputStream::reset()
 
 	if (mMarkPos == -1 && mPos!=0)
 		throw IOException("Resetting to invalid mark");
-
-	mPos = mMarkPos;
+	else if (mMarkPos != -1)
+		mPos = mMarkPos;
 }
 
 
