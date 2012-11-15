@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2004 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -144,7 +144,7 @@ namespace JDF
 		* @param blen the size of the buffer.
 		*/
 		
-	ByteArrayInputStream(char* buf, int blen, bool takeOwnership = false);
+	ByteArrayInputStream(char* buf, size_t blen, bool takeOwnership = false);
 		
 		/**
 		* Creates a <code>ByteArrayInputStream</code> that uses buf as its buffer array.
@@ -163,7 +163,7 @@ namespace JDF
 		* @param len the maximum number of bytes to read from the buffer.
 		*/
 		
-	ByteArrayInputStream(char* buf, int blen, int off, int len, bool takeOwnership =false);
+	ByteArrayInputStream(char* buf, size_t blen, size_t off, size_t len, bool takeOwnership =false);
 		
 		/*@}*/ 
 		
@@ -185,7 +185,7 @@ namespace JDF
 		* @return the number of bytes that can be read from the input stream without blocking.
 		*/
 		
-		int  available();
+		size_t  available();
 		
 		/**
 		* Closes this input stream and releases any system resources 
@@ -203,7 +203,7 @@ namespace JDF
 		* @param readAheadLimit the maximum limit of bytes that can be read before the mark position becomes invalid.
 		*/
 		
-		void mark(int readAheadLimit);
+		void mark(size_t readAheadLimit);
 		
 		/**
 		* Tests if ByteArrayInputStream supports mark/reset.
@@ -232,7 +232,7 @@ namespace JDF
 		* @param blen the size of the buffer.
 		*/
 		
-		int  read(char* b, int blen);
+		ssize_t  read(char* b, size_t blen);
 		
 		/**
 		* Reads up to <code>len</code> bytes of data into an array of bytes from this input stream.
@@ -252,7 +252,7 @@ namespace JDF
 		* @param len the maximum number of bytes read.
 		*/
 		
-		int  read(char* b, int blen, int off, int len);
+		ssize_t  read(char* b, size_t blen, size_t off, size_t len);
 		
 		/**
 		* Resets the buffer to the marked position. 
@@ -272,7 +272,7 @@ namespace JDF
 		* @param n the number of bytes to be skipped.
 		*/
 		
-		long skip(long n);
+		size_t skip(size_t n);
 		
 protected:
 	
@@ -292,7 +292,7 @@ protected:
 	* last byte within <code>mBuf</code> that can ever be read from the input stream buffer.
 	*/
 	
-	int   mCount;
+	size_t   mCount;
 	
 	/**
 	* The currently marked position in the stream. CharArrayInputStream 
@@ -302,7 +302,7 @@ protected:
 	* by the <code>reset()</code> method.
 	*/
 	
-	int   mMark;
+	size_t   mMark;
 	
 	/**
 	* The index of the next character to read from the input stream buffer.
@@ -311,7 +311,7 @@ protected:
 	* <code>buf[pos]</code>.
 	*/
 	
-	int	  mPos;
+	size_t	  mPos;
 	
 	/**
 	* <code>true</code> if this stream has been closed; <code>false</code> otherwise.

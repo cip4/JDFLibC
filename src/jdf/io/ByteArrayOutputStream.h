@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -149,7 +149,7 @@ public:
 	 * @throw IllegalArgumentException if size is zero.
 	 */
 
-	ByteArrayOutputStream(unsigned int size);
+	ByteArrayOutputStream(size_t size);
 
 /*@}*/ 
 
@@ -180,7 +180,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	void write(const char* b, int blen);
+	void write(const char* b, size_t blen);
 
 	/**
 	 * Writes <code>len</code> bytes from the specified byte array starting at offset <code>off</code> to this
@@ -193,7 +193,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	void write(const char* b, int blen, int off, int len);
+	void write(const char* b, size_t blen, size_t off, size_t len);
 
 	/**
 	 * Writes the complete contents of this byte array output stream to the specified 
@@ -243,7 +243,7 @@ public:
 	 * @see ByteArrayOutputStream#mCount    
 	 */
 
-	int	 size();
+	size_t	 size();
 
 	/**
 	 * Closes this output stream and releases any system resources associated 
@@ -292,13 +292,13 @@ protected:
 	 * The total number of bytes in the buffer.
 	 */
 
-	int	  mLength;
+	size_t	  mLength;
 
 	/**
 	 * The number of valid bytes in the buffer.
 	 */
 
-	int	  mCount;
+	size_t	  mCount;
 
 	/**
 	 * <code>true</code> if this output stream has been closed; <code>false</code> otherwise.

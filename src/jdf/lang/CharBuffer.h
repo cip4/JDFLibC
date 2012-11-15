@@ -135,12 +135,12 @@ public:
 	 * This has internal performance reasons because some systems 
 	 * allocate memory on a specific boundary
 	 */
-	static const int ALLIGNMENTSIZE;
+	static const size_t ALLIGNMENTSIZE;
 
 	/**
 	 * The default initial capacity of the buffer
 	 */
-	static const int INITIALSIZE;
+	static const size_t INITIALSIZE;
 
 /** 
  * @name Constructors
@@ -156,7 +156,7 @@ public:
      * Construct a CharBuffer of the given capacity.
 	 * @param size initial capacity of the CharBuffer
      */
-	CharBuffer(int size);
+	CharBuffer(size_t size);
 
 	/**
 	 * Constructs a new CharBuffer from a given CharBuffer
@@ -177,7 +177,7 @@ public:
 	 * @param clone if true copy the given buffer; else use the buffer 
 	 * internally (Transfer Of OwnerShip)
 	 */
-	CharBuffer(JDFCh* buf, int size, bool clone=false);
+	CharBuffer(JDFCh* buf, size_t size, bool clone=false);
 
 	CharBuffer& operator=(const CharBuffer& buf);
   
@@ -198,7 +198,7 @@ public:
 	 * @param buf the buffer to copy from
 	 * @param length the number of cbaracters to copy.
 	 */
-	void append(JDFCh* buf, int length);
+	void append(JDFCh* buf, size_t length);
 
 	/**
 	 * This method appends a sequence of characters represented by the argument 
@@ -239,7 +239,7 @@ public:
 	 * The real length of the buffer might be larger.
 	 * @return the size of the internal character array.
 	 */
-	int   size() const ;
+	size_t   size() const ;
 
 	/**
 	 * Empties the internal buffer.
@@ -264,11 +264,11 @@ private:
 	 * Resizes the internal buffer to hold at least the number of characters
 	 * given by the argument <code>size</code>.
 	 */
-	void ensureCapacity(int size);
+	void ensureCapacity(size_t size);
 
 	JDFCh* mBuffer;
-	int   mSize;
-	int   mBufferSize;
+	size_t   mSize;
+	size_t   mBufferSize;
 };
 
 /******************************************************************************

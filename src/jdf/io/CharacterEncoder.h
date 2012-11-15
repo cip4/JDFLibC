@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -182,13 +182,13 @@ protected:
     /** 
 	 * Return the number of bytes per atom of encoding 
 	 */
-	virtual int bytesPerAtom() = 0;
+	virtual size_t bytesPerAtom() = 0;
 
 
     /** 
 	 * Return the number of bytes that can be encoded per line 
 	 */
-    virtual int bytesPerLine() = 0;
+    virtual size_t bytesPerLine() = 0;
 
     /**
      * Encode the prefix for the entire buffer. By default is simply
@@ -204,7 +204,7 @@ protected:
     /**
      * Encode the prefix that starts every output line.
      */
-    void encodeLinePrefix(OutputStream& aStream, int aLength);
+    void encodeLinePrefix(OutputStream& aStream, size_t aLength);
 
     /**
      * Encode the suffix that ends every output line. By default
@@ -215,14 +215,14 @@ protected:
     /**
 	 * Encode one "atom" of information into characters. 
 	 */
-    virtual void encodeAtom(OutputStream& aStream,char* someBytes, int len,
-		int anOffset, int aLength) = 0;
+    virtual void encodeAtom(OutputStream& aStream,char* someBytes, size_t len,
+		size_t anOffset, size_t aLength) = 0;
 
     /**
      * This method works around the bizarre semantics of BufferedInputStream's
      * read method.
      */
-    int readFully(InputStream& in, char* buffer, int len);
+    int readFully(InputStream& in, char* buffer, size_t len);
 
 public:
 
@@ -238,13 +238,13 @@ public:
      * Encode the buffer in <i>aBuffer</i> and write the encoded
      * result to the OutputStream <i>aStream</i>.
      */
-    void encode(char* aBuffer, int len, OutputStream& aStream); 
+    void encode(char* aBuffer, size_t len, OutputStream& aStream); 
 
     /**
      * A 'streamless' version of encode that simply takes a buffer of
      * bytes and returns a string containing the encoded buffer.
      */
-	WString encode(char* aBuffer, int len); 
+	WString encode(char* aBuffer, size_t len); 
 
     /**
      * Encode bytes from the input stream, and write them as text characters
@@ -258,13 +258,13 @@ public:
      * Encode the buffer in <i>aBuffer</i> and write the encoded
      * result to the OutputStream <i>aStream</i>.
      */
-    virtual void encodeBuffer(char* aBuffer, int len, OutputStream& aStream); 
+    virtual void encodeBuffer(char* aBuffer, size_t len, OutputStream& aStream); 
 
     /**
      * A 'streamless' version of encode that simply takes a buffer of
      * bytes and returns a string containing the encoded buffer.
      */
-    WString encodeBuffer(char* aBuffer, int len); 
+    WString encodeBuffer(char* aBuffer, size_t len); 
 };
 
 /******************************************************************************

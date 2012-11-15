@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -216,7 +216,7 @@ void FileInputStream::close()
 	}
 }
 
-long FileInputStream::skip(long n)
+size_t FileInputStream::skip(size_t n)
 {
 	return InputStream::skip(n);
 }
@@ -231,12 +231,12 @@ int FileInputStream::read()
 	return (unsigned char) ch;
 }
 
-int FileInputStream::read(char* b, int blen)
+ssize_t FileInputStream::read(char* b, size_t blen)
 {
 	return read(b,blen,0,blen);
 }
 
-int FileInputStream::read(char* b, int blen, int off, int len)
+ssize_t FileInputStream::read(char* b, size_t blen, size_t off, size_t len)
 {
 	return PlatformUtils::readFileBuffer(m_handle,len,(unsigned char* const) b+off);
 }
@@ -246,7 +246,7 @@ void FileInputStream::reset()
 	PlatformUtils::seekFile(m_handle,mMarkPosition,1);
 }
 
-void FileInputStream::mark(int readlimit)
+void FileInputStream::mark(size_t readlimit)
 {
 	mMarkPosition = PlatformUtils::curFilePos(m_handle);
 }
@@ -256,7 +256,7 @@ bool FileInputStream::markSupported()
 	return true;
 }
 
-int FileInputStream::available()
+size_t FileInputStream::available()
 {
 	return PlatformUtils::fileSize(m_handle) - PlatformUtils::curFilePos(m_handle);
 }

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -156,7 +156,7 @@ public:
 	 * @exception IllegalArgumentException if size == 0
 	 */
 
-	BufferedOutputStream(OutputStream& out, unsigned int size);
+	BufferedOutputStream(OutputStream& out, size_t size);
 
 	/**
 	 * Creates a new buffered output stream to write data to the specified 
@@ -167,7 +167,7 @@ public:
 	 * @param size the buffer size.
 	 * @exception IllegalArgumentException if size == 0
 	 */
-	 BufferedOutputStream(OutputStream*out, unsigned int size=2048);
+	 BufferedOutputStream(OutputStream*out, size_t size=2048);
 
 /*@}*/ 
 
@@ -205,7 +205,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	void write(const char* b, int blen);
+	void write(const char* b, size_t blen);
 
 	/**
 	 * Writes <code>len</code> bytes from the specified byte array starting at offset
@@ -225,7 +225,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	void write(const char* b, int blen, int off, int len);
+	void write(const char* b, size_t blen, size_t off, size_t len);
 
 	/**
 	 * Writes the specified byte to this buffered output stream.
@@ -247,14 +247,14 @@ protected:
 	 *
 	 */
 
-	int				mSize;	
+	size_t				mSize;	
 
 	/**
 	 * The position of the next free byte in the cache
 	 *
 	 */
 
-	int				mCount; 
+	size_t				mCount; 
 
 	/**
 	 * The internal buffer where data is stored

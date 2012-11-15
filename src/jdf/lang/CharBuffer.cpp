@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2003 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -117,8 +117,8 @@ namespace JDF
 	*	Implementation
 	******************************************************************************/ 
 	
-	const int CharBuffer::ALLIGNMENTSIZE=1024*64;
-	const int CharBuffer::INITIALSIZE   =1024*4;
+	const size_t CharBuffer::ALLIGNMENTSIZE=1024*64;
+	const size_t CharBuffer::INITIALSIZE   =1024*4;
 	const int CharBuffer::MAGICNUMBER   = 52000;
 	
 	CharBuffer::CharBuffer() 
@@ -128,9 +128,9 @@ namespace JDF
 		mBufferSize = INITIALSIZE;
 	}
 	
-	CharBuffer::CharBuffer(int size)
+	CharBuffer::CharBuffer(size_t size)
 	{
-		unsigned long allocSize(size*sizeof(JDFCh));
+		size_t allocSize(size*sizeof(JDFCh));
 #ifdef PLTF_WIN32
 		if (allocSize > MAGICNUMBER)
 			allocSize = ((allocSize + ALLIGNMENTSIZE - 1) / ALLIGNMENTSIZE) * ALLIGNMENTSIZE;
@@ -143,7 +143,7 @@ namespace JDF
 	
 	CharBuffer::CharBuffer(const CharBuffer& b)
 	{
-		unsigned long allocSize(b.mSize);
+		size_t allocSize(b.mSize);
 		mSize       = b.mSize;
 		mBuffer     = new JDFCh[allocSize];
 		mBufferSize = allocSize;
@@ -155,7 +155,7 @@ namespace JDF
 		if(this != &buf)
 		{
 			mSize       = buf.mSize;
-			unsigned long allocSize(buf.mSize);
+			size_t allocSize(buf.mSize);
 			mBuffer = new JDFCh[allocSize];
 			mBufferSize = allocSize;
 			memcpy(mBuffer,buf.mBuffer,buf.mSize);
@@ -164,7 +164,7 @@ namespace JDF
     }
 
 	
-	CharBuffer::CharBuffer(JDFCh* buf, int size, bool clone)
+	CharBuffer::CharBuffer(JDFCh* buf, size_t size, bool clone)
 	{
 		mBuffer     = buf;
 		mSize       = size;
@@ -186,9 +186,9 @@ namespace JDF
 		delete[] mBuffer;
 	}
 	
-	void CharBuffer::append(JDFCh* buf, int length)
+	void CharBuffer::append(JDFCh* buf, size_t length)
 	{
-		int available = mBufferSize - mSize;
+		size_t available = mBufferSize - mSize;
 		if (length > available)
 			ensureCapacity(length-available);
 		
@@ -203,7 +203,7 @@ namespace JDF
 	
 	void CharBuffer::append(const WString& s)
 	{
-		int available = mBufferSize - mSize;
+		size_t available = mBufferSize - mSize;
 		if (static_cast<int>(s.length()) > available)
 			ensureCapacity(s.length()-available);
 		
@@ -213,7 +213,7 @@ namespace JDF
 	
 	void CharBuffer::append(JDFCh c)
 	{
-		int available = mBufferSize - mSize;
+		size_t available = mBufferSize - mSize;
 		if (!available)
 			ensureCapacity(10);
 		memcpy(mBuffer+mSize, &c, sizeof(JDFCh));
@@ -225,7 +225,7 @@ namespace JDF
 		return mBuffer;
 	}
 	
-	int CharBuffer::size() const
+	size_t CharBuffer::size() const
 	{
 		return mSize;
 	}
@@ -235,13 +235,13 @@ namespace JDF
 		mSize = 0;
 	}
 	
-	void CharBuffer::ensureCapacity(int length)
+	void CharBuffer::ensureCapacity(size_t length)
 	{
-		unsigned long allocSize = std::max(mBufferSize << 1, mBufferSize + length);
+		size_t allocSize = std::max(mBufferSize << 1, mBufferSize + length);
 		
 		JDFCh* pTmp=mBuffer;
 		
-		mBuffer = new JDFCh[(unsigned long)allocSize];
+		mBuffer = new JDFCh[allocSize];
 		memcpy (mBuffer,pTmp,mBufferSize * sizeof (JDFCh)); // only copy the old data
 		mBufferSize = allocSize;
 		

@@ -116,15 +116,15 @@ class JDFTOOLS_EXPORT ProgressEntry
 {
 public:
 
-	int mNeeded;
-	int mRead;
+	size_t mNeeded;
+	size_t mRead;
 
 	ProgressEntry() 
 	{ 
 		mNeeded = 0; 
 		mRead   = 0;
 	}
-	inline void update(int total_read,int total_need) 
+	inline void update(size_t total_read,size_t total_need) 
 	{ 
 		if (mNeeded == 0)
 			mNeeded = total_need;

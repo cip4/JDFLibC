@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -159,7 +159,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	virtual int  available();
+	virtual size_t  available();
 
 	/**
 	 * Closes this input stream and releases any system resources associated with the stream. 
@@ -191,7 +191,7 @@ public:
 	 * @see InputStream#reset()    
 	 */
 
-	virtual void mark(int readlimit);
+	virtual void mark(size_t readlimit);
 
 	/**
 	 * Tests if this input stream supports the <code>mark</code> and <code>reset</code> methods.
@@ -250,7 +250,7 @@ public:
 	 * @see read(char*,int,int,int)     
 	 */
 
-	virtual int  read(char* b, int blen);
+	virtual ssize_t  read(char* b, size_t blen);
 
 	/**
 	 * Reads up to len bytes of data from the input stream into an array of bytes.
@@ -301,7 +301,7 @@ public:
 	 * @see read()    
 	 */
 
-	virtual int  read(char* b, int blen, int offset, int len);
+	virtual ssize_t  read(char* b, size_t blen, size_t offset, size_t len);
 
 	/**
 	 * Repositions this stream to the position at the time the <CODE>mark</CODE> method was last called on this input stream. 
@@ -361,7 +361,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	virtual long skip(long n);
+	virtual size_t skip(size_t n);
 
 private:
 

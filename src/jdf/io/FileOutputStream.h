@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -205,8 +205,8 @@ public:
 	 */
 
 	void write(int c);
-	void write(const char* b, int blen);
-	void write(const char* b, int blen, int off, int len);
+	void write(const char* b, size_t blen);
+	void write(const char* b, size_t blen, size_t off, size_t len);
 	void flush();
 	bool seekSupported();
 	JDFUInt64 length();

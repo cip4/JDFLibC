@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ MeteredInputStream::~MeteredInputStream()
 	delete te;
 }
 
-int  MeteredInputStream::available()
+size_t  MeteredInputStream::available()
 {
 	return mClosed?0:mIn->available();
 
@@ -143,7 +143,7 @@ void MeteredInputStream::close()
 	mClosed = true;
 }
 
-void MeteredInputStream::mark(int readlimit)
+void MeteredInputStream::mark(size_t readlimit)
 {
 	if (mClosed)
 		return;
@@ -172,17 +172,17 @@ int  MeteredInputStream::read()
 	return c;
 }
 
-int  MeteredInputStream::read(char* b, int blen)
+ssize_t  MeteredInputStream::read(char* b, size_t blen)
 {
 	return read(b, blen,0,blen);
 }
 
-int  MeteredInputStream::read(char* b, int blen, int off, int len)
+ssize_t  MeteredInputStream::read(char* b, size_t blen, size_t off, size_t len)
 {
 	if (mClosed)
 		return -1;
 
-	int n = mIn->read(b,blen,off,len);
+	size_t n = mIn->read(b,blen,off,len);
 	justRead(n);
 	return n;
 }
@@ -195,19 +195,19 @@ void MeteredInputStream::reset()
 	FilterInputStream::reset();
 }
 
-long MeteredInputStream::skip(long n)
+size_t MeteredInputStream::skip(size_t n)
 {
 	if (mClosed)
 		return 0;
 
 	// just skip min(n,num_bytes_left
 
-	int min =(n> mExpected-mCount) ? mExpected-mCount : (int) n;
+	size_t min =(n> mExpected-mCount) ? mExpected-mCount : n;
 	n = mIn->skip(min);
 	return n;
 }
 
-void MeteredInputStream::justRead(int n)
+void MeteredInputStream::justRead(size_t n)
 {
 	if (n == -1)
 	{

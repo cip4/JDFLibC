@@ -135,6 +135,16 @@ typedef unsigned __int64 JDFUInt64;
 typedef __int64 JDFInt64;
 #pragma warning( disable : 4251 ) // dll crap - 
 #pragma warning( disable : 4275 ) // dll crap - exporting of private members
+
+#ifndef _SSIZE_T_DEFINED
+#ifdef  _WIN64
+typedef __int64  ssize_t;
+#else
+typedef _W64 int  ssize_t;
+#endif
+#define _SSIZE_T_DEFINED
+#endif
+
 #endif
 
 

@@ -114,7 +114,6 @@ namespace JDF
 	/******************************************************************************
 	*	Typedefs
 	******************************************************************************/
-	//typedef std::vector<int> vint;
 	typedef std::vector<WString> vWStringBase;
 
 	const vWString vWString::emptyvStr;
@@ -263,7 +262,7 @@ namespace JDF
 	}
 	////////////////////////////////////////////////////////////////////////
 		
-	void vWString::insertElementAt(const WString &x ,int beforePos)
+	void vWString::insertElementAt(const WString &x ,size_t beforePos)
 	{
 		insert(begin()+beforePos,x);
 	}
@@ -284,7 +283,7 @@ namespace JDF
 
 	///////////////////////////////////////////////////////////////////////
 
-	void vWString::sort(int first, int last){
+	void vWString::sort(size_t first, ssize_t last){
 		if(last<-1)
 			last=(int)PBASE->size()+last;
 		
@@ -303,8 +302,8 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
-	void vWString::RemoveStrings(const WString& s, int n){
-		for (int i=PBASE->size()-1; i>=0; i--) {
+	void vWString::RemoveStrings(const WString& s, ssize_t n){
+		for (ssize_t i=PBASE->size()-1; i>=0; i--) {
 			if (!s.compare(at(i))) {
 				PBASE->erase(PBASE->begin()+i);
 				if(--n==0) 
@@ -315,8 +314,8 @@ namespace JDF
 
 	////////////////////////////////////////////////////////////////////////
 	/// remove the last n occurrences of a string
-	void vWString::RemoveStrings(const vWString& v, int n){
-		for (int i=size()-1;i>=0;i--) {
+	void vWString::RemoveStrings(const vWString& v, ssize_t n){
+		for (ssize_t i=size()-1;i>=0;i--) {
 			if (v.hasString(at(i))) {
 				PBASE->erase(PBASE->begin()+i);
 				if(--n==0) break;
@@ -327,7 +326,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	/// remove the last n occurrences of a string
 	bool vWString::containsAll(const vWString& v)const{
-		for (int i=v.size()-1;i>=0;i--) {
+		for (ssize_t i=v.size()-1;i>=0;i--) {
 			if (!hasString(v.at(i))) {
 				return false;
 			}
@@ -337,7 +336,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	bool vWString::containsAny(const vWString &other) const
 	{
-		for (int i=other.size()-1;i>=0;i--) {
+		for (ssize_t i=other.size()-1;i>=0;i--) {
 			if (hasString(other.at(i))) {
 				return true;
 			}
@@ -348,11 +347,11 @@ namespace JDF
 
 	void vWString::addAll(const vWString &v)
 	{
-		int sumsiz=PBASE->size()+v.size();
+		size_t sumsiz=PBASE->size()+v.size();
 		if(PBASE->capacity()<sumsiz)
 			reserve(sumsiz);
 
-		for(unsigned int i=0; i<v.size(); i++)
+		for(size_t i=0; i<v.size(); i++)
 			push_back(v.at(i));
 
 	}
@@ -361,8 +360,8 @@ namespace JDF
 	void vWString::Unify()
 	{
 		SetWString set;
-		int siz=size();
-		for (int i=0;i<siz;i++)
+		size_t siz=size();
+		for (size_t i=0;i<siz;i++)
 		{
 			const WString& s=at(i);
 			if(set.contains(s))
@@ -379,24 +378,26 @@ namespace JDF
 	}
 
 	////////////////////////////////////////////////////////////////////////
-	int vWString::index(const WString& s, int start)const{
-		for (unsigned int i=start;i<size();i++){
-			if (!at(i).compare(s)) return i;
+	ssize_t vWString::index(const WString& s, size_t start)const{
+		for (size_t i=start;i<size();i++){
+			if (!at(i).compare(s)) 
+				return i;
 		}
 		return -1;
 	};
 	////////////////////////////////////////////////////////////////////////
 	vint vWString::multiIndex(const WString& s)const{
 		vint vi;
-		for (unsigned int i=0;i<size();i++){
-			if (!at(i).compare(s)) vi.push_back(i);
+		for (size_t i=0;i<size();i++){
+			if (!at(i).compare(s)) 
+				vi.push_back(i);
 		}
 		return vi;
 	};
 	////////////////////////////////////////////////////////////////////////
 	/// same as set::find
 	vWString::iterator vWString::find(const WString & s){
-		for (unsigned int i=0; i<size(); i++) {
+		for (size_t i=0; i<size(); i++) {
 			if (!s.compare(at(i))) 
 				return vWString::iterator(pBase,i);
 		}
@@ -405,7 +406,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	/// same as set::find
 	vWString::const_iterator vWString::find(const WString &s)const{
-		for (unsigned int i=0; i<size(); i++) {
+		for (size_t i=0; i<size(); i++) {
 			if (!s.compare(at(i))) 
 				return vWString::iterator(pBase,i);
 		}
@@ -453,11 +454,9 @@ namespace JDF
 	}
 
 	////////////////////////////////////////////////////////////////////////
-	vWStringIterator::vWStringIterator(void*p, int ipos){
+	vWStringIterator::vWStringIterator(void*p, size_t ipos){
 		if(p){
 			vWStringBase* v=(vWStringBase*)p;
-			if(ipos<0)
-				ipos=v->size(); // return end
 			iPos=ipos;
 			vWStringVector=p;
 
@@ -471,7 +470,7 @@ namespace JDF
 	vWStringIterator::~vWStringIterator(){
 	};
 	////////////////////////////////////////////////////////////////////////
-	vWStringIterator vWStringIterator::operator +(int i)const{
+	vWStringIterator vWStringIterator::operator +(size_t i)const{
 		if(vWStringVector==0) 
 			throw (L"JDFException null vWStringIterator");
 		vWStringIterator it=*this;
@@ -551,7 +550,7 @@ namespace JDF
 	///////////////////////////////////////////////////////////////////////
 	bool vWStringIterator::hasNext() const
 	{
-		int siz = ((vWStringBase*)vWStringVector)->size();
+		size_t siz = ((vWStringBase*)vWStringVector)->size();
 		if (iPos < siz)
 			return true;
 		else 
@@ -573,7 +572,7 @@ namespace JDF
 	WString vWString::toString()
 	{
 		WString ret;
-		for (int i=0;i<this->size();i++)
+		for (size_t i=0;i<this->size();i++)
 		{
 			ret.append(this->elementAt(i));
 			ret += " ";

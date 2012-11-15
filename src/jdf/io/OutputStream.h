@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -178,7 +178,7 @@ public:
 	 * @see OutputStream#write(char*,int,int,int)    
 	 */
 
-	virtual void write(const char* b, int blen);
+	virtual void write(const char* b, size_t blen);
 
 	/**
 	 * Writes <code>len</code> bytes from the specified byte array starting at offset <code>offset</code> to this output stream. 
@@ -203,7 +203,7 @@ public:
 	 * @exception IOException - if an I/O error occurs. In particular, an <code>IOException</code> is thrown if the output stream is closed.
 	 */
 
-	virtual void write(const char* b, int blen, int offset, int len);
+	virtual void write(const char* b, size_t blen, size_t offset, size_t len);
 
 	/**
 	 * Writes the specified byte to this output stream. 

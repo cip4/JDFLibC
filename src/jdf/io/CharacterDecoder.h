@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -195,12 +195,12 @@ protected:
     /** 
 	 * Return the number of bytes per atom of decoding 
 	 */
-    virtual int bytesPerAtom() = 0;
+    virtual size_t bytesPerAtom() = 0;
 
     /** 
 	 * Return the maximum number of bytes that can be encoded per line 
 	 */
-    virtual int bytesPerLine() = 0;
+    virtual size_t bytesPerLine() = 0;
 
     /** 
 	 * decode the beginning of the buffer, by default this is a NOP. 
@@ -233,7 +233,7 @@ protected:
      * writes them to the OuputStream. The integer <i>l</i> tells the
      * method how many bytes are required. This is always <= bytesPerAtom().
      */
-    virtual void decodeAtom(InputStream& aStream, OutputStream& bStream, int l) { 
+    virtual void decodeAtom(InputStream& aStream, OutputStream& bStream, size_t l) { 
 	throw CEStreamExhausted();
     }
 
@@ -241,7 +241,7 @@ protected:
      * This method works around the bizarre semantics of BufferedInputStream's
      * read method.
      */
-    virtual int readFully(InputStream& in, char* buffer, int blen, int offset, int len); 
+    virtual int readFully(InputStream& in, char* buffer, size_t blen, size_t offset, size_t len); 
 
 
 };

@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -144,7 +144,7 @@ void CharacterEncoder::encodeBufferSuffix(OutputStream& aStream)
 {
 }
 
-void CharacterEncoder::encodeLinePrefix(OutputStream& aStream, int aLength)
+void CharacterEncoder::encodeLinePrefix(OutputStream& aStream, size_t aLength)
 {
 }
 
@@ -153,9 +153,9 @@ void CharacterEncoder::encodeLineSuffix(OutputStream& aStream)
 	pStream->println();
 }
 
-int CharacterEncoder::readFully(InputStream& in, char* buffer, int len) 
+int CharacterEncoder::readFully(InputStream& in, char* buffer, size_t len) 
 {
-	for (int i = 0; i < len; i++) 
+	for (size_t i = 0; i < len; i++) 
 	{
 		int q = in.read();
 		if (q == -1)
@@ -167,14 +167,13 @@ int CharacterEncoder::readFully(InputStream& in, char* buffer, int len)
 
 void CharacterEncoder::encode(InputStream& inStream, OutputStream& outStream) 
 {
-	int	j;
-	int	numBytes;
-	int len = bytesPerLine();
+	size_t	numBytes;
+	size_t len = bytesPerLine();
 	char*	tmpbuffer = new char[len];
 	ArrayJanitor<char> tmpbufferJanitor(tmpbuffer);
 
 	encodeBufferPrefix(outStream);
-	const int bpa=bytesPerAtom();
+	const size_t bpa=bytesPerAtom();
 	while (true) 
 	{
 		numBytes = readFully(inStream, tmpbuffer,len);
@@ -183,7 +182,7 @@ void CharacterEncoder::encode(InputStream& inStream, OutputStream& outStream)
 			break;
 		}
 		encodeLinePrefix(outStream, numBytes);
-		for (j = 0; j < numBytes; j += bpa) 
+		for (size_t j = 0; j < numBytes; j += bpa) 
 		{
 			if ((j + bpa) <= numBytes) 
 			{
@@ -205,13 +204,13 @@ void CharacterEncoder::encode(InputStream& inStream, OutputStream& outStream)
 	encodeBufferSuffix(outStream);
 }
 
-void CharacterEncoder::encode(char* aBuffer, int len, OutputStream& aStream) 
+void CharacterEncoder::encode(char* aBuffer, size_t len, OutputStream& aStream) 
 {
 	ByteArrayInputStream inStream(aBuffer, len);
 	encode(inStream, aStream);
 }
 
-WString CharacterEncoder::encode(char* aBuffer, int len) 
+WString CharacterEncoder::encode(char* aBuffer, size_t len) 
 {
 	ByteArrayOutputStream outStream ;
 	ByteArrayInputStream  inStream(aBuffer,len);
@@ -234,15 +233,14 @@ WString CharacterEncoder::encode(char* aBuffer, int len)
 
 void CharacterEncoder::encodeBuffer(InputStream& inStream, OutputStream& outStream) 
 {
-	int	j;
-	int	numBytes;
-	int len = bytesPerLine();
+	size_t	numBytes;
+	size_t len = bytesPerLine();
 	char*	tmpbuffer = new char[len];
 	ArrayJanitor<char> tmpbufferJanitor(tmpbuffer);
 	memset(tmpbuffer,0,len);
 
 	encodeBufferPrefix(outStream);
-	const int bpa=bytesPerAtom();
+	const size_t bpa=bytesPerAtom();
 
 	while (true) 
 	{
@@ -252,7 +250,7 @@ void CharacterEncoder::encodeBuffer(InputStream& inStream, OutputStream& outStre
 			break;
 		}
 		encodeLinePrefix(outStream, numBytes);
-		for (j = 0; j < numBytes; j += bpa) 
+		for (size_t j = 0; j < numBytes; j += bpa) 
 		{
 			if ((j + bpa) <= numBytes) 
 			{
@@ -271,13 +269,13 @@ void CharacterEncoder::encodeBuffer(InputStream& inStream, OutputStream& outStre
 	encodeBufferSuffix(outStream);
 }
 
-void CharacterEncoder::encodeBuffer(char* aBuffer, int len, OutputStream& aStream) 
+void CharacterEncoder::encodeBuffer(char* aBuffer, size_t len, OutputStream& aStream) 
 {
 	ByteArrayInputStream inStream(aBuffer, len);
 	encodeBuffer(inStream, aStream);
 }
 
-WString CharacterEncoder::encodeBuffer(char* aBuffer, int len) 
+WString CharacterEncoder::encodeBuffer(char* aBuffer, size_t len) 
 {
 	ByteArrayOutputStream outStream;
 	ByteArrayInputStream  inStream(aBuffer, len);

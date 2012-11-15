@@ -128,7 +128,7 @@ Win32SocketImplInputStream::~Win32SocketImplInputStream()
 {
 }
 
-int Win32SocketImplInputStream::available()
+size_t Win32SocketImplInputStream::available()
 {
 	return mSocketImpl->available();
 }
@@ -163,9 +163,9 @@ int Win32SocketImplInputStream::read()
 	return b;
 }
 
-int Win32SocketImplInputStream::read(char* b, int blen)
+ssize_t Win32SocketImplInputStream::read(char* b, size_t blen)
 {
-	int nrBytesReceived = 0;
+	size_t nrBytesReceived = 0;
 
 	// wait for stuff 
 	mSocketImpl->doWait(mSocketImpl->getOption(SocketOptions::SO_TIMEOUT_OPT), Win32SocketImpl::WAITFORREAD);
@@ -190,7 +190,7 @@ int Win32SocketImplInputStream::read(char* b, int blen)
 	return nrBytesReceived;
 }
 
-int Win32SocketImplInputStream::read(char* b, int blen, int offset, int len)
+ssize_t Win32SocketImplInputStream::read(char* b, size_t blen, size_t offset, size_t len)
 {
 	return read(b+offset,len);
 }
@@ -199,7 +199,7 @@ void Win32SocketImplInputStream::reset()
 {
 }
 
-long Win32SocketImplInputStream::skip(long n)
+size_t Win32SocketImplInputStream::skip(size_t n)
 {
 	return 0;
 }

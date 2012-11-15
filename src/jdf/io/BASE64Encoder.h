@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -255,14 +255,14 @@ public:
 protected:
 
     /** this class encodes three bytes per atom. */
-    int bytesPerAtom();
+    size_t bytesPerAtom();
 
     /** 
      * this class encodes 57 bytes per line. This results in a maximum
      * of 57/3 * 4 or 76 characters per output line. Not counting the
      * line termination.
      */
-    int bytesPerLine();
+    size_t bytesPerLine();
 
 
     /** 
@@ -271,7 +271,7 @@ protected:
      * than three is encodes either one or two '=' signs to indicate
      * padding characters.
      */
-    void encodeAtom(OutputStream& outStream, char* data, int datalen, int offset, int len);
+    void encodeAtom(OutputStream& outStream, char* data, size_t datalen, size_t offset, size_t len);
 
 private:
 

@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -155,7 +155,7 @@ void PushbackInputStream::ensureOpen()
 		return;
 }
 
-int PushbackInputStream::available()
+size_t PushbackInputStream::available()
 {
 	ensureOpen();
 
@@ -185,12 +185,12 @@ int  PushbackInputStream::read()
 		return FilterInputStream::read();
 }
 
-int  PushbackInputStream::read(char* b, int blen)
+ssize_t  PushbackInputStream::read(char* b, size_t blen)
 {
 	return PushbackInputStream::read(b,blen,0,blen);
 }
 
-int  PushbackInputStream::read(char* b, int blen, int off, int len)
+ssize_t  PushbackInputStream::read(char* b, size_t blen, size_t off, size_t len)
 {
 	ensureOpen();
 	
@@ -227,13 +227,13 @@ int  PushbackInputStream::read(char* b, int blen, int off, int len)
 		return k;
 }
 
-long PushbackInputStream::skip(long n)
+size_t PushbackInputStream::skip(size_t n)
 {
 	ensureOpen();
-	if (n<=0) 
+	if (n==0) 
 		return 0;
 
-	long l = mSize - mPos;
+	size_t l = mSize - mPos;
 
 	if (l > 0L)
 	{
@@ -247,7 +247,7 @@ long PushbackInputStream::skip(long n)
 	return l;
 }
 
-void PushbackInputStream::unread(char* b, int blen, int off, int len)
+void PushbackInputStream::unread(char* b, size_t blen, size_t off, size_t len)
 {
 	ensureOpen();
 	if (len > mPos)
@@ -259,7 +259,7 @@ void PushbackInputStream::unread(char* b, int blen, int off, int len)
 	}
 }
 
-void PushbackInputStream::unread(char* b, int blen)
+void PushbackInputStream::unread(char* b, size_t blen)
 {
 	unread(b,blen,0,blen);
 }

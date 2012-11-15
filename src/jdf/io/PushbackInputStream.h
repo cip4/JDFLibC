@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -182,7 +182,7 @@ public:
      * @see FilterInputStream.available()
 	 */
 
-	int  available();
+	size_t  available();
 
 	/**
 	 * Closes this input stream and releases any system resources associated
@@ -225,7 +225,7 @@ public:
 	 * @exception IOException if an I/O error occurs.	 
 	 */
 
-	int  read(char* b, int blen);
+	ssize_t  read(char* b, size_t blen);
 
 	/**
 	 * Reads up to <code>len</code> bytes of data from this input stream into an array
@@ -243,7 +243,7 @@ public:
 	 * @see InputStream#read(char*, int, int)    
 	 */
 
-	int  read(char* b, int blen, int off, int len);
+	ssize_t  read(char* b, size_t blen, size_t off, size_t len);
 
 	/**
 	 * Skips over and discards n bytes of data from this input stream. 
@@ -264,7 +264,7 @@ public:
 	 * @see InputStream#skip(long n)
 	 */
 
-	long skip(long n);
+	size_t skip(size_t n);
 
 	/**
 	 * Pushes back a portion of an array of bytes by copying it to the 
@@ -279,7 +279,7 @@ public:
 	 * @exception IOException If there is not enough room in the pushback buffer for the specified number of bytes.
 	 */
 
-	void unread(char* b, int blen, int off, int len);
+	void unread(char* b, size_t blen, size_t off, size_t len);
 
 	/**
 	 * Pushes back an array of bytes by copying it to the 
@@ -291,7 +291,7 @@ public:
 	 * @param blen the size of the char array
 	 * @exception IOException If there is not enough room in the pushback buffer for the specified number of bytes.
 	 */
-	void unread(char* b, int blen);
+	void unread(char* b, size_t blen);
 
 	/**
 	 * Pushes back a byte by copying it to the front of the pushback buffer.
@@ -329,13 +329,13 @@ private:
 	 * the buffer is full, <code>pos</code> is equal to zero.
 	 */
 
-	unsigned int  mPos;
+	size_t  mPos;
 
 	/**
 	 * The size of the pushback buffer.
 	 */
 
-	unsigned int  mSize;
+	size_t  mSize;
 
 	//
 	// Hide copy constructor and assignment operator.

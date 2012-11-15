@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -131,7 +131,7 @@ class MIMEByteBuffer : public ByteBuffer
 {
 public:
 
-	void setSize(int size) { mSize = size;}
+	void setSize(size_t size) { mSize = size;}
 };
 
 class LineBufferOutputStream : public OutputStream
@@ -142,8 +142,8 @@ public:
 	~LineBufferOutputStream() { 	delete mOs; delete mRealOs; }
 
 	void flush();
-	void write(char* b, int blen);
-	void write(char* b, int blen, int off, int len);
+	void write(char* b, size_t blen);
+	void write(char* b, size_t blen, size_t off, size_t len);
 	void write(int b);
 	void removeLast2Bytes();
 	void close();
@@ -175,7 +175,7 @@ public:
 	static const int MIME_INFO_CONTENT_BASE;
 	static const int MIME_INFO_MIME_VERSION;
 
-	static const int BUFFER_SIZE;
+	static const size_t BUFFER_SIZE;
 	static const int SUBTYPE_RFC822;
 	static const int SUBTYPE_EXTERNAL_BODY;
 
@@ -304,7 +304,7 @@ private:
      * @return line type for current line
      * @exception MIMEException
      */
-	int parseLine(char* s, int len, int type, bool lastLine);
+	int parseLine(char* s, size_t len, int type, bool lastLine);
 
 	/**
 	 * Save decoded data
@@ -313,7 +313,7 @@ private:
 	 * @param mimeBasicPart save data to this mimeBasicPart
 	 * @exception MIMEException
 	 */
-	void saveBodyData(ByteBuffer* buf, int len, MIMEBasicPart* mimeBasicPart);
+	void saveBodyData(ByteBuffer* buf, size_t len, MIMEBasicPart* mimeBasicPart);
 	void saveBodyData(InputStream* in, MIMEBasicPart* mimeBasicPart);
 
 	/**
@@ -406,7 +406,7 @@ private:
      * @return line type can be MIME_INFO, MIME_XHEADER, MIME_CRLF, MIME_HEADER
      * @exception none
      */
-	int checkForLineType( char* s, int len, bool startData );
+	int checkForLineType( char* s, size_t len, bool startData );
 
     /**
      * Get message type, subtype, content type parameters and content type
@@ -463,7 +463,7 @@ private:
      */
 	const WString& getCurrentBoundary()const;
 
-	void unwindCurrentParent( char* s, int len, bool deleteIt);
+	void unwindCurrentParent( char* s, size_t len, bool deleteIt);
 
 	/**
      * check for empty messages in all basicparts
@@ -520,12 +520,12 @@ private:
 	int					m_emptyLineNo; // TRUE if current line is empty
 	char*				m_leftoverBuffer; // leftover buffer
 	char*				m_inputBuffer; // inputbuffer
-	int					m_leftoverBytes; //left over bytes from previous parse
-	int					m_out_byte; // state info
-	int					m_out_bits; // state info
+	size_t					m_leftoverBytes; //left over bytes from previous parse
+	size_t					m_out_byte; // state info
+	size_t					m_out_bits; // state info
 	bool				m_bParseEntireFile; // false if parsing in chunks
 	char*				m_QPLeftoverBuffer; // leftover buffer
-	int					m_QPLeftoverBytes; // left over bytes from previous parse
+	size_t					m_QPLeftoverBytes; // left over bytes from previous parse
 
 	std::vector<MIMEComponent*> m_currentParent; // current message parent
 	MIMEMessage*				m_currentMimeMessage; // current mime message

@@ -132,7 +132,7 @@ int Win32ProcessInputStream::read()
 	return read(&b,1,0,1);
 }
 
-int Win32ProcessInputStream::read(char* b, int blen, int off, int len)
+ssize_t Win32ProcessInputStream::read(char* b, size_t blen, size_t off, size_t len)
 {
 	Synchronized sync(mCriticalSection);
 

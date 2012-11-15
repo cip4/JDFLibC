@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -155,12 +155,12 @@ void FilterOutputStream::flush()
 		throw NullPointerException("output stream is NULL");
 }
 
-void FilterOutputStream::write(const char* b, int blen)
+void FilterOutputStream::write(const char* b, size_t blen)
 {
 	write(b,blen,0,blen);
 }
 
-void FilterOutputStream::write(const char* b, int blen, int off, int len)
+void FilterOutputStream::write(const char* b, size_t blen, size_t off, size_t len)
 {
 	const char* buf = b+off;
 	while(len)

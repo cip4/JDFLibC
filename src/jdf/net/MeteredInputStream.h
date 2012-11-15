@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -150,23 +150,23 @@ public:
 	~MeteredInputStream();
 /*@}*/ 
 	virtual int read();
-	virtual int read(char* b, int blen);
-	virtual int read(char* b, int blen, int off, int len);
-	virtual long skip(long n);
-	virtual int  available();
+	virtual ssize_t read(char* b, size_t blen);
+	virtual ssize_t read(char* b, size_t blen, size_t off, size_t len);
+	virtual size_t skip(size_t n);
+	virtual size_t  available();
 	virtual void close();
-	virtual void mark(int readlimit);
+	virtual void mark(size_t readlimit);
 	virtual bool markSupported();
 	virtual void reset();
 
 private:
 
-	void justRead(int n);
+	void justRead(size_t n);
 
 protected:
 	bool mClosed;
-    int  mExpected;
-    int  mCount; 
+    size_t  mExpected;
+    size_t  mCount; 
     ProgressEntry* te;
 };
 

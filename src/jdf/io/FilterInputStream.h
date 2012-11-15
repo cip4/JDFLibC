@@ -175,7 +175,7 @@ public:
 	 * @see FilterInputStream#mIn
 	 */
 
-	virtual int  available();
+	virtual size_t  available();
 
 	/**
 	 * Closes this input stream and releases any system resources associated with the stream.
@@ -201,7 +201,7 @@ public:
 	 * @see InputStream#reset()     
 	 */
 
-	virtual void mark(int readlimit);
+	virtual void mark(size_t readlimit);
 
 	/**
 	 * Tests if this input stream supports the mark and reset methods. 
@@ -247,7 +247,7 @@ public:
 	 * @exception IOException if an I/O error occurs.	 
 	 */
 
-	virtual int  read(char* b, int blen);
+	virtual ssize_t  read(char* b, size_t blen);
 
 	/**
 	 * Reads up to len bytes of data from this input stream into an array of bytes.
@@ -264,7 +264,7 @@ public:
 	 * @see FilterInputStream#mIn
 	 */
 
-	virtual int  read(char* b, int blen, int off, int len);
+	virtual ssize_t  read(char* b, size_t blen, size_t off, size_t len);
 
 	/**
 	 * Repositions this stream to the position at the time the <code>mark</code> method was last called on this input stream. 
@@ -299,7 +299,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	virtual long skip(long n);
+	virtual size_t skip(size_t n);
 
 	/**
 	* if true, the ownership of the meber document is passed to this stream and the meber stream will be deleted when this is deleted

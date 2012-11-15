@@ -144,7 +144,7 @@ const int MIMEParser::MIME_INFO_CONTENT_ID                 = 5;
 const int MIMEParser::MIME_INFO_CONTENT_DESCRIPTION        = 6;
 const int MIMEParser::MIME_INFO_CONTENT_BASE               = 7;
 const int MIMEParser::MIME_INFO_MIME_VERSION               = 8;
-const int MIMEParser::BUFFER_SIZE                          = 2048;
+const size_t MIMEParser::BUFFER_SIZE                          = 2048;
 const int MIMEParser::SUBTYPE_RFC822                       = 1;
 const int MIMEParser::SUBTYPE_EXTERNAL_BODY                = 2;
 const char* MIMEParser::mb_MultiPart   = "Multipart";
@@ -194,7 +194,7 @@ void LineBufferOutputStream::flush()
 	nrBytes = 0;
 }
 
-void LineBufferOutputStream::write(char* b, int blen)
+void LineBufferOutputStream::write(char* b, size_t blen)
 {
 	if (blen == 0)
 		return;
@@ -223,7 +223,7 @@ void LineBufferOutputStream::removeLast2Bytes()
 	nrBytes = 0;
 }
 
-void LineBufferOutputStream::write(char* b, int blen, int off, int len)
+void LineBufferOutputStream::write(char* b, size_t blen, size_t off, size_t len)
 {
 	write(b+off,len);
 }
@@ -262,9 +262,9 @@ public:
 	static const char* szERROR_EMPTY_MESSAGE;
 	static const char* szERROR_BAD_MIME_MESSAGE;
 
-	static std::pair<char*,int> decodeBase64LeftOverBytes(int out_bits, int out_byte);
+	static std::pair<char*,size_t> decodeBase64LeftOverBytes(size_t out_bits, size_t out_byte);
 
-	static std::pair<char*,int> decodeBase64Vector( std::vector<std::string>& v, int nStart, int nEnd, int nMessageLen, int param[] );
+	static std::pair<char*,size_t> decodeBase64Vector( std::vector<std::string>& v, size_t nStart, size_t nEnd, size_t nMessageLen, size_t param[] );
 
 	static int hexdigit(char ch);
 
@@ -281,7 +281,7 @@ public:
 	 *
 	 * return : number of decoded bytes
 	 */
-	static std::pair<char*,int> decodeQPVectorNew( std::vector<std::string>& v, int nStart, int nEnd, int param[], char* leftOverBytes );
+	static std::pair<char*,size_t> decodeQPVectorNew( std::vector<std::string>& v, size_t nStart, size_t nEnd, size_t param[], char* leftOverBytes );
 
 	/**
      * determine if both strings are the same based on the length of the second string
@@ -355,11 +355,11 @@ static char toLower(char c)
 		return c;
 }
 
-std::pair<char*,int> MIMEHelper::decodeBase64LeftOverBytes( int out_bits, int out_byte )
+std::pair<char*,size_t> MIMEHelper::decodeBase64LeftOverBytes( size_t out_bits, size_t out_byte )
 {
 	int		mask;
 	char*   output = new char[4];
-	int     byte_pos = 0;
+	size_t     byte_pos = 0;
  
 	 /* Handle any bits still in the queue */
 	 while (out_bits >= 8)
@@ -378,7 +378,7 @@ std::pair<char*,int> MIMEHelper::decodeBase64LeftOverBytes( int out_bits, int ou
 		 }
 		 out_bits -= 8;
 	 }
-	 return std::pair<char*,int>(output,byte_pos);
+	 return std::pair<char*,size_t>(output,byte_pos);
 }
 
 bool MIMEHelper::bStringEquals(const char* s1, int len1, const char* s2, int len2)
@@ -438,13 +438,13 @@ bool MIMEHelper::bStringEquals(const char* s1, int len1, const WString& s2)
 }
 
 
-std::pair<char*,int> MIMEHelper::decodeBase64Vector(std::vector<std::string>& v, int nStart, int nEnd, int nMessageLen, int param[] )
+std::pair<char*,size_t> MIMEHelper::decodeBase64Vector(std::vector<std::string>& v, size_t nStart, size_t nEnd, size_t nMessageLen, size_t param[] )
 {
 	int      add_bits;
-	unsigned int      out_byte = 0;
-	int      out_bits = 0;
-	int      byte_pos = 0;
-	int      i, j, nLen = 0, nTotalLen = 0;
+	size_t      out_byte = 0;
+	size_t      out_bits = 0;
+	size_t      byte_pos = 0;
+	size_t      i, j, nLen = 0, nTotalLen = 0;
 	char*    szLine;
 	char*    output;
 	
@@ -508,18 +508,18 @@ std::pair<char*,int> MIMEHelper::decodeBase64Vector(std::vector<std::string>& v,
 	param[0] = out_byte;
 	param[1] = out_bits;
 	param[2] = byte_pos;
-	return std::pair<char*,int>(output,byte_pos);
+	return std::pair<char*,size_t>(output,byte_pos);
 }
 
-std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v, int nStart, int nEnd, int param[], char* leftOverBytes )
+std::pair<char*,size_t> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v, size_t nStart, size_t nEnd, size_t param[], char* leftOverBytes )
 {
-	int i = 0, j = 0, ii = 0, nLen = 0, written=0;
+	//size_t i = 0,  ii = 0, nLen = 0, written=0;
 	char* line;
 	char* buffer;
 	char* retbuf;
 	char token[3];
 	int nNoOfLeftOverBytes;
-	int lineLength;
+	size_t lineLength;
 	
 	if ( nStart == -1 || nEnd == -1 )
 		return std::pair<char*,int>((char *) NULL,0); // should be nullptr for VS2010
@@ -527,13 +527,12 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 	nNoOfLeftOverBytes = param[0];
 	
 	// get message len
-	nLen = nNoOfLeftOverBytes;
-	for (j = nStart; j <= nEnd; j++)
+	size_t nLen = nNoOfLeftOverBytes;
+	for (size_t j = nStart; j <= nEnd; j++)
 	{
 		nLen += v[j].length();
 	}
 	
-	j = 0;
 	buffer = new char[(int) (nLen * 1.1)];
 	
 	if (buffer == NULL)
@@ -541,7 +540,7 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 	
 	nLen = 0;
 	/* get each line */
-	for ( ii = nStart; ii <= nEnd; ii++ )
+	for (size_t ii = nStart; ii <= nEnd; ii++ )
 	{
 		line = (char*) v[ii].data();
 		lineLength = v[ii].length();
@@ -558,15 +557,15 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 		nLen += lineLength;
 	}
 	
-	written = 0; i=0;
 	int read_offset = 0;
-	
+	size_t i=0;
 	/* first time do it outside the loop */
 	while (i < 3 && read_offset < nLen)
 	{
 		token [i++] =  buffer [read_offset++];
 	}
 	
+	size_t written = 0;
 	while (read_offset < nLen || i != 0)
 	{
 		while (i < 3 && read_offset < nLen)
@@ -584,7 +583,7 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 			}
 			else
 			{
-				for (j=0; j < i; j++)
+				for (size_t j=0; j < i; j++)
 					leftOverBytes [j] = token [j];
 				nNoOfLeftOverBytes = i;
 			}
@@ -596,7 +595,7 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 				delete [] buffer;
 				buffer=0;
 				param[1] = written;
-				return std::pair<char*,int>(retbuf,written);
+				return std::pair<char*,size_t>(retbuf,written);
 			}
 		}
 		i = 0;
@@ -664,7 +663,7 @@ std::pair<char*,int> MIMEHelper::decodeQPVectorNew( std::vector<std::string>& v,
 		delete [] buffer;
 		buffer=0;
 		param[1] = written;
-		return std::pair<char*,int>(retbuf,written);
+		return std::pair<char*,size_t>(retbuf,written);
 	}
 	
 	delete[] buffer;
@@ -850,8 +849,10 @@ void MIMEParser::endParse()
 MIMEMessage* MIMEParser::parseMimeMessage(InputStream& input, int nMessageType)
 {
 	char ch = 0;
-	int type, lineLen, messageLen;
-	int i=0,j=0,ii;
+	int type;
+	ssize_t lineLen;
+	size_t messageLen;
+	size_t i=0,j=0;
 	bool lastLine = false;
 	bool bMoreData = true;
 
@@ -869,7 +870,7 @@ MIMEMessage* MIMEParser::parseMimeMessage(InputStream& input, int nMessageType)
 
 			i = i+lineLen;
 
-			for (ii=0;ii<lineLen;ii++)
+			for (size_t ii=0;ii<lineLen;ii++)
 			{
 				ch = m_inputBuffer[ii];
 				//if (ch == -1)
@@ -960,7 +961,7 @@ void MIMEParser::saveBodyData(InputStream* in, MIMEBasicPart* mimeBasicPart)
 }
 
 
-void MIMEParser::saveBodyData(ByteBuffer* byteBuffer, int len, MIMEBasicPart* mimeBasicPart)
+void MIMEParser::saveBodyData(ByteBuffer* byteBuffer, size_t len, MIMEBasicPart* mimeBasicPart)
 {
 	if (byteBuffer == NULL || mimeBasicPart == NULL)
 		throw MIMEException(MIMEHelper::szERROR_BAD_PARAMETER);
@@ -1142,9 +1143,8 @@ void MIMEParser::decodeDataBuffer()
 	}
 }
 
-int MIMEParser::parseLine(char* s, int len, int type, bool lastLine)
+int MIMEParser::parseLine(char* s, size_t len, int type, bool lastLine)
 {
-	int i;
 	int type2;
 	int nIndex;
 	bool finished = false;
@@ -1262,7 +1262,7 @@ int MIMEParser::parseLine(char* s, int len, int type, bool lastLine)
 			{
 				if ( m_headerQueue.size() > 0 )
 				{
-						for ( i = 0; static_cast<unsigned int>(i) < m_headerQueue.size(); i++ )
+						for (size_t i = 0; i < m_headerQueue.size(); i++ )
 					{
 						mi = (mimeInfo) m_headerQueue[i];
 						addHeader( mi.m_name, mi.m_value, false );
@@ -1378,7 +1378,7 @@ int MIMEParser::parseLine(char* s, int len, int type, bool lastLine)
 				if ( m_nextHeaderParent != NULL )
 					m_headerParent = m_nextHeaderParent;
 				
-					for ( i = 0; static_cast<unsigned int>(i) < m_headerQueue.size(); i++ )
+					for (size_t i = 0; i < m_headerQueue.size(); i++ )
 				{
 					mi = (mimeInfo) m_headerQueue[i];
 					addHeader( mi.m_name, mi.m_value, false );
@@ -1503,7 +1503,7 @@ int MIMEParser::parseLine(char* s, int len, int type, bool lastLine)
 	
 	bool startQuote = false;
 	
-	for ( i = 0; i < len && !finished; i++ )
+	for (size_t i = 0; i < len && !finished; i++ )
 	{
 		if ( s[i] == '"' )
 			startQuote = startQuote ? false : true;
@@ -2226,7 +2226,7 @@ int MIMEParser::boundaryCheck( char* s, int len )
 }
 
 
-int MIMEParser::checkForLineType( char* s, int len, bool startData )
+int MIMEParser::checkForLineType( char* s, size_t len, bool startData )
 {
     if ( s == NULL )
 		return NSMAIL_ERR_INVALIDPARAM;
@@ -2572,7 +2572,7 @@ const WString& MIMEParser::getCurrentBoundary()const
  * @exception none
  */
 
-void MIMEParser::unwindCurrentParent( char* s, int len, bool deleteIt)
+void MIMEParser::unwindCurrentParent( char* s, size_t len, bool deleteIt)
 {
 	
 	if ( m_currentParent.size() > 0 )

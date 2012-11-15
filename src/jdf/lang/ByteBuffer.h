@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -135,12 +135,12 @@ public:
 	 * This has internal performance reasons because some systems 
 	 * allocate memory on a specific boundary
 	 */
-	static const int ALLIGNMENTSIZE;
+	static const size_t ALLIGNMENTSIZE;
 
 	/**
 	 * The default initial capacity of the buffer
 	 */
-	static const int INITIALSIZE;
+	static const size_t INITIALSIZE;
 
 /** 
  * @name Constructors
@@ -156,7 +156,7 @@ public:
      * Construct a ByteBuffer of the given capacity.
 	 * @param size initial capacity of the ByteBuffer
      */
- 	ByteBuffer(int size);
+ 	ByteBuffer(size_t size);
 
 	/**
 	 * Constructs a new ByteBuffer from a given ByteBuffer
@@ -177,7 +177,7 @@ public:
 	 * @param clone if true copy the given buffer; else use the buffer 
 	 * internally (Transfer Of OwnerShip)
 	 */
-	ByteBuffer(char* buf, int size, bool clone=false);
+	ByteBuffer(char* buf, size_t size, bool clone=false);
 
 /*@}*/ 
 
@@ -204,7 +204,7 @@ public:
 	 * @param buf the buffer to copy from
 	 * @param length the number of bytes to copy
 	 */
-	void append(const char* buf, int length);
+	void append(const char* buf, size_t length);
 
 	/**
 	 * This method appends a sequence of bytes represented by the argument <code>buf</code> to this ByteBuffer.
@@ -242,7 +242,7 @@ public:
 	 * The real length of the buffer might be larger.
 	 * @return the size of the internal byte array.
 	 */
-	int   size() const ;
+	size_t   size() const ;
 
 	/**
 	 * Empties the internal buffer.
@@ -267,14 +267,12 @@ protected:
 	 * Resizes the internal buffer to hold at least the number of bytes
 	 * given by the argument <code>size</code>.
 	 */
-	void ensureCapacity(int size);
+	void ensureCapacity(size_t size);
 
 	char* mBuffer;
-	int   mSize;
-	int   mBufferSize;
+	size_t   mSize;
+	size_t   mBufferSize;
 };
-
-//typedef AutoPtr<ByteBuffer> ByteBufferHandle;
 
 /******************************************************************************
  *	Prototypes

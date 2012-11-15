@@ -109,8 +109,6 @@ namespace JDF
 /******************************************************************************
 *	Forward declarations
 ******************************************************************************/
-	//@vigo: re-re-done
-	//typedef std::vector<int> vint;
 	class vint;
 	class vWStringIterator;
 	// predefined stl wstring containers
@@ -169,7 +167,7 @@ namespace JDF
 		* @param int start the start index of the search
 		* @return int first index of the string s after start in the vector
 		*/
-		int index(const WString& s, int start=0)const;
+		ssize_t index(const WString& s, size_t start=0)const;
 
 		/**
 		* get the indeces of s in the vector
@@ -257,13 +255,13 @@ namespace JDF
 		* @param WString s the string to remove
 		* @int n number of strings to remove; -1=all
 		*/
-		void RemoveStrings(const WString& s, int n=-1);
+		void RemoveStrings(const WString& s, ssize_t n=-1);
 		/**
 		* remove the last n occurrences of a vector of strings
 		* @param WString s the string to remove
 		* @int n number of strings to remove; -1=all
 		*/
-		void RemoveStrings(const vWString& v, int n=-1);
+		void RemoveStrings(const vWString& v, ssize_t n=-1);
 		/**
 		* create a vector with only one occurrence of each string
 		*/
@@ -443,7 +441,7 @@ namespace JDF
 		* @param WString& x the string to insert
 		* @param int beforePos the position in front of which to insert
 		*/
-		void insertElementAt(const WString &x ,int beforePos);
+		void insertElementAt(const WString &x ,size_t beforePos);
 
 		/**
 		* Returns true for an empty controlled sequence
@@ -462,7 +460,7 @@ namespace JDF
 		* @param int first integer addressing the position of the first element in the range to be sorted. 
 		* @param int last integer addressing the position one past the final element in the range to be sorted, last if <0. 	 
 		*/
-		void sort(int first=0, int last=-1);
+		void sort(size_t first=0, ssize_t last=-1);
 
 		/**
 		* get a WString representation
@@ -501,7 +499,7 @@ namespace JDF
 		/**
 		* do not use, this constructo is actually private but must be declared public due to name mangling problems
 		*/
-		vWStringIterator(void*p, int ipos);
+		vWStringIterator(void*p, size_t ipos);
 
 		/**
 		* copy constructor
@@ -529,7 +527,7 @@ namespace JDF
 		* @param int i - int value to add
 		* @return vWStringIterator - the sum of 'this' + 'i'
 		*/
-		vWStringIterator operator +(int i)const;
+		vWStringIterator operator +(size_t i)const;
 
 		/**
 		* iteration for loops
@@ -598,7 +596,7 @@ namespace JDF
 
 	private:
 		void *vWStringVector;
-		int iPos;
+		size_t iPos;
 	};
 
 

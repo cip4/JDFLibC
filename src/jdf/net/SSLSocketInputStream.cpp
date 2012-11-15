@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -131,7 +131,7 @@ SSLSocketInputStream::~SSLSocketInputStream()
 {
 }
 
-int SSLSocketInputStream::available()
+size_t SSLSocketInputStream::available()
 {
 	return mIn.available();
 }
@@ -152,12 +152,12 @@ int SSLSocketInputStream::read()
 	return read(&b,1,0,1);
 }
 
-int SSLSocketInputStream::read(char* b, int blen)
+ssize_t SSLSocketInputStream::read(char* b, size_t blen)
 {
 	return read(b,blen,0,blen);
 }
 
-int SSLSocketInputStream::read(char* b, int blen, int offset, int len)
+ssize_t SSLSocketInputStream::read(char* b, size_t blen, size_t offset, size_t len)
 {
 	if (mSocket.useSSL())
 	{
@@ -213,7 +213,7 @@ void SSLSocketInputStream::reset()
 {
 }
 
-long SSLSocketInputStream::skip(long n)
+size_t SSLSocketInputStream::skip(size_t n)
 {
 	return 0;
 }

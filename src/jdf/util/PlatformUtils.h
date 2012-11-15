@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -228,7 +228,7 @@ namespace JDF
 		*
 		* @return Returns the size of the file in bytes
 		*/
-		static unsigned int fileSize(JDFFileHandle theFile);
+		static size_t fileSize(JDFFileHandle theFile);
 
 		/** 
 		* Opens the file
@@ -296,7 +296,7 @@ namespace JDF
 		* and 3 is relative from the current file postion
 		* @return The file handle of the created file
 		*/
-		static void seekFile(JDFFileHandle theFile, unsigned int pos, int movemethod);
+		static void seekFile(JDFFileHandle theFile, size_t pos, int movemethod);
 
 		/** 
 		* Opens the standard input as a file
@@ -340,16 +340,16 @@ namespace JDF
 		*
 		* @return Returns the number of bytes read from the stream or file
 		*/
-		static unsigned int readFileBuffer
+		static ssize_t readFileBuffer
 			(
 			JDFFileHandle   theFile
-			, const unsigned int    toRead
+			, const size_t    toRead
 			,       JDFByte* const  toFill
 			);
 
-		static unsigned int writeFileBuffer(
+		static size_t writeFileBuffer(
 			JDFFileHandle   theFile
-			, const unsigned int    toWrite
+			, const size_t    toWrite
 			,		JDFByte* const  buffer
 			);
 

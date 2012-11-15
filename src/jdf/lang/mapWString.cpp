@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -219,9 +219,9 @@ namespace JDF
 	}
 	////////////////////////////////////////////////////////////////////////
 
-	int MapWString::index(const WString& s)const{
-		int siz=PBASE->size();
-		for (int i=0;i<siz;i+=2){
+	ssize_t MapWString::index(const WString& s)const{
+		size_t siz=PBASE->size();
+		for (size_t i=0;i<siz;i+=2){
 			if (!PBASE->at(i).compare(s)) 
 				return i;
 		}
@@ -230,13 +230,13 @@ namespace JDF
 
 	////////////////////////////////////////////////////////////////////////
 	MapWString::iterator MapWString::find(const WString & key){
-		int i=index(key);
+		size_t i=index(key);
 		return MapWStringIterator(pBase,i);
 	}
 	////////////////////////////////////////////////////////////////////////
 
 	MapWString::const_iterator MapWString::find(const WString & key)const{
-		int i=index(key);
+		size_type i=index(key);
 		return MapWStringIterator(pBase,i);
 	}
 	////////////////////////////////////////////////////////////////////////
@@ -255,7 +255,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 
 	WString MapWString::operator [](const WString & key)const{
-		int ind = index(key);
+		size_t ind = index(key);
 		if(ind==-1)
 			return WString::emptyStr;
 		return PBASE->at(ind+1);	
@@ -263,14 +263,14 @@ namespace JDF
 
 	////////////////////////////////////////////////////////////////////
 
-	WString MapWString::GetKeyByPos(unsigned int i)const{
+	WString MapWString::GetKeyByPos(size_t i)const{
 		if((2*i+1)>PBASE->size())
 			return WString::emptyStr;
 		return PBASE->at(2*i);
 	}
 	////////////////////////////////////////////////////////////////////
 
-	WString MapWString::GetValueByPos(unsigned int i)const{
+	WString MapWString::GetValueByPos(size_t i)const{
 		if((2*i+1)>PBASE->size())
 			return WString::emptyStr;
 		return PBASE->at(2*i+1);
@@ -291,7 +291,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 
 	MapWString::size_type MapWString::erase(const WString& key){
-		int i=index(key);
+		size_t i=index(key);
 		if(i>=0){
 			PBASE->erase(PBASE->begin()+i,PBASE->begin()+i+2);
 			//			std::cout<<*this;
@@ -397,7 +397,7 @@ namespace JDF
 
 	void MapWString::ReduceKey(const vWString & vKeys){
 		MapWString m;
-		for(unsigned int j=0;j<vKeys.size();j++){
+		for(size_t j=0;j<vKeys.size();j++){
 			const_iterator i=find(vKeys[j]);
 			if (i!=end()) {
 				m.AppendPair(i->first(),i->second());
@@ -546,7 +546,7 @@ namespace JDF
 	}
 
 	////////////////////////////////////////////////////////////////////////
-	MapWStringIterator::MapWStringIterator(void*p, int ipos){
+	MapWStringIterator::MapWStringIterator(void*p, size_t ipos){
 		if(p){
 			MapWStringBase* v=(MapWStringBase*)p;
 			if(ipos<0)
@@ -598,7 +598,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	const WString& MapWStringIterator::first()const{
 		const MapWStringBase* v=(const MapWStringBase*)mapVector;
-		if(static_cast<unsigned int>(iPos) < v->size())
+		if(iPos< v->size())
 			return v->at(iPos);
 		return WString::emptyStr;
 
@@ -606,7 +606,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	const WString& MapWStringIterator::second()const{
 		const MapWStringBase* v=(const MapWStringBase*)mapVector;
-		if(static_cast<unsigned int>(iPos) < v->size())
+		if(iPos < v->size())
 			return v->at(iPos+1);
 		return WString::emptyStr;
 
@@ -614,8 +614,8 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	bool MapWStringIterator::hasNext() const
 	{
-		int siz = (int)( ((MapWStringBase*)mapVector)->size() / 2 );
-		int pos = (int)( iPos / 2 );
+		size_t siz = (int)( ((MapWStringBase*)mapVector)->size() / 2 );
+		size_t pos = iPos / 2;
 		if (pos < siz-2)
 			return true;
 		else 
@@ -629,8 +629,6 @@ namespace JDF
 			iPos+=2;
 			return second();
 		}
-		//else
-		//	throw std::exception("MapWStringIterator: no such element");
 		return WString::emptyStr;
 	}
 	////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -310,19 +310,19 @@ protected:
 	* Returns two
 	*/
  
-	int bytesPerAtom();
+	size_t bytesPerAtom();
 
    /** 
 	* Added for compatibility
 	* Returns 80.
 	*/
 
-	int bytesPerLine();
+	size_t bytesPerLine();
 
 	/**
 	 * Not implemented
 	 */
-    void encodeAtom(OutputStream& aStream,char* someBytes, int len,int anOffset, int aLength);
+    void encodeAtom(OutputStream& aStream,char* someBytes, size_t len,size_t anOffset, size_t aLength);
 private:
 
 	static char basis_hex[];

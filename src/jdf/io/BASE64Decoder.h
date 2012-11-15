@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -150,7 +150,7 @@ protected:
     /** 
 	 * This class has 4 bytes per atom 
 	 */
-    int bytesPerAtom() 
+    size_t bytesPerAtom() 
 	{
 		return (4);
     }
@@ -158,7 +158,7 @@ protected:
     /** 
 	 * Any multiple of 4 will do, 72 might be common 
 	 */
-    int bytesPerLine() 
+    size_t bytesPerLine() 
 	{
 		return (72);
     }
@@ -166,7 +166,7 @@ protected:
     /**
      * Decode one BASE64 atom into 1, 2, or 3 bytes of data.
      */
-    void decodeAtom(InputStream& inStream, OutputStream& outStream, int rem);
+    void decodeAtom(InputStream& inStream, OutputStream& outStream, size_t rem);
 
 
 private:

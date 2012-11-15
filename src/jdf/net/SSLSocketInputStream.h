@@ -125,15 +125,15 @@ public:
 	 SSLSocketInputStream(SSLSocket& socketImpl, InputStream& in);
 	~SSLSocketInputStream();
 
-	int  available();
+	size_t  available();
 	void close();
 	void mark(int readlimit) {}
 	bool markSupported();
 	int  read();
-	int  read(char* b, int blen);
-	int  read(char* b, int blen, int offset, int len);
+	ssize_t  read(char* b, size_t blen);
+	ssize_t  read(char* b, size_t blen, size_t offset, size_t len);
 	void reset();
-	long skip(long n);
+	size_t skip(size_t n);
 
 private:
 

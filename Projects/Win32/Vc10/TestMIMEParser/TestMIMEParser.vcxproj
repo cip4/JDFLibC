@@ -136,7 +136,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\external\xerces3\src;..\..\..\..\external\xerces3\src\xercesc;..\..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\..\..\external\xerces3\include;..\..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;JDF_TOOLS_LIB;JDF_WRAPPERCORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -265,6 +265,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\TestWrapper\MyTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\..\..\Build\Win32\Vc9\ReleaseDLL\JDFToolsDLL.lib">
@@ -331,6 +332,17 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Debug\jdftoolslib_D.lib">
+      <FileType>Document</FileType>
+    </Library>
+    <Library Include="..\..\..\..\Build\Win\VC10\Win32\Debug\JDFWrapperLib_D.lib">
+      <FileType>Document</FileType>
+    </Library>
+    <Library Include="..\..\..\..\external\xerces3\lib\VC10\Win32\Debug\xerces-c_3D.lib">
+      <FileType>Document</FileType>
+    </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

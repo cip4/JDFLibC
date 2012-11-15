@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -274,7 +274,7 @@ namespace JDF
          *
          * @return the key to the given position, "" if not found
          */
-        WString GetKeyByPos(unsigned int i)const;
+        WString GetKeyByPos(size_t i)const;
 
         /**
          * get a value for a given position. Used to iterate quickly over all keys
@@ -282,7 +282,7 @@ namespace JDF
          *
          * @return the value to the given position, "" if not found
          */
-        WString GetValueByPos(unsigned int i)const;
+        WString GetValueByPos(size_t i)const;
 
 		WString operator [](const WString & key)const;
 
@@ -329,7 +329,7 @@ namespace JDF
 		
 	private:
 		void * pBase;
-		int index(const WString& s)const;
+		ssize_t index(const WString& s)const;
 		
 	};
 	
@@ -364,7 +364,7 @@ namespace JDF
 		/**
 		* do not use, this constructo is actually private but must be declared public due to name mangling problems
 		*/
-		MapWStringIterator(void*p, int ipos);
+		MapWStringIterator(void*p, size_t ipos);
 
 		/**
 		* copy constructor
@@ -437,7 +437,7 @@ namespace JDF
 
 	private:
 		void *mapVector;
-		int iPos;
+		size_t iPos;
 	}; // class MapWStringIterator
 
 	

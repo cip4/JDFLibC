@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -126,7 +126,7 @@ ByteArrayOutputStream::ByteArrayOutputStream()
 	mClosed = false;
 }
 
-ByteArrayOutputStream::ByteArrayOutputStream(unsigned int size)
+ByteArrayOutputStream::ByteArrayOutputStream(size_t size)
 {
 	mCount   = 0;
 	mLength = size;
@@ -146,27 +146,17 @@ ByteArrayOutputStream::~ByteArrayOutputStream()
 
 void ByteArrayOutputStream::write(int b)
 {
-//	if (mClosed == true)
-//	{
-//		throw IOException("CharArrayOutputStream has been closed");
-//	}
-
 	mBuf->append(b);
 	mCount++;
 }
 
-void ByteArrayOutputStream::write(const char* b, int blen)
+void ByteArrayOutputStream::write(const char* b, size_t blen)
 {
 	write(b,blen,0,blen);
 }
 
-void ByteArrayOutputStream::write(const char* b, int blen, int off, int len)
+void ByteArrayOutputStream::write(const char* b, size_t blen, size_t off, size_t len)
 {
-//	if (mClosed == true)
-//	{
-//		throw IOException("CharArrayOutputStream has been closed");
-//	}
-
 	if (blen < 0 || len < 0 || (off+len) < 0 || (off+len) > blen)
 		throw IndexOutOfBoundsException("ByteArrayOutputStream::write one of the arguments in out of bounds");
 
@@ -208,7 +198,7 @@ ByteBuffer* ByteArrayOutputStream::toByteArray()
 	return new ByteBuffer(*mBuf);
 }
 
-int ByteArrayOutputStream::size()
+size_t ByteArrayOutputStream::size()
 {
 	return mBuf->size();
 }

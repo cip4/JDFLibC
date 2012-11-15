@@ -81,8 +81,30 @@
 /******************************************************************************
 *	Includes
 ******************************************************************************/ 
+#include <jdf/util/PlatformUtils.h>
+#include "jdf/wrapper/JDF.h"
+#include "jdf/wrapper/JDFDoc.h"
+#include "jdf/net/URLEncoder.h"
+#include "jdf/net/URL.h"
+#include "jdf/net/URLConnection.h"
+#include "jdf/net/URI.h"
+#include "jdf/io/File.h"
+#include "jdf/io/FileInputStream.h"
+#include "jdf/io/FileOutputStream.h"
+#include "jdf/io/OutputStream.h"
+#include "jdf/util/MyWalker.h"
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/dom/DOMElement.hpp>
 
-#include <util/PlatformUtils.hpp>
+
+
+
+
+#include <iostream>
+#include <locale.h>
+
+
+
 #include <jdf/util/PlatformUtils.h>
 #include <jdf/util/MyTime.h>
 #include <jdf/io/File.h>
@@ -101,6 +123,7 @@
 #include <jdf/mime/MIMEBasicPart.h>
 #include <jdf/mime/MIMELocalResourceFactory.h>
 #include <iostream>
+#include "../TestWrapper/MyTime.h"
 
 /******************************************************************************
 *	Forward declarations
@@ -139,16 +162,15 @@ void testGetParts(JDF::MIMEMessage* msg)
 		std::cout<<l<<std::endl;
 		for (int i=0;i<l;i++)
 		{
-			//			if ( typeid( *(mmp->getBodyPart(i,false)) ) == typeid(JDF::MIMEBasicPart))
-			{
-				JDF::MIMEBasicPart* part = (JDF::MIMEBasicPart*) mmp->getBodyPart(i,false);
+					JDF::MIMEBasicPart* part = (JDF::MIMEBasicPart*) mmp->getBodyPart(i,false);
 				JDF::InputStream& in = part->getBodyData();
-				if(i<0)
+				if(i==0)
 				{
-								JDF::JDFDoc doc;
-								doc.StreamParse(in);
-								std::cout<<doc<<std::endl;
+					JDF::JDFDoc doc;
+					doc.StreamParse(in);
+					std::cout<<"xml:\n"<<doc<<std::endl;
 				}
+
 				JDF::WString fname("c:\\tmp\\mimetest");
 				char buf2[20];
 				fname.append(itoa(i,buf2,10));
@@ -161,7 +183,6 @@ void testGetParts(JDF::MIMEMessage* msg)
 				{
 					out4.write(buf,nread);
 				}
-			}
 		}
 	}
 }
@@ -189,7 +210,7 @@ int main(int argc, char* argv[])
 		// parse the entire file
 		//JDF::MIMEParser parser;
 		JDF::MIMELocalResourceFactory mimeFileFactory(JDF::File(L"C:\\tmp")); 
-                JDF::MIMEParser parser(&mimeFileFactory); 
+		JDF::MIMEParser parser(&mimeFileFactory); 
 		MyTime t1("Read");
 		std::cout << "Reading MIME message..." << std::endl;
 		JDF::MIMEMessage* msg = parser.parseEntireMessage(fin);
@@ -199,7 +220,7 @@ int main(int argc, char* argv[])
 		if (msg)
 		{
 			MyTime t2("Write");
-			testGetParts(msg);
+//			testGetParts(msg);
 			t2.Stop();
 			std::cout << "Writing MIME message..." << std::endl;
 			// write the parsed msg back to a file

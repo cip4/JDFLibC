@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -140,18 +140,18 @@ QPEncoder::QPEncoder()
 
 //  TODO, for compatibility
 
-int QPEncoder::bytesPerAtom()
+size_t QPEncoder::bytesPerAtom()
 {
 	return 2;
 }
 
-int QPEncoder::bytesPerLine()
+size_t QPEncoder::bytesPerLine()
 {
     return 80;
 }
 
-void QPEncoder::encodeAtom(OutputStream& aStream,char* someBytes, int len,
-		int anOffset, int aLength)
+void QPEncoder::encodeAtom(OutputStream& aStream,char* someBytes, size_t len,
+		size_t anOffset, size_t aLength)
 {
 }
 
@@ -165,9 +165,9 @@ void QPEncoder::encodeBuffer(InputStream& input, OutputStream& out)
 	int read;
 	// int written = 0;
 	int lastspace = 0;
-	int nullCount = 0;
+	size_t nullCount = 0;
 	char l_bufenc[80];
-	int linelen=0;
+	size_t linelen=0;
 
 	while (true)
 	{
@@ -192,7 +192,7 @@ void QPEncoder::encodeBuffer(InputStream& input, OutputStream& out)
 		else if (nullCount > 0)
 		{
 			// write out all the nulls and fall through to process current c
-			for (int idx = 1; idx <= nullCount; idx++)
+			for (size_t idx = 1; idx <= nullCount; idx++)
 			{
 				char tmp = 0x00;
 				l_bufenc[linelen++] = '=';

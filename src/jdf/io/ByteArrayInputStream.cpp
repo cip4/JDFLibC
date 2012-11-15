@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2004 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -116,7 +116,7 @@ namespace JDF
 	*	Implementation
 	******************************************************************************/ 
 	
-ByteArrayInputStream::ByteArrayInputStream(char* buf, int blen,bool takeOwnership) :
+ByteArrayInputStream::ByteArrayInputStream(char* buf, size_t blen,bool takeOwnership) :
 mClosed			(false),
 mMark			(0),
 mPos			(0),
@@ -126,7 +126,7 @@ mCount			(blen),
 {
 }
 
-ByteArrayInputStream::ByteArrayInputStream(char* buf, int blen, int off, int len,bool takeOwnership) :
+ByteArrayInputStream::ByteArrayInputStream(char* buf, size_t blen, size_t off, size_t len,bool takeOwnership) :
 mClosed			(false),
 mMark			(0),
 mPos			(off),
@@ -142,7 +142,7 @@ ByteArrayInputStream::~ByteArrayInputStream()
 		delete[] mBuf;
 }
 
-int ByteArrayInputStream::available()
+size_t ByteArrayInputStream::available()
 {
 	return mCount - mPos;
 }
@@ -152,7 +152,7 @@ void ByteArrayInputStream::close()
 	mClosed = true;
 }
 
-void ByteArrayInputStream::mark(int readAheadLimit)
+void ByteArrayInputStream::mark(size_t readAheadLimit)
 {
 	if (readAheadLimit < 0)
 		throw IllegalArgumentException("ByteArrayInputStream readAheadLimit is negative");
@@ -171,16 +171,13 @@ int ByteArrayInputStream::read()
 	return (mPos < mCount) ? (unsigned char) mBuf[mPos++] : -1; 
 }
 
-int ByteArrayInputStream::read(char* b, int blen)
+ssize_t ByteArrayInputStream::read(char* b, size_t blen)
 {
 	return ByteArrayInputStream::read(b,blen,0,blen);
 }
 
-int ByteArrayInputStream::read(char* b, int blen, int off, int len)
-{
-	//	if (mClosed == true)
-	//		throw IOException("CharArrayInputStream has been closed");
-	
+ssize_t ByteArrayInputStream::read(char* b, size_t blen, size_t off, size_t len)
+{	
 	if (b == NULL)
 		throw NullPointerException();
 	
@@ -208,14 +205,9 @@ void ByteArrayInputStream::reset()
 	mPos = mMark;
 }
 
-long ByteArrayInputStream::skip(long n)
-{
-	//	if (mClosed == true)
-	//	{
-	//		throw IOException("CharArrayInputStream has been closed");
-	//	}
-	
-	int available = mCount - mPos;
+size_t ByteArrayInputStream::skip(size_t n)
+{	
+	size_t available = mCount - mPos;
 	
 	if (n<=available)
 	{

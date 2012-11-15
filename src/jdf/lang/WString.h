@@ -984,8 +984,9 @@ namespace JDF
 		* @param WString& toEscape the set of characters that should be escaped
 		* @param WString& escapeChar the character sequence that marks an escape sequence
 		* @param int radix the numerical representation base of the escaped chars, e.g. 8 for octal, 16 for hex
-		* if radix==0 the escape chare is merely inserted
-		* valid radix: 0,8,10,16
+		* if radix==0 the escape char is merely inserted in front of each char
+		* if radix==-1 the respective chars are replaced by the escape char
+		* valid radix: -1,0,8,10,16
 		* @param escapeLen the number of digits per escaped char, not including escapeChar
 		* @param int escapeBelow all characters with an encoding below escapeBelow should also be escaped
 		* @param int escapeAbove all characters with an encoding above escapeAbove should also be escaped

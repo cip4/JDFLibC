@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -201,18 +201,18 @@ namespace JDF
 		write(separatorChars, strlen(separatorChars));
 	}
 	
-	void PrintStream::write(const char* buf, int blen)
+	void PrintStream::write(const char* buf, size_t blen)
 	{
 		FilterOutputStream::write(buf,blen);
 	}
 	
-	void PrintStream::write(const char* buf, int blen, int off, int len)
+	void PrintStream::write(const char* buf, size_t blen, size_t off, size_t len)
 	{
 		FilterOutputStream::write(buf,blen,off,len);
 		if (autoFlush) 
 		{
 			const char* start = buf + off;
-			for (int i = 0; i < len; i++)
+			for (size_t i = 0; i < len; i++)
 				if (start[i] == '\n')
 					mOut->flush();
 		}

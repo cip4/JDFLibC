@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -150,8 +150,8 @@ public:
 //	void println(double d);
 //	void println(float f);
 
-	void write(const char* buf, int blen);
-	void write(const char* buf, int blen, int off, int len);
+	void write(const char* buf, size_t blen);
+	void write(const char* buf, size_t blen, size_t off, size_t len);
 	void write(int b);
 
 protected:

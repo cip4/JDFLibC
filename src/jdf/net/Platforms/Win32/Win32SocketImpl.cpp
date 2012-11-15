@@ -312,7 +312,7 @@ namespace JDF
 		return s;
 	}
 
-	int Win32SocketImpl::available()
+	size_t Win32SocketImpl::available()
 	{
 		unsigned long nrBytesAvailable=0;
 

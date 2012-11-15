@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -123,7 +123,7 @@ mCount	(0)
 	bKillOutStream=false;
 }
 
-BufferedOutputStream::BufferedOutputStream(OutputStream& out, unsigned int size) :
+BufferedOutputStream::BufferedOutputStream(OutputStream& out, size_t size) :
 FilterOutputStream(out),
 mSize	(size),
 mCount	(0)
@@ -134,7 +134,7 @@ mCount	(0)
 	mBuf = new char[mSize];
 	bKillOutStream=false;
 }
-BufferedOutputStream::BufferedOutputStream(OutputStream* out, unsigned int size) :
+BufferedOutputStream::BufferedOutputStream(OutputStream* out, size_t size) :
 FilterOutputStream(*out),
 mSize	(size),
 mCount	(0)
@@ -182,12 +182,12 @@ void BufferedOutputStream::flushBuffer()
 }
 
 
-void BufferedOutputStream::write(const char* b, int blen)
+void BufferedOutputStream::write(const char* b, size_t blen)
 {
 	write(b,blen,0,blen);
 }
 
-void BufferedOutputStream::write(const char* b, int blen, int off, int len)
+void BufferedOutputStream::write(const char* b, size_t blen, size_t off, size_t len)
 {
 	// if bigger than cache flush cache and write-through buffer
 	if (len >= mSize)

@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -152,7 +152,7 @@ int StreamBuffer::underflow(void)
 	if (gptr() < egptr())
 		return *gptr();
 
-	int nrBytesReceived = 0;
+	size_t nrBytesReceived = 0;
 
 	try
 	{
@@ -193,7 +193,8 @@ int StreamBuffer::overflow(int c)
 		return EOF; // an error occurred
 	}
 	setp((char*)pbuf,(char*)pbuf+4096);
-	if(c != EOF) return sputc(c);
+	if(c != EOF) 
+		return sputc(c);
 	return 0;
 }
 

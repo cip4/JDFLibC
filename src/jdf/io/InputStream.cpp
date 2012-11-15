@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -119,7 +119,7 @@ namespace JDF
  *	Implementation
  ******************************************************************************/ 
 
-int InputStream::available()
+size_t InputStream::available()
 {
 	return 0;
 }
@@ -133,14 +133,14 @@ bool InputStream::markSupported()
 	return false;
 }
 
-int  InputStream::read(char* b, int blen)
+ssize_t  InputStream::read(char* b, size_t blen)
 {
 	return read(b,blen,0,blen);
 }
 
-int InputStream::read(char* b, int blen, int offset, int len)
+ssize_t InputStream::read(char* b, size_t blen, size_t offset, size_t len)
 {
-	int i,bytesRead = 0;
+	size_t bytesRead = 0;
 	char *dest = b+offset;
 
 	if (b == NULL)
@@ -149,7 +149,7 @@ int InputStream::read(char* b, int blen, int offset, int len)
 	if (len == 0)
 		return 0;
 
-	i = read();
+	int i = read();
 
 	try
 	{
@@ -175,7 +175,7 @@ void InputStream::reset()
 	throw IOException("mark/reset not supported");
 }
 
-long InputStream::skip(long n)
+size_t InputStream::skip(size_t n)
 {
 	// skip in chunks of 2048 bytes
 
@@ -184,8 +184,8 @@ long InputStream::skip(long n)
 
 	ByteBuffer buf(2048);
 
-	int i;
-	long BytesToSkip = n;
+	int i=0;
+	size_t BytesToSkip = n;
 
 	for (; BytesToSkip > 0; BytesToSkip -= i)
 	{
@@ -196,7 +196,7 @@ long InputStream::skip(long n)
 	return n - BytesToSkip;
 }
 
-void InputStream::mark(int readlimit)
+void InputStream::mark(size_t readlimit)
 {
 }
 

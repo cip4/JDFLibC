@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -128,7 +128,7 @@ namespace JDF
 		insert(p);
 	};
 
-	int SetWString::size()
+	size_t SetWString::size()
 	{
 		return setstring::size();
 	};

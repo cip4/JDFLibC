@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -194,7 +194,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	int  available();
+	size_t  available();
 
 	/** 
 	 * Closes this file input stream and releases any system resources associated with the stream.
@@ -213,7 +213,7 @@ public:
 	 * @exception IOException if an I/O error occurs.	 
 	 */
 
-	long skip(long n);
+	size_t skip(size_t n);
 
 	/**
 	 * Reads a byte of data from this input stream. This method blocks if no input is
@@ -236,7 +236,7 @@ public:
 	 * @exception IOException if an I/O error occurs.	 
 	 */
 
-	int  read(char* b, int blen);
+	ssize_t  read(char* b, size_t blen);
 
 	/**
 	 * Reads up to <code>len</code> from this input stream into an array of bytes.
@@ -251,7 +251,7 @@ public:
 	 * @exception IOException if an I/O error occurs.	 
 	 */
 
-	int  read(char* b, int blen, int off, int len);
+	ssize_t  read(char* b, size_t blen, size_t off, size_t len);
 
 	/**
 	 * See the general contract of the <code>mark</code> method of <code>InputStream</code>.
@@ -262,7 +262,7 @@ public:
 	 * @see InputStream#mark
 	 */
 
-	void mark(int readlimit);
+	void mark(size_t readlimit);
 
 	/**
 	 * Tests if this input stream supports the <code>mark</code> and <code>reset</code> methods. 
@@ -292,7 +292,7 @@ public:
 private:
 
 	JDFFileHandle m_handle;
-	unsigned int mMarkPosition;
+	size_t mMarkPosition;
 
 };
 

@@ -184,7 +184,7 @@ namespace JDF
 		}
 	}
 
-	void PlatformUtils::seekFile(JDFFileHandle theFile, unsigned int pos, int movemethod)
+	void PlatformUtils::seekFile(JDFFileHandle theFile, size_t pos, int movemethod)
 	{
 		int whence = 0;
 
@@ -195,7 +195,7 @@ namespace JDF
 		else if (movemethod == 3)
 			whence = FILE_CURRENT;
 
-		const unsigned int res  = SetFilePointer (theFile,pos, 0, whence);
+		const size_t res  = SetFilePointer (theFile,pos, 0, whence);
 
 		if (res == 0xFFFFFFFF)
 			throw IOException("Failed to set file position");
@@ -213,7 +213,7 @@ namespace JDF
 		}
 	}
 
-	unsigned int PlatformUtils::fileSize(JDFFileHandle theFile)
+	size_t PlatformUtils::fileSize(JDFFileHandle theFile)
 	{
 		return XMLPlatformUtils::fileSize(theFile);
 	}
@@ -347,15 +347,15 @@ namespace JDF
 		}
 	}
 
-	unsigned int PlatformUtils::readFileBuffer(
+	ssize_t PlatformUtils::readFileBuffer(
 		JDFFileHandle   theFile
-		, const unsigned int    toRead
+		, const size_t   toRead
 		,       JDFByte* const  toFill
 		)
 	{
 		try
 		{
-			int bytesRead = XMLPlatformUtils::readFileBuffer(theFile,toRead,toFill);
+			size_t bytesRead = XMLPlatformUtils::readFileBuffer(theFile,toRead,toFill);
 			if (bytesRead == 0)
 				return -1;
 			return bytesRead;
@@ -365,9 +365,9 @@ namespace JDF
 		}
 	}
 
-	unsigned int PlatformUtils::writeFileBuffer(
+	size_t PlatformUtils::writeFileBuffer(
 		JDFFileHandle   theFile
-		, const unsigned int    toWrite
+		, const size_t    toWrite
 		,       JDFByte* const  buffer
 		)
 	{
@@ -381,7 +381,7 @@ namespace JDF
 			if (::GetLastError() != ERROR_BROKEN_PIPE)
 				throw IOException("Failed to write to file");
 		}
-		return (unsigned int)bytesWritten;
+		return (size_t)bytesWritten;
 	}
 
 	void PlatformUtils::resetFile(JDFFileHandle theFile)

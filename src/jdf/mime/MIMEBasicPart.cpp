@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -279,42 +279,6 @@ namespace JDF
 			m_nMessageDataLen = 0;
 			m_dataStream = is;
 			m_dataStreamOwnerShip = takeOwnership;
-
-			/*
-			setMessageDataLen(is->available());
-			
-			if (m_nMessageDataLen <= 0)
-			{
-				m_nMessageDataLen = 0;
-				throw MIMEException("setBodyData(): no data in inputStream");
-			}
-			if (m_nMessageDataLen > MAXDATABUFSIZE)
-			{
-				m_dataStream = is;
-				if (is->markSupported())
-					is->mark(2*m_nMessageDataLen);
-			}
-			else
-			{
-				// smaller than limit 
-				// cache everything in a data buffer
-				char* inbuf = new char[DATABUFSZ];
-				ArrayJanitor<char> inbufJanitor(inbuf);
-				
-				int bytesRead = is->read(inbuf,DATABUFSZ,0,DATABUFSZ);
-				if (bytesRead > 0)
-				{
-					m_databuf = new ByteBuffer(DATABUFSZ); // initial size
-				}
-				else
-					throw MIMEException("setBodyData(): InputStream empty.");
-				while (bytesRead > 0)
-				{
-					m_databuf->append(inbuf,bytesRead);
-					bytesRead = is->read(inbuf,DATABUFSZ,0,DATABUFSZ);
-				}
-			}
-			*/
 		}
 		
 		void MIMEBasicPart::setBodyData(const WString& s)
@@ -343,7 +307,7 @@ namespace JDF
 			}
 		}
 		
-		void MIMEBasicPart::setBodyData(char* s, int len)
+		void MIMEBasicPart::setBodyData(char* s, size_t len)
 		{
 			if (m_databuf != NULL && m_dataStream != NULL)
 			{
@@ -681,7 +645,7 @@ namespace JDF
 				throw MIMEException("Invalid Content Transfer Encoding : " + m_contentTransferEncoding);
 } // putByteStream
 
-int MIMEBasicPart::getSize()
+size_t MIMEBasicPart::getSize()
 {
 	if (m_databuf)
 	{
@@ -810,7 +774,7 @@ ByteBuffer* MIMEBasicPart::getStreamData(InputStream& is)
 		if (is.markSupported())
 			is.reset();
 		
-		int l_read = is.read(readbuf,DATABUFSZ,0,DATABUFSZ);
+		ssize_t l_read = is.read(readbuf,DATABUFSZ,0,DATABUFSZ);
 		if (l_read > 0)
 		{
 			buf = new ByteBuffer(DATABUFSZ);
@@ -841,7 +805,7 @@ ByteBuffer* MIMEBasicPart::getStreamData(InputStream& is)
 	}
 }
 
-void MIMEBasicPart::setSize(int len)
+void MIMEBasicPart::setSize(size_t len)
 {
 	m_nMessageDataLen = len;
 	// should this resize the data buffer

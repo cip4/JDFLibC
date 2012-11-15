@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2003 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -251,7 +251,7 @@ public:
 	 * @param s un-encoded raw data.
 	 * @exception MIMEException If already set or if s parameter is NULL.
 	 */
-	void setBodyData(char* s, int len);
+	void setBodyData(char* s, size_t len);
 
 
 	/**
@@ -282,7 +282,7 @@ public:
 	 * Returns the size of this Part's BodyData
 	 * @return size of BodyData or -1 if this part does not have bodyData.
 	 */
-	int getSize();
+	size_t getSize();
 
 	/**
 	 * Sets Content-Transfer-Encoding of this MIME Part.
@@ -348,7 +348,7 @@ public:
 	 */
 	value_pair isOKtoset(WString name);
 
-	int getMessageDataLen() { return getSize(); }
+	size_t getMessageDataLen() { return getSize(); }
 
 	MIMEBodyPart* clone();
 
@@ -395,9 +395,9 @@ private:
 	InputStream* m_dataStream;
 	InputStream* m_charStream;
 
-	int m_nStartMessageDataIndex;
-	int m_nEndMessageDataIndex;
-	int m_nMessageDataLen;
+	size_t m_nStartMessageDataIndex;
+	size_t m_nEndMessageDataIndex;
+	size_t m_nMessageDataLen;
 
 	bool m_dataStreamOwnerShip;
 
@@ -410,17 +410,17 @@ protected:
 
 	ByteBuffer* getDataBuf();
 
-	inline int getStartMessageDataIndex() { return m_nStartMessageDataIndex;}
+	inline size_t getStartMessageDataIndex() { return m_nStartMessageDataIndex;}
 	inline void setStartMessageDataIndex(int i) { m_nStartMessageDataIndex = i;}
 
-	inline int getEndMessageDataIndex() { return m_nEndMessageDataIndex;}
+	inline size_t getEndMessageDataIndex() { return m_nEndMessageDataIndex;}
 	inline void setEndMessageDataIndex(int i) { m_nEndMessageDataIndex = i;}
 
-	void setMessageDataLen(int len) { setSize(len); }
+	void setMessageDataLen(size_t len) { setSize(len); }
 	void setContentType(int contentType) { m_contentType = contentType;}
 	bool getDecodedData() { return m_bDecodedData;}
 	void setDecodedData(bool decodedData) { m_bDecodedData = decodedData;}
-	void setSize(int len);
+	void setSize(size_t len);
 
 	/**
 	 * Non clone version

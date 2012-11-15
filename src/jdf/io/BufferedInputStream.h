@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -160,7 +160,7 @@ public:
 	 * @exception IllegalArgumentException if size == 0
 	 */
 
-	BufferedInputStream(InputStream& in, unsigned int size);
+	BufferedInputStream(InputStream& in, size_t size);
 	
 	/**
 	 * Creates a <code>BufferedInputStream</code> with the specified buffer size, 
@@ -172,7 +172,7 @@ public:
 	 * @param size the buffer size.
 	 * @exception IllegalArgumentException if size == 0
 	 */
-	BufferedInputStream(InputStream* in, unsigned int size=2048);
+	BufferedInputStream(InputStream* in, size_t size=2048);
 
 /*@}*/ 
 
@@ -230,7 +230,7 @@ public:
 	 * @see InputStream#read    
 	 */
 
-	int	 read(char* b, int blen, int off, int len);
+	ssize_t	read(char* b, size_t blen, size_t off, size_t len);
 
 	/**
 	 * Reads bytes from this byte-input stream into the specified byte array, 
@@ -242,7 +242,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	int  read(char* b, int blen);
+	ssize_t  read(char* b, size_t blen);
 
 	/**
 	 * Returns the number of bytes that can be read from this input stream without blocking. 
@@ -256,7 +256,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	int  available();
+	size_t  available();
 
 	/**
 	 * See the general contract of the <code>mark</code> method of <code>InputStream</code>.
@@ -266,7 +266,7 @@ public:
 	 * @see InputStream#mark
 	 */
 
-	void mark(int readAheadLimit);
+	void mark(size_t readAheadLimit);
 
 	/**
 	 * Tests if this input stream supports the <code>mark</code> and <code>reset</code> methods. 
@@ -302,7 +302,7 @@ public:
 	 * @exception IOException if an I/O error occurs.
 	 */
 
-	long skip(long n);
+	size_t skip(size_t n);
 
 	/**
 	 * See the general contract of the <code>reset</code> method of <code>InputStream</code>. 
@@ -351,7 +351,7 @@ protected:
 	 * @exception IOException If an I/O error occurs.
 	 */
 
-	int read1(char* cbuf, int clen, int off, int len);
+	ssize_t read1(char* cbuf, size_t clen, size_t off, size_t len);
 
 	///////////////////////////////////////////////////////////////////////////
 	// Protected Instance Variables
@@ -361,13 +361,13 @@ protected:
 	 * The size of the internal buffer.
 	 */
 
-	int				mSize;
+	size_t				mSize;
 
 	/**
 	 * The index one greater than the last valid byte in the buffer.
 	 */
 
-	int				mCount;
+	size_t				mCount;
 
 	/** 
      * The internal buffer array where the data is stored.
@@ -380,14 +380,14 @@ protected:
 	 * If mPos == mCount then no characters are available.
 	 */
 
-	int				mPos;
+	size_t				mPos;
 
     /**
 	 * The value of the <code>pos</code> field at the time the last 
 	 * <code>mark</code> method was called.
 	 */
 
-	int				mMarkPos;
+	size_t				mMarkPos;
 
 	/**
 	 *  
@@ -395,7 +395,7 @@ protected:
 	 * before subsequent calls to the <code>reset</code> method fail.
 	 */
 
-	int				mReadAheadLimit;
+	size_t				mReadAheadLimit;
 
 private:
 

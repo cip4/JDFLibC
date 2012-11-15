@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -141,7 +141,7 @@ void FilterInputStream::setOwnsMember(bool ownsMember)
 {
 	bKillInStream=ownsMember;
 }
-int  FilterInputStream::available()
+size_t  FilterInputStream::available()
 {
 	if (mIn)
 		return mIn->available();
@@ -159,7 +159,7 @@ void FilterInputStream::close()
 		throw NullPointerException("input stream is NULL");
 }
 
-void FilterInputStream::mark(int readlimit)
+void FilterInputStream::mark(size_t readlimit)
 {
 	if (mIn)
 		mIn->mark(readlimit);
@@ -186,12 +186,12 @@ int  FilterInputStream::read()
 	return 0;
 }
 
-int  FilterInputStream::read(char* b, int blen)
+ssize_t  FilterInputStream::read(char* b, size_t blen)
 {
 	return read(b, blen,0,blen);
 }
 
-int  FilterInputStream::read(char* b, int blen, int off, int len)
+ssize_t  FilterInputStream::read(char* b, size_t blen, size_t off, size_t len)
 {
 	if (mIn)
 		return mIn->read(b, blen, off, len);
@@ -208,7 +208,7 @@ void FilterInputStream::reset()
 		InputStream::reset();
 }
 
-long FilterInputStream::skip(long n)
+size_t FilterInputStream::skip(size_t n)
 {
 	if (mIn)
 		return mIn->skip(n);

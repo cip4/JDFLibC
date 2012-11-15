@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -128,7 +128,7 @@ mPos				(0)
 	mBuf = new char[mSize];
 }
 
-BufferedInputStream::BufferedInputStream(InputStream& in, unsigned int size) :
+BufferedInputStream::BufferedInputStream(InputStream& in, size_t size) :
 FilterInputStream	(in),
 mSize				(size),
 mCount				(0),
@@ -143,7 +143,7 @@ mPos				(0)
 	mBuf = new char[mSize];
 }
 
-BufferedInputStream::BufferedInputStream(InputStream* in, unsigned int size) :
+BufferedInputStream::BufferedInputStream(InputStream* in, size_t size) :
 FilterInputStream	(*in),
 mSize				(size),
 mCount				(0),
@@ -198,7 +198,7 @@ void BufferedInputStream::fill()
 		{
 			if(mMarkPos > 0)
 			{
-				int i = mPos - mMarkPos;
+				size_t i = mPos - mMarkPos;
 				memcpy(mBuf,mBuf+mMarkPos,i);
 				mPos     = i;
 				mMarkPos = 0;
@@ -212,7 +212,7 @@ void BufferedInputStream::fill()
 				}
 				else
 				{
-					int j = mPos * 2;
+					size_t j = mPos * 2;
 					if(j > mReadAheadLimit)
 						j = mReadAheadLimit;
 					char* buf0 = new char[j];
@@ -226,7 +226,7 @@ void BufferedInputStream::fill()
 	}
 	mCount = mPos;
 
-	int k = mIn->read(mBuf, mSize, mPos, mSize - mPos);
+	ssize_t k = mIn->read(mBuf, mSize, mPos, mSize - mPos);
 	if(k > 0)
 		mCount = k + mPos;
 }
@@ -244,12 +244,12 @@ int BufferedInputStream::read()
 	return (unsigned char) mBuf[mPos++];
 }
 
-int	BufferedInputStream::read(char* cbuf, int clen)
+ssize_t	BufferedInputStream::read(char* cbuf, size_t clen)
 {
 	return read(cbuf,clen,0,clen);
 }
 
-int	BufferedInputStream::read(char* cbuf, int clen, int off, int len)
+ssize_t	BufferedInputStream::read(char* cbuf, size_t clen, size_t off, size_t len)
 {
 	ensureOpen();
 
@@ -257,10 +257,10 @@ int	BufferedInputStream::read(char* cbuf, int clen, int off, int len)
 		throw IndexOutOfBoundsException();
 	if(len == 0)
 		return 0;
-	int k = read1(cbuf, clen,  off, len);
+	ssize_t k = read1(cbuf, clen,  off, len);
 	if(k <= 0)
 		return k;
-	int l;
+	size_t l=0;
 	for(; k < len && mIn->available() > 0; k += l)
 	{
 		l = read1(cbuf, clen, off + k, len - k);
@@ -270,9 +270,9 @@ int	BufferedInputStream::read(char* cbuf, int clen, int off, int len)
 	return k;
 }
 
-int BufferedInputStream::read1(char* cbuf, int clen, int off, int len)
+ssize_t BufferedInputStream::read1(char* cbuf, size_t clen, size_t off, size_t len)
 {
-	int avail = mCount - mPos;
+	ssize_t avail = mCount - mPos;
 	if(avail <= 0)
 	{
 		// if the requested lengthis larger than the buffer, and if
@@ -287,18 +287,18 @@ int BufferedInputStream::read1(char* cbuf, int clen, int off, int len)
 		if(avail <= 0)
 			return -1;
 	}
-	int cnt = avail >= len ? len : avail;
+	ssize_t cnt = avail >= len ? len : avail;
 	memcpy(cbuf+off,mBuf+mPos,cnt);
 	mPos += cnt;
 	return cnt;
 }
 
-int BufferedInputStream::available()
+size_t BufferedInputStream::available()
 {
 	return (mCount-mPos) + mIn->available();
 }
 
-void BufferedInputStream::mark(int readAheadLimit)
+void BufferedInputStream::mark(size_t readAheadLimit)
 {
 	if (readAheadLimit < 0)
 		throw IllegalArgumentException("BufferedInputStream readAheadlimit is negative");
@@ -312,7 +312,7 @@ bool BufferedInputStream::markSupported()
 	return true;
 }
 
-long BufferedInputStream::skip(long n)
+size_t BufferedInputStream::skip(size_t n)
 {
 	if(n <= 0L)
 		return 0L;

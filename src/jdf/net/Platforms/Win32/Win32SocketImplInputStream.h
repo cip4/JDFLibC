@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -123,15 +123,15 @@ public:
 	 Win32SocketImplInputStream(Win32SocketImpl* socketImpl);
 	~Win32SocketImplInputStream();
 
-	int  available();
+	size_t  available();
 	void close();
-	void mark(int readlimit) {}
+	void mark(size_t readlimit) {}
 	bool markSupported();
 	int  read();
-	int  read(char* b, int blen);
-	int  read(char* b, int blen, int offset, int len);
+	ssize_t  read(char* b, size_t blen);
+	ssize_t  read(char* b, size_t blen, size_t offset, size_t len);
 	void reset();
-	long skip(long n);
+	size_t skip(size_t n);
 
 protected:
 

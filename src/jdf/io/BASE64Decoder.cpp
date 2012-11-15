@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -156,7 +156,7 @@ const char BASE64Decoder::pem_convert_array[] = {
 	 -1,  -1,  -1,  -1,  -1,  -1,  -1 };
 
 
-void BASE64Decoder::decodeAtom(InputStream& inStream, OutputStream& outStream, int rem) 
+void BASE64Decoder::decodeAtom(InputStream& inStream, OutputStream& outStream, size_t rem) 
 {
 	int	i;
 	char	a = -1, b = -1, c = -1, d = -1;

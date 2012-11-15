@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -224,12 +224,12 @@ void FileOutputStream::write(int c)
 	write(&ch, 1, 0, 1);
 }
 
-void FileOutputStream::write(const char* b, int blen)
+void FileOutputStream::write(const char* b, size_t blen)
 {
 	write(b, blen, 0, blen);
 }
 
-void FileOutputStream::write(const char* b, int blen, int off, int len)
+void FileOutputStream::write(const char* b, size_t blen, size_t off, size_t len)
 {
 	PlatformUtils::writeFileBuffer(m_handle,len,(unsigned char* const) b+off);
 }

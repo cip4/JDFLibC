@@ -242,8 +242,8 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 	WString vdouble::GetString( const WString& sep, const WString& front , const WString& end)const{
 		WString s=front;
-		int siz=size();
-		for(int i=0;i<siz;i++){
+		size_t siz=size();
+		for(size_t i=0;i<siz;i++){
 			if(i) 
 				s+=sep;
 			s+=WString::valueOf(at(i));
