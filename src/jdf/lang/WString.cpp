@@ -151,7 +151,7 @@ namespace JDF
 	/******************************************************************************
 	*	Defines and constants
 	******************************************************************************/ 
-	const size_t WString::npos=-1;
+	const ssize_t WString::npos=-1;
 	//@{
 
 	/**
@@ -333,7 +333,7 @@ namespace JDF
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	WString::WString(const JDFCh* str,  size_t count) {
+	WString::WString(const JDFCh* str,  size_type count) {
 		pc=0;
 		pBase=new WStringBaseJDF();
 		PBASE->assign(str,count);
@@ -402,7 +402,7 @@ namespace JDF
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	WString::WString(const char* str, size_t count){
+	WString::WString(const char* str, size_type count){
 		pc=0;
 		if(count<=0){
 			pBase=new WStringBaseJDF();

@@ -125,7 +125,7 @@ namespace JDF
 	public: 
 		
 		
-		typedef size_t size_type;
+		typedef ssize_t size_type;
 		typedef MapWStringIterator iterator;
 		typedef MapWStringIterator const_iterator;
 		//		typedef MapWStringIterator& reference;
@@ -364,7 +364,7 @@ namespace JDF
 		/**
 		* do not use, this constructo is actually private but must be declared public due to name mangling problems
 		*/
-		MapWStringIterator(void*p, size_t ipos);
+		MapWStringIterator(void*p, ssize_t ipos);
 
 		/**
 		* copy constructor
@@ -437,7 +437,7 @@ namespace JDF
 
 	private:
 		void *mapVector;
-		size_t iPos;
+		ssize_t iPos;
 	}; // class MapWStringIterator
 
 	

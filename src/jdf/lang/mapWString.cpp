@@ -219,7 +219,7 @@ namespace JDF
 	}
 	////////////////////////////////////////////////////////////////////////
 
-	ssize_t MapWString::index(const WString& s)const{
+	MapWString::size_type MapWString::index(const WString& s)const{
 		size_t siz=PBASE->size();
 		for (size_t i=0;i<siz;i+=2){
 			if (!PBASE->at(i).compare(s)) 
@@ -230,7 +230,7 @@ namespace JDF
 
 	////////////////////////////////////////////////////////////////////////
 	MapWString::iterator MapWString::find(const WString & key){
-		size_t i=index(key);
+		size_type i=index(key);
 		return MapWStringIterator(pBase,i);
 	}
 	////////////////////////////////////////////////////////////////////////
@@ -255,7 +255,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 
 	WString MapWString::operator [](const WString & key)const{
-		size_t ind = index(key);
+		size_type ind = index(key);
 		if(ind==-1)
 			return WString::emptyStr;
 		return PBASE->at(ind+1);	
@@ -291,7 +291,7 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////
 
 	MapWString::size_type MapWString::erase(const WString& key){
-		size_t i=index(key);
+		size_type i=index(key);
 		if(i>=0){
 			PBASE->erase(PBASE->begin()+i,PBASE->begin()+i+2);
 			//			std::cout<<*this;
@@ -546,7 +546,7 @@ namespace JDF
 	}
 
 	////////////////////////////////////////////////////////////////////////
-	MapWStringIterator::MapWStringIterator(void*p, size_t ipos){
+	MapWStringIterator::MapWStringIterator(void*p, ssize_t ipos){
 		if(p){
 			MapWStringBase* v=(MapWStringBase*)p;
 			if(ipos<0)

@@ -120,7 +120,7 @@ namespace JDF
 	*/
 	class JDFTOOLS_EXPORT vdouble{
 	public:
-		typedef size_t size_type;
+		typedef ssize_t size_type;
 		typedef vdoubleIterator iterator;
 		typedef vdoubleIterator const_iterator;
 		typedef double& reference;
