@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -380,14 +380,14 @@ protected:
 	 * If mPos == mCount then no characters are available.
 	 */
 
-	size_t				mPos;
+	ssize_t				mPos;
 
     /**
 	 * The value of the <code>pos</code> field at the time the last 
 	 * <code>mark</code> method was called.
 	 */
 
-	size_t				mMarkPos;
+	ssize_t				mMarkPos;
 
 	/**
 	 *  

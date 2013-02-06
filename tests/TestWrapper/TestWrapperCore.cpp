@@ -79,7 +79,7 @@ int main(int argc, char* argv[]){
 		cout<<ddd.DateTimeISO()<<endl;
 
 	}
-	else if(1)
+	else if(0)
 	{
 		JDFDuration d("PT1M");
 		cout<<d.DurationISO()<<endl;
@@ -118,12 +118,13 @@ int main(int argc, char* argv[]){
 		HttpClient::setHttpSystemKeepAlive(true);
 		XMLDoc doc("abc");
 		long t0=clock();
-		for(int i=0;true;i++)
+		for(int i=0;i<1;i++)
 		{
 			if((i%10)==0)
 			std::cout<<i<<"   "<<1000*(clock()-t0)/(i+1)<<endl;
 //		doc.Write2URL("http://10.51.201.7:8080/httpdump/testXMLDoc?nodump=true");
-	doc.Write2URL(L"http://localhost:8080/httpdump/testXMLDoc?nodump=true");
+//	cout<<doc.Write2URL(L"http://localhost:8080/httpdump/testXMLDoc?nodump=true");
+	cout<<doc.Write2URL(L"http://localhost:8080/httpdump/testXMLDoc?nodump=true");
 //			doc.Write2File(WString(L"C:\\data\\foo")+WString(i%100)+WString(".jdf"));
 //		PlatformUtils::sleep(2);
 		}

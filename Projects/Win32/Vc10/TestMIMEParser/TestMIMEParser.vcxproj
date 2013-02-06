@@ -286,12 +286,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestWrapper.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestMIMEParser.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestWrapper.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestMIMEParser.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
@@ -333,12 +333,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestWrapper.exe</OutputFile>
+      <OutputFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestMIMEParser.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestWrapper.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\..\Build\Win\VC10\$(Platform)\$(Configuration)/TestMIMEParser.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
