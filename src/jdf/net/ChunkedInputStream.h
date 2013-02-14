@@ -1,8 +1,8 @@
 /*
- * The CIP4 Software License, Version 0.1
+ * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -153,8 +153,8 @@ public:
 	 * own read-block method, so we have to override.
 	 */
 	int read();
-	int read(char* b, int blen);
-	int read(char* b, int blen, int off, int len);
+	int read(char* b, size_t blen);
+	int read(char* b, size_t blen, size_t off, size_t len);
 	int getContentLength();
 
 private:
@@ -165,7 +165,7 @@ private:
 	void readFooters();
 
 	char* buf;
-	int contentLength;
+	size_t contentLength;
 	int chunkCount;
 	bool isDone;
 	MessageHeader& mResponses;

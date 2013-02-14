@@ -314,7 +314,7 @@ bool BufferedInputStream::markSupported()
 
 size_t BufferedInputStream::skip(size_t n)
 {
-	if(n <= 0L)
+	if(n == 0L)
 		return 0L;
 
 	long l1 = mCount - mPos;
@@ -341,6 +341,8 @@ void BufferedInputStream::reset()
 		throw IOException("Resetting to invalid mark");
 	else if (mMarkPos != -1)
 		mPos = mMarkPos;
+	else if (mMarkPos == -1)
+		mPos = 0;
 }
 
 
