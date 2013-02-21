@@ -153,9 +153,9 @@ public:
 	 * own read-block method, so we have to override.
 	 */
 	int read();
-	int read(char* b, size_t blen);
-	int read(char* b, size_t blen, size_t off, size_t len);
-	int getContentLength();
+	ssize_t read(char* b, size_t blen);
+	ssize_t read(char* b, size_t blen, size_t off, size_t len);
+	ssize_t getContentLength();
 
 private:
 
@@ -165,7 +165,7 @@ private:
 	void readFooters();
 
 	char* buf;
-	size_t contentLength;
+	ssize_t contentLength;
 	int chunkCount;
 	bool isDone;
 	MessageHeader& mResponses;

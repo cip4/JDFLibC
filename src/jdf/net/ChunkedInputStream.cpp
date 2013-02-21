@@ -141,12 +141,12 @@ namespace JDF
 		return (int)b;
 	}
 
-	int ChunkedInputStream::read(char* b, size_t blen)
+	ssize_t ChunkedInputStream::read(char* b, size_t blen)
 	{
 		return FilterInputStream::read(b,blen);
 	}
 
-	int ChunkedInputStream::read(char* b, size_t blen,size_t off,size_t len)
+	ssize_t ChunkedInputStream::read(char* b, size_t blen,size_t off,size_t len)
 	{
 		if (chunkCount==0)
 		{
@@ -251,7 +251,7 @@ namespace JDF
 		mResponses.mergeHeader(*mIn);
 	}
 
-	int ChunkedInputStream::getContentLength()
+	ssize_t ChunkedInputStream::getContentLength()
 	{
 		if (!isDone)
 			return -1;
