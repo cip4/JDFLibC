@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2013 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -133,7 +133,7 @@ void Win32SocketImplOutputStream::close()
 	mSocketImpl->close();
 }
 
-void Win32SocketImplOutputStream::write(const char* cb, int blen)
+void Win32SocketImplOutputStream::write(const char* cb, size_t blen)
 {
 	char* b = const_cast<char*>(cb);
 
@@ -169,7 +169,7 @@ void Win32SocketImplOutputStream::write(const char* cb, int blen)
 	}
 }
 
-void Win32SocketImplOutputStream::write(const char* b, int blen, int offset, int len)
+void Win32SocketImplOutputStream::write(const char* b, size_t blen, size_t offset, size_t len)
 {
 	write(b + offset, len);
 }

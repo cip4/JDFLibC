@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 0.1
  *
  *
- * Copyright (c) 2001 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2013 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -124,8 +124,8 @@ public:
 	~Win32SocketImplOutputStream();
 
 	virtual void close();
-	virtual void write(const char* b, int blen);
-	virtual void write(const char* b, int blen, int offset, int len);
+	virtual void write(const char* b, size_t blen);
+	virtual void write(const char* b, size_t blen, size_t offset, size_t len);
 	virtual void write(int b);
 	virtual void flush();
 

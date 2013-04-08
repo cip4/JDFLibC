@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2005 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2013 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -157,10 +157,12 @@ namespace JDF
 		CRLFOutputStream(OutputStream& out, unsigned int size);
 		virtual ~CRLFOutputStream();
 		void flush();
-		void write(const char* b, int blen);
-		void write(const char* b, int blen, int off, int len);
+		void write(const char* b, size_t blen);
+		void write(const char* b, size_t blen, size_t off, size_t len);
 		void write(int b);
-		bool crlfSeen(void) { return m_CRLFSeen; }
+		bool crlfSeen(void) { 
+			return m_CRLFSeen; 
+		}
 		
 	private:
 		
@@ -191,12 +193,12 @@ namespace JDF
 		mOut->flush();
 	}
 	
-	void CRLFOutputStream::write(const char* b, int blen)
+	void CRLFOutputStream::write(const char* b, size_t blen)
 	{
 		write(b,blen,0,blen);
 	}
 	
-	void CRLFOutputStream::write(const char* b, int blen, int off, int len)
+	void CRLFOutputStream::write(const char* b, size_t blen, size_t off, size_t len)
 	{
 		if (len == 0)
 			return;
