@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2003 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2013 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -119,10 +119,10 @@ namespace JDF
         typename std::basic_string<_TS_E, _TS_Tr, _TS_A>::size_type posBeg = 0;
         typename std::basic_string<_TS_E, _TS_Tr, _TS_A>::size_type posEnd = _TS_S.length();
 		
-        while ((posBeg < posEnd) && isspace(_TS_S.at(posBeg)))
+        while ((posBeg < posEnd) && iswspace(_TS_S.at(posBeg)))
 			posBeg++;
 		
-        while ((posEnd > posBeg) && isspace(_TS_S.at(posEnd - 1)))
+        while ((posEnd > posBeg) && iswspace(_TS_S.at(posEnd - 1)))
             posEnd--;
 		
         if (posBeg < posEnd)
@@ -138,7 +138,7 @@ namespace JDF
     {
         typename std::basic_string<_TS_E, _TS_Tr, _TS_A>::size_type posBeg = 0;
         typename std::basic_string<_TS_E, _TS_Tr, _TS_A>::size_type posEnd = _TS_S.length();
-        while ((posBeg < posEnd) && isspace(_TS_S.at(posBeg)))
+        while ((posBeg < posEnd) && iswspace(_TS_S.at(posBeg)))
 			posBeg++;
         _TS_S.assign(_TS_S.substr(posBeg));
     }
@@ -148,7 +148,7 @@ namespace JDF
 		inline void _trimRight(std::basic_string<_TS_E, _TS_Tr, _TS_A>& _TS_S)
     {
         typename std::basic_string<_TS_E, _TS_Tr, _TS_A>::size_type posEnd = _TS_S.length();
-        while ((posEnd > 0) && isspace(_TS_S.at(posEnd - 1)))
+        while ((posEnd > 0) && iswspace(_TS_S.at(posEnd - 1)))
             posEnd--;
         _TS_S.resize(posEnd);
     }
