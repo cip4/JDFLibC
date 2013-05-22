@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2013 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -135,6 +135,14 @@ int towupper(int c)
 #ifndef __APPLE_CC__
 #if !defined(isspace)
 int isspace(int c)
+{
+	if ((c==0x09)||(c==0x0A)||(c==0x0B)||(c==0x0C)||(c==0x0D)||(c==0x20))
+		return 1;
+	return 0;
+}
+#endif
+#if !defined(iswspace)
+int iswspace(int c)
 {
 	if ((c==0x09)||(c==0x0A)||(c==0x0B)||(c==0x0C)||(c==0x0D)||(c==0x20))
 		return 1;

@@ -61,22 +61,14 @@ int main(int argc, char* argv[]){
 	MyWalker walker;
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...	else 
-	if(0)
+	if(1)
 	{
-		assertTrue(KElement::IsWildcard(L"*"));
-		assertTrue(KElement::IsWildcard(L""));
-		assertTrue(KElement::IsWildcard(0));
-		assertFalse(KElement::IsWildcard(L"*a"));
-		assertFalse(KElement::IsWildcard(L"*Sonnenschein"));
-		assertFalse(KElement::IsWildcard(L"a"));
+		WString w=L" äöüß€";
+		w[0]=0x4e20;
+		WString w2=w.trim();
 
-		XMLDoc doc("abc");
-		KElement f00=doc.GetRoot().GetElement("Bar");
-		assertFalse(f00.HasAttribute("fluf"));
-		JDFDate dd(0);
-		cout<<dd.DateTimeISO()<<endl;
-		JDFDate ddd(0);
-		cout<<ddd.DateTimeISO()<<endl;
+
+		wcout<<"."<<w2<<w<<endl;
 
 	}
 	else if(0)

@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2013 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1144,10 +1144,10 @@ namespace JDF
 		size_type posBeg = 0;
 		size_type posEnd = ps->length();
 
-		while ((posBeg < posEnd) && isspace(ps->at(posBeg)) )
+		while ((posBeg < posEnd) && iswspace(ps->at(posBeg)) )
 			posBeg++;
 
-		while ((posEnd > posBeg) && isspace(ps->at(posEnd-1)) )
+		while ((posEnd > posBeg) && iswspace(ps->at(posEnd-1)) )
 			posEnd--;
 
 		if (posBeg < posEnd)
@@ -1164,7 +1164,7 @@ namespace JDF
 		WString s(*this);
 		WStringBaseJDF* ps=(WStringBaseJDF*)(s.pBase);
 		size_type posEnd = ps->length();
-		while ((posEnd > 0) &&  isspace(ps->at(posEnd-1)) )
+		while ((posEnd > 0) &&  iswspace(ps->at(posEnd-1)) )
 			posEnd--;
 		ps->resize(posEnd);
 		return s; 
@@ -1178,7 +1178,7 @@ namespace JDF
 
 		size_type posBeg = 0;
 		size_type posEnd = ps->length();
-		while ((posBeg < posEnd) && isspace(ps->at(posBeg)) )
+		while ((posBeg < posEnd) && iswspace(ps->at(posBeg)) )
 			posBeg++;
 		ps->assign(ps->substr(posBeg));
 		return s; 
