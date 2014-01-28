@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -428,7 +428,7 @@ namespace JDF{
 		* @default getLinksForType(type, -1)
 		*/
 		vElement getLinksForType(JDFNode::EnumType type, int nType);
-		
+
 		/**
 		* getLinks - get the links matching mLinkAtt out of the resource link pool
 		*
@@ -441,7 +441,7 @@ namespace JDF{
 		* default: getLinks(null,null,null)
 		*/
 		VElement getLinks(WString linkName, const JDFAttributeMap& mLinkAtt, const WString& linkNS=WString::emptyStr)const;
-		
+
 		/**
 		* spawn a node; url is the file name of the new node,
 		*
@@ -2130,6 +2130,23 @@ namespace JDF{
 		int NumMatchingLinks(const WString& resName, bool bLink=true, EnumProcessUsage processUsage=ProcessUsage_Any)const;
 
 		/**
+		* remove a type from the types list - also cleaning up combinedprocessindex
+		* @param type the type
+		* @param iSkip the index of this type in the list of identical types - typically 0
+		* @param bRemoveEmptyLink if true, remove any reslinks that have no remaining combinedprocessindex
+		* 
+		*/
+		void removeFromTypes(const WString& type, int iSkip, bool bRemoveEmptyLink);
+
+		/**
+		* 
+		* remove a resourceLink and potentially its linked resource
+		* @param l
+		* @param bRemoveResource
+		*/
+		void JDFNode::removeLink( JDFResourceLink l,  bool bRemoveResource);
+
+		/**
 		* remove the link that matches the typesafe link resource name
 		*
 		* @param WString resName of the resource to remove
@@ -2509,9 +2526,9 @@ namespace JDF{
 		* @return vWString: vector of resource names that have been copied
 		*/
 		static void CopySpawnedResource(JDFResourcePool p, JDFResource r, JDFResource::EnumSpawnStatus copyStatus, const vmAttribute& vParts, const WString &spawnID,const vWString& resInPool,const vWString& vRWResources, vWString& vRWIDs, vWString& vROIDs, bool bSpawnROPartsOnly);
-		
+
 		// Note: class JDFNode::ExecPartFlags has intentionally not been implemented		
-		
+
 
 	}; // end of class JDFNode
 

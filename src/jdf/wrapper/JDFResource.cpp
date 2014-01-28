@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -544,7 +544,7 @@ namespace JDF{
 		level=IncompleteLevel(level);
 
 		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
-		int n=vElem.size();
+		size_t n=vElem.size();
 		if(n>=nMax)
 			return vElem;
 
@@ -629,7 +629,7 @@ namespace JDF{
 
 		vWString vAtts=JDFElement::GetInvalidAttributes(level, bIgnorePrivate, nMax);
 
-		int n=vAtts.size();
+		size_t n=vAtts.size();
 		if(n>=nMax) 
 			return vAtts;
 
@@ -4457,4 +4457,150 @@ namespace JDF{
 	{
 		JDFResource::bUnpartitiondImplicit = unpartitiondImplicit;
 	}
+
+	/**
+	* Gets all resourcelinks and refelements that link to this<br/>
+	* note that this method may be tim consuming in a large loop <br/>
+	* - in case of massive cleanup, use {@link LinkRefFinder} and access the complete map of references from within the loop @see {@link LinkRefFinder}
+	* 
+	* 
+	* @param bLink if true, include resource links
+	* @param bRef if true include resource refs
+	* 
+	* @return VElement - vector of all found elements, null if none found
+	*/
+	VElement JDFResource::getLinksAndRefs( bool bLink,  bool bRef)
+	{
+		if (!bLink && !bRef)
+		{
+			return VElement::emptyVector;
+		}
+
+		WString resID = GetID();
+
+		JDFAttributeMap mID(atr_rRef, resID);
+		VString refList;
+		if (bLink)
+		{
+			refList.add(GetLinkString());
+		}
+
+		if (bRef)
+		{
+			refList.add(GetRefString());
+		}
+
+		JDFNode n = GetParentJDF();
+		if (n == null)
+		{
+			return VElement::emptyVector;
+		}
+
+		VElement vRet;
+		if (bRef)
+		{
+			vRet = n.GetChildrenFromList(refList, mID, false);
+		}
+		else
+		{
+			VElement vNodes = n.GetvJDFNode();
+			int size = vNodes.size();
+			for (int i = 0; i < size; i++)
+			{
+				JDFNode node=vNodes[i];
+				VElement vTmp = node.GetResourceLinks();
+				int size2 = vTmp.size();
+				for (int j = 0; j < size2; j++)
+				{
+					JDFResourceLink link = vTmp.item(j);
+					if (resID==link.GetrRef())
+					{
+						vRet.add(link);
+					}
+				}
+			}
+		}
+
+
+		JDFAttributeMap mPart = GetPartMap();
+		if (mPart.size() > 0)
+		{
+			for (int i = vRet.size() - 1; i >= 0; i--)
+			{
+				KElement e = vRet.elementAt(i);
+				VJDFAttributeMap linkMapVector;
+				if (e.GetLocalName().endsWith(L"Link"))
+				{
+					JDFResourceLink rl=e;
+					linkMapVector = rl.GetPartMapVector();
+				}
+				else if (e.GetLocalName().endsWith(L"Ref"))
+				{
+					JDFRefElement ref=e;
+					JDFAttributeMap partMap = ref.GetPartMap();
+					if (!partMap.isEmpty())
+					{
+						linkMapVector.push_back(partMap);
+					}
+				}
+
+				if (linkMapVector.size()==0)
+				{
+					continue; // the link refers to the root, thus also to this
+				}
+
+				int nZapp = 0;
+				int size = linkMapVector.size();
+				for (int j = 0; j < size; j++)
+				{
+					JDFAttributeMap m2 = linkMapVector[j];
+					if (!m2.OverlapMap(mPart))
+					{
+						nZapp++;
+					}
+				}
+
+				if (nZapp == size) // no matching parts at all
+				{
+					vRet.remove(i);
+				}
+			}
+		}
+
+		return vRet;
+	}
+	/**
+	* deletes this if it is no longer linked by either resource refs or resource links
+	* 
+	* @return true if this has been deleted
+	*/
+	bool JDFResource::deleteUnLinked()
+	{
+		bool bRet = false;
+		VElement vLinks = getLinksAndRefs(true, true);
+
+		if (vLinks.size()==0)
+		{
+			VElement vRefs = GetRefElements();
+			if (vRefs.size()>0)
+			{
+				VElement v2;
+				for (int j = 0; j < vRefs.size(); j++)
+				{
+					JDFRefElement ref=vRefs[j];
+					v2.add(ref.GetTarget());
+				}
+				vRefs = v2;
+			}
+			DeleteNode();
+			for (int j = 0; j < vRefs.size(); j++)
+			{
+				JDFResource r=vRefs[j];
+				r.deleteUnLinked();
+			}
+			bRet = true;
+		}
+		return bRet;
+	}
+
 } // namespace jdf

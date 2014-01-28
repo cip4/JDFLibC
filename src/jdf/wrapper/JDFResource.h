@@ -4,7 +4,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -3191,6 +3191,26 @@ namespace JDF{
 		*/
 		void cleanResourceAttributes();
 
+		/**
+		* deletes this if it is no longer linked by either resource refs or resource links
+		* 
+		* @return true if this has been deleted
+		*/
+		bool deleteUnLinked();
+		/**
+		* Gets all resourcelinks and refelements that link to this<br/>
+		* note that this method may be tim consuming in a large loop <br/>
+		* - in case of massive cleanup, use {@link LinkRefFinder} and access the complete map of references from within the loop @see {@link LinkRefFinder}
+		* 
+		* 
+		* @param bLink if true, include resource links
+		* @param bRef if true include resource refs
+		* 
+		* @return VElement - vector of all found elements, null if none found
+		*/
+		VElement getLinksAndRefs( bool bLink,  bool bRef);
+
+
 	protected:
 
 		/**
@@ -3285,7 +3305,7 @@ namespace JDF{
 		*/
 		vWString reorderPartKeys(const vWString& vPartKeys);
 
-	    static bool bUnpartitiondImplicit;
+		static bool bUnpartitiondImplicit;
 
 	};
 #define vResource vElement // deprecated legacy

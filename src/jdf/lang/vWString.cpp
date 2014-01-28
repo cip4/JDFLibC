@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights
 * reserved.
 *
@@ -194,6 +194,13 @@ namespace JDF
 		PBASE->erase(IteratorIPos(first),IteratorIPos(last));
 		return vWStringIterator(pBase,first.iPos);
 	};
+
+	////////////////////////////////////////////////////////////////////////
+	
+	void vWString::remove(const size_t pos){
+		erase(begin()+pos);
+	}
+
 	////////////////////////////////////////////////////////////////////////
 	
 	vWString::iterator vWString::erase(iterator it){
@@ -389,8 +396,9 @@ namespace JDF
 	vint vWString::multiIndex(const WString& s)const{
 		vint vi;
 		for (size_t i=0;i<size();i++){
-			if (!at(i).compare(s)) 
-				vi.push_back(i);
+			if (!at(i).compare(s)) {
+				vi.push_back((int)i);
+			}
 		}
 		return vi;
 	};

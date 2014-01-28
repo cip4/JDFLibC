@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2006 The International Cooperation for the Integration of
+* Copyright (c) 2001-20!$ The International Cooperation for the Integration of
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights
 * reserved.
 *
@@ -310,6 +310,14 @@ namespace JDF
 		* string element, or end() if no such element exists.
 		*/
 		iterator erase(iterator it);
+		
+		/**
+		* Removes the element of the controlled sequence at position pos
+		*
+		* @param size_t pos: position of element to remove
+		* string element, or end() if no such element exists.
+		*/
+		void remove(const size_t pos);
 
 		/**
 		* A constant random-access iterator that points

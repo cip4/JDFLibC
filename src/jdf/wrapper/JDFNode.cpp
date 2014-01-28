@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1601,14 +1601,14 @@ namespace JDF{
 	bool JDFNode::FitsActivation(EnumActivation active,bool bWalkThroughAnchestors)const{
 		EnumActivation a=GetActivation(bWalkThroughAnchestors);
 		switch(active){
-	case Activation_Unknown: 
-		return true;
-	case Activation_TestRun: 
-		return (a==Activation_TestRun)||(a==Activation_TestRunAndGo);
-	case Activation_Active: 
-		return (a==Activation_Active)||(a==Activation_TestRunAndGo);
-	default:
-		return a==active;
+		case Activation_Unknown: 
+			return true;
+		case Activation_TestRun: 
+			return (a==Activation_TestRun)||(a==Activation_TestRunAndGo);
+		case Activation_Active: 
+			return (a==Activation_Active)||(a==Activation_TestRunAndGo);
+		default:
+			return a==active;
 		}
 	}
 
@@ -2010,6 +2010,100 @@ namespace JDF{
 		return true;
 	};
 	//////////////////////////////////////////////////////////////////////
+	/**
+	* 
+	* remove a resourceLink and potentially its linked resource
+	* @param l
+	* @param bRemoveResource
+	*/
+	void JDFNode::removeLink( JDFResourceLink l,  bool bRemoveResource)
+	{
+		if (l == null)
+			return;
+
+		if (bRemoveResource)
+		{
+			JDFResource r = l.GetLinkRoot();
+			l.DeleteNode();
+
+			if (r.GetLinks().size() == 0)
+			{
+				r.deleteUnLinked();
+			}
+		}
+		else
+		{
+			l.DeleteNode();
+		}
+	}
+
+	/**
+	* remove a type from the types list - also cleaning up combinedprocessindex
+	* @param type the type
+	* @param iSkip the index of this type in the list of identical types - typically 0
+	* @param bRemoveEmptyLink if true, remove any reslinks that have no remaining combinedprocessindex
+	* 
+	*/
+	void JDFNode::removeFromTypes(const WString& type, int iSkip, bool bRemoveEmptyLink)
+	{
+		vWString v = GetTypes();
+		if (v.empty())
+		{
+			return;
+		}
+		int n = 0;
+		int posLast = -1;
+		while (n <= iSkip)
+		{
+			int pos = v.index(type, posLast + 1);
+			posLast = pos;
+			if (pos < 0)
+			{
+				break;
+			}
+			n++;
+		}
+		if (posLast > 0)
+		{
+			v.remove(posLast);
+			SetTypes(v);
+			JDFAttributeMap map(atr_CombinedProcessIndex, "*");
+			VElement vResLinks = GetResourceLinks(map);
+			for ( int li=0;li<vResLinks.size();li++)
+			{
+				JDFResourceLink rl =vResLinks[li];
+				JDFIntegerList list = rl.GetCombinedProcessIndex();
+				if (list.size()>0)
+				{
+					JDFIntegerList newList;
+					for (int pi =0;pi<list.size();pi++)
+					{
+						int i=list[pi];
+						if (i < posLast)
+						{
+							newList.add(i);
+						}
+						else if (i > posLast)
+						{
+							newList.add(i - 1);
+						}
+						// == is obviously omitted - the type is gone
+
+					}
+					if (newList.size() > 0)
+					{
+						rl.SetCombinedProcessIndex(newList);
+					}
+					else if (bRemoveEmptyLink)
+					{
+						removeLink(rl, true);
+					}
+				}
+			}
+		}
+	}
+
+
 	//////////////////////////////////////////////////////////////////////
 
 	void JDFNode::SetTypes(const vWString & vCombiNodes){
@@ -4947,7 +5041,7 @@ namespace JDF{
 	int JDFNode::GetMinID()
 	{
 		// the previous algorithm did more harm than good!
-        return 0;
+		return 0;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -5082,7 +5176,7 @@ namespace JDF{
 				return e;
 		}
 
-		
+
 		JDFResourcePool p=GetResourcePool();
 		if(!p.isNull()){
 			JDFResource r=p.GetResourceByID(id);
@@ -5292,11 +5386,11 @@ namespace JDF{
 		if(matchingPartIDKeys.empty()){
 			// grab output link and partition nodeinfo accordingly
 			vElement vRes=GetResourceLinkPool().GetInOutLinks(false,true);
-					for (int i = 0; i < vRes.size(); i++)
-					{
-						JDFResourceLink rl = (JDFResourceLink) vRes.at(i);
-						vRes[i]=rl.GetLinkRoot();
-					}
+			for (int i = 0; i < vRes.size(); i++)
+			{
+				JDFResourceLink rl = (JDFResourceLink) vRes.at(i);
+				vRes[i]=rl.GetLinkRoot();
+			}
 
 			// get heuristic list of partidkeys from the output
 			vWString partIDKeys;
@@ -5494,12 +5588,4 @@ namespace JDF{
 		return JDFElement::DefKElement;
 	}
 	//////////////////////////////////////////////////////////////////////
-
-
-	//////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////
-
 }
