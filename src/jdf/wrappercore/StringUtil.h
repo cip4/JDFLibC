@@ -148,7 +148,7 @@ namespace JDF{
 		* @param replaceBy       String to insert for toReplace
 		* @return the String with replaced characters
 		*/
-		static WString StringUtil::replaceString(const WString& strWork, const WString& toReplace, const WString& replaceBy);
+		static WString replaceString(const WString& strWork, const WString& toReplace, const WString& replaceBy);
 
 		/**
 		* get a single token from a String
@@ -161,7 +161,7 @@ namespace JDF{
 		* @param delim   the delimiter
 		* @return the single token (<code>null</code> if no token found)
 		*/
-		static WString StringUtil::token(const WString& strWork, int index, const WString &delim);
+		static WString token(const WString& strWork, int index, const WString &delim);
 
 		/**
 		* convert an incoming url String to a File String

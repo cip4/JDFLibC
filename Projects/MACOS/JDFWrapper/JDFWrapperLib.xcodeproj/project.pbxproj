@@ -9612,7 +9612,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0472BB720C5E132A0008CE94 /* SubComponent_Debug.xcconfig */;
 			buildSettings = {
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 			};
 			name = Debug;
 		};

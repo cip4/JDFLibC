@@ -102,10 +102,10 @@
 #include <jdf/wrapper/JDFDate.h>
 
 #include <xercesc/parsers/XercesDOMParser.hpp>
-#include <xercesc/DOM/DOMDocument.hpp>
-#include <xercesc/DOM/DOMImplementation.hpp>
-#include <xercesc/DOM/DOMElement.hpp>
-#include <xercesc/DOM/DOMImplementationRegistry.hpp>
+#include <xercesc/dom/DOMDocument.hpp>
+#include <xercesc/dom/DOMImplementation.hpp>
+#include <xercesc/dom/DOMElement.hpp>
+#include <xercesc/dom/DOMImplementationRegistry.hpp>
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/framework/MemBufFormatTarget.hpp>
 #include <xercesc/framework/LocalFileFormatTarget.hpp>

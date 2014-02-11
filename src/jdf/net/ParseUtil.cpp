@@ -200,7 +200,7 @@ namespace JDF
 	void ParseUtil::escape(WString& s, JDFCh c)
 	{
 		s.append(chPercent);
-		char ch = HexCharForDigit((c >> 4) & 0xF);
+		char ch = (char)HexCharForDigit((c >> 4) & 0xF);
 		s.append(1,ch);
 		ch = HexCharForDigit(c & 0xF);
 		s.append(1,ch);

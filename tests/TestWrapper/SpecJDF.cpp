@@ -7,7 +7,15 @@
 
 #include "MyArgs.h"
 #include <iostream>
-#include<io.h>
+
+#ifdef WIN32
+#include <io.h>
+#endif
+
+#ifdef __GNUC__
+#include <unistd.h>
+#define _access access
+#endif
 
 XERCES_CPP_NAMESPACE_USE
 
@@ -53,7 +61,7 @@ namespace JDF{
 		MyResponse(KElement o):JDFResponse(o){};
 		MyResponse():JDFResponse(){};
 		~MyResponse(){};
-		virtual bool MyResponse::IsQueryImplemented(JDFQuery q){
+		virtual bool IsQueryImplemented(JDFQuery q){
 			WString s=q.GetType();
 			if(!s.compare(L"Status")) return true;
 			return false;

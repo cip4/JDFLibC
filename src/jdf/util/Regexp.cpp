@@ -162,22 +162,22 @@ bool Regexp::match(const WString& s)
 			if (i == mExp.length()-1)
 				return true;
 			i++;
-			matchNext = mExp[i];
+			matchNext = (char)mExp[i];
 			while (matchNext == '*')
 			{
 				if (i == mExp.length()-1)
 					return true;
 				i++;
-				matchNext = mExp[i];
+				matchNext = (char)mExp[i];
 			}
-			ch = s[ind];
+			ch = (char)s[ind];
 			isOK = isLetterOrDigit(ch);
 			while (isOK && ch != matchNext)
 			{
 				ind++;
 				if (ind==len)
 					return false;
-				ch= s[ind];
+				ch = (char)s[ind];
 				isOK = isLetterOrDigit(ch);
 			}
 			if (isOK == false && ch != matchNext)
@@ -190,7 +190,7 @@ bool Regexp::match(const WString& s)
 		}
 		else if (state == MATCHCHAR)
 		{
-			matchNext = mExp[i];
+			matchNext = (char)mExp[i];
 			if (s[ind] !=matchNext)
 				return false;
 			i++;

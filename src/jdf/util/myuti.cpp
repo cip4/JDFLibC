@@ -108,6 +108,7 @@
 #else
 
 #  include <unistd.h>
+#  include <stdio.h>
 
 #ifndef __MWERKS__
 #  include <sys/types.h>
@@ -117,8 +118,9 @@
 
 // we will need another flag, strupr,lwr exist on linux.
 #   include <ctype.h>
+#   include <wctype.h>
 
-#if !defined(towlower)
+/*#if !defined(towlower)
 int towlower(int c)
 {
 	return (((c&0xFFFFFF00) == 0) ? tolower((char)c) : c);
@@ -129,7 +131,7 @@ int towupper(int c)
 {
 	return (((c&0xFFFFFF00) == 0) ? toupper((char)c) : c);
 }
-#endif
+#endif*/
 
 
 #ifndef __APPLE_CC__
@@ -165,6 +167,7 @@ wchar_t* wcscpy(wchar_t* dst, const wchar_t* src)
 #endif
 #endif
 
+#if !defined (__GNUC__)
 #if !defined(wcschr) && !defined(__MWERKS__)
 wchar_t* wcschr(const wchar_t *string, wchar_t check)
 {
@@ -178,6 +181,7 @@ wchar_t* wcschr(const wchar_t *string, wchar_t check)
 	}
 	return NULL;
 }
+#endif
 #endif
 
 #if !(defined (__GNUC__) && (__GNUC__ >= 3))

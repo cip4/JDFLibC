@@ -61,17 +61,25 @@ int main(int argc, char* argv[]){
 	MyWalker walker;
 	MyTime t("total");
 	// these braces are important due to scoping of doc and terminate...	else 
-	if(1)
+	if(0)
 	{
-		WString w=L" äöüß€";
-		w[0]=0x4e20;
-		WString w2=w.trim();
+		assertTrue(KElement::IsWildcard(L"*"));
+		assertTrue(KElement::IsWildcard(L""));
+		assertTrue(KElement::IsWildcard(0));
+		assertFalse(KElement::IsWildcard(L"*a"));
+		assertFalse(KElement::IsWildcard(L"*Sonnenschein"));
+		assertFalse(KElement::IsWildcard(L"a"));
 
-
-		wcout<<"."<<w2<<w<<endl;
+		XMLDoc doc("abc");
+		KElement f00=doc.GetRoot().GetElement("Bar");
+		assertFalse(f00.HasAttribute("fluf"));
+		JDFDate dd(0);
+		cout<<dd.DateTimeISO()<<endl;
+		JDFDate ddd(0);
+		cout<<ddd.DateTimeISO()<<endl;
 
 	}
-	else if(0)
+	else if(1)
 	{
 		JDFDuration d("PT1M");
 		cout<<d.DurationISO()<<endl;
@@ -110,13 +118,12 @@ int main(int argc, char* argv[]){
 		HttpClient::setHttpSystemKeepAlive(true);
 		XMLDoc doc("abc");
 		long t0=clock();
-		for(int i=0;i<1;i++)
+		for(int i=0;true;i++)
 		{
 			if((i%10)==0)
 			std::cout<<i<<"   "<<1000*(clock()-t0)/(i+1)<<endl;
 //		doc.Write2URL("http://10.51.201.7:8080/httpdump/testXMLDoc?nodump=true");
-//	cout<<doc.Write2URL(L"http://localhost:8080/httpdump/testXMLDoc?nodump=true");
-	cout<<doc.Write2URL(L"http://localhost:8080/httpdump/testXMLDoc?nodump=true");
+	doc.Write2URL(L"http://localhost:8080/httpdump/testXMLDoc?nodump=true");
 //			doc.Write2File(WString(L"C:\\data\\foo")+WString(i%100)+WString(".jdf"));
 //		PlatformUtils::sleep(2);
 		}

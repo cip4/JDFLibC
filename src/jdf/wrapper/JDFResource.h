@@ -3078,7 +3078,7 @@ namespace JDF{
 		* 
 		* @return the newly created GeneralID
 		*/
-		JDFGeneralID JDFResource::appendGeneralID();
+		JDFGeneralID appendGeneralID();
 
 		/**
 		* append a GeneralID with idValue, duplicate entries are retained
@@ -3087,14 +3087,14 @@ namespace JDF{
 		* @param idValue the IDValue attribute of the generalID
 		* @return the newly created GeneralID
 		*/
-		JDFGeneralID JDFResource::appendGeneralID(const WString& idUsage, const WString& idValue);
+		JDFGeneralID appendGeneralID(const WString& idUsage, const WString& idValue);
 
 		/**
 		* gets attribute GeneralID
 		* @param i get the i'th element that fits
 		* @return the attribute value
 		*/
-		JDFGeneralID JDFResource::getGeneralID(int i)const;
+		JDFGeneralID getGeneralID(int i)const;
 		/**
 		* Creates or Updates a GeneralID with the IDUsage idUsage and IDValue=idValue
 		* all entries with a duplicate idUsage are removed
@@ -3102,21 +3102,21 @@ namespace JDF{
 		* @param idUsage usage to set the attribute to
 		* @param idValue   value to set the attribute to
 		*/
-		void JDFResource::setGeneralID(const WString& idUsage, const WString& idValue);
+		void setGeneralID(const WString& idUsage, const WString& idValue);
 
 		/**
 		* removes GeneralID with the IDUsage idUsage
 		* 
 		* @param idUsage value to get
 		*/
-		void JDFResource::removeGeneralID(const WString& idUsage=WString::emptyStr);
+		void removeGeneralID(const WString& idUsage=WString::emptyStr);
 
 		/**
 		* Gets IDValue of the GeneralID with IDUsage=idUsage
 		*
 		* @return double the attribute value
 		*/
-		WString JDFResource::getGeneralID(const WString& idUsage)const;
+		WString getGeneralID(const WString& idUsage)const;
 		/**
 		* Validator of 'this'
 		*

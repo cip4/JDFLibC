@@ -13,7 +13,7 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <jdf/util/PlatformUtils.h>
 #include "jdf/wrapper/JDF.h"
-#include <jdf/WrapperCore/XMLDocUserData.h>
+#include <jdf/wrappercore/XMLDocUserData.h>
 #include "MyArgs.h"
 #include "MyTime.h"
 #include "jdf/util/MyWalker.h"
@@ -21,8 +21,9 @@
 #ifdef WIN32
 // for _access
 #include "io.h"
-#include <iostream>
 #endif
+
+#include <iostream>
 
 XERCES_CPP_NAMESPACE_USE
 using namespace std;

@@ -760,13 +760,13 @@ namespace JDF
 
 		if (len < 1)
 			return false;
-		char c = protocol[0];
+		char c = (char)protocol[0];
 		if (!isLetter(c))
 			return false;
 
 		for (int i = 1; i < len; i++)
 		{
-			c = protocol[i];
+			c = (char)protocol[i];
 			if (!isLetterOrDigit(c) && c != chPeriod && c != chPlus && c != chDash)
 				return false;
 		}

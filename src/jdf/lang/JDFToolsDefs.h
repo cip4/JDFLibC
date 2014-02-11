@@ -4,7 +4,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2010 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -97,6 +97,10 @@
 
 #include <xercesc/util/XercesDefs.hpp>
 
+#include <string.h>
+#include <stdio.h>
+#include <limits.h>
+
 /******************************************************************************
  *	Forward declarations
  ******************************************************************************/ 
@@ -153,19 +157,23 @@ typedef _W64 int  ssize_t;
 #define _CRT_NON_CONFORMING_SWPRINTFS
 #endif
 
-#ifndef null
-#define null 0
-#endif
-
 
 #define JDFStrL(str)  XMLStrL(str)
 
 #ifndef PLATFORM_EXPORT
-#define PLATFORM_EXPORT XERCES_PLATFORM_EXPORT
+#ifdef _WIN32
+#define PLATFORM_EXPORT __declspec(dllexport)
+#else
+#define PLATFORM_EXPORT __attribute__ ((visibility ("default")))
+#endif
 #endif
 
 #ifndef PLATFORM_IMPORT
-#define PLATFORM_IMPORT XERCES_PLATFORM_IMPORT
+#ifdef _WIN32
+#define PLATFORM_IMPORT __declspec(dllimport)
+#else
+#define PLATFORM_IMPORT
+#endif
 #endif
 
 //@vigo

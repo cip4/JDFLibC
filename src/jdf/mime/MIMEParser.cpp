@@ -103,6 +103,10 @@
 #include <cctype>
 #endif
 
+#ifdef __GNUC__
+#include <typeinfo>
+#endif
+
 XERCES_CPP_NAMESPACE_USE
 
 namespace JDF

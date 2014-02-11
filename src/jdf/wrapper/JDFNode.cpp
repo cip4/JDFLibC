@@ -132,7 +132,7 @@
 #include "JDFJobPhase.h"
 #include "JDFSpawn.h"
 #include "JDFMerge.h"
-#include "JDF/WrapperCore/XMLDocUserData.h"
+#include "jdf/wrappercore/XMLDocUserData.h"
 
 using namespace std;
 namespace JDF{
@@ -2018,7 +2018,7 @@ namespace JDF{
 	*/
 	void JDFNode::removeLink( JDFResourceLink l,  bool bRemoveResource)
 	{
-		if (l == null)
+		if (l.isNull())
 			return;
 
 		if (bRemoveResource)

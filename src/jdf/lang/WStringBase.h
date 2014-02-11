@@ -1005,7 +1005,7 @@ int WStringBase<T>::indexOf(const WStringBase<T>& str, int fromIndex) const
 			i++;
 		
 		if (i > max) 
-			return WStringBase::npos;
+			return (int)WStringBase::npos;
 		
 		/* Found first character, now look at the rest of v2 */
 		int j = i + 1;

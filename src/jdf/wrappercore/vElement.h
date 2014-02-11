@@ -90,7 +90,7 @@
 #define _vElement_H_
 
 #include <jdf/lang/WString.h>
-#include <jdf/lang/VWString.h>
+#include <jdf/lang/vWString.h>
 
 namespace JDF{
 

@@ -12,7 +12,7 @@
 #include <jdf/util/PlatformUtils.h>
 #include <xercesc/util/PlatformUtils.hpp>
 #include "jdf/wrapper/JDF.h"
-#include <jdf/WrapperCore/XMLDocUserData.h>
+#include <jdf/wrappercore/XMLDocUserData.h>
 #include "MyArgs.h"
 #include "MyTime.h"
 #include <iostream>

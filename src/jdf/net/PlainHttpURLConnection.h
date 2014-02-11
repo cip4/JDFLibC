@@ -137,7 +137,7 @@ namespace JDF
  * Reading/Writing
  * @nosubgrouping
  */
-class PlainHttpURLConnection : public HttpURLConnection
+class JDFTOOLS_EXPORT PlainHttpURLConnection : public HttpURLConnection
 {
 public:
 

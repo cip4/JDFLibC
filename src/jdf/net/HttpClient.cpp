@@ -105,6 +105,7 @@
 #include <jdf/lang/Janitor.h>
 #include <jdf/lang/ByteBuffer.h>
 #include <iostream>
+#include <cstdio>
 
 #include <xercesc/util/XMLUniDefs.hpp>
 //#include <jdf/io/Exception.h>

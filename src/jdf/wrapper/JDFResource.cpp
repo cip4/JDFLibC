@@ -4491,7 +4491,7 @@ namespace JDF{
 		}
 
 		JDFNode n = GetParentJDF();
-		if (n == null)
+		if (n.isNull())
 		{
 			return VElement::emptyVector;
 		}

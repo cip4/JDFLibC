@@ -315,7 +315,7 @@ namespace JDF{
 		/**
 		get the vector of all explicitly or explictly referenced leaves
 		*/
-		vElement JDFResourceLink::getLeafVector()const;
+		vElement getLeafVector()const;
 
 		/**
 		* Gets the 1st resource leaf that this resourcelink refers to
@@ -860,10 +860,10 @@ namespace JDF{
 	JDFPart AppendLot();
 	//////////////////////////////////////////////////////////////////////
 	
-	JDFPart JDFResourceLink::GetCreateLot(int iSkip);
+	JDFPart GetCreateLot(int iSkip);
 	
 	///////////////////////////////////////////////////////////////////////
-	JDFPart JDFResourceLink::GetLot( int iSkip)const;
+	JDFPart GetLot( int iSkip)const;
 	//////////////////////////////////////////////////////////////////////
 		/**
 		definition of optional elements in the JDF namespace

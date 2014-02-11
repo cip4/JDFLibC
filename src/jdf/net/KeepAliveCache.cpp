@@ -82,7 +82,7 @@
 #include "Authenticator.h"
 
 #include <jdf/net/KeepAliveCache.h>
-#include <jdf/net/HTTPClient.h>
+#include <jdf/net/HttpClient.h>
 #include <jdf/lang/Integer.h>
 #include <jdf/lang/Synchronized.h>
 

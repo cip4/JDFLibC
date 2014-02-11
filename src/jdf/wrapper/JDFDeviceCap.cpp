@@ -710,7 +710,7 @@ namespace JDF{
 			bool bFound=false;
 			for (int k=0; k<vDevCaps.size(); k++) {
 				JDFDevCaps dc = vDevCaps[k];
-				if ((!dc.HasAttribute(atr_LinkUsage))||(dc.GetLinkUsage()==link.GetUsage())) {
+				if ((!dc.HasAttribute(atr_LinkUsage))||((int)dc.GetLinkUsage()==(int)link.GetUsage())) {
 					bFound=true;
 					break;
 				}

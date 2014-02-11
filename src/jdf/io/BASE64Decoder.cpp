@@ -85,6 +85,10 @@
 #include "InputStream.h"
 #include "OutputStream.h"
 
+#ifdef __GNUC__
+#include <unistd.h>
+#define _access access
+#endif
 
 namespace JDF
 {

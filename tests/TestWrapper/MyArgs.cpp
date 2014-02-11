@@ -13,13 +13,16 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "MyArgs.h"
+
+#include <stdlib.h>
+
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-MyArgs::MyArgs(int argc, char** argv, char*param0string,char*param1string,char*paramreqstring){
+MyArgs::MyArgs(int argc, char** argv, const char*param0string,const char*param1string,const char*paramreqstring){
 	argC=argc;
 	argV=argv;
 	nArgs=-1;
@@ -78,7 +81,7 @@ int MyArgs::NArgs(){
 
 //////////////////////////////////////////////////////////////////////
 
-char* MyArgs::Argument(int m){
+const char* MyArgs::Argument(int m){
 	if(nArgs<0) NArgs();
 	if(m>=nArgs) return 0;
 	return onlyArgs[m];
@@ -86,7 +89,7 @@ char* MyArgs::Argument(int m){
 
 //////////////////////////////////////////////////////////////////////
 
-char* MyArgs::Parameter(char c){
+const char* MyArgs::Parameter(char c){
 	if(!strchr(param0String,c)&&!strchr(param1String,c)) return 0;
 	int n;
 	char*pc;
@@ -120,7 +123,7 @@ char* MyArgs::Parameter(char c){
 //////////////////////////////////////////////////////////////////////
 
 int MyArgs::IntParameter(char c, int idef, int radix){
-	char*pc=Parameter(c);
+	const char*pc=Parameter(c);
 	char*pce;
 	if(!pc) return idef;
 	int l=strtol(pc,&pce,radix);
@@ -131,7 +134,7 @@ int MyArgs::IntParameter(char c, int idef, int radix){
 //////////////////////////////////////////////////////////////////////
 
 double MyArgs::FloatParameter(char c, double def){
-	char*pc=Parameter(c);
+	const char*pc=Parameter(c);
 	if(!pc) return def;
 	if ((*pc>='0'&&*pc<='9')||(*pc=='.')){
 		return atof(pc);
@@ -144,7 +147,7 @@ double MyArgs::FloatParameter(char c, double def){
 //////////////////////////////////////////////////////////////////////
 
 bool MyArgs::BoolParameter(char c, bool def){
-	char*pc=Parameter(c);
+	const char*pc=Parameter(c);
 	if(pc) return true;
 	return def;
 }

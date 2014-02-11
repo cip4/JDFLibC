@@ -163,8 +163,10 @@ namespace JDF
 		 std::bidirectional_iterator<value_type, size_type>
 #elif defined(_CPPLIB_VER) && ! defined(STLPORT)  // Native VC7 STL
 		 std:: _Bidit<value_type, size_type, value_type, value_type>
-#elif (__GNUC__ >= 3)
+#elif (__GNUC__ >= 3) && (__GNUC_MINOR__ < 1)
 		 std::bidirectional_iterator
+#elif (__GNUC__ >= 3) && (__GNUC_MINOR__ >= 1)
+		 std::iterator<std::bidirectional_iterator_tag, value_type, size_type>
 #elif  defined(__MWERKS__)
 		 std::bidirectional_iterator<value_type, size_type>
 #elif defined(STLPORT)

@@ -88,6 +88,8 @@
 #include "JDFIntegerState.h"
 #include "JDFValueLoc.h"
 
+#include <stdlib.h>
+
 using namespace std;
 namespace JDF{
 	

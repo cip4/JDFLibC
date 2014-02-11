@@ -2144,7 +2144,7 @@ namespace JDF{
 		* @param l
 		* @param bRemoveResource
 		*/
-		void JDFNode::removeLink( JDFResourceLink l,  bool bRemoveResource);
+		void removeLink( JDFResourceLink l,  bool bRemoveResource);
 
 		/**
 		* remove the link that matches the typesafe link resource name

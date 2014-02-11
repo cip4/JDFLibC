@@ -32,13 +32,13 @@ public:
 	int IntParameter(char c,int idef=0,int radix=10);
 	double FloatParameter(char c, double def=0.);
 	bool BoolParameter(char c, bool def=false);
-	char* Parameter(char c);
-	char* Argument(int m=0);
-	inline JDF::WString ParameterString(char c){char*pc=Parameter(c); return pc?pc:"";};
-	inline JDF::WString ArgumentString(int m=0){char*pc=Argument(m); return pc?pc:"";};
+	const char* Parameter(char c);
+	const char* Argument(int m=0);
+	inline JDF::WString ParameterString(char c){const char*pc=Parameter(c); return pc?pc:"";};
+	inline JDF::WString ArgumentString(int m=0){const char*pc=Argument(m); return pc?pc:"";};
 	JDF::WString Usage(JDF::WString pc="");
 	int NArgs();
-	MyArgs(int argc, char** argv, char*param0string,char*param1string,char*paramreqstring=0);
+	MyArgs(int argc, char** argv, const char*param0string,const char*param1string,const char*paramreqstring=0);
 	virtual ~MyArgs();
 
 protected:

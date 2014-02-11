@@ -88,6 +88,8 @@
 #include "JDFIntegerRange.h"
 #include "jdf/wrappercore/StringUtil.h"
 
+#include <stdlib.h>
+
 using namespace std;
 static int m_defaultXDef=0;
 

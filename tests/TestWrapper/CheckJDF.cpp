@@ -16,6 +16,12 @@
 XERCES_CPP_NAMESPACE_USE
 using namespace JDF;
 using namespace std;
+
+#ifdef __GNUC__
+#include <unistd.h>
+#define _waccess(f,m) access(WString(f).peekBytes(),m)
+#endif
+
 //////////////////////////////////////////////////////////////////
 
 /**
@@ -474,10 +480,10 @@ int main(int argc, char* argv[]){
 			JDFParser parser;
 			
 			try{
-				if(_waccess(xmlFile.c_str(),0)){
-					cout<<"**** no such file: "<<xmlFile<<endl<<endl;
-					continue;
-				}
+				  if(_waccess(xmlFile.c_str(),0)){
+					  cout<<"**** no such file: "<<xmlFile<<endl<<endl;
+					  continue;
+				  }
 				bool bSnafu;
 				bSnafu=!parser.Parse(xmlFile.c_str(),bValidate,true,true,pErrHandle,schemaLocation.c_str());
 				if(bSnafu){

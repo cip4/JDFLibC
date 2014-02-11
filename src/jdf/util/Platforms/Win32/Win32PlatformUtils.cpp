@@ -425,9 +425,9 @@ namespace JDF
 		UUID myUniqueID;
 		wchar_t* myUniqueIDString;
 		::UuidCreate(&myUniqueID);
-		::UuidToString(&myUniqueID, (unsigned short**)&myUniqueIDString);
-		WString s = (wchar_t*)myUniqueIDString;
-		::RpcStringFree((unsigned short**)&myUniqueIDString);
+		::UuidToStringW(&myUniqueID, (RPC_WSTR*)&myUniqueIDString);
+		WString s = myUniqueIDString;
+		::RpcStringFreeW((RPC_WSTR*)&myUniqueIDString);
 		return s;
 	}
 

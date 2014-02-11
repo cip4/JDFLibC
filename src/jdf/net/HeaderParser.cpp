@@ -140,7 +140,7 @@ void HeaderParser::parse()
 
 	while (end < len)
 	{
-		char c = raw[end];
+		char c = (char)raw[end];
 		if (c == chEqual)
 		{
 			if (i == tab.capacity())

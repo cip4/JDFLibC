@@ -152,7 +152,7 @@
 #include <jdf/lang/vWString.h>
 #include <jdf/lang/mapWString.h>
 #include <jdf/lang/vMapWString.h> /* for wrapper only */
-#include <jdf/WrapperCore/KElementStrings.h>
+#include <jdf/wrappercore/KElementStrings.h>
 
 XERCES_CPP_NAMESPACE_BEGIN
 class DOMElement;

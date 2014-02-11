@@ -91,10 +91,11 @@
 /******************************************************************************
 *	Includes
 ******************************************************************************/ 
-#include "JDFToolsDefs.h"
-#include "JDF/lang/WString.h"
-#include "JDF/lang/vWString.h"
 #include <set>
+
+#include "jdf/lang/JDFToolsDefs.h"
+#include "jdf/lang/WString.h"
+#include "jdf/lang/vWString.h"
 
 namespace JDF
 {
