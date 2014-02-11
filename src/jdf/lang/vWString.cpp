@@ -81,15 +81,14 @@
 *	Includes
 ******************************************************************************/
 
-
-
-#include "vWString.h"
-
-#include "vint.h"
-#include "JDF/lang/SetWString.h"
-
 #include <vector>
 #include <algorithm> // for sort
+
+
+#include "jdf/lang/vWString.h"
+#include "jdf/lang/vint.h"
+#include "jdf/lang/SetWString.h"
+
 
 #define PBASE ((vWStringBase*)pBase)
 #define PBASES(s) ((vWStringBase*)s.pBase)
@@ -166,7 +165,7 @@ namespace JDF
 		return PBASE->at(pos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::reference vWString::at(size_type pos){
 		return PBASE->at(pos);
 	}
@@ -179,73 +178,66 @@ namespace JDF
 		return PBASE->at(pos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::reference vWString::elementAt(size_type pos){
 		return PBASE->at(pos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::reference vWString::stringAt(size_type pos){
 		return PBASE->at(pos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::iterator vWString::erase(iterator first, iterator last){
 		PBASE->erase(IteratorIPos(first),IteratorIPos(last));
 		return vWStringIterator(pBase,first.iPos);
 	};
-
 	////////////////////////////////////////////////////////////////////////
-	
-	void vWString::remove(const size_t pos){
-		erase(begin()+pos);
-	}
 
-	////////////////////////////////////////////////////////////////////////
-	
 	vWString::iterator vWString::erase(iterator it){
 		PBASE->erase(IteratorIPos(it));
 		return vWStringIterator(pBase,it.iPos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::iterator vWString::begin(){
 		return vWStringIterator(pBase,0);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::const_iterator vWString::begin()const{
 		return vWStringIterator(pBase,0);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::iterator vWString::end(){
 		return vWStringIterator(pBase,PBASE->size());
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::const_iterator vWString::end()const{
 		return vWStringIterator(pBase,PBASE->size());
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	vWString::size_type vWString::size() const{
 		return PBASE->size();
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	void vWString::push_back(const WString& str){
-		 PBASE->push_back(str);
+		PBASE->push_back(str);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	void vWString::add(const WString& str){
-		 PBASE->push_back(str);
+		PBASE->push_back(str);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	void vWString::pop_back(){
-		 PBASE->pop_back();
+		PBASE->pop_back();
 	}
 	////////////////////////////////////////////////////////////////////////
 	vWString::const_reference vWString::operator[](size_type pos) const{
@@ -268,7 +260,7 @@ namespace JDF
 		PBASE->reserve(n);
 	}
 	////////////////////////////////////////////////////////////////////////
-		
+
 	void vWString::insertElementAt(const WString &x ,size_t beforePos)
 	{
 		insert(begin()+beforePos,x);
@@ -281,11 +273,11 @@ namespace JDF
 	}
 	////////////////////////////////////////////////////////////////////////
 	void vWString::insert(iterator it, size_type n, const WString& x){
-		 PBASE->insert(IteratorIPos(it), n, x);
+		PBASE->insert(IteratorIPos(it), n, x);
 	}
 	////////////////////////////////////////////////////////////////////////
 	void vWString::insert(iterator it, const_iterator first, const_iterator last){
-		 PBASE->insert(IteratorIPos(it), IteratorIPosS(first), IteratorIPosS(last));
+		PBASE->insert(IteratorIPos(it), IteratorIPosS(first), IteratorIPosS(last));
 	}
 
 	///////////////////////////////////////////////////////////////////////
@@ -293,7 +285,7 @@ namespace JDF
 	void vWString::sort(size_t first, ssize_t last){
 		if(last<-1)
 			last=(int)PBASE->size()+last;
-		
+
 		std::sort(PBASE->begin()+first, last<0 ? PBASE->end() :PBASE->begin()+last);
 	}
 
@@ -350,7 +342,7 @@ namespace JDF
 		}
 		return false;
 	}
-////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
 
 	void vWString::addAll(const vWString &v)
 	{
@@ -362,7 +354,7 @@ namespace JDF
 			push_back(v.at(i));
 
 	}
-////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
 	/// remove the last n occurrences of a string
 	void vWString::Unify()
 	{
@@ -385,6 +377,13 @@ namespace JDF
 	}
 
 	////////////////////////////////////////////////////////////////////////
+
+	void vWString::remove(const size_t pos){
+		erase(begin()+pos);
+	}
+
+
+	////////////////////////////////////////////////////////////////////////
 	ssize_t vWString::index(const WString& s, size_t start)const{
 		for (size_t i=start;i<size();i++){
 			if (!at(i).compare(s)) 
@@ -396,9 +395,8 @@ namespace JDF
 	vint vWString::multiIndex(const WString& s)const{
 		vint vi;
 		for (size_t i=0;i<size();i++){
-			if (!at(i).compare(s)) {
-				vi.push_back((int)i);
-			}
+			if (!at(i).compare(s)) 
+				vi.push_back(i);
 		}
 		return vi;
 	};
@@ -447,7 +445,7 @@ namespace JDF
 		vWStringVector=0;
 		iPos=0;
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////
 	vWStringIterator::vWStringIterator(const vWStringIterator&other){
 		iPos=other.iPos;
@@ -501,22 +499,22 @@ namespace JDF
 		return *this;
 	}
 	////////////////////////////////////////////////////////////////////////
-		
+
 	const vWStringIterator* vWStringIterator::operator->() const{
 		return (&*this); 
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vWStringIterator::operator!=(const vWStringIterator & other) const{
 		return (vWStringVector!=other.vWStringVector)||(iPos!=other.iPos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vWStringIterator::operator==(const vWStringIterator & other) const{
 		return (vWStringVector==other.vWStringVector)&&(iPos==other.iPos);
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vWStringIterator::operator>(const vWStringIterator & other) const{
 		bool result = (vWStringVector==other.vWStringVector);
 		if (result)
@@ -524,7 +522,7 @@ namespace JDF
 		return result;
 	}
 	////////////////////////////////////////////////////////////////////////	
-	
+
 	bool vWStringIterator::operator<(const vWStringIterator & other) const{
 		bool result = (vWStringVector==other.vWStringVector);
 		if (result)
@@ -532,7 +530,7 @@ namespace JDF
 		return result;
 	}
 	////////////////////////////////////////////////////////////////////////
-	
+
 	bool vWStringIterator::operator>=(const vWStringIterator & other) const{
 		bool result = (vWStringVector==other.vWStringVector);
 		if (result)
@@ -540,7 +538,7 @@ namespace JDF
 		return result;
 	}
 	////////////////////////////////////////////////////////////////////////	
-	
+
 	bool vWStringIterator::operator<=(const vWStringIterator & other) const{
 		bool result = (vWStringVector==other.vWStringVector);
 		if (result)

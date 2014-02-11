@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-20!$ The International Cooperation for the Integration of
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights
 * reserved.
 *
@@ -106,9 +106,9 @@
 namespace JDF
 {
 
-/******************************************************************************
-*	Forward declarations
-******************************************************************************/
+	/******************************************************************************
+	*	Forward declarations
+	******************************************************************************/
 	class vint;
 	class vWStringIterator;
 	// predefined stl wstring containers
@@ -133,14 +133,14 @@ namespace JDF
 		typedef WString& reference;
 		typedef const WString& const_reference;
 
-/*
-* the empty vector
-*/		
-	static const vWString emptyvStr;
+		/*
+		* the empty vector
+		*/		
+		static const vWString emptyvStr;
 
 	public:
-	/**
-	* empty constructor
+		/**
+		* empty constructor
 		*/
 		vWString();
 		/**
@@ -207,7 +207,7 @@ namespace JDF
 		* @return true if at least one string of "other" is in this
 		*/
 		bool containsAny(const vWString &other)const;
-		
+
 		/**
 		* add all strings specified in other - java compatibility
 		* @param vWString& other vector of strings to add
@@ -269,7 +269,7 @@ namespace JDF
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		* Returns a constant reference to the element of the controlled sequence at position pos
 		*
@@ -280,7 +280,7 @@ namespace JDF
 		// java compatibility
 		const_reference elementAt(size_type pos) const;
 		const_reference stringAt(size_type pos) const;
-		
+
 		/**
 		* Returns a reference to the element of the controlled sequence at position pos
 		*
@@ -310,14 +310,6 @@ namespace JDF
 		* string element, or end() if no such element exists.
 		*/
 		iterator erase(iterator it);
-		
-		/**
-		* Removes the element of the controlled sequence at position pos
-		*
-		* @param size_t pos: position of element to remove
-		* string element, or end() if no such element exists.
-		*/
-		void remove(const size_t pos);
 
 		/**
 		* A constant random-access iterator that points
@@ -382,7 +374,7 @@ namespace JDF
 		* @return const_reference: a constant reference to the element of the controlled sequence at position pos
 		*/
 		const_reference operator[](size_type pos) const;
-		
+
 		/**
 		* Overloaded operator [] provides an access to the element of sequence with index = pos
 		*
@@ -398,7 +390,7 @@ namespace JDF
 		* @param const_iterator last: last string element of range to assign
 		*/
 		void assign(const_iterator first, const_iterator last);
-		
+
 		/**
 		* Replaces the sequence controlled by *this with a repetition of n string elements of value 'x'
 		*
@@ -413,6 +405,13 @@ namespace JDF
 		* @param size_type n total number of elements
 		*/
 		void reserve(size_type n);
+		/**
+		* Removes the element of the controlled sequence at position pos
+		*
+		* @param size_t pos: position of element to remove
+		* string element, or end() if no such element exists.
+		*/
+		void remove(const size_t pos);
 
 		/**
 		* Inserts a single element with value 'x' in the controlled sequence
@@ -457,12 +456,12 @@ namespace JDF
 		* @return bool: true if empty
 		*/
 		bool empty() const;
-		
+
 		/**
 		* Cleanup and empty the internal storage
 		*/
 		void clear() const;
-		
+
 		/**
 		* lexical sort of the vector
 		* @param int first integer addressing the position of the first element in the range to be sorted. 
@@ -479,8 +478,8 @@ namespace JDF
 	private:
 
 		void * pBase;
-		
-};
+
+	};
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -493,9 +492,9 @@ namespace JDF
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
-* the iterator implements a subset of STL::vector::iterator with the notable differences:
-*/
+	/**
+	* the iterator implements a subset of STL::vector::iterator with the notable differences:
+	*/
 	class JDFTOOLS_EXPORT vWStringIterator{
 		friend class vWString;
 	public:
@@ -513,7 +512,7 @@ namespace JDF
 		* copy constructor
 		*/
 		vWStringIterator(const vWStringIterator & other);
-		
+
 		/**
 		* dtor
 		*/
@@ -582,10 +581,10 @@ namespace JDF
 		* @return bool 
 		*/
 		bool operator<(const vWStringIterator & other) const;
-		
-			
+
+
 		vWString::reference operator *();
-		
+
 		vWString::const_reference operator *() const;
 
 		/**
@@ -600,7 +599,7 @@ namespace JDF
 		* @throws std::exception if there is no next element
 		*/
 		WString next();
-		
+
 
 	private:
 		void *vWStringVector;
