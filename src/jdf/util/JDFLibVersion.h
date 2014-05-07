@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -80,6 +80,6 @@
 // created 2004
 
 #ifndef JDFLibVersionBuild
-#define JDFLibVersionBuild 121 // note that versions will always increment and not restart at a new version of JDF
-#define JDFLibVersion L"2.1.4aBLD121" // must alway be lexically larger than previous version
+#define JDFLibVersionBuild 128 // note that versions will always increment and not restart at a new version of JDF
+#define JDFLibVersion L"2.1.4aBLD128" // must alway be lexically larger than previous version
 #endif
