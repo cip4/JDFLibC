@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug DLL|Win32">
@@ -467,6 +467,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAbortQueueEntryParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoActivity.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationCmdParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationQuParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationResp.cpp" />
@@ -475,28 +477,46 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoControllerFilter.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoExpr.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillColor.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillMark.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoGangElement.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoHoldQueueEntryParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoImageEnhancementOp.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoImageEnhancementParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoInterpretingDetails.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.cpp" />
-    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageAssignParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageCondition.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPositionObj.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRefAnchor.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoReferenceXObjParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRemoveQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRepeatDesc.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoResumeQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRuleLength.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListBack.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListFront.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDef.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSheetCondition.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSheetOptimizingParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShiftPoint.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStack.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStaticBlockingParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionFilter.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSuspendQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTabDimensions.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoVarnishingParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoWindingParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFAbortQueueEntryParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFActivity.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFAmountPool.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFAncestor.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFAncestorPool.cpp" />
@@ -523,6 +543,13 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFEvent.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFExtraValues.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFFCNKey.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFFillColor.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFFillMark.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFGangElement.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFHoldQueueEntryParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFImageEnhancementOp.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFImageEnhancementParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFInterpretingDetails.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLayoutShift.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLocation.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFLogicalStackParams.cpp" />
@@ -548,14 +575,17 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFProcessRun.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFRefAnchor.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFReferenceXObjParams.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFRemoveQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFRepeatDesc.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFResourceAudit.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFResourceLinkPool.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFResourcePool.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFResumeQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFRuleLength.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFShapeDef.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFShapeDefProductionParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFShapeTemplate.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSheetOptimizingParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFShiftPoint.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSpawn.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSpawned.cpp" />
@@ -564,6 +594,7 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFStatusPool.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSubscriptionFilter.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSubscriptionInfo.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSuspendQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFSystemTimeSet.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFAcknowledge.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFAdded.cpp" />
@@ -1570,6 +1601,8 @@
     <ClCompile Include="..\..\..\src\jdf\wrappercore\XMLDocUserData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAbortQueueEntryParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoActivity.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationCmdParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationQuParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoAuthenticationResp.h" />
@@ -1578,28 +1611,46 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoControllerFilter.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoExpr.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillColor.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillMark.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoGangElement.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoHoldQueueEntryParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoImageEnhancementOp.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoImageEnhancementParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoInterpretingDetails.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.h" />
-    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageAssignParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageCondition.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPositionObj.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRefAnchor.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoReferenceXObjParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRemoveQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRepeatDesc.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoResumeQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRuleLength.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListBack.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListFront.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDef.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSheetCondition.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSheetOptimizingParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShiftPoint.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStack.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoStaticBlockingParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionFilter.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSuspendQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTabDimensions.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoVarnishingParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoWindingParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFAbortQueueEntryParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFActivity.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFAmountPool.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFAncestor.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFAncestorPool.h" />
@@ -1626,6 +1677,13 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFEvent.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFExtraValues.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFFCNKey.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFFillColor.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFFillMark.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFGangElement.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFHoldQueueEntryParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFImageEnhancementOp.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFImageEnhancementParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFInterpretingDetails.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLayoutShift.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLocation.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFLogicalStackParams.h" />
@@ -1651,14 +1709,17 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFProcessRun.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFRefAnchor.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFReferenceXObjParams.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFRemoveQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFRepeatDesc.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFResourceAudit.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFResourceLinkPool.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFResourcePool.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFResumeQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFRuleLength.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFShapeDef.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFShapeDefProductionParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFShapeTemplate.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSheetOptimizingParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFShiftPoint.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSpawn.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSpawned.h" />
@@ -1667,6 +1728,7 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFStatusPool.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSubscriptionFilter.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSubscriptionInfo.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSuspendQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFSystemTimeSet.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFAcknowledge.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFAdded.h" />
@@ -2683,90 +2745,112 @@
     <ClInclude Include="..\..\..\src\jdf\wrappercore\XMLDoc.h" />
     <ClInclude Include="..\..\..\src\jdf\wrappercore\XMLDocUserData.h" />
   </ItemGroup>
- <ItemGroup>
-    <Library Include="..\..\..\Build\Win\VC10\Win32\Debug DLL\JDFToolsDLLD.lib">
+  <ItemGroup>
+    <CustomBuildStep Include="..\..\..\Build\Win32\VC10\ReleaseDLL\JDFToolsDLL.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Build\Win32\VC10\DebugDLL\JDFToolsDLLd.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10\xerces-c_2.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\external\xerces\lib\VC10\xerces-c_2D.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\Build\Win\VC10\Win32\Debug DLL\JDFToolsDLLd.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\..\..\Build\Win\VC10\Win32\Release DLL\JDFToolsDLL.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="..\..\..\Build\Win\VC10\x64\Debug DLL\JDFToolsDLLD.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+    <Library Include="..\..\..\Build\Win\VC10\x64\Debug DLL\JDFToolsDLLd.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
     </Library>
     <Library Include="..\..\..\Build\Win\VC10\x64\Release DLL\JDFToolsDLL.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="..\..\..\external\libpng\projects\vstudio\Win32_LIB_Release\libpng.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    <Library Include="..\..\..\external\xerces3\lib\VC10\Win32\Debug\xerces-c_3D.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\external\libpng\projects\vstudio\Win64_LIB_Release\libpng.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\external\xerces3\lib\VC10\x64_86\xerces-c_3.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\external\xerces3\lib\VC10\x86\xerces-c_3.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="..\..\..\external\zlib\projects\visualc10\Win32_LIB_Release\zlib.lib">
+    <Library Include="..\..\..\external\xerces3\lib\VC10\Win32\Release\xerces-c_3.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="..\..\..\external\zlib\projects\visualc10\Win64_LIB_Release\zlib.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\external\xerces3\lib\VC10\x64\Release\xerces-c_3.lib">
+      <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="..\..\..\external\xerces3\lib\VC10\x64\Debug\xerces-c_3D.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug DLL|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release DLL|Win32'">true</ExcludedFromBuild>
     </Library>
   </ItemGroup>
   <ItemGroup>
