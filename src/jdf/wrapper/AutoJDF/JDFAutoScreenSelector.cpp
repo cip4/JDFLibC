@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoScreenSelector.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -116,7 +118,7 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoScreenSelector::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Angle,AngleMap,DotSize,Frequency,ObjectTags,ScreeningFamily,ScreeningType,Separation,SourceFrequency,SourceObjects,SpotFunction");
+		return JDFElement::OptionalAttributes()+WString(L",Separation,SourceObjects,Angle,AngleMap,DotSize,Frequency,ObjectTags,ScreeningFamily,ScreeningType,SourceFrequency,SpotFunction");
 };
 
 /**
@@ -127,6 +129,16 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidSeparation(level)) {
+			vAtts.push_back(atr_Separation);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSourceObjects(level)) {
+			vAtts.push_back(atr_SourceObjects);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidAngle(level)) {
 			vAtts.push_back(atr_Angle);
 			if(++n>=nMax)
@@ -162,18 +174,8 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidSeparation(level)) {
-			vAtts.push_back(atr_Separation);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidSourceFrequency(level)) {
 			vAtts.push_back(atr_SourceFrequency);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidSourceObjects(level)) {
-			vAtts.push_back(atr_SourceObjects);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -185,6 +187,66 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute Separation
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoScreenSelector::SetSeparation(const WString& value){
+	SetAttribute(atr_Separation,value);
+};
+/**
+* Get string attribute Separation
+* @return WString the vaue of the attribute ; defaults to All
+*/
+	 WString JDFAutoScreenSelector::GetSeparation() const {
+	return GetAttribute(atr_Separation,WString::emptyStr,L"All");
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoScreenSelector::ValidSeparation(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Separation,AttributeType_string,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoScreenSelector::SourceObjectsString(){
+		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,LineArt,SmoothShades,Text");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoScreenSelector::SourceObjectsString(EnumSourceObjects value){
+		return SourceObjectsString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoScreenSelector::AddSourceObjects( EnumSourceObjects value){
+	return AddEnumerationsAttribute(atr_SourceObjects,value,SourceObjectsString());
+};
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoScreenSelector::RemoveSourceObjects( EnumSourceObjects value){
+	return RemoveEnumerationsAttribute(atr_SourceObjects,value,SourceObjectsString());
+};
+/////////////////////////////////////////////////////////////////////////
+	vint JDFAutoScreenSelector::GetSourceObjects() const {
+	return GetEnumerationsAttribute(atr_SourceObjects,SourceObjectsString(),WString::emptyStr,(unsigned int)SourceObjects_All);
+};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoScreenSelector::SetSourceObjects( EnumSourceObjects value){
+	SetEnumAttribute(atr_SourceObjects,value,SourceObjectsString());
+};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoScreenSelector::SetSourceObjects( const vint& value){
+	SetEnumerationsAttribute(atr_SourceObjects,value,SourceObjectsString());
+};
+/**
+* Typesafe attribute validation of SourceObjects
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoScreenSelector::ValidSourceObjects(EnumValidationLevel level) const {
+		return ValidEnumerationsAttribute(atr_SourceObjects,SourceObjectsString(),false);
+	};
 /**
 * Set attribute Angle
 *@param double value: the value to set the attribute to
@@ -319,24 +381,6 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 		return ValidEnumAttribute(atr_ScreeningType,ScreeningTypeString(),false);
 	};
 /**
-* Set attribute Separation
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoScreenSelector::SetSeparation(const WString& value){
-	SetAttribute(atr_Separation,value);
-};
-/**
-* Get string attribute Separation
-* @return WString the vaue of the attribute ; defaults to All
-*/
-	 WString JDFAutoScreenSelector::GetSeparation() const {
-	return GetAttribute(atr_Separation,WString::emptyStr,L"All");
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoScreenSelector::ValidSeparation(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Separation,AttributeType_string,false);
-	};
-/**
 * Set attribute SourceFrequency
 *@param NumberRange value: the value to set the attribute to
 */
@@ -353,48 +397,6 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoScreenSelector::ValidSourceFrequency(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SourceFrequency,AttributeType_Any,false);
-	};
-///////////////////////////////////////////////////////////////////////
-
-	const WString& JDFAutoScreenSelector::SourceObjectsString(){
-		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,Text,LineArt,SmoothShades");
-		return enums;
-	};
-
-///////////////////////////////////////////////////////////////////////
-
-	WString JDFAutoScreenSelector::SourceObjectsString(EnumSourceObjects value){
-		return SourceObjectsString().Token(value,WString::comma);
-	};
-
-/////////////////////////////////////////////////////////////////////////
-	vint JDFAutoScreenSelector::AddSourceObjects( EnumSourceObjects value){
-	return AddEnumerationsAttribute(atr_SourceObjects,value,SourceObjectsString());
-};
-/////////////////////////////////////////////////////////////////////////
-	vint JDFAutoScreenSelector::RemoveSourceObjects( EnumSourceObjects value){
-	return RemoveEnumerationsAttribute(atr_SourceObjects,value,SourceObjectsString());
-};
-/////////////////////////////////////////////////////////////////////////
-	vint JDFAutoScreenSelector::GetSourceObjects() const {
-	return GetEnumerationsAttribute(atr_SourceObjects,SourceObjectsString(),WString::emptyStr,(unsigned int)SourceObjects_All);
-};
-/////////////////////////////////////////////////////////////////////////
-	void JDFAutoScreenSelector::SetSourceObjects( EnumSourceObjects value){
-	SetEnumAttribute(atr_SourceObjects,value,SourceObjectsString());
-};
-/////////////////////////////////////////////////////////////////////////
-	void JDFAutoScreenSelector::SetSourceObjects( const vint& value){
-	SetEnumerationsAttribute(atr_SourceObjects,value,SourceObjectsString());
-};
-/**
-* Typesafe attribute validation of SourceObjects
-* @param EnumValidationLevel level element validation level 
-* @return bool true if valid
-*/
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoScreenSelector::ValidSourceObjects(EnumValidationLevel level) const {
-		return ValidEnumerationsAttribute(atr_SourceObjects,SourceObjectsString(),false);
 	};
 /**
 * Set attribute SpotFunction
@@ -413,5 +415,66 @@ JDFAutoScreenSelector& JDFAutoScreenSelector::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoScreenSelector::ValidSpotFunction(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SpotFunction,AttributeType_NMTOKEN,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoScreenSelector::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoScreenSelector::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoScreenSelector::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoScreenSelector::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoScreenSelector::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoScreenSelector::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

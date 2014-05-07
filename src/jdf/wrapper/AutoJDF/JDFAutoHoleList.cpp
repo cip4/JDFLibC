@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,7 +76,7 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoHoleList.h"
 #include "jdf/wrapper/JDFHole.h"
-#include "jdf/wrapper/JDFHoleLine.h"
+#include "jdf/wrapper/JDFHoleList.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -168,27 +168,27 @@ JDFRefElement JDFAutoHoleList::RefHole(JDFHole& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFHoleLine JDFAutoHoleList::GetHoleLine(int iSkip)const{
-	JDFHoleLine e=GetElement(elm_HoleLine,WString::emptyStr,iSkip);
+JDFHoleList JDFAutoHoleList::GetHoleLine(int iSkip)const{
+	JDFHoleList e=GetElement(elm_HoleLine,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFHoleLine JDFAutoHoleList::GetCreateHoleLine(int iSkip){
-	JDFHoleLine e=GetCreateElement(elm_HoleLine,WString::emptyStr,iSkip);
+JDFHoleList JDFAutoHoleList::GetCreateHoleLine(int iSkip){
+	JDFHoleList e=GetCreateElement(elm_HoleLine,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFHoleLine JDFAutoHoleList::AppendHoleLine(){
-	JDFHoleLine e=AppendElement(elm_HoleLine);
+JDFHoleList JDFAutoHoleList::AppendHoleLine(){
+	JDFHoleList e=AppendElement(elm_HoleLine);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoHoleList::RefHoleLine(JDFHoleLine& refTarget){
+JDFRefElement JDFAutoHoleList::RefHoleLine(JDFHoleList& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -204,6 +204,11 @@ JDFRefElement JDFAutoHoleList::RefHoleLine(JDFHoleLine& refTarget){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_Hole);
+		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
+		vElem.AppendUnique(elm_Hole);
+			if (++n>=nMax)
+			return vElem;
+		}
 
 		for(i=0;i<nElem;i++){
 			if (!GetHole(i).IsValid(level)) {
@@ -214,6 +219,11 @@ JDFRefElement JDFAutoHoleList::RefHoleLine(JDFHoleLine& refTarget){
 			}
 		}
 		nElem=NumChildElements(elm_HoleLine);
+		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
+		vElem.AppendUnique(elm_HoleLine);
+			if (++n>=nMax)
+			return vElem;
+		}
 
 		for(i=0;i<nElem;i++){
 			if (!GetHoleLine(i).IsValid(level)) {
@@ -228,9 +238,9 @@ JDFRefElement JDFAutoHoleList::RefHoleLine(JDFHoleLine& refTarget){
 
 
 /**
- definition of optional elements in the JDF namespace
+ definition of required elements in the JDF namespace
 */
-	WString JDFAutoHoleList::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Hole,HoleLine";
+	WString JDFAutoHoleList::RequiredElements()const{
+		return JDFResource::RequiredElements()+L",Hole,HoleLine";
 	};
 }; // end namespace JDF

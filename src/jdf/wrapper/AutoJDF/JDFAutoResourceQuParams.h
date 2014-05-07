@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -169,6 +169,11 @@ public:
 
 	enum EnumClasses{Classes_Unknown,Classes_Consumable,Classes_Handling,Classes_Implementation,Classes_Intent,Classes_Parameter,Classes_PlaceHolder,Classes_Quantity};
 /**
+* Enumeration for attribute Context
+*/
+
+	enum EnumContext{Context_Unknown,Context_Job,Context_Global};
+/**
 * Enumeration for attribute LotDetails
 */
 
@@ -235,6 +240,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidClasses(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for Context
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ContextString();
+/**
+* Enumeration string for enum value
+* @param EnumContext value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ContextString(EnumContext value);
+/**
+* Set attribute Context
+* @param EnumContext value the value to set the attribute to
+*/
+	virtual void SetContext( EnumContext value);
+
+/**
+* Typesafe enumerated attribute Context
+* @return EnumContextthe enumeration value of the attribute
+*/
+	virtual EnumContext GetContext() const;
+
+/**
+* Typesafe attribute validation of Context
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidContext(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Exact
 *@param bool value: the value to set the attribute to

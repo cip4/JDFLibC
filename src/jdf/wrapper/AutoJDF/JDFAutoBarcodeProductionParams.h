@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -187,12 +187,6 @@ public:
 * Append element BarcodeReproParams
  */
 	JDFBarcodeReproParams AppendBarcodeReproParams();
-/**
-* create inter-resource link to refTarget
-* @param JDFBarcodeReproParams& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefBarcodeReproParams(JDFBarcodeReproParams& refTarget);
 
 /** Get Element IdentificationField
 * 

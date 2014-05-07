@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -292,12 +292,6 @@ public:
  * 
 */
 	JDFDeviceMark AppendDeviceMark();
-/**
-* create inter-resource link to refTarget
-* @param JDFDeviceMark& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefDeviceMark(JDFDeviceMark& refTarget);
 
 /**
  definition of unique elements in the JDF namespace

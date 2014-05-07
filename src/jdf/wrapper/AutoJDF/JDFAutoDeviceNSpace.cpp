@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,11 +76,12 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoDeviceNSpace.h"
 #include "jdf/wrapper/JDFSeparationSpec.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoDeviceNSpace : public JDFResource
+class JDFAutoDeviceNSpace : public JDFElement
 
 *********************************************************************
 */
@@ -108,17 +109,6 @@ JDFAutoDeviceNSpace& JDFAutoDeviceNSpace::operator=(const KElement& other){
 	return L"*:,DeviceNSpace";
 };
 
-bool JDFAutoDeviceNSpace::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoDeviceNSpace::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -129,21 +119,21 @@ bool JDFAutoDeviceNSpace::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoDeviceNSpace::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",N";
+		return JDFElement::RequiredAttributes()+L",N";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDeviceNSpace::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Name");
+		return JDFElement::OptionalAttributes()+WString(L",Name");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoDeviceNSpace::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -222,13 +212,38 @@ JDFSeparationSpec JDFAutoDeviceNSpace::AppendSeparationSpec(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFQualityControlResult JDFAutoDeviceNSpace::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoDeviceNSpace::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoDeviceNSpace::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoDeviceNSpace::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
 	vWString JDFAutoDeviceNSpace::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
@@ -242,6 +257,16 @@ JDFSeparationSpec JDFAutoDeviceNSpace::AppendSeparationSpec(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -250,6 +275,6 @@ JDFSeparationSpec JDFAutoDeviceNSpace::AppendSeparationSpec(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoDeviceNSpace::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",SeparationSpec";
+		return JDFElement::OptionalElements()+L",SeparationSpec,QualityControlResult";
 	};
 }; // end namespace JDF

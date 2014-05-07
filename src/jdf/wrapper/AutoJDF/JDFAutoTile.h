@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -182,6 +182,12 @@ virtual bool init();
  * definition of required attributes in the JDF namespace
 */
 	virtual WString RequiredAttributes()const;
+
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
 /**
 * Set attribute ClipBox
 *@param JDFRectangle value: the value to set the attribute to
@@ -214,6 +220,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidCTM(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TrimBox
+*@param JDFRectangle value: the value to set the attribute to
+*/
+	virtual void SetTrimBox(const JDFRectangle& value);
+/**
+* Get string attribute TrimBox
+* @return JDFRectangle the vaue of the attribute 
+*/
+	virtual JDFRectangle GetTrimBox() const;
+/**
+* Typesafe attribute validation of TrimBox
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTrimBox(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

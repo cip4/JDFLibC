@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,7 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFActivity;
 class JDFCostCenter;
 class JDFNode;
 class JDFMISDetails;
@@ -407,6 +408,22 @@ public:
 */
 	virtual bool ValidSpeed(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute SpawnID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSpawnID(const WString& value);
+/**
+* Get string attribute SpawnID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetSpawnID() const;
+/**
+* Typesafe attribute validation of SpawnID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSpawnID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute StartTime
 *@param JDFDate value: the value to set the attribute to
 */
@@ -509,6 +526,24 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Activity
+* 
+* @param int iSkip number of elements to skip
+* @return JDFActivity The element
+*/
+	JDFActivity GetCreateActivity(int iSkip=0);
+
+/**
+* const get element Activity
+* @param int iSkip number of elements to skip
+* @return JDFActivity The element
+*/
+	JDFActivity GetActivity(int iSkip=0)const;
+/**
+* Append element Activity
+ */
+	JDFActivity AppendActivity();
 
 /** Get Element CostCenter
 * 

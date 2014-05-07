@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -131,7 +131,7 @@ bool JDFAutoCuttingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCuttingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",NUpSeparation");
+		return JDFResource::OptionalAttributes()+WString(L",NUpSeparation,SheetLay");
 };
 
 /**
@@ -144,6 +144,11 @@ bool JDFAutoCuttingParams::init(){
 			return vAtts;
 		if(!ValidNUpSeparation(level)) {
 			vAtts.push_back(atr_NUpSeparation);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSheetLay(level)) {
+			vAtts.push_back(atr_SheetLay);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -167,6 +172,31 @@ bool JDFAutoCuttingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoCuttingParams::ValidNUpSeparation(EnumValidationLevel level) const {
 		return ValidAttribute(atr_NUpSeparation,AttributeType_XYPair,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoCuttingParams::SheetLayString(){
+		static const WString enums=WString(L"Unknown,Left,Right");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoCuttingParams::SheetLayString(EnumSheetLay value){
+		return SheetLayString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoCuttingParams::SetSheetLay( EnumSheetLay value){
+	SetEnumAttribute(atr_SheetLay,value,SheetLayString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoCuttingParams::EnumSheetLay JDFAutoCuttingParams:: GetSheetLay() const {
+	return (EnumSheetLay) GetEnumAttribute(atr_SheetLay,SheetLayString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCuttingParams::ValidSheetLay(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_SheetLay,SheetLayString(),false);
 	};
 
 /* ******************************************************

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoQueueEntryPriParams.h"
+#include "jdf/wrapper/JDFQueueFilter.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -116,7 +118,14 @@ JDFAutoQueueEntryPriParams& JDFAutoQueueEntryPriParams::operator=(const KElement
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoQueueEntryPriParams::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",Priority,QueueEntryID";
+		return JDFElement::RequiredAttributes()+L",Priority";
+};
+
+/**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoQueueEntryPriParams::OptionalAttributes()const{
+		return JDFElement::OptionalAttributes()+WString(L",QueueEntryID");
 };
 
 /**
@@ -174,6 +183,71 @@ JDFAutoQueueEntryPriParams& JDFAutoQueueEntryPriParams::operator=(const KElement
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoQueueEntryPriParams::ValidQueueEntryID(EnumValidationLevel level) const {
-		return ValidAttribute(atr_QueueEntryID,AttributeType_shortString,RequiredLevel(level));
+		return ValidAttribute(atr_QueueEntryID,AttributeType_shortString,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQueueFilter JDFAutoQueueEntryPriParams::GetQueueFilter()const{
+	JDFQueueFilter e=GetElement(elm_QueueFilter);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQueueFilter JDFAutoQueueEntryPriParams::GetCreateQueueFilter(){
+	JDFQueueFilter e=GetCreateElement(elm_QueueFilter);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQueueFilter JDFAutoQueueEntryPriParams::AppendQueueFilter(){
+	JDFQueueFilter e=AppendElementN(elm_QueueFilter,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoQueueEntryPriParams::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QueueFilter);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_QueueFilter);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetQueueFilter().IsValid(level)) {
+				vElem.AppendUnique(elm_QueueFilter);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoQueueEntryPriParams::UniqueElements()const{
+		return JDFElement::UniqueElements()+L",QueueFilter";
+	};
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoQueueEntryPriParams::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QueueFilter";
 	};
 }; // end namespace JDF

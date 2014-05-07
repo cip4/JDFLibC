@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -80,14 +80,15 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFAddress;
 class JDFComChannel;
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoPerson : public JDFResource
+class JDFAutoPerson : public JDFElement
 
 *********************************************************************
 */
@@ -97,7 +98,7 @@ class JDFAutoPerson : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFPerson should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoPerson : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoPerson : public JDFElement{
 public:
 
 
@@ -108,11 +109,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoPerson():JDFResource(){};
+	inline JDFAutoPerson():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoPerson(const KElement & other):JDFResource(){
+	inline JDFAutoPerson(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -163,18 +164,6 @@ public:
 /* ******************************************************
 // Attribute Getter / Setter
 ****************************************************** */
-
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
 
 
 /**
@@ -294,6 +283,38 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidNameSuffix(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PhoneticFirstName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPhoneticFirstName(const WString& value);
+/**
+* Get string attribute PhoneticFirstName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPhoneticFirstName() const;
+/**
+* Typesafe attribute validation of PhoneticFirstName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPhoneticFirstName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PhoneticLastName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPhoneticLastName(const WString& value);
+/**
+* Get string attribute PhoneticLastName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPhoneticLastName() const;
+/**
+* Typesafe attribute validation of PhoneticLastName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPhoneticLastName(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -302,26 +323,21 @@ virtual bool init();
 
 /** Get Element Address
 * 
+* @param int iSkip number of elements to skip
 * @return JDFAddress The element
 */
-	JDFAddress GetCreateAddress();
+	JDFAddress GetCreateAddress(int iSkip=0);
 
 /**
 * const get element Address
-*@return  JDFAddress The element
+* @param int iSkip number of elements to skip
+* @return JDFAddress The element
 */
-	JDFAddress GetAddress()const;
+	JDFAddress GetAddress(int iSkip=0)const;
 /**
 * Append element Address
- * 
-*/
+ */
 	JDFAddress AppendAddress();
-/**
-* create inter-resource link to refTarget
-* @param JDFAddress& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefAddress(JDFAddress& refTarget);
 
 /** Get Element ComChannel
 * 
@@ -340,17 +356,30 @@ virtual bool init();
 * Append element ComChannel
  */
 	JDFComChannel AppendComChannel();
-/**
-* create inter-resource link to refTarget
-* @param JDFComChannel& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
 */
-	JDFRefElement RefComChannel(JDFComChannel& refTarget);
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
 
 /**
- definition of unique elements in the JDF namespace
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
 */
-	virtual WString UniqueElements()const;
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

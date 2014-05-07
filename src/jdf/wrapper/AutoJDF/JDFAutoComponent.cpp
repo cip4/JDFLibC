@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -142,7 +142,8 @@ bool JDFAutoComponent::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoComponent::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",AssemblyIDs,CartonTopFlaps,Dimensions,IsWaste,MaxHeat,Overfold,OverfoldSide,PageListIndex,ProductType,ProductTypeDetails,ReaderPageCount,SheetPart,SourceRibbon,SourceSheet,SourceWeb,SpineThickness,SurfaceCount,Transformation");
+		return JDFResource::OptionalAttributes()+WString(L",AssemblyIDs,Automation,CartonTopFlaps,Columns,Dimensions,IsWaste,MaxHeat,Overfold,OverfoldSide,PageListIndex,ProductType,ProductTypeDetails,ReaderPageCount,SheetPart,SourceRibbon,SourceSheet,SourceWeb,SpineThickness,SurfaceCount")
+	+WString(L",Transformation,WindingResult");
 };
 
 /**
@@ -163,8 +164,18 @@ bool JDFAutoComponent::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidAutomation(level)) {
+			vAtts.push_back(atr_Automation);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidCartonTopFlaps(level)) {
 			vAtts.push_back(atr_CartonTopFlaps);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidColumns(level)) {
+			vAtts.push_back(atr_Columns);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -248,6 +259,11 @@ bool JDFAutoComponent::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidWindingResult(level)) {
+			vAtts.push_back(atr_WindingResult);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
@@ -311,6 +327,31 @@ bool JDFAutoComponent::init(){
 	bool JDFAutoComponent::ValidAssemblyIDs(EnumValidationLevel level) const {
 		return ValidAttribute(atr_AssemblyIDs,AttributeType_NMTOKENS,false);
 	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoComponent::AutomationString(){
+		static const WString enums=WString(L"Unknown,Static,Dynamic");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoComponent::AutomationString(EnumAutomation value){
+		return AutomationString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoComponent::SetAutomation( EnumAutomation value){
+	SetEnumAttribute(atr_Automation,value,AutomationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoComponent::EnumAutomation JDFAutoComponent:: GetAutomation() const {
+	return (EnumAutomation) GetEnumAttribute(atr_Automation,AutomationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoComponent::ValidAutomation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Automation,AutomationString(),false);
+	};
 /**
 * Set attribute CartonTopFlaps
 *@param JDFXYPair value: the value to set the attribute to
@@ -328,6 +369,24 @@ bool JDFAutoComponent::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoComponent::ValidCartonTopFlaps(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CartonTopFlaps,AttributeType_XYPair,false);
+	};
+/**
+* Set attribute Columns
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoComponent::SetColumns(int value){
+	SetAttribute(atr_Columns,WString::valueOf(value));
+};
+/**
+* Get integer attribute Columns
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoComponent::GetColumns() const {
+	return GetIntAttribute(atr_Columns,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoComponent::ValidColumns(EnumValidationLevel level) const {
+		return ValidAttribute(atr_Columns,AttributeType_integer,false);
 	};
 /**
 * Set attribute Dimensions
@@ -615,6 +674,24 @@ bool JDFAutoComponent::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoComponent::ValidTransformation(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Transformation,AttributeType_matrix,false);
+	};
+/**
+* Set attribute WindingResult
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoComponent::SetWindingResult(int value){
+	SetAttribute(atr_WindingResult,WString::valueOf(value));
+};
+/**
+* Get integer attribute WindingResult
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoComponent::GetWindingResult() const {
+	return GetIntAttribute(atr_WindingResult,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoComponent::ValidWindingResult(EnumValidationLevel level) const {
+		return ValidAttribute(atr_WindingResult,AttributeType_integer,false);
 	};
 
 /* ******************************************************

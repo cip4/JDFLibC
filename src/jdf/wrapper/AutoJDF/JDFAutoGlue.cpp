@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,10 +116,10 @@ JDFAutoGlue& JDFAutoGlue::operator=(const KElement& other){
 
 
 /**
- definition of required attributes in the JDF namespace
+ definition of optional attributes in the JDF namespace
 */
-	WString JDFAutoGlue::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",WorkingDirection";
+	WString JDFAutoGlue::OptionalAttributes()const{
+		return JDFElement::OptionalAttributes()+WString(L",WorkingDirection");
 };
 
 /**
@@ -161,7 +161,7 @@ JDFAutoGlue& JDFAutoGlue::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoGlue::ValidWorkingDirection(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_WorkingDirection,WorkingDirectionString(),RequiredLevel(level));
+		return ValidEnumAttribute(atr_WorkingDirection,WorkingDirectionString(),false);
 	};
 
 /* ******************************************************
@@ -211,11 +211,6 @@ JDFGlueLine JDFAutoGlue::AppendGlueLine(){
 	JDFGlueLine e=AppendElement(elm_GlueLine);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoGlue::RefGlueLine(JDFGlueLine& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

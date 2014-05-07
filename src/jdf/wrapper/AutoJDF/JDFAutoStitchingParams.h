@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -184,6 +184,11 @@ virtual bool init();
 */
 
 	enum EnumStitchType{StitchType_Unknown,StitchType_Saddle,StitchType_Side,StitchType_Corner};
+/**
+* Enumeration for attribute TightBacking
+*/
+
+	enum EnumTightBacking{TightBacking_Unknown,TightBacking_Flat,TightBacking_Pressure};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -402,6 +407,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidStitchWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for TightBacking
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& TightBackingString();
+/**
+* Enumeration string for enum value
+* @param EnumTightBacking value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString TightBackingString(EnumTightBacking value);
+/**
+* Set attribute TightBacking
+* @param EnumTightBacking value the value to set the attribute to
+*/
+	virtual void SetTightBacking( EnumTightBacking value);
+
+/**
+* Typesafe enumerated attribute TightBacking
+* @return EnumTightBackingthe enumeration value of the attribute
+*/
+	virtual EnumTightBacking GetTightBacking() const;
+
+/**
+* Typesafe attribute validation of TightBacking
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidTightBacking(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute WireGauge
 *@param double value: the value to set the attribute to

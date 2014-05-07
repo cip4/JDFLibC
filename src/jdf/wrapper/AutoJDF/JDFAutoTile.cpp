@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -135,6 +135,13 @@ bool JDFAutoTile::init(){
 };
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoTile::OptionalAttributes()const{
+		return JDFResource::OptionalAttributes()+WString(L",TrimBox");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoTile::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -149,6 +156,11 @@ bool JDFAutoTile::init(){
 		};
 		if(!ValidCTM(level)) {
 			vAtts.push_back(atr_CTM);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTrimBox(level)) {
+			vAtts.push_back(atr_TrimBox);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -190,6 +202,24 @@ bool JDFAutoTile::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoTile::ValidCTM(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CTM,AttributeType_matrix,RequiredLevel(level));
+	};
+/**
+* Set attribute TrimBox
+*@param JDFRectangle value: the value to set the attribute to
+*/
+	 void JDFAutoTile::SetTrimBox(const JDFRectangle& value){
+	SetAttribute(atr_TrimBox,value);
+};
+/**
+* Get string attribute TrimBox
+* @return JDFRectangle the vaue of the attribute 
+*/
+	 JDFRectangle JDFAutoTile::GetTrimBox() const {
+	return GetAttribute(atr_TrimBox,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoTile::ValidTrimBox(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TrimBox,AttributeType_rectangle,false);
 	};
 
 /* ******************************************************

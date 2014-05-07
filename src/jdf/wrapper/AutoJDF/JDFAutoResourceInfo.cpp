@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -122,7 +122,7 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoResourceInfo::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",ActualAmount,Amount,AvailableAmount,CommandResult,Level,Location,LotControlled,ModuleID,ModuleIndex,ProcessUsage,ProductID,ResourceID,ResourceName,Status,Unit,Usage");
+		return JDFElement::OptionalAttributes()+WString(L",ActualAmount,Amount,AvailableAmount,CommandResult,DeviceID,Level,Location,LotControlled,ModuleID,ModuleIndex,Orientation,ProcessUsage,ProductID,ResourceID,ResourceName,Status,Unit,Usage");
 };
 
 /**
@@ -153,6 +153,11 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidDeviceID(level)) {
+			vAtts.push_back(atr_DeviceID);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidLevel(level)) {
 			vAtts.push_back(atr_Level);
 			if(++n>=nMax)
@@ -175,6 +180,11 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 		};
 		if(!ValidModuleIndex(level)) {
 			vAtts.push_back(atr_ModuleIndex);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidOrientation(level)) {
+			vAtts.push_back(atr_Orientation);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -295,6 +305,24 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 	bool JDFAutoResourceInfo::ValidCommandResult(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_CommandResult,CommandResultString(),false);
 	};
+/**
+* Set attribute DeviceID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoResourceInfo::SetDeviceID(const WString& value){
+	SetAttribute(atr_DeviceID,value);
+};
+/**
+* Get string attribute DeviceID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoResourceInfo::GetDeviceID() const {
+	return GetAttribute(atr_DeviceID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceInfo::ValidDeviceID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_DeviceID,AttributeType_string,false);
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoResourceInfo::LevelString(){
@@ -390,6 +418,18 @@ JDFAutoResourceInfo& JDFAutoResourceInfo::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoResourceInfo::ValidModuleIndex(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ModuleIndex,AttributeType_IntegerRangeList,false);
+	};
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoResourceInfo::SetOrientation( EnumOrientation value){
+	SetEnumAttribute(atr_Orientation,value,OrientationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoResourceInfo::EnumOrientation JDFAutoResourceInfo:: GetOrientation() const {
+	return (EnumOrientation) GetEnumAttribute(atr_Orientation,OrientationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceInfo::ValidOrientation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Orientation,OrientationString(),false);
 	};
 /**
 * Set attribute ProcessUsage

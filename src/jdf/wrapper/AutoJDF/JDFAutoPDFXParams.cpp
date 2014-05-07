@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,7 +116,7 @@ JDFAutoPDFXParams& JDFAutoPDFXParams::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPDFXParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",PDFX1aCheck,PDFX3Check,PDFXBleedBoxToTrimBoxOffset,PDFXCompliantPDFOnly,PDFXOutputCondition,PDFXOutputIntentProfile,PDFXNoTrimBoxError,PDFXRegistryName,PDFXSetBleedBoxToMediaBox,PDFXTrapped,PDFXTrimBoxToMediaBoxOffset");
+		return JDFElement::OptionalAttributes()+WString(L",PDFXCheck,PDFX1aCheck,PDFX3Check,PDFXBleedBoxToTrimBoxOffset,PDFXCompliantPDFOnly,PDFXOutputCondition,PDFXOutputIntentProfile,PDFXNoTrimBoxError,PDFXRegistryName,PDFXSetBleedBoxToMediaBox,PDFXTrapped,PDFXTrimBoxToMediaBoxOffset");
 };
 
 /**
@@ -127,6 +127,11 @@ JDFAutoPDFXParams& JDFAutoPDFXParams::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidPDFXCheck(level)) {
+			vAtts.push_back(atr_PDFXCheck);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidPDFX1aCheck(level)) {
 			vAtts.push_back(atr_PDFX1aCheck);
 			if(++n>=nMax)
@@ -185,6 +190,24 @@ JDFAutoPDFXParams& JDFAutoPDFXParams::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute PDFXCheck
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPDFXParams::SetPDFXCheck(const WString& value){
+	SetAttribute(atr_PDFXCheck,value);
+};
+/**
+* Get string attribute PDFXCheck
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPDFXParams::GetPDFXCheck() const {
+	return GetAttribute(atr_PDFXCheck,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPDFXParams::ValidPDFXCheck(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PDFXCheck,AttributeType_NMTOKEN,false);
+	};
 /**
 * Set attribute PDFX1aCheck
 *@param bool value: the value to set the attribute to

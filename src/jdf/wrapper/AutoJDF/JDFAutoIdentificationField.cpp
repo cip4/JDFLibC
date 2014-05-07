@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoIdentificationField.h"
 #include "jdf/wrapper/JDFBarcodeDetails.h"
 #include "jdf/wrapper/JDFExtraValues.h"
+#include "jdf/wrapper/JDFMetadataMap.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -495,6 +496,26 @@ JDFExtraValues JDFAutoIdentificationField::AppendExtraValues(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFMetadataMap JDFAutoIdentificationField::GetMetadataMap(int iSkip)const{
+	JDFMetadataMap e=GetElement(elm_MetadataMap,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMetadataMap JDFAutoIdentificationField::GetCreateMetadataMap(int iSkip){
+	JDFMetadataMap e=GetCreateElement(elm_MetadataMap,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMetadataMap JDFAutoIdentificationField::AppendMetadataMap(){
+	JDFMetadataMap e=AppendElement(elm_MetadataMap);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -529,6 +550,16 @@ JDFExtraValues JDFAutoIdentificationField::AppendExtraValues(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_MetadataMap);
+
+		for(i=0;i<nElem;i++){
+			if (!GetMetadataMap(i).IsValid(level)) {
+				vElem.AppendUnique(elm_MetadataMap);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -544,6 +575,6 @@ JDFExtraValues JDFAutoIdentificationField::AppendExtraValues(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoIdentificationField::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",BarcodeDetails,ExtraValues";
+		return JDFResource::OptionalElements()+L",BarcodeDetails,ExtraValues,MetadataMap";
 	};
 }; // end namespace JDF

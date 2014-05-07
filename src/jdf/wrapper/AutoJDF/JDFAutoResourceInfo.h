@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -267,6 +267,22 @@ public:
 */
 	virtual bool ValidCommandResult(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute DeviceID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDeviceID(const WString& value);
+/**
+* Get string attribute DeviceID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDeviceID() const;
+/**
+* Typesafe attribute validation of DeviceID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeviceID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for Level
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -359,6 +375,24 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidModuleIndex(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Orientation
+* @param EnumOrientation value the value to set the attribute to
+*/
+	virtual void SetOrientation( EnumOrientation value);
+
+/**
+* Typesafe enumerated attribute Orientation
+* @return EnumOrientationthe enumeration value of the attribute
+*/
+	virtual EnumOrientation GetOrientation() const;
+
+/**
+* Typesafe attribute validation of Orientation
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidOrientation(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ProcessUsage
 *@param WString value: the value to set the attribute to

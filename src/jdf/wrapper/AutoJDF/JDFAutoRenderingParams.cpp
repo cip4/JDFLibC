@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -78,6 +78,7 @@
 #include "jdf/wrapper/JDFAutomatedOverPrintParams.h"
 #include "jdf/wrapper/JDFObjectResolution.h"
 #include "jdf/wrapper/JDFMedia.h"
+#include "jdf/wrapper/JDFTIFFFormatParams.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -128,6 +129,13 @@ bool JDFAutoRenderingParams::init(){
 
 
 /**
+ definition of required attributes in the JDF namespace
+*/
+	WString JDFAutoRenderingParams::RequiredAttributes()const{
+		return JDFResource::RequiredAttributes()+L",MimeType";
+};
+
+/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoRenderingParams::OptionalAttributes()const{
@@ -142,6 +150,11 @@ bool JDFAutoRenderingParams::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidMimeType(level)) {
+			vAtts.push_back(atr_MimeType);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidBandHeight(level)) {
 			vAtts.push_back(atr_BandHeight);
 			if(++n>=nMax)
@@ -170,6 +183,24 @@ bool JDFAutoRenderingParams::init(){
 		return vAtts;
 	};
 
+/**
+* Set attribute MimeType
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoRenderingParams::SetMimeType(const WString& value){
+	SetAttribute(atr_MimeType,value);
+};
+/**
+* Get string attribute MimeType
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoRenderingParams::GetMimeType() const {
+	return GetAttribute(atr_MimeType,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRenderingParams::ValidMimeType(EnumValidationLevel level) const {
+		return ValidAttribute(atr_MimeType,AttributeType_string,RequiredLevel(level));
+	};
 /**
 * Set attribute BandHeight
 *@param int value: the value to set the attribute to
@@ -291,11 +322,6 @@ JDFAutomatedOverPrintParams JDFAutoRenderingParams::AppendAutomatedOverPrintPara
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoRenderingParams::RefAutomatedOverPrintParams(JDFAutomatedOverPrintParams& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFObjectResolution JDFAutoRenderingParams::GetObjectResolution(int iSkip)const{
 	JDFObjectResolution e=GetElement(elm_ObjectResolution,WString::emptyStr,iSkip);
@@ -314,11 +340,6 @@ JDFObjectResolution JDFAutoRenderingParams::AppendObjectResolution(){
 	JDFObjectResolution e=AppendElement(elm_ObjectResolution);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoRenderingParams::RefObjectResolution(JDFObjectResolution& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -344,6 +365,26 @@ JDFMedia JDFAutoRenderingParams::AppendMedia(){
 // element resource linking 
 JDFRefElement JDFAutoRenderingParams::RefMedia(JDFMedia& refTarget){
 	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTIFFFormatParams JDFAutoRenderingParams::GetTIFFFormatParams()const{
+	JDFTIFFFormatParams e=GetElement(elm_TIFFFormatParams);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTIFFFormatParams JDFAutoRenderingParams::GetCreateTIFFFormatParams(){
+	JDFTIFFFormatParams e=GetCreateElement(elm_TIFFFormatParams);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFTIFFFormatParams JDFAutoRenderingParams::AppendTIFFFormatParams(){
+	JDFTIFFFormatParams e=AppendElementN(elm_TIFFFormatParams,1);
+	e.init();
+	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -391,6 +432,18 @@ JDFRefElement JDFAutoRenderingParams::RefMedia(JDFMedia& refTarget){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_TIFFFormatParams);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_TIFFFormatParams);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetTIFFFormatParams().IsValid(level)) {
+				vElem.AppendUnique(elm_TIFFFormatParams);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		return vElem;
 	};
 
@@ -399,13 +452,13 @@ JDFRefElement JDFAutoRenderingParams::RefMedia(JDFMedia& refTarget){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoRenderingParams::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",AutomatedOverPrintParams,Media";
+		return JDFResource::UniqueElements()+L",AutomatedOverPrintParams,Media,TIFFFormatParams";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoRenderingParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",AutomatedOverPrintParams,ObjectResolution,Media";
+		return JDFResource::OptionalElements()+L",AutomatedOverPrintParams,ObjectResolution,Media,TIFFFormatParams";
 	};
 }; // end namespace JDF

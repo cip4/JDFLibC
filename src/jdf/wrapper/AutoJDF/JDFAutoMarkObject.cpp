@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -81,6 +81,7 @@
 #include "jdf/wrapper/JDFDensityMeasuringField.h"
 #include "jdf/wrapper/JDFDeviceMark.h"
 #include "jdf/wrapper/JDFDynamicField.h"
+#include "jdf/wrapper/JDFFillMark.h"
 #include "jdf/wrapper/JDFIdentificationField.h"
 #include "jdf/wrapper/JDFJobField.h"
 #include "jdf/wrapper/JDFLayoutElement.h"
@@ -137,8 +138,8 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMarkObject::OptionalAttributes()const{
-		return JDFPlacedObject::OptionalAttributes()+WString(L",ContentRef,LayoutElementPageNum,Ord,Anchor,ClipBox,ClipBoxFormat,ClipBoxTemplate,ClipPath,CompensationCTMFormat,CompensationCTMTemplate,HalfTonePhaseOrigin,LayerID,LogicalStackOrd,OrdID,SourceClipPath,TrimClipPath,TrimCTM,TrimSize,Type")
-	+WString(L"");
+		return JDFPlacedObject::OptionalAttributes()+WString(L",ContentRef,LayoutElementPageNum,Ord,Anchor,AssemblyIDs,ClipBox,ClipBoxFormat,ClipBoxTemplate,ClipPath,CompensationCTMFormat,CompensationCTMTemplate,HalfTonePhaseOrigin,LayerID,LogicalStackOrd,OrdID,SourceClipPath,TrimClipPath,TrimCTM,TrimSize")
+	+WString(L",Type");
 };
 
 /**
@@ -166,6 +167,11 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 		};
 		if(!ValidAnchor(level)) {
 			vAtts.push_back(atr_Anchor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidAssemblyIDs(level)) {
+			vAtts.push_back(atr_AssemblyIDs);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -330,6 +336,24 @@ JDFAutoMarkObject& JDFAutoMarkObject::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMarkObject::ValidAnchor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_Anchor,AnchorString(),false);
+	};
+/**
+* Set attribute AssemblyIDs
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoMarkObject::SetAssemblyIDs(const vWString& value){
+	SetAttribute(atr_AssemblyIDs,value);
+};
+/**
+* Get string attribute AssemblyIDs
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoMarkObject::GetAssemblyIDs() const {
+	return GetAttribute(atr_AssemblyIDs,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMarkObject::ValidAssemblyIDs(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AssemblyIDs,AttributeType_NMTOKENS,false);
 	};
 /**
 * Set attribute ClipBox
@@ -651,11 +675,6 @@ JDFCIELABMeasuringField JDFAutoMarkObject::AppendCIELABMeasuringField(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoMarkObject::RefCIELABMeasuringField(JDFCIELABMeasuringField& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFColorControlStrip JDFAutoMarkObject::GetColorControlStrip(int iSkip)const{
 	JDFColorControlStrip e=GetElement(elm_ColorControlStrip,WString::emptyStr,iSkip);
@@ -751,11 +770,6 @@ JDFDeviceMark JDFAutoMarkObject::AppendDeviceMark(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoMarkObject::RefDeviceMark(JDFDeviceMark& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFDynamicField JDFAutoMarkObject::GetDynamicField(int iSkip)const{
 	JDFDynamicField e=GetElement(elm_DynamicField,WString::emptyStr,iSkip);
@@ -772,6 +786,26 @@ JDFDynamicField JDFAutoMarkObject::GetCreateDynamicField(int iSkip){
 
 JDFDynamicField JDFAutoMarkObject::AppendDynamicField(){
 	JDFDynamicField e=AppendElement(elm_DynamicField);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFillMark JDFAutoMarkObject::GetFillMark(int iSkip)const{
+	JDFFillMark e=GetElement(elm_FillMark,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFillMark JDFAutoMarkObject::GetCreateFillMark(int iSkip){
+	JDFFillMark e=GetCreateElement(elm_FillMark,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFillMark JDFAutoMarkObject::AppendFillMark(){
+	JDFFillMark e=AppendElement(elm_FillMark);
 	e.init();
 	return e;
 };
@@ -819,11 +853,6 @@ JDFJobField JDFAutoMarkObject::AppendJobField(){
 	JDFJobField e=AppendElement(elm_JobField);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoMarkObject::RefJobField(JDFJobField& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -889,11 +918,6 @@ JDFRefAnchor JDFAutoMarkObject::AppendRefAnchor(){
 	JDFRefAnchor e=AppendElement(elm_RefAnchor);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoMarkObject::RefRefAnchor(JDFRefAnchor& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -1019,6 +1043,16 @@ JDFRefElement JDFAutoMarkObject::RefScavengerArea(JDFScavengerArea& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_FillMark);
+
+		for(i=0;i<nElem;i++){
+			if (!GetFillMark(i).IsValid(level)) {
+				vElem.AppendUnique(elm_FillMark);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_IdentificationField);
 
 		for(i=0;i<nElem;i++){
@@ -1106,6 +1140,6 @@ JDFRefElement JDFAutoMarkObject::RefScavengerArea(JDFScavengerArea& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMarkObject::OptionalElements()const{
-		return JDFPlacedObject::OptionalElements()+L",CIELABMeasuringField,ColorControlStrip,CutMark,DensityMeasuringField,DeviceMark,DynamicField,IdentificationField,JobField,LayoutElement,MarkActivation,RefAnchor,RegisterMark,ScavengerArea";
+		return JDFPlacedObject::OptionalElements()+L",CIELABMeasuringField,ColorControlStrip,CutMark,DensityMeasuringField,DeviceMark,DynamicField,FillMark,IdentificationField,JobField,LayoutElement,MarkActivation,RefAnchor,RegisterMark,ScavengerArea";
 	};
 }; // end namespace JDF

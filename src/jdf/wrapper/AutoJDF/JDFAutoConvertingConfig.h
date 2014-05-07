@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,8 @@
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFDevice;
+class JDFMedia;
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -164,108 +166,6 @@ public:
 ****************************************************** */
 
 
-/**
- * definition of optional attributes in the JDF namespace
-*/
-	virtual WString OptionalAttributes()const;
-
-/**
-* Set attribute MarginBottom
-*@param double value: the value to set the attribute to
-*/
-	virtual void SetMarginBottom(double value);
-/**
-* Get double attribute MarginBottom
-* @return double the vaue of the attribute 
-*/
-	virtual double GetMarginBottom() const;
-/**
-* Typesafe attribute validation of MarginBottom
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidMarginBottom(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute MarginLeft
-*@param double value: the value to set the attribute to
-*/
-	virtual void SetMarginLeft(double value);
-/**
-* Get double attribute MarginLeft
-* @return double the vaue of the attribute 
-*/
-	virtual double GetMarginLeft() const;
-/**
-* Typesafe attribute validation of MarginLeft
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidMarginLeft(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute MarginRight
-*@param double value: the value to set the attribute to
-*/
-	virtual void SetMarginRight(double value);
-/**
-* Get double attribute MarginRight
-* @return double the vaue of the attribute 
-*/
-	virtual double GetMarginRight() const;
-/**
-* Typesafe attribute validation of MarginRight
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidMarginRight(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute MarginTop
-*@param double value: the value to set the attribute to
-*/
-	virtual void SetMarginTop(double value);
-/**
-* Get double attribute MarginTop
-* @return double the vaue of the attribute 
-*/
-	virtual double GetMarginTop() const;
-/**
-* Typesafe attribute validation of MarginTop
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidMarginTop(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute SheetHeight
-*@param NumberRange value: the value to set the attribute to
-*/
-	virtual void SetSheetHeight(const NumberRange& value);
-/**
-* Get range attribute SheetHeight
-* @return NumberRange the vaue of the attribute 
-*/
-	virtual NumberRange GetSheetHeight() const;
-/**
-* Typesafe attribute validation of SheetHeight
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidSheetHeight(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute SheetWidth
-*@param NumberRange value: the value to set the attribute to
-*/
-	virtual void SetSheetWidth(const NumberRange& value);
-/**
-* Get range attribute SheetWidth
-* @return NumberRange the vaue of the attribute 
-*/
-	virtual NumberRange GetSheetWidth() const;
-/**
-* Typesafe attribute validation of SheetWidth
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidSheetWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
-
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
@@ -294,6 +194,54 @@ public:
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefDevice(JDFDevice& refTarget);
+
+/** Get Element Media
+* 
+* @param int iSkip number of elements to skip
+* @return JDFMedia The element
+*/
+	JDFMedia GetCreateMedia(int iSkip=0);
+
+/**
+* const get element Media
+* @param int iSkip number of elements to skip
+* @return JDFMedia The element
+*/
+	JDFMedia GetMedia(int iSkip=0)const;
+/**
+* Append element Media
+ */
+	JDFMedia AppendMedia();
+/**
+* create inter-resource link to refTarget
+* @param JDFMedia& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefMedia(JDFMedia& refTarget);
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

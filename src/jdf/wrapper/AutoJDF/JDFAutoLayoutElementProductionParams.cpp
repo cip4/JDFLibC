@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,6 +76,7 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLayoutElementProductionParams.h"
 #include "jdf/wrapper/JDFActionPool.h"
+#include "jdf/wrapper/JDFFileSpec.h"
 #include "jdf/wrapper/JDFLayoutElementPart.h"
 #include "jdf/wrapper/JDFShapeDef.h"
 #include "jdf/wrapper/JDFTestPool.h"
@@ -162,6 +163,31 @@ JDFActionPool JDFAutoLayoutElementProductionParams::AppendActionPool(){
 	JDFActionPool e=AppendElementN(elm_ActionPool,1);
 	e.init();
 	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoLayoutElementProductionParams::GetFileSpec()const{
+	JDFFileSpec e=GetElement(elm_FileSpec);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoLayoutElementProductionParams::GetCreateFileSpec(){
+	JDFFileSpec e=GetCreateElement(elm_FileSpec);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoLayoutElementProductionParams::AppendFileSpec(){
+	JDFFileSpec e=AppendElementN(elm_FileSpec,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLayoutElementProductionParams::RefFileSpec(JDFFileSpec& refTarget){
+	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -252,6 +278,18 @@ JDFTestPool JDFAutoLayoutElementProductionParams::AppendTestPool(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_FileSpec);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_FileSpec);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFileSpec().IsValid(level)) {
+				vElem.AppendUnique(elm_FileSpec);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_LayoutElementPart);
 
 		for(i=0;i<nElem;i++){
@@ -294,13 +332,13 @@ JDFTestPool JDFAutoLayoutElementProductionParams::AppendTestPool(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoLayoutElementProductionParams::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",ActionPool,ShapeDef,TestPool";
+		return JDFResource::UniqueElements()+L",ActionPool,FileSpec,ShapeDef,TestPool";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayoutElementProductionParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ActionPool,LayoutElementPart,ShapeDef,TestPool";
+		return JDFResource::OptionalElements()+L",ActionPool,FileSpec,LayoutElementPart,ShapeDef,TestPool";
 	};
 }; // end namespace JDF

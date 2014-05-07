@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -129,7 +129,7 @@ bool JDFAutoBundle::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBundle::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BundleType,FolioCount,ReaderPageCount,TotalAmount");
+		return JDFResource::OptionalAttributes()+WString(L",BundleType,FolioCount,ReaderPageCount,SheetCount,TotalAmount");
 };
 
 /**
@@ -155,6 +155,11 @@ bool JDFAutoBundle::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidSheetCount(level)) {
+			vAtts.push_back(atr_SheetCount);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidTotalAmount(level)) {
 			vAtts.push_back(atr_TotalAmount);
 			if(++n>=nMax)
@@ -166,8 +171,8 @@ bool JDFAutoBundle::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoBundle::BundleTypeString(){
-		static const WString enums=WString(L"Unknown,BoundSet,Box,Carton,CollectedStack,CompensatedStack,Pallet,Roll,Sheet,Stack")
-	+WString(L",StrappedStack,StrappedCompensatedStack,WrappedBundle");
+		static const WString enums=WString(L"Unknown,BoundSet,Box,Carton,CollectedStack,CompensatedStack,Pallet,Roll,Sheet,SheetStream")
+	+WString(L",Stack,StrappedStack,StrappedCompensatedStack,WrappedBundle");
 		return enums;
 	};
 
@@ -224,6 +229,24 @@ bool JDFAutoBundle::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBundle::ValidReaderPageCount(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ReaderPageCount,AttributeType_integer,false);
+	};
+/**
+* Set attribute SheetCount
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoBundle::SetSheetCount(int value){
+	SetAttribute(atr_SheetCount,WString::valueOf(value));
+};
+/**
+* Get integer attribute SheetCount
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoBundle::GetSheetCount() const {
+	return GetIntAttribute(atr_SheetCount,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBundle::ValidSheetCount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SheetCount,AttributeType_integer,false);
 	};
 /**
 * Set attribute TotalAmount

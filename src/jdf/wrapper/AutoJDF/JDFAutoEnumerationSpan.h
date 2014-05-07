@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -1499,6 +1499,36 @@ public:
 };
 
 ///////////////////////////////////////////////////////////////
+class JDF_WRAPPERCORE_EXPORT JDFSpanISOPaperSubstrate : public JDFEnumerationSpan{
+public:
+/**
+* null ctor
+*/
+	inline JDFSpanISOPaperSubstrate():JDFEnumerationSpan(){};
+/**
+* copy ctor
+*/
+	inline JDFSpanISOPaperSubstrate(const KElement & other):JDFEnumerationSpan(){
+	*this=other;
+};
+/**
+* copy equivalance operator
+*/
+	inline JDFSpanISOPaperSubstrate &operator =(const KElement& other){KElement::operator=(other);if(!IsValid(ValidationLevel_Construct)) throw JDFException(L"Invalid constructor for JDFSpanISOPaperSubstrate: "+other.GetNodeName()); return *this;};
+/**
+* dtor
+*/
+	virtual ~JDFSpanISOPaperSubstrate(){};
+/**
+* enumeration type for ISOPaperSubstrate
+*/
+enum EnumSpanISOPaperSubstrate{SpanISOPaperSubstrate_Unknown,SpanISOPaperSubstrate_PS1,SpanISOPaperSubstrate_PS2,SpanISOPaperSubstrate_PS3,SpanISOPaperSubstrate_PS4,SpanISOPaperSubstrate_PS5,SpanISOPaperSubstrate_PS6,SpanISOPaperSubstrate_PS7,SpanISOPaperSubstrate_PS8};
 
+public:
+/**
+* Returns the list of valid strings
+*/
+	 virtual WString AllowedValues()const;
+};
 }
 #endif //_JDFAutoEnumerationSpan_H_

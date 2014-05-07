@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -253,6 +253,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidOffsetDirection(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute OffsetUnits
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetOffsetUnits(const WString& value);
+/**
+* Get string attribute OffsetUnits
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetOffsetUnits() const;
+/**
+* Typesafe attribute validation of OffsetUnits
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOffsetUnits(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Overfold
 *@param double value: the value to set the attribute to

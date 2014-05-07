@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFAutomatedOverPrintParams;
 class JDFColorantAlias;
+class JDFColorCorrectionOp;
 class JDFColorSpaceConversionOp;
 class JDFFileSpec;
 class JDFRefElement;
@@ -256,12 +257,6 @@ virtual bool init();
  * 
 */
 	JDFAutomatedOverPrintParams AppendAutomatedOverPrintParams();
-/**
-* create inter-resource link to refTarget
-* @param JDFAutomatedOverPrintParams& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefAutomatedOverPrintParams(JDFAutomatedOverPrintParams& refTarget);
 
 /** Get Element ColorantAlias
 * 
@@ -286,6 +281,24 @@ virtual bool init();
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefColorantAlias(JDFColorantAlias& refTarget);
+
+/** Get Element ColorCorrectionOp
+* 
+* @param int iSkip number of elements to skip
+* @return JDFColorCorrectionOp The element
+*/
+	JDFColorCorrectionOp GetCreateColorCorrectionOp(int iSkip=0);
+
+/**
+* const get element ColorCorrectionOp
+* @param int iSkip number of elements to skip
+* @return JDFColorCorrectionOp The element
+*/
+	JDFColorCorrectionOp GetColorCorrectionOp(int iSkip=0)const;
+/**
+* Append element ColorCorrectionOp
+ */
+	JDFColorCorrectionOp AppendColorCorrectionOp();
 
 /** Get Element ColorSpaceConversionOp
 * 

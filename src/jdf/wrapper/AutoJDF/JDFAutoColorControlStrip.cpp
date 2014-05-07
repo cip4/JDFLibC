@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -235,7 +235,7 @@ bool JDFAutoColorControlStrip::init(){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorControlStrip::ValidStripType(EnumValidationLevel level) const {
-		return ValidAttribute(atr_StripType,AttributeType_NMTOKEN,false);
+		return ValidAttribute(atr_StripType,AttributeType_string,false);
 	};
 
 /* ******************************************************
@@ -260,11 +260,6 @@ JDFCIELABMeasuringField JDFAutoColorControlStrip::AppendCIELABMeasuringField(){
 	JDFCIELABMeasuringField e=AppendElement(elm_CIELABMeasuringField);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoColorControlStrip::RefCIELABMeasuringField(JDFCIELABMeasuringField& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

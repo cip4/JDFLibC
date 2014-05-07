@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -130,7 +130,7 @@ bool JDFAutoCasingInParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCasingInParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",CaseRadius");
+		return JDFResource::OptionalAttributes()+WString(L",CaseRadius,CoverBoardWidth,SpineBoardWidth");
 };
 
 /**
@@ -143,6 +143,16 @@ bool JDFAutoCasingInParams::init(){
 			return vAtts;
 		if(!ValidCaseRadius(level)) {
 			vAtts.push_back(atr_CaseRadius);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidCoverBoardWidth(level)) {
+			vAtts.push_back(atr_CoverBoardWidth);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSpineBoardWidth(level)) {
+			vAtts.push_back(atr_SpineBoardWidth);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -166,6 +176,42 @@ bool JDFAutoCasingInParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoCasingInParams::ValidCaseRadius(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CaseRadius,AttributeType_double,false);
+	};
+/**
+* Set attribute CoverBoardWidth
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoCasingInParams::SetCoverBoardWidth(double value){
+	SetAttribute(atr_CoverBoardWidth,WString::valueOf(value));
+};
+/**
+* Get double attribute CoverBoardWidth
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoCasingInParams::GetCoverBoardWidth() const {
+	return GetRealAttribute(atr_CoverBoardWidth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCasingInParams::ValidCoverBoardWidth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CoverBoardWidth,AttributeType_double,false);
+	};
+/**
+* Set attribute SpineBoardWidth
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoCasingInParams::SetSpineBoardWidth(double value){
+	SetAttribute(atr_SpineBoardWidth,WString::valueOf(value));
+};
+/**
+* Get double attribute SpineBoardWidth
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoCasingInParams::GetSpineBoardWidth() const {
+	return GetRealAttribute(atr_SpineBoardWidth,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCasingInParams::ValidSpineBoardWidth(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SpineBoardWidth,AttributeType_double,false);
 	};
 
 /* ******************************************************
@@ -192,11 +238,6 @@ JDFGlueLine JDFAutoCasingInParams::AppendGlueApplication(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoCasingInParams::RefGlueApplication(JDFGlueLine& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFGlueLine JDFAutoCasingInParams::GetGlueLine(int iSkip)const{
 	JDFGlueLine e=GetElement(elm_GlueLine,WString::emptyStr,iSkip);
@@ -215,11 +256,6 @@ JDFGlueLine JDFAutoCasingInParams::AppendGlueLine(){
 	JDFGlueLine e=AppendElement(elm_GlueLine);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoCasingInParams::RefGlueLine(JDFGlueLine& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

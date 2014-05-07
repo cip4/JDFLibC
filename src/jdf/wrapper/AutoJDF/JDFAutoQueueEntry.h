@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -165,6 +165,16 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute Activation
+*/
+
+	enum EnumActivation{Activation_Unknown,Activation_Inactive,Activation_Informative,Activation_Held,Activation_Active,Activation_TestRun,Activation_TestRunAndGo};
+/**
+* Enumeration for attribute GangPolicy
+*/
+
+	enum EnumGangPolicy{GangPolicy_Unknown,GangPolicy_Gang,GangPolicy_GangAndForce,GangPolicy_NoGang};
+/**
 * Enumeration for attribute Status
 */
 
@@ -180,6 +190,35 @@ public:
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for Activation
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ActivationString();
+/**
+* Enumeration string for enum value
+* @param EnumActivation value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ActivationString(EnumActivation value);
+/**
+* Set attribute Activation
+* @param EnumActivation value the value to set the attribute to
+*/
+	virtual void SetActivation( EnumActivation value);
+
+/**
+* Typesafe enumerated attribute Activation
+* @return EnumActivationthe enumeration value of the attribute
+*/
+	virtual EnumActivation GetActivation() const;
+
+/**
+* Typesafe attribute validation of Activation
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidActivation(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute DeviceID
 *@param WString value: the value to set the attribute to
@@ -228,6 +267,35 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidGangName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for GangPolicy
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& GangPolicyString();
+/**
+* Enumeration string for enum value
+* @param EnumGangPolicy value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString GangPolicyString(EnumGangPolicy value);
+/**
+* Set attribute GangPolicy
+* @param EnumGangPolicy value the value to set the attribute to
+*/
+	virtual void SetGangPolicy( EnumGangPolicy value);
+
+/**
+* Typesafe enumerated attribute GangPolicy
+* @return EnumGangPolicythe enumeration value of the attribute
+*/
+	virtual EnumGangPolicy GetGangPolicy() const;
+
+/**
+* Typesafe attribute validation of GangPolicy
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidGangPolicy(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to
@@ -338,6 +406,22 @@ public:
 */
 	virtual bool ValidStartTime(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute StatusDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetStatusDetails(const WString& value);
+/**
+* Get string attribute StatusDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetStatusDetails() const;
+/**
+* Typesafe attribute validation of StatusDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidStatusDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute SubmissionTime
 *@param JDFDate value: the value to set the attribute to
 */
@@ -361,19 +445,20 @@ public:
 
 /** Get Element JobPhase
 * 
+* @param int iSkip number of elements to skip
 * @return JDFJobPhase The element
 */
-	JDFJobPhase GetCreateJobPhase();
+	JDFJobPhase GetCreateJobPhase(int iSkip=0);
 
 /**
 * const get element JobPhase
-*@return  JDFJobPhase The element
+* @param int iSkip number of elements to skip
+* @return JDFJobPhase The element
 */
-	JDFJobPhase GetJobPhase()const;
+	JDFJobPhase GetJobPhase(int iSkip=0)const;
 /**
 * Append element JobPhase
- * 
-*/
+ */
 	JDFJobPhase AppendJobPhase();
 
 /** Get Element Part
@@ -422,11 +507,6 @@ public:
 		*/
 		bool HasPartMap(const mAttribute & mPart);
 		//@}
-
-/**
- definition of unique elements in the JDF namespace
-*/
-	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

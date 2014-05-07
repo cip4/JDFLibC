@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -215,6 +215,11 @@ virtual bool init();
 
 	enum EnumImagableSide{ImagableSide_Unknown,ImagableSide_Front,ImagableSide_Back,ImagableSide_Both,ImagableSide_Neither};
 /**
+* Enumeration for attribute ISOPaperSubstrate
+*/
+
+	enum EnumISOPaperSubstrate{ISOPaperSubstrate_Unknown,ISOPaperSubstrate_PS1,ISOPaperSubstrate_PS2,ISOPaperSubstrate_PS3,ISOPaperSubstrate_PS4,ISOPaperSubstrate_PS5,ISOPaperSubstrate_PS6,ISOPaperSubstrate_PS7,ISOPaperSubstrate_PS8};
+/**
 * Enumeration for attribute MediaType
 */
 
@@ -331,6 +336,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidPrePrinted(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BackBrightness
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetBackBrightness(double value);
+/**
+* Get double attribute BackBrightness
+* @return double the vaue of the attribute 
+*/
+	virtual double GetBackBrightness() const;
+/**
+* Typesafe attribute validation of BackBrightness
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBackBrightness(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute BackCoatingDetail
 *@param WString value: the value to set the attribute to
@@ -700,6 +721,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidInsideLoss(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for ISOPaperSubstrate
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ISOPaperSubstrateString();
+/**
+* Enumeration string for enum value
+* @param EnumISOPaperSubstrate value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ISOPaperSubstrateString(EnumISOPaperSubstrate value);
+/**
+* Set attribute ISOPaperSubstrate
+* @param EnumISOPaperSubstrate value the value to set the attribute to
+*/
+	virtual void SetISOPaperSubstrate( EnumISOPaperSubstrate value);
+
+/**
+* Typesafe enumerated attribute ISOPaperSubstrate
+* @return EnumISOPaperSubstratethe enumeration value of the attribute
+*/
+	virtual EnumISOPaperSubstrate GetISOPaperSubstrate() const;
+
+/**
+* Typesafe attribute validation of ISOPaperSubstrate
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidISOPaperSubstrate(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute LabColorValue
 *@param JDFLabColor value: the value to set the attribute to
@@ -1178,20 +1228,19 @@ virtual bool init();
 
 /** Get Element Color
 * 
-* @param int iSkip number of elements to skip
 * @return JDFColor The element
 */
-	JDFColor GetCreateColor(int iSkip=0);
+	JDFColor GetCreateColor();
 
 /**
 * const get element Color
-* @param int iSkip number of elements to skip
-* @return JDFColor The element
+*@return  JDFColor The element
 */
-	JDFColor GetColor(int iSkip=0)const;
+	JDFColor GetColor()const;
 /**
 * Append element Color
- */
+ * 
+*/
 	JDFColor AppendColor();
 /**
 * create inter-resource link to refTarget
@@ -1202,20 +1251,19 @@ virtual bool init();
 
 /** Get Element ColorMeasurementConditions
 * 
-* @param int iSkip number of elements to skip
 * @return JDFColorMeasurementConditions The element
 */
-	JDFColorMeasurementConditions GetCreateColorMeasurementConditions(int iSkip=0);
+	JDFColorMeasurementConditions GetCreateColorMeasurementConditions();
 
 /**
 * const get element ColorMeasurementConditions
-* @param int iSkip number of elements to skip
-* @return JDFColorMeasurementConditions The element
+*@return  JDFColorMeasurementConditions The element
 */
-	JDFColorMeasurementConditions GetColorMeasurementConditions(int iSkip=0)const;
+	JDFColorMeasurementConditions GetColorMeasurementConditions()const;
 /**
 * Append element ColorMeasurementConditions
- */
+ * 
+*/
 	JDFColorMeasurementConditions AppendColorMeasurementConditions();
 /**
 * create inter-resource link to refTarget
@@ -1226,38 +1274,36 @@ virtual bool init();
 
 /** Get Element MediaLayers
 * 
-* @param int iSkip number of elements to skip
 * @return JDFMediaLayers The element
 */
-	JDFMediaLayers GetCreateMediaLayers(int iSkip=0);
+	JDFMediaLayers GetCreateMediaLayers();
 
 /**
 * const get element MediaLayers
-* @param int iSkip number of elements to skip
-* @return JDFMediaLayers The element
+*@return  JDFMediaLayers The element
 */
-	JDFMediaLayers GetMediaLayers(int iSkip=0)const;
+	JDFMediaLayers GetMediaLayers()const;
 /**
 * Append element MediaLayers
- */
+ * 
+*/
 	JDFMediaLayers AppendMediaLayers();
 
 /** Get Element HoleList
 * 
-* @param int iSkip number of elements to skip
 * @return JDFHoleList The element
 */
-	JDFHoleList GetCreateHoleList(int iSkip=0);
+	JDFHoleList GetCreateHoleList();
 
 /**
 * const get element HoleList
-* @param int iSkip number of elements to skip
-* @return JDFHoleList The element
+*@return  JDFHoleList The element
 */
-	JDFHoleList GetHoleList(int iSkip=0)const;
+	JDFHoleList GetHoleList()const;
 /**
 * Append element HoleList
- */
+ * 
+*/
 	JDFHoleList AppendHoleList();
 /**
 * create inter-resource link to refTarget
@@ -1283,6 +1329,11 @@ virtual bool init();
 * Append element TabDimensions
  */
 	JDFTabDimensions AppendTabDimensions();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

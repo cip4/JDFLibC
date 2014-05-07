@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -80,13 +80,14 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFDeviceMark;
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoJobField : public JDFResource
+class JDFAutoJobField : public JDFElement
 
 *********************************************************************
 */
@@ -96,7 +97,7 @@ class JDFAutoJobField : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFJobField should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoJobField : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoJobField : public JDFElement{
 public:
 
 
@@ -107,11 +108,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoJobField():JDFResource(){};
+	inline JDFAutoJobField():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoJobField(const KElement & other):JDFResource(){
+	inline JDFAutoJobField(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -162,18 +163,6 @@ public:
 /* ******************************************************
 // Attribute Getter / Setter
 ****************************************************** */
-
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
 
 
 /**
@@ -269,31 +258,45 @@ virtual bool init();
 
 /** Get Element DeviceMark
 * 
+* @param int iSkip number of elements to skip
 * @return JDFDeviceMark The element
 */
-	JDFDeviceMark GetCreateDeviceMark();
+	JDFDeviceMark GetCreateDeviceMark(int iSkip=0);
 
 /**
 * const get element DeviceMark
-*@return  JDFDeviceMark The element
+* @param int iSkip number of elements to skip
+* @return JDFDeviceMark The element
 */
-	JDFDeviceMark GetDeviceMark()const;
+	JDFDeviceMark GetDeviceMark(int iSkip=0)const;
 /**
 * Append element DeviceMark
- * 
-*/
+ */
 	JDFDeviceMark AppendDeviceMark();
-/**
-* create inter-resource link to refTarget
-* @param JDFDeviceMark& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
 */
-	JDFRefElement RefDeviceMark(JDFDeviceMark& refTarget);
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
 
 /**
- definition of unique elements in the JDF namespace
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
 */
-	virtual WString UniqueElements()const;
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

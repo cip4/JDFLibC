@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -136,8 +136,8 @@ bool JDFAutoRunList::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoRunList::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",IsPage,PageCopies,SetCopies,ComponentGranularity,Directory,DocNames,Docs,EndOfBundleItem,EndOfDocument,EndOfSet,FirstPage,IgnoreContext,LogicalPage,NDoc,NPage,NSet,PageListIndex,PageNames,Pages")
-	+WString(L",RunTag,SetNames,Sets,SheetSides,SkipPage,Sorted");
+		return JDFResource::OptionalAttributes()+WString(L",IsPage,PageCopies,SetCopies,Automation,ComponentGranularity,Directory,DocNames,Docs,EndOfBundleItem,EndOfDocument,EndOfSet,FirstPage,IgnoreContext,LogicalPage,NDoc,NPage,NSet,PageListIndex,PageNames")
+	+WString(L",Pages,RunTag,SetNames,Sets,SheetSides,SkipPage,Sorted");
 };
 
 /**
@@ -160,6 +160,11 @@ bool JDFAutoRunList::init(){
 		};
 		if(!ValidSetCopies(level)) {
 			vAtts.push_back(atr_SetCopies);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidAutomation(level)) {
+			vAtts.push_back(atr_Automation);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -328,6 +333,31 @@ bool JDFAutoRunList::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoRunList::ValidSetCopies(EnumValidationLevel level) const {
 		return ValidAttribute(atr_SetCopies,AttributeType_integer,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoRunList::AutomationString(){
+		static const WString enums=WString(L"Unknown,Static,Dynamic");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoRunList::AutomationString(EnumAutomation value){
+		return AutomationString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoRunList::SetAutomation( EnumAutomation value){
+	SetEnumAttribute(atr_Automation,value,AutomationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoRunList::EnumAutomation JDFAutoRunList:: GetAutomation() const {
+	return (EnumAutomation) GetEnumAttribute(atr_Automation,AutomationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRunList::ValidAutomation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Automation,AutomationString(),false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

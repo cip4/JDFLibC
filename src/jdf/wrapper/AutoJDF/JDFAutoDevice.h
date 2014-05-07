@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -184,6 +184,22 @@ virtual bool init();
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute DeviceClass
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetDeviceClass(const vWString& value);
+/**
+* Get string attribute DeviceClass
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetDeviceClass() const;
+/**
+* Typesafe attribute validation of DeviceClass
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDeviceClass(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute DeviceFamily
 *@param WString value: the value to set the attribute to
@@ -560,20 +576,19 @@ virtual bool init();
 
 /** Get Element CostCenter
 * 
-* @param int iSkip number of elements to skip
 * @return JDFCostCenter The element
 */
-	JDFCostCenter GetCreateCostCenter(int iSkip=0);
+	JDFCostCenter GetCreateCostCenter();
 
 /**
 * const get element CostCenter
-* @param int iSkip number of elements to skip
-* @return JDFCostCenter The element
+*@return  JDFCostCenter The element
 */
-	JDFCostCenter GetCostCenter(int iSkip=0)const;
+	JDFCostCenter GetCostCenter()const;
 /**
 * Append element CostCenter
- */
+ * 
+*/
 	JDFCostCenter AppendCostCenter();
 
 /** Get Element DeviceCap
@@ -596,20 +611,19 @@ virtual bool init();
 
 /** Get Element IconList
 * 
-* @param int iSkip number of elements to skip
 * @return JDFIconList The element
 */
-	JDFIconList GetCreateIconList(int iSkip=0);
+	JDFIconList GetCreateIconList();
 
 /**
 * const get element IconList
-* @param int iSkip number of elements to skip
-* @return JDFIconList The element
+*@return  JDFIconList The element
 */
-	JDFIconList GetIconList(int iSkip=0)const;
+	JDFIconList GetIconList()const;
 /**
 * Append element IconList
- */
+ * 
+*/
 	JDFIconList AppendIconList();
 
 /** Get Element Module
@@ -629,6 +643,11 @@ virtual bool init();
 * Append element Module
  */
 	JDFModule AppendModule();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

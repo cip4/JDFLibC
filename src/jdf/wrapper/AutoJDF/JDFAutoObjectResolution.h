@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -80,11 +80,13 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFQualityControlResult;
+class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoObjectResolution : public JDFResource
+class JDFAutoObjectResolution : public JDFElement
 
 *********************************************************************
 */
@@ -94,7 +96,7 @@ class JDFAutoObjectResolution : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFObjectResolution should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoObjectResolution : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoObjectResolution : public JDFElement{
 public:
 
 
@@ -105,11 +107,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoObjectResolution():JDFResource(){};
+	inline JDFAutoObjectResolution():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoObjectResolution(const KElement & other):JDFResource(){
+	inline JDFAutoObjectResolution(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -130,6 +132,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -152,23 +163,11 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
-
 /**
 * Enumeration for attribute SourceObjects
 */
 
-	enum EnumSourceObjects{SourceObjects_Unknown,SourceObjects_All,SourceObjects_ImagePhotographic,SourceObjects_ImageScreenShot,SourceObjects_Text,SourceObjects_LineArt,SourceObjects_SmoothShades};
+	enum EnumSourceObjects{SourceObjects_Unknown,SourceObjects_All,SourceObjects_ImagePhotographic,SourceObjects_ImageScreenShot,SourceObjects_LineArt,SourceObjects_SmoothShades,SourceObjects_Text};
 
 /**
  * definition of required attributes in the JDF namespace
@@ -279,6 +278,35 @@ virtual bool init();
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoObjectResolution
 
 // ******************************************************

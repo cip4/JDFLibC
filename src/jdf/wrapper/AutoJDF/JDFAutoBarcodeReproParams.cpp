@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,11 +76,12 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoBarcodeReproParams.h"
 #include "jdf/wrapper/JDFBarcodeCompParams.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoBarcodeReproParams : public JDFResource
+class JDFAutoBarcodeReproParams : public JDFElement
 
 *********************************************************************
 */
@@ -108,17 +109,6 @@ JDFAutoBarcodeReproParams& JDFAutoBarcodeReproParams::operator=(const KElement& 
 	return L"*:,BarcodeReproParams";
 };
 
-bool JDFAutoBarcodeReproParams::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoBarcodeReproParams::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -129,14 +119,14 @@ bool JDFAutoBarcodeReproParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBarcodeReproParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BearerBars,Height,Magnification,Masking,ModuleHeight,ModuleWidth,Ratio");
+		return JDFElement::OptionalAttributes()+WString(L",BearerBars,Height,Magnification,Masking,ModuleHeight,ModuleWidth,Ratio");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoBarcodeReproParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -343,8 +333,28 @@ JDFBarcodeCompParams JDFAutoBarcodeReproParams::AppendBarcodeCompParams(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoBarcodeReproParams::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoBarcodeReproParams::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoBarcodeReproParams::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoBarcodeReproParams::RefBarcodeCompParams(JDFBarcodeCompParams& refTarget){
+JDFRefElement JDFAutoBarcodeReproParams::RefQualityControlResult(JDFQualityControlResult& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -355,7 +365,7 @@ JDFRefElement JDFAutoBarcodeReproParams::RefBarcodeCompParams(JDFBarcodeCompPara
 	vWString JDFAutoBarcodeReproParams::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
@@ -369,6 +379,16 @@ JDFRefElement JDFAutoBarcodeReproParams::RefBarcodeCompParams(JDFBarcodeCompPara
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -377,6 +397,6 @@ JDFRefElement JDFAutoBarcodeReproParams::RefBarcodeCompParams(JDFBarcodeCompPara
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoBarcodeReproParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",BarcodeCompParams";
+		return JDFElement::OptionalElements()+L",BarcodeCompParams,QualityControlResult";
 	};
 }; // end namespace JDF

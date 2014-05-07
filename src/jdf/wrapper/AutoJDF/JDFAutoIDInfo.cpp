@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -119,7 +119,7 @@ JDFAutoIDInfo& JDFAutoIDInfo::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoIDInfo::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Category,JobID,JobPartID,ParentJobID,ParentJobPartID,Type,Types");
+		return JDFElement::OptionalAttributes()+WString(L",Category,JDFURL,JobID,JobPartID,ParentJobID,ParentJobPartID,ProjectID,Type,Types");
 };
 
 /**
@@ -132,6 +132,11 @@ JDFAutoIDInfo& JDFAutoIDInfo::operator=(const KElement& other){
 			return vAtts;
 		if(!ValidCategory(level)) {
 			vAtts.push_back(atr_Category);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidJDFURL(level)) {
+			vAtts.push_back(atr_JDFURL);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -152,6 +157,11 @@ JDFAutoIDInfo& JDFAutoIDInfo::operator=(const KElement& other){
 		};
 		if(!ValidParentJobPartID(level)) {
 			vAtts.push_back(atr_ParentJobPartID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidProjectID(level)) {
+			vAtts.push_back(atr_ProjectID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -185,6 +195,24 @@ JDFAutoIDInfo& JDFAutoIDInfo::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoIDInfo::ValidCategory(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Category,AttributeType_NMTOKEN,false);
+	};
+/**
+* Set attribute JDFURL
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoIDInfo::SetJDFURL(const WString& value){
+	SetAttribute(atr_JDFURL,value);
+};
+/**
+* Get string attribute JDFURL
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoIDInfo::GetJDFURL() const {
+	return GetAttribute(atr_JDFURL,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoIDInfo::ValidJDFURL(EnumValidationLevel level) const {
+		return ValidAttribute(atr_JDFURL,AttributeType_URL,false);
 	};
 /**
 * Set attribute JobID
@@ -257,6 +285,24 @@ JDFAutoIDInfo& JDFAutoIDInfo::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoIDInfo::ValidParentJobPartID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ParentJobPartID,AttributeType_string,false);
+	};
+/**
+* Set attribute ProjectID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoIDInfo::SetProjectID(const WString& value){
+	SetAttribute(atr_ProjectID,value);
+};
+/**
+* Get string attribute ProjectID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoIDInfo::GetProjectID() const {
+	return GetAttribute(atr_ProjectID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoIDInfo::ValidProjectID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ProjectID,AttributeType_string,false);
 	};
 /**
 * Set attribute Type

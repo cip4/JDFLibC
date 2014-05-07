@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -456,7 +456,7 @@ JDFAutoImageCompression& JDFAutoImageCompression::operator=(const KElement& othe
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoImageCompression::ImageTypeString(){
-		static const WString enums=WString(L"Unknown,Color,Grayscale,Monochrome");
+		static const WString enums=WString(L"Unknown,All,Color,Grayscale,Monochrome");
 		return enums;
 	};
 

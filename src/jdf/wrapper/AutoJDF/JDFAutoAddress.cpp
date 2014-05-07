@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,11 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoAddress.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoAddress : public JDFResource
+class JDFAutoAddress : public JDFElement
 
 *********************************************************************
 */
@@ -107,17 +108,6 @@ JDFAutoAddress& JDFAutoAddress::operator=(const KElement& other){
 	return L"*:,Address";
 };
 
-bool JDFAutoAddress::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoAddress::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -128,14 +118,14 @@ bool JDFAutoAddress::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoAddress::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",City,Country,CountryCode,PostBox,PostalCode,Region,Street");
+		return JDFElement::OptionalAttributes()+WString(L",City,Country,CountryCode,PostBox,PostalCode,Region,Street");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoAddress::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -309,23 +299,48 @@ bool JDFAutoAddress::init(){
 **************************************************************** */
 
 
-JDFElement JDFAutoAddress::GetExtendedAddress()const{
-	JDFElement e=GetElement(elm_ExtendedAddress);
+JDFElement JDFAutoAddress::GetExtendedAddress(int iSkip)const{
+	JDFElement e=GetElement(elm_ExtendedAddress,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFElement JDFAutoAddress::GetCreateExtendedAddress(){
-	JDFElement e=GetCreateElement(elm_ExtendedAddress);
+JDFElement JDFAutoAddress::GetCreateExtendedAddress(int iSkip){
+	JDFElement e=GetCreateElement(elm_ExtendedAddress,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFElement JDFAutoAddress::AppendExtendedAddress(){
-	JDFElement e=AppendElementN(elm_ExtendedAddress,1);
+	JDFElement e=AppendElement(elm_ExtendedAddress);
 	e.init();
 	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoAddress::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoAddress::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoAddress::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoAddress::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -335,20 +350,28 @@ JDFElement JDFAutoAddress::AppendExtendedAddress(){
 	vWString JDFAutoAddress::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_ExtendedAddress);
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_ExtendedAddress);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetExtendedAddress().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetExtendedAddress(i).IsValid(level)) {
 				vElem.AppendUnique(elm_ExtendedAddress);
 				if (++n>=nMax)
 					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
 			}
 		}
 		return vElem;
@@ -356,16 +379,9 @@ JDFElement JDFAutoAddress::AppendExtendedAddress(){
 
 
 /**
- definition of required elements in the JDF namespace
-*/
-	WString JDFAutoAddress::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",ExtendedAddress";
-	};
-
-/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoAddress::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ExtendedAddress";
+		return JDFElement::OptionalElements()+L",ExtendedAddress,QualityControlResult";
 	};
 }; // end namespace JDF

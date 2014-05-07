@@ -80,6 +80,6 @@
 // created 2004
 
 #ifndef JDFLibVersionBuild
-#define JDFLibVersionBuild 128 // note that versions will always increment and not restart at a new version of JDF
-#define JDFLibVersion L"2.1.4aBLD128" // must alway be lexically larger than previous version
+#define JDFLibVersionBuild 129 // note that versions will always increment and not restart at a new version of JDF
+#define JDFLibVersion L"2.1.5BLD129" // must alway be lexically larger than previous version
 #endif

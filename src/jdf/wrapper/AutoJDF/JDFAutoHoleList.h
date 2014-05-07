@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,7 +83,7 @@
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
 class JDFHole;
-class JDFHoleLine;
+class JDFHoleList;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -209,31 +209,31 @@ virtual bool init();
 /** Get Element HoleLine
 * 
 * @param int iSkip number of elements to skip
-* @return JDFHoleLine The element
+* @return JDFHoleList The element
 */
-	JDFHoleLine GetCreateHoleLine(int iSkip=0);
+	JDFHoleList GetCreateHoleLine(int iSkip=0);
 
 /**
 * const get element HoleLine
 * @param int iSkip number of elements to skip
-* @return JDFHoleLine The element
+* @return JDFHoleList The element
 */
-	JDFHoleLine GetHoleLine(int iSkip=0)const;
+	JDFHoleList GetHoleLine(int iSkip=0)const;
 /**
 * Append element HoleLine
  */
-	JDFHoleLine AppendHoleLine();
+	JDFHoleList AppendHoleLine();
 /**
 * create inter-resource link to refTarget
-* @param JDFHoleLine& refTarget the element that is referenced
+* @param JDFHoleList& refTarget the element that is referenced
 *@return JDFRefElement the referenced element
 */
-	JDFRefElement RefHoleLine(JDFHoleLine& refTarget);
+	JDFRefElement RefHoleLine(JDFHoleList& refTarget);
 
 /**
- definition of optional elements in the JDF namespace
+ definition of required elements in the JDF namespace
 */
-	virtual WString OptionalElements()const;
+	virtual WString RequiredElements()const;
 }; // endJDFAutoHoleList
 
 // ******************************************************

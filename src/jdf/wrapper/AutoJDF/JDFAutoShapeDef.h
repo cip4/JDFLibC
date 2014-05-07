@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFColorPool;
+class JDFSeparationList;
 class JDFFileSpec;
 class JDFMedia;
 class JDFShapeElement;
@@ -263,6 +265,22 @@ virtual bool init();
 */
 	virtual bool ValidDimensions(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute FlatDimensions
+*@param JDFShape value: the value to set the attribute to
+*/
+	virtual void SetFlatDimensions(const JDFShape& value);
+/**
+* Get string attribute FlatDimensions
+* @return JDFShape the vaue of the attribute 
+*/
+	virtual JDFShape GetFlatDimensions() const;
+/**
+* Typesafe attribute validation of FlatDimensions
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidFlatDimensions(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for FluteDirection
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -370,6 +388,46 @@ virtual bool init();
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element ColorPool
+* 
+* @return JDFColorPool The element
+*/
+	JDFColorPool GetCreateColorPool();
+
+/**
+* const get element ColorPool
+*@return  JDFColorPool The element
+*/
+	JDFColorPool GetColorPool()const;
+/**
+* Append element ColorPool
+ * 
+*/
+	JDFColorPool AppendColorPool();
+/**
+* create inter-resource link to refTarget
+* @param JDFColorPool& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefColorPool(JDFColorPool& refTarget);
+
+/** Get Element CutLines
+* 
+* @return JDFSeparationList The element
+*/
+	JDFSeparationList GetCreateCutLines();
+
+/**
+* const get element CutLines
+*@return  JDFSeparationList The element
+*/
+	JDFSeparationList GetCutLines()const;
+/**
+* Append element CutLines
+ * 
+*/
+	JDFSeparationList AppendCutLines();
 
 /** Get Element FileSpec
 * 

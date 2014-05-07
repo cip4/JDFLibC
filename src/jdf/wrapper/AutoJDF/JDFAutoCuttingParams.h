@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -177,6 +177,11 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 */
 virtual bool init();
 
+/**
+* Enumeration for attribute SheetLay
+*/
+
+	enum EnumSheetLay{SheetLay_Unknown,SheetLay_Left,SheetLay_Right};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -199,6 +204,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidNUpSeparation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for SheetLay
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& SheetLayString();
+/**
+* Enumeration string for enum value
+* @param EnumSheetLay value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString SheetLayString(EnumSheetLay value);
+/**
+* Set attribute SheetLay
+* @param EnumSheetLay value the value to set the attribute to
+*/
+	virtual void SetSheetLay( EnumSheetLay value);
+
+/**
+* Typesafe enumerated attribute SheetLay
+* @return EnumSheetLaythe enumeration value of the attribute
+*/
+	virtual EnumSheetLay GetSheetLay() const;
+
+/**
+* Typesafe attribute validation of SheetLay
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetLay(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

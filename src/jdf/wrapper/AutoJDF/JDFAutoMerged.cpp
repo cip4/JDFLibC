@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -179,9 +179,9 @@ JDFAutoMerged& JDFAutoMerged::operator=(const KElement& other){
 };
 /**
 * Get bool attribute Independent
-* @return bool the vaue of the attribute ; defaults to false
+* @return bool the vaue of the attribute 
 */
-	 bool JDFAutoMerged::GetIndependent() const {return GetBoolAttribute(atr_Independent,WString::emptyStr,false);
+	 bool JDFAutoMerged::GetIndependent() const {return GetBoolAttribute(atr_Independent,WString::emptyStr);
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMerged::ValidIndependent(EnumValidationLevel level) const {

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -201,6 +201,22 @@ public:
 */
 	virtual bool ValidBackPages(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute BackSpread
+*@param JDFIntegerList value: the value to set the attribute to
+*/
+	virtual void SetBackSpread(const JDFIntegerList& value);
+/**
+* Get string attribute BackSpread
+* @return JDFIntegerList the vaue of the attribute 
+*/
+	virtual JDFIntegerList GetBackSpread() const;
+/**
+* Typesafe attribute validation of BackSpread
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBackSpread(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute BottleAngle
 *@param double value: the value to set the attribute to
 */
@@ -293,6 +309,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidFrontPages(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute FrontSpread
+*@param JDFIntegerList value: the value to set the attribute to
+*/
+	virtual void SetFrontSpread(const JDFIntegerList& value);
+/**
+* Get string attribute FrontSpread
+* @return JDFIntegerList the vaue of the attribute 
+*/
+	virtual JDFIntegerList GetFrontSpread() const;
+/**
+* Typesafe attribute validation of FrontSpread
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidFrontSpread(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for Orientation
 * @return const WString& comma separated list of enumerated string values 

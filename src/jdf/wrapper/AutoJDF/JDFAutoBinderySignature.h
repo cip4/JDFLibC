@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -336,6 +336,70 @@ virtual bool init();
 */
 	virtual bool ValidBindingOrientation(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute BleedBottom
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetBleedBottom(double value);
+/**
+* Get double attribute BleedBottom
+* @return double the vaue of the attribute 
+*/
+	virtual double GetBleedBottom() const;
+/**
+* Typesafe attribute validation of BleedBottom
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBleedBottom(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BleedLeft
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetBleedLeft(double value);
+/**
+* Get double attribute BleedLeft
+* @return double the vaue of the attribute 
+*/
+	virtual double GetBleedLeft() const;
+/**
+* Typesafe attribute validation of BleedLeft
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBleedLeft(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BleedRight
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetBleedRight(double value);
+/**
+* Get double attribute BleedRight
+* @return double the vaue of the attribute 
+*/
+	virtual double GetBleedRight() const;
+/**
+* Typesafe attribute validation of BleedRight
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBleedRight(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute BleedTop
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetBleedTop(double value);
+/**
+* Get double attribute BleedTop
+* @return double the vaue of the attribute 
+*/
+	virtual double GetBleedTop() const;
+/**
+* Typesafe attribute validation of BleedTop
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidBleedTop(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute FoldCatalog
 *@param WString value: the value to set the attribute to
 */
@@ -434,6 +498,70 @@ virtual bool init();
 */
 	virtual bool ValidStaggerRows(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute TrimBottom
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetTrimBottom(double value);
+/**
+* Get double attribute TrimBottom
+* @return double the vaue of the attribute 
+*/
+	virtual double GetTrimBottom() const;
+/**
+* Typesafe attribute validation of TrimBottom
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTrimBottom(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TrimLeft
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetTrimLeft(double value);
+/**
+* Get double attribute TrimLeft
+* @return double the vaue of the attribute 
+*/
+	virtual double GetTrimLeft() const;
+/**
+* Typesafe attribute validation of TrimLeft
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTrimLeft(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TrimRight
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetTrimRight(double value);
+/**
+* Get double attribute TrimRight
+* @return double the vaue of the attribute 
+*/
+	virtual double GetTrimRight() const;
+/**
+* Typesafe attribute validation of TrimRight
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTrimRight(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute TrimTop
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetTrimTop(double value);
+/**
+* Get double attribute TrimTop
+* @return double the vaue of the attribute 
+*/
+	virtual double GetTrimTop() const;
+/**
+* Typesafe attribute validation of TrimTop
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidTrimTop(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute WebCellAlignment
 *@param JDFXYPair value: the value to set the attribute to
 */
@@ -495,12 +623,6 @@ virtual bool init();
 * Append element Fold
  */
 	JDFFold AppendFold();
-/**
-* create inter-resource link to refTarget
-* @param JDFFold& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefFold(JDFFold& refTarget);
 
 /** Get Element SignatureCell
 * 

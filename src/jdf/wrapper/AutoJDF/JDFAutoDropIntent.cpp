@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -121,7 +121,7 @@ JDFAutoDropIntent& JDFAutoDropIntent::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDropIntent::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",AdditionalAmount,BuyerAccount,Pickup");
+		return JDFElement::OptionalAttributes()+WString(L",AdditionalAmount,BuyerAccount,DropID,Pickup");
 };
 
 /**
@@ -139,6 +139,11 @@ JDFAutoDropIntent& JDFAutoDropIntent::operator=(const KElement& other){
 		};
 		if(!ValidBuyerAccount(level)) {
 			vAtts.push_back(atr_BuyerAccount);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidDropID(level)) {
+			vAtts.push_back(atr_DropID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -185,6 +190,24 @@ JDFAutoDropIntent& JDFAutoDropIntent::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDropIntent::ValidBuyerAccount(EnumValidationLevel level) const {
 		return ValidAttribute(atr_BuyerAccount,AttributeType_string,false);
+	};
+/**
+* Set attribute DropID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoDropIntent::SetDropID(const WString& value){
+	SetAttribute(atr_DropID,value);
+};
+/**
+* Get string attribute DropID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoDropIntent::GetDropID() const {
+	return GetAttribute(atr_DropID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDropIntent::ValidDropID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_DropID,AttributeType_string,false);
 	};
 /**
 * Set attribute Pickup

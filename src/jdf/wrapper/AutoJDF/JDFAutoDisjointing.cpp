@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -120,7 +120,7 @@ JDFAutoDisjointing& JDFAutoDisjointing::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDisjointing::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Number,Offset,OffsetAmount,OffsetDirection,Overfold");
+		return JDFElement::OptionalAttributes()+WString(L",Number,Offset,OffsetAmount,OffsetDirection,OffsetUnits,Overfold");
 };
 
 /**
@@ -148,6 +148,11 @@ JDFAutoDisjointing& JDFAutoDisjointing::operator=(const KElement& other){
 		};
 		if(!ValidOffsetDirection(level)) {
 			vAtts.push_back(atr_OffsetDirection);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidOffsetUnits(level)) {
+			vAtts.push_back(atr_OffsetUnits);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -237,6 +242,24 @@ JDFAutoDisjointing& JDFAutoDisjointing::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDisjointing::ValidOffsetDirection(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_OffsetDirection,OffsetDirectionString(),false);
+	};
+/**
+* Set attribute OffsetUnits
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoDisjointing::SetOffsetUnits(const WString& value){
+	SetAttribute(atr_OffsetUnits,value);
+};
+/**
+* Get string attribute OffsetUnits
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoDisjointing::GetOffsetUnits() const {
+	return GetAttribute(atr_OffsetUnits,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDisjointing::ValidOffsetUnits(EnumValidationLevel level) const {
+		return ValidAttribute(atr_OffsetUnits,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute Overfold

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLabelingParams.h"
+#include "jdf/wrapper/JDFFileSpec.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -216,5 +218,66 @@ bool JDFAutoLabelingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoLabelingParams::ValidPosition(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_Position,PositionString(),false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFFileSpec JDFAutoLabelingParams::GetFileSpec(int iSkip)const{
+	JDFFileSpec e=GetElement(elm_FileSpec,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoLabelingParams::GetCreateFileSpec(int iSkip){
+	JDFFileSpec e=GetCreateElement(elm_FileSpec,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoLabelingParams::AppendFileSpec(){
+	JDFFileSpec e=AppendElement(elm_FileSpec);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLabelingParams::RefFileSpec(JDFFileSpec& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoLabelingParams::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_FileSpec);
+
+		for(i=0;i<nElem;i++){
+			if (!GetFileSpec(i).IsValid(level)) {
+				vElem.AppendUnique(elm_FileSpec);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoLabelingParams::OptionalElements()const{
+		return JDFResource::OptionalElements()+L",FileSpec";
 	};
 }; // end namespace JDF

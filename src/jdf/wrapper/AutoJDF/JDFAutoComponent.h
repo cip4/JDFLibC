@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -186,6 +186,11 @@ virtual bool init();
 */
 
 	enum EnumComponentType{ComponentType_Unknown,ComponentType_Block,ComponentType_Other,ComponentType_Ribbon,ComponentType_Sheet,ComponentType_Web,ComponentType_FinalProduct,ComponentType_PartialProduct,ComponentType_Proof};
+/**
+* Enumeration for attribute Automation
+*/
+
+	enum EnumAutomation{Automation_Unknown,Automation_Static,Automation_Dynamic};
 
 /**
  * definition of required attributes in the JDF namespace
@@ -260,6 +265,35 @@ virtual bool init();
 */
 	virtual bool ValidAssemblyIDs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Enumeration strings for Automation
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& AutomationString();
+/**
+* Enumeration string for enum value
+* @param EnumAutomation value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString AutomationString(EnumAutomation value);
+/**
+* Set attribute Automation
+* @param EnumAutomation value the value to set the attribute to
+*/
+	virtual void SetAutomation( EnumAutomation value);
+
+/**
+* Typesafe enumerated attribute Automation
+* @return EnumAutomationthe enumeration value of the attribute
+*/
+	virtual EnumAutomation GetAutomation() const;
+
+/**
+* Typesafe attribute validation of Automation
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidAutomation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute CartonTopFlaps
 *@param JDFXYPair value: the value to set the attribute to
 */
@@ -275,6 +309,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidCartonTopFlaps(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute Columns
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetColumns(int value);
+/**
+* Get integer attribute Columns
+* @return int the vaue of the attribute 
+*/
+	virtual int GetColumns() const;
+/**
+* Typesafe attribute validation of Columns
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidColumns(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Dimensions
 *@param JDFShape value: the value to set the attribute to
@@ -531,6 +581,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidTransformation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute WindingResult
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetWindingResult(int value);
+/**
+* Get integer attribute WindingResult
+* @return int the vaue of the attribute 
+*/
+	virtual int GetWindingResult() const;
+/**
+* Typesafe attribute validation of WindingResult
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidWindingResult(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

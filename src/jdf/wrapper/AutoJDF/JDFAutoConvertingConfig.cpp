@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,6 +76,8 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoConvertingConfig.h"
 #include "jdf/wrapper/JDFDevice.h"
+#include "jdf/wrapper/JDFMedia.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -115,13 +117,6 @@ JDFAutoConvertingConfig& JDFAutoConvertingConfig::operator=(const KElement& othe
 
 
 /**
- definition of optional attributes in the JDF namespace
-*/
-	WString JDFAutoConvertingConfig::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",MarginBottom,MarginLeft,MarginRight,MarginTop,SheetHeight,SheetWidth");
-};
-
-/**
  typesafe validator
 */
 	vWString JDFAutoConvertingConfig::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -129,147 +124,9 @@ JDFAutoConvertingConfig& JDFAutoConvertingConfig::operator=(const KElement& othe
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
-		if(!ValidMarginBottom(level)) {
-			vAtts.push_back(atr_MarginBottom);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidMarginLeft(level)) {
-			vAtts.push_back(atr_MarginLeft);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidMarginRight(level)) {
-			vAtts.push_back(atr_MarginRight);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidMarginTop(level)) {
-			vAtts.push_back(atr_MarginTop);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidSheetHeight(level)) {
-			vAtts.push_back(atr_SheetHeight);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidSheetWidth(level)) {
-			vAtts.push_back(atr_SheetWidth);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		return vAtts;
 	};
 
-/**
-* Set attribute MarginBottom
-*@param double value: the value to set the attribute to
-*/
-	 void JDFAutoConvertingConfig::SetMarginBottom(double value){
-	SetAttribute(atr_MarginBottom,WString::valueOf(value));
-};
-/**
-* Get double attribute MarginBottom
-* @return double the vaue of the attribute 
-*/
-	 double JDFAutoConvertingConfig::GetMarginBottom() const {
-	return GetRealAttribute(atr_MarginBottom,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoConvertingConfig::ValidMarginBottom(EnumValidationLevel level) const {
-		return ValidAttribute(atr_MarginBottom,AttributeType_double,false);
-	};
-/**
-* Set attribute MarginLeft
-*@param double value: the value to set the attribute to
-*/
-	 void JDFAutoConvertingConfig::SetMarginLeft(double value){
-	SetAttribute(atr_MarginLeft,WString::valueOf(value));
-};
-/**
-* Get double attribute MarginLeft
-* @return double the vaue of the attribute 
-*/
-	 double JDFAutoConvertingConfig::GetMarginLeft() const {
-	return GetRealAttribute(atr_MarginLeft,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoConvertingConfig::ValidMarginLeft(EnumValidationLevel level) const {
-		return ValidAttribute(atr_MarginLeft,AttributeType_double,false);
-	};
-/**
-* Set attribute MarginRight
-*@param double value: the value to set the attribute to
-*/
-	 void JDFAutoConvertingConfig::SetMarginRight(double value){
-	SetAttribute(atr_MarginRight,WString::valueOf(value));
-};
-/**
-* Get double attribute MarginRight
-* @return double the vaue of the attribute 
-*/
-	 double JDFAutoConvertingConfig::GetMarginRight() const {
-	return GetRealAttribute(atr_MarginRight,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoConvertingConfig::ValidMarginRight(EnumValidationLevel level) const {
-		return ValidAttribute(atr_MarginRight,AttributeType_double,false);
-	};
-/**
-* Set attribute MarginTop
-*@param double value: the value to set the attribute to
-*/
-	 void JDFAutoConvertingConfig::SetMarginTop(double value){
-	SetAttribute(atr_MarginTop,WString::valueOf(value));
-};
-/**
-* Get double attribute MarginTop
-* @return double the vaue of the attribute 
-*/
-	 double JDFAutoConvertingConfig::GetMarginTop() const {
-	return GetRealAttribute(atr_MarginTop,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoConvertingConfig::ValidMarginTop(EnumValidationLevel level) const {
-		return ValidAttribute(atr_MarginTop,AttributeType_double,false);
-	};
-/**
-* Set attribute SheetHeight
-*@param NumberRange value: the value to set the attribute to
-*/
-	 void JDFAutoConvertingConfig::SetSheetHeight(const NumberRange& value){
-	SetAttribute(atr_SheetHeight,value.GetString());
-};
-/**
-* Get range attribute SheetHeight
-* @return NumberRange the vaue of the attribute 
-*/
-	 NumberRange JDFAutoConvertingConfig::GetSheetHeight() const {
-	return GetAttribute(atr_SheetHeight,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoConvertingConfig::ValidSheetHeight(EnumValidationLevel level) const {
-		return ValidAttribute(atr_SheetHeight,AttributeType_Any,false);
-	};
-/**
-* Set attribute SheetWidth
-*@param NumberRange value: the value to set the attribute to
-*/
-	 void JDFAutoConvertingConfig::SetSheetWidth(const NumberRange& value){
-	SetAttribute(atr_SheetWidth,value.GetString());
-};
-/**
-* Get range attribute SheetWidth
-* @return NumberRange the vaue of the attribute 
-*/
-	 NumberRange JDFAutoConvertingConfig::GetSheetWidth() const {
-	return GetAttribute(atr_SheetWidth,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoConvertingConfig::ValidSheetWidth(EnumValidationLevel level) const {
-		return ValidAttribute(atr_SheetWidth,AttributeType_Any,false);
-	};
 
 /* ******************************************************
 // Element Getter / Setter
@@ -301,6 +158,56 @@ JDFRefElement JDFAutoConvertingConfig::RefDevice(JDFDevice& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFMedia JDFAutoConvertingConfig::GetMedia(int iSkip)const{
+	JDFMedia e=GetElement(elm_Media,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoConvertingConfig::GetCreateMedia(int iSkip){
+	JDFMedia e=GetCreateElement(elm_Media,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFMedia JDFAutoConvertingConfig::AppendMedia(){
+	JDFMedia e=AppendElement(elm_Media);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoConvertingConfig::RefMedia(JDFMedia& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoConvertingConfig::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoConvertingConfig::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoConvertingConfig::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoConvertingConfig::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -321,6 +228,26 @@ JDFRefElement JDFAutoConvertingConfig::RefDevice(JDFDevice& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_Media);
+
+		for(i=0;i<nElem;i++){
+			if (!GetMedia(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Media);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -329,6 +256,6 @@ JDFRefElement JDFAutoConvertingConfig::RefDevice(JDFDevice& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoConvertingConfig::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",Device";
+		return JDFElement::OptionalElements()+L",Device,Media,QualityControlResult";
 	};
 }; // end namespace JDF

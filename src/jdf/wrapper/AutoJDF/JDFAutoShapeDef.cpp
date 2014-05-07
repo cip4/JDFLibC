@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoShapeDef.h"
+#include "jdf/wrapper/JDFColorPool.h"
+#include "jdf/wrapper/JDFSeparationList.h"
 #include "jdf/wrapper/JDFFileSpec.h"
 #include "jdf/wrapper/JDFMedia.h"
 #include "jdf/wrapper/JDFShapeElement.h"
@@ -131,7 +133,7 @@ bool JDFAutoShapeDef::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoShapeDef::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",LockOrigins,Area,CutBox,Dimensions,FluteDirection,GrainDirection,MediaSide,ResourceWeight");
+		return JDFResource::OptionalAttributes()+WString(L",LockOrigins,Area,CutBox,Dimensions,FlatDimensions,FluteDirection,GrainDirection,MediaSide,ResourceWeight");
 };
 
 /**
@@ -159,6 +161,11 @@ bool JDFAutoShapeDef::init(){
 		};
 		if(!ValidDimensions(level)) {
 			vAtts.push_back(atr_Dimensions);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidFlatDimensions(level)) {
+			vAtts.push_back(atr_FlatDimensions);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -255,6 +262,24 @@ bool JDFAutoShapeDef::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoShapeDef::ValidDimensions(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Dimensions,AttributeType_shape,false);
+	};
+/**
+* Set attribute FlatDimensions
+*@param JDFShape value: the value to set the attribute to
+*/
+	 void JDFAutoShapeDef::SetFlatDimensions(const JDFShape& value){
+	SetAttribute(atr_FlatDimensions,value);
+};
+/**
+* Get string attribute FlatDimensions
+* @return JDFShape the vaue of the attribute 
+*/
+	 JDFShape JDFAutoShapeDef::GetFlatDimensions() const {
+	return GetAttribute(atr_FlatDimensions,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoShapeDef::ValidFlatDimensions(EnumValidationLevel level) const {
+		return ValidAttribute(atr_FlatDimensions,AttributeType_shape,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -355,6 +380,51 @@ bool JDFAutoShapeDef::init(){
 **************************************************************** */
 
 
+JDFColorPool JDFAutoShapeDef::GetColorPool()const{
+	JDFColorPool e=GetElement(elm_ColorPool);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFColorPool JDFAutoShapeDef::GetCreateColorPool(){
+	JDFColorPool e=GetCreateElement(elm_ColorPool);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFColorPool JDFAutoShapeDef::AppendColorPool(){
+	JDFColorPool e=AppendElementN(elm_ColorPool,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoShapeDef::RefColorPool(JDFColorPool& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationList JDFAutoShapeDef::GetCutLines()const{
+	JDFSeparationList e=GetElement(elm_CutLines);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationList JDFAutoShapeDef::GetCreateCutLines(){
+	JDFSeparationList e=GetCreateElement(elm_CutLines);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSeparationList JDFAutoShapeDef::AppendCutLines(){
+	JDFSeparationList e=AppendElementN(elm_CutLines,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFFileSpec JDFAutoShapeDef::GetFileSpec()const{
 	JDFFileSpec e=GetElement(elm_FileSpec);
 	return e;
@@ -440,6 +510,30 @@ JDFRefElement JDFAutoShapeDef::RefShape(JDFShapeElement& refTarget){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_ColorPool);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ColorPool);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetColorPool().IsValid(level)) {
+				vElem.AppendUnique(elm_ColorPool);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_CutLines);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_CutLines);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetCutLines().IsValid(level)) {
+				vElem.AppendUnique(elm_CutLines);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_FileSpec);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_FileSpec);
@@ -484,13 +578,13 @@ JDFRefElement JDFAutoShapeDef::RefShape(JDFShapeElement& refTarget){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoShapeDef::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",FileSpec,Media,Shape";
+		return JDFResource::UniqueElements()+L",ColorPool,CutLines,FileSpec,Media,Shape";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoShapeDef::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",FileSpec,Media,Shape";
+		return JDFResource::OptionalElements()+L",ColorPool,CutLines,FileSpec,Media,Shape";
 	};
 }; // end namespace JDF

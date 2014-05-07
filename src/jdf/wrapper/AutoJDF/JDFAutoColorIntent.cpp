@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,6 +116,13 @@ JDFAutoColorIntent& JDFAutoColorIntent::operator=(const KElement& other){
 
 
 /**
+ definition of optional attributes in the JDF namespace
+*/
+	WString JDFAutoColorIntent::OptionalAttributes()const{
+		return JDFIntentResource::OptionalAttributes()+WString(L",NumColors");
+};
+
+/**
  typesafe validator
 */
 	vWString JDFAutoColorIntent::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
@@ -123,9 +130,32 @@ JDFAutoColorIntent& JDFAutoColorIntent::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidNumColors(level)) {
+			vAtts.push_back(atr_NumColors);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		return vAtts;
 	};
 
+/**
+* Set attribute NumColors
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoColorIntent::SetNumColors(int value){
+	SetAttribute(atr_NumColors,WString::valueOf(value));
+};
+/**
+* Get integer attribute NumColors
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoColorIntent::GetNumColors() const {
+	return GetIntAttribute(atr_NumColors,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorIntent::ValidNumColors(EnumValidationLevel level) const {
+		return ValidAttribute(atr_NumColors,AttributeType_integer,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter

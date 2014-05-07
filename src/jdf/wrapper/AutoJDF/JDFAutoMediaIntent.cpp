@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -421,6 +421,26 @@ JDFStringSpan JDFAutoMediaIntent::GetCreateHoleType(){
 
 JDFStringSpan JDFAutoMediaIntent::AppendHoleType(){
 	JDFStringSpan e=AppendElementN(elm_HoleType,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSpanISOPaperSubstrate JDFAutoMediaIntent::GetISOPaperSubstrate()const{
+	JDFSpanISOPaperSubstrate e=GetElement(elm_ISOPaperSubstrate);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSpanISOPaperSubstrate JDFAutoMediaIntent::GetCreateISOPaperSubstrate(){
+	JDFSpanISOPaperSubstrate e=GetCreateElement(elm_ISOPaperSubstrate);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFSpanISOPaperSubstrate JDFAutoMediaIntent::AppendISOPaperSubstrate(){
+	JDFSpanISOPaperSubstrate e=AppendElementN(elm_ISOPaperSubstrate,1);
 	e.init();
 	return e;
 };
@@ -908,6 +928,18 @@ JDFMediaLayers JDFAutoMediaIntent::AppendMediaLayers(){
 					return vElem;
 			}
 		}
+		nElem=NumChildElements(elm_ISOPaperSubstrate);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ISOPaperSubstrate);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetISOPaperSubstrate().IsValid(level)) {
+				vElem.AppendUnique(elm_ISOPaperSubstrate);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		nElem=NumChildElements(elm_MediaColor);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_MediaColor);
@@ -1120,13 +1152,13 @@ JDFMediaLayers JDFAutoMediaIntent::AppendMediaLayers(){
  definition of required elements in the JDF namespace
 */
 	WString JDFAutoMediaIntent::UniqueElements()const{
-		return JDFIntentResource::UniqueElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,Flute,FluteDirection,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,MediaColor,MediaColorDetails,MediaQuality,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight,MediaLayers";
+		return JDFIntentResource::UniqueElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,Flute,FluteDirection,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,ISOPaperSubstrate,MediaColor,MediaColorDetails,MediaQuality,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight,MediaLayers";
 	};
 
 /**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMediaIntent::OptionalElements()const{
-		return JDFIntentResource::OptionalElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,Flute,FluteDirection,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,MediaColor,MediaColorDetails,MediaQuality,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight,MediaLayers";
+		return JDFIntentResource::OptionalElements()+L",BackCoatings,Brightness,BuyerSupplied,Dimensions,Flute,FluteDirection,FrontCoatings,Grade,GrainDirection,HoleCount,HoleType,ISOPaperSubstrate,MediaColor,MediaColorDetails,MediaQuality,MediaType,MediaTypeDetails,MediaUnit,Opacity,OpacityLevel,Recycled,RecycledPercentage,StockBrand,StockType,Texture,Thickness,USWeight,Weight,MediaLayers";
 	};
 }; // end namespace JDF

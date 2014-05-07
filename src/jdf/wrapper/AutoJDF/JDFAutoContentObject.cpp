@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -123,8 +123,8 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoContentObject::OptionalAttributes()const{
-		return JDFPlacedObject::OptionalAttributes()+WString(L",DocOrd,Ord,OrdExpression,SetOrd,Anchor,ClipBox,ClipBoxFormat,ClipBoxTemplate,ClipPath,CompensationCTMFormat,CompensationCTMTemplate,HalfTonePhaseOrigin,LayerID,LogicalStackOrd,OrdID,SourceClipPath,TrimClipPath,TrimCTM,TrimSize")
-	+WString(L",Type");
+		return JDFPlacedObject::OptionalAttributes()+WString(L",DocOrd,ID,Ord,OrdExpression,SetOrd,Anchor,AssemblyIDs,ClipBox,ClipBoxFormat,ClipBoxTemplate,ClipPath,CompensationCTMFormat,CompensationCTMTemplate,HalfTonePhaseOrigin,LayerID,LogicalStackOrd,OrdID,SourceClipPath,TrimClipPath")
+	+WString(L",TrimCTM,TrimSize,Type");
 };
 
 /**
@@ -137,6 +137,11 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 			return vAtts;
 		if(!ValidDocOrd(level)) {
 			vAtts.push_back(atr_DocOrd);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidID(level)) {
+			vAtts.push_back(atr_ID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -157,6 +162,11 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 		};
 		if(!ValidAnchor(level)) {
 			vAtts.push_back(atr_Anchor);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidAssemblyIDs(level)) {
+			vAtts.push_back(atr_AssemblyIDs);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -262,6 +272,24 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 		return ValidAttribute(atr_DocOrd,AttributeType_integer,false);
 	};
 /**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoContentObject::SetID(const WString& value){
+	SetAttribute(atr_ID,value);
+};
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoContentObject::GetID() const {
+	return GetAttribute(atr_ID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentObject::ValidID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ID,AttributeType_ID,false);
+	};
+/**
 * Set attribute Ord
 *@param int value: the value to set the attribute to
 */
@@ -339,6 +367,24 @@ JDFAutoContentObject& JDFAutoContentObject::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoContentObject::ValidAnchor(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_Anchor,AnchorString(),false);
+	};
+/**
+* Set attribute AssemblyIDs
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoContentObject::SetAssemblyIDs(const vWString& value){
+	SetAttribute(atr_AssemblyIDs,value);
+};
+/**
+* Get string attribute AssemblyIDs
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoContentObject::GetAssemblyIDs() const {
+	return GetAttribute(atr_AssemblyIDs,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContentObject::ValidAssemblyIDs(EnumValidationLevel level) const {
+		return ValidAttribute(atr_AssemblyIDs,AttributeType_NMTOKENS,false);
 	};
 /**
 * Set attribute ClipBox

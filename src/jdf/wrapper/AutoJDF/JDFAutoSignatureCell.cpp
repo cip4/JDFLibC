@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -116,7 +116,7 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoSignatureCell::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",BackFacePages,BackPages,BottleAngle,BottleAxis,FaceCells,FrontFacePages,FrontPages,Orientation,SectionIndex,StationName");
+		return JDFElement::OptionalAttributes()+WString(L",BackFacePages,BackPages,BackSpread,BottleAngle,BottleAxis,FaceCells,FrontFacePages,FrontPages,FrontSpread,Orientation,SectionIndex,StationName");
 };
 
 /**
@@ -134,6 +134,11 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
 		};
 		if(!ValidBackPages(level)) {
 			vAtts.push_back(atr_BackPages);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBackSpread(level)) {
+			vAtts.push_back(atr_BackSpread);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -159,6 +164,11 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
 		};
 		if(!ValidFrontPages(level)) {
 			vAtts.push_back(atr_FrontPages);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidFrontSpread(level)) {
+			vAtts.push_back(atr_FrontSpread);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -215,6 +225,24 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSignatureCell::ValidBackPages(EnumValidationLevel level) const {
 		return ValidAttribute(atr_BackPages,AttributeType_IntegerList,false);
+	};
+/**
+* Set attribute BackSpread
+*@param JDFIntegerList value: the value to set the attribute to
+*/
+	 void JDFAutoSignatureCell::SetBackSpread(const JDFIntegerList& value){
+	SetAttribute(atr_BackSpread,value.GetString());
+};
+/**
+* Get string attribute BackSpread
+* @return JDFIntegerList the vaue of the attribute 
+*/
+	 JDFIntegerList JDFAutoSignatureCell::GetBackSpread() const {
+	return GetAttribute(atr_BackSpread,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSignatureCell::ValidBackSpread(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BackSpread,AttributeType_IntegerList,false);
 	};
 /**
 * Set attribute BottleAngle
@@ -312,6 +340,24 @@ JDFAutoSignatureCell& JDFAutoSignatureCell::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSignatureCell::ValidFrontPages(EnumValidationLevel level) const {
 		return ValidAttribute(atr_FrontPages,AttributeType_IntegerList,false);
+	};
+/**
+* Set attribute FrontSpread
+*@param JDFIntegerList value: the value to set the attribute to
+*/
+	 void JDFAutoSignatureCell::SetFrontSpread(const JDFIntegerList& value){
+	SetAttribute(atr_FrontSpread,value.GetString());
+};
+/**
+* Get string attribute FrontSpread
+* @return JDFIntegerList the vaue of the attribute 
+*/
+	 JDFIntegerList JDFAutoSignatureCell::GetFrontSpread() const {
+	return GetAttribute(atr_FrontSpread,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoSignatureCell::ValidFrontSpread(EnumValidationLevel level) const {
+		return ValidAttribute(atr_FrontSpread,AttributeType_IntegerList,false);
 	};
 ///////////////////////////////////////////////////////////////////////
 

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -167,7 +167,7 @@ public:
 * Enumeration for attribute SourceObjects
 */
 
-	enum EnumSourceObjects{SourceObjects_Unknown,SourceObjects_All,SourceObjects_ImagePhotographic,SourceObjects_ImageScreenShot,SourceObjects_Text,SourceObjects_LineArt,SourceObjects_SmoothShades};
+	enum EnumSourceObjects{SourceObjects_Unknown,SourceObjects_All,SourceObjects_ImagePhotographic,SourceObjects_ImageScreenShot,SourceObjects_LineArt,SourceObjects_SmoothShades,SourceObjects_Text};
 
 /**
  * definition of optional attributes in the JDF namespace

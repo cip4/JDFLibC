@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,7 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -257,48 +258,45 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidName(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute ValueFormat
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetValueFormat(const WString& value);
-/**
-* Get string attribute ValueFormat
-* @return WString the vaue of the attribute 
-*/
-	virtual WString GetValueFormat() const;
-/**
-* Typesafe attribute validation of ValueFormat
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidValueFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Set attribute ValueTemplate
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetValueTemplate(const WString& value);
-/**
-* Get string attribute ValueTemplate
-* @return WString the vaue of the attribute 
-*/
-	virtual WString GetValueTemplate() const;
-/**
-* Typesafe attribute validation of ValueTemplate
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidValueTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
 
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
+
 /**
  definition of required elements in the JDF namespace
 */
 	virtual WString RequiredElements()const;
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoMetadataMap
 
 // ******************************************************

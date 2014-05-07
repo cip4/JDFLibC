@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,11 +76,12 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoJobField.h"
 #include "jdf/wrapper/JDFDeviceMark.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoJobField : public JDFResource
+class JDFAutoJobField : public JDFElement
 
 *********************************************************************
 */
@@ -108,17 +109,6 @@ JDFAutoJobField& JDFAutoJobField::operator=(const KElement& other){
 	return L"*:,JobField";
 };
 
-bool JDFAutoJobField::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoJobField::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -129,14 +119,14 @@ bool JDFAutoJobField::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoJobField::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ShowList,JobFormat,JobTemplate,OperatorText,UserText");
+		return JDFElement::OptionalAttributes()+WString(L",ShowList,JobFormat,JobTemplate,OperatorText,UserText");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoJobField::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -264,27 +254,47 @@ bool JDFAutoJobField::init(){
 **************************************************************** */
 
 
-JDFDeviceMark JDFAutoJobField::GetDeviceMark()const{
-	JDFDeviceMark e=GetElement(elm_DeviceMark);
+JDFDeviceMark JDFAutoJobField::GetDeviceMark(int iSkip)const{
+	JDFDeviceMark e=GetElement(elm_DeviceMark,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFDeviceMark JDFAutoJobField::GetCreateDeviceMark(){
-	JDFDeviceMark e=GetCreateElement(elm_DeviceMark);
+JDFDeviceMark JDFAutoJobField::GetCreateDeviceMark(int iSkip){
+	JDFDeviceMark e=GetCreateElement(elm_DeviceMark,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFDeviceMark JDFAutoJobField::AppendDeviceMark(){
-	JDFDeviceMark e=AppendElementN(elm_DeviceMark,1);
+	JDFDeviceMark e=AppendElement(elm_DeviceMark);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoJobField::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoJobField::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoJobField::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoJobField::RefDeviceMark(JDFDeviceMark& refTarget){
+JDFRefElement JDFAutoJobField::RefQualityControlResult(JDFQualityControlResult& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -295,20 +305,28 @@ JDFRefElement JDFAutoJobField::RefDeviceMark(JDFDeviceMark& refTarget){
 	vWString JDFAutoJobField::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_DeviceMark);
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_DeviceMark);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetDeviceMark().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetDeviceMark(i).IsValid(level)) {
 				vElem.AppendUnique(elm_DeviceMark);
 				if (++n>=nMax)
 					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
 			}
 		}
 		return vElem;
@@ -316,16 +334,9 @@ JDFRefElement JDFAutoJobField::RefDeviceMark(JDFDeviceMark& refTarget){
 
 
 /**
- definition of required elements in the JDF namespace
-*/
-	WString JDFAutoJobField::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",DeviceMark";
-	};
-
-/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoJobField::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",DeviceMark";
+		return JDFElement::OptionalElements()+L",DeviceMark,QualityControlResult";
 	};
 }; // end namespace JDF

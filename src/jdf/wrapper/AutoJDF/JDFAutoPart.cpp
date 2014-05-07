@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -113,8 +113,8 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 	WString JDFAutoPart::OptionalAttributes()const{
 		return JDFElement::OptionalAttributes()+WString(L",Sorting,SortAmount,BinderySignatureName,BinderySignaturePaginationIndex,BlockName,BundleItemIndex,CellIndex,Condition,DeliveryUnit0,DeliveryUnit1,DeliveryUnit2,DeliveryUnit3,DeliveryUnit4,DeliveryUnit5,DeliveryUnit6,DeliveryUnit7,DeliveryUnit8,DeliveryUnit9,DocCopies")
 	+WString(L",DocIndex,DocRunIndex,DocSheetIndex,DocTags,Edition,EditionVersion,FountainNumber,ItemNames,LayerIDs,Location,Metadata0,Metadata1,Metadata2,Metadata3,Metadata4,Metadata5,Metadata6,Metadata7,Metadata8")
-	+WString(L",Metadata9,Option,PageNumber,PageTags,PartVersion,PlateLayout,PreflightRule,PreviewType,RibbonName,Run,RunIndex,RunPage,RunPageRange,RunSet,RunTags,SectionIndex,Separation,SetDocIndex,SetRunIndex")
-	+WString(L",SetSheetIndex,SetTags,SetIndex,SheetIndex,SheetName,Side,SignatureName,StationName,SubRun,TileID,WebName,WebProduct,WebSetup");
+	+WString(L",Metadata9,Option,PageNumber,PageTags,PartVersion,PlateLayout,PreflightRule,PreviewType,ProductPart,RibbonName,Run,RunIndex,RunPage,RunPageRange,RunSet,RunTags,SectionIndex,Separation,SetCopies")
+	+WString(L",SetDocIndex,SetRunIndex,SetSheetIndex,SetTags,SetIndex,SheetIndex,SheetName,Side,SignatureName,StationName,SubRun,TileID,WebName,WebProduct,WebSetup");
 };
 
 /**
@@ -355,6 +355,11 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidProductPart(level)) {
+			vAtts.push_back(atr_ProductPart);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidRibbonName(level)) {
 			vAtts.push_back(atr_RibbonName);
 			if(++n>=nMax)
@@ -397,6 +402,11 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		};
 		if(!ValidSeparation(level)) {
 			vAtts.push_back(atr_Separation);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSetCopies(level)) {
+			vAtts.push_back(atr_SetCopies);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -1313,6 +1323,24 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 		return ValidEnumAttribute(atr_PreviewType,PreviewTypeString(),false);
 	};
 /**
+* Set attribute ProductPart
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetProductPart(const WString& value){
+	SetAttribute(atr_ProductPart,value);
+};
+/**
+* Get string attribute ProductPart
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPart::GetProductPart() const {
+	return GetAttribute(atr_ProductPart,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidProductPart(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ProductPart,AttributeType_NMTOKEN,false);
+	};
+/**
 * Set attribute RibbonName
 *@param WString value: the value to set the attribute to
 */
@@ -1473,6 +1501,24 @@ JDFAutoPart& JDFAutoPart::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPart::ValidSeparation(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Separation,AttributeType_string,false);
+	};
+/**
+* Set attribute SetCopies
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	 void JDFAutoPart::SetSetCopies(const JDFIntegerRangeList& value){
+	SetAttribute(atr_SetCopies,value.GetString());
+};
+/**
+* Get range attribute SetCopies
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	 JDFIntegerRangeList JDFAutoPart::GetSetCopies() const {
+	return GetAttribute(atr_SetCopies,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPart::ValidSetCopies(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SetCopies,AttributeType_IntegerRangeList,false);
 	};
 /**
 * Set attribute SetDocIndex

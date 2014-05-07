@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -187,6 +187,22 @@ public:
 */
 	virtual bool ValidCategory(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute JDFURL
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetJDFURL(const WString& value);
+/**
+* Get string attribute JDFURL
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetJDFURL() const;
+/**
+* Typesafe attribute validation of JDFURL
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidJDFURL(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to
 */
@@ -250,6 +266,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidParentJobPartID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ProjectID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetProjectID(const WString& value);
+/**
+* Get string attribute ProjectID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetProjectID() const;
+/**
+* Typesafe attribute validation of ProjectID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidProjectID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Type
 *@param WString value: the value to set the attribute to

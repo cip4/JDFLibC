@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,11 +76,12 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoCIELABMeasuringField.h"
 #include "jdf/wrapper/JDFColorMeasurementConditions.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoCIELABMeasuringField : public JDFResource
+class JDFAutoCIELABMeasuringField : public JDFElement
 
 *********************************************************************
 */
@@ -108,17 +109,6 @@ JDFAutoCIELABMeasuringField& JDFAutoCIELABMeasuringField::operator=(const KEleme
 	return L"*:,CIELABMeasuringField";
 };
 
-bool JDFAutoCIELABMeasuringField::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoCIELABMeasuringField::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -129,21 +119,21 @@ bool JDFAutoCIELABMeasuringField::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoCIELABMeasuringField::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",Center,CIELab";
+		return JDFElement::RequiredAttributes()+L",Center,CIELab";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCIELABMeasuringField::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",DensityStandard,Diameter,Light,Observer,Percentages,ScreenRuling,ScreenShape,Setup,Tolerance");
+		return JDFElement::OptionalAttributes()+WString(L",DensityStandard,Diameter,Light,Observer,Percentages,ScreenRuling,ScreenShape,Setup,Tolerance");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoCIELABMeasuringField::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -416,21 +406,21 @@ bool JDFAutoCIELABMeasuringField::init(){
 **************************************************************** */
 
 
-JDFColorMeasurementConditions JDFAutoCIELABMeasuringField::GetColorMeasurementConditions()const{
-	JDFColorMeasurementConditions e=GetElement(elm_ColorMeasurementConditions);
+JDFColorMeasurementConditions JDFAutoCIELABMeasuringField::GetColorMeasurementConditions(int iSkip)const{
+	JDFColorMeasurementConditions e=GetElement(elm_ColorMeasurementConditions,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFColorMeasurementConditions JDFAutoCIELABMeasuringField::GetCreateColorMeasurementConditions(){
-	JDFColorMeasurementConditions e=GetCreateElement(elm_ColorMeasurementConditions);
+JDFColorMeasurementConditions JDFAutoCIELABMeasuringField::GetCreateColorMeasurementConditions(int iSkip){
+	JDFColorMeasurementConditions e=GetCreateElement(elm_ColorMeasurementConditions,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFColorMeasurementConditions JDFAutoCIELABMeasuringField::AppendColorMeasurementConditions(){
-	JDFColorMeasurementConditions e=AppendElementN(elm_ColorMeasurementConditions,1);
+	JDFColorMeasurementConditions e=AppendElement(elm_ColorMeasurementConditions);
 	e.init();
 	return e;
 };
@@ -441,26 +431,59 @@ JDFRefElement JDFAutoCIELABMeasuringField::RefColorMeasurementConditions(JDFColo
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFQualityControlResult JDFAutoCIELABMeasuringField::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCIELABMeasuringField::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCIELABMeasuringField::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoCIELABMeasuringField::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
 	vWString JDFAutoCIELABMeasuringField::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_ColorMeasurementConditions);
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_ColorMeasurementConditions);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetColorMeasurementConditions().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetColorMeasurementConditions(i).IsValid(level)) {
 				vElem.AppendUnique(elm_ColorMeasurementConditions);
 				if (++n>=nMax)
 					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
 			}
 		}
 		return vElem;
@@ -468,16 +491,9 @@ JDFRefElement JDFAutoCIELABMeasuringField::RefColorMeasurementConditions(JDFColo
 
 
 /**
- definition of required elements in the JDF namespace
-*/
-	WString JDFAutoCIELABMeasuringField::UniqueElements()const{
-		return JDFResource::UniqueElements()+L",ColorMeasurementConditions";
-	};
-
-/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoCIELABMeasuringField::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ColorMeasurementConditions";
+		return JDFElement::OptionalElements()+L",ColorMeasurementConditions,QualityControlResult";
 	};
 }; // end namespace JDF

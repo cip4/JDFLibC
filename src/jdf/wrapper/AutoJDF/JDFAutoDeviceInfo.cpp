@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoDeviceInfo.h"
+#include "jdf/wrapper/JDFActivity.h"
 #include "jdf/wrapper/JDFDevice.h"
 #include "jdf/wrapper/JDFEmployee.h"
 #include "jdf/wrapper/JDFJobPhase.h"
@@ -445,6 +446,26 @@ JDFAutoDeviceInfo& JDFAutoDeviceInfo::operator=(const KElement& other){
 **************************************************************** */
 
 
+JDFActivity JDFAutoDeviceInfo::GetActivity(int iSkip)const{
+	JDFActivity e=GetElement(elm_Activity,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActivity JDFAutoDeviceInfo::GetCreateActivity(int iSkip){
+	JDFActivity e=GetCreateElement(elm_Activity,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActivity JDFAutoDeviceInfo::AppendActivity(){
+	JDFActivity e=AppendElement(elm_Activity);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFDevice JDFAutoDeviceInfo::GetDevice()const{
 	JDFDevice e=GetElement(elm_Device);
 	return e;
@@ -545,6 +566,16 @@ JDFModuleStatus JDFAutoDeviceInfo::AppendModuleStatus(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Activity);
+
+		for(i=0;i<nElem;i++){
+			if (!GetActivity(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Activity);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Device);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_Device);
@@ -602,6 +633,6 @@ JDFModuleStatus JDFAutoDeviceInfo::AppendModuleStatus(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoDeviceInfo::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",Device,Employee,JobPhase,ModuleStatus";
+		return JDFElement::OptionalElements()+L",Activity,Device,Employee,JobPhase,ModuleStatus";
 	};
 }; // end namespace JDF

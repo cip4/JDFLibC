@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,7 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFActivity;
 class JDFDevice;
 class JDFEmployee;
 class JDFJobPhase;
@@ -428,6 +429,24 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element Activity
+* 
+* @param int iSkip number of elements to skip
+* @return JDFActivity The element
+*/
+	JDFActivity GetCreateActivity(int iSkip=0);
+
+/**
+* const get element Activity
+* @param int iSkip number of elements to skip
+* @return JDFActivity The element
+*/
+	JDFActivity GetActivity(int iSkip=0)const;
+/**
+* Append element Activity
+ */
+	JDFActivity AppendActivity();
 
 /** Get Element Device
 * 

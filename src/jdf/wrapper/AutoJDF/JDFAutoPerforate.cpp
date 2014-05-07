@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPerforate.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -113,17 +115,10 @@ JDFAutoPerforate& JDFAutoPerforate::operator=(const KElement& other){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoPerforate::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",WorkingDirection";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPerforate::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Depth,RelativeStartPosition,RelativeWorkingPath,StartPosition,WorkingPath,TeethPerDimension");
+		return JDFElement::OptionalAttributes()+WString(L",Depth,RelativeStartPosition,RelativeWorkingPath,StartPosition,WorkingPath,WorkingDirection,TeethPerDimension");
 };
 
 /**
@@ -285,7 +280,7 @@ JDFAutoPerforate& JDFAutoPerforate::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPerforate::ValidWorkingDirection(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_WorkingDirection,WorkingDirectionString(),RequiredLevel(level));
+		return ValidEnumAttribute(atr_WorkingDirection,WorkingDirectionString(),false);
 	};
 /**
 * Set attribute TeethPerDimension
@@ -304,5 +299,66 @@ JDFAutoPerforate& JDFAutoPerforate::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPerforate::ValidTeethPerDimension(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TeethPerDimension,AttributeType_double,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoPerforate::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoPerforate::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoPerforate::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoPerforate::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoPerforate::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoPerforate::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

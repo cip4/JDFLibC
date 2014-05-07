@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -118,7 +118,7 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoResourceQuParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Classes,Exact,JobID,JobPartID,LotDetails,LotID,ProcessUsage,ProductID,QueueEntryID,ResourceDetails,ResourceID,ResourceName,Usage");
+		return JDFElement::OptionalAttributes()+WString(L",Classes,Context,Exact,JobID,JobPartID,LotDetails,LotID,ProcessUsage,ProductID,QueueEntryID,ResourceDetails,ResourceID,ResourceName,Usage");
 };
 
 /**
@@ -131,6 +131,11 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
 			return vAtts;
 		if(!ValidClasses(level)) {
 			vAtts.push_back(atr_Classes);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidContext(level)) {
+			vAtts.push_back(atr_Context);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -238,6 +243,31 @@ JDFAutoResourceQuParams& JDFAutoResourceQuParams::operator=(const KElement& othe
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoResourceQuParams::ValidClasses(EnumValidationLevel level) const {
 		return ValidEnumerationsAttribute(atr_Classes,ClassesString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoResourceQuParams::ContextString(){
+		static const WString enums=WString(L"Unknown,Job,Global");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoResourceQuParams::ContextString(EnumContext value){
+		return ContextString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoResourceQuParams::SetContext( EnumContext value){
+	SetEnumAttribute(atr_Context,value,ContextString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoResourceQuParams::EnumContext JDFAutoResourceQuParams:: GetContext() const {
+	return (EnumContext) GetEnumAttribute(atr_Context,ContextString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoResourceQuParams::ValidContext(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Context,ContextString(),false);
 	};
 /**
 * Set attribute Exact

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -78,6 +78,7 @@
 #include "jdf/wrapper/JDFCompany.h"
 #include "jdf/wrapper/JDFContact.h"
 #include "jdf/wrapper/JDFDrop.h"
+#include "jdf/wrapper/JDFFileSpec.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -295,21 +296,21 @@ bool JDFAutoDeliveryParams::init(){
 **************************************************************** */
 
 
-JDFCompany JDFAutoDeliveryParams::GetCompany(int iSkip)const{
-	JDFCompany e=GetElement(elm_Company,WString::emptyStr,iSkip);
+JDFCompany JDFAutoDeliveryParams::GetCompany()const{
+	JDFCompany e=GetElement(elm_Company);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFCompany JDFAutoDeliveryParams::GetCreateCompany(int iSkip){
-	JDFCompany e=GetCreateElement(elm_Company,WString::emptyStr,iSkip);
+JDFCompany JDFAutoDeliveryParams::GetCreateCompany(){
+	JDFCompany e=GetCreateElement(elm_Company);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFCompany JDFAutoDeliveryParams::AppendCompany(){
-	JDFCompany e=AppendElement(elm_Company);
+	JDFCompany e=AppendElementN(elm_Company,1);
 	e.init();
 	return e;
 };
@@ -365,6 +366,31 @@ JDFDrop JDFAutoDeliveryParams::AppendDrop(){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFFileSpec JDFAutoDeliveryParams::GetFileSpec()const{
+	JDFFileSpec e=GetElement(elm_FileSpec);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoDeliveryParams::GetCreateFileSpec(){
+	JDFFileSpec e=GetCreateElement(elm_FileSpec);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFFileSpec JDFAutoDeliveryParams::AppendFileSpec(){
+	JDFFileSpec e=AppendElementN(elm_FileSpec,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoDeliveryParams::RefFileSpec(JDFFileSpec& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 /**
  typesafe validator
 */
@@ -376,13 +402,15 @@ JDFDrop JDFAutoDeliveryParams::AppendDrop(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_Company);
-
-		for(i=0;i<nElem;i++){
-			if (!GetCompany(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_Company);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetCompany().IsValid(level)) {
 				vElem.AppendUnique(elm_Company);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_Contact);
@@ -396,6 +424,11 @@ JDFDrop JDFAutoDeliveryParams::AppendDrop(){
 			}
 		}
 		nElem=NumChildElements(elm_Drop);
+		if((level>=ValidationLevel_Complete)&&(nElem<1)) {
+		vElem.AppendUnique(elm_Drop);
+			if (++n>=nMax)
+			return vElem;
+		}
 
 		for(i=0;i<nElem;i++){
 			if (!GetDrop(i).IsValid(level)) {
@@ -405,14 +438,40 @@ JDFDrop JDFAutoDeliveryParams::AppendDrop(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_FileSpec);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_FileSpec);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFileSpec().IsValid(level)) {
+				vElem.AppendUnique(elm_FileSpec);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
 		return vElem;
 	};
 
 
 /**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoDeliveryParams::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",Company,FileSpec";
+	};
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoDeliveryParams::RequiredElements()const{
+		return JDFResource::RequiredElements()+L",Drop";
+	};
+
+/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoDeliveryParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",Company,Contact,Drop";
+		return JDFResource::OptionalElements()+L",Company,Contact,FileSpec";
 	};
 }; // end namespace JDF

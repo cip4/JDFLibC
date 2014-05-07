@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,10 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoObjectResolution.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoObjectResolution : public JDFResource
+class JDFAutoObjectResolution : public JDFElement
 
 *********************************************************************
 */
@@ -106,17 +108,6 @@ JDFAutoObjectResolution& JDFAutoObjectResolution::operator=(const KElement& othe
 	return L"*:,ObjectResolution";
 };
 
-bool JDFAutoObjectResolution::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoObjectResolution::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -127,21 +118,21 @@ bool JDFAutoObjectResolution::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoObjectResolution::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",Resolution";
+		return JDFElement::RequiredAttributes()+L",Resolution";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoObjectResolution::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",SourceObjects,AntiAliasing,ObjectTags");
+		return JDFElement::OptionalAttributes()+WString(L",SourceObjects,AntiAliasing,ObjectTags");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoObjectResolution::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -189,7 +180,7 @@ bool JDFAutoObjectResolution::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoObjectResolution::SourceObjectsString(){
-		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,Text,LineArt,SmoothShades");
+		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,LineArt,SmoothShades,Text");
 		return enums;
 	};
 
@@ -263,5 +254,66 @@ bool JDFAutoObjectResolution::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoObjectResolution::ValidObjectTags(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ObjectTags,AttributeType_NMTOKENS,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoObjectResolution::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoObjectResolution::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoObjectResolution::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoObjectResolution::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoObjectResolution::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoObjectResolution::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

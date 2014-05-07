@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -132,8 +132,8 @@ bool JDFAutoDevice::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDevice::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",DeviceFamily,DeviceID,DeviceType,Directory,FriendlyName,ICSVersions,JDFErrorURL,JDFInputURL,JDFOutputURL,JDFVersions,JMFSenderID,JMFURL,KnownLocalizations,Manufacturer,ManufacturerURL,ModelDescription,ModelName,ModelNumber,ModelURL")
-	+WString(L",SerialNumber,PresentationURL,SecureJMFURL,UPC");
+		return JDFResource::OptionalAttributes()+WString(L",DeviceClass,DeviceFamily,DeviceID,DeviceType,Directory,FriendlyName,ICSVersions,JDFErrorURL,JDFInputURL,JDFOutputURL,JDFVersions,JMFSenderID,JMFURL,KnownLocalizations,Manufacturer,ManufacturerURL,ModelDescription,ModelName,ModelNumber")
+	+WString(L",ModelURL,SerialNumber,PresentationURL,SecureJMFURL,UPC");
 };
 
 /**
@@ -144,6 +144,11 @@ bool JDFAutoDevice::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidDeviceClass(level)) {
+			vAtts.push_back(atr_DeviceClass);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidDeviceFamily(level)) {
 			vAtts.push_back(atr_DeviceFamily);
 			if(++n>=nMax)
@@ -262,6 +267,24 @@ bool JDFAutoDevice::init(){
 		return vAtts;
 	};
 
+/**
+* Set attribute DeviceClass
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoDevice::SetDeviceClass(const vWString& value){
+	SetAttribute(atr_DeviceClass,value);
+};
+/**
+* Get string attribute DeviceClass
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoDevice::GetDeviceClass() const {
+	return GetAttribute(atr_DeviceClass,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDevice::ValidDeviceClass(EnumValidationLevel level) const {
+		return ValidAttribute(atr_DeviceClass,AttributeType_NMTOKENS,false);
+	};
 /**
 * Set attribute DeviceFamily
 *@param WString value: the value to set the attribute to
@@ -682,21 +705,21 @@ bool JDFAutoDevice::init(){
 **************************************************************** */
 
 
-JDFCostCenter JDFAutoDevice::GetCostCenter(int iSkip)const{
-	JDFCostCenter e=GetElement(elm_CostCenter,WString::emptyStr,iSkip);
+JDFCostCenter JDFAutoDevice::GetCostCenter()const{
+	JDFCostCenter e=GetElement(elm_CostCenter);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFCostCenter JDFAutoDevice::GetCreateCostCenter(int iSkip){
-	JDFCostCenter e=GetCreateElement(elm_CostCenter,WString::emptyStr,iSkip);
+JDFCostCenter JDFAutoDevice::GetCreateCostCenter(){
+	JDFCostCenter e=GetCreateElement(elm_CostCenter);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFCostCenter JDFAutoDevice::AppendCostCenter(){
-	JDFCostCenter e=AppendElement(elm_CostCenter);
+	JDFCostCenter e=AppendElementN(elm_CostCenter,1);
 	e.init();
 	return e;
 };
@@ -722,21 +745,21 @@ JDFDeviceCap JDFAutoDevice::AppendDeviceCap(){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFIconList JDFAutoDevice::GetIconList(int iSkip)const{
-	JDFIconList e=GetElement(elm_IconList,WString::emptyStr,iSkip);
+JDFIconList JDFAutoDevice::GetIconList()const{
+	JDFIconList e=GetElement(elm_IconList);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFIconList JDFAutoDevice::GetCreateIconList(int iSkip){
-	JDFIconList e=GetCreateElement(elm_IconList,WString::emptyStr,iSkip);
+JDFIconList JDFAutoDevice::GetCreateIconList(){
+	JDFIconList e=GetCreateElement(elm_IconList);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFIconList JDFAutoDevice::AppendIconList(){
-	JDFIconList e=AppendElement(elm_IconList);
+	JDFIconList e=AppendElementN(elm_IconList,1);
 	e.init();
 	return e;
 };
@@ -773,13 +796,15 @@ JDFModule JDFAutoDevice::AppendModule(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_CostCenter);
-
-		for(i=0;i<nElem;i++){
-			if (!GetCostCenter(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_CostCenter);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetCostCenter().IsValid(level)) {
 				vElem.AppendUnique(elm_CostCenter);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_DeviceCap);
@@ -793,13 +818,15 @@ JDFModule JDFAutoDevice::AppendModule(){
 			}
 		}
 		nElem=NumChildElements(elm_IconList);
-
-		for(i=0;i<nElem;i++){
-			if (!GetIconList(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_IconList);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetIconList().IsValid(level)) {
 				vElem.AppendUnique(elm_IconList);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_Module);
@@ -815,6 +842,13 @@ JDFModule JDFAutoDevice::AppendModule(){
 		return vElem;
 	};
 
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoDevice::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",CostCenter,IconList";
+	};
 
 /**
  definition of optional elements in the JDF namespace

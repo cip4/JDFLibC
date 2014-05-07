@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -134,7 +134,7 @@ bool JDFAutoDigitalPrintingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDigitalPrintingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",DirectProofAmount,ManualFeed,Collate,OutputBin,PrintQuality,NonPrintableMarginBottom,NonPrintableMarginLeft,NonPrintableMarginRight,NonPrintableMarginTop,PageDelivery,PrintingType,SheetLay,Sides");
+		return JDFResource::OptionalAttributes()+WString(L",DirectProofAmount,ManualFeed,Collate,NonPrintableMarginBottom,NonPrintableMarginLeft,NonPrintableMarginRight,NonPrintableMarginTop,OutputBin,PageDelivery,PrintPass,PrintQuality,PrintingType,SheetLay,Sides,StackAmount");
 };
 
 /**
@@ -160,16 +160,6 @@ bool JDFAutoDigitalPrintingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
-		if(!ValidOutputBin(level)) {
-			vAtts.push_back(atr_OutputBin);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidPrintQuality(level)) {
-			vAtts.push_back(atr_PrintQuality);
-			if(++n>=nMax)
-				return vAtts;
-		};
 		if(!ValidNonPrintableMarginBottom(level)) {
 			vAtts.push_back(atr_NonPrintableMarginBottom);
 			if(++n>=nMax)
@@ -190,8 +180,23 @@ bool JDFAutoDigitalPrintingParams::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidOutputBin(level)) {
+			vAtts.push_back(atr_OutputBin);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidPageDelivery(level)) {
 			vAtts.push_back(atr_PageDelivery);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPrintPass(level)) {
+			vAtts.push_back(atr_PrintPass);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPrintQuality(level)) {
+			vAtts.push_back(atr_PrintQuality);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -207,6 +212,11 @@ bool JDFAutoDigitalPrintingParams::init(){
 		};
 		if(!ValidSides(level)) {
 			vAtts.push_back(atr_Sides);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidStackAmount(level)) {
+			vAtts.push_back(atr_StackAmount);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -272,49 +282,6 @@ bool JDFAutoDigitalPrintingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDigitalPrintingParams::ValidCollate(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_Collate,CollateString(),false);
-	};
-/**
-* Set attribute OutputBin
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoDigitalPrintingParams::SetOutputBin(const WString& value){
-	SetAttribute(atr_OutputBin,value);
-};
-/**
-* Get string attribute OutputBin
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoDigitalPrintingParams::GetOutputBin() const {
-	return GetAttribute(atr_OutputBin,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoDigitalPrintingParams::ValidOutputBin(EnumValidationLevel level) const {
-		return ValidAttribute(atr_OutputBin,AttributeType_NMTOKEN,false);
-	};
-///////////////////////////////////////////////////////////////////////
-
-	const WString& JDFAutoDigitalPrintingParams::PrintQualityString(){
-		static const WString enums=WString(L"Unknown,High,Normal,Draft,SystemSpecified");
-		return enums;
-	};
-
-///////////////////////////////////////////////////////////////////////
-
-	WString JDFAutoDigitalPrintingParams::PrintQualityString(EnumPrintQuality value){
-		return PrintQualityString().Token(value,WString::comma);
-	};
-
-/////////////////////////////////////////////////////////////////////////
-	void JDFAutoDigitalPrintingParams::SetPrintQuality( EnumPrintQuality value){
-	SetEnumAttribute(atr_PrintQuality,value,PrintQualityString());
-};
-/////////////////////////////////////////////////////////////////////////
-	 JDFAutoDigitalPrintingParams::EnumPrintQuality JDFAutoDigitalPrintingParams:: GetPrintQuality() const {
-	return (EnumPrintQuality) GetEnumAttribute(atr_PrintQuality,PrintQualityString(),WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoDigitalPrintingParams::ValidPrintQuality(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_PrintQuality,PrintQualityString(),false);
 	};
 /**
 * Set attribute NonPrintableMarginBottom
@@ -388,6 +355,24 @@ bool JDFAutoDigitalPrintingParams::init(){
 	bool JDFAutoDigitalPrintingParams::ValidNonPrintableMarginTop(EnumValidationLevel level) const {
 		return ValidAttribute(atr_NonPrintableMarginTop,AttributeType_double,false);
 	};
+/**
+* Set attribute OutputBin
+*@param vWString value: the value to set the attribute to
+*/
+	 void JDFAutoDigitalPrintingParams::SetOutputBin(const vWString& value){
+	SetAttribute(atr_OutputBin,value);
+};
+/**
+* Get string attribute OutputBin
+* @return vWString the vaue of the attribute 
+*/
+	 vWString JDFAutoDigitalPrintingParams::GetOutputBin() const {
+	return GetAttribute(atr_OutputBin,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDigitalPrintingParams::ValidOutputBin(EnumValidationLevel level) const {
+		return ValidAttribute(atr_OutputBin,AttributeType_NMTOKENS,false);
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoDigitalPrintingParams::PageDeliveryString(){
@@ -412,6 +397,56 @@ bool JDFAutoDigitalPrintingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDigitalPrintingParams::ValidPageDelivery(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_PageDelivery,PageDeliveryString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoDigitalPrintingParams::PrintPassString(){
+		static const WString enums=WString(L"Unknown,OneShot,MultiShot");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoDigitalPrintingParams::PrintPassString(EnumPrintPass value){
+		return PrintPassString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoDigitalPrintingParams::SetPrintPass( EnumPrintPass value){
+	SetEnumAttribute(atr_PrintPass,value,PrintPassString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoDigitalPrintingParams::EnumPrintPass JDFAutoDigitalPrintingParams:: GetPrintPass() const {
+	return (EnumPrintPass) GetEnumAttribute(atr_PrintPass,PrintPassString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDigitalPrintingParams::ValidPrintPass(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_PrintPass,PrintPassString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoDigitalPrintingParams::PrintQualityString(){
+		static const WString enums=WString(L"Unknown,High,Normal,Draft,SystemSpecified");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoDigitalPrintingParams::PrintQualityString(EnumPrintQuality value){
+		return PrintQualityString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoDigitalPrintingParams::SetPrintQuality( EnumPrintQuality value){
+	SetEnumAttribute(atr_PrintQuality,value,PrintQualityString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoDigitalPrintingParams::EnumPrintQuality JDFAutoDigitalPrintingParams:: GetPrintQuality() const {
+	return (EnumPrintQuality) GetEnumAttribute(atr_PrintQuality,PrintQualityString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDigitalPrintingParams::ValidPrintQuality(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_PrintQuality,PrintQualityString(),false);
 	};
 ///////////////////////////////////////////////////////////////////////
 
@@ -466,7 +501,7 @@ bool JDFAutoDigitalPrintingParams::init(){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoDigitalPrintingParams::SidesString(){
-		static const WString enums=WString(L"Unknown,OneSidedBackFlipX,OneSidedBackFlipY,OneSidedFront,TwoSidedFlipX,TwoSidedFlipY");
+		static const WString enums=WString(L"Unknown,OneSidedBack,OneSidedBackFlipX,OneSidedBackFlipY,OneSidedFront,TwoSided,TwoSidedFlipX,TwoSidedFlipY");
 		return enums;
 	};
 
@@ -487,6 +522,24 @@ bool JDFAutoDigitalPrintingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoDigitalPrintingParams::ValidSides(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_Sides,SidesString(),false);
+	};
+/**
+* Set attribute StackAmount
+*@param int value: the value to set the attribute to
+*/
+	 void JDFAutoDigitalPrintingParams::SetStackAmount(int value){
+	SetAttribute(atr_StackAmount,WString::valueOf(value));
+};
+/**
+* Get integer attribute StackAmount
+* @return int the vaue of the attribute 
+*/
+	 int JDFAutoDigitalPrintingParams::GetStackAmount() const {
+	return GetIntAttribute(atr_StackAmount,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDigitalPrintingParams::ValidStackAmount(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StackAmount,AttributeType_integer,false);
 	};
 
 /* ******************************************************

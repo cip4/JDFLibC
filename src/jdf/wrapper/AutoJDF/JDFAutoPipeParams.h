@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,8 @@
 #include "jdf/wrapper/JDFElement.h"
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFAmountPool;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoPipeParams : public JDFElement
@@ -131,6 +133,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -213,6 +224,22 @@ public:
 */
 	virtual bool ValidPipeID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ProjectID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetProjectID(const WString& value);
+/**
+* Get string attribute ProjectID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetProjectID() const;
+/**
+* Typesafe attribute validation of ProjectID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidProjectID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute Status
 * @param EnumStatus value the value to set the attribute to
 */
@@ -253,6 +280,33 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element AmountPool
+* 
+* @return JDFAmountPool The element
+*/
+	JDFAmountPool GetCreateAmountPool();
+
+/**
+* const get element AmountPool
+*@return  JDFAmountPool The element
+*/
+	JDFAmountPool GetAmountPool()const;
+/**
+* Append element AmountPool
+ * 
+*/
+	JDFAmountPool AppendAmountPool();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoPipeParams
 
 // ******************************************************

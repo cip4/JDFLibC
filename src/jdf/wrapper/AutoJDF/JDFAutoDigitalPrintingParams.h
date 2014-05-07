@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -186,15 +186,20 @@ virtual bool init();
 
 	enum EnumCollate{Collate_Unknown,Collate_None,Collate_Sheet,Collate_SheetAndSet,Collate_SheetSetAndJob,Collate_SystemSpecified};
 /**
-* Enumeration for attribute PrintQuality
-*/
-
-	enum EnumPrintQuality{PrintQuality_Unknown,PrintQuality_High,PrintQuality_Normal,PrintQuality_Draft,PrintQuality_SystemSpecified};
-/**
 * Enumeration for attribute PageDelivery
 */
 
 	enum EnumPageDelivery{PageDelivery_Unknown,PageDelivery_FanFold,PageDelivery_SameOrderFaceUp,PageDelivery_SameOrderFaceDown,PageDelivery_ReverseOrderFaceUp,PageDelivery_ReverseOrderFaceDown,PageDelivery_SystemSpecified};
+/**
+* Enumeration for attribute PrintPass
+*/
+
+	enum EnumPrintPass{PrintPass_Unknown,PrintPass_OneShot,PrintPass_MultiShot};
+/**
+* Enumeration for attribute PrintQuality
+*/
+
+	enum EnumPrintQuality{PrintQuality_Unknown,PrintQuality_High,PrintQuality_Normal,PrintQuality_Draft,PrintQuality_SystemSpecified};
 /**
 * Enumeration for attribute PrintingType
 */
@@ -209,7 +214,7 @@ virtual bool init();
 * Enumeration for attribute Sides
 */
 
-	enum EnumSides{Sides_Unknown,Sides_OneSidedBackFlipX,Sides_OneSidedBackFlipY,Sides_OneSidedFront,Sides_TwoSidedFlipX,Sides_TwoSidedFlipY};
+	enum EnumSides{Sides_Unknown,Sides_OneSidedBack,Sides_OneSidedBackFlipX,Sides_OneSidedBackFlipY,Sides_OneSidedFront,Sides_TwoSided,Sides_TwoSidedFlipX,Sides_TwoSidedFlipY};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -278,51 +283,6 @@ virtual bool init();
 */
 	virtual bool ValidCollate(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute OutputBin
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetOutputBin(const WString& value);
-/**
-* Get string attribute OutputBin
-* @return WString the vaue of the attribute 
-*/
-	virtual WString GetOutputBin() const;
-/**
-* Typesafe attribute validation of OutputBin
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidOutputBin(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Enumeration strings for PrintQuality
-* @return const WString& comma separated list of enumerated string values 
-*/
-	static const WString& PrintQualityString();
-/**
-* Enumeration string for enum value
-* @param EnumPrintQuality value the enumeration to translate
-* @return WString the string representation of the enumeration
-*/
-	static WString PrintQualityString(EnumPrintQuality value);
-/**
-* Set attribute PrintQuality
-* @param EnumPrintQuality value the value to set the attribute to
-*/
-	virtual void SetPrintQuality( EnumPrintQuality value);
-
-/**
-* Typesafe enumerated attribute PrintQuality
-* @return EnumPrintQualitythe enumeration value of the attribute
-*/
-	virtual EnumPrintQuality GetPrintQuality() const;
-
-/**
-* Typesafe attribute validation of PrintQuality
-* @param EnumValidationLevel level element validation level 
-* @return bool true if valid
-*/
-	virtual bool ValidPrintQuality(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute NonPrintableMarginBottom
 *@param double value: the value to set the attribute to
 */
@@ -387,6 +347,22 @@ virtual bool init();
 */
 	virtual bool ValidNonPrintableMarginTop(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute OutputBin
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetOutputBin(const vWString& value);
+/**
+* Get string attribute OutputBin
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetOutputBin() const;
+/**
+* Typesafe attribute validation of OutputBin
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidOutputBin(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Enumeration strings for PageDelivery
 * @return const WString& comma separated list of enumerated string values 
 */
@@ -415,6 +391,64 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidPageDelivery(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for PrintPass
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& PrintPassString();
+/**
+* Enumeration string for enum value
+* @param EnumPrintPass value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString PrintPassString(EnumPrintPass value);
+/**
+* Set attribute PrintPass
+* @param EnumPrintPass value the value to set the attribute to
+*/
+	virtual void SetPrintPass( EnumPrintPass value);
+
+/**
+* Typesafe enumerated attribute PrintPass
+* @return EnumPrintPassthe enumeration value of the attribute
+*/
+	virtual EnumPrintPass GetPrintPass() const;
+
+/**
+* Typesafe attribute validation of PrintPass
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidPrintPass(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for PrintQuality
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& PrintQualityString();
+/**
+* Enumeration string for enum value
+* @param EnumPrintQuality value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString PrintQualityString(EnumPrintQuality value);
+/**
+* Set attribute PrintQuality
+* @param EnumPrintQuality value the value to set the attribute to
+*/
+	virtual void SetPrintQuality( EnumPrintQuality value);
+
+/**
+* Typesafe enumerated attribute PrintQuality
+* @return EnumPrintQualitythe enumeration value of the attribute
+*/
+	virtual EnumPrintQuality GetPrintQuality() const;
+
+/**
+* Typesafe attribute validation of PrintQuality
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidPrintQuality(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for PrintingType
 * @return const WString& comma separated list of enumerated string values 
@@ -502,6 +536,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSides(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute StackAmount
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetStackAmount(int value);
+/**
+* Get integer attribute StackAmount
+* @return int the vaue of the attribute 
+*/
+	virtual int GetStackAmount() const;
+/**
+* Typesafe attribute validation of StackAmount
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidStackAmount(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

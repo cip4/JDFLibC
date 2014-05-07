@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoCut.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -113,17 +115,10 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 
 
 /**
- definition of required attributes in the JDF namespace
-*/
-	WString JDFAutoCut::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",WorkingDirection";
-};
-
-/**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoCut::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",CutWidth,RelativeStartPosition,RelativeWorkingPath,StartPosition,WorkingPath");
+		return JDFElement::OptionalAttributes()+WString(L",CutWidth,LowerRibbonName,RelativeStartPosition,RelativeWorkingPath,StartPosition,UpperRibbonName,WorkingPath,WorkingDirection");
 };
 
 /**
@@ -139,6 +134,11 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidLowerRibbonName(level)) {
+			vAtts.push_back(atr_LowerRibbonName);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidRelativeStartPosition(level)) {
 			vAtts.push_back(atr_RelativeStartPosition);
 			if(++n>=nMax)
@@ -151,6 +151,11 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 		};
 		if(!ValidStartPosition(level)) {
 			vAtts.push_back(atr_StartPosition);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidUpperRibbonName(level)) {
+			vAtts.push_back(atr_UpperRibbonName);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -184,6 +189,24 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoCut::ValidCutWidth(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CutWidth,AttributeType_double,false);
+	};
+/**
+* Set attribute LowerRibbonName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoCut::SetLowerRibbonName(const WString& value){
+	SetAttribute(atr_LowerRibbonName,value);
+};
+/**
+* Get string attribute LowerRibbonName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoCut::GetLowerRibbonName() const {
+	return GetAttribute(atr_LowerRibbonName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCut::ValidLowerRibbonName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_LowerRibbonName,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute RelativeStartPosition
@@ -240,6 +263,24 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 		return ValidAttribute(atr_StartPosition,AttributeType_XYPair,false);
 	};
 /**
+* Set attribute UpperRibbonName
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoCut::SetUpperRibbonName(const WString& value){
+	SetAttribute(atr_UpperRibbonName,value);
+};
+/**
+* Get string attribute UpperRibbonName
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoCut::GetUpperRibbonName() const {
+	return GetAttribute(atr_UpperRibbonName,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoCut::ValidUpperRibbonName(EnumValidationLevel level) const {
+		return ValidAttribute(atr_UpperRibbonName,AttributeType_NMTOKEN,false);
+	};
+/**
 * Set attribute WorkingPath
 *@param JDFXYPair value: the value to set the attribute to
 */
@@ -280,6 +321,67 @@ JDFAutoCut& JDFAutoCut::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoCut::ValidWorkingDirection(EnumValidationLevel level) const {
-		return ValidEnumAttribute(atr_WorkingDirection,WorkingDirectionString(),RequiredLevel(level));
+		return ValidEnumAttribute(atr_WorkingDirection,WorkingDirectionString(),false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoCut::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCut::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoCut::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoCut::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoCut::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoCut::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,12 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoDeviceMark.h"
-#include "jdf/wrapper/JDFBarcodeReproParams.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoDeviceMark : public JDFResource
+class JDFAutoDeviceMark : public JDFElement
 
 *********************************************************************
 */
@@ -108,17 +108,6 @@ JDFAutoDeviceMark& JDFAutoDeviceMark::operator=(const KElement& other){
 	return L"*:,DeviceMark";
 };
 
-bool JDFAutoDeviceMark::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoDeviceMark::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -129,14 +118,14 @@ bool JDFAutoDeviceMark::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDeviceMark::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",Anchor,Font,FontSize,HorizontalFitPolicy,MarkJustification,MarkOffset,MarkOrientation,MarkPosition,VerticalFitPolicy");
+		return JDFElement::OptionalAttributes()+WString(L",Anchor,Font,FontSize,HorizontalFitPolicy,MarkJustification,MarkOffset,MarkOrientation,MarkPosition,VerticalFitPolicy");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoDeviceMark::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -385,27 +374,27 @@ bool JDFAutoDeviceMark::init(){
 **************************************************************** */
 
 
-JDFBarcodeReproParams JDFAutoDeviceMark::GetBarcodeReproParams(int iSkip)const{
-	JDFBarcodeReproParams e=GetElement(elm_BarcodeReproParams,WString::emptyStr,iSkip);
+JDFQualityControlResult JDFAutoDeviceMark::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFBarcodeReproParams JDFAutoDeviceMark::GetCreateBarcodeReproParams(int iSkip){
-	JDFBarcodeReproParams e=GetCreateElement(elm_BarcodeReproParams,WString::emptyStr,iSkip);
+JDFQualityControlResult JDFAutoDeviceMark::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFBarcodeReproParams JDFAutoDeviceMark::AppendBarcodeReproParams(){
-	JDFBarcodeReproParams e=AppendElement(elm_BarcodeReproParams);
+JDFQualityControlResult JDFAutoDeviceMark::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoDeviceMark::RefBarcodeReproParams(JDFBarcodeReproParams& refTarget){
+JDFRefElement JDFAutoDeviceMark::RefQualityControlResult(JDFQualityControlResult& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -416,15 +405,15 @@ JDFRefElement JDFAutoDeviceMark::RefBarcodeReproParams(JDFBarcodeReproParams& re
 	vWString JDFAutoDeviceMark::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
-		nElem=NumChildElements(elm_BarcodeReproParams);
+		nElem=NumChildElements(elm_QualityControlResult);
 
 		for(i=0;i<nElem;i++){
-			if (!GetBarcodeReproParams(i).IsValid(level)) {
-				vElem.AppendUnique(elm_BarcodeReproParams);
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
 				if (++n>=nMax)
 					return vElem;
 				break;
@@ -438,6 +427,6 @@ JDFRefElement JDFAutoDeviceMark::RefBarcodeReproParams(JDFBarcodeReproParams& re
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoDeviceMark::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",BarcodeReproParams";
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

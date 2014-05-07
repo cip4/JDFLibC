@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoElementColorParams.h"
 #include "jdf/wrapper/JDFAutomatedOverPrintParams.h"
 #include "jdf/wrapper/JDFColorantAlias.h"
+#include "jdf/wrapper/JDFColorCorrectionOp.h"
 #include "jdf/wrapper/JDFColorSpaceConversionOp.h"
 #include "jdf/wrapper/JDFFileSpec.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -224,11 +225,6 @@ JDFAutomatedOverPrintParams JDFAutoElementColorParams::AppendAutomatedOverPrintP
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoElementColorParams::RefAutomatedOverPrintParams(JDFAutomatedOverPrintParams& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFColorantAlias JDFAutoElementColorParams::GetColorantAlias(int iSkip)const{
 	JDFColorantAlias e=GetElement(elm_ColorantAlias,WString::emptyStr,iSkip);
@@ -252,6 +248,26 @@ JDFColorantAlias JDFAutoElementColorParams::AppendColorantAlias(){
 // element resource linking 
 JDFRefElement JDFAutoElementColorParams::RefColorantAlias(JDFColorantAlias& refTarget){
 	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFColorCorrectionOp JDFAutoElementColorParams::GetColorCorrectionOp(int iSkip)const{
+	JDFColorCorrectionOp e=GetElement(elm_ColorCorrectionOp,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFColorCorrectionOp JDFAutoElementColorParams::GetCreateColorCorrectionOp(int iSkip){
+	JDFColorCorrectionOp e=GetCreateElement(elm_ColorCorrectionOp,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFColorCorrectionOp JDFAutoElementColorParams::AppendColorCorrectionOp(){
+	JDFColorCorrectionOp e=AppendElement(elm_ColorCorrectionOp);
+	e.init();
+	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -332,6 +348,16 @@ JDFRefElement JDFAutoElementColorParams::RefFileSpec(JDFFileSpec& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_ColorCorrectionOp);
+
+		for(i=0;i<nElem;i++){
+			if (!GetColorCorrectionOp(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ColorCorrectionOp);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_ColorSpaceConversionOp);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_ColorSpaceConversionOp);
@@ -369,6 +395,6 @@ JDFRefElement JDFAutoElementColorParams::RefFileSpec(JDFFileSpec& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoElementColorParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",AutomatedOverPrintParams,ColorantAlias,ColorSpaceConversionOp,FileSpec";
+		return JDFResource::OptionalElements()+L",AutomatedOverPrintParams,ColorantAlias,ColorCorrectionOp,ColorSpaceConversionOp,FileSpec";
 	};
 }; // end namespace JDF

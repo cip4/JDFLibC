@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoJobPhase.h"
+#include "jdf/wrapper/JDFActivity.h"
 #include "jdf/wrapper/JDFCostCenter.h"
 #include "jdf/wrapper/JDFNode.h"
 #include "jdf/wrapper/JDFMISDetails.h"
@@ -129,7 +130,7 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoJobPhase::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Activation,Amount,DeadLine,JobID,JobPartID,PercentCompleted,PhaseAmount,PhaseStartTime,PhaseWaste,QueueEntryID,RestTime,Speed,StartTime,StatusDetails,TotalAmount,URL,Waste");
+		return JDFElement::OptionalAttributes()+WString(L",Activation,Amount,DeadLine,JobID,JobPartID,PercentCompleted,PhaseAmount,PhaseStartTime,PhaseWaste,QueueEntryID,RestTime,Speed,SpawnID,StartTime,StatusDetails,TotalAmount,URL,Waste");
 };
 
 /**
@@ -197,6 +198,11 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
 		};
 		if(!ValidSpeed(level)) {
 			vAtts.push_back(atr_Speed);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidSpawnID(level)) {
+			vAtts.push_back(atr_SpawnID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -464,6 +470,24 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
 		return ValidAttribute(atr_Speed,AttributeType_double,false);
 	};
 /**
+* Set attribute SpawnID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoJobPhase::SetSpawnID(const WString& value){
+	SetAttribute(atr_SpawnID,value);
+};
+/**
+* Get string attribute SpawnID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoJobPhase::GetSpawnID() const {
+	return GetAttribute(atr_SpawnID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoJobPhase::ValidSpawnID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_SpawnID,AttributeType_NMTOKEN,false);
+	};
+/**
 * Set attribute StartTime
 *@param JDFDate value: the value to set the attribute to
 */
@@ -570,6 +594,26 @@ JDFAutoJobPhase& JDFAutoJobPhase::operator=(const KElement& other){
 // Element Getter / Setter
 **************************************************************** */
 
+
+JDFActivity JDFAutoJobPhase::GetActivity(int iSkip)const{
+	JDFActivity e=GetElement(elm_Activity,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActivity JDFAutoJobPhase::GetCreateActivity(int iSkip){
+	JDFActivity e=GetCreateElement(elm_Activity,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActivity JDFAutoJobPhase::AppendActivity(){
+	JDFActivity e=AppendElement(elm_Activity);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
 
 JDFCostCenter JDFAutoJobPhase::GetCostCenter()const{
 	JDFCostCenter e=GetElement(elm_CostCenter);
@@ -707,6 +751,16 @@ JDFPart JDFAutoJobPhase::AppendPart(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Activity);
+
+		for(i=0;i<nElem;i++){
+			if (!GetActivity(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Activity);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_CostCenter);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_CostCenter);
@@ -756,6 +810,6 @@ JDFPart JDFAutoJobPhase::AppendPart(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoJobPhase::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",CostCenter,JDF,MISDetails,ModuleStatus,Part";
+		return JDFElement::OptionalElements()+L",Activity,CostCenter,JDF,MISDetails,ModuleStatus,Part";
 	};
 }; // end namespace JDF

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -265,7 +265,7 @@ JDFAutoColorSpaceConversionOp& JDFAutoColorSpaceConversionOp::operator=(const KE
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoColorSpaceConversionOp::SourceObjectsString(){
-		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,Text,LineArt,SmoothShades");
+		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,LineArt,SmoothShades,Text");
 		return enums;
 	};
 
@@ -438,11 +438,6 @@ JDFDeviceNSpace JDFAutoColorSpaceConversionOp::AppendDeviceNSpace(){
 	JDFDeviceNSpace e=AppendElement(elm_DeviceNSpace);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoColorSpaceConversionOp::RefDeviceNSpace(JDFDeviceNSpace& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

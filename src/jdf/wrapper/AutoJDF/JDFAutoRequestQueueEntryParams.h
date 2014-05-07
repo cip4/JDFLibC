@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -165,6 +165,11 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute Activation
+*/
+
+	enum EnumActivation{Activation_Unknown,Activation_Inactive,Activation_Informative,Activation_Held,Activation_Active,Activation_TestRun,Activation_TestRunAndGo};
+/**
 * Enumeration for attribute SubmitPolicy
 */
 
@@ -180,6 +185,35 @@ public:
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Enumeration strings for Activation
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& ActivationString();
+/**
+* Enumeration string for enum value
+* @param EnumActivation value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString ActivationString(EnumActivation value);
+/**
+* Set attribute Activation
+* @param EnumActivation value the value to set the attribute to
+*/
+	virtual void SetActivation( EnumActivation value);
+
+/**
+* Typesafe enumerated attribute Activation
+* @return EnumActivationthe enumeration value of the attribute
+*/
+	virtual EnumActivation GetActivation() const;
+
+/**
+* Typesafe attribute validation of Activation
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidActivation(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to

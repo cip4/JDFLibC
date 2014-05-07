@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -910,6 +910,22 @@ public:
 */
 	virtual bool ValidPreviewType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ProductPart
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetProductPart(const WString& value);
+/**
+* Get string attribute ProductPart
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetProductPart() const;
+/**
+* Typesafe attribute validation of ProductPart
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidProductPart(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute RibbonName
 *@param WString value: the value to set the attribute to
 */
@@ -1053,6 +1069,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidSeparation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SetCopies
+*@param JDFIntegerRangeList value: the value to set the attribute to
+*/
+	virtual void SetSetCopies(const JDFIntegerRangeList& value);
+/**
+* Get range attribute SetCopies
+* @return JDFIntegerRangeList the vaue of the attribute 
+*/
+	virtual JDFIntegerRangeList GetSetCopies() const;
+/**
+* Typesafe attribute validation of SetCopies
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSetCopies(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SetDocIndex
 *@param JDFIntegerRangeList value: the value to set the attribute to

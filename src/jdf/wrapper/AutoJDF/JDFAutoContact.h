@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -221,6 +221,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidContactTypeDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute UserID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetUserID(const WString& value);
+/**
+* Get string attribute UserID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetUserID() const;
+/**
+* Typesafe attribute validation of UserID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidUserID(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -243,12 +259,6 @@ virtual bool init();
  * 
 */
 	JDFAddress AppendAddress();
-/**
-* create inter-resource link to refTarget
-* @param JDFAddress& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefAddress(JDFAddress& refTarget);
 
 /** Get Element ComChannel
 * 
@@ -267,12 +277,6 @@ virtual bool init();
 * Append element ComChannel
  */
 	JDFComChannel AppendComChannel();
-/**
-* create inter-resource link to refTarget
-* @param JDFComChannel& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefComChannel(JDFComChannel& refTarget);
 
 /** Get Element Company
 * 
@@ -313,12 +317,6 @@ virtual bool init();
  * 
 */
 	JDFPerson AppendPerson();
-/**
-* create inter-resource link to refTarget
-* @param JDFPerson& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefPerson(JDFPerson& refTarget);
 
 /**
  definition of unique elements in the JDF namespace

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -126,7 +126,7 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoQueueEntry::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",DeviceID,EndTime,GangName,JobID,JobPartID,Priority,StartTime,SubmissionTime");
+		return JDFElement::OptionalAttributes()+WString(L",Activation,DeviceID,EndTime,GangName,GangPolicy,JobID,JobPartID,Priority,StartTime,StatusDetails,SubmissionTime");
 };
 
 /**
@@ -137,6 +137,11 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidActivation(level)) {
+			vAtts.push_back(atr_Activation);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidDeviceID(level)) {
 			vAtts.push_back(atr_DeviceID);
 			if(++n>=nMax)
@@ -149,6 +154,11 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
 		};
 		if(!ValidGangName(level)) {
 			vAtts.push_back(atr_GangName);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidGangPolicy(level)) {
+			vAtts.push_back(atr_GangPolicy);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -182,6 +192,11 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidStatusDetails(level)) {
+			vAtts.push_back(atr_StatusDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidSubmissionTime(level)) {
 			vAtts.push_back(atr_SubmissionTime);
 			if(++n>=nMax)
@@ -190,6 +205,31 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoQueueEntry::ActivationString(){
+		static const WString enums=WString(L"Unknown,Inactive,Informative,Held,Active,TestRun,TestRunAndGo");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoQueueEntry::ActivationString(EnumActivation value){
+		return ActivationString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoQueueEntry::SetActivation( EnumActivation value){
+	SetEnumAttribute(atr_Activation,value,ActivationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoQueueEntry::EnumActivation JDFAutoQueueEntry:: GetActivation() const {
+	return (EnumActivation) GetEnumAttribute(atr_Activation,ActivationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoQueueEntry::ValidActivation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Activation,ActivationString(),false);
+	};
 /**
 * Set attribute DeviceID
 *@param WString value: the value to set the attribute to
@@ -243,6 +283,31 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoQueueEntry::ValidGangName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_GangName,AttributeType_NMTOKEN,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoQueueEntry::GangPolicyString(){
+		static const WString enums=WString(L"Unknown,Gang,GangAndForce,NoGang");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoQueueEntry::GangPolicyString(EnumGangPolicy value){
+		return GangPolicyString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoQueueEntry::SetGangPolicy( EnumGangPolicy value){
+	SetEnumAttribute(atr_GangPolicy,value,GangPolicyString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoQueueEntry::EnumGangPolicy JDFAutoQueueEntry:: GetGangPolicy() const {
+	return (EnumGangPolicy) GetEnumAttribute(atr_GangPolicy,GangPolicyString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoQueueEntry::ValidGangPolicy(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_GangPolicy,GangPolicyString(),false);
 	};
 /**
 * Set attribute JobID
@@ -360,6 +425,24 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
 		return ValidAttribute(atr_StartTime,AttributeType_dateTime,false);
 	};
 /**
+* Set attribute StatusDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoQueueEntry::SetStatusDetails(const WString& value){
+	SetAttribute(atr_StatusDetails,value);
+};
+/**
+* Get string attribute StatusDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoQueueEntry::GetStatusDetails() const {
+	return GetAttribute(atr_StatusDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoQueueEntry::ValidStatusDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_StatusDetails,AttributeType_shortString,false);
+	};
+/**
 * Set attribute SubmissionTime
 *@param JDFDate value: the value to set the attribute to
 */
@@ -383,21 +466,21 @@ JDFAutoQueueEntry& JDFAutoQueueEntry::operator=(const KElement& other){
 **************************************************************** */
 
 
-JDFJobPhase JDFAutoQueueEntry::GetJobPhase()const{
-	JDFJobPhase e=GetElement(elm_JobPhase);
+JDFJobPhase JDFAutoQueueEntry::GetJobPhase(int iSkip)const{
+	JDFJobPhase e=GetElement(elm_JobPhase,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFJobPhase JDFAutoQueueEntry::GetCreateJobPhase(){
-	JDFJobPhase e=GetCreateElement(elm_JobPhase);
+JDFJobPhase JDFAutoQueueEntry::GetCreateJobPhase(int iSkip){
+	JDFJobPhase e=GetCreateElement(elm_JobPhase,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFJobPhase JDFAutoQueueEntry::AppendJobPhase(){
-	JDFJobPhase e=AppendElementN(elm_JobPhase,1);
+	JDFJobPhase e=AppendElement(elm_JobPhase);
 	e.init();
 	return e;
 };
@@ -460,27 +543,18 @@ JDFPart JDFAutoQueueEntry::AppendPart(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_JobPhase);
-		if(nElem>1){ //bound error
-			vElem.AppendUnique(elm_JobPhase);
-			if (++n>=nMax)
-				return vElem;
-		}else if(nElem==1){
-			if(!GetJobPhase().IsValid(level)) {
+
+		for(i=0;i<nElem;i++){
+			if (!GetJobPhase(i).IsValid(level)) {
 				vElem.AppendUnique(elm_JobPhase);
 				if (++n>=nMax)
 					return vElem;
+				break;
 			}
 		}
 		return vElem;
 	};
 
-
-/**
- definition of required elements in the JDF namespace
-*/
-	WString JDFAutoQueueEntry::UniqueElements()const{
-		return JDFElement::UniqueElements()+L",JobPhase";
-	};
 
 /**
  definition of optional elements in the JDF namespace

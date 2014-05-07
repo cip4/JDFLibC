@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -155,7 +155,7 @@ JDFAutoGeneralID& JDFAutoGeneralID::operator=(const KElement& other){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoGeneralID::DataTypeString(){
-		static const WString enums=WString(L"Unknown,string,integer,double,NMTOKEN,boolean,dateTime,duration");
+		static const WString enums=WString(L"Unknown,string,integer,double,NMTOKEN,boolean,dateTime,duration,NamedFeature");
 		return enums;
 	};
 

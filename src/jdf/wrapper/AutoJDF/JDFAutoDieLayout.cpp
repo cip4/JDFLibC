@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -133,7 +133,7 @@ bool JDFAutoDieLayout::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDieLayout::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",DieSide,MediaSide,Rotated,Waste");
+		return JDFResource::OptionalAttributes()+WString(L",CutBox,DieSide,MediaSide,Rotated,Waste");
 };
 
 /**
@@ -144,6 +144,11 @@ bool JDFAutoDieLayout::init(){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidCutBox(level)) {
+			vAtts.push_back(atr_CutBox);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidDieSide(level)) {
 			vAtts.push_back(atr_DieSide);
 			if(++n>=nMax)
@@ -167,6 +172,24 @@ bool JDFAutoDieLayout::init(){
 		return vAtts;
 	};
 
+/**
+* Set attribute CutBox
+*@param JDFRectangle value: the value to set the attribute to
+*/
+	 void JDFAutoDieLayout::SetCutBox(const JDFRectangle& value){
+	SetAttribute(atr_CutBox,value);
+};
+/**
+* Get string attribute CutBox
+* @return JDFRectangle the vaue of the attribute 
+*/
+	 JDFRectangle JDFAutoDieLayout::GetCutBox() const {
+	return GetAttribute(atr_CutBox,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDieLayout::ValidCutBox(EnumValidationLevel level) const {
+		return ValidAttribute(atr_CutBox,AttributeType_rectangle,false);
+	};
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoDieLayout::DieSideString(){

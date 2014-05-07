@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -693,12 +693,6 @@ virtual bool init();
  * 
 */
 	JDFDeviceMark AppendDeviceMark();
-/**
-* create inter-resource link to refTarget
-* @param JDFDeviceMark& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefDeviceMark(JDFDeviceMark& refTarget);
 
 /** Get Element ExternalImpositionTemplate
 * 
@@ -739,12 +733,6 @@ virtual bool init();
  * 
 */
 	JDFFitPolicy AppendFitPolicy();
-/**
-* create inter-resource link to refTarget
-* @param JDFFitPolicy& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefFitPolicy(JDFFitPolicy& refTarget);
 
 /** Get Element JobField
 * 
@@ -763,12 +751,6 @@ virtual bool init();
 * Append element JobField
  */
 	JDFJobField AppendJobField();
-/**
-* create inter-resource link to refTarget
-* @param JDFJobField& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefJobField(JDFJobField& refTarget);
 
 /** Get Element Media
 * 

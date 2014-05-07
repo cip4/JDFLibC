@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoMediaLayers.h"
 #include "jdf/wrapper/JDFGlueLine.h"
 #include "jdf/wrapper/JDFMedia.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
@@ -151,11 +152,6 @@ JDFGlueLine JDFAutoMediaLayers::AppendGlueLine(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoMediaLayers::RefGlueLine(JDFGlueLine& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFMedia JDFAutoMediaLayers::GetMedia(int iSkip)const{
 	JDFMedia e=GetElement(elm_Media,WString::emptyStr,iSkip);
@@ -178,6 +174,31 @@ JDFMedia JDFAutoMediaLayers::AppendMedia(){
 /////////////////////////////////////////////////////////////////////
 // element resource linking 
 JDFRefElement JDFAutoMediaLayers::RefMedia(JDFMedia& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoMediaLayers::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoMediaLayers::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoMediaLayers::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoMediaLayers::RefQualityControlResult(JDFQualityControlResult& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -212,6 +233,16 @@ JDFRefElement JDFAutoMediaLayers::RefMedia(JDFMedia& refTarget){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		return vElem;
 	};
 
@@ -220,6 +251,6 @@ JDFRefElement JDFAutoMediaLayers::RefMedia(JDFMedia& refTarget){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoMediaLayers::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",GlueLine,Media";
+		return JDFElement::OptionalElements()+L",GlueLine,Media,QualityControlResult";
 	};
 }; // end namespace JDF

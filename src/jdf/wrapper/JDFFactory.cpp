@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -72,13 +72,10 @@
 
 #include "JDFFactory.h"
 
-
-
-
-
-
+#include "JDFAbortQueueEntryParams.h"
 #include "JDFAcknowledge.h"
 #include "JDFAction.h"
+#include "JDFActivity.h"
 #include "JDFAdded.h"
 #include "JDFAddress.h"
 #include "JDFAdhesiveBinding.h"
@@ -207,6 +204,8 @@
 #include "JDFFeeder.h"
 #include "JDFFileAlias.h"
 #include "JDFFileSpec.h"
+#include "JDFFillColor.h"
+#include "JDFFillMark.h"
 #include "JDFFitPolicy.h"
 #include "JDFFlushedResources.h"
 #include "JDFFold.h"
@@ -217,11 +216,13 @@
 #include "JDFGlueApplication.h"
 #include "JDFGlueLine.h"
 #include "JDFGangCmdFilter.h"
+#include "JDFGangElement.h"
 #include "JDFGangInfo.h"
 #include "JDFGangQuFilter.h"
 
 #include "JDFHardCoverBinding.h"
 #include "JDFHole.h"
+#include "JDFHoldQueueEntryParams.h"
 #include "JDFHoleLine.h"
 #include "JDFHoleList.h"
 
@@ -238,6 +239,8 @@
 #include "JDFIDPStitching.h"
 #include "JDFIDPTrimming.h"
 #include "JDFImageCompression.h"
+#include "JDFImageEnhancementParams.h"
+#include "JDFImageEnhancementOp.h"
 #include "JDFImageShift.h"
 #include "JDFInk.h"
 #include "JDFInkZoneProfile.h"
@@ -247,6 +250,7 @@
 #include "JDFIntegerEvaluation.h"
 #include "JDFIntegerState.h"
 #include "JDFInterpretedPDLData.h"
+#include "JDFInterpretingDetails.h"
 #include "JDFIntentResource.h"
 #include "JDFIsPresentEvaluation.h"
 
@@ -386,11 +390,13 @@
 #include "JDFRegisterRibbon.h"
 #include "JDFRegisterMark.h"
 #include "JDFRemoved.h"
+#include "JDFRemoveQueueEntryParams.h"
 #include "JDFRepeatDesc.h"
 #include "JDFResourceAudit.h"
 #include "JDFResourceInfo.h"
 #include "JDFResourceLink.h"
 #include "JDFResourceParam.h"
+#include "JDFResumeQueueEntryParams.h"
 #include "JDFResponse.h"
 #include "JDFRingBinding.h"
 #include "JDFRollStand.h"
@@ -434,6 +440,7 @@
 #include "JDFSubscriptionFilter.h"
 #include "JDFSubscriptionInfo.h"
 #include "JDFSurface.h"
+#include "JDFSuspendQueueEntryParams.h"
 #include "JDFSystemTimeSet.h"
 
 #include "JDFTabs.h"
@@ -676,7 +683,7 @@ namespace JDF{
 			return new JDFElement(part);
 		};
 
-		if(WString(L"ColorsUsed,ColorantOrder,DeviceColorantOrder,ColorantParams").HasToken(resName,WString::comma)){
+		if(WString(L"ColorsUsed,ColorantOrder,DeviceColorantOrder,ColorantParams,SeparationListFront,SeparationListBack").HasToken(resName,WString::comma)){
 			return new JDFSeparationList(part);
 		};
 
@@ -687,12 +694,20 @@ namespace JDF{
 	JDFElement* JDFFactory::initRestA(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 
+		if(!wcscmp(pcResName,JDFElement::elm_AbortQueueEntryParams.c_str())){
+			return new JDFAbortQueueEntryParams(part);
+		};
+
 		if(!wcscmp(pcResName,JDFElement::elm_Acknowledge.c_str())){
 			return new JDFAcknowledge(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_Action.c_str())){
 			return new JDFAction(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_Activity.c_str())){
+			return new JDFActivity(part);				
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_Added.c_str())){
@@ -752,7 +767,7 @@ namespace JDF{
 		return 0; 
 	}
 
-
+	//BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 	JDFElement* JDFFactory::initRestB(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 
@@ -830,7 +845,7 @@ namespace JDF{
 		return 0; 
 	}
 
-
+	//CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 	JDFElement* JDFFactory::initRestC(const  JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 		if(!wcscmp(pcResName,JDFElement::elm_call.c_str())){
@@ -1003,6 +1018,10 @@ namespace JDF{
 			return new JDFCutBlock(part);
 		};
 
+		if(!wcscmp(pcResName,JDFElement::elm_CutLines.c_str())){
+			return new JDFSeparationSpec(part);
+		};
+
 		if(!wcscmp(pcResName,JDFElement::elm_CutMark.c_str())){
 			return new JDFCutMark(part);
 		};
@@ -1014,10 +1033,9 @@ namespace JDF{
 		return 0; 
 	}	
 
-
+	//DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 	JDFElement* JDFFactory::initRestD(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
-
 		if(!wcscmp(pcResName,JDFElement::elm_DateTimeEvaluation.c_str())){
 			//		return new JDFDateTimeEvaluation(part);
 		};
@@ -1141,7 +1159,7 @@ namespace JDF{
 		return 0; 
 	}	
 
-
+	//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 	JDFElement* JDFFactory::initRestE(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 		if(!wcscmp(pcResName,JDFElement::elm_EdgeGluing.c_str())){
@@ -1195,7 +1213,7 @@ namespace JDF{
 		return 0; 
 	}	
 
-
+	//FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 	JDFElement* JDFFactory::initRestF(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 
@@ -1217,6 +1235,14 @@ namespace JDF{
 
 		if(!wcscmp(pcResName,JDFElement::elm_FileSpec.c_str())){
 			return new JDFFileSpec(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_FillColor.c_str())){
+			return new JDFFillColor(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_FillMark.c_str())){
+			return new JDFFillMark(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_FitPolicy.c_str())){
@@ -1242,7 +1268,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+	//GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 	JDFElement* JDFFactory::initRestG(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 		if(!wcscmp(pcResName,JDFElement::elm_Glue.c_str())){
@@ -1258,6 +1284,10 @@ namespace JDF{
 		};
 		if(!wcscmp(pcResName,JDFElement::elm_GangCmdFilter.c_str())){
 			return new JDFGangCmdFilter(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_GangElement.c_str())){
+			return new JDFGangElement(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_GangInfo.c_str())){
@@ -1277,6 +1307,11 @@ namespace JDF{
 		if(!wcscmp(pcResName,JDFElement::elm_HardCoverBinding.c_str())){
 			return new JDFHardCoverBinding(part);
 		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_HoldQueueEntryParams.c_str())){
+			return new JDFHoldQueueEntryParams(part);
+		};
+
 
 		if(!wcscmp(pcResName,JDFElement::elm_Hole.c_str())){
 			return new JDFHole(part);
@@ -1377,6 +1412,10 @@ namespace JDF{
 			return new JDFInterpretedPDLData(part);
 		};
 
+		if(!wcscmp(pcResName,JDFElement::elm_InterpretingDetails.c_str())){
+			return new JDFInterpretingDetails(part);
+		};
+
 		if(!wcscmp(pcResName,JDFElement::elm_IsPresentEvaluation.c_str())){
 			return new JDFIsPresentEvaluation(part);
 		};
@@ -1384,7 +1423,7 @@ namespace JDF{
 		return 0;
 	}	
 
-
+	//JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 	JDFElement* JDFFactory::initRestJ(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 		if(!wcscmp(pcResName,JDFElement::elm_JDFController.c_str())){
@@ -1935,6 +1974,10 @@ namespace JDF{
 			return new JDFRemoved(part);
 		};
 
+		if(!wcscmp(pcResName,JDFElement::elm_RemoveQueueEntryParams.c_str())){
+			return new JDFRemoveQueueEntryParams(part);
+		};
+
 		if(!wcscmp(pcResName,JDFElement::elm_RepeatDesc.c_str())){
 			return new JDFRepeatDesc(part);
 		};
@@ -1953,6 +1996,10 @@ namespace JDF{
 
 		if(!wcscmp(pcResName,JDFElement::elm_Response.c_str())){
 			return new JDFResponse(part);
+		};
+
+		if(!wcscmp(pcResName,JDFElement::elm_ResumeQueueEntryParams.c_str())){
+			return new JDFResumeQueueEntryParams(part);
 		};
 
 		if(!wcscmp(pcResName,JDFElement::elm_RingBinding.c_str())){
@@ -1974,7 +2021,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+	//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 	JDFElement* JDFFactory::initRestS(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 		if(!wcscmp(pcResName,JDFElement::elm_set.c_str())){
@@ -2116,11 +2163,15 @@ namespace JDF{
 			return new JDFSurface(part);
 		};
 
+		if(!wcscmp(pcResName,JDFElement::elm_SuspendQueueEntryParams.c_str())){
+			return new JDFSuspendQueueEntryParams(part);
+		};
+
 		return 0;
 	}
 
 
-
+	//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 	JDFElement* JDFFactory::initRestT(const JDFCh* pcResName, const WString &typ, const JDFElement &part)
 	{
 		if(!wcscmp(pcResName,JDFElement::elm_TabDimensions.c_str())){

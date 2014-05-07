@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -180,7 +180,7 @@ JDFAutoColorCorrectionOp& JDFAutoColorCorrectionOp::operator=(const KElement& ot
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoColorCorrectionOp::SourceObjectsString(){
-		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,Text,LineArt,SmoothShades");
+		static const WString enums=WString(L"Unknown,All,ImagePhotographic,ImageScreenShot,LineArt,SmoothShades,Text");
 		return enums;
 	};
 

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -80,13 +80,14 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFSeparationSpec;
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoDeviceNSpace : public JDFResource
+class JDFAutoDeviceNSpace : public JDFElement
 
 *********************************************************************
 */
@@ -96,7 +97,7 @@ class JDFAutoDeviceNSpace : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFDeviceNSpace should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoDeviceNSpace : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoDeviceNSpace : public JDFElement{
 public:
 
 
@@ -107,11 +108,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoDeviceNSpace():JDFResource(){};
+	inline JDFAutoDeviceNSpace():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoDeviceNSpace(const KElement & other):JDFResource(){
+	inline JDFAutoDeviceNSpace(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -162,18 +163,6 @@ public:
 /* ******************************************************
 // Attribute Getter / Setter
 ****************************************************** */
-
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
 
 
 /**
@@ -241,6 +230,30 @@ virtual bool init();
 * Append element SeparationSpec
  */
 	JDFSeparationSpec AppendSeparationSpec();
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

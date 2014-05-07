@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoInterpretingParams.h"
 #include "jdf/wrapper/JDFObjectResolution.h"
 #include "jdf/wrapper/JDFFitPolicy.h"
+#include "jdf/wrapper/JDFInterpretingDetails.h"
 #include "jdf/wrapper/JDFMedia.h"
 #include "jdf/wrapper/JDFPDFInterpretingParams.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -397,34 +398,44 @@ JDFObjectResolution JDFAutoInterpretingParams::AppendObjectResolution(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoInterpretingParams::RefObjectResolution(JDFObjectResolution& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
-JDFFitPolicy JDFAutoInterpretingParams::GetFitPolicy(int iSkip)const{
-	JDFFitPolicy e=GetElement(elm_FitPolicy,WString::emptyStr,iSkip);
+JDFFitPolicy JDFAutoInterpretingParams::GetFitPolicy()const{
+	JDFFitPolicy e=GetElement(elm_FitPolicy);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFFitPolicy JDFAutoInterpretingParams::GetCreateFitPolicy(int iSkip){
-	JDFFitPolicy e=GetCreateElement(elm_FitPolicy,WString::emptyStr,iSkip);
+JDFFitPolicy JDFAutoInterpretingParams::GetCreateFitPolicy(){
+	JDFFitPolicy e=GetCreateElement(elm_FitPolicy);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFFitPolicy JDFAutoInterpretingParams::AppendFitPolicy(){
-	JDFFitPolicy e=AppendElement(elm_FitPolicy);
+	JDFFitPolicy e=AppendElementN(elm_FitPolicy,1);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoInterpretingParams::RefFitPolicy(JDFFitPolicy& refTarget){
-	return RefElement(refTarget);
+
+JDFInterpretingDetails JDFAutoInterpretingParams::GetInterpretingDetails(int iSkip)const{
+	JDFInterpretingDetails e=GetElement(elm_InterpretingDetails,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFInterpretingDetails JDFAutoInterpretingParams::GetCreateInterpretingDetails(int iSkip){
+	JDFInterpretingDetails e=GetCreateElement(elm_InterpretingDetails,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFInterpretingDetails JDFAutoInterpretingParams::AppendInterpretingDetails(){
+	JDFInterpretingDetails e=AppendElement(elm_InterpretingDetails);
+	e.init();
+	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -453,21 +464,21 @@ JDFRefElement JDFAutoInterpretingParams::RefMedia(JDFMedia& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFPDFInterpretingParams JDFAutoInterpretingParams::GetPDFInterpretingParams(int iSkip)const{
-	JDFPDFInterpretingParams e=GetElement(elm_PDFInterpretingParams,WString::emptyStr,iSkip);
+JDFPDFInterpretingParams JDFAutoInterpretingParams::GetPDFInterpretingParams()const{
+	JDFPDFInterpretingParams e=GetElement(elm_PDFInterpretingParams);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFPDFInterpretingParams JDFAutoInterpretingParams::GetCreatePDFInterpretingParams(int iSkip){
-	JDFPDFInterpretingParams e=GetCreateElement(elm_PDFInterpretingParams,WString::emptyStr,iSkip);
+JDFPDFInterpretingParams JDFAutoInterpretingParams::GetCreatePDFInterpretingParams(){
+	JDFPDFInterpretingParams e=GetCreateElement(elm_PDFInterpretingParams);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFPDFInterpretingParams JDFAutoInterpretingParams::AppendPDFInterpretingParams(){
-	JDFPDFInterpretingParams e=AppendElement(elm_PDFInterpretingParams);
+	JDFPDFInterpretingParams e=AppendElementN(elm_PDFInterpretingParams,1);
 	e.init();
 	return e;
 };
@@ -494,10 +505,22 @@ JDFPDFInterpretingParams JDFAutoInterpretingParams::AppendPDFInterpretingParams(
 			}
 		}
 		nElem=NumChildElements(elm_FitPolicy);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_FitPolicy);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetFitPolicy().IsValid(level)) {
+				vElem.AppendUnique(elm_FitPolicy);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		nElem=NumChildElements(elm_InterpretingDetails);
 
 		for(i=0;i<nElem;i++){
-			if (!GetFitPolicy(i).IsValid(level)) {
-				vElem.AppendUnique(elm_FitPolicy);
+			if (!GetInterpretingDetails(i).IsValid(level)) {
+				vElem.AppendUnique(elm_InterpretingDetails);
 				if (++n>=nMax)
 					return vElem;
 				break;
@@ -514,13 +537,15 @@ JDFPDFInterpretingParams JDFAutoInterpretingParams::AppendPDFInterpretingParams(
 			}
 		}
 		nElem=NumChildElements(elm_PDFInterpretingParams);
-
-		for(i=0;i<nElem;i++){
-			if (!GetPDFInterpretingParams(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_PDFInterpretingParams);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetPDFInterpretingParams().IsValid(level)) {
 				vElem.AppendUnique(elm_PDFInterpretingParams);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		return vElem;
@@ -528,9 +553,16 @@ JDFPDFInterpretingParams JDFAutoInterpretingParams::AppendPDFInterpretingParams(
 
 
 /**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoInterpretingParams::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",FitPolicy,PDFInterpretingParams";
+	};
+
+/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoInterpretingParams::OptionalElements()const{
-		return JDFResource::OptionalElements()+L",ObjectResolution,FitPolicy,Media,PDFInterpretingParams";
+		return JDFResource::OptionalElements()+L",ObjectResolution,FitPolicy,InterpretingDetails,Media,PDFInterpretingParams";
 	};
 }; // end namespace JDF

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -190,6 +190,22 @@ public:
 */
 	virtual bool ValidDocOrd(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetID(const WString& value);
+/**
+* Get string attribute ID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetID() const;
+/**
+* Typesafe attribute validation of ID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute Ord
 *@param int value: the value to set the attribute to
 */
@@ -266,6 +282,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidAnchor(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute AssemblyIDs
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetAssemblyIDs(const vWString& value);
+/**
+* Get string attribute AssemblyIDs
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetAssemblyIDs() const;
+/**
+* Typesafe attribute validation of AssemblyIDs
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAssemblyIDs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ClipBox
 *@param JDFRectangle value: the value to set the attribute to

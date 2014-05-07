@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -156,7 +156,7 @@ public:
 * Enumeration for attribute DataType
 */
 
-	enum EnumDataType{DataType_Unknown,DataType_string,DataType_integer,DataType_double,DataType_NMTOKEN,DataType_boolean,DataType_dateTime,DataType_duration};
+	enum EnumDataType{DataType_Unknown,DataType_string,DataType_integer,DataType_double,DataType_NMTOKEN,DataType_boolean,DataType_dateTime,DataType_duration,DataType_NamedFeature};
 
 /**
  * definition of required attributes in the JDF namespace

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,7 @@
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
 class JDFActionPool;
+class JDFFileSpec;
 class JDFLayoutElementPart;
 class JDFShapeDef;
 class JDFTestPool;
@@ -200,6 +201,29 @@ virtual bool init();
  * 
 */
 	JDFActionPool AppendActionPool();
+
+/** Get Element FileSpec
+* 
+* @return JDFFileSpec The element
+*/
+	JDFFileSpec GetCreateFileSpec();
+
+/**
+* const get element FileSpec
+*@return  JDFFileSpec The element
+*/
+	JDFFileSpec GetFileSpec()const;
+/**
+* Append element FileSpec
+ * 
+*/
+	JDFFileSpec AppendFileSpec();
+/**
+* create inter-resource link to refTarget
+* @param JDFFileSpec& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefFileSpec(JDFFileSpec& refTarget);
 
 /** Get Element LayoutElementPart
 * 

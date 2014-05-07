@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -139,7 +139,7 @@ bool JDFAutoContact::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoContact::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ContactTypeDetails");
+		return JDFResource::OptionalAttributes()+WString(L",ContactTypeDetails,UserID");
 };
 
 /**
@@ -157,6 +157,11 @@ bool JDFAutoContact::init(){
 		};
 		if(!ValidContactTypeDetails(level)) {
 			vAtts.push_back(atr_ContactTypeDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidUserID(level)) {
+			vAtts.push_back(atr_UserID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -199,6 +204,24 @@ bool JDFAutoContact::init(){
 	bool JDFAutoContact::ValidContactTypeDetails(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ContactTypeDetails,AttributeType_string,false);
 	};
+/**
+* Set attribute UserID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoContact::SetUserID(const WString& value){
+	SetAttribute(atr_UserID,value);
+};
+/**
+* Get string attribute UserID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoContact::GetUserID() const {
+	return GetAttribute(atr_UserID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoContact::ValidUserID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_UserID,AttributeType_string,false);
+	};
 
 /* ******************************************************
 // Element Getter / Setter
@@ -224,11 +247,6 @@ JDFAddress JDFAutoContact::AppendAddress(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoContact::RefAddress(JDFAddress& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFComChannel JDFAutoContact::GetComChannel(int iSkip)const{
 	JDFComChannel e=GetElement(elm_ComChannel,WString::emptyStr,iSkip);
@@ -247,11 +265,6 @@ JDFComChannel JDFAutoContact::AppendComChannel(){
 	JDFComChannel e=AppendElement(elm_ComChannel);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoContact::RefComChannel(JDFComChannel& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -297,11 +310,6 @@ JDFPerson JDFAutoContact::AppendPerson(){
 	JDFPerson e=AppendElementN(elm_Person,1);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoContact::RefPerson(JDFPerson& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

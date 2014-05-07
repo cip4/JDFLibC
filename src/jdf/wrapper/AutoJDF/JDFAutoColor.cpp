@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -140,7 +140,8 @@ bool JDFAutoColor::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColor::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",MappingSelection,ActualColorName,CMYK,ColorBook,ColorBookEntry,ColorBookPrefix,ColorBookSuffix,ColorDetails,ColorName,ColorType,Density,Gray,Lab,MediaType,NeutralDensity,RawName,sRGB,UsePDLAlternateCS");
+		return JDFResource::OptionalAttributes()+WString(L",MappingSelection,ActualColorName,CMYK,ColorBook,ColorBookEntry,ColorBookPrefix,ColorBookSuffix,ColorDetails,ColorName,ColorType,ColorTypeDetails,Density,Gray,Lab,MediaType,NeutralDensity,PrintingTechnology,RawName,sRGB")
+	+WString(L",UsePDLAlternateCS");
 };
 
 /**
@@ -206,6 +207,11 @@ bool JDFAutoColor::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidColorTypeDetails(level)) {
+			vAtts.push_back(atr_ColorTypeDetails);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidDensity(level)) {
 			vAtts.push_back(atr_Density);
 			if(++n>=nMax)
@@ -228,6 +234,11 @@ bool JDFAutoColor::init(){
 		};
 		if(!ValidNeutralDensity(level)) {
 			vAtts.push_back(atr_NeutralDensity);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidPrintingTechnology(level)) {
+			vAtts.push_back(atr_PrintingTechnology);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -456,6 +467,24 @@ bool JDFAutoColor::init(){
 		return ValidEnumAttribute(atr_ColorType,ColorTypeString(),false);
 	};
 /**
+* Set attribute ColorTypeDetails
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoColor::SetColorTypeDetails(const WString& value){
+	SetAttribute(atr_ColorTypeDetails,value);
+};
+/**
+* Get string attribute ColorTypeDetails
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoColor::GetColorTypeDetails() const {
+	return GetAttribute(atr_ColorTypeDetails,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColor::ValidColorTypeDetails(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ColorTypeDetails,AttributeType_string,false);
+	};
+/**
 * Set attribute Density
 *@param double value: the value to set the attribute to
 */
@@ -544,6 +573,24 @@ bool JDFAutoColor::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColor::ValidNeutralDensity(EnumValidationLevel level) const {
 		return ValidAttribute(atr_NeutralDensity,AttributeType_double,false);
+	};
+/**
+* Set attribute PrintingTechnology
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoColor::SetPrintingTechnology(const WString& value){
+	SetAttribute(atr_PrintingTechnology,value);
+};
+/**
+* Get string attribute PrintingTechnology
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoColor::GetPrintingTechnology() const {
+	return GetAttribute(atr_PrintingTechnology,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColor::ValidPrintingTechnology(EnumValidationLevel level) const {
+		return ValidAttribute(atr_PrintingTechnology,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute RawName

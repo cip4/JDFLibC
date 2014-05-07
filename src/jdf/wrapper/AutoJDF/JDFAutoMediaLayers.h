@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFGlueLine;
 class JDFMedia;
+class JDFQualityControlResult;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -187,12 +188,6 @@ public:
 * Append element GlueLine
  */
 	JDFGlueLine AppendGlueLine();
-/**
-* create inter-resource link to refTarget
-* @param JDFGlueLine& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefGlueLine(JDFGlueLine& refTarget);
 
 /** Get Element Media
 * 
@@ -217,6 +212,30 @@ public:
 *@return JDFRefElement the referenced element
 */
 	JDFRefElement RefMedia(JDFMedia& refTarget);
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

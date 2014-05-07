@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -93,13 +93,13 @@
 
 
 namespace JDF{
-	
-	
-	
-/**
-* JDFStrings contains a list of static strings for use with the JDF Library
-* it is never instantiated
-*/
+
+
+
+	/**
+	* JDFStrings contains a list of static strings for use with the JDF Library
+	* it is never instantiated
+	*/
 
 	class JDF_WRAPPERCORE_EXPORT JDFStrings{
 	protected:
@@ -108,9 +108,12 @@ namespace JDF{
 		JDFStrings(const JDFStrings&s){};
 
 	public:
+		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA		
+		static const WString elm_AbortQueueEntryParams;
 		static const WString elm_Acknowledge;
 		static const WString elm_Action;
 		static const WString elm_ActionPool;
+		static const WString elm_Activity;
 		static const WString elm_Added;
 		static const WString elm_Address;
 		static const WString elm_AdhesiveBinding;
@@ -142,7 +145,7 @@ namespace JDF{
 		static const WString elm_AutomatedOverprintParams; // legacy for typo
 
 		// BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB //
-		
+
 		static const WString elm_BackCoatings;
 		static const WString elm_BackCoverColor;
 		static const WString elm_Band;
@@ -164,6 +167,7 @@ namespace JDF{
 		static const WString elm_BindingQualityParams;
 		static const WString elm_BindItem;
 		static const WString elm_BindList;
+		static const WString elm_Bleed;
 		static const WString elm_BlockPreparationParams;
 		static const WString elm_BlockThreadSewing;
 		static const WString elm_BookCase;
@@ -187,7 +191,7 @@ namespace JDF{
 		static const WString elm_ByteMap;
 
 		// CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-		
+
 		static const WString elm_call;
 		static const WString elm_CartonMaxWeight;
 		static const WString elm_CartonQuantity;
@@ -234,6 +238,7 @@ namespace JDF{
 		static const WString elm_ColorStandard;
 		static const WString elm_ColorsUsed;
 		static const WString elm_ColorType;
+
 		static const WString elm_CombBrand;
 		static const WString elm_ComChannel;
 		static const WString elm_Command;
@@ -266,13 +271,14 @@ namespace JDF{
 		static const WString elm_CustomerMessage;
 		static const WString elm_Cut;
 		static const WString elm_CutBlock;
+		static const WString elm_CutLines;
 		static const WString elm_CutMark;
 		static const WString elm_CuttingParams;
 		static const WString elm_CutType;
 		static const WString elm_CylinderPosition;
 
 		// DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD //
-		
+
 		static const WString elm_DateTimeEvaluation;
 		static const WString elm_DateTimeState;
 		static const WString elm_DBMergeParams;
@@ -322,7 +328,7 @@ namespace JDF{
 		static const WString elm_DurationState;
 		static const WString elm_DynamicField;
 		static const WString elm_DynamicInput;
-		
+
 		static const WString elm_Earliest;
 		static const WString elm_EarliestDuration;
 		static const WString elm_EdgeAngle;
@@ -350,8 +356,8 @@ namespace JDF{
 		static const WString elm_ExternalImpositionTemplate;
 		static const WString elm_ExtraValues;
 
-//FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-		
+		//FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+
 		static const WString elm_FCNKey;
 		static const WString elm_FeatureAttribute;
 		static const WString elm_FeaturePool;
@@ -363,6 +369,8 @@ namespace JDF{
 		static const WString elm_FileSpecOut;
 		static const WString elm_FileTypeConstraintsPool;
 		static const WString elm_FileTypeResultsPool;
+		static const WString elm_FillMark;
+		static const WString elm_FillColor;
 		static const WString elm_FinishedDimensions;
 		static const WString elm_FinishedGrainDirection;
 		static const WString elm_FitPolicy;
@@ -389,8 +397,9 @@ namespace JDF{
 		static const WString elm_FrontCoatings;
 
 		// GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG //
-		
+
 		static const WString elm_GangCmdFilter;
+		static const WString elm_GangElement;
 		static const WString elm_GangInfo;
 		static const WString elm_GangQuFilter;
 		static const WString elm_GatheringParams;
@@ -405,7 +414,7 @@ namespace JDF{
 		static const WString elm_GrainDirection;
 
 		// HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-		
+
 		static const WString elm_HalfTone;
 		static const WString elm_HardCoverBinding;
 		static const WString elm_HeadBandApplicationParams;
@@ -413,6 +422,7 @@ namespace JDF{
 		static const WString elm_Headbands;
 		static const WString elm_HeadBands;
 		static const WString elm_Height;
+		static const WString elm_HoldQueueEntryParams;
 		static const WString elm_Hole;
 		static const WString elm_HoleCount;
 		static const WString elm_HoleLine;
@@ -422,7 +432,7 @@ namespace JDF{
 		static const WString elm_HoleType;
 
 		// IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-		
+
 		static const WString elm_Icon;
 		static const WString elm_IconList;
 		static const WString elm_Identical;
@@ -440,6 +450,8 @@ namespace JDF{
 		static const WString elm_IDPTrimming;
 		static const WString elm_ImageCompression;
 		static const WString elm_ImageCompressionParams;
+		static const WString elm_ImageEnhancementOp;
+		static const WString elm_ImageEnhancementParams;
 		static const WString elm_ImageReplacementParams;
 		static const WString elm_ImagesConstraintsPool;
 		static const WString elm_ImageSetterParams;
@@ -453,6 +465,7 @@ namespace JDF{
 		static const WString elm_InkZoneProfile;
 		static const WString elm_Insert;
 		static const WString elm_InsertingIntent;
+		static const WString elm_InterpretingDetails;
 		static const WString elm_InsertingParams;
 		static const WString elm_InsertList;
 		static const WString elm_InsertSheet;
@@ -460,13 +473,14 @@ namespace JDF{
 		static const WString elm_IntegerState;
 		static const WString elm_InterpretedPDLData;
 		static const WString elm_InterpretingParams;
+		static const WString elm_ISOPaperSubstrate;
 		static const WString elm_IsPresentEvaluation;
 		static const WString elm_IssueDate;
 		static const WString elm_IssueName;
 		static const WString elm_IssueType;
 
 		// JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
-		
+
 		static const WString elm_Jacket;
 		static const WString elm_JacketFoldingWidth;
 		static const WString elm_JacketingParams;
@@ -481,11 +495,11 @@ namespace JDF{
 		static const WString elm_JobPhase;
 		static const WString elm_JobSheet;
 		static const WString elm_JPEG2000Params;
-		
+
 		// KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 
 		static const WString elm_KnownMsgQuParams;
-		
+
 		// LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 
 		static const WString elm_LabelingParams;
@@ -513,7 +527,7 @@ namespace JDF{
 		static const WString elm_LZWParams;
 
 		// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-		
+
 		static const WString elm_macro;
 		static const WString elm_macros;
 		static const WString elm_MacroPool;
@@ -552,7 +566,7 @@ namespace JDF{
 		static const WString elm_MsgFilter;
 
 		// NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN //
-		
+
 		static const WString elm_NameEvaluation;
 		static const WString elm_NameState;
 		static const WString elm_NewComment;
@@ -574,7 +588,7 @@ namespace JDF{
 		static const WString elm_NumberState;
 
 		// OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO //
-		
+
 		static const WString elm_ObjectResolution;
 		static const WString elm_ObservationTarget;
 		static const WString elm_Occupation;
@@ -589,7 +603,7 @@ namespace JDF{
 		static const WString elm_Overage;
 
 		// PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP //
-		
+
 		static const WString elm_PackingIntent;
 		static const WString elm_PackingParams;
 		static const WString elm_PageCell;
@@ -681,7 +695,7 @@ namespace JDF{
 		static const WString elm_PSToPDFConversionParams;
 
 		// QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ //
-		
+
 		static const WString elm_QualityControlParams;
 		static const WString elm_QualityControlResult;
 		static const WString elm_QualityMeasurement;
@@ -696,7 +710,7 @@ namespace JDF{
 		static const WString elm_QueueSubmissionParams;
 
 		// RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR //
-		
+
 		static const WString elm_RectangleEvaluation;
 		static const WString elm_RectangleState;
 		static const WString elm_Recycled;
@@ -707,6 +721,7 @@ namespace JDF{
 		static const WString elm_Registration;
 		static const WString elm_Removed;
 		static const WString elm_RemoveLink;
+		static const WString elm_RemoveQueueEntryParams;
 		static const WString elm_RemoveResource;
 		static const WString elm_RenderingParams;
 		static const WString elm_RequestQueueEntryParams;
@@ -726,6 +741,7 @@ namespace JDF{
 		static const WString elm_ResourceQuParams;
 		static const WString elm_Response;
 		static const WString elm_ResubmissionParams;
+		static const WString elm_ResumeQueueEntryParams;
 		static const WString elm_ReturnQueueEntryParams;
 		static const WString elm_ReturnMethod;
 		static const WString elm_RingBinding;
@@ -737,7 +753,8 @@ namespace JDF{
 		static const WString elm_RivetsExposed;
 		static const WString elm_RollStand;
 		static const WString elm_RunList;
-		
+
+		//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 		static const WString elm_SaddleStitching;
 		static const WString elm_SaddleStitchingParams;
 		static const WString elm_ScanParams;
@@ -753,6 +770,8 @@ namespace JDF{
 		static const WString elm_SearchPath;
 		static const WString elm_SeparationControlParams;
 		static const WString elm_SeparationList;
+		static const WString elm_SeparationListBack;
+		static const WString elm_SeparationListFront;
 		static const WString elm_SeparationSpec;
 		static const WString elm_ServiceLevel;
 		static const WString elm_set;
@@ -766,6 +785,7 @@ namespace JDF{
 		static const WString elm_ShapeState;
 		static const WString elm_ShapeType;
 		static const WString elm_Sheet;
+		static const WString elm_SheetOptimizingParams;
 		static const WString elm_ShrinkingParams;
 		static const WString elm_ShutDown;
 		static const WString elm_ShutDownCmdParams;
@@ -817,8 +837,9 @@ namespace JDF{
 		static const WString elm_Subscription;
 		static const WString elm_Surface;
 		static const WString elm_SurplusHandling;
+		static const WString elm_SuspendQueueEntryParams;
 		static const WString elm_SystemTimeSet;
-		
+
 		static const WString elm_TabBindMylar;
 		static const WString elm_TabBrand;
 		static const WString elm_TabBodyCopy;
@@ -862,17 +883,17 @@ namespace JDF{
 		static const WString elm_TrapRegion;
 		static const WString elm_Trigger;
 		static const WString elm_TrimmingParams;
-		
+
 		static const WString elm_Underage;
 		static const WString elm_UpdateJDFCmdParams;
 		static const WString elm_USWeight;
-		
+
 		static const WString elm_Value;
 		static const WString elm_ValueLoc;
 		static const WString elm_VeloBindingParams;
 		static const WString elm_VerificationParams;
 		static const WString elm_ViewBinder;
-		
+
 		static const WString elm_WakeUp;
 		static const WString elm_WakeUpCmdParams;
 		static const WString elm_Weight;
@@ -885,118 +906,115 @@ namespace JDF{
 		static const WString elm_WrappedQuantity;
 		static const WString elm_WrappingMaterial;
 		static const WString elm_WrappingParams;
-		
+
 		static const WString elm_xor;
 		static const WString elm_XPosition;
 		static const WString elm_XYPairEvaluation;
 		static const WString elm_XYPairState;
-		
+
 		static const WString elm_YPosition;
-		
 
 
 
 
 
 
-static const WString elm_ColorantConvertProcess;
-static const WString elm_ContentMetaData;
 
-static const WString elm_RuleLength;
+		static const WString elm_ColorantConvertProcess;
+		static const WString elm_ContentMetaData;
 
-static const WString elm_ShapeDef;
-static const WString elm_ConvertingConfig;
-static const WString elm_RepeatDesc;
-static const WString elm_DieLayoutProductionParams;
+		static const WString elm_RuleLength;
 
-
-
-static const WString elm_PageCondition;
-
-static const WString elm_MarkActivation;
-static const WString elm_RefAnchor;
-
-
-static const WString elm_PositionObj;
-
-static const WString elm_ShiftPoint;
-static const WString elm_LayoutShift;
-
-
-static const WString elm_TabDimensions;
-
-static const WString elm_PageAssignParams;
+		static const WString elm_ShapeDef;
+		static const WString elm_ConvertingConfig;
+		static const WString elm_RepeatDesc;
+		static const WString elm_DieLayoutProductionParams;
 
 
 
+		static const WString elm_PageCondition;
 
-static const WString elm_MetadataMap;
-
-
-static const WString elm_ObjectModel;
-static const WString elm_ShapeTemplate;
-static const WString elm_ShapeDefProductionParams;
-
-static const WString elm_StaticBlockingParams;
+		static const WString elm_MarkActivation;
+		static const WString elm_RefAnchor;
 
 
+		static const WString elm_PositionObj;
 
-static const WString elm_VarnishingParams;
-
-
-static const WString elm_ControllerFilter;
-
-static const WString elm_SubscriptionFilter;
-static const WString elm_SubscriptionInfo;
-
-static const WString elm_Certificate;
-static const WString elm_AuthenticationResp;
-static const WString elm_AuthenticationQuParams;
-static const WString elm_AuthenticationCmdParams;
+		static const WString elm_ShiftPoint;
+		static const WString elm_LayoutShift;
 
 
-static const WString elm_Flute;
-static const WString elm_FluteDirection;
-static const WString elm_MediaQuality;
+		static const WString elm_TabDimensions;
+
+		static const WString elm_PageAssignParams;
 
 
-static const WString elm_TabMylarColorDetails;
-static const WString elm_ColorNameDetails;
-static const WString elm_HeadBandColorDetails;
-static const WString elm_FoilColorDetails;
-static const WString elm_BindingColorDetails;
-static const WString elm_CoverColorDetails;
-static const WString elm_BackCoverColorDetails;
 
-static const WString atr_ChannelMode;
-static const WString atr_RetryPolicy;
-static const WString atr_LotDetails;
-static const WString atr_ResourceDetails;
-static const WString atr_CommandResult;
-static const WString atr_LotControlled;
 
-static const WString atr_PreviewUsages;
-static const WString atr_UpdateGranularity;
-static const WString atr_TransactionID;
+		static const WString elm_MetadataMap;
 
-static const WString atr_IdleStartTime;
-static const WString atr_RelatedCommands;
-static const WString atr_MilestoneTypes;
-static const WString atr_ReturnTime;
-static const WString atr_WorkStepID;
 
-static const WString atr_MarkContext;
-static const WString atr_RelativeHeight;
-static const WString atr_RelativeWidth;
+		static const WString elm_ObjectModel;
+		static const WString elm_ShapeTemplate;
+		static const WString elm_ShapeDefProductionParams;
 
-static const WString atr_DieSide;
-static const WString atr_Rotated;
-static const WString atr_ContentRefs;
+		static const WString elm_StaticBlockingParams;
+
+
+
+		static const WString elm_VarnishingParams;
+
+
+		static const WString elm_ControllerFilter;
+
+		static const WString elm_SubscriptionFilter;
+		static const WString elm_SubscriptionInfo;
+
+		static const WString elm_Certificate;
+		static const WString elm_AuthenticationResp;
+		static const WString elm_AuthenticationQuParams;
+		static const WString elm_AuthenticationCmdParams;
+
+
+		static const WString elm_Flute;
+		static const WString elm_FluteDirection;
+		static const WString elm_MediaQuality;
+
+
+		static const WString elm_TabMylarColorDetails;
+		static const WString elm_ColorNameDetails;
+		static const WString elm_HeadBandColorDetails;
+		static const WString elm_FoilColorDetails;
+		static const WString elm_BindingColorDetails;
+		static const WString elm_CoverColorDetails;
+		static const WString elm_BackCoverColorDetails;
+
+		static const WString atr_RetryPolicy;
+		static const WString atr_LotDetails;
+		static const WString atr_ResourceDetails;
+		static const WString atr_LotControlled;
+
+		static const WString atr_PreviewUsages;
+		static const WString atr_UpdateGranularity;
+		static const WString atr_TransactionID;
+
+		static const WString atr_IdleStartTime;
+		static const WString atr_RelatedCommands;
+		static const WString atr_MilestoneTypes;
+		static const WString atr_ReturnTime;
+		static const WString atr_WorkStepID;
+
+		static const WString atr_MarkContext;
+		static const WString atr_RelativeHeight;
+		static const WString atr_RelativeWidth;
+
+		static const WString atr_DieSide;
+		static const WString atr_Rotated;
 
 
 		//////////////////////////////////////////////////////////
-		
-		
+		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 		static const WString atr_Aborted;
 		static const WString atr_AbortJobWhenScreenMatchingFails;
 		static const WString atr_AbsoluteBox;
@@ -1012,6 +1030,8 @@ static const WString atr_ContentRefs;
 		static const WString atr_ActionRef;
 		static const WString atr_ActionRefs;
 		static const WString atr_Activation;
+		static const WString atr_ActivityID;
+		static const WString atr_ActivityName;
 		static const WString atr_Actual;	
 		static const WString atr_ActualAmount;
 		static const WString atr_ActualTotalAmount;
@@ -1093,6 +1113,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_AuthorizationExpires;
 		static const WString atr_AutoFilterImages;
 		static const WString atr_Automated;
+		static const WString atr_Automation;
 		static const WString atr_AutoPositionEPSInfo;
 		static const WString atr_AutoRotatePages;
 		static const WString atr_AvailableAmount;
@@ -1102,7 +1123,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_AverageSetup;
 
 		// BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB //
-		
+		static const WString atr_BackBrightness;
 		static const WString atr_BackCoatings;
 		static const WString atr_BackFacePages;
 		static const WString atr_BackGlossValue;
@@ -1111,6 +1132,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_BackOverfold;
 		static const WString atr_BackPages;
 		static const WString atr_BackSide;
+		static const WString atr_BackSpread;
 		static const WString atr_BadFeedQuality;
 		static const WString atr_BadFeeds;
 		static const WString atr_BandHeight;
@@ -1150,10 +1172,15 @@ static const WString atr_ContentRefs;
 		static const WString atr_BlankDimensionsX;
 		static const WString atr_BlankDimensionsY;
 		static const WString atr_BlankPage;
+
+		static const WString atr_BleedBottom;
 		static const WString atr_BleedFace;
 		static const WString atr_BleedFoot;
 		static const WString atr_BleedHead;
+		static const WString atr_BleedLeft;
+		static const WString atr_BleedRight;
 		static const WString atr_BleedSpine;
+		static const WString atr_BleedTop;
 		static const WString atr_BlendColorSpace;
 		static const WString atr_BlendMode;
 		static const WString atr_BlindStitch;
@@ -1192,7 +1219,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_ByteOrder;
 
 		// CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC//
-		
+
 		static const WString atr_CannotEmbedFontPolicy;
 		static const WString atr_Capacity;
 		static const WString atr_CartonMaxWeight;
@@ -1214,6 +1241,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_ChannelType;
 		static const WString atr_ChannelTypeDetails;
 		static const WString atr_ChannelUsage;
+		static const WString atr_ChannelMode;
 		static const WString atr_CharacterProblem;
 		static const WString atr_CheckSum;
 		static const WString atr_ChildFolio;
@@ -1239,6 +1267,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_Code;
 		static const WString atr_CodeBlockSize;
 		static const WString atr_Collate;
+		static const WString atr_CollapseBleeds;
 		static const WString atr_Color;
 		static const WString atr_Colorant;
 		static const WString atr_ColorantDepth;
@@ -1254,11 +1283,14 @@ static const WString atr_ContentRefs;
 		static const WString atr_ColorSpace;
 		static const WString atr_ColorTransform;
 		static const WString atr_ColorType;
+		static const WString atr_ColorTypeDetails;
+
 		static const WString atr_CombinedMethod;
 		static const WString atr_CombinedProcessIndex;	
 		static const WString atr_CombinedProcessType;	
 		static const WString atr_CombinedProcessUsage;	
 		static const WString atr_Command;
+		static const WString atr_CommandResult;
 		static const WString atr_CommentID;
 		static const WString atr_CommentURL;
 		static const WString atr_Company;
@@ -1287,6 +1319,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_ContactTypeDetails;
 		static const WString atr_ContactTypes;
 		static const WString atr_ContentListIndex;
+		static const WString atr_ContentRefs;
 		static const WString atr_ContentsModified;
 		static const WString atr_ContentType;
 		static const WString atr_Context;
@@ -1305,6 +1338,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_CounterUnit;
 		static const WString atr_Country;
 		static const WString atr_CountryCode;
+		static const WString atr_CoverBoardWidth;
 		static const WString atr_CoverOffset;
 		static const WString atr_CoverType;
 		static const WString atr_CoverWidth;
@@ -1333,7 +1367,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_CutWidthFoot;
 		static const WString atr_CutWidthHead;
 		static const WString atr_Cycle;
-		
+
 		// DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD //
 
 		static const WString atr_Data;
@@ -1367,9 +1401,11 @@ static const WString atr_ContentRefs;
 		static const WString atr_DescriptionType;
 		static const WString atr_DescriptiveName;
 		static const WString atr_DetectBlend;
+
 		static const WString atr_DevCapRef;
 		static const WString atr_DevCapRefs;
 		static const WString atr_DevCapsRef;
+		static const WString atr_DeviceClass;
 		static const WString atr_DeviceCondition;
 		static const WString atr_DeviceDetails;
 		static const WString atr_DeviceFamily;
@@ -1379,6 +1415,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_DeviceStatus;
 		static const WString atr_DeviceType;
 		static const WString atr_DevNS;
+
 		static const WString atr_Diameter;
 		static const WString atr_DifferentBoxSize;
 		static const WString atr_Diffusion;
@@ -1396,6 +1433,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_DispositionUsage;
 		static const WString atr_Distance;
 		static const WString atr_DividePositions;
+
 		static const WString atr_DocCopies;
 		static const WString atr_DocIndex;
 		static const WString atr_DocNames;
@@ -1417,12 +1455,14 @@ static const WString atr_ContentRefs;
 		static const WString atr_DoubleFeeds;
 		static const WString atr_DownsampleImages;
 		static const WString atr_DraftOK;
+		static const WString atr_DropID;
 		static const WString atr_Drying;
 		static const WString atr_DueLevel;
+		static const WString atr_DueDate;
 		static const WString atr_Duration;
 
 		// EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE //
-		
+
 		static const WString atr_Earliest;
 		static const WString atr_EarlyChange;
 		static const WString atr_EdgeAngle;
@@ -1483,7 +1523,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_Extent;
 		static const WString atr_ExternalReferenceMissing;
 		static const WString atr_ExtraDuration;
-		
+
 		// FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF//
 
 		static const WString atr_Failed;
@@ -1504,6 +1544,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_FillColorName;
 		static const WString atr_FillColorType;
 		static const WString atr_FillMaterial;
+		static const WString atr_FillPriority;
 		static const WString atr_FinishedPage;
 		static const WString atr_FinishedPageOrientation;
 		static const WString atr_FinishingOrder;
@@ -1513,10 +1554,12 @@ static const WString atr_ContentRefs;
 		static const WString atr_FirstPage;
 		static const WString atr_FirstStart;
 		static const WString atr_FirstSurface;
+		static const WString atr_Fixation;
 		static const WString atr_FitToPage;
 		static const WString atr_FixExpression;
 
 		static const WString atr_Flatness;
+		static const WString atr_FlatDimensions;
 		static const WString atr_FlexValue;
 		static const WString atr_FlipBackCover;
 		static const WString atr_FlushPolicy;
@@ -1556,6 +1599,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_FriendlyName;
 		static const WString atr_From;
 		static const WString atr_FromBox;
+
 		static const WString atr_FrontCoatings;
 		static const WString atr_FrontFacePages;
 		static const WString atr_FrontFoldIn;
@@ -1564,7 +1608,10 @@ static const WString atr_ContentRefs;
 		static const WString atr_FrontOverfold;
 		static const WString atr_FrontPages;
 		static const WString atr_FrontSide;
-		
+		static const WString atr_FrontSpread;
+
+		// GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+		static const WString atr_GangElementID;
 		static const WString atr_GangName;
 		static const WString atr_GangNames;
 		static const WString atr_GangPolicy;
@@ -1582,10 +1629,12 @@ static const WString atr_ContentRefs;
 		static const WString atr_GrainDirection;
 		static const WString atr_GrossWeight;		
 		static const WString atr_GroupBy;		
+		static const WString atr_GroupCode;		
 		static const WString atr_Gutter;
 		static const WString atr_GutterMinimumLimit;
 		static const WString atr_GutterPolicy;
 
+		//HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 		static const WString atr_HalfTone;
 		static const WString atr_Halftone;
 		static const WString atr_Halftoned;
@@ -1620,7 +1669,6 @@ static const WString atr_ContentRefs;
 		static const WString atr_HWRelation;
 
 		// IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII //
-		
 		static const WString atr_ICCColorAsDeviceColor;
 		static const WString atr_ICCProfileSubFolder;
 		static const WString atr_ICCProfileUsage;
@@ -1653,6 +1701,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_IgnoreTTFontsFirst;
 		static const WString atr_IgnoreUCR;
 		static const WString atr_Illumination;
+
 		static const WString atr_ImageAutoFilterStrategy;
 		static const WString atr_ImagableSide;
 		static const WString atr_ImageDepth;
@@ -1679,6 +1728,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_ImageTrapWidthY;
 		static const WString atr_ImageType;
 		static const WString atr_ImageViewingStrategy;
+
 		static const WString atr_ImplicitGutter;
 		static const WString atr_ImplicitGutterMinimumLimit;
 		static const WString atr_IncludeBaseFonts;
@@ -1716,6 +1766,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_IsBlank;
 		static const WString atr_IsDevice;
 		static const WString atr_IsFontScreenOnly;
+		static const WString atr_ISOPaperSubstrate;
 		static const WString atr_IsPage;
 		static const WString atr_IsPrintable;
 		static const WString atr_IsTrapped;
@@ -1725,12 +1776,12 @@ static const WString atr_ContentRefs;
 		static const WString atr_ItemNames;
 
 		// JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ//
-		
 		static const WString atr_JBIG2Lossless;
 		static const WString atr_JDFDetails;
 		static const WString atr_JDFErrorURL;
 		static const WString atr_JDFInputURL;
 		static const WString atr_JDFOutputURL;
+		static const WString atr_JDFURL;
 		static const WString atr_JMFRole;
 		static const WString atr_JMFSenderID;
 		static const WString atr_JMFURL;
@@ -1749,15 +1800,16 @@ static const WString atr_ContentRefs;
 		static const WString atr_jRefSource;
 
 		// KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK //
-		
 		static const WString atr_K;
 		static const WString atr_Key;
 		static const WString atr_Keywords;
 		static const WString atr_KnownLocalizations;
+		static const WString atr_KnockoutBleed;
 		static const WString atr_KnockOutCMYKWhite;
-		
+		static const WString atr_KnockoutRefs;
+		static const WString atr_KnockoutSource;
+
 		// LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL//
-		
 		static const WString atr_Lab;
 		static const WString atr_LabColorValue;
 		static const WString atr_LaborType;
@@ -1802,14 +1854,14 @@ static const WString atr_ContentRefs;
 		static const WString atr_LockOrigins;
 		static const WString atr_LogicalPage;
 		static const WString atr_LogicalPrinterSection;
-	static const WString atr_LogicalStackOrd;
-	static const WString atr_LogicalStackSequence;
+		static const WString atr_LogicalStackOrd;
+		static const WString atr_LogicalStackSequence;
 		static const WString atr_LogErrors;
 		static const WString atr_LotControl;
 		static const WString atr_LotID;
+		static const WString atr_LowerRibbonName;
 
 		// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM //
-		
 		static const WString atr_MacroRefs;
 		static const WString atr_Magnification;
 		static const WString atr_ManualFeed;
@@ -1846,6 +1898,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_MaxOccurs;
 		static const WString atr_MaxOrd;
 		static const WString atr_MaxPerGroup;
+		static const WString atr_MaxQuantity;
 		static const WString atr_MaxResolution;
 		static const WString atr_MaxSearchRecursion;
 		static const WString atr_MaxSetOrd;
@@ -1889,8 +1942,10 @@ static const WString atr_ContentRefs;
 		static const WString atr_MinGutter;
 		static const WString atr_MinimumBlackWidth;
 		static const WString atr_MinimumWait;
+		static const WString atr_MinLineWidth;
 		static const WString atr_MinLateStatus;
 		static const WString atr_MinOccurs;
+		static const WString atr_MinQuantity;
 		static const WString atr_MinResolution;
 		static const WString atr_MinSetup;
 		static const WString atr_MinStatus;
@@ -1918,7 +1973,8 @@ static const WString atr_ContentRefs;
 		static const WString atr_MountID;
 		static const WString atr_Mounting;
 		static const WString atr_MustHonorExceptions;
-		
+
+		//NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 		static const WString atr_N;
 		static const WString atr_Name;
 		static const WString atr_NamedFeatures;
@@ -1948,6 +2004,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_NotchingDistance;
 		static const WString atr_NPage;
 		static const WString atr_NSet;
+		static const WString atr_NumColors;
 		static const WString atr_Number;
 		static const WString atr_NumberOfColorsInLUT;
 		static const WString atr_NumberOfNeedles;
@@ -1959,7 +2016,6 @@ static const WString atr_ContentRefs;
 		static const WString atr_NumResolutions;
 
 		// OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO //
-		
 		static const WString atr_Obligated;
 		static const WString atr_Observer;
 		static const WString atr_ObservationPath;
@@ -1973,13 +2029,16 @@ static const WString atr_ContentRefs;
 		static const WString atr_Offset;
 		static const WString atr_OffsetAmount;
 		static const WString atr_OffsetDirection;
+		static const WString atr_OffsetUnits;
 		static const WString atr_OlderThan;
 		static const WString atr_OldTime;
 		static const WString atr_OldValue;
+		static const WString atr_OneSheet;
 		static const WString atr_Opacity;
 		static const WString atr_OpacityLevel;
 		static const WString atr_Opening;
 		static const WString atr_Operation;
+		static const WString atr_OperationDetails;
 		static const WString atr_Operations;
 		static const WString atr_OperatorInterventionExceptions;
 		static const WString atr_OperatorText;
@@ -2023,12 +2082,12 @@ static const WString atr_ContentRefs;
 		static const WString atr_Ownership;
 
 		// PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP //
-		
 		static const WString atr_Packaging;
 		static const WString atr_Page;
 		static const WString atr_PageBoxType;
 		static const WString atr_PageCopies;
 		static const WString atr_PageDelivery;
+		static const WString atr_PageDimension;
 		static const WString atr_PageDistributionScheme;
 		static const WString atr_PageFormat;
 		static const WString atr_PageHasUnknownObjects;
@@ -2068,9 +2127,11 @@ static const WString atr_ContentRefs;
 		static const WString atr_Password;
 		static const WString atr_Path;
 		static const WString atr_Pattern;
+
 		static const WString atr_PDFVersion;
 		static const WString atr_PDFX1aCheck;
 		static const WString atr_PDFX3Check;
+		static const WString atr_PDFXCheck;
 		static const WString atr_PDFXCompliantPDFOnly;
 		static const WString atr_PDFXNoTrimBoxError;
 		static const WString atr_PDFXTrimBoxToMediaBoxOffset;
@@ -2081,6 +2142,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_PDFXRegistryName;
 		static const WString atr_PDFXTrapped;
 		static const WString atr_PDFXVersion;
+
 		static const WString atr_PDLObjectType;
 		static const WString atr_PDLType;
 		static const WString atr_PDLVersion;
@@ -2093,6 +2155,8 @@ static const WString atr_ContentRefs;
 		static const WString atr_PhaseAmount;
 		static const WString atr_PhaseStartTime;
 		static const WString atr_PhaseWaste;
+		static const WString atr_PhoneticFirstName;
+		static const WString atr_PhoneticLastName;
 		static const WString atr_PhysicalSection;
 		static const WString atr_Pickup;
 		static const WString atr_PipeID;
@@ -2168,12 +2232,14 @@ static const WString atr_ContentRefs;
 		static const WString atr_PreviewType;
 		static const WString atr_PreviewUsage;
 		static const WString atr_PrevQueueEntryID;
+
 		static const WString atr_Price;
 		static const WString atr_PrintableArea;
 		static const WString atr_PrintTrapAnnotations;
 		static const WString atr_PrintConditionName;
 		static const WString atr_PrinterFontsSubFolder;
 		static const WString atr_PrintingType;
+		static const WString atr_PrintPass;
 		static const WString atr_PrintPDFAnnotations;
 		static const WString atr_PrintQuality;
 		static const WString atr_Priority;
@@ -2185,6 +2251,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_ProductionCounter;
 		static const WString atr_ProductionPathID;
 		static const WString atr_ProductionType;
+		static const WString atr_ProductPart;
 		static const WString atr_ProductType;
 		static const WString atr_ProductTypeDetails;
 		static const WString atr_ProgressionOrder;
@@ -2206,7 +2273,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_PurposeDetails;
 
 		// QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ //
-		
+
 		static const WString atr_QFactor;
 		static const WString atr_QuantTable;
 		static const WString atr_Query;
@@ -2217,7 +2284,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_QueueURL;
 
 		// RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR //
-		
+
 		static const WString atr_Range;
 		static const WString atr_Ratio;
 		static const WString atr_RawAlias;
@@ -2309,7 +2376,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_RunTags;
 
 		// SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS//
-		
+
 		static const WString atr_SampleBacking;
 		static const WString atr_SampleInterval;
 		static const WString atr_Scale;
@@ -2360,7 +2427,9 @@ static const WString atr_ContentRefs;
 		static const WString atr_Shape;
 		static const WString atr_ShapeDepth;
 		static const WString atr_ShapeType;
+
 		static const WString atr_SheetCollate;
+		static const WString atr_SheetCount;
 		static const WString atr_SheetFormat;
 		static const WString atr_SheetIndex;
 		static const WString atr_SheetLay;
@@ -2424,12 +2493,14 @@ static const WString atr_ContentRefs;
 		static const WString atr_SpecificYield;
 		static const WString atr_Speed;
 		static const WString atr_Spine;
+		static const WString atr_SpineBoardWidth;
 		static const WString atr_SpineColor;
 		static const WString atr_SpineWidth;
 		static const WString atr_SplitDocuments;
 		static const WString atr_SpotFunction;
 		static const WString atr_sRGB;
 
+		static const WString atr_StackAmount;
 		static const WString atr_StackDepth;
 		static const WString atr_StaggerColumns;
 		static const WString atr_StaggerContinuous;
@@ -2491,7 +2562,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_SurfaceCount;
 
 		// TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT //
-		
+
 		static const WString atr_TabBanks;
 		static const WString atr_TabsPerBank;
 		static const WString atr_TagNumber;
@@ -2522,6 +2593,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_Time;
 		static const WString atr_TimeInterval;
 		static const WString atr_TimeStamp;
+		static const WString atr_Tint;
 		static const WString atr_Title;
 
 		static const WString atr_To;
@@ -2570,11 +2642,17 @@ static const WString atr_ContentRefs;
 		static const WString atr_TrapZone;
 		static const WString atr_Travel;
 		static const WString atr_TravelInterval;
+
+		static const WString atr_TrimBottom;
+		static const WString atr_TrimBox;
 		static const WString atr_TrimCover;
 		static const WString atr_TrimCTM;
 		static const WString atr_TrimFace;
 		static const WString atr_TrimFoot;
 		static const WString atr_TrimHead;
+		static const WString atr_TrimLeft;
+		static const WString atr_TrimRight;
+		static const WString atr_TrimTop;
 		static const WString atr_TrimmingOffset;
 		static const WString atr_TrimmingType;
 		static const WString atr_TrimSize;
@@ -2586,7 +2664,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_TypeOrder;
 		static const WString atr_TypeOccurrenceNum;
 		static const WString atr_Types;
-		
+
 		// UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU//
 
 		static const WString atr_UCRandBGInfo;
@@ -2602,6 +2680,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_UpdateID;
 		static const WString atr_UpdateIDs;
 		static const WString atr_UpdateMethod;
+		static const WString atr_UpperRibbonName;
 		static const WString atr_URL;
 		static const WString atr_URLSchemes;
 		static const WString atr_Usage;
@@ -2611,13 +2690,14 @@ static const WString atr_ContentRefs;
 		static const WString atr_UseFontEmulation;
 		static const WString atr_UsePDLAlternateCS;
 		static const WString atr_UsePrologue;
+		static const WString atr_UserID;
 		static const WString atr_UserDisplay;
 		static const WString atr_UserFileName;
 		static const WString atr_UserMediaType;
 		static const WString atr_UserText;
 
 		// VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//
-		
+
 		static const WString atr_Vacuum;
 		static const WString atr_Value;
 		static const WString atr_ValueDurationList;
@@ -2635,7 +2715,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_VSamples;
 
 		// WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW//
-		
+
 		static const WString atr_WarningCount;
 		static const WString atr_WasMarked;
 		static const WString atr_Waste;
@@ -2647,6 +2727,7 @@ static const WString atr_ContentRefs;
 		static const WString atr_WhiteBase;
 		static const WString atr_WhiteIsZero;
 		static const WString atr_Width;
+		static const WString atr_WindingResult;
 		static const WString atr_WireBrand;
 		static const WString atr_WireGauge;
 		static const WString atr_WorkingDirection;
@@ -2663,20 +2744,20 @@ static const WString atr_ContentRefs;
 		static const WString atr_WrappingMaterial;
 
 		// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX//
-		
+
 		static const WString atr_X;
 		static const WString atr_XCells;
 		static const WString atr_XOffset;
 		static const WString atr_XPath;
 		static const WString atr_XPosition;
 		static const WString atr_XYRelation;
-		
+
 		// YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY//
-		
+
 		static const WString atr_Y;
 		static const WString atr_YCells;
 		static const WString atr_YPosition;
-		
+
 		// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ//
 
 		static const WString atr_Z;
@@ -2686,8 +2767,8 @@ static const WString atr_ContentRefs;
 		static const WString atr_ZoneSettingsY;
 		static const WString atr_ZonesY;
 		static const WString atr_ZoneWidth;
-		
-		
+
+
 
 
 		static const WString atr_Intent;
@@ -2696,169 +2777,169 @@ static const WString atr_ContentRefs;
 		static const WString atr_Pool;
 		static const WString atr_Ref;
 		static const WString atr_Update;
-		
+
 		static const WString atr_true;
 		static const WString atr_false;
-		
+
 		static const WString atr_Unknown;
-			
+
 
 
 
 		static const WString atr_AbsoluteHeight;
-static const WString atr_AbsoluteWidth;
-static const WString atr_Anchor;
+		static const WString atr_AbsoluteWidth;
+		static const WString atr_Anchor;
 
 		static const WString atr_Metadata0;
-static const WString atr_Metadata1;
-static const WString atr_Metadata2;
-static const WString atr_Metadata3;
-static const WString atr_Metadata4;
-static const WString atr_Metadata5;
-static const WString atr_Metadata6;
-static const WString atr_Metadata7;
-static const WString atr_Metadata8;
-static const WString atr_Metadata9;
+		static const WString atr_Metadata1;
+		static const WString atr_Metadata2;
+		static const WString atr_Metadata3;
+		static const WString atr_Metadata4;
+		static const WString atr_Metadata5;
+		static const WString atr_Metadata6;
+		static const WString atr_Metadata7;
+		static const WString atr_Metadata8;
+		static const WString atr_Metadata9;
 
-static const WString atr_VarnishMethod;
-static const WString atr_TabEdge;
-static const WString atr_TabExtensionDistance;
-static const WString atr_TabOffset;
-static const WString atr_TabSetCollationOrder;
-static const WString atr_TabWidth;
-static const WString atr_Families;
-static const WString atr_MessageTypes;
-static const WString atr_InnerDimensions;
-static const WString atr_Standard;
-static const WString atr_Area;
-static const WString atr_DDESCutType;
+		static const WString atr_VarnishMethod;
+		static const WString atr_TabEdge;
+		static const WString atr_TabExtensionDistance;
+		static const WString atr_TabOffset;
+		static const WString atr_TabSetCollationOrder;
+		static const WString atr_TabWidth;
+		static const WString atr_Families;
+		static const WString atr_MessageTypes;
+		static const WString atr_InnerDimensions;
+		static const WString atr_Standard;
+		static const WString atr_Area;
+		static const WString atr_DDESCutType;
 
-static const WString atr_AllowedRotate;
-static const WString atr_GutterX;
-static const WString atr_GutterX2;
-static const WString atr_GutterY;
-static const WString atr_GutterY2;
-static const WString atr_LayoutStyle;
-static const WString atr_OrderQuantity;
-static const WString atr_UseBleeds;
+		static const WString atr_AllowedRotate;
+		static const WString atr_GutterX;
+		static const WString atr_GutterX2;
+		static const WString atr_GutterY;
+		static const WString atr_GutterY2;
+		static const WString atr_LayoutStyle;
+		static const WString atr_OrderQuantity;
+		static const WString atr_UseBleeds;
 
-static const WString atr_AnchorType;
-static const WString atr_RestrictedContentObjects;
+		static const WString atr_AnchorType;
+		static const WString atr_RestrictedContentObjects;
 
-static const WString atr_PageRange;
-static const WString atr_PositionPolicy;
-static const WString atr_RelativeSize;
-static const WString atr_RotationPolicy;
+		static const WString atr_PageRange;
+		static const WString atr_PositionPolicy;
+		static const WString atr_RelativeSize;
+		static const WString atr_RotationPolicy;
 
-static const WString atr_Index;
-
-
-static const WString atr_RunPageRange;
-
-static const WString atr_Estimate;
-
-static const WString atr_SheetHeight;
-static const WString atr_SheetWidth;
+		static const WString atr_Index;
 
 
-static const WString atr_URLTypes;
-static const WString atr_URLType;
-static const WString atr_OrdReset;
-static const WString atr_SheetCountReset;
-static const WString atr_MaxCollect;
-static const WString atr_MinCollect;
-static const WString atr_OrdsConsumed;
-static const WString atr_SheetNameFormat;
-static const WString atr_SheetNameTemplate;
+		static const WString atr_RunPageRange;
 
-static const WString atr_JobFormat;
-static const WString atr_JobTemplate;
+		static const WString atr_Estimate;
 
-static const WString atr_ISBN10;
-static const WString atr_ISBN13;
-
-static const WString atr_AuthenticationType;
-static const WString atr_ReasonDetails;
-
-static const WString atr_FaceCells;
-static const WString atr_ObjectTags;
-
-static const WString atr_IsDoubleByteFont;
-
-static const WString atr_PageHasOptionalContent;
-static const WString atr_PageScalingFactor;
-
-static const WString atr_CompensationCTM;
-static const WString atr_ContentRef;
-static const WString atr_StackOrd;
-static const WString atr_TrimClipPath;
-
-static const WString atr_CutWidth;
-
-static const WString atr_ColorDetails;
-
-static const WString atr_InnermostShingling;
-static const WString atr_OutermostShingling;
+		static const WString atr_SheetHeight;
+		static const WString atr_SheetWidth;
 
 
-static const WString atr_StripColorDetails;
-static const WString atr_StitchOrigin;
-static const WString atr_LayerLift;
+		static const WString atr_URLTypes;
+		static const WString atr_URLType;
+		static const WString atr_OrdReset;
+		static const WString atr_SheetCountReset;
+		static const WString atr_MaxCollect;
+		static const WString atr_MinCollect;
+		static const WString atr_OrdsConsumed;
+		static const WString atr_SheetNameFormat;
+		static const WString atr_SheetNameTemplate;
 
-static const WString atr_LayerCompression;
-static const WString atr_PreStackAmount;
-static const WString atr_PreStackMethod;
-static const WString atr_StackCompression;
+		static const WString atr_JobFormat;
+		static const WString atr_JobTemplate;
 
-static const WString atr_HorizontalExcessBack;
+		static const WString atr_ISBN10;
+		static const WString atr_ISBN13;
 
-static const WString atr_IgnoreContext;
-static const WString atr_SheetSides;
+		static const WString atr_AuthenticationType;
+		static const WString atr_ReasonDetails;
 
-static const WString atr_BinderColorDetails;
-static const WString atr_SpineColorDetails;
-static const WString atr_RibbonColorDetails;
-static const WString atr_MimeTypeDetails;
+		static const WString atr_FaceCells;
+		static const WString atr_ObjectTags;
+
+		static const WString atr_IsDoubleByteFont;
+
+		static const WString atr_PageHasOptionalContent;
+		static const WString atr_PageScalingFactor;
+
+		static const WString atr_CompensationCTM;
+		static const WString atr_ContentRef;
+		static const WString atr_StackOrd;
+		static const WString atr_TrimClipPath;
+
+		static const WString atr_CutWidth;
+
+		static const WString atr_ColorDetails;
+
+		static const WString atr_InnermostShingling;
+		static const WString atr_OutermostShingling;
 
 
-static const WString atr_Languages;
+		static const WString atr_StripColorDetails;
+		static const WString atr_StitchOrigin;
+		static const WString atr_LayerLift;
 
-static const WString atr_Overhang;
-static const WString atr_OverhangOffset;
+		static const WString atr_LayerCompression;
+		static const WString atr_PreStackAmount;
+		static const WString atr_PreStackMethod;
+		static const WString atr_StackCompression;
 
-static const WString atr_BackCoatingDetail;
-static const WString atr_FrontCoatingDetail;
-static const WString atr_MediaQuality;
-static const WString atr_PrintingTechnology;
-static const WString atr_ReliefThickness;
-static const WString atr_SleeveInterlock;
+		static const WString atr_HorizontalExcessBack;
 
-static const WString atr_ContentDataRefs;
-static const WString atr_SourceMediaBox;
+		static const WString atr_IgnoreContext;
+		static const WString atr_SheetSides;
 
-static const WString atr_TopColorDetails;
-static const WString atr_BottomColorDetails;
-static const WString atr_ClampColorDetails;
+		static const WString atr_BinderColorDetails;
+		static const WString atr_SpineColorDetails;
+		static const WString atr_RibbonColorDetails;
+		static const WString atr_MimeTypeDetails;
 
-static const WString atr_HorizontalFitPolicy;
-static const WString atr_VerticalFitPolicy;
 
-static const WString atr_NUpSeparation;
+		static const WString atr_Languages;
 
-static const WString atr_SpineThickness;
-static const WString atr_RawNames;
+		static const WString atr_Overhang;
+		static const WString atr_OverhangOffset;
 
-static const WString atr_ActualColorName;
-static const WString atr_Gray;
+		static const WString atr_BackCoatingDetail;
+		static const WString atr_FrontCoatingDetail;
+		static const WString atr_MediaQuality;
+		static const WString atr_PrintingTechnology;
+		static const WString atr_ReliefThickness;
+		static const WString atr_SleeveInterlock;
 
-static const WString atr_Columns;
-static const WString atr_ComponentOrientation;
+		static const WString atr_ContentDataRefs;
+		static const WString atr_SourceMediaBox;
 
-static const WString atr_AlignmentReferenceWeb;
-static const WString atr_FoldLay;
-static const WString atr_WebCellAlignment;
+		static const WString atr_TopColorDetails;
+		static const WString atr_BottomColorDetails;
+		static const WString atr_ClampColorDetails;
 
-static const WString atr_TabCount;
+		static const WString atr_HorizontalFitPolicy;
+		static const WString atr_VerticalFitPolicy;
+
+		static const WString atr_NUpSeparation;
+
+		static const WString atr_SpineThickness;
+		static const WString atr_RawNames;
+
+		static const WString atr_ActualColorName;
+		static const WString atr_Gray;
+
+		static const WString atr_Columns;
+		static const WString atr_ComponentOrientation;
+
+		static const WString atr_AlignmentReferenceWeb;
+		static const WString atr_FoldLay;
+		static const WString atr_WebCellAlignment;
+
+		static const WString atr_TabCount;
 
 
 	};

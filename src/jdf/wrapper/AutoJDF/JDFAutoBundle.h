@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -179,7 +179,7 @@ virtual bool init();
 * Enumeration for attribute BundleType
 */
 
-	enum EnumBundleType{BundleType_Unknown,BundleType_BoundSet,BundleType_Box,BundleType_Carton,BundleType_CollectedStack,BundleType_CompensatedStack,BundleType_Pallet,BundleType_Roll,BundleType_Sheet,BundleType_Stack,BundleType_StrappedStack,BundleType_StrappedCompensatedStack,BundleType_WrappedBundle};
+	enum EnumBundleType{BundleType_Unknown,BundleType_BoundSet,BundleType_Box,BundleType_Carton,BundleType_CollectedStack,BundleType_CompensatedStack,BundleType_Pallet,BundleType_Roll,BundleType_Sheet,BundleType_SheetStream,BundleType_Stack,BundleType_StrappedStack,BundleType_StrappedCompensatedStack,BundleType_WrappedBundle};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -247,6 +247,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidReaderPageCount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SheetCount
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetSheetCount(int value);
+/**
+* Get integer attribute SheetCount
+* @return int the vaue of the attribute 
+*/
+	virtual int GetSheetCount() const;
+/**
+* Typesafe attribute validation of SheetCount
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSheetCount(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute TotalAmount
 *@param int value: the value to set the attribute to

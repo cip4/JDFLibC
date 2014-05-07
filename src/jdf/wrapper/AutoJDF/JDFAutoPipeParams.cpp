@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,6 +75,8 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoPipeParams.h"
+#include "jdf/wrapper/JDFAmountPool.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
@@ -123,7 +125,7 @@ JDFAutoPipeParams& JDFAutoPipeParams::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPipeParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",JobID,JobPartID,Status,UpdatedStatus");
+		return JDFElement::OptionalAttributes()+WString(L",JobID,JobPartID,ProjectID,Status,UpdatedStatus");
 };
 
 /**
@@ -146,6 +148,11 @@ JDFAutoPipeParams& JDFAutoPipeParams::operator=(const KElement& other){
 		};
 		if(!ValidPipeID(level)) {
 			vAtts.push_back(atr_PipeID);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidProjectID(level)) {
+			vAtts.push_back(atr_ProjectID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -216,6 +223,24 @@ JDFAutoPipeParams& JDFAutoPipeParams::operator=(const KElement& other){
 	bool JDFAutoPipeParams::ValidPipeID(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PipeID,AttributeType_shortString,RequiredLevel(level));
 	};
+/**
+* Set attribute ProjectID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoPipeParams::SetProjectID(const WString& value){
+	SetAttribute(atr_ProjectID,value);
+};
+/**
+* Get string attribute ProjectID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoPipeParams::GetProjectID() const {
+	return GetAttribute(atr_ProjectID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoPipeParams::ValidProjectID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ProjectID,AttributeType_shortString,false);
+	};
 /////////////////////////////////////////////////////////////////////////
 	void JDFAutoPipeParams::SetStatus( EnumStatus value){
 	SetEnumAttribute(atr_Status,value,StatusString());
@@ -239,5 +264,70 @@ JDFAutoPipeParams& JDFAutoPipeParams::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoPipeParams::ValidUpdatedStatus(EnumValidationLevel level) const {
 		return ValidEnumAttribute(atr_UpdatedStatus,JDFResource::StatusString(),false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFAmountPool JDFAutoPipeParams::GetAmountPool()const{
+	JDFAmountPool e=GetElement(elm_AmountPool);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFAmountPool JDFAutoPipeParams::GetCreateAmountPool(){
+	JDFAmountPool e=GetCreateElement(elm_AmountPool);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFAmountPool JDFAutoPipeParams::AppendAmountPool(){
+	JDFAmountPool e=AppendElementN(elm_AmountPool,1);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoPipeParams::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_AmountPool);
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_AmountPool);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetAmountPool().IsValid(level)) {
+				vElem.AppendUnique(elm_AmountPool);
+				if (++n>=nMax)
+					return vElem;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoPipeParams::UniqueElements()const{
+		return JDFElement::UniqueElements()+L",AmountPool";
+	};
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoPipeParams::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",AmountPool";
 	};
 }; // end namespace JDF

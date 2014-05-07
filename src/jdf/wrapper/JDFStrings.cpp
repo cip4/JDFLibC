@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2011 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -90,10 +90,11 @@ namespace JDF{
 
 
 	// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA //
-
+	const WString JDFStrings::elm_AbortQueueEntryParams=L"AbortQueueEntryParams";
 	const WString JDFStrings::elm_Acknowledge=L"Acknowledge";
 	const WString JDFStrings::elm_Action=L"Action";
 	const WString JDFStrings::elm_ActionPool=L"ActionPool";
+	const WString JDFStrings::elm_Activity=L"Activity";
 	const WString JDFStrings::elm_Added=L"Added";
 	const WString JDFStrings::elm_Address=L"Address";
 	const WString JDFStrings::elm_AdhesiveBinding=L"AdhesiveBinding";
@@ -147,6 +148,7 @@ namespace JDF{
 	const WString JDFStrings::elm_BindingQualityParams=L"BindingQualityParams";
 	const WString JDFStrings::elm_BindItem=L"BindItem";
 	const WString JDFStrings::elm_BindList=L"BindList";
+	const WString JDFStrings::elm_Bleed=L"Bleed";
 	const WString JDFStrings::elm_BlockPreparationParams=L"BlockPreparationParams";
 	const WString JDFStrings::elm_BlockThreadSewing=L"BlockThreadSewing";
 	const WString JDFStrings::elm_BookCase=L"BookCase";
@@ -249,6 +251,7 @@ namespace JDF{
 	const WString JDFStrings::elm_CustomerMessage=L"CustomerMessage";
 	const WString JDFStrings::elm_Cut=L"Cut";
 	const WString JDFStrings::elm_CutBlock=L"CutBlock";
+	const WString JDFStrings::elm_CutLines=L"CutLines";
 	const WString JDFStrings::elm_CutMark=L"CutMark";
 	const WString JDFStrings::elm_CuttingParams=L"CuttingParams";
 	const WString JDFStrings::elm_CutType=L"CutType";
@@ -348,6 +351,8 @@ namespace JDF{
 	const WString JDFStrings::elm_FileSpecOut=L"FileSpecOut";
 	const WString JDFStrings::elm_FileTypeConstraintsPool=L"FileTypeConstraintsPool";
 	const WString JDFStrings::elm_FileTypeResultsPool=L"FileTypeResultsPool";
+	const WString JDFStrings::elm_FillColor=L"FillColor";
+	const WString JDFStrings::elm_FillMark=L"FillMark";
 	const WString JDFStrings::elm_FinishedDimensions=L"FinishedDimensions";
 	const WString JDFStrings::elm_FinishedGrainDirection=L"FinishedGrainDirection";
 	const WString JDFStrings::elm_FitPolicy=L"FitPolicy";
@@ -376,6 +381,7 @@ namespace JDF{
 	// GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 
 	const WString JDFStrings::elm_GangCmdFilter=L"GangCmdFilter";
+	const WString JDFStrings::elm_GangElement=L"GangElement";
 	const WString JDFStrings::elm_GangInfo=L"GangInfo";
 	const WString JDFStrings::elm_GangQuFilter=L"GangQuFilter";
 	const WString JDFStrings::elm_GatheringParams=L"GatheringParams";
@@ -398,6 +404,7 @@ namespace JDF{
 	const WString JDFStrings::elm_Headbands=L"Headbands";
 	const WString JDFStrings::elm_HeadBands=L"HeadBands";
 	const WString JDFStrings::elm_Height=L"Height";
+	const WString JDFStrings::elm_HoldQueueEntryParams=L"HoldQueueEntryParams";
 	const WString JDFStrings::elm_Hole=L"Hole";
 	const WString JDFStrings::elm_HoleCount=L"HoleCount";
 	const WString JDFStrings::elm_HoleLine=L"HoleLine";
@@ -425,6 +432,8 @@ namespace JDF{
 	const WString JDFStrings::elm_IDPTrimming=L"IDPTrimming";
 	const WString JDFStrings::elm_ImageCompression=L"ImageCompression";
 	const WString JDFStrings::elm_ImageCompressionParams=L"ImageCompressionParams";
+	const WString JDFStrings::elm_ImageEnhancementParams=L"ImageEnhancementParams";
+	const WString JDFStrings::elm_ImageEnhancementOp=L"ImageEnhancementOp";
 	const WString JDFStrings::elm_ImageReplacementParams=L"ImageReplacementParams";
 	const WString JDFStrings::elm_ImagesConstraintsPool=L"ImagesConstraintsPool";
 	const WString JDFStrings::elm_ImageSetterParams=L"ImageSetterParams";
@@ -444,7 +453,9 @@ namespace JDF{
 	const WString JDFStrings::elm_IntegerEvaluation=L"IntegerEvaluation";
 	const WString JDFStrings::elm_IntegerState=L"IntegerState";
 	const WString JDFStrings::elm_InterpretedPDLData=L"InterpretedPDLData";
+	const WString JDFStrings::elm_InterpretingDetails=L"InterpretingDetails";
 	const WString JDFStrings::elm_InterpretingParams=L"InterpretingParams";
+	const WString JDFStrings::elm_ISOPaperSubstrate=L"ISOPaperSubstrate";
 	const WString JDFStrings::elm_IsPresentEvaluation=L"IsPresentEvaluation";
 	const WString JDFStrings::elm_IssueDate=L"IssueDate";
 	const WString JDFStrings::elm_IssueName=L"IssueName";
@@ -690,6 +701,7 @@ namespace JDF{
 	const WString JDFStrings::elm_Removed=L"Removed";
 	const WString JDFStrings::elm_RemoveLink=L"RemoveLink";
 	const WString JDFStrings::elm_RemoveResource=L"RemoveResource";
+	const WString JDFStrings::elm_RemoveQueueEntryParams=L"RemoveQueueEntryParams";
 	const WString JDFStrings::elm_RenderingParams=L"RenderingParams";
 	const WString JDFStrings::elm_RequestQueueEntryParams=L"RequestQueueEntryParams";
 	const WString JDFStrings::elm_Required=L"Required";
@@ -708,6 +720,7 @@ namespace JDF{
 	const WString JDFStrings::elm_ResourceQuParams=L"ResourceQuParams";
 	const WString JDFStrings::elm_Response=L"Response";
 	const WString JDFStrings::elm_ResubmissionParams=L"ResubmissionParams";
+	const WString JDFStrings::elm_ResumeQueueEntryParams=L"ResumeQueueEntryParams";
 	const WString JDFStrings::elm_ReturnMethod=L"ReturnMethod";
 	const WString JDFStrings::elm_ReturnQueueEntryParams=L"ReturnQueueEntryParams";
 	const WString JDFStrings::elm_RingBinding=L"RingBinding";
@@ -737,6 +750,8 @@ namespace JDF{
 	const WString JDFStrings::elm_SearchPath=L"SearchPath";
 	const WString JDFStrings::elm_SeparationControlParams=L"SeparationControlParams";
 	const WString JDFStrings::elm_SeparationList=L"SeparationList";
+	const WString JDFStrings::elm_SeparationListBack=L"SeparationListBack";
+	const WString JDFStrings::elm_SeparationListFront=L"SeparationListFront";
 	const WString JDFStrings::elm_SeparationSpec=L"SeparationSpec";
 	const WString JDFStrings::elm_ServiceLevel=L"ServiceLevel";
 	const WString JDFStrings::elm_set=L"set";
@@ -750,6 +765,8 @@ namespace JDF{
 	const WString JDFStrings::elm_ShapeState=L"ShapeState";
 	const WString JDFStrings::elm_ShapeType=L"ShapeType";
 	const WString JDFStrings::elm_Sheet=L"Sheet";
+	const WString JDFStrings::elm_SheetOptimizingParams=L"SheetOptimizingParams";
+	
 	const WString JDFStrings::elm_ShrinkingParams=L"ShrinkingParams";
 	const WString JDFStrings::elm_ShutDown=L"ShutDown";
 	const WString JDFStrings::elm_ShutDownCmdParams=L"ShutDownCmdParams";
@@ -801,8 +818,10 @@ namespace JDF{
 	const WString JDFStrings::elm_Subscription=L"Subscription";
 	const WString JDFStrings::elm_Surface=L"Surface";
 	const WString JDFStrings::elm_SurplusHandling=L"SurplusHandling";
+	const WString JDFStrings::elm_SuspendQueueEntryParams=L"SuspendQueueEntryParams";
 	const WString JDFStrings::elm_SystemTimeSet=L"SystemTimeSet";
 
+	//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 	const WString JDFStrings::elm_TabBindMylar=L"TabBindMylar";
 	const WString JDFStrings::elm_TabBrand=L"TabBrand";
 	const WString JDFStrings::elm_TabBodyCopy=L"TabBodyCopy";
@@ -952,6 +971,8 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_ActionRef=L"ActionRef";
 	const WString JDFStrings::atr_ActionRefs=L"ActionRefs";
 	const WString JDFStrings::atr_Activation=L"Activation";
+	const WString JDFStrings::atr_ActivityID=L"ActivityID";
+	const WString JDFStrings::atr_ActivityName=L"ActivityName";
 	const WString JDFStrings::atr_Actual=L"Actual";
 	const WString JDFStrings::atr_ActualAmount=L"ActualAmount";
 	const WString JDFStrings::atr_ActualTotalAmount=L"ActualTotalAmount";
@@ -1033,6 +1054,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_AuthorizationExpires=L"AuthorizationExpires";
 	const WString JDFStrings::atr_AutoFilterImages=L"AutoFilterImages";
 	const WString JDFStrings::atr_Automated=L"Automated";
+	const WString JDFStrings::atr_Automation=L"Automation";
 	const WString JDFStrings::atr_AutoPositionEPSInfo=L"AutoPositionEPSInfo";
 	const WString JDFStrings::atr_AutoRotatePages=L"AutoRotatePages";
 	const WString JDFStrings::atr_AvailableAmount=L"AvailableAmount";
@@ -1042,7 +1064,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_AverageSetup=L"AverageSetup";
 
 	// BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB //
-
+	const WString JDFStrings::atr_BackBrightness=L"BackBrightness";
 	const WString JDFStrings::atr_BackCoatings=L"BackCoatings";
 	const WString JDFStrings::atr_BackFacePages=L"BackFacePages";
 	const WString JDFStrings::atr_BackGlossValue=L"BackGlossValue";
@@ -1051,6 +1073,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_BackOverfold=L"BackOverfold";
 	const WString JDFStrings::atr_BackPages=L"BackPages";
 	const WString JDFStrings::atr_BackSide=L"BackSide";
+	const WString JDFStrings::atr_BackSpread=L"BackSpread";
 	const WString JDFStrings::atr_BadFeedQuality=L"BadFeedQuality";
 	const WString JDFStrings::atr_BadFeeds=L"BadFeeds";
 	const WString JDFStrings::atr_BandHeight=L"BandHeight";
@@ -1090,10 +1113,15 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_BlankDimensionsX=L"BlankDimensionsX";
 	const WString JDFStrings::atr_BlankDimensionsY=L"BlankDimensionsY";
 	const WString JDFStrings::atr_BlankPage=L"BlankPage";
+
+	const WString JDFStrings::atr_BleedBottom=L"BleedBottom";
 	const WString JDFStrings::atr_BleedFace=L"BleedFace";
 	const WString JDFStrings::atr_BleedFoot=L"BleedFoot";
 	const WString JDFStrings::atr_BleedHead=L"BleedHead";
+	const WString JDFStrings::atr_BleedLeft=L"BleedLeft";
+	const WString JDFStrings::atr_BleedRight=L"BleedRight";
 	const WString JDFStrings::atr_BleedSpine=L"BleedSpine";
+	const WString JDFStrings::atr_BleedTop=L"BleedTop";
 	const WString JDFStrings::atr_BlendColorSpace=L"BlendColorSpace";
 	const WString JDFStrings::atr_BlendMode=L"BlendMode";
 	const WString JDFStrings::atr_BlindStitch=L"BlindStitch";
@@ -1178,6 +1206,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 
 	const WString JDFStrings::atr_Code=L"Code";
 	const WString JDFStrings::atr_CodeBlockSize=L"CodeBlockSize";
+	const WString JDFStrings::atr_CollapseBleeds=L"CollapseBleeds";
 	const WString JDFStrings::atr_Collate=L"Collate";
 	const WString JDFStrings::atr_Color=L"Color";
 	const WString JDFStrings::atr_Colorant=L"Colorant";
@@ -1194,6 +1223,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_ColorSpace=L"ColorSpace";
 	const WString JDFStrings::atr_ColorTransform=L"ColorTransform";
 	const WString JDFStrings::atr_ColorType=L"ColorType";
+	const WString JDFStrings::atr_ColorTypeDetails=L"ColorTypeDetails";
 	const WString JDFStrings::atr_CombinedMethod=L"CombinedMethod";
 	const WString JDFStrings::atr_CombinedProcessIndex=L"CombinedProcessIndex";
 	const WString JDFStrings::atr_CombinedProcessType=L"CombinedProcessType";
@@ -1250,6 +1280,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Country=L"Country";
 	const WString JDFStrings::atr_CountryCode=L"CountryCode";
 	const WString JDFStrings::atr_CoverOffset=L"CoverOffset";
+	const WString JDFStrings::atr_CoverBoardWidth=L"CoverBoardWidth";
 	const WString JDFStrings::atr_CoverType=L"CoverType";
 	const WString JDFStrings::atr_CoverWidth=L"CoverWidth";
 	const WString JDFStrings::atr_CreationDate=L"CreationDate";
@@ -1312,6 +1343,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_DevCapRef=L"DevCapRef";
 	const WString JDFStrings::atr_DevCapRefs=L"DevCapRefs";
 	const WString JDFStrings::atr_DevCapsRef=L"DevCapsRef";
+	const WString JDFStrings::atr_DeviceClass=L"DeviceClass";
 	const WString JDFStrings::atr_DeviceCondition=L"DeviceCondition";
 	const WString JDFStrings::atr_DeviceDetails=L"DeviceDetails";
 	const WString JDFStrings::atr_DeviceFamily=L"DeviceFamily";
@@ -1321,6 +1353,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_DeviceStatus=L"DeviceStatus";
 	const WString JDFStrings::atr_DeviceType=L"DeviceType";
 	const WString JDFStrings::atr_DevNS=L"DevNS";
+
 	const WString JDFStrings::atr_Diameter=L"Diameter";
 	const WString JDFStrings::atr_DifferentBoxSize=L"DifferentBoxSize";
 	const WString JDFStrings::atr_Diffusion=L"Diffusion";
@@ -1359,7 +1392,9 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_DoubleFeeds=L"DoubleFeeds";
 	const WString JDFStrings::atr_DownsampleImages=L"DownsampleImages";
 	const WString JDFStrings::atr_DraftOK=L"DraftOK";
+	const WString JDFStrings::atr_DropID=L"DropID";
 	const WString JDFStrings::atr_Drying=L"Drying";
+	const WString JDFStrings::atr_DueDate=L"DueDate";
 	const WString JDFStrings::atr_DueLevel=L"DueLevel";
 	const WString JDFStrings::atr_Duration=L"Duration";
 
@@ -1446,6 +1481,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_FillColorName=L"FillColorName";
 	const WString JDFStrings::atr_FillColorType=L"FillColorType";
 	const WString JDFStrings::atr_FillMaterial=L"FillMaterial";
+	const WString JDFStrings::atr_FillPriority=L"FillPriority";
 	const WString JDFStrings::atr_FinishedPage=L"FinishedPage";
 	const WString JDFStrings::atr_FinishedPageOrientation=L"FinishedPageOrientation";
 	const WString JDFStrings::atr_FinishingOrder=L"FinishingOrder";
@@ -1455,10 +1491,12 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_FirstPage=L"FirstPage";
 	const WString JDFStrings::atr_FirstStart=L"FirstStart";
 	const WString JDFStrings::atr_FirstSurface=L"FirstSurface";
-	const WString JDFStrings::atr_FitToPage=L"FitToPage";
+	const WString JDFStrings::atr_Fixation=L"Fixation";
 	const WString JDFStrings::atr_FixExpression=L"FixExpression";
+	const WString JDFStrings::atr_FitToPage=L"FitToPage";
 
-	const WString JDFStrings::atr_Flatness=L"Flatness";
+	const WString JDFStrings::atr_FlatDimensions=L"FlatDimensions";
+	const WString JDFStrings::atr_Flatness=L"Flatness";	
 	const WString JDFStrings::atr_FlexValue=L"FlexValue";
 	const WString JDFStrings::atr_FlipBackCover=L"FlipBackCover";
 	const WString JDFStrings::atr_FlushPolicy=L"FlushPolicy";
@@ -1498,6 +1536,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_FriendlyName=L"FriendlyName";
 	const WString JDFStrings::atr_From=L"From";
 	const WString JDFStrings::atr_FromBox=L"FromBox";
+
 	const WString JDFStrings::atr_FrontCoatings=L"FrontCoatings";
 	const WString JDFStrings::atr_FrontFacePages=L"FrontFacePages";
 	const WString JDFStrings::atr_FrontFoldIn=L"FrontFoldIn";
@@ -1506,7 +1545,10 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_FrontOverfold=L"FrontOverfold";
 	const WString JDFStrings::atr_FrontPages=L"FrontPages";
 	const WString JDFStrings::atr_FrontSide=L"FrontSide";
+	const WString JDFStrings::atr_FrontSpread=L"FrontSpread";
 
+	//GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+	const WString JDFStrings::atr_GangElementID=L"GangElementID";
 	const WString JDFStrings::atr_GangName=L"GangName";
 	const WString JDFStrings::atr_GangNames=L"GangNames";
 	const WString JDFStrings::atr_GangPolicy=L"GangPolicy";
@@ -1524,12 +1566,12 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_GrainDirection=L"GrainDirection";
 	const WString JDFStrings::atr_GrossWeight=L"GrossWeight";
 	const WString JDFStrings::atr_GroupBy=L"GroupBy";
+	const WString JDFStrings::atr_GroupCode=L"GroupCode";
 	const WString JDFStrings::atr_Gutter=L"Gutter";
 	const WString JDFStrings::atr_GutterMinimumLimit=L"GutterMinimumLimit";
 	const WString JDFStrings::atr_GutterPolicy=L"GutterPolicy";
 
 	// HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH//
-
 	const WString JDFStrings::atr_HalfTone=L"HalfTone";
 	const WString JDFStrings::atr_Halftone=L"Halftone";
 	const WString JDFStrings::atr_Halftoned=L"Halftoned";
@@ -1575,6 +1617,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_IDPAttributeFidelity=L"IDPAttributeFidelity";
 	const WString JDFStrings::atr_IDUsage=L"IDUsage";
 	const WString JDFStrings::atr_IDValue=L"IDValue";
+
 	const WString JDFStrings::atr_IgnoreAnnotForms=L"IgnoreAnnotForms";
 	const WString JDFStrings::atr_IgnoreBG=L"IgnoreBG";
 	const WString JDFStrings::atr_IgnoreColorSeps=L"IgnoreColorSeps";
@@ -1597,6 +1640,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_IgnoreTTFontsFirst=L"IgnoreTTFontsFirst";
 	const WString JDFStrings::atr_IgnoreUCR=L"IgnoreUCR";
 	const WString JDFStrings::atr_Illumination=L"Illumination";
+
 	const WString JDFStrings::atr_ImageAutoFilterStrategy=L"ImageAutoFilterStrategy";
 	const WString JDFStrings::atr_ImagableSide=L"ImagableSide";
 	const WString JDFStrings::atr_ImageDepth=L"ImageDepth";
@@ -1662,6 +1706,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_IsDevice=L"IsDevice";
 	const WString JDFStrings::atr_IsFontScreenOnly=L"IsFontScreenOnly";
 	const WString JDFStrings::atr_IsPage=L"IsPage";
+	const WString JDFStrings::atr_ISOPaperSubstrate=L"ISOPaperSubstrate";
 	const WString JDFStrings::atr_IsPrintable=L"IsPrintable";
 	const WString JDFStrings::atr_IsTrapped=L"IsTrapped";
 	const WString JDFStrings::atr_IsWaste=L"IsWaste";
@@ -1676,6 +1721,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_JDFErrorURL=L"JDFErrorURL";
 	const WString JDFStrings::atr_JDFInputURL=L"JDFInputURL";
 	const WString JDFStrings::atr_JDFOutputURL=L"JDFOutputURL";
+	const WString JDFStrings::atr_JDFURL=L"JDFURL";
 	const WString JDFStrings::atr_JMFRole=L"JMFRole";
 	const WString JDFStrings::atr_JMFSenderID=L"JMFSenderID";
 	const WString JDFStrings::atr_JMFURL=L"JMFURL";
@@ -1693,12 +1739,17 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_jRefDestination=L"jRefDestination";
 	const WString JDFStrings::atr_jRefSource=L"jRefSource";
 
+	// KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
 	const WString JDFStrings::atr_K=L"K";
 	const WString JDFStrings::atr_Key=L"Key";
 	const WString JDFStrings::atr_Keywords=L"Keywords";
+	const WString JDFStrings::atr_KnockoutBleed=L"KnockoutBleed";
 	const WString JDFStrings::atr_KnockOutCMYKWhite=L"KnockOutCMYKWhite";
+	const WString JDFStrings::atr_KnockoutRefs=L"KnockoutRefs";
+	const WString JDFStrings::atr_KnockoutSource=L"KnockoutSource";
 	const WString JDFStrings::atr_KnownLocalizations=L"KnownLocalizations";
 
+	//LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 	const WString JDFStrings::atr_Lab=L"Lab";
 	const WString JDFStrings::atr_LabColorValue=L"LabColorValue";
 	const WString JDFStrings::atr_LaborType=L"LaborType";
@@ -1748,6 +1799,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_LogErrors=L"LogErrors";
 	const WString JDFStrings::atr_LotControl=L"LotControl";
 	const WString JDFStrings::atr_LotID=L"LotID";
+	const WString JDFStrings::atr_LowerRibbonName=L"LowerRibbonName";
 
 	// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM//
 
@@ -1787,6 +1839,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_MaxOccurs=L"MaxOccurs";
 	const WString JDFStrings::atr_MaxOrd=L"MaxOrd";
 	const WString JDFStrings::atr_MaxPerGroup=L"MaxPerGroup";
+	const WString JDFStrings::atr_MaxQuantity=L"atr_MaxQuantity";
 	const WString JDFStrings::atr_MaxResolution=L"MaxResolution";
 	const WString JDFStrings::atr_MaxSearchRecursion=L"MaxSearchRecursion";
 	const WString JDFStrings::atr_MaxSetOrd=L"MaxSetOrd";
@@ -1832,7 +1885,9 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_MinimumBlackWidth=L"MinimumBlackWidth";
 	const WString JDFStrings::atr_MinimumWait=L"MinimumWait";
 	const WString JDFStrings::atr_MinLateStatus=L"MinLateStatus";
+	const WString JDFStrings::atr_MinLineWidth=L"MinLineWidth";
 	const WString JDFStrings::atr_MinOccurs=L"MinOccurs";
+	const WString JDFStrings::atr_MinQuantity=L"MinQuantity";
 	const WString JDFStrings::atr_MinResolution=L"MinResolution";
 	const WString JDFStrings::atr_MinSetup=L"MinSetup";
 	const WString JDFStrings::atr_MinStatus=L"MinStatus";
@@ -1862,7 +1917,6 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_MustHonorExceptions=L"MustHonorExceptions";
 
 	// NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-
 	const WString JDFStrings::atr_N=L"N";
 	const WString JDFStrings::atr_Name=L"Name";
 	const WString JDFStrings::atr_NamedFeatures=L"NamedFeatures";
@@ -1893,6 +1947,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_NPage=L"NPage";
 	const WString JDFStrings::atr_NSet=L"NSet";
 	const WString JDFStrings::atr_Number=L"Number";
+	const WString JDFStrings::atr_NumColors=L"NumColors";
 	const WString JDFStrings::atr_NumberOfColorsInLUT=L"NumberOfColorsInLUT";
 	const WString JDFStrings::atr_NumberOfNeedles=L"NumberOfNeedles";
 	const WString JDFStrings::atr_NumberOfPages=L"NumberOfPages";
@@ -1903,7 +1958,6 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_NumResolutions=L"NumResolutions";
 
 	// OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO //
-
 	const WString JDFStrings::atr_Obligated=L"Obligated";
 	const WString JDFStrings::atr_Observer=L"Observer";
 	const WString JDFStrings::atr_ObservationPath=L"ObservationPath";
@@ -1917,13 +1971,16 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Offset=L"Offset";
 	const WString JDFStrings::atr_OffsetAmount=L"OffsetAmount";
 	const WString JDFStrings::atr_OffsetDirection=L"OffsetDirection";
+	const WString JDFStrings::atr_OffsetUnits=L"OffsetUnits";
 	const WString JDFStrings::atr_OlderThan=L"OlderThan";
 	const WString JDFStrings::atr_OldTime=L"OldTime";
 	const WString JDFStrings::atr_OldValue=L"OldValue";
+	const WString JDFStrings::atr_OneSheet=L"OneSheet";
 	const WString JDFStrings::atr_Opacity=L"Opacity";
 	const WString JDFStrings::atr_OpacityLevel=L"OpacityLevel";
 	const WString JDFStrings::atr_Opening=L"Opening";
 	const WString JDFStrings::atr_Operation=L"Operation";
+	const WString JDFStrings::atr_OperationDetails=L"OperationDetails";
 	const WString JDFStrings::atr_Operations=L"Operations";
 	const WString JDFStrings::atr_OperatorInterventionExceptions=L"OperatorInterventionExceptions";
 	const WString JDFStrings::atr_OperatorText=L"OperatorText";
@@ -1967,12 +2024,12 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Ownership=L"Ownership";
 
 	// PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP//
-
 	const WString JDFStrings::atr_Packaging=L"Packaging";
 	const WString JDFStrings::atr_Page=L"Page";
 	const WString JDFStrings::atr_PageCopies=L"PageCopies";
 	const WString JDFStrings::atr_PageBoxType=L"PageBoxType";
 	const WString JDFStrings::atr_PageDelivery=L"PageDelivery";
+	const WString JDFStrings::atr_PageDimension=L"PageDimension";
 	const WString JDFStrings::atr_PageDistributionScheme=L"PageDistributionScheme";
 	const WString JDFStrings::atr_PageFormat=L"PageFormat";
 	const WString JDFStrings::atr_PageHasUnknownObjects=L"PageHasUnknownObjects";
@@ -2013,8 +2070,10 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Path=L"Path";
 	const WString JDFStrings::atr_Pattern=L"Pattern";
 	const WString JDFStrings::atr_PDFVersion=L"PDFVersion";
+
 	const WString JDFStrings::atr_PDFX1aCheck=L"PDFX1aCheck";
 	const WString JDFStrings::atr_PDFX3Check=L"PDFX3Check";
+	const WString JDFStrings::atr_PDFXCheck=L"PDFXCheck";
 	const WString JDFStrings::atr_PDFXCompliantPDFOnly=L"PDFXCompliantPDFOnly";
 	const WString JDFStrings::atr_PDFXNoTrimBoxError=L"PDFXNoTrimBoxError";
 	const WString JDFStrings::atr_PDFXTrimBoxToMediaBoxOffset=L"PDFXTrimBoxToMediaBoxOffset";
@@ -2037,6 +2096,8 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_PhaseAmount=L"PhaseAmount";
 	const WString JDFStrings::atr_PhaseStartTime=L"PhaseStartTime";
 	const WString JDFStrings::atr_PhaseWaste=L"PhaseWaste";
+	const WString JDFStrings::atr_PhoneticFirstName=L"PhoneticFirstName";
+	const WString JDFStrings::atr_PhoneticLastName=L"PhoneticLastName";
 	const WString JDFStrings::atr_PhysicalSection=L"PhysicalSection";
 	const WString JDFStrings::atr_Pickup=L"Pickup";
 	const WString JDFStrings::atr_PipeID=L"PipeID";
@@ -2112,12 +2173,14 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_PreviewType=L"PreviewType";
 	const WString JDFStrings::atr_PreviewUsage=L"PreviewUsage";
 	const WString JDFStrings::atr_PrevQueueEntryID=L"PrevQueueEntryID";
+
 	const WString JDFStrings::atr_Price=L"Price";
 	const WString JDFStrings::atr_PrintableArea=L"PrintableArea";
 	const WString JDFStrings::atr_PrintTrapAnnotations=L"PrintTrapAnnotations";
 	const WString JDFStrings::atr_PrintConditionName=L"PrintConditionName";
 	const WString JDFStrings::atr_PrinterFontsSubFolder=L"PrinterFontsSubFolder";
 	const WString JDFStrings::atr_PrintingType=L"PrintingType";
+	const WString JDFStrings::atr_PrintPass=L"PrintPass";
 	const WString JDFStrings::atr_PrintPDFAnnotations=L"PrintPDFAnnotations";
 	const WString JDFStrings::atr_PrintQuality=L"PrintQuality";
 	const WString JDFStrings::atr_Priority=L"Priority";
@@ -2129,6 +2192,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_ProductionCounter=L"ProductionCounter";
 	const WString JDFStrings::atr_ProductionPathID=L"ProductionPathID";
 	const WString JDFStrings::atr_ProductionType=L"ProductionType";
+	const WString JDFStrings::atr_ProductPart=L"ProductPart";
 	const WString JDFStrings::atr_ProductType=L"ProductType";
 	const WString JDFStrings::atr_ProductTypeDetails=L"ProductTypeDetails";
 	const WString JDFStrings::atr_ProgressionOrder=L"ProgressionOrder";
@@ -2303,7 +2367,9 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Shape=L"Shape";
 	const WString JDFStrings::atr_ShapeDepth=L"ShapeDepth";
 	const WString JDFStrings::atr_ShapeType=L"ShapeType";
+
 	const WString JDFStrings::atr_SheetCollate=L"SheetCollate";
+	const WString JDFStrings::atr_SheetCount=L"SheetCount";
 	const WString JDFStrings::atr_SheetFormat=L"SheetFormat";
 	const WString JDFStrings::atr_SheetIndex=L"SheetIndex";
 	const WString JDFStrings::atr_SheetLay=L"SheetLay";
@@ -2366,12 +2432,14 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_SpecificYield=L"SpecificYield";
 	const WString JDFStrings::atr_Speed=L"Speed";
 	const WString JDFStrings::atr_Spine=L"Spine";
+	const WString JDFStrings::atr_SpineBoardWidth=L"SpineBoardWidth";
 	const WString JDFStrings::atr_SpineColor=L"SpineColor";
 	const WString JDFStrings::atr_SpineWidth=L"SpineWidth";
 	const WString JDFStrings::atr_SplitDocuments=L"SplitDocuments";
 	const WString JDFStrings::atr_SpotFunction=L"SpotFunction";
 	const WString JDFStrings::atr_sRGB=L"sRGB";
 
+	const WString JDFStrings::atr_StackAmount=L"StackAmount";
 	const WString JDFStrings::atr_StackDepth=L"StackDepth";
 	const WString JDFStrings::atr_StaggerColumns=L"StaggerColumns";
 	const WString JDFStrings::atr_StaggerContinuous=L"StaggerContinuous";
@@ -2464,7 +2532,9 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_Time=L"Time";
 	const WString JDFStrings::atr_TimeInterval=L"TimeInterval";
 	const WString JDFStrings::atr_TimeStamp=L"TimeStamp";
+	const WString JDFStrings::atr_Tint=L"Tint";
 	const WString JDFStrings::atr_Title=L"Title";
+
 	const WString JDFStrings::atr_To=L"To";
 	const WString JDFStrings::atr_ToBox=L"ToBox";
 	const WString JDFStrings::atr_Tolerance=L"Tolerance";
@@ -2511,14 +2581,21 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_TrapZone=L"TrapZone";
 	const WString JDFStrings::atr_Travel=L"Travel";
 	const WString JDFStrings::atr_TravelInterval=L"TravelInterval";
+
+	const WString JDFStrings::atr_TrimBottom=L"TrimBottom";
+	const WString JDFStrings::atr_TrimBox=L"TrimBox";
 	const WString JDFStrings::atr_TrimCover=L"TrimCover";
 	const WString JDFStrings::atr_TrimCTM=L"TrimCTM";
 	const WString JDFStrings::atr_TrimFace=L"TrimFace";
 	const WString JDFStrings::atr_TrimFoot=L"TrimFoot";
 	const WString JDFStrings::atr_TrimHead=L"TrimHead";
+	const WString JDFStrings::atr_TrimLeft=L"TrimLeft";
+	const WString JDFStrings::atr_TrimRight=L"TrimRight";
+	const WString JDFStrings::atr_TrimTop=L"TrimTop";
 	const WString JDFStrings::atr_TrimmingOffset=L"TrimmingOffset";
 	const WString JDFStrings::atr_TrimmingType=L"TrimmingType";
 	const WString JDFStrings::atr_TrimSize=L"TrimSize";
+
 	const WString JDFStrings::atr_TTasT42=L"TTasT42";
 	const WString JDFStrings::atr_Tucked=L"Tucked";
 	const WString JDFStrings::atr_Type=L"Type";
@@ -2543,6 +2620,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_UpdateID=L"UpdateID";
 	const WString JDFStrings::atr_UpdateIDs=L"UpdateIDs";
 	const WString JDFStrings::atr_UpdateMethod=L"UpdateMethod";
+	const WString JDFStrings::atr_UpperRibbonName=L"UpperRibbonName";
 	const WString JDFStrings::atr_URL=L"URL";
 	const WString JDFStrings::atr_URLSchemes=L"URLSchemes";
 	const WString JDFStrings::atr_Usage=L"Usage";
@@ -2552,6 +2630,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_UseFontEmulation=L"UseFontEmulation";
 	const WString JDFStrings::atr_UsePDLAlternateCS=L"UsePDLAlternateCS";
 	const WString JDFStrings::atr_UsePrologue=L"UsePrologue";
+	const WString JDFStrings::atr_UserID=L"UserID";
 	const WString JDFStrings::atr_UserDisplay=L"UserDisplay";
 	const WString JDFStrings::atr_UserFileName=L"UserFileName";
 	const WString JDFStrings::atr_UserMediaType=L"UserMediaType";
@@ -2588,6 +2667,7 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_WhiteBase=L"WhiteBase";
 	const WString JDFStrings::atr_WhiteIsZero=L"WhiteIsZero";
 	const WString JDFStrings::atr_Width=L"Width";
+	const WString JDFStrings::atr_WindingResult=L"WindingResult";
 	const WString JDFStrings::atr_WireBrand=L"WireBrand";
 	const WString JDFStrings::atr_WireGauge=L"WireGauge";
 	const WString JDFStrings::atr_WorkingDirection=L"WorkingDirection";

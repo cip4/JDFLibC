@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -126,7 +126,7 @@ JDFAutoRequestQueueEntryParams& JDFAutoRequestQueueEntryParams::operator=(const 
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoRequestQueueEntryParams::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",JobID,JobPartID,SubmitPolicy");
+		return JDFElement::OptionalAttributes()+WString(L",Activation,JobID,JobPartID,SubmitPolicy");
 };
 
 /**
@@ -137,6 +137,11 @@ JDFAutoRequestQueueEntryParams& JDFAutoRequestQueueEntryParams::operator=(const 
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidActivation(level)) {
+			vAtts.push_back(atr_Activation);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidJobID(level)) {
 			vAtts.push_back(atr_JobID);
 			if(++n>=nMax)
@@ -160,6 +165,31 @@ JDFAutoRequestQueueEntryParams& JDFAutoRequestQueueEntryParams::operator=(const 
 		return vAtts;
 	};
 
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoRequestQueueEntryParams::ActivationString(){
+		static const WString enums=WString(L"Unknown,Inactive,Informative,Held,Active,TestRun,TestRunAndGo");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoRequestQueueEntryParams::ActivationString(EnumActivation value){
+		return ActivationString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoRequestQueueEntryParams::SetActivation( EnumActivation value){
+	SetEnumAttribute(atr_Activation,value,ActivationString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoRequestQueueEntryParams::EnumActivation JDFAutoRequestQueueEntryParams:: GetActivation() const {
+	return (EnumActivation) GetEnumAttribute(atr_Activation,ActivationString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoRequestQueueEntryParams::ValidActivation(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_Activation,ActivationString(),false);
+	};
 /**
 * Set attribute JobID
 *@param WString value: the value to set the attribute to

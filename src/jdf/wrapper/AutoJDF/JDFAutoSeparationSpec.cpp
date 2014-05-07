@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -115,10 +115,10 @@ JDFAutoSeparationSpec& JDFAutoSeparationSpec::operator=(const KElement& other){
 
 
 /**
- definition of required attributes in the JDF namespace
+ definition of optional attributes in the JDF namespace
 */
-	WString JDFAutoSeparationSpec::RequiredAttributes()const{
-		return JDFElement::RequiredAttributes()+L",Name";
+	WString JDFAutoSeparationSpec::OptionalAttributes()const{
+		return JDFElement::OptionalAttributes()+WString(L",Name");
 };
 
 /**
@@ -153,7 +153,7 @@ JDFAutoSeparationSpec& JDFAutoSeparationSpec::operator=(const KElement& other){
 };
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoSeparationSpec::ValidName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_Name,AttributeType_string,RequiredLevel(level));
+		return ValidAttribute(atr_Name,AttributeType_string,false);
 	};
 
 /* ******************************************************

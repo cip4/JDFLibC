@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,10 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoBarcodeCompParams.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoBarcodeCompParams : public JDFResource
+class JDFAutoBarcodeCompParams : public JDFElement
 
 *********************************************************************
 */
@@ -106,17 +108,6 @@ JDFAutoBarcodeCompParams& JDFAutoBarcodeCompParams::operator=(const KElement& ot
 	return L"*:,BarcodeCompParams";
 };
 
-bool JDFAutoBarcodeCompParams::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoBarcodeCompParams::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -127,21 +118,21 @@ bool JDFAutoBarcodeCompParams::init(){
  definition of required attributes in the JDF namespace
 */
 	WString JDFAutoBarcodeCompParams::RequiredAttributes()const{
-		return JDFResource::RequiredAttributes()+L",CompensationProcess";
+		return JDFElement::RequiredAttributes()+L",CompensationProcess";
 };
 
 /**
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBarcodeCompParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",CompensationValue");
+		return JDFElement::OptionalAttributes()+WString(L",CompensationValue");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoBarcodeCompParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -200,5 +191,66 @@ bool JDFAutoBarcodeCompParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoBarcodeCompParams::ValidCompensationValue(EnumValidationLevel level) const {
 		return ValidAttribute(atr_CompensationValue,AttributeType_double,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoBarcodeCompParams::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoBarcodeCompParams::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoBarcodeCompParams::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoBarcodeCompParams::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoBarcodeCompParams::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoBarcodeCompParams::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

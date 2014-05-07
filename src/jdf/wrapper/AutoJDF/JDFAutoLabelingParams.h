@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
+class JDFFileSpec;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoLabelingParams : public JDFResource
@@ -130,6 +132,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -241,6 +252,35 @@ virtual bool init();
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element FileSpec
+* 
+* @param int iSkip number of elements to skip
+* @return JDFFileSpec The element
+*/
+	JDFFileSpec GetCreateFileSpec(int iSkip=0);
+
+/**
+* const get element FileSpec
+* @param int iSkip number of elements to skip
+* @return JDFFileSpec The element
+*/
+	JDFFileSpec GetFileSpec(int iSkip=0)const;
+/**
+* Append element FileSpec
+ */
+	JDFFileSpec AppendFileSpec();
+/**
+* create inter-resource link to refTarget
+* @param JDFFileSpec& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefFileSpec(JDFFileSpec& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoLabelingParams
 
 // ******************************************************

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -88,6 +88,7 @@ class JDFCutMark;
 class JDFDensityMeasuringField;
 class JDFDeviceMark;
 class JDFDynamicField;
+class JDFFillMark;
 class JDFIdentificationField;
 class JDFJobField;
 class JDFLayoutElement;
@@ -273,6 +274,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidAnchor(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute AssemblyIDs
+*@param vWString value: the value to set the attribute to
+*/
+	virtual void SetAssemblyIDs(const vWString& value);
+/**
+* Get string attribute AssemblyIDs
+* @return vWString the vaue of the attribute 
+*/
+	virtual vWString GetAssemblyIDs() const;
+/**
+* Typesafe attribute validation of AssemblyIDs
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidAssemblyIDs(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ClipBox
 *@param JDFRectangle value: the value to set the attribute to
@@ -565,12 +582,6 @@ public:
 * Append element CIELABMeasuringField
  */
 	JDFCIELABMeasuringField AppendCIELABMeasuringField();
-/**
-* create inter-resource link to refTarget
-* @param JDFCIELABMeasuringField& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefCIELABMeasuringField(JDFCIELABMeasuringField& refTarget);
 
 /** Get Element ColorControlStrip
 * 
@@ -660,12 +671,6 @@ public:
  * 
 */
 	JDFDeviceMark AppendDeviceMark();
-/**
-* create inter-resource link to refTarget
-* @param JDFDeviceMark& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefDeviceMark(JDFDeviceMark& refTarget);
 
 /** Get Element DynamicField
 * 
@@ -684,6 +689,24 @@ public:
 * Append element DynamicField
  */
 	JDFDynamicField AppendDynamicField();
+
+/** Get Element FillMark
+* 
+* @param int iSkip number of elements to skip
+* @return JDFFillMark The element
+*/
+	JDFFillMark GetCreateFillMark(int iSkip=0);
+
+/**
+* const get element FillMark
+* @param int iSkip number of elements to skip
+* @return JDFFillMark The element
+*/
+	JDFFillMark GetFillMark(int iSkip=0)const;
+/**
+* Append element FillMark
+ */
+	JDFFillMark AppendFillMark();
 
 /** Get Element IdentificationField
 * 
@@ -726,12 +749,6 @@ public:
 * Append element JobField
  */
 	JDFJobField AppendJobField();
-/**
-* create inter-resource link to refTarget
-* @param JDFJobField& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefJobField(JDFJobField& refTarget);
 
 /** Get Element LayoutElement
 * 
@@ -791,12 +808,6 @@ public:
 * Append element RefAnchor
  */
 	JDFRefAnchor AppendRefAnchor();
-/**
-* create inter-resource link to refTarget
-* @param JDFRefAnchor& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefRefAnchor(JDFRefAnchor& refTarget);
 
 /** Get Element RegisterMark
 * 

@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -183,6 +183,11 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 virtual bool init();
 
 /**
+* Enumeration for attribute Automation
+*/
+
+	enum EnumAutomation{Automation_Unknown,Automation_Static,Automation_Dynamic};
+/**
 * Enumeration for attribute ComponentGranularity
 */
 
@@ -246,6 +251,35 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidSetCopies(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for Automation
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& AutomationString();
+/**
+* Enumeration string for enum value
+* @param EnumAutomation value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString AutomationString(EnumAutomation value);
+/**
+* Set attribute Automation
+* @param EnumAutomation value the value to set the attribute to
+*/
+	virtual void SetAutomation( EnumAutomation value);
+
+/**
+* Typesafe enumerated attribute Automation
+* @return EnumAutomationthe enumeration value of the attribute
+*/
+	virtual EnumAutomation GetAutomation() const;
+
+/**
+* Typesafe attribute validation of Automation
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidAutomation(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Enumeration strings for ComponentGranularity
 * @return const WString& comma separated list of enumerated string values 

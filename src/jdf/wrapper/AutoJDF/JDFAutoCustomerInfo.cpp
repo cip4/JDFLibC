@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -256,21 +256,21 @@ JDFAutoCustomerInfo& JDFAutoCustomerInfo::operator=(const KElement& other){
 **************************************************************** */
 
 
-JDFCompany JDFAutoCustomerInfo::GetCompany(int iSkip)const{
-	JDFCompany e=GetElement(elm_Company,WString::emptyStr,iSkip);
+JDFCompany JDFAutoCustomerInfo::GetCompany()const{
+	JDFCompany e=GetElement(elm_Company);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFCompany JDFAutoCustomerInfo::GetCreateCompany(int iSkip){
-	JDFCompany e=GetCreateElement(elm_Company,WString::emptyStr,iSkip);
+JDFCompany JDFAutoCustomerInfo::GetCreateCompany(){
+	JDFCompany e=GetCreateElement(elm_Company);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFCompany JDFAutoCustomerInfo::AppendCompany(){
-	JDFCompany e=AppendElement(elm_Company);
+	JDFCompany e=AppendElementN(elm_Company,1);
 	e.init();
 	return e;
 };
@@ -362,13 +362,15 @@ JDFRefElement JDFAutoCustomerInfo::RefQualityControlResult(JDFQualityControlResu
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_Company);
-
-		for(i=0;i<nElem;i++){
-			if (!GetCompany(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_Company);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetCompany().IsValid(level)) {
 				vElem.AppendUnique(elm_Company);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_Contact);
@@ -404,6 +406,13 @@ JDFRefElement JDFAutoCustomerInfo::RefQualityControlResult(JDFQualityControlResu
 		return vElem;
 	};
 
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoCustomerInfo::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",Company";
+	};
 
 /**
  definition of optional elements in the JDF namespace

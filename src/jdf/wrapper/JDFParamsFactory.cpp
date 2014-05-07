@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -131,6 +131,7 @@
 
 #include "JDFIDPrintingParams.h"
 #include "JDFImageCompressionParams.h"
+#include "JDFImageEnhancementParams.h"
 #include "JDFImageReplacementParams.h"
 #include "JDFImageSetterParams.h"
 #include "JDFInkZoneCalculationParams.h"
@@ -197,6 +198,7 @@
 #include "JDFSeparationList.h"
 #include "JDFShapeCuttingParams.h"
 #include "JDFShapeDefProductionParams.h"
+#include "JDFSheetOptimizingParams.h"
 #include "JDFShrinkingParams.h"
 #include "JDFShutDownCmdParams.h"
 #include "JDFSideSewingParams.h"
@@ -531,7 +533,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 	JDFElement* JDFFactory::initParamsH(const JDFCh* pcResName, const WString &typ, const JDFElement &part){
 
 		if(!wcscmp(pcResName,JDFElement::elm_HeadBandApplicationParams.c_str())){
@@ -543,7 +545,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 	JDFElement* JDFFactory::initParamsI(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_IDPrintingParams.c_str())){
@@ -551,6 +553,9 @@ namespace JDF{
 		};
 		if(!wcscmp(pcResName,JDFElement::elm_ImageCompressionParams.c_str())){
 			return new JDFImageCompressionParams(part);
+		};
+		if(!wcscmp(pcResName,JDFElement::elm_ImageEnhancementParams.c_str())){
+			return new JDFImageEnhancementParams(part);
 		};
 		if(!wcscmp(pcResName,JDFElement::elm_ImageReplacementParams.c_str())){
 			return new JDFImageReplacementParams(part);
@@ -570,7 +575,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 	JDFElement* JDFFactory::initParamsJ(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_JacketingParams.c_str())){
@@ -615,7 +620,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 	JDFElement* JDFFactory::initParamsM(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_ManualLaborParams.c_str())){
@@ -624,7 +629,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 	JDFElement* JDFFactory::initParamsN(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_NewJDFCmdParams.c_str())){
@@ -649,7 +654,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	JDFElement* JDFFactory::initParamsO(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_OrderingParams.c_str())){
@@ -658,7 +663,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
 	JDFElement* JDFFactory::initParamsP(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_PackingParams.c_str())){
@@ -707,7 +712,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
 	JDFElement* JDFFactory::initParamsQ(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_QualityControlParams.c_str())){
@@ -728,7 +733,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 	JDFElement* JDFFactory::initParamsR(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_ReferenceXObjParams.c_str())){
@@ -764,7 +769,7 @@ namespace JDF{
 		return 0;
 	}
 
-
+//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 	JDFElement* JDFFactory::initParamsS(const JDFCh* pcResName, const WString &typ, const JDFElement &part){		
 
 		if(!wcscmp(pcResName,JDFElement::elm_SaddleStitchingParams.c_str())){
@@ -784,6 +789,9 @@ namespace JDF{
 		};
 		if(!wcscmp(pcResName,JDFElement::elm_ShapeDefProductionParams.c_str())){
 			return new JDFShapeDefProductionParams(part);
+		};
+		if(!wcscmp(pcResName,JDFElement::elm_SheetOptimizingParams.c_str())){
+			return new JDFSheetOptimizingParams(part);
 		};
 		if(!wcscmp(pcResName,JDFElement::elm_ShrinkingParams.c_str())){
 			return new JDFShrinkingParams(part);

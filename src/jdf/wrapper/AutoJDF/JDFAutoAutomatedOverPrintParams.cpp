@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -75,10 +75,12 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoAutomatedOverPrintParams.h"
+#include "jdf/wrapper/JDFQualityControlResult.h"
+#include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoAutomatedOverPrintParams : public JDFResource
+class JDFAutoAutomatedOverPrintParams : public JDFElement
 
 *********************************************************************
 */
@@ -106,17 +108,6 @@ JDFAutoAutomatedOverPrintParams& JDFAutoAutomatedOverPrintParams::operator=(cons
 	return L"*:,AutomatedOverPrintParams";
 };
 
-bool JDFAutoAutomatedOverPrintParams::ValidClass(EnumValidationLevel level) const {
-	if(!HasAttribute(atr_Class))
-		return !RequiredLevel(level);
-	return GetClass()==Class_Parameter;
-};
-
-bool JDFAutoAutomatedOverPrintParams::init(){
-	bool bRet=JDFResource::init();
-	SetClass(Class_Parameter);
-	return bRet;
-};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -127,14 +118,14 @@ bool JDFAutoAutomatedOverPrintParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoAutomatedOverPrintParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",KnockOutCMYKWhite,OverPrintBlackText,OverPrintBlackLineArt,TextBlackLevel,LineArtBlackLevel,TextSizeThreshold");
+		return JDFElement::OptionalAttributes()+WString(L",KnockOutCMYKWhite,OverPrintBlackText,OverPrintBlackLineArt,TextBlackLevel,LineArtBlackLevel,TextSizeThreshold");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoAutomatedOverPrintParams::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -275,5 +266,66 @@ bool JDFAutoAutomatedOverPrintParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoAutomatedOverPrintParams::ValidTextSizeThreshold(EnumValidationLevel level) const {
 		return ValidAttribute(atr_TextSizeThreshold,AttributeType_integer,false);
+	};
+
+/* ******************************************************
+// Element Getter / Setter
+**************************************************************** */
+
+
+JDFQualityControlResult JDFAutoAutomatedOverPrintParams::GetQualityControlResult(int iSkip)const{
+	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoAutomatedOverPrintParams::GetCreateQualityControlResult(int iSkip){
+	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFQualityControlResult JDFAutoAutomatedOverPrintParams::AppendQualityControlResult(){
+	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoAutomatedOverPrintParams::RefQualityControlResult(JDFQualityControlResult& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+/**
+ typesafe validator
+*/
+	vWString JDFAutoAutomatedOverPrintParams::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
+		int nElem=0;
+		int i=0;
+		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		int n=vElem.size();
+		if(n>=nMax)
+			 return vElem;
+		nElem=NumChildElements(elm_QualityControlResult);
+
+		for(i=0;i<nElem;i++){
+			if (!GetQualityControlResult(i).IsValid(level)) {
+				vElem.AppendUnique(elm_QualityControlResult);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		return vElem;
+	};
+
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	WString JDFAutoAutomatedOverPrintParams::OptionalElements()const{
+		return JDFElement::OptionalElements()+L",QualityControlResult";
 	};
 }; // end namespace JDF

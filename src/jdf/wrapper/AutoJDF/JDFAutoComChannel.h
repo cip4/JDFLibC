@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -80,11 +80,13 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "jdf/wrapper/JDFResource.h"
+#include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFQualityControlResult;
+class JDFRefElement;
 /*
 *********************************************************************
-class JDFAutoComChannel : public JDFResource
+class JDFAutoComChannel : public JDFElement
 
 *********************************************************************
 */
@@ -94,7 +96,7 @@ class JDFAutoComChannel : public JDFResource
 * Warning! Do not edit! This file may be regenerated
 * The child Class: @see JDFComChannel should be edited instead
 */
-class JDF_WRAPPERCORE_EXPORT JDFAutoComChannel : public JDFResource{
+class JDF_WRAPPERCORE_EXPORT JDFAutoComChannel : public JDFElement{
 public:
 
 
@@ -105,11 +107,11 @@ protected:
 /**
 * null ctor
 */
-	inline JDFAutoComChannel():JDFResource(){};
+	inline JDFAutoComChannel():JDFElement(){};
 /**
 * copy ctor
 */
-	inline JDFAutoComChannel(const KElement & other):JDFResource(){
+	inline JDFAutoComChannel(const KElement & other):JDFElement(){
 	*this=other;
 };
 /**
@@ -130,6 +132,15 @@ public:
 * @return vWString vector of invalid attribute names
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
+
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
 
 protected:
 /**
@@ -152,23 +163,11 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
-/** 
- * Typesafe attribute validation of Class
-* @return true if class is valid
-*/
-virtual bool ValidClass(EnumValidationLevel level) const;
-
-/** 
- * Typesafe initialization
- * @return true if succcessful
-*/
-virtual bool init();
-
 /**
 * Enumeration for attribute ChannelType
 */
 
-	enum EnumChannelType{ChannelType_Unknown,ChannelType_Phone,ChannelType_Email,ChannelType_Fax,ChannelType_WWW,ChannelType_JMF,ChannelType_PrivateDirectory,ChannelType_InstantMessaging};
+	enum EnumChannelType{ChannelType_Unknown,ChannelType_ComputerName,ChannelType_Email,ChannelType_Fax,ChannelType_InstantMessaging,ChannelType_JMF,ChannelType_Mobile,ChannelType_Phone,ChannelType_PrivateDirectory,ChannelType_WWW};
 
 /**
  * definition of required attributes in the JDF namespace
@@ -262,6 +261,35 @@ virtual bool init();
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoComChannel
 
 // ******************************************************

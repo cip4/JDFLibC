@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -131,7 +131,8 @@ bool JDFAutoBinderySignature::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoBinderySignature::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",BinderySignatureType,BindingEdge,JogEdge,NumberUp,AlignmentReferenceWeb,BindingOrientation,FoldCatalog,FoldLay,OutsideGutter,StaggerColumns,StaggerContinuous,StaggerRows,WebCellAlignment");
+		return JDFResource::OptionalAttributes()+WString(L",BinderySignatureType,BindingEdge,JogEdge,NumberUp,AlignmentReferenceWeb,BindingOrientation,BleedBottom,BleedLeft,BleedRight,BleedTop,FoldCatalog,FoldLay,OutsideGutter,StaggerColumns,StaggerContinuous,StaggerRows,TrimBottom,TrimLeft,TrimRight")
+	+WString(L",TrimTop,WebCellAlignment");
 };
 
 /**
@@ -172,6 +173,26 @@ bool JDFAutoBinderySignature::init(){
 			if(++n>=nMax)
 				return vAtts;
 		};
+		if(!ValidBleedBottom(level)) {
+			vAtts.push_back(atr_BleedBottom);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBleedLeft(level)) {
+			vAtts.push_back(atr_BleedLeft);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBleedRight(level)) {
+			vAtts.push_back(atr_BleedRight);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBleedTop(level)) {
+			vAtts.push_back(atr_BleedTop);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidFoldCatalog(level)) {
 			vAtts.push_back(atr_FoldCatalog);
 			if(++n>=nMax)
@@ -199,6 +220,26 @@ bool JDFAutoBinderySignature::init(){
 		};
 		if(!ValidStaggerRows(level)) {
 			vAtts.push_back(atr_StaggerRows);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTrimBottom(level)) {
+			vAtts.push_back(atr_TrimBottom);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTrimLeft(level)) {
+			vAtts.push_back(atr_TrimLeft);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTrimRight(level)) {
+			vAtts.push_back(atr_TrimRight);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTrimTop(level)) {
+			vAtts.push_back(atr_TrimTop);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -334,6 +375,78 @@ bool JDFAutoBinderySignature::init(){
 		return ValidEnumAttribute(atr_BindingOrientation,OrientationString(),false);
 	};
 /**
+* Set attribute BleedBottom
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetBleedBottom(double value){
+	SetAttribute(atr_BleedBottom,WString::valueOf(value));
+};
+/**
+* Get double attribute BleedBottom
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetBleedBottom() const {
+	return GetRealAttribute(atr_BleedBottom,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidBleedBottom(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BleedBottom,AttributeType_double,false);
+	};
+/**
+* Set attribute BleedLeft
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetBleedLeft(double value){
+	SetAttribute(atr_BleedLeft,WString::valueOf(value));
+};
+/**
+* Get double attribute BleedLeft
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetBleedLeft() const {
+	return GetRealAttribute(atr_BleedLeft,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidBleedLeft(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BleedLeft,AttributeType_double,false);
+	};
+/**
+* Set attribute BleedRight
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetBleedRight(double value){
+	SetAttribute(atr_BleedRight,WString::valueOf(value));
+};
+/**
+* Get double attribute BleedRight
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetBleedRight() const {
+	return GetRealAttribute(atr_BleedRight,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidBleedRight(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BleedRight,AttributeType_double,false);
+	};
+/**
+* Set attribute BleedTop
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetBleedTop(double value){
+	SetAttribute(atr_BleedTop,WString::valueOf(value));
+};
+/**
+* Get double attribute BleedTop
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetBleedTop() const {
+	return GetRealAttribute(atr_BleedTop,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidBleedTop(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BleedTop,AttributeType_double,false);
+	};
+/**
 * Set attribute FoldCatalog
 *@param WString value: the value to set the attribute to
 */
@@ -434,6 +547,78 @@ bool JDFAutoBinderySignature::init(){
 		return ValidAttribute(atr_StaggerRows,AttributeType_NumberList,false);
 	};
 /**
+* Set attribute TrimBottom
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetTrimBottom(double value){
+	SetAttribute(atr_TrimBottom,WString::valueOf(value));
+};
+/**
+* Get double attribute TrimBottom
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetTrimBottom() const {
+	return GetRealAttribute(atr_TrimBottom,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidTrimBottom(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TrimBottom,AttributeType_double,false);
+	};
+/**
+* Set attribute TrimLeft
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetTrimLeft(double value){
+	SetAttribute(atr_TrimLeft,WString::valueOf(value));
+};
+/**
+* Get double attribute TrimLeft
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetTrimLeft() const {
+	return GetRealAttribute(atr_TrimLeft,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidTrimLeft(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TrimLeft,AttributeType_double,false);
+	};
+/**
+* Set attribute TrimRight
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetTrimRight(double value){
+	SetAttribute(atr_TrimRight,WString::valueOf(value));
+};
+/**
+* Get double attribute TrimRight
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetTrimRight() const {
+	return GetRealAttribute(atr_TrimRight,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidTrimRight(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TrimRight,AttributeType_double,false);
+	};
+/**
+* Set attribute TrimTop
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoBinderySignature::SetTrimTop(double value){
+	SetAttribute(atr_TrimTop,WString::valueOf(value));
+};
+/**
+* Get double attribute TrimTop
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoBinderySignature::GetTrimTop() const {
+	return GetRealAttribute(atr_TrimTop,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoBinderySignature::ValidTrimTop(EnumValidationLevel level) const {
+		return ValidAttribute(atr_TrimTop,AttributeType_double,false);
+	};
+/**
 * Set attribute WebCellAlignment
 *@param JDFXYPair value: the value to set the attribute to
 */
@@ -499,11 +684,6 @@ JDFFold JDFAutoBinderySignature::AppendFold(){
 	JDFFold e=AppendElement(elm_Fold);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoBinderySignature::RefFold(JDFFold& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

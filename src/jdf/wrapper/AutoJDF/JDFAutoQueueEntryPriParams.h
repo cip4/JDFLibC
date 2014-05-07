@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFQueueFilter;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoQueueEntryPriParams : public JDFElement
@@ -131,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -157,6 +168,12 @@ public:
  * definition of required attributes in the JDF namespace
 */
 	virtual WString RequiredAttributes()const;
+
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
 /**
 * Set attribute Priority
 *@param int value: the value to set the attribute to
@@ -194,6 +211,33 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element QueueFilter
+* 
+* @return JDFQueueFilter The element
+*/
+	JDFQueueFilter GetCreateQueueFilter();
+
+/**
+* const get element QueueFilter
+*@return  JDFQueueFilter The element
+*/
+	JDFQueueFilter GetQueueFilter()const;
+/**
+* Append element QueueFilter
+ * 
+*/
+	JDFQueueFilter AppendQueueFilter();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoQueueEntryPriParams
 
 // ******************************************************

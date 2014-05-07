@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -85,6 +85,7 @@ namespace JDF{
 class JDFCompany;
 class JDFContact;
 class JDFDrop;
+class JDFFileSpec;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -305,20 +306,19 @@ virtual bool init();
 
 /** Get Element Company
 * 
-* @param int iSkip number of elements to skip
 * @return JDFCompany The element
 */
-	JDFCompany GetCreateCompany(int iSkip=0);
+	JDFCompany GetCreateCompany();
 
 /**
 * const get element Company
-* @param int iSkip number of elements to skip
-* @return JDFCompany The element
+*@return  JDFCompany The element
 */
-	JDFCompany GetCompany(int iSkip=0)const;
+	JDFCompany GetCompany()const;
 /**
 * Append element Company
- */
+ * 
+*/
 	JDFCompany AppendCompany();
 /**
 * create inter-resource link to refTarget
@@ -368,6 +368,39 @@ virtual bool init();
 * Append element Drop
  */
 	JDFDrop AppendDrop();
+
+/** Get Element FileSpec
+* 
+* @return JDFFileSpec The element
+*/
+	JDFFileSpec GetCreateFileSpec();
+
+/**
+* const get element FileSpec
+*@return  JDFFileSpec The element
+*/
+	JDFFileSpec GetFileSpec()const;
+/**
+* Append element FileSpec
+ * 
+*/
+	JDFFileSpec AppendFileSpec();
+/**
+* create inter-resource link to refTarget
+* @param JDFFileSpec& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefFileSpec(JDFFileSpec& refTarget);
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	virtual WString RequiredElements()const;
 
 /**
  definition of optional elements in the JDF namespace

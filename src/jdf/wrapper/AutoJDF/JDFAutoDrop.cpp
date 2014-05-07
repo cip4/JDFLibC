@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -120,7 +120,7 @@ JDFAutoDrop& JDFAutoDrop::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoDrop::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Earliest,Method,Pickup,Required,ServiceLevel,TrackingID,Transfer");
+		return JDFElement::OptionalAttributes()+WString(L",DropID,Earliest,Method,Pickup,Required,ServiceLevel,TrackingID,Transfer");
 };
 
 /**
@@ -131,6 +131,11 @@ JDFAutoDrop& JDFAutoDrop::operator=(const KElement& other){
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
+		if(!ValidDropID(level)) {
+			vAtts.push_back(atr_DropID);
+			if(++n>=nMax)
+				return vAtts;
+		};
 		if(!ValidEarliest(level)) {
 			vAtts.push_back(atr_Earliest);
 			if(++n>=nMax)
@@ -169,6 +174,24 @@ JDFAutoDrop& JDFAutoDrop::operator=(const KElement& other){
 		return vAtts;
 	};
 
+/**
+* Set attribute DropID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoDrop::SetDropID(const WString& value){
+	SetAttribute(atr_DropID,value);
+};
+/**
+* Get string attribute DropID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoDrop::GetDropID() const {
+	return GetAttribute(atr_DropID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoDrop::ValidDropID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_DropID,AttributeType_string,false);
+	};
 /**
 * Set attribute Earliest
 *@param JDFDate value: the value to set the attribute to

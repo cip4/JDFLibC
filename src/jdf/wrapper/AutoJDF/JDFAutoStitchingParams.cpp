@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -127,7 +127,7 @@ bool JDFAutoStitchingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStitchingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",StitchOrigin,Angle,NumberOfStitches,Offset,ReferenceEdge,StapleShape,StitchFromFront,StitchPositions,StitchType,StitchWidth,WireGauge,WireBrand");
+		return JDFResource::OptionalAttributes()+WString(L",StitchOrigin,Angle,NumberOfStitches,Offset,ReferenceEdge,StapleShape,StitchFromFront,StitchPositions,StitchType,StitchWidth,TightBacking,WireGauge,WireBrand");
 };
 
 /**
@@ -185,6 +185,11 @@ bool JDFAutoStitchingParams::init(){
 		};
 		if(!ValidStitchWidth(level)) {
 			vAtts.push_back(atr_StitchWidth);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidTightBacking(level)) {
+			vAtts.push_back(atr_TightBacking);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -407,6 +412,31 @@ bool JDFAutoStitchingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStitchingParams::ValidStitchWidth(EnumValidationLevel level) const {
 		return ValidAttribute(atr_StitchWidth,AttributeType_double,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoStitchingParams::TightBackingString(){
+		static const WString enums=WString(L"Unknown,Flat,Pressure");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoStitchingParams::TightBackingString(EnumTightBacking value){
+		return TightBackingString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoStitchingParams::SetTightBacking( EnumTightBacking value){
+	SetEnumAttribute(atr_TightBacking,value,TightBackingString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoStitchingParams::EnumTightBacking JDFAutoStitchingParams:: GetTightBacking() const {
+	return (EnumTightBacking) GetEnumAttribute(atr_TightBacking,TightBackingString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStitchingParams::ValidTightBacking(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_TightBacking,TightBackingString(),false);
 	};
 /**
 * Set attribute WireGauge

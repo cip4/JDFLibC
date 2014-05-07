@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -77,6 +77,7 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoPhaseTime.h"
 #include "jdf/wrapper/JDFDevice.h"
 #include "jdf/wrapper/JDFEmployee.h"
+#include "jdf/wrapper/JDFActivity.h"
 #include "jdf/wrapper/JDFMISDetails.h"
 #include "jdf/wrapper/JDFModulePhase.h"
 #include "jdf/wrapper/JDFPart.h"
@@ -285,6 +286,26 @@ JDFRefElement JDFAutoPhaseTime::RefEmployee(JDFEmployee& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFActivity JDFAutoPhaseTime::GetActivity(int iSkip)const{
+	JDFActivity e=GetElement(elm_Activity,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActivity JDFAutoPhaseTime::GetCreateActivity(int iSkip){
+	JDFActivity e=GetCreateElement(elm_Activity,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFActivity JDFAutoPhaseTime::AppendActivity(){
+	JDFActivity e=AppendElement(elm_Activity);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFMISDetails JDFAutoPhaseTime::GetMISDetails(int iSkip)const{
 	JDFMISDetails e=GetElement(elm_MISDetails,WString::emptyStr,iSkip);
 	return e;
@@ -401,6 +422,16 @@ JDFPart JDFAutoPhaseTime::AppendPart(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_Activity);
+
+		for(i=0;i<nElem;i++){
+			if (!GetActivity(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Activity);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_MISDetails);
 
 		for(i=0;i<nElem;i++){
@@ -429,6 +460,6 @@ JDFPart JDFAutoPhaseTime::AppendPart(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoPhaseTime::OptionalElements()const{
-		return JDFAudit::OptionalElements()+L",Device,Employee,MISDetails,ModulePhase,Part";
+		return JDFAudit::OptionalElements()+L",Device,Employee,Activity,MISDetails,ModulePhase,Part";
 	};
 }; // end namespace JDF

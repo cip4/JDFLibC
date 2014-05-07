@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -133,9 +133,9 @@ bool JDFAutoMedia::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMedia::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",HoleType,MediaUnit,PrePrinted,BackCoatingDetail,BackCoatings,BackGlossValue,Brightness,CIETint,CIEWhiteness,ColorName,CoreWeight,Dimension,Flute,FluteDirection,FrontCoatingDetail,FrontCoatings,FrontGlossValue,Grade,GrainDirection")
-	+WString(L",HoleCount,ImagableSide,InsideLoss,LabColorValue,MediaColorName,MediaColorNameDetails,MediaQuality,MediaSetCount,MediaType,MediaTypeDetails,Opacity,OpacityLevel,OuterCoreDiameter,OutsideGain,PlateTechnology,Polarity,PrintingTechnology,Recycled,RecycledPercentage")
-	+WString(L",ReliefThickness,RollDiameter,ShrinkIndex,SleeveInterlock,StockType,Texture,Thickness,UserMediaType,Weight,WrapperWeight");
+		return JDFResource::OptionalAttributes()+WString(L",HoleType,MediaUnit,PrePrinted,BackBrightness,BackCoatingDetail,BackCoatings,BackGlossValue,Brightness,CIETint,CIEWhiteness,ColorName,CoreWeight,Dimension,Flute,FluteDirection,FrontCoatingDetail,FrontCoatings,FrontGlossValue,Grade")
+	+WString(L",GrainDirection,HoleCount,ImagableSide,InsideLoss,ISOPaperSubstrate,LabColorValue,MediaColorName,MediaColorNameDetails,MediaQuality,MediaSetCount,MediaType,MediaTypeDetails,Opacity,OpacityLevel,OuterCoreDiameter,OutsideGain,PlateTechnology,Polarity,PrintingTechnology")
+	+WString(L",Recycled,RecycledPercentage,ReliefThickness,RollDiameter,ShrinkIndex,SleeveInterlock,StockType,Texture,Thickness,UserMediaType,Weight,WrapperWeight");
 };
 
 /**
@@ -158,6 +158,11 @@ bool JDFAutoMedia::init(){
 		};
 		if(!ValidPrePrinted(level)) {
 			vAtts.push_back(atr_PrePrinted);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidBackBrightness(level)) {
+			vAtts.push_back(atr_BackBrightness);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -253,6 +258,11 @@ bool JDFAutoMedia::init(){
 		};
 		if(!ValidInsideLoss(level)) {
 			vAtts.push_back(atr_InsideLoss);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidISOPaperSubstrate(level)) {
+			vAtts.push_back(atr_ISOPaperSubstrate);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -475,6 +485,24 @@ bool JDFAutoMedia::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMedia::ValidPrePrinted(EnumValidationLevel level) const {
 		return ValidAttribute(atr_PrePrinted,AttributeType_boolean,false);
+	};
+/**
+* Set attribute BackBrightness
+*@param double value: the value to set the attribute to
+*/
+	 void JDFAutoMedia::SetBackBrightness(double value){
+	SetAttribute(atr_BackBrightness,WString::valueOf(value));
+};
+/**
+* Get double attribute BackBrightness
+* @return double the vaue of the attribute 
+*/
+	 double JDFAutoMedia::GetBackBrightness() const {
+	return GetRealAttribute(atr_BackBrightness,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidBackBrightness(EnumValidationLevel level) const {
+		return ValidAttribute(atr_BackBrightness,AttributeType_double,false);
 	};
 /**
 * Set attribute BackCoatingDetail
@@ -854,6 +882,31 @@ bool JDFAutoMedia::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMedia::ValidInsideLoss(EnumValidationLevel level) const {
 		return ValidAttribute(atr_InsideLoss,AttributeType_double,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoMedia::ISOPaperSubstrateString(){
+		static const WString enums=WString(L"Unknown,PS1,PS2,PS3,PS4,PS5,PS6,PS7,PS8");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoMedia::ISOPaperSubstrateString(EnumISOPaperSubstrate value){
+		return ISOPaperSubstrateString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoMedia::SetISOPaperSubstrate( EnumISOPaperSubstrate value){
+	SetEnumAttribute(atr_ISOPaperSubstrate,value,ISOPaperSubstrateString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoMedia::EnumISOPaperSubstrate JDFAutoMedia:: GetISOPaperSubstrate() const {
+	return (EnumISOPaperSubstrate) GetEnumAttribute(atr_ISOPaperSubstrate,ISOPaperSubstrateString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMedia::ValidISOPaperSubstrate(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_ISOPaperSubstrate,ISOPaperSubstrateString(),false);
 	};
 /**
 * Set attribute LabColorValue
@@ -1351,21 +1404,21 @@ bool JDFAutoMedia::init(){
 **************************************************************** */
 
 
-JDFColor JDFAutoMedia::GetColor(int iSkip)const{
-	JDFColor e=GetElement(elm_Color,WString::emptyStr,iSkip);
+JDFColor JDFAutoMedia::GetColor()const{
+	JDFColor e=GetElement(elm_Color);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFColor JDFAutoMedia::GetCreateColor(int iSkip){
-	JDFColor e=GetCreateElement(elm_Color,WString::emptyStr,iSkip);
+JDFColor JDFAutoMedia::GetCreateColor(){
+	JDFColor e=GetCreateElement(elm_Color);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFColor JDFAutoMedia::AppendColor(){
-	JDFColor e=AppendElement(elm_Color);
+	JDFColor e=AppendElementN(elm_Color,1);
 	e.init();
 	return e;
 };
@@ -1376,21 +1429,21 @@ JDFRefElement JDFAutoMedia::RefColor(JDFColor& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFColorMeasurementConditions JDFAutoMedia::GetColorMeasurementConditions(int iSkip)const{
-	JDFColorMeasurementConditions e=GetElement(elm_ColorMeasurementConditions,WString::emptyStr,iSkip);
+JDFColorMeasurementConditions JDFAutoMedia::GetColorMeasurementConditions()const{
+	JDFColorMeasurementConditions e=GetElement(elm_ColorMeasurementConditions);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFColorMeasurementConditions JDFAutoMedia::GetCreateColorMeasurementConditions(int iSkip){
-	JDFColorMeasurementConditions e=GetCreateElement(elm_ColorMeasurementConditions,WString::emptyStr,iSkip);
+JDFColorMeasurementConditions JDFAutoMedia::GetCreateColorMeasurementConditions(){
+	JDFColorMeasurementConditions e=GetCreateElement(elm_ColorMeasurementConditions);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFColorMeasurementConditions JDFAutoMedia::AppendColorMeasurementConditions(){
-	JDFColorMeasurementConditions e=AppendElement(elm_ColorMeasurementConditions);
+	JDFColorMeasurementConditions e=AppendElementN(elm_ColorMeasurementConditions,1);
 	e.init();
 	return e;
 };
@@ -1401,41 +1454,41 @@ JDFRefElement JDFAutoMedia::RefColorMeasurementConditions(JDFColorMeasurementCon
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFMediaLayers JDFAutoMedia::GetMediaLayers(int iSkip)const{
-	JDFMediaLayers e=GetElement(elm_MediaLayers,WString::emptyStr,iSkip);
+JDFMediaLayers JDFAutoMedia::GetMediaLayers()const{
+	JDFMediaLayers e=GetElement(elm_MediaLayers);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFMediaLayers JDFAutoMedia::GetCreateMediaLayers(int iSkip){
-	JDFMediaLayers e=GetCreateElement(elm_MediaLayers,WString::emptyStr,iSkip);
+JDFMediaLayers JDFAutoMedia::GetCreateMediaLayers(){
+	JDFMediaLayers e=GetCreateElement(elm_MediaLayers);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFMediaLayers JDFAutoMedia::AppendMediaLayers(){
-	JDFMediaLayers e=AppendElement(elm_MediaLayers);
+	JDFMediaLayers e=AppendElementN(elm_MediaLayers,1);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFHoleList JDFAutoMedia::GetHoleList(int iSkip)const{
-	JDFHoleList e=GetElement(elm_HoleList,WString::emptyStr,iSkip);
+JDFHoleList JDFAutoMedia::GetHoleList()const{
+	JDFHoleList e=GetElement(elm_HoleList);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFHoleList JDFAutoMedia::GetCreateHoleList(int iSkip){
-	JDFHoleList e=GetCreateElement(elm_HoleList,WString::emptyStr,iSkip);
+JDFHoleList JDFAutoMedia::GetCreateHoleList(){
+	JDFHoleList e=GetCreateElement(elm_HoleList);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFHoleList JDFAutoMedia::AppendHoleList(){
-	JDFHoleList e=AppendElement(elm_HoleList);
+	JDFHoleList e=AppendElementN(elm_HoleList,1);
 	e.init();
 	return e;
 };
@@ -1477,43 +1530,51 @@ JDFTabDimensions JDFAutoMedia::AppendTabDimensions(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_Color);
-
-		for(i=0;i<nElem;i++){
-			if (!GetColor(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_Color);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetColor().IsValid(level)) {
 				vElem.AppendUnique(elm_Color);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_ColorMeasurementConditions);
-
-		for(i=0;i<nElem;i++){
-			if (!GetColorMeasurementConditions(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ColorMeasurementConditions);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetColorMeasurementConditions().IsValid(level)) {
 				vElem.AppendUnique(elm_ColorMeasurementConditions);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_MediaLayers);
-
-		for(i=0;i<nElem;i++){
-			if (!GetMediaLayers(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_MediaLayers);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetMediaLayers().IsValid(level)) {
 				vElem.AppendUnique(elm_MediaLayers);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_HoleList);
-
-		for(i=0;i<nElem;i++){
-			if (!GetHoleList(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_HoleList);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetHoleList().IsValid(level)) {
 				vElem.AppendUnique(elm_HoleList);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_TabDimensions);
@@ -1529,6 +1590,13 @@ JDFTabDimensions JDFAutoMedia::AppendTabDimensions(){
 		return vElem;
 	};
 
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoMedia::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",Color,ColorMeasurementConditions,MediaLayers,HoleList";
+	};
 
 /**
  definition of optional elements in the JDF namespace

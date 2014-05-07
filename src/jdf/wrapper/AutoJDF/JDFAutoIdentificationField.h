@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFBarcodeDetails;
 class JDFExtraValues;
+class JDFMetadataMap;
 class JDFRefElement;
 /*
 *********************************************************************
@@ -472,6 +473,24 @@ virtual bool init();
  * 
 */
 	JDFExtraValues AppendExtraValues();
+
+/** Get Element MetadataMap
+* 
+* @param int iSkip number of elements to skip
+* @return JDFMetadataMap The element
+*/
+	JDFMetadataMap GetCreateMetadataMap(int iSkip=0);
+
+/**
+* const get element MetadataMap
+* @param int iSkip number of elements to skip
+* @return JDFMetadataMap The element
+*/
+	JDFMetadataMap GetMetadataMap(int iSkip=0)const;
+/**
+* Append element MetadataMap
+ */
+	JDFMetadataMap AppendMetadataMap();
 
 /**
  definition of unique elements in the JDF namespace

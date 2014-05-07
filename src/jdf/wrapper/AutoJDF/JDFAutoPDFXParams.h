@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -163,6 +163,22 @@ public:
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute PDFXCheck
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPDFXCheck(const WString& value);
+/**
+* Get string attribute PDFXCheck
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPDFXCheck() const;
+/**
+* Typesafe attribute validation of PDFXCheck
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPDFXCheck(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute PDFX1aCheck
 *@param bool value: the value to set the attribute to

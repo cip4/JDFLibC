@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -241,6 +241,22 @@ virtual bool init();
 */
 	virtual bool ValidAutomated(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute GangElementID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetGangElementID(const WString& value);
+/**
+* Get string attribute GangElementID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetGangElementID() const;
+/**
+* Typesafe attribute validation of GangElementID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidGangElementID(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute InnermostShingling
 *@param double value: the value to set the attribute to
 */
@@ -389,20 +405,19 @@ virtual bool init();
 
 /** Get Element BinderySignature
 * 
-* @param int iSkip number of elements to skip
 * @return JDFBinderySignature The element
 */
-	JDFBinderySignature GetCreateBinderySignature(int iSkip=0);
+	JDFBinderySignature GetCreateBinderySignature();
 
 /**
 * const get element BinderySignature
-* @param int iSkip number of elements to skip
-* @return JDFBinderySignature The element
+*@return  JDFBinderySignature The element
 */
-	JDFBinderySignature GetBinderySignature(int iSkip=0)const;
+	JDFBinderySignature GetBinderySignature()const;
 /**
 * Append element BinderySignature
- */
+ * 
+*/
 	JDFBinderySignature AppendBinderySignature();
 /**
 * create inter-resource link to refTarget
@@ -437,20 +452,19 @@ virtual bool init();
 
 /** Get Element ExternalImpositionTemplate
 * 
-* @param int iSkip number of elements to skip
 * @return JDFExternalImpositionTemplate The element
 */
-	JDFExternalImpositionTemplate GetCreateExternalImpositionTemplate(int iSkip=0);
+	JDFExternalImpositionTemplate GetCreateExternalImpositionTemplate();
 
 /**
 * const get element ExternalImpositionTemplate
-* @param int iSkip number of elements to skip
-* @return JDFExternalImpositionTemplate The element
+*@return  JDFExternalImpositionTemplate The element
 */
-	JDFExternalImpositionTemplate GetExternalImpositionTemplate(int iSkip=0)const;
+	JDFExternalImpositionTemplate GetExternalImpositionTemplate()const;
 /**
 * Append element ExternalImpositionTemplate
- */
+ * 
+*/
 	JDFExternalImpositionTemplate AppendExternalImpositionTemplate();
 /**
 * create inter-resource link to refTarget
@@ -503,20 +517,19 @@ virtual bool init();
 
 /** Get Element StripCellParams
 * 
-* @param int iSkip number of elements to skip
 * @return JDFStripCellParams The element
 */
-	JDFStripCellParams GetCreateStripCellParams(int iSkip=0);
+	JDFStripCellParams GetCreateStripCellParams();
 
 /**
 * const get element StripCellParams
-* @param int iSkip number of elements to skip
-* @return JDFStripCellParams The element
+*@return  JDFStripCellParams The element
 */
-	JDFStripCellParams GetStripCellParams(int iSkip=0)const;
+	JDFStripCellParams GetStripCellParams()const;
 /**
 * Append element StripCellParams
- */
+ * 
+*/
 	JDFStripCellParams AppendStripCellParams();
 
 /** Get Element StripMark
@@ -536,6 +549,11 @@ virtual bool init();
 * Append element StripMark
  */
 	JDFStripMark AppendStripMark();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

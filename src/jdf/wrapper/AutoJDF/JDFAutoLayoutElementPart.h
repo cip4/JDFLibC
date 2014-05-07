@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -83,6 +83,9 @@
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
 class JDFBarcodeProductionParams;
+class JDFColorCorrectionParams;
+class JDFImageCompressionParams;
+class JDFImageEnhancementParams;
 class JDFLayoutElement;
 class JDFPositionObj;
 class JDFRefElement;
@@ -210,6 +213,78 @@ public:
 * Append element BarcodeProductionParams
  */
 	JDFBarcodeProductionParams AppendBarcodeProductionParams();
+
+/** Get Element ColorCorrectionParams
+* 
+* @param int iSkip number of elements to skip
+* @return JDFColorCorrectionParams The element
+*/
+	JDFColorCorrectionParams GetCreateColorCorrectionParams(int iSkip=0);
+
+/**
+* const get element ColorCorrectionParams
+* @param int iSkip number of elements to skip
+* @return JDFColorCorrectionParams The element
+*/
+	JDFColorCorrectionParams GetColorCorrectionParams(int iSkip=0)const;
+/**
+* Append element ColorCorrectionParams
+ */
+	JDFColorCorrectionParams AppendColorCorrectionParams();
+/**
+* create inter-resource link to refTarget
+* @param JDFColorCorrectionParams& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefColorCorrectionParams(JDFColorCorrectionParams& refTarget);
+
+/** Get Element ImageCompressionParams
+* 
+* @param int iSkip number of elements to skip
+* @return JDFImageCompressionParams The element
+*/
+	JDFImageCompressionParams GetCreateImageCompressionParams(int iSkip=0);
+
+/**
+* const get element ImageCompressionParams
+* @param int iSkip number of elements to skip
+* @return JDFImageCompressionParams The element
+*/
+	JDFImageCompressionParams GetImageCompressionParams(int iSkip=0)const;
+/**
+* Append element ImageCompressionParams
+ */
+	JDFImageCompressionParams AppendImageCompressionParams();
+/**
+* create inter-resource link to refTarget
+* @param JDFImageCompressionParams& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefImageCompressionParams(JDFImageCompressionParams& refTarget);
+
+/** Get Element ImageEnhancementParams
+* 
+* @param int iSkip number of elements to skip
+* @return JDFImageEnhancementParams The element
+*/
+	JDFImageEnhancementParams GetCreateImageEnhancementParams(int iSkip=0);
+
+/**
+* const get element ImageEnhancementParams
+* @param int iSkip number of elements to skip
+* @return JDFImageEnhancementParams The element
+*/
+	JDFImageEnhancementParams GetImageEnhancementParams(int iSkip=0)const;
+/**
+* Append element ImageEnhancementParams
+ */
+	JDFImageEnhancementParams AppendImageEnhancementParams();
+/**
+* create inter-resource link to refTarget
+* @param JDFImageEnhancementParams& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefImageEnhancementParams(JDFImageEnhancementParams& refTarget);
 
 /** Get Element LayoutElement
 * 

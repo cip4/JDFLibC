@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFQualityControlResult;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoCut : public JDFElement
@@ -131,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -159,11 +170,6 @@ public:
 	enum EnumWorkingDirection{WorkingDirection_Unknown,WorkingDirection_Top,WorkingDirection_Bottom};
 
 /**
- * definition of required attributes in the JDF namespace
-*/
-	virtual WString RequiredAttributes()const;
-
-/**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
@@ -184,6 +190,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidCutWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute LowerRibbonName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetLowerRibbonName(const WString& value);
+/**
+* Get string attribute LowerRibbonName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetLowerRibbonName() const;
+/**
+* Typesafe attribute validation of LowerRibbonName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidLowerRibbonName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute RelativeStartPosition
 *@param JDFXYPair value: the value to set the attribute to
@@ -232,6 +254,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidStartPosition(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute UpperRibbonName
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetUpperRibbonName(const WString& value);
+/**
+* Get string attribute UpperRibbonName
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetUpperRibbonName() const;
+/**
+* Typesafe attribute validation of UpperRibbonName
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidUpperRibbonName(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute WorkingPath
 *@param JDFXYPair value: the value to set the attribute to
@@ -282,6 +320,35 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoCut
 
 // ******************************************************

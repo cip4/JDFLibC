@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -281,6 +281,26 @@ JDFAutoLayoutIntent& JDFAutoLayoutIntent::operator=(const KElement& other){
 **************************************************************** */
 
 
+JDFNumberSpan JDFAutoLayoutIntent::GetBleed(int iSkip)const{
+	JDFNumberSpan e=GetElement(elm_Bleed,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNumberSpan JDFAutoLayoutIntent::GetCreateBleed(int iSkip){
+	JDFNumberSpan e=GetCreateElement(elm_Bleed,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFNumberSpan JDFAutoLayoutIntent::AppendBleed(){
+	JDFNumberSpan e=AppendElement(elm_Bleed);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFXYPairSpan JDFAutoLayoutIntent::GetDimensions()const{
 	JDFXYPairSpan e=GetElement(elm_Dimensions);
 	return e;
@@ -436,6 +456,16 @@ JDFSpanSizePolicy JDFAutoLayoutIntent::AppendSizePolicy(){
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
+		nElem=NumChildElements(elm_Bleed);
+
+		for(i=0;i<nElem;i++){
+			if (!GetBleed(i).IsValid(level)) {
+				vElem.AppendUnique(elm_Bleed);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_Dimensions);
 		if(nElem>1){ //bound error
 			vElem.AppendUnique(elm_Dimensions);
@@ -535,6 +565,6 @@ JDFSpanSizePolicy JDFAutoLayoutIntent::AppendSizePolicy(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayoutIntent::OptionalElements()const{
-		return JDFIntentResource::OptionalElements()+L",Dimensions,FinishedDimensions,FinishedGrainDirection,Pages,PageVariance,Layout,SizePolicy";
+		return JDFIntentResource::OptionalElements()+L",Bleed,Dimensions,FinishedDimensions,FinishedGrainDirection,Pages,PageVariance,Layout,SizePolicy";
 	};
 }; // end namespace JDF

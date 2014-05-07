@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -405,6 +405,22 @@ virtual bool init();
 */
 	virtual bool ValidColorType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
+* Set attribute ColorTypeDetails
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetColorTypeDetails(const WString& value);
+/**
+* Get string attribute ColorTypeDetails
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetColorTypeDetails() const;
+/**
+* Typesafe attribute validation of ColorTypeDetails
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidColorTypeDetails(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
 * Set attribute Density
 *@param double value: the value to set the attribute to
 */
@@ -484,6 +500,22 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidNeutralDensity(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute PrintingTechnology
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetPrintingTechnology(const WString& value);
+/**
+* Get string attribute PrintingTechnology
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetPrintingTechnology() const;
+/**
+* Typesafe attribute validation of PrintingTechnology
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidPrintingTechnology(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute RawName
 *@param WString value: the value to set the attribute to

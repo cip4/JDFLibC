@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -165,6 +165,28 @@ public:
 // Attribute Getter / Setter
 ****************************************************** */
 
+
+/**
+ * definition of optional attributes in the JDF namespace
+*/
+	virtual WString OptionalAttributes()const;
+
+/**
+* Set attribute NumColors
+*@param int value: the value to set the attribute to
+*/
+	virtual void SetNumColors(int value);
+/**
+* Get integer attribute NumColors
+* @return int the vaue of the attribute 
+*/
+	virtual int GetNumColors() const;
+/**
+* Typesafe attribute validation of NumColors
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidNumColors(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter

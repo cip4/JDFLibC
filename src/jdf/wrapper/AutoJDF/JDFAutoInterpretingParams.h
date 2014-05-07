@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -84,6 +84,7 @@
 namespace JDF{
 class JDFObjectResolution;
 class JDFFitPolicy;
+class JDFInterpretingDetails;
 class JDFMedia;
 class JDFPDFInterpretingParams;
 class JDFRefElement;
@@ -405,36 +406,41 @@ virtual bool init();
 * Append element ObjectResolution
  */
 	JDFObjectResolution AppendObjectResolution();
-/**
-* create inter-resource link to refTarget
-* @param JDFObjectResolution& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefObjectResolution(JDFObjectResolution& refTarget);
 
 /** Get Element FitPolicy
 * 
-* @param int iSkip number of elements to skip
 * @return JDFFitPolicy The element
 */
-	JDFFitPolicy GetCreateFitPolicy(int iSkip=0);
+	JDFFitPolicy GetCreateFitPolicy();
 
 /**
 * const get element FitPolicy
-* @param int iSkip number of elements to skip
-* @return JDFFitPolicy The element
+*@return  JDFFitPolicy The element
 */
-	JDFFitPolicy GetFitPolicy(int iSkip=0)const;
+	JDFFitPolicy GetFitPolicy()const;
 /**
 * Append element FitPolicy
- */
-	JDFFitPolicy AppendFitPolicy();
-/**
-* create inter-resource link to refTarget
-* @param JDFFitPolicy& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
+ * 
 */
-	JDFRefElement RefFitPolicy(JDFFitPolicy& refTarget);
+	JDFFitPolicy AppendFitPolicy();
+
+/** Get Element InterpretingDetails
+* 
+* @param int iSkip number of elements to skip
+* @return JDFInterpretingDetails The element
+*/
+	JDFInterpretingDetails GetCreateInterpretingDetails(int iSkip=0);
+
+/**
+* const get element InterpretingDetails
+* @param int iSkip number of elements to skip
+* @return JDFInterpretingDetails The element
+*/
+	JDFInterpretingDetails GetInterpretingDetails(int iSkip=0)const;
+/**
+* Append element InterpretingDetails
+ */
+	JDFInterpretingDetails AppendInterpretingDetails();
 
 /** Get Element Media
 * 
@@ -462,21 +468,25 @@ virtual bool init();
 
 /** Get Element PDFInterpretingParams
 * 
-* @param int iSkip number of elements to skip
 * @return JDFPDFInterpretingParams The element
 */
-	JDFPDFInterpretingParams GetCreatePDFInterpretingParams(int iSkip=0);
+	JDFPDFInterpretingParams GetCreatePDFInterpretingParams();
 
 /**
 * const get element PDFInterpretingParams
-* @param int iSkip number of elements to skip
-* @return JDFPDFInterpretingParams The element
+*@return  JDFPDFInterpretingParams The element
 */
-	JDFPDFInterpretingParams GetPDFInterpretingParams(int iSkip=0)const;
+	JDFPDFInterpretingParams GetPDFInterpretingParams()const;
 /**
 * Append element PDFInterpretingParams
- */
+ * 
+*/
 	JDFPDFInterpretingParams AppendPDFInterpretingParams();
+
+/**
+ definition of unique elements in the JDF namespace
+*/
+	virtual WString UniqueElements()const;
 
 /**
  definition of optional elements in the JDF namespace

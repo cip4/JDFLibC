@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -135,7 +135,7 @@ bool JDFAutoStrippingParams::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoStrippingParams::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",AssemblyID,AssemblyIDs,Automated,InnermostShingling,JobID,OutermostShingling,SectionList,SheetNameFormat,SheetNameTemplate,StackDepth,WorkStyle");
+		return JDFResource::OptionalAttributes()+WString(L",AssemblyID,AssemblyIDs,Automated,GangElementID,InnermostShingling,JobID,OutermostShingling,SectionList,SheetNameFormat,SheetNameTemplate,StackDepth,WorkStyle");
 };
 
 /**
@@ -158,6 +158,11 @@ bool JDFAutoStrippingParams::init(){
 		};
 		if(!ValidAutomated(level)) {
 			vAtts.push_back(atr_Automated);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidGangElementID(level)) {
+			vAtts.push_back(atr_GangElementID);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -256,6 +261,24 @@ bool JDFAutoStrippingParams::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoStrippingParams::ValidAutomated(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Automated,AttributeType_boolean,false);
+	};
+/**
+* Set attribute GangElementID
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoStrippingParams::SetGangElementID(const WString& value){
+	SetAttribute(atr_GangElementID,value);
+};
+/**
+* Get string attribute GangElementID
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoStrippingParams::GetGangElementID() const {
+	return GetAttribute(atr_GangElementID,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoStrippingParams::ValidGangElementID(EnumValidationLevel level) const {
+		return ValidAttribute(atr_GangElementID,AttributeType_NMTOKEN,false);
 	};
 /**
 * Set attribute InnermostShingling
@@ -414,21 +437,21 @@ bool JDFAutoStrippingParams::init(){
 **************************************************************** */
 
 
-JDFBinderySignature JDFAutoStrippingParams::GetBinderySignature(int iSkip)const{
-	JDFBinderySignature e=GetElement(elm_BinderySignature,WString::emptyStr,iSkip);
+JDFBinderySignature JDFAutoStrippingParams::GetBinderySignature()const{
+	JDFBinderySignature e=GetElement(elm_BinderySignature);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFBinderySignature JDFAutoStrippingParams::GetCreateBinderySignature(int iSkip){
-	JDFBinderySignature e=GetCreateElement(elm_BinderySignature,WString::emptyStr,iSkip);
+JDFBinderySignature JDFAutoStrippingParams::GetCreateBinderySignature(){
+	JDFBinderySignature e=GetCreateElement(elm_BinderySignature);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFBinderySignature JDFAutoStrippingParams::AppendBinderySignature(){
-	JDFBinderySignature e=AppendElement(elm_BinderySignature);
+	JDFBinderySignature e=AppendElementN(elm_BinderySignature,1);
 	e.init();
 	return e;
 };
@@ -464,21 +487,21 @@ JDFRefElement JDFAutoStrippingParams::RefDevice(JDFDevice& refTarget){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFExternalImpositionTemplate JDFAutoStrippingParams::GetExternalImpositionTemplate(int iSkip)const{
-	JDFExternalImpositionTemplate e=GetElement(elm_ExternalImpositionTemplate,WString::emptyStr,iSkip);
+JDFExternalImpositionTemplate JDFAutoStrippingParams::GetExternalImpositionTemplate()const{
+	JDFExternalImpositionTemplate e=GetElement(elm_ExternalImpositionTemplate);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFExternalImpositionTemplate JDFAutoStrippingParams::GetCreateExternalImpositionTemplate(int iSkip){
-	JDFExternalImpositionTemplate e=GetCreateElement(elm_ExternalImpositionTemplate,WString::emptyStr,iSkip);
+JDFExternalImpositionTemplate JDFAutoStrippingParams::GetCreateExternalImpositionTemplate(){
+	JDFExternalImpositionTemplate e=GetCreateElement(elm_ExternalImpositionTemplate);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFExternalImpositionTemplate JDFAutoStrippingParams::AppendExternalImpositionTemplate(){
-	JDFExternalImpositionTemplate e=AppendElement(elm_ExternalImpositionTemplate);
+	JDFExternalImpositionTemplate e=AppendElementN(elm_ExternalImpositionTemplate,1);
 	e.init();
 	return e;
 };
@@ -534,21 +557,21 @@ JDFPosition JDFAutoStrippingParams::AppendPosition(){
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFStripCellParams JDFAutoStrippingParams::GetStripCellParams(int iSkip)const{
-	JDFStripCellParams e=GetElement(elm_StripCellParams,WString::emptyStr,iSkip);
+JDFStripCellParams JDFAutoStrippingParams::GetStripCellParams()const{
+	JDFStripCellParams e=GetElement(elm_StripCellParams);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFStripCellParams JDFAutoStrippingParams::GetCreateStripCellParams(int iSkip){
-	JDFStripCellParams e=GetCreateElement(elm_StripCellParams,WString::emptyStr,iSkip);
+JDFStripCellParams JDFAutoStrippingParams::GetCreateStripCellParams(){
+	JDFStripCellParams e=GetCreateElement(elm_StripCellParams);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFStripCellParams JDFAutoStrippingParams::AppendStripCellParams(){
-	JDFStripCellParams e=AppendElement(elm_StripCellParams);
+	JDFStripCellParams e=AppendElementN(elm_StripCellParams,1);
 	e.init();
 	return e;
 };
@@ -585,13 +608,15 @@ JDFStripMark JDFAutoStrippingParams::AppendStripMark(){
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_BinderySignature);
-
-		for(i=0;i<nElem;i++){
-			if (!GetBinderySignature(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_BinderySignature);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetBinderySignature().IsValid(level)) {
 				vElem.AppendUnique(elm_BinderySignature);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_Device);
@@ -605,13 +630,15 @@ JDFStripMark JDFAutoStrippingParams::AppendStripMark(){
 			}
 		}
 		nElem=NumChildElements(elm_ExternalImpositionTemplate);
-
-		for(i=0;i<nElem;i++){
-			if (!GetExternalImpositionTemplate(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_ExternalImpositionTemplate);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetExternalImpositionTemplate().IsValid(level)) {
 				vElem.AppendUnique(elm_ExternalImpositionTemplate);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_Media);
@@ -635,13 +662,15 @@ JDFStripMark JDFAutoStrippingParams::AppendStripMark(){
 			}
 		}
 		nElem=NumChildElements(elm_StripCellParams);
-
-		for(i=0;i<nElem;i++){
-			if (!GetStripCellParams(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_StripCellParams);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetStripCellParams().IsValid(level)) {
 				vElem.AppendUnique(elm_StripCellParams);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_StripMark);
@@ -657,6 +686,13 @@ JDFStripMark JDFAutoStrippingParams::AppendStripMark(){
 		return vElem;
 	};
 
+
+/**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoStrippingParams::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",BinderySignature,ExternalImpositionTemplate,StripCellParams";
+	};
 
 /**
  definition of optional elements in the JDF namespace

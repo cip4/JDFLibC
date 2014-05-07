@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -82,6 +82,8 @@
 
 #include "jdf/wrapper/JDFElement.h"
 namespace JDF{
+class JDFQualityControlResult;
+class JDFRefElement;
 /*
 *********************************************************************
 class JDFAutoScreenSelector : public JDFElement
@@ -131,6 +133,15 @@ public:
 */
 	virtual vWString GetInvalidAttributes(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999)const;
 
+/**
+* typesafe validator utility
+* @param EnumValidationLevel level validation level
+* @param bool bIgnorePrivate ignore objects in foreign namespaces
+* @param int nMax size of the returned vector
+* @return vWString vector of invalid element names
+*/
+	virtual vWString GetInvalidElements(EnumValidationLevel level=ValidationLevel_Complete, bool bIgnorePrivate=true, int nMax=9999999) const;
+
 protected:
 /**
 * typesafe validator utility - list of valid node names for this class 
@@ -153,21 +164,83 @@ public:
 ****************************************************** */
 
 /**
+* Enumeration for attribute SourceObjects
+*/
+
+	enum EnumSourceObjects{SourceObjects_Unknown,SourceObjects_All,SourceObjects_ImagePhotographic,SourceObjects_ImageScreenShot,SourceObjects_LineArt,SourceObjects_SmoothShades,SourceObjects_Text};
+/**
 * Enumeration for attribute ScreeningType
 */
 
 	enum EnumScreeningType{ScreeningType_Unknown,ScreeningType_AM,ScreeningType_FM,ScreeningType_Adaptive,ScreeningType_ErrorDiffusion,ScreeningType_HybridAM_FM,ScreeningType_HybridAMline_dot};
-/**
-* Enumeration for attribute SourceObjects
-*/
-
-	enum EnumSourceObjects{SourceObjects_Unknown,SourceObjects_All,SourceObjects_ImagePhotographic,SourceObjects_ImageScreenShot,SourceObjects_Text,SourceObjects_LineArt,SourceObjects_SmoothShades};
 
 /**
  * definition of optional attributes in the JDF namespace
 */
 	virtual WString OptionalAttributes()const;
 
+/**
+* Set attribute Separation
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetSeparation(const WString& value);
+/**
+* Get string attribute Separation
+* @return WString the vaue of the attribute ; defaults to All
+*/
+	virtual WString GetSeparation() const;
+/**
+* Typesafe attribute validation of Separation
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSeparation(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for SourceObjects
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& SourceObjectsString();
+/**
+* Enumeration string for enum value
+* @param EnumSourceObjects value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString SourceObjectsString(EnumSourceObjects value);
+/**
+* Append value to the attribute SourceObjects
+* @param EnumSourceObjects value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual vint AddSourceObjects( EnumSourceObjects value);
+/**
+* Remove value from the attribute SourceObjects
+* @param EnumSourceObjects value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual vint RemoveSourceObjects( EnumSourceObjects value);
+/**
+* Typesafe enumerated attribute SourceObjects; defaults to All
+* @return EnumSourceObjectsthe enumeration value of the attribute
+*/
+	virtual vint GetSourceObjects() const;
+/**
+* Set value of the attribute SourceObjects
+* @param EnumSourceObjects value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual void SetSourceObjects( EnumSourceObjects value);
+/**
+* Set value of the attribute SourceObjects to a list
+* @param vint value the value to set the attribute to
+* @return vint the vector of enumerations that are set - cast to int
+*/
+	virtual void SetSourceObjects( const vint& value);
+/**
+* Typesafe attribute validation of SourceObjects
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidSourceObjects(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Angle
 *@param double value: the value to set the attribute to
@@ -294,22 +367,6 @@ public:
 */
 	virtual bool ValidScreeningType(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
-* Set attribute Separation
-*@param WString value: the value to set the attribute to
-*/
-	virtual void SetSeparation(const WString& value);
-/**
-* Get string attribute Separation
-* @return WString the vaue of the attribute ; defaults to All
-*/
-	virtual WString GetSeparation() const;
-/**
-* Typesafe attribute validation of Separation
-* @param EnumValidationLevel level of attribute validation 
-* @return bool true if valid
-*/
-	virtual bool ValidSeparation(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
 * Set attribute SourceFrequency
 *@param NumberRange value: the value to set the attribute to
 */
@@ -325,52 +382,6 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidSourceFrequency(EnumValidationLevel level=ValidationLevel_Complete) const;
-/**
-* Enumeration strings for SourceObjects
-* @return const WString& comma separated list of enumerated string values 
-*/
-	static const WString& SourceObjectsString();
-/**
-* Enumeration string for enum value
-* @param EnumSourceObjects value the enumeration to translate
-* @return WString the string representation of the enumeration
-*/
-	static WString SourceObjectsString(EnumSourceObjects value);
-/**
-* Append value to the attribute SourceObjects
-* @param EnumSourceObjects value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
-*/
-	virtual vint AddSourceObjects( EnumSourceObjects value);
-/**
-* Remove value from the attribute SourceObjects
-* @param EnumSourceObjects value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
-*/
-	virtual vint RemoveSourceObjects( EnumSourceObjects value);
-/**
-* Typesafe enumerated attribute SourceObjects; defaults to All
-* @return EnumSourceObjectsthe enumeration value of the attribute
-*/
-	virtual vint GetSourceObjects() const;
-/**
-* Set value of the attribute SourceObjects
-* @param EnumSourceObjects value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
-*/
-	virtual void SetSourceObjects( EnumSourceObjects value);
-/**
-* Set value of the attribute SourceObjects to a list
-* @param vint value the value to set the attribute to
-* @return vint the vector of enumerations that are set - cast to int
-*/
-	virtual void SetSourceObjects( const vint& value);
-/**
-* Typesafe attribute validation of SourceObjects
-* @param EnumValidationLevel level element validation level 
-* @return bool true if valid
-*/
-	virtual bool ValidSourceObjects(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute SpotFunction
 *@param WString value: the value to set the attribute to
@@ -392,6 +403,35 @@ public:
 // Element Getter / Setter
 **************************************************************** */
 
+
+/** Get Element QualityControlResult
+* 
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetCreateQualityControlResult(int iSkip=0);
+
+/**
+* const get element QualityControlResult
+* @param int iSkip number of elements to skip
+* @return JDFQualityControlResult The element
+*/
+	JDFQualityControlResult GetQualityControlResult(int iSkip=0)const;
+/**
+* Append element QualityControlResult
+ */
+	JDFQualityControlResult AppendQualityControlResult();
+/**
+* create inter-resource link to refTarget
+* @param JDFQualityControlResult& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefQualityControlResult(JDFQualityControlResult& refTarget);
+
+/**
+ definition of optional elements in the JDF namespace
+*/
+	virtual WString OptionalElements()const;
 }; // endJDFAutoScreenSelector
 
 // ******************************************************

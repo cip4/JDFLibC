@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -198,6 +198,38 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidCaseRadius(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute CoverBoardWidth
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetCoverBoardWidth(double value);
+/**
+* Get double attribute CoverBoardWidth
+* @return double the vaue of the attribute 
+*/
+	virtual double GetCoverBoardWidth() const;
+/**
+* Typesafe attribute validation of CoverBoardWidth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidCoverBoardWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute SpineBoardWidth
+*@param double value: the value to set the attribute to
+*/
+	virtual void SetSpineBoardWidth(double value);
+/**
+* Get double attribute SpineBoardWidth
+* @return double the vaue of the attribute 
+*/
+	virtual double GetSpineBoardWidth() const;
+/**
+* Typesafe attribute validation of SpineBoardWidth
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidSpineBoardWidth(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
@@ -221,12 +253,6 @@ virtual bool init();
 * Append element GlueApplication
  */
 	JDFGlueLine AppendGlueApplication();
-/**
-* create inter-resource link to refTarget
-* @param JDFGlueLine& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefGlueApplication(JDFGlueLine& refTarget);
 
 /** Get Element GlueLine
 * 
@@ -245,12 +271,6 @@ virtual bool init();
 * Append element GlueLine
  */
 	JDFGlueLine AppendGlueLine();
-/**
-* create inter-resource link to refTarget
-* @param JDFGlueLine& refTarget the element that is referenced
-*@return JDFRefElement the referenced element
-*/
-	JDFRefElement RefGlueLine(JDFGlueLine& refTarget);
 
 /**
  definition of optional elements in the JDF namespace

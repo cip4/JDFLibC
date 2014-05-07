@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -205,6 +205,22 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidBuyerAccount(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute DropID
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetDropID(const WString& value);
+/**
+* Get string attribute DropID
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetDropID() const;
+/**
+* Typesafe attribute validation of DropID
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidDropID(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute Pickup
 *@param bool value: the value to set the attribute to

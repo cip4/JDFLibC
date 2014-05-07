@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -76,6 +76,9 @@
  
 #include "jdf/wrapper/AutoJDF/JDFAutoLayoutElementPart.h"
 #include "jdf/wrapper/JDFBarcodeProductionParams.h"
+#include "jdf/wrapper/JDFColorCorrectionParams.h"
+#include "jdf/wrapper/JDFImageCompressionParams.h"
+#include "jdf/wrapper/JDFImageEnhancementParams.h"
 #include "jdf/wrapper/JDFLayoutElement.h"
 #include "jdf/wrapper/JDFPositionObj.h"
 #include "jdf/wrapper/JDFRefElement.h"
@@ -183,6 +186,81 @@ JDFBarcodeProductionParams JDFAutoLayoutElementPart::AppendBarcodeProductionPara
 };
 /////////////////////////////////////////////////////////////////////
 
+JDFColorCorrectionParams JDFAutoLayoutElementPart::GetColorCorrectionParams(int iSkip)const{
+	JDFColorCorrectionParams e=GetElement(elm_ColorCorrectionParams,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFColorCorrectionParams JDFAutoLayoutElementPart::GetCreateColorCorrectionParams(int iSkip){
+	JDFColorCorrectionParams e=GetCreateElement(elm_ColorCorrectionParams,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFColorCorrectionParams JDFAutoLayoutElementPart::AppendColorCorrectionParams(){
+	JDFColorCorrectionParams e=AppendElement(elm_ColorCorrectionParams);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLayoutElementPart::RefColorCorrectionParams(JDFColorCorrectionParams& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFImageCompressionParams JDFAutoLayoutElementPart::GetImageCompressionParams(int iSkip)const{
+	JDFImageCompressionParams e=GetElement(elm_ImageCompressionParams,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFImageCompressionParams JDFAutoLayoutElementPart::GetCreateImageCompressionParams(int iSkip){
+	JDFImageCompressionParams e=GetCreateElement(elm_ImageCompressionParams,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFImageCompressionParams JDFAutoLayoutElementPart::AppendImageCompressionParams(){
+	JDFImageCompressionParams e=AppendElement(elm_ImageCompressionParams);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLayoutElementPart::RefImageCompressionParams(JDFImageCompressionParams& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFImageEnhancementParams JDFAutoLayoutElementPart::GetImageEnhancementParams(int iSkip)const{
+	JDFImageEnhancementParams e=GetElement(elm_ImageEnhancementParams,WString::emptyStr,iSkip);
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFImageEnhancementParams JDFAutoLayoutElementPart::GetCreateImageEnhancementParams(int iSkip){
+	JDFImageEnhancementParams e=GetCreateElement(elm_ImageEnhancementParams,WString::emptyStr,iSkip);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+
+JDFImageEnhancementParams JDFAutoLayoutElementPart::AppendImageEnhancementParams(){
+	JDFImageEnhancementParams e=AppendElement(elm_ImageEnhancementParams);
+	e.init();
+	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoLayoutElementPart::RefImageEnhancementParams(JDFImageEnhancementParams& refTarget){
+	return RefElement(refTarget);
+};
+/////////////////////////////////////////////////////////////////////
+
 JDFLayoutElement JDFAutoLayoutElementPart::GetLayoutElement(int iSkip)const{
 	JDFLayoutElement e=GetElement(elm_LayoutElement,WString::emptyStr,iSkip);
 	return e;
@@ -248,6 +326,36 @@ JDFPositionObj JDFAutoLayoutElementPart::AppendPositionObj(){
 				break;
 			}
 		}
+		nElem=NumChildElements(elm_ColorCorrectionParams);
+
+		for(i=0;i<nElem;i++){
+			if (!GetColorCorrectionParams(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ColorCorrectionParams);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_ImageCompressionParams);
+
+		for(i=0;i<nElem;i++){
+			if (!GetImageCompressionParams(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ImageCompressionParams);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
+		nElem=NumChildElements(elm_ImageEnhancementParams);
+
+		for(i=0;i<nElem;i++){
+			if (!GetImageEnhancementParams(i).IsValid(level)) {
+				vElem.AppendUnique(elm_ImageEnhancementParams);
+				if (++n>=nMax)
+					return vElem;
+				break;
+			}
+		}
 		nElem=NumChildElements(elm_LayoutElement);
 
 		for(i=0;i<nElem;i++){
@@ -276,6 +384,6 @@ JDFPositionObj JDFAutoLayoutElementPart::AppendPositionObj(){
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoLayoutElementPart::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",BarcodeProductionParams,LayoutElement,PositionObj";
+		return JDFElement::OptionalElements()+L",BarcodeProductionParams,ColorCorrectionParams,ImageCompressionParams,ImageEnhancementParams,LayoutElement,PositionObj";
 	};
 }; // end namespace JDF

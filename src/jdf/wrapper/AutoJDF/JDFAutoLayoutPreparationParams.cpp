@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -772,11 +772,6 @@ JDFDeviceMark JDFAutoLayoutPreparationParams::AppendDeviceMark(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoLayoutPreparationParams::RefDeviceMark(JDFDeviceMark& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFExternalImpositionTemplate JDFAutoLayoutPreparationParams::GetExternalImpositionTemplate()const{
 	JDFExternalImpositionTemplate e=GetElement(elm_ExternalImpositionTemplate);
@@ -822,11 +817,6 @@ JDFFitPolicy JDFAutoLayoutPreparationParams::AppendFitPolicy(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoLayoutPreparationParams::RefFitPolicy(JDFFitPolicy& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFJobField JDFAutoLayoutPreparationParams::GetJobField(int iSkip)const{
 	JDFJobField e=GetElement(elm_JobField,WString::emptyStr,iSkip);
@@ -845,11 +835,6 @@ JDFJobField JDFAutoLayoutPreparationParams::AppendJobField(){
 	JDFJobField e=AppendElement(elm_JobField);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoLayoutPreparationParams::RefJobField(JDFJobField& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

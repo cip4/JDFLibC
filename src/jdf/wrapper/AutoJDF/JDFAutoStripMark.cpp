@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2009 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -316,7 +316,7 @@ JDFAutoStripMark& JDFAutoStripMark::operator=(const KElement& other){
 ///////////////////////////////////////////////////////////////////////
 
 	const WString& JDFAutoStripMark::MarkContextString(){
-		static const WString enums=WString(L"Unknown,Sheet,BinderySignature,Cell,CellPair");
+		static const WString enums=WString(L"Unknown,BinderySignature,Cell,CellPair,Sheet,Tile");
 		return enums;
 	};
 
@@ -553,11 +553,6 @@ JDFJobField JDFAutoStripMark::AppendJobField(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoStripMark::RefJobField(JDFJobField& refTarget){
-	return RefElement(refTarget);
-};
-/////////////////////////////////////////////////////////////////////
 
 JDFRefAnchor JDFAutoStripMark::GetRefAnchor()const{
 	JDFRefAnchor e=GetElement(elm_RefAnchor);
@@ -576,11 +571,6 @@ JDFRefAnchor JDFAutoStripMark::AppendRefAnchor(){
 	JDFRefAnchor e=AppendElementN(elm_RefAnchor,1);
 	e.init();
 	return e;
-};
-/////////////////////////////////////////////////////////////////////
-// element resource linking 
-JDFRefElement JDFAutoStripMark::RefRefAnchor(JDFRefAnchor& refTarget){
-	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
