@@ -29,7 +29,7 @@
 XERCES_CPP_NAMESPACE_USE
 
 
-using namespace std; 
+	using namespace std; 
 using namespace JDF;
 
 bool bDoStatus; // global fudge
@@ -272,6 +272,8 @@ public:
 			s="BoxArgument";
 		if(s=="Preflight_BoxToBoxDifference")
 			s="BoxToBoxDifference";
+		if(s=="PhaseTimeAudit_Activity")
+			s="Activity";
 
 
 
@@ -567,7 +569,11 @@ public:
 			if(t.endsWith(L"ResultsPool"))
 				t="PreflightResultsPool";
 
+			if(t=="SeparationListFront"||t=="SeparationListBack")
+				t="SeparationList";
 			if(t=="ColorsUsed")
+				t="SeparationList";
+			if(t=="CutLines")
 				t="SeparationList";
 
 			if(!thisClass.empty()){
@@ -1084,7 +1090,7 @@ public:
 		WString enums;
 		for(unsigned int i=0;i<vs.size();i+=10){
 
-			int jmax=min(i+10u,vs.size());
+			int jmax=min((vWString::size_type)(i+10u),vs.size());
 			vWString vs2;
 			for(int j=i;j<jmax;j++){
 				vs2.push_back(vs[j]);
@@ -2650,6 +2656,8 @@ int main(int argC, char* argV[]){
 		doc.MergeDoc(d2);
 		d2.Parse("JDFResource.xsd",false,true);
 		doc.MergeDoc(d2);
+		d2.Parse("JDFResourceElements.xsd",false,true);
+		doc.MergeDoc(d2);
 		d2.Parse("JDFMessage.xsd",false,true);
 		doc.MergeDoc(d2);
 		d2.Parse("JDFCapability.xsd",false,true);
@@ -3578,7 +3586,8 @@ int SchemaDoc::MakeC(const WString& classString){
 	resList.close();
 
 
-	/**	// create typesafe enumerationspans
+	// create typesafe enumerationspans
+	/*
 	e=r.GetChildrenWithAttribute("xs:element", "type", WString::emptyStr, "jdf:EnumerationSpan", false);
 	SchemaElement se;
 	ofstream h;
