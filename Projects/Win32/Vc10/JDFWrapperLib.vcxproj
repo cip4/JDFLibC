@@ -498,8 +498,6 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRepeatDesc.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoResumeQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRuleLength.cpp" />
-    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListBack.cpp" />
-    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListFront.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDef.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.cpp" />
@@ -1632,8 +1630,6 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRepeatDesc.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoResumeQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoRuleLength.h" />
-    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListBack.h" />
-    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSeparationListFront.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDef.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeDefProductionParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoShapeTemplate.h" />
