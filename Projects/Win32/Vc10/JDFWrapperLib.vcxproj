@@ -477,7 +477,6 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoControllerFilter.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.cpp" />
-    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoExpr.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillColor.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillMark.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoGangElement.cpp" />
@@ -510,7 +509,6 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSuspendQueueEntryParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTabDimensions.cpp" />
-    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoVarnishingParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoWindingParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\JDFAbortQueueEntryParams.cpp" />
@@ -1609,7 +1607,6 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoControllerFilter.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoConvertingConfig.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoDieLayoutProductionParams.h" />
-    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoExpr.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillColor.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoFillMark.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoGangElement.h" />
@@ -1642,7 +1639,6 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSubscriptionInfo.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoSuspendQueueEntryParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTabDimensions.h" />
-    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoTerm.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoVarnishingParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoWindingParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\JDFAbortQueueEntryParams.h" />
