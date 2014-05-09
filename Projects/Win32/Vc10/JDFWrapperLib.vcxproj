@@ -487,6 +487,7 @@
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.cpp" />
+    <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageAssignParams.cpp" />
     <ClCompile Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageCondition.cpp" />
@@ -1617,6 +1618,7 @@
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLayoutShift.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoLogicalStackParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMarkActivation.h" />
+    <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoMetadataMap.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoObjectModel.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageAssignParams.h" />
     <ClInclude Include="..\..\..\src\jdf\wrapper\AutoJDF\JDFAutoPageCondition.h" />
