@@ -125,7 +125,7 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoMetadataMap::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",Context");
+		return JDFElement::OptionalAttributes()+WString(L",Context,ValueFormat,ValueTemplate");
 };
 
 /**
@@ -148,6 +148,16 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
 		};
 		if(!ValidName(level)) {
 			vAtts.push_back(atr_Name);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidValueFormat(level)) {
+			vAtts.push_back(atr_ValueFormat);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidValueTemplate(level)) {
+			vAtts.push_back(atr_ValueTemplate);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -222,6 +232,42 @@ JDFAutoMetadataMap& JDFAutoMetadataMap::operator=(const KElement& other){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoMetadataMap::ValidName(EnumValidationLevel level) const {
 		return ValidAttribute(atr_Name,AttributeType_NMTOKEN,RequiredLevel(level));
+	};
+/**
+* Set attribute ValueFormat
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMetadataMap::SetValueFormat(const WString& value){
+	SetAttribute(atr_ValueFormat,value);
+};
+/**
+* Get string attribute ValueFormat
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMetadataMap::GetValueFormat() const {
+	return GetAttribute(atr_ValueFormat,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMetadataMap::ValidValueFormat(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ValueFormat,AttributeType_string,false);
+	};
+/**
+* Set attribute ValueTemplate
+*@param WString value: the value to set the attribute to
+*/
+	 void JDFAutoMetadataMap::SetValueTemplate(const WString& value){
+	SetAttribute(atr_ValueTemplate,value);
+};
+/**
+* Get string attribute ValueTemplate
+* @return WString the vaue of the attribute 
+*/
+	 WString JDFAutoMetadataMap::GetValueTemplate() const {
+	return GetAttribute(atr_ValueTemplate,WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoMetadataMap::ValidValueTemplate(EnumValidationLevel level) const {
+		return ValidAttribute(atr_ValueTemplate,AttributeType_string,false);
 	};
 
 /* ******************************************************

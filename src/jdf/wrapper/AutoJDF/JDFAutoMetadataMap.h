@@ -258,6 +258,38 @@ public:
 * @return bool true if valid
 */
 	virtual bool ValidName(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ValueFormat
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetValueFormat(const WString& value);
+/**
+* Get string attribute ValueFormat
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetValueFormat() const;
+/**
+* Typesafe attribute validation of ValueFormat
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidValueFormat(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Set attribute ValueTemplate
+*@param WString value: the value to set the attribute to
+*/
+	virtual void SetValueTemplate(const WString& value);
+/**
+* Get string attribute ValueTemplate
+* @return WString the vaue of the attribute 
+*/
+	virtual WString GetValueTemplate() const;
+/**
+* Typesafe attribute validation of ValueTemplate
+* @param EnumValidationLevel level of attribute validation 
+* @return bool true if valid
+*/
+	virtual bool ValidValueTemplate(EnumValidationLevel level=ValidationLevel_Complete) const;
 
 /* ******************************************************
 // Element Getter / Setter
