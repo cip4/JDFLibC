@@ -22,7 +22,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-MyTime::MyTime(char* Name, bool start)
+MyTime::MyTime(const char* Name, bool start)
 {
 //	startTime=time(&startTime);
 	startClock=clock();

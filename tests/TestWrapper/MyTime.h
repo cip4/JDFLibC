@@ -30,7 +30,7 @@ class MyTime{
 public:
 	void Stop();
 	void Start();
-	MyTime(char* Name, bool start=true);
+	MyTime(const char* Name, bool start=true);
 	virtual ~MyTime();
 
 private:

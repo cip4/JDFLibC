@@ -1556,7 +1556,7 @@ namespace JDF{
 		* @return vElement: the vector of matching resource leaves or nodes
 		* @throws JDFException if the map contains keys that are not JDF defined partition keys
 		*/
-		vElement GetPartitionVector(const mAttribute& m, EnumPartUsage partUsage=PartUsage_Unknown)const;
+		vElement GetPartitionVector(const mAttribute& m, EnumPartUsage partUsage=PartUsage_Unknown,bool bFollowIdentical=true)const;
 
 		/**
 		* Gets the vector of parts that matches specified key-value pair
@@ -1568,7 +1568,7 @@ namespace JDF{
 		* @return vElement: the vector matching resource leaves or nodes
 		* @throws JDFException if the map contains keys that are not JDF defined partition keys
 		*/
-		vElement GetPartitionVector(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage=PartUsage_Unknown)const;
+		vElement GetPartitionVector(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage=PartUsage_Unknown,bool bFollowIdentical=true)const;
 
 		/**
 		* Gets the part that best matches mAttribute
@@ -1585,7 +1585,7 @@ namespace JDF{
 		* @return JDFResource: the first matching resource leaf or node
 		* @throws JDFException if the map contains keys that are not JDF defined partition keys
 		*/
-		JDFResource GetPartition(const mAttribute& m, EnumPartUsage partUsage=PartUsage_Unknown)const;
+		JDFResource GetPartition(const mAttribute& m, EnumPartUsage partUsage=PartUsage_Unknown,bool bFollowIdentical=true)const;
 
 		/**
 		* If parts are distributed over multiple children, the closest common ancestor of all matching children is returned.<br>
@@ -1599,7 +1599,7 @@ namespace JDF{
 		* @return JDFResource: the first matching resource leaf or node
 		* @throws JDFException if the map contains keys that are not JDF defined partition keys
 		*/
-		JDFResource GetPartition(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage=PartUsage_Unknown)const;
+		JDFResource GetPartition(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage=PartUsage_Unknown, bool bFollowIdentical=true)const;
 
 		/**
 		* Gets the vector of parts (resource leaves or nodes) that match mAttribute
@@ -3227,9 +3227,10 @@ namespace JDF{
 		* @param EnumPartUsage partUsage: also accept nodes that are are not completely specified in the partmap, 
 		*  e.g. if partitioned by run, RunPage and only Run is specified
 		* @param int matchingDepth number of elements in the map that have already been found
+		* @param bool bFollowIdentical if true, follow identical elements, else ignore them
 		* @return vElement: vector of matching resource nodes or leaves
 		*/
-		vElement GetDeepPartVector(const mAttribute &m, EnumPartUsage partUsage, int matchingDepth)const;	
+		vElement GetDeepPartVector(const mAttribute &m, EnumPartUsage partUsage, int matchingDepth, bool bFollowIdentical)const;	
 
 		/**
 		* Gets a matching part from somewhere down there
@@ -3238,9 +3239,10 @@ namespace JDF{
 		* @param mAttribute &m: map of attributes that should fit;
 		* @param EnumPartUsage partUsage: also accept nodes that are are not completely specified in the partmap, 
 		*  e.g. if partitioned by run, RunPage and only Run is specified
+		* @param bool bFollowIdentical if true, follow identical elements, else ignore them
 		* @return JDFResource: the first found matching resource node or leaf
 		*/
-		JDFResource GetDeepPart(const mAttribute &m, EnumPartUsage partUsage=PartUsage_Implicit)const;
+		JDFResource GetDeepPart(const mAttribute &m, EnumPartUsage partUsage=PartUsage_Implicit,bool bFollowIdentical=true)const;
 
 		/**
 		* Adds a new PartIDKey to the root

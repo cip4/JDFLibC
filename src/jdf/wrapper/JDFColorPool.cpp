@@ -69,7 +69,7 @@
 
 ///////////////////////////////////////////////////////////////////
 
- 
+
 //EndCopyRight
 
 
@@ -82,16 +82,16 @@
 
 namespace JDF{
 
-/**
-* copy equivalance operator
-*/
+	/**
+	* copy equivalance operator
+	*/
 	JDFColorPool& JDFColorPool::operator=(const KElement& other){
 		KElement::operator=(other);
 		if(!IsValid(ValidationLevel_Construct))
-		throw JDFException(L"Invalid constructor for JDFColorPool: "+other.GetNodeName());
-	return *this;
-};
-	
+			throw JDFException(L"Invalid constructor for JDFColorPool: "+other.GetNodeName());
+		return *this;
+	};
+
 	///////////////////////////////////////////////////////////////////
 	/**
 	typesafe validator
@@ -111,9 +111,9 @@ namespace JDF{
 		}
 		return bValid;
 	}
-	
+
 	///////////////////////////////////////////////////////////////////
-	
+
 	bool JDFColorPool::HasDuplicateColors()const{
 		vElement v=GetChildElementVector(elm_Color);
 		vWString vName;
@@ -186,7 +186,7 @@ namespace JDF{
 		if(col.isNull()){
 			col=AppendColor();
 			if(rawName!=0)
-				col.Set8BitNames(rawName);
+				col.Set8BitNames(rawName,false);
 			col.SetName(name);
 		}else{
 			throw JDFException(L"JDFColorPool::AppendColorWithName color exists: "+name);
@@ -201,26 +201,19 @@ namespace JDF{
 		if(!col.isNull())
 			return col;
 
-// it only defaulted throught the transcoder, therefor redo
+		// it only defaulted throught the transcoder, therefor redo
 		col=GetColorWithName(name);
 
 		if(col.isNull()){
 			col=AppendColor();
-			col.Set8BitNames(rawName);
+			col.Set8BitNames(rawName,false);
 			col.SetName(name);
-		}else{
-			if(col.HasAttribute(atr_RawName)){
-				// snafu - the rawname is different
-				throw JDFException(L"JDFColorPool::GetCreateColorWithName color is inconsistent: "+name);
-				// tbd fix up
-				col=AppendColor();
-				col.Set8BitNames(rawName);
-				
-			}
+		}else if(col.HasAttribute(atr_RawName)){
+			col.Set8BitNames(rawName,false);
 		}
 		return col;
 	}
 	///////////////////////////////////////////////////////////////////
-	
 
-	}; // namespace JDF
+
+}; // namespace JDF

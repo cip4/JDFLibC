@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -126,7 +126,7 @@ class JDFColor : public JDFAutoColor
 		* The value in Name uses the default encoding
 		* @param pName the 8 bit string to set the name to
 		*/
-		void Set8BitNames(const char* pName);
+		void Set8BitNames(const char* pName, bool bSetName=true);
 
 		/**
 		* Gets the 16 bit representation of the 8 bit color name

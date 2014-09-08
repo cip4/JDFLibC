@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2013 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -490,7 +490,7 @@ wchar_t* _i64tow( unsigned long long value, wchar_t* buffer, int radix){
 ///////////////////////////////////////////////////////////////////
 //#ifndef _wotoi64
 #ifndef _wtoi64
-long long _wtoi64(const wchar_t* str){
+__int64 _wtoi64(const wchar_t* str){
 	long long retVal;
 	size_t s = wcslen(str);
 	char* t = new char[s+1];

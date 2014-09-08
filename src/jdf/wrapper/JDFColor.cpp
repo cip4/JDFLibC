@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2002 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2014 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -95,11 +95,13 @@ namespace JDF{
 	* The value in Name uses the default encoding
 	* @param pName the 8 bit string to set the name to
 	*/
-	void JDFColor::Set8BitNames(const char* pName){
+	void JDFColor::Set8BitNames(const char* pName, bool bSetName){
 		WString rawName;
 		rawName.SetHexBinaryBytes(pName);
 		SetAttribute(atr_RawName,rawName);
-		SetName(WString(pName));
+		if(bSetName){
+			SetName(WString(pName));
+		}
 	}
 	
 	///////////////////////////////////////////////////////////////////

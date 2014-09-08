@@ -1228,43 +1228,43 @@ namespace JDF{
 
 	vElement JDFResource::GetPartitionVector(const mAttribute& m,  bool bIncomplete)const{
 
-		return GetDeepPartVector(m,bIncomplete ? PartUsage_Implicit : PartUsage_Explicit,-1);
+		return GetDeepPartVector(m,bIncomplete ? PartUsage_Implicit : PartUsage_Explicit,-1,true);
 	}
 	//////////////////////////////////////////////////////////////////////
 
-	JDFResource JDFResource::GetPartition(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage)const{
+	JDFResource JDFResource::GetPartition(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage, bool bFollowIdentical)const{
 		mAttribute mp;
 		mp.AddPair(PartIDKeyString(key),value);
-		return GetPartition(mp,partUsage);
+		return GetPartition(mp,partUsage, bFollowIdentical);
 	}
 
 	//////////////////////////////////////////////////////////////////////
 
-	JDFResource JDFResource::GetPartition(const mAttribute& m, EnumPartUsage partUsage)const{
+	JDFResource JDFResource::GetPartition(const mAttribute& m, EnumPartUsage partUsage,bool bFollowIdentical)const{
 
 		if(m.empty()) 
 			return *this;
 
-		return GetDeepPart(m, partUsage);
+		return GetDeepPart(m, partUsage,bFollowIdentical);
 	}
 	//////////////////////////////////////////////////////////////////////
 
-	vElement JDFResource::GetPartitionVector(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage)const{
+	vElement JDFResource::GetPartitionVector(EnumPartIDKey key, const WString & value, EnumPartUsage partUsage, bool bFollowIdentical)const{
 		mAttribute mp;
 		mp.AddPair(PartIDKeyString(key),value);
-		return GetPartitionVector(mp,partUsage);
+		return GetPartitionVector(mp,partUsage, bFollowIdentical);
 	}
 
 	//////////////////////////////////////////////////////////////////////
 
-	vElement JDFResource::GetPartitionVector(const mAttribute& m, EnumPartUsage partUsage)const{
+	vElement JDFResource::GetPartitionVector(const mAttribute& m, EnumPartUsage partUsage,bool bFollowIdentical)const{
 
-		return GetDeepPartVector(m,partUsage,-1);
+		return GetDeepPartVector(m,partUsage,-1, bFollowIdentical);
 	}
 	//////////////////////////////////////////////////////////////////////
 
-	JDFResource JDFResource::GetDeepPart(const mAttribute &m, EnumPartUsage partUsage)const{
-		vElement vElm=GetDeepPartVector(m,partUsage,-1);
+	JDFResource JDFResource::GetDeepPart(const mAttribute &m, EnumPartUsage partUsage, bool bFollowIdentical)const{
+		vElement vElm=GetDeepPartVector(m,partUsage,-1,bFollowIdentical);
 		JDFResource returnRes;
 		int siz=vElm.size();
 		if(siz==0){ // nothing fits at all
@@ -1347,7 +1347,7 @@ namespace JDF{
 	}
 	//////////////////////////////////////////////////////////////////////
 
-	vElement JDFResource::GetDeepPartVector(const mAttribute &m_in, EnumPartUsage partUsage, int matchingDepth)const{
+	vElement JDFResource::GetDeepPartVector(const mAttribute &m_in, EnumPartUsage partUsage, int matchingDepth, bool bFollowIdentical)const{
 		vElement vReturn;
 		mAttribute m=m_in;
 		m=removeImplicitPartions(m);
@@ -1374,11 +1374,11 @@ namespace JDF{
 		}
 
 		// if we find an identical element, we must clean up the map and merge in the values of identical
-		if(HasChildElement(elm_Identical)){
+		if(bFollowIdentical && HasChildElement(elm_Identical)){
 			mAttribute identityMap=JDFPart(GetElement(elm_Identical).GetElement(elm_Part)).GetPartMap();
 			m.MergeMap(identityMap);
 			// the identity map is always complete from the root, we therefore can start searching in the root
-			return GetResourceRoot().GetDeepPartVector(m,partUsage,-1);
+			return GetResourceRoot().GetDeepPartVector(m,partUsage,-1, bFollowIdentical);
 		}
 
 		if(msiz==matchingDepth){
@@ -1451,7 +1451,7 @@ namespace JDF{
 				}
 			}
 			if(!badChild){
-				vElement dpv=p.GetDeepPartVector(m,partUsage,hasMatchingAttribute?matchingDepth+1:matchingDepth);
+				vElement dpv=p.GetDeepPartVector(m,partUsage,hasMatchingAttribute?matchingDepth+1:matchingDepth, bFollowIdentical);
 				if(dpv.size()>0){
 					toAppend.insert(toAppend.end(),dpv.begin(),dpv.end());
 					bSearchSame=false; // not necessary since we have something deeper

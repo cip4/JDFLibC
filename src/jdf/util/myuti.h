@@ -165,8 +165,10 @@ inline const _T& max(const _T& __a, const _T& __b)
 #   include <cctype>
 #   include <cwchar>
 
+#   ifndef __INTEL_COMPILER
 #   ifndef __int64
         typedef long long __int64;
+#   endif
 #   endif
 
 #   ifndef _wcsicmp

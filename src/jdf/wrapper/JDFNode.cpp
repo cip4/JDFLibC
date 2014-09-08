@@ -2063,7 +2063,7 @@ namespace JDF{
 			}
 			n++;
 		}
-		if (posLast > 0)
+		if (posLast >= 0)
 		{
 			v.remove(posLast);
 			SetTypes(v);
