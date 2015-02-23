@@ -1700,6 +1700,9 @@ const WString JDFStrings::elm_BackCoverColorDetails=L"BackCoverColorDetails";
 	const WString JDFStrings::atr_IntegerValue=L"IntegerValue";
 	const WString JDFStrings::atr_Interleaved=L"Interleaved";
 	const WString JDFStrings::atr_Interleaving=L"Interleaving";
+	const WString JDFStrings::atr_InternalColorModel=L"InternalColorModel";
+
+
 	const WString JDFStrings::atr_IPPJobPriority=L"IPPJobPriority";
 	const WString JDFStrings::atr_IPPVersion=L"IPPVersion";
 	const WString JDFStrings::atr_IsBlank=L"IsBlank";

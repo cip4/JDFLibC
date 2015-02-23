@@ -1761,6 +1761,7 @@ namespace JDF{
 		static const WString atr_IntegerValue;
 		static const WString atr_Interleaved;
 		static const WString atr_Interleaving;
+		static const WString atr_InternalColorModel;
 		static const WString atr_IPPJobPriority;
 		static const WString atr_IPPVersion;
 		static const WString atr_IsBlank;

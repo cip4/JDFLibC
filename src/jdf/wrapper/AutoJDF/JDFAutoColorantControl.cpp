@@ -136,7 +136,7 @@ bool JDFAutoColorantControl::init(){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoColorantControl::OptionalAttributes()const{
-		return JDFResource::OptionalAttributes()+WString(L",ForceSeparations,ProcessColorModel");
+		return JDFResource::OptionalAttributes()+WString(L",ForceSeparations,InternalColorModel,MappingSelection,ProcessColorModel");
 };
 
 /**
@@ -149,6 +149,16 @@ bool JDFAutoColorantControl::init(){
 			return vAtts;
 		if(!ValidForceSeparations(level)) {
 			vAtts.push_back(atr_ForceSeparations);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidInternalColorModel(level)) {
+			vAtts.push_back(atr_InternalColorModel);
+			if(++n>=nMax)
+				return vAtts;
+		};
+		if(!ValidMappingSelection(level)) {
+			vAtts.push_back(atr_MappingSelection);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -176,6 +186,56 @@ bool JDFAutoColorantControl::init(){
 /////////////////////////////////////////////////////////////////////////
 	bool JDFAutoColorantControl::ValidForceSeparations(EnumValidationLevel level) const {
 		return ValidAttribute(atr_ForceSeparations,AttributeType_boolean,false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoColorantControl::InternalColorModelString(){
+		static const WString enums=WString(L"Unknown,Basic,Enhanced,Explicit");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoColorantControl::InternalColorModelString(EnumInternalColorModel value){
+		return InternalColorModelString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoColorantControl::SetInternalColorModel( EnumInternalColorModel value){
+	SetEnumAttribute(atr_InternalColorModel,value,InternalColorModelString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoColorantControl::EnumInternalColorModel JDFAutoColorantControl:: GetInternalColorModel() const {
+	return (EnumInternalColorModel) GetEnumAttribute(atr_InternalColorModel,InternalColorModelString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorantControl::ValidInternalColorModel(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_InternalColorModel,InternalColorModelString(),false);
+	};
+///////////////////////////////////////////////////////////////////////
+
+	const WString& JDFAutoColorantControl::MappingSelectionString(){
+		static const WString enums=WString(L"Unknown,UsePDLValues,UseLocalPrinterValues,UseProcessColorValues");
+		return enums;
+	};
+
+///////////////////////////////////////////////////////////////////////
+
+	WString JDFAutoColorantControl::MappingSelectionString(EnumMappingSelection value){
+		return MappingSelectionString().Token(value,WString::comma);
+	};
+
+/////////////////////////////////////////////////////////////////////////
+	void JDFAutoColorantControl::SetMappingSelection( EnumMappingSelection value){
+	SetEnumAttribute(atr_MappingSelection,value,MappingSelectionString());
+};
+/////////////////////////////////////////////////////////////////////////
+	 JDFAutoColorantControl::EnumMappingSelection JDFAutoColorantControl:: GetMappingSelection() const {
+	return (EnumMappingSelection) GetEnumAttribute(atr_MappingSelection,MappingSelectionString(),WString::emptyStr);
+};
+/////////////////////////////////////////////////////////////////////////
+	bool JDFAutoColorantControl::ValidMappingSelection(EnumValidationLevel level) const {
+		return ValidEnumAttribute(atr_MappingSelection,MappingSelectionString(),false);
 	};
 /**
 * Set attribute ProcessColorModel

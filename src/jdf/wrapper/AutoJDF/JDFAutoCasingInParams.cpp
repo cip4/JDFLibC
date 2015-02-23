@@ -75,7 +75,7 @@
 
  
 #include "jdf/wrapper/AutoJDF/JDFAutoCasingInParams.h"
-#include "jdf/wrapper/JDFGlueLine.h"
+#include "jdf/wrapper/JDFGlueApplication.h"
 #include "jdf/wrapper/JDFGlueLine.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
@@ -219,23 +219,28 @@ bool JDFAutoCasingInParams::init(){
 **************************************************************** */
 
 
-JDFGlueLine JDFAutoCasingInParams::GetGlueApplication(int iSkip)const{
-	JDFGlueLine e=GetElement(elm_GlueApplication,WString::emptyStr,iSkip);
+JDFGlueApplication JDFAutoCasingInParams::GetGlueApplication(int iSkip)const{
+	JDFGlueApplication e=GetElement(elm_GlueApplication,WString::emptyStr,iSkip);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFGlueLine JDFAutoCasingInParams::GetCreateGlueApplication(int iSkip){
-	JDFGlueLine e=GetCreateElement(elm_GlueApplication,WString::emptyStr,iSkip);
+JDFGlueApplication JDFAutoCasingInParams::GetCreateGlueApplication(int iSkip){
+	JDFGlueApplication e=GetCreateElement(elm_GlueApplication,WString::emptyStr,iSkip);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFGlueLine JDFAutoCasingInParams::AppendGlueApplication(){
-	JDFGlueLine e=AppendElement(elm_GlueApplication);
+JDFGlueApplication JDFAutoCasingInParams::AppendGlueApplication(){
+	JDFGlueApplication e=AppendElement(elm_GlueApplication);
 	e.init();
 	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoCasingInParams::RefGlueApplication(JDFGlueApplication& refTarget){
+	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 

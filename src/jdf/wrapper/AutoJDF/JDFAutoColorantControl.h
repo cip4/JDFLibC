@@ -182,6 +182,16 @@ virtual bool ValidClass(EnumValidationLevel level) const;
 */
 virtual bool init();
 
+/**
+* Enumeration for attribute InternalColorModel
+*/
+
+	enum EnumInternalColorModel{InternalColorModel_Unknown,InternalColorModel_Basic,InternalColorModel_Enhanced,InternalColorModel_Explicit};
+/**
+* Enumeration for attribute MappingSelection
+*/
+
+	enum EnumMappingSelection{MappingSelection_Unknown,MappingSelection_UsePDLValues,MappingSelection_UseLocalPrinterValues,MappingSelection_UseProcessColorValues};
 
 /**
  * definition of optional attributes in the JDF namespace
@@ -204,6 +214,64 @@ virtual bool init();
 * @return bool true if valid
 */
 	virtual bool ValidForceSeparations(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for InternalColorModel
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& InternalColorModelString();
+/**
+* Enumeration string for enum value
+* @param EnumInternalColorModel value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString InternalColorModelString(EnumInternalColorModel value);
+/**
+* Set attribute InternalColorModel
+* @param EnumInternalColorModel value the value to set the attribute to
+*/
+	virtual void SetInternalColorModel( EnumInternalColorModel value);
+
+/**
+* Typesafe enumerated attribute InternalColorModel
+* @return EnumInternalColorModelthe enumeration value of the attribute
+*/
+	virtual EnumInternalColorModel GetInternalColorModel() const;
+
+/**
+* Typesafe attribute validation of InternalColorModel
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidInternalColorModel(EnumValidationLevel level=ValidationLevel_Complete) const;
+/**
+* Enumeration strings for MappingSelection
+* @return const WString& comma separated list of enumerated string values 
+*/
+	static const WString& MappingSelectionString();
+/**
+* Enumeration string for enum value
+* @param EnumMappingSelection value the enumeration to translate
+* @return WString the string representation of the enumeration
+*/
+	static WString MappingSelectionString(EnumMappingSelection value);
+/**
+* Set attribute MappingSelection
+* @param EnumMappingSelection value the value to set the attribute to
+*/
+	virtual void SetMappingSelection( EnumMappingSelection value);
+
+/**
+* Typesafe enumerated attribute MappingSelection
+* @return EnumMappingSelectionthe enumeration value of the attribute
+*/
+	virtual EnumMappingSelection GetMappingSelection() const;
+
+/**
+* Typesafe attribute validation of MappingSelection
+* @param EnumValidationLevel level element validation level 
+* @return bool true if valid
+*/
+	virtual bool ValidMappingSelection(EnumValidationLevel level=ValidationLevel_Complete) const;
 /**
 * Set attribute ProcessColorModel
 *@param WString value: the value to set the attribute to

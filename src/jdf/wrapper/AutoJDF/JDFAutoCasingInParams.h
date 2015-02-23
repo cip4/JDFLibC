@@ -82,7 +82,7 @@
 
 #include "jdf/wrapper/JDFResource.h"
 namespace JDF{
-class JDFGlueLine;
+class JDFGlueApplication;
 class JDFGlueLine;
 class JDFRefElement;
 /*
@@ -239,20 +239,26 @@ virtual bool init();
 /** Get Element GlueApplication
 * 
 * @param int iSkip number of elements to skip
-* @return JDFGlueLine The element
+* @return JDFGlueApplication The element
 */
-	JDFGlueLine GetCreateGlueApplication(int iSkip=0);
+	JDFGlueApplication GetCreateGlueApplication(int iSkip=0);
 
 /**
 * const get element GlueApplication
 * @param int iSkip number of elements to skip
-* @return JDFGlueLine The element
+* @return JDFGlueApplication The element
 */
-	JDFGlueLine GetGlueApplication(int iSkip=0)const;
+	JDFGlueApplication GetGlueApplication(int iSkip=0)const;
 /**
 * Append element GlueApplication
  */
-	JDFGlueLine AppendGlueApplication();
+	JDFGlueApplication AppendGlueApplication();
+/**
+* create inter-resource link to refTarget
+* @param JDFGlueApplication& refTarget the element that is referenced
+*@return JDFRefElement the referenced element
+*/
+	JDFRefElement RefGlueApplication(JDFGlueApplication& refTarget);
 
 /** Get Element GlueLine
 * 
