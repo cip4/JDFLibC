@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2012 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2015 The International Cooperation for the Integration of
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -133,7 +133,7 @@ ByteArrayOutputStream::ByteArrayOutputStream(size_t size)
 	mClosed = false;
 
 	if (size == 0)
-		throw IllegalArgumentException("ByteArrayOutputStream size is zero");
+		throw IllegalArgumentException(L"ByteArrayOutputStream size is zero");
 
 	mBuf    = new ByteBuffer(mLength);
 }
@@ -158,7 +158,7 @@ void ByteArrayOutputStream::write(const char* b, size_t blen)
 void ByteArrayOutputStream::write(const char* b, size_t blen, size_t off, size_t len)
 {
 	if (blen < 0 || len < 0 || (off+len) < 0 || (off+len) > blen)
-		throw IndexOutOfBoundsException("ByteArrayOutputStream::write one of the arguments in out of bounds");
+		throw IndexOutOfBoundsException(L"ByteArrayOutputStream::write one of the arguments in out of bounds");
 
 	if (len==0)
 		return;
@@ -186,7 +186,8 @@ WString ByteArrayOutputStream::toString(const WString& enc)
 	}else if (enc.empty()){
 		ret=toString();
 	}else{
-		throw IllegalArgumentException(L"ByteArrayOutputStream::toString illegal encoding: "+enc);
+        WString ex(L"ByteArrayOutputStream::toString illegal encoding: ");
+		throw IllegalArgumentException(ex+enc);
 	}
 
 	return ret;

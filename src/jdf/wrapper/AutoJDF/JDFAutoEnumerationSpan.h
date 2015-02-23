@@ -570,7 +570,7 @@ public:
 /**
 * enumeration type for GrainDirection
 */
-enum EnumSpanGrainDirection{GrainDirection_Unknown,GrainDirection_LongEdge,GrainDirection_ShortEdge,GrainDirection_XDirection,GrainDirection_YDirection};
+enum EnumSpanGrainDirection{GrainDirection_Unknown,GrainDirection_LongEdge,GrainDirection_ShortEdge,GrainDirection_SameDirection,GrainDirection_XDirection,GrainDirection_YDirection};
 
 public:
 /**
