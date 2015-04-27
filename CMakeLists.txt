@@ -15,7 +15,7 @@ endif()
 
 #############################################
 
-include(${CMAKE_CURRENT_LIST_DIR}/../../devTools_Base/common/Xerces-C/Xerces-C_Import.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/external/Xerces-C/Xerces-C_Import.cmake)
 
 include(${CMAKE_CURRENT_LIST_DIR}/output_folder.cmake)
 set(EXECUTABLE_OUTPUT_PATH ${JDF_EXECUTABLE_OUTPUT_PATH})
