@@ -15,7 +15,7 @@ endif()
 
 #############################################
 
-include(${CMAKE_CURRENT_LIST_DIR}/external/Xerces-C/Xerces-C_Import.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/Xerces-C_Import.cmake)
 
 include(${CMAKE_CURRENT_LIST_DIR}/output_folder.cmake)
 set(EXECUTABLE_OUTPUT_PATH ${JDF_EXECUTABLE_OUTPUT_PATH})
@@ -29,7 +29,7 @@ if (WIN32)
 	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /wd4244")
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-non-template-friend -fPIC -fvisibility=hidden")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unsupported-friend -fPIC -fvisibility=hidden")
 endif()
 
 ################## JDFTools ##################
@@ -59,7 +59,7 @@ else()
 endif()
 
 add_library(JDFTools SHARED ${JDFTOOLSLIB_SOURCES} ${JDFTOOLSLIB_PLATFORM_SOURCES})
-target_link_libraries(JDFTools xerces-c-hd)
+target_link_libraries(JDFTools xerces-c)
 
 if(WIN32)
 	target_link_libraries(JDFTools ws2_32 Rpcrt4)
