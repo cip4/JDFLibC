@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2007 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2015 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -1389,7 +1389,7 @@ namespace JDF{
 				if(i++==iSkip) {
 					// follow valid (!) refElements, invalid refelements are ignored
 					// 300502 RP added check for explicit refelements
-					if(e.IsRefElement()&&!bExplicitRefElement){	
+					if(!bExplicitRefElement&&e.IsRefElement()){	
 						try{
 							JDFRefElement re(e);
 							KElement target=re.GetTarget();
