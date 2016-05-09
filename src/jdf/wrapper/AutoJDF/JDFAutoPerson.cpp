@@ -2,7 +2,7 @@
  * The CIP4 Software License, Version 1.0
  *
  *
- * Copyright (c) 2001-2014 The International Cooperation for the Integration of 
+ * Copyright (c) 2001-2016 The International Cooperation for the Integration of 
  * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
  * reserved.
  *
@@ -66,9 +66,7 @@
  * <http://www.cip4.org/>.
  *  
  * 
- */
-
-//EndCopyRight
+ *///EndCopyRight
 
 
 ///////////////////////////////////////////////////////////////////
@@ -77,12 +75,11 @@
 #include "jdf/wrapper/AutoJDF/JDFAutoPerson.h"
 #include "jdf/wrapper/JDFAddress.h"
 #include "jdf/wrapper/JDFComChannel.h"
-#include "jdf/wrapper/JDFQualityControlResult.h"
 #include "jdf/wrapper/JDFRefElement.h"
 namespace JDF{
 /*
 *********************************************************************
-class JDFAutoPerson : public JDFElement
+class JDFAutoPerson : public JDFResource
 
 *********************************************************************
 */
@@ -110,6 +107,17 @@ JDFAutoPerson& JDFAutoPerson::operator=(const KElement& other){
 	return L"*:,Person";
 };
 
+bool JDFAutoPerson::ValidClass(EnumValidationLevel level) const {
+	if(!HasAttribute(atr_Class))
+		return !RequiredLevel(level);
+	return GetClass()==Class_Parameter;
+};
+
+bool JDFAutoPerson::init(){
+	bool bRet=JDFResource::init();
+	SetClass(Class_Parameter);
+	return bRet;
+};
 
 /* ******************************************************
 // Attribute Getter / Setter
@@ -120,14 +128,14 @@ JDFAutoPerson& JDFAutoPerson::operator=(const KElement& other){
  definition of optional attributes in the JDF namespace
 */
 	WString JDFAutoPerson::OptionalAttributes()const{
-		return JDFElement::OptionalAttributes()+WString(L",AdditionalNames,FamilyName,FirstName,JobTitle,Languages,NamePrefix,NameSuffix,PhoneticFirstName,PhoneticLastName");
+		return JDFResource::OptionalAttributes()+WString(L",AdditionalNames,FamilyName,FirstName,JobTitle,Languages,NamePrefix,NameSuffix");
 };
 
 /**
  typesafe validator
 */
 	vWString JDFAutoPerson::GetInvalidAttributes(EnumValidationLevel level, bool bIgnorePrivate, int nMax)const {
-		vWString vAtts=JDFElement::GetInvalidAttributes(level,bIgnorePrivate,nMax);
+		vWString vAtts=JDFResource::GetInvalidAttributes(level,bIgnorePrivate,nMax);
 		int n=vAtts.size();
 		if(n>=nMax)
 			return vAtts;
@@ -163,16 +171,6 @@ JDFAutoPerson& JDFAutoPerson::operator=(const KElement& other){
 		};
 		if(!ValidNameSuffix(level)) {
 			vAtts.push_back(atr_NameSuffix);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidPhoneticFirstName(level)) {
-			vAtts.push_back(atr_PhoneticFirstName);
-			if(++n>=nMax)
-				return vAtts;
-		};
-		if(!ValidPhoneticLastName(level)) {
-			vAtts.push_back(atr_PhoneticLastName);
 			if(++n>=nMax)
 				return vAtts;
 		};
@@ -305,65 +303,34 @@ JDFAutoPerson& JDFAutoPerson::operator=(const KElement& other){
 	bool JDFAutoPerson::ValidNameSuffix(EnumValidationLevel level) const {
 		return ValidAttribute(atr_NameSuffix,AttributeType_string,false);
 	};
-/**
-* Set attribute PhoneticFirstName
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoPerson::SetPhoneticFirstName(const WString& value){
-	SetAttribute(atr_PhoneticFirstName,value);
-};
-/**
-* Get string attribute PhoneticFirstName
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoPerson::GetPhoneticFirstName() const {
-	return GetAttribute(atr_PhoneticFirstName,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPerson::ValidPhoneticFirstName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_PhoneticFirstName,AttributeType_string,false);
-	};
-/**
-* Set attribute PhoneticLastName
-*@param WString value: the value to set the attribute to
-*/
-	 void JDFAutoPerson::SetPhoneticLastName(const WString& value){
-	SetAttribute(atr_PhoneticLastName,value);
-};
-/**
-* Get string attribute PhoneticLastName
-* @return WString the vaue of the attribute 
-*/
-	 WString JDFAutoPerson::GetPhoneticLastName() const {
-	return GetAttribute(atr_PhoneticLastName,WString::emptyStr);
-};
-/////////////////////////////////////////////////////////////////////////
-	bool JDFAutoPerson::ValidPhoneticLastName(EnumValidationLevel level) const {
-		return ValidAttribute(atr_PhoneticLastName,AttributeType_string,false);
-	};
 
 /* ******************************************************
 // Element Getter / Setter
 **************************************************************** */
 
 
-JDFAddress JDFAutoPerson::GetAddress(int iSkip)const{
-	JDFAddress e=GetElement(elm_Address,WString::emptyStr,iSkip);
+JDFAddress JDFAutoPerson::GetAddress()const{
+	JDFAddress e=GetElement(elm_Address);
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
-JDFAddress JDFAutoPerson::GetCreateAddress(int iSkip){
-	JDFAddress e=GetCreateElement(elm_Address,WString::emptyStr,iSkip);
+JDFAddress JDFAutoPerson::GetCreateAddress(){
+	JDFAddress e=GetCreateElement(elm_Address);
 	e.init();
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
 
 JDFAddress JDFAutoPerson::AppendAddress(){
-	JDFAddress e=AppendElement(elm_Address);
+	JDFAddress e=AppendElementN(elm_Address,1);
 	e.init();
 	return e;
+};
+/////////////////////////////////////////////////////////////////////
+// element resource linking 
+JDFRefElement JDFAutoPerson::RefAddress(JDFAddress& refTarget){
+	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
 
@@ -386,28 +353,8 @@ JDFComChannel JDFAutoPerson::AppendComChannel(){
 	return e;
 };
 /////////////////////////////////////////////////////////////////////
-
-JDFQualityControlResult JDFAutoPerson::GetQualityControlResult(int iSkip)const{
-	JDFQualityControlResult e=GetElement(elm_QualityControlResult,WString::emptyStr,iSkip);
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-
-JDFQualityControlResult JDFAutoPerson::GetCreateQualityControlResult(int iSkip){
-	JDFQualityControlResult e=GetCreateElement(elm_QualityControlResult,WString::emptyStr,iSkip);
-	e.init();
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
-
-JDFQualityControlResult JDFAutoPerson::AppendQualityControlResult(){
-	JDFQualityControlResult e=AppendElement(elm_QualityControlResult);
-	e.init();
-	return e;
-};
-/////////////////////////////////////////////////////////////////////
 // element resource linking 
-JDFRefElement JDFAutoPerson::RefQualityControlResult(JDFQualityControlResult& refTarget){
+JDFRefElement JDFAutoPerson::RefComChannel(JDFComChannel& refTarget){
 	return RefElement(refTarget);
 };
 /////////////////////////////////////////////////////////////////////
@@ -418,18 +365,20 @@ JDFRefElement JDFAutoPerson::RefQualityControlResult(JDFQualityControlResult& re
 	vWString JDFAutoPerson::GetInvalidElements(EnumValidationLevel level, bool bIgnorePrivate, int nMax) const{
 		int nElem=0;
 		int i=0;
-		vWString vElem=JDFElement::GetInvalidElements(level, bIgnorePrivate, nMax);
+		vWString vElem=JDFResource::GetInvalidElements(level, bIgnorePrivate, nMax);
 		int n=vElem.size();
 		if(n>=nMax)
 			 return vElem;
 		nElem=NumChildElements(elm_Address);
-
-		for(i=0;i<nElem;i++){
-			if (!GetAddress(i).IsValid(level)) {
+		if(nElem>1){ //bound error
+			vElem.AppendUnique(elm_Address);
+			if (++n>=nMax)
+				return vElem;
+		}else if(nElem==1){
+			if(!GetAddress().IsValid(level)) {
 				vElem.AppendUnique(elm_Address);
 				if (++n>=nMax)
 					return vElem;
-				break;
 			}
 		}
 		nElem=NumChildElements(elm_ComChannel);
@@ -442,24 +391,21 @@ JDFRefElement JDFAutoPerson::RefQualityControlResult(JDFQualityControlResult& re
 				break;
 			}
 		}
-		nElem=NumChildElements(elm_QualityControlResult);
-
-		for(i=0;i<nElem;i++){
-			if (!GetQualityControlResult(i).IsValid(level)) {
-				vElem.AppendUnique(elm_QualityControlResult);
-				if (++n>=nMax)
-					return vElem;
-				break;
-			}
-		}
 		return vElem;
 	};
 
 
 /**
+ definition of required elements in the JDF namespace
+*/
+	WString JDFAutoPerson::UniqueElements()const{
+		return JDFResource::UniqueElements()+L",Address";
+	};
+
+/**
  definition of optional elements in the JDF namespace
 */
 	WString JDFAutoPerson::OptionalElements()const{
-		return JDFElement::OptionalElements()+L",Address,ComChannel,QualityControlResult";
+		return JDFResource::OptionalElements()+L",Address,ComChannel";
 	};
 }; // end namespace JDF
