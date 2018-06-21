@@ -2,7 +2,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2010 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2018 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -341,7 +341,7 @@ namespace JDF{
 
 	//////////////////////////////////////////////////////////////////////
 
-	XMLDoc XMLDoc::Write2URL(const WString& strURL, const WString& strContentType, const WString& schemaLocation) const
+	XMLDoc XMLDoc::Write2URL(const WString& strURL, const WString& strContentType, const WString& schemaLocation, const int timeoutMilli) const
 	{
 		XMLDoc docResponse;
 		bool bValidate=!schemaLocation.empty();	
@@ -374,6 +374,8 @@ namespace JDF{
 			bool bKeepAlive=HttpClient::getHttpKeepAliveSet();
 			pURLConnection->setRequestProperty(L"Connection",  bKeepAlive ? L"keep-alive" : L"close");
 			pURLConnection->setRequestProperty(L"Content-Type", strContentType);
+			if(timeoutMilli>0)
+				pURLConnection->setTimeout(timeoutMilli);
 
 			if (!Write2Stream(pURLConnection->getOutputStream()))
 				return docResponse;

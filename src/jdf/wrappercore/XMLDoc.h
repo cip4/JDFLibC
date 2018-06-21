@@ -5,7 +5,7 @@
 * The CIP4 Software License, Version 1.0
 *
 *
-* Copyright (c) 2001-2008 The International Cooperation for the Integration of 
+* Copyright (c) 2001-2018 The International Cooperation for the Integration of 
 * Processes in  Prepress, Press and Postpress (CIP4).  All rights 
 * reserved.
 *
@@ -178,9 +178,10 @@ namespace JDF {
 		* @param  strURL					the URL to write to
 		* @param  strContentType			the content type to write to
 		* @param  WString schemaLocation	the location of the schema if validation is required. A non-empty string implies validation
+		* @param imt                        timeout in milliseconds
 		* @return docResponse				the response received from URL. A Null document if no response was received
 		*/
-		XMLDoc Write2URL(const WString& strURL, const WString& strContentType=L"text/xml", const WString& schemaLocation=WString::emptyStr) const;
+		XMLDoc Write2URL(const WString& strURL, const WString& strContentType=L"text/xml", const WString& schemaLocation=WString::emptyStr, const int timeoutMilli=-1) const;
 
 
 		/**
